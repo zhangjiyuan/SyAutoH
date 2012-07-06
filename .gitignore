@@ -10,3 +10,19 @@
 *.lai
 *.la
 *.a
+
+# Compiled User Define
+.svn
+*.pdb
+*.ilk
+*.obj
+*.tlog
+*.user
+*.ncb
+*.aps
+*.sdf
+*.opensdf
+*.pch
+*.ipch
+*.log
+*.suo
