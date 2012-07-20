@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="UMLUseCaseDiagram1">
+  <useCaseModelRootMoniker Id="291e8343-f764-4740-aa05-a5233efacf97" />
+  <nestedChildShapes>
+    <actorShape Id="88e814dd-dc59-40b7-a160-3f8337ebcbcb" absoluteBounds="2, 1.25, 0.5, 0.5" isReference="false" heightOffset="0">
+      <actorMoniker Id="b2035809-43f5-49a4-8acd-a1f34fd2b189" LastKnownName="Actor1" />
+      <relativeChildShapes />
+    </actorShape>
+    <useCaseShape Id="1c7202d2-0613-478e-ae21-234dc86d28b7" absoluteBounds="3.125, 1.5, 1, 0.5" customColor="238, 237, 131" heightOffset="0">
+      <useCaseMoniker Id="a94581de-c79e-4961-b114-1a240ac6f048" LastKnownName="UseCase1" />
+      <relativeChildShapes />
+    </useCaseShape>
+  </nestedChildShapes>
+</useCaseDiagram>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" xmlns:dm11="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="291e8343-f764-4740-aa05-a5233efacf97" name="UMLUseCaseDiagram1" linkedPackageId="0a653444-95a6-411b-b20c-1acc1f259021" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <profileInstances>
+    <packageHasProfileInstances Id="fc781e0f-2cfe-4309-9516-7b85ffb3116b">
+      <profileInstance Id="d1d24ff7-5dce-4c9a-b877-cba03b2d79c7" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="f4823120-c7a3-49ac-960e-4ae545486257">
+      <profileInstance Id="0f8f15f6-5106-4f2d-8231-33feb3259f3c" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <actor Id="b2035809-43f5-49a4-8acd-a1f34fd2b189" name="Actor1" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="a3bda84f-e95a-4cf5-bce3-83d036d33c86" />
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="a94581de-c79e-4961-b114-1a240ac6f048" name="UseCase1" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="33da8c52-71bf-4750-bc18-da4fc970511c" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+  </packagedElements>
+  <package Id="0a653444-95a6-411b-b20c-1acc1f259021" name="AMHS">
+    <elementDefinition Id="c1830c82-beff-4c8c-aa56-d4fc3be72e08" />
+  </package>
+</useCaseModelRoot>

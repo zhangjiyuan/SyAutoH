@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm11="http://schemas.microsoft.com/dsltools/UseCaseModel"
   dslVersion="1.0.0.0"
   Id="c1830c82-beff-4c8c-aa56-d4fc3be72e08"
   name="AMHS" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -129,16 +129,6 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="1744f081-68ff-4c56-a9d1-5026b7f9e7c0"
-            name="MessageOccurrenceSpecification7">
-            <covered>
-              <lifelineMoniker
-                Id="b65eefb8-388c-4096-8c16-2f64cdec0734"
-                LastKnownName="FoupMove"
-                LastKnownLocation="AMHS.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="b2d6b0f2-ca39-4271-8f3e-a080174ab19d"
             name="MessageOccurrenceSpecification8">
             <covered>
@@ -149,12 +139,12 @@
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="3f36edea-762a-4e35-921a-eb2615c71977"
-            name="MessageOccurrenceSpecification9">
+            Id="1744f081-68ff-4c56-a9d1-5026b7f9e7c0"
+            name="MessageOccurrenceSpecification7">
             <covered>
               <lifelineMoniker
-                Id="94f57e4c-5351-4c4d-8818-853839f27117"
-                LastKnownName="Vehicle"
+                Id="b65eefb8-388c-4096-8c16-2f64cdec0734"
+                LastKnownName="FoupMove"
                 LastKnownLocation="AMHS.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -165,6 +155,16 @@
               <lifelineMoniker
                 Id="b65eefb8-388c-4096-8c16-2f64cdec0734"
                 LastKnownName="FoupMove"
+                LastKnownLocation="AMHS.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="3f36edea-762a-4e35-921a-eb2615c71977"
+            name="MessageOccurrenceSpecification9">
+            <covered>
+              <lifelineMoniker
+                Id="94f57e4c-5351-4c4d-8818-853839f27117"
+                LastKnownName="Vehicle"
                 LastKnownLocation="AMHS.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -233,22 +233,22 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="524ba115-5711-46ce-80d6-c7e381691772"
-            name="MessageOccurrenceSpecification11">
-            <covered>
-              <lifelineMoniker
-                Id="b65eefb8-388c-4096-8c16-2f64cdec0734"
-                LastKnownName="FoupMove"
-                LastKnownLocation="AMHS.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="1d06a01b-be5d-4a8c-bcf6-df7330cf4e25"
             name="MessageOccurrenceSpecification12">
             <covered>
               <lifelineMoniker
                 Id="94f57e4c-5351-4c4d-8818-853839f27117"
                 LastKnownName="Vehicle"
+                LastKnownLocation="AMHS.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="524ba115-5711-46ce-80d6-c7e381691772"
+            name="MessageOccurrenceSpecification11">
+            <covered>
+              <lifelineMoniker
+                Id="b65eefb8-388c-4096-8c16-2f64cdec0734"
+                LastKnownName="FoupMove"
                 LastKnownLocation="AMHS.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -317,22 +317,22 @@
             </covered>
           </executionOccurrenceSpecification>
           <messageOccurrenceSpecification
-            Id="8fe7f894-fb55-44e2-85e9-3ea9984007b7"
-            name="MessageOccurrenceSpecification13">
-            <covered>
-              <lifelineMoniker
-                Id="94f57e4c-5351-4c4d-8818-853839f27117"
-                LastKnownName="Vehicle"
-                LastKnownLocation="AMHS.uml" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification
             Id="05c70940-27a3-4eb9-9d6f-31e23309f728"
             name="MessageOccurrenceSpecification14">
             <covered>
               <lifelineMoniker
                 Id="b65eefb8-388c-4096-8c16-2f64cdec0734"
                 LastKnownName="FoupMove"
+                LastKnownLocation="AMHS.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="8fe7f894-fb55-44e2-85e9-3ea9984007b7"
+            name="MessageOccurrenceSpecification13">
+            <covered>
+              <lifelineMoniker
+                Id="94f57e4c-5351-4c4d-8818-853839f27117"
+                LastKnownName="Vehicle"
                 LastKnownLocation="AMHS.uml" />
             </covered>
           </messageOccurrenceSpecification>
@@ -527,6 +527,20 @@
       <executionEvent
         Id="a4a111a4-ac9e-4ef7-b36a-fa73939713b9"
         name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="a3bda84f-e95a-4cf5-bce3-83d036d33c86"
+        name="Actor1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="33da8c52-71bf-4750-bc18-da4fc970511c"
+        name="UseCase1"
+        isAbstract="false"
+        isLeaf="false" />
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType
