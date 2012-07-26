@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using BaseRailElement;
 
 namespace RailView
 {
@@ -35,5 +36,100 @@ namespace RailView
             ;
         }
 
+        public void ResizeCanvase()
+        {
+            ;
+        }
+
+        public Point ClientToDocument(Point point)
+        {
+            return point;
+        }
+
+        protected override void OnPaint(PaintEventArgs pe)
+        {
+            // TODO: Add custom paint code here
+            int dx = hScrollBar1.Value;
+            int dy = vScrollBar1.Value;
+            Graphics g = pe.Graphics;
+
+            // Calling the base class OnPaint
+            base.OnPaint(pe);
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_MouseUp(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_MouseUp(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
+        {
+
+        }
     }
 }
