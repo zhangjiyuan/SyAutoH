@@ -1,4 +1,6 @@
-﻿namespace RailView
+﻿using System.Drawing;
+using System.Windows.Forms;
+namespace RailView
 {
     partial class Form1
     {
@@ -248,10 +250,7 @@
             this.pictureBox3.Size = new System.Drawing.Size(32, 32);
             this.pictureBox3.TabIndex = 3;
             this.pictureBox3.TabStop = false;
-            this.pictureBox3.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.pictureBox3_GiveFeedback);
-            this.pictureBox3.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.pictureBox3_QueryContinueDrag);
             this.pictureBox3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox3_MouseDown);
-            this.pictureBox3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox3_MouseMove);
             this.pictureBox3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox3_MouseUp);
             // 
             // pictureBox2
@@ -263,10 +262,7 @@
             this.pictureBox2.Size = new System.Drawing.Size(32, 32);
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.pictureBox2_GiveFeedback);
-            this.pictureBox2.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.pictureBox2_QueryContinueDrag);
             this.pictureBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseDown);
-            this.pictureBox2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseMove);
             this.pictureBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseUp);
             // 
             // label1
@@ -287,10 +283,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(32, 32);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.pictureBox1_GiveFeedback);
-            this.pictureBox1.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.pictureBox1_QueryContinueDrag);
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
             // panel2
@@ -299,16 +292,18 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.vScrollBar1);
             this.panel2.Controls.Add(this.hScrollBar1);
-            this.panel2.Location = new System.Drawing.Point(64, 28);
+            this.panel2.Location = new System.Drawing.Point(65, 28);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(586, 385);
+            this.panel2.Size = new System.Drawing.Size(586, 289);
             this.panel2.TabIndex = 2;
             this.panel2.DragDrop += new System.Windows.Forms.DragEventHandler(this.panel2_DragDrop);
             this.panel2.DragEnter += new System.Windows.Forms.DragEventHandler(this.panel2_DragEnter);
+            this.panel2.MouseEnter += new System.EventHandler(this.panel2_MouseEnter);
+            this.panel2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseUp);
             // 
             // vScrollBar1
             // 
-            this.vScrollBar1.Location = new System.Drawing.Point(556, 32);
+            this.vScrollBar1.Location = new System.Drawing.Point(567, 74);
             this.vScrollBar1.Name = "vScrollBar1";
             this.vScrollBar1.Size = new System.Drawing.Size(17, 80);
             this.vScrollBar1.TabIndex = 1;
@@ -316,7 +311,7 @@
             // 
             // hScrollBar1
             // 
-            this.hScrollBar1.Location = new System.Drawing.Point(225, 357);
+            this.hScrollBar1.Location = new System.Drawing.Point(254, 270);
             this.hScrollBar1.Name = "hScrollBar1";
             this.hScrollBar1.Size = new System.Drawing.Size(80, 17);
             this.hScrollBar1.TabIndex = 0;
@@ -382,6 +377,10 @@
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.VScrollBar vScrollBar1;
         private System.Windows.Forms.HScrollBar hScrollBar1;
+        private Rectangle dragBoxFromMouseDown;
+        private Point screenOffset;
+        private Cursor MyNoDropCursor;
+        private Cursor MyNormalCursor;
     }
 }
 
