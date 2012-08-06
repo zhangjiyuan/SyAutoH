@@ -13,7 +13,7 @@ using System.IO;
 
 namespace BaseRailElement
 {
-    class BaseRailEle
+    public abstract class BaseRailEle
     {
         //以下为对象基本属性
         private int _GraphType = 0;
@@ -102,14 +102,21 @@ namespace BaseRailElement
                 return;
             int x = end.X - start.X;
             int y = end.Y - start.Y;
-            _rotatePoint.Offset(x, y);
+   //         _rotatePoint.Offset(x, y);
 
-            //           Translate(x, y);
+            Translate(x, y);
         }
 
-        //       public abstract void Draw(Graphics canvas);
-        //      protected abstract void Translate(int offsetX, int offsetY);
+        public void MoveHandle(int handle, Point start, Point end)
+        {
+            if (_lock)
+                return;
+            int dx = end.X - start.X;
+            int dy = end.Y - start.Y;
 
+            Scale(handle, dx, dy);
+        }
+        
         public void Rotate(float angle)
         {
             RotateAt(angle, RotatePoint);
@@ -123,10 +130,6 @@ namespace BaseRailElement
 
         //      protected abstract void CustomRotate(float angle, Point point);
 
-        public virtual Region GetRedrawRegion() { return null; }
-
-        public event EventHandler Click = null;
-
         internal void OnClick()
         {
             if (Click != null)
@@ -134,5 +137,15 @@ namespace BaseRailElement
                 Click(this, EventArgs.Empty);
             }
         }
+
+        public abstract void Draw(Graphics _canvas);
+        public abstract void DrawTracker(Graphics canvas);
+        public abstract int HitTest(Point point, bool isSelected);
+        protected abstract void Translate(int offsetX, int offsetY);
+        protected virtual void Scale(int handle, int dx, int dy) { }
+        public virtual Region GetRedrawRegion() { return null; }
+   
+
+        public event EventHandler Click = null;
     }
 }

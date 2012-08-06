@@ -12,12 +12,21 @@ namespace RailDraw
 {
     public partial class Form1 : Form
     {
-        private string str;
+        BaseRailElement.DrawDoc doc1 = new BaseRailElement.DrawDoc();
+        BaseRailElement.ObjectBaseEvents _ObjectEvent = new BaseRailElement.ObjectBaseEvents();
+        
+ 
+        private bool pic1 = false;
+        private bool pic2 = false;
+        private bool pic3 = false;
+        Point _downpoint= Point.Empty;
+        bool _IsMouseDown = false;
 
         public Form1()
         {
             InitializeComponent();
             MyInit();
+            Document=doc1;
         }
 
         private void MyInit()
@@ -25,54 +34,49 @@ namespace RailDraw
             // 设置Control的相关Style，主要与绘制有关
             this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.ContainerControl |
                 ControlStyles.UserPaint | ControlStyles.Selectable | ControlStyles.UserMouse, true);
-
-        }
-
-        protected override void OnPaint(PaintEventArgs pe)
-        {
-            // TODO: Add custom paint code here
-            int dx = hScrollBar1.Value;
-            int dy = vScrollBar1.Value;
-            Graphics g = pe.Graphics;
-
-            // Calling the base class OnPaint
-            base.OnPaint(pe);
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
+            base.OnMouseDown(e);
             if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
             {
-                // Remember the point where the mouse down occurred. The DragSize indicates
-                // the size that the mouse can move before a drag event should be started.      
                 Size dragSize = SystemInformation.DragSize;
-                // Create a rectangle using the DragSize, with the mouse position being
-                // at the center of the rectangle.
                 dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2),
                                                                    e.Y - (dragSize.Height / 2)), dragSize);
-
+                pic1 = true;
             }
-            //        str = "pic1 mouse down";
-            //         MessageBox.Show(str);
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (panel2.Location.X <= e.X && panel2.Location.X + panel2.Size.Width >= e.X && panel2.Location.Y <= e.Y && panel2.Location.Y + panel2.Size.Height >= e.Y)
+            if (pic1)
             {
-                str = "pic111 mouse up";
-                MessageBox.Show(str);
+                PictureBox pic = sender as PictureBox;
+
+                Point pt_new_e = PointTransform(sender, e);
+
+                if (0 < pt_new_e.X && DrawRegion.Size.Width > pt_new_e.X && 0 < pt_new_e.Y && DrawRegion.Size.Height > pt_new_e.Y)
+                {
+                    BaseRailElement.StraightRailEle _straightrailele = new BaseRailElement.StraightRailEle();
+
+                    Point pt = new Point(pt_new_e.X, pt_new_e.Y);
+                    doc1.DrawObjectList.Add(_straightrailele.CreatEle(pt, DrawRegion.Size));
+                    doc1.Select(_straightrailele);
+                    DrawRegion.Invalidate();
+                }
+                pic1 = false;
             }
         }
 
         private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
         {
-
+            
         }
 
         private void pictureBox2_MouseUp(object sender, MouseEventArgs e)
         {
-
+            
         }
 
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e)
@@ -95,18 +99,72 @@ namespace RailDraw
             return point;
         }
 
-        private void panel2_MouseEnter(object sender, EventArgs e)
+        public Point PointTransform(object sender, MouseEventArgs e)
         {
+            PictureBox pic = sender as PictureBox;
+            Point pt_original = pic.Location;
+            Point pt_new = e.Location;
+            Point pt_parent = pic.Parent.Location;
+            Point pt_dr = DrawRegion.Location;
+            Point pt_transform = new Point(pt_new.X + pt_original.X + pt_parent.X - pt_dr.X, pt_new.Y + pt_original.Y + pt_parent.Y - pt_dr.Y);
+            return pt_transform;
         }
 
-        private void panel2_DragDrop(object sender, DragEventArgs e)
+        protected static DrawDoc _document = DrawDoc.EmptyDocument;
+        public static DrawDoc Document
         {
-
+            get { return _document; }
+            set { _document = value; BaseEvents.Document = value; }
         }
 
-        private void panel2_DragEnter(object sender, DragEventArgs e)
+        private void DrawRegion_MouseDown(object sender, MouseEventArgs e)
         {
-
+            Point pt = e.Location;
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    _ObjectEvent.OnLButtonDown(pt);
+                    _IsMouseDown = true;
+                    break;
+            }
+            this.DrawRegion.Invalidate();
         }
+
+        private void DrawRegion_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_IsMouseDown)
+            {
+                _ObjectEvent.OnMouseMove(e.Location);
+                this.DrawRegion.Invalidate();
+            }
+        }
+
+        private void DrawRegion_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (_IsMouseDown)
+                _IsMouseDown = false;
+        }
+
+        private void DrawRegion_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+
+            // Calling the base class OnPaint
+
+            doc1.Draw(g);
+            base.OnPaint(e);
+        }
+
+        private void delete_Click(object sender, EventArgs e)
+        {
+            doc1.Delete();
+            DrawRegion.Invalidate();
+        }
+
+        private void DrawRegion_DoubleClick(object sender, EventArgs e)
+        {
+  //          _ObjectEvent.OnMouseDoubleClick(point);
+        }
+
     }
 }

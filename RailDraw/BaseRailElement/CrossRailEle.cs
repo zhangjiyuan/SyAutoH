@@ -11,8 +11,9 @@ using System.Drawing.Drawing2D;
 
 namespace BaseRailElement
 {
-    class CrossRailEle : BaseRailEle
+    public class CrossRailEle : BaseRailEle
     {
+        
         private float _lenghtofstr = 10;
         public float LenghtOfStr
         {
@@ -64,6 +65,25 @@ namespace BaseRailElement
         public void CreatEle(Point pt)
         {
             ;
+        }
+
+        public override void Draw(Graphics _canvas)
+        {
+            ;
+        }
+
+        public override int HitTest(Point point, bool isSelected)
+        {
+            return 0;
+        }
+
+        public override void DrawTracker(Graphics _canvas)
+        {
+            
+        }
+
+        protected override void Translate(int offsetX, int offsetY)
+        { 
         }
     }
 }
