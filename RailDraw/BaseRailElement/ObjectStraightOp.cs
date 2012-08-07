@@ -135,12 +135,13 @@ namespace BaseRailElement
                 pt.Offset(dx, 0);
                 _pointList[handle - 1] = pt;
             }
-            else if (pt1.X == pt2.X)
+ /*           else if (pt1.X == pt2.X)
             {
                 Point pt = _pointList[handle - 1];
                 pt.Offset(0, dy);
                 _pointList[handle - 1] = pt;
             }
+  */
         }
 
         public void ChangeDirection(Point pt, Size sz)
