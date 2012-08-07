@@ -129,7 +129,7 @@ namespace BaseRailElement
                 pt2 = PointList[i + 1];
             }
 
-            if (pt1.Y == pt2.Y)
+ /*           if (pt1.Y == pt2.Y)
             {
                 Point pt = _pointList[handle - 1];
                 pt.Offset(dx, 0);
@@ -141,6 +141,7 @@ namespace BaseRailElement
                 pt.Offset(0, dy);
                 _pointList[handle - 1] = pt;
             } 
+  */
         }
 
         public void ChangeDirection(Point pt, Size sz)
