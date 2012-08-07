@@ -129,13 +129,13 @@ namespace BaseRailElement
                 pt2 = PointList[i + 1];
             }
 
-            if (pt1.Y == pt2.Y)
+ /*            if (pt1.Y == pt2.Y)
             {
                 Point pt = _pointList[handle - 1];
                 pt.Offset(dx, 0);
                 _pointList[handle - 1] = pt;
             }
- /*           else if (pt1.X == pt2.X)
+           else if (pt1.X == pt2.X)
             {
                 Point pt = _pointList[handle - 1];
                 pt.Offset(0, dy);
