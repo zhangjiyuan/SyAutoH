@@ -116,11 +116,15 @@ namespace BaseRailElement
 
             Scale(handle, dx, dy);
         }
-        
-        public void Rotate(float angle)
+
+        public void ChangeDirection(Point pt , Size sz)
         {
-            RotateAt(angle, RotatePoint);
+            Rotate(pt, sz);
         }
+  //      public void Rotate(float angle)
+  //      {
+  //          RotateAt(angle, RotatePoint);
+  //      }
 
         public void RotateAt(float angle, Point point)
         {
@@ -143,6 +147,7 @@ namespace BaseRailElement
         public abstract int HitTest(Point point, bool isSelected);
         protected abstract void Translate(int offsetX, int offsetY);
         protected virtual void Scale(int handle, int dx, int dy) { }
+        protected virtual void Rotate(Point pt, Size sz) { }
         public virtual Region GetRedrawRegion() { return null; }
    
 

@@ -81,5 +81,10 @@ namespace BaseRailElement
         {
             _ObjectStaightOp.Scale(handle, dx, dy);
         }
+
+        protected override void Rotate(Point pt, Size sz)
+        {
+            _ObjectStaightOp.ChangeDirection(pt, sz);
+        }
     }
 }

@@ -59,9 +59,14 @@ namespace BaseRailElement
             base.OnMouseMove(point);
         }
 
-        public override void OnMouseDoubleClick(Point point)
+        public override void OnMouseDoubleClick(Point point , Size size)
         {
+            base.OnMouseDoubleClick(point, size);
 
+            if (_hit >= 0)
+            {
+                _document.SelectedDrawObjectList[0].ChangeDirection(point , size);
+            }
         }
     }
 }

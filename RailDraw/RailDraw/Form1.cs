@@ -54,7 +54,7 @@ namespace RailDraw
             {
                 PictureBox pic = sender as PictureBox;
 
-                Point pt_new_e = PointTransform(sender, e);
+                Point pt_new_e = PicPtTrans(sender, e);
 
                 if (0 < pt_new_e.X && DrawRegion.Size.Width > pt_new_e.X && 0 < pt_new_e.Y && DrawRegion.Size.Height > pt_new_e.Y)
                 {
@@ -99,7 +99,7 @@ namespace RailDraw
             return point;
         }
 
-        public Point PointTransform(object sender, MouseEventArgs e)
+        public Point PicPtTrans(object sender, MouseEventArgs e)
         {
             PictureBox pic = sender as PictureBox;
             Point pt_original = pic.Location;
@@ -108,13 +108,6 @@ namespace RailDraw
             Point pt_dr = DrawRegion.Location;
             Point pt_transform = new Point(pt_new.X + pt_original.X + pt_parent.X - pt_dr.X, pt_new.Y + pt_original.Y + pt_parent.Y - pt_dr.Y);
             return pt_transform;
-        }
-
-        protected static DrawDoc _document = DrawDoc.EmptyDocument;
-        public static DrawDoc Document
-        {
-            get { return _document; }
-            set { _document = value; BaseEvents.Document = value; }
         }
 
         private void DrawRegion_MouseDown(object sender, MouseEventArgs e)
@@ -163,8 +156,16 @@ namespace RailDraw
 
         private void DrawRegion_DoubleClick(object sender, EventArgs e)
         {
-  //          _ObjectEvent.OnMouseDoubleClick(point);
+            MouseEventArgs _DoubleClick = (MouseEventArgs)e;
+            _ObjectEvent.OnMouseDoubleClick(_DoubleClick.Location , this.DrawRegion.Size);
+            DrawRegion.Invalidate();
         }
 
+        protected static DrawDoc _document = DrawDoc.EmptyDocument;
+        public static DrawDoc Document
+        {
+            get { return _document; }
+            set { _document = value; BaseEvents.Document = value; }
+        }
     }
 }

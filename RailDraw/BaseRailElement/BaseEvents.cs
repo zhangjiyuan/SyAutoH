@@ -41,8 +41,10 @@ namespace BaseRailElement
             _lastPoint = point;
         }
 
-        public virtual void OnMouseDoubleClick(Point point)
-        { 
+        public virtual void OnMouseDoubleClick(Point point, Size size)
+        {
+            _downPoint = point;
+            _lastPoint = point;
         }
     }
 }

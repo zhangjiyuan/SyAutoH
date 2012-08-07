@@ -120,9 +120,81 @@ namespace BaseRailElement
 
         public void Scale(int handle, int dx, int dy)
         {
-            Point pt = _pointList[handle - 1];
-            pt.Offset(dx, 0);
-            _pointList[handle - 1] = pt;
+            Point pt1 = new Point(0);
+            Point pt2 = new Point(0);
+            int n = _pointList.Count;
+            for (int i = 0; i < n - 1; i++)
+            {
+                pt1 = PointList[i];
+                pt2 = PointList[i + 1];
+            }
+
+            if (pt1.Y == pt2.Y)
+            {
+                Point pt = _pointList[handle - 1];
+                pt.Offset(dx, 0);
+                _pointList[handle - 1] = pt;
+            }
+            else if (pt1.X == pt2.X)
+            {
+                Point pt = _pointList[handle - 1];
+                pt.Offset(0, dy);
+                _pointList[handle - 1] = pt;
+            }
+        }
+
+        public void ChangeDirection(Point pt, Size sz)
+        {
+            float angle = 90;
+            Matrix matrix = new Matrix();
+            matrix.RotateAt(angle, pt);
+
+            int n = _pointList.Count;
+            Point[] points = new Point[n];
+            _pointList.CopyTo(points);
+            matrix.TransformPoints(points);
+
+            for (int i = 0; i < n; i++)
+            {
+                Rectangle rc = new Rectangle(0, 0, sz.Width, sz.Height);
+                if (!rc.Contains(points[i]))
+                {
+                    if (points[n - 2].X == points[n - 1].X)
+                    {
+                        int _height =Math.Abs(points[1].Y - points[0].Y);
+                        if (points[i].Y < 0)
+                        {
+                            points[0].Y = 1;
+                            points[1].Y = points[0].Y + _height;
+                        }
+                        else if (points[i].Y > sz.Height)
+                        {
+                            points[0].Y = sz.Height - 2;
+                            points[1].Y = points[0].Y - _height;
+                        }
+                    }
+                    else if (points[n - 2].Y == points[n - 1].Y)
+                    {
+                        int _width = Math.Abs(points[1].X - points[0].X);
+                        if (points[i].X < 0)
+                        {
+                            points[0].X = 1;
+                            points[1].X = points[0].X + _width;
+                        }
+                        else if (points[i].X > sz.Width)
+                        {
+                            points[0].X = sz.Width - 2;
+                            points[1].X = points[0].X - _width;
+                        }
+                    }
+                    _pointList.Clear();
+                    _pointList.AddRange(points);
+                    return;
+                }
+            }
+
+            _pointList.Clear();
+            _pointList.AddRange(points);
         }
 
         public Region GetRedrawRegion()
