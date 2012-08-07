@@ -141,7 +141,7 @@ namespace BaseRailElement
                 pt.Offset(0, dy);
                 _pointList[handle - 1] = pt;
             }
-  */
+ */ 
         }
 
         public void ChangeDirection(Point pt, Size sz)
