@@ -167,5 +167,23 @@ namespace RailDraw
             get { return _document; }
             set { _document = value; BaseEvents.Document = value; }
         }
+
+        private void DrawRegion_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (_document.SelectedDrawObjectList.Count > 0)
+                {
+                    BaseRailEle _BaseRaiEle = _document.SelectedDrawObjectList[0];
+                    propertyGrid1.SelectedObject = _BaseRaiEle;
+                    propertyGrid1.Refresh();
+                }
+                else
+                {
+                    propertyGrid1.SelectedObject = _document;
+                    propertyGrid1.Refresh();
+                }
+            }
+        }
     }
 }

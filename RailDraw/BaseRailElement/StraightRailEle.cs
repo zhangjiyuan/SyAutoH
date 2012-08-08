@@ -16,11 +16,20 @@ namespace BaseRailElement
     {
         private ObjectStraightOp _ObjectStaightOp = new ObjectStraightOp();
         private Pen pen = new Pen(Color.Black, 1);
+
         private float _lenght = 100;
         public float Lenght
         {
             get { return _lenght; }
             set { _lenght = value; }
+        }
+
+        [Browsable(false)]
+        private bool _level = true;
+        public bool Level
+        {
+            get { return _level; }
+            set { _level = value; }
         }
 
         [Browsable(false)]
@@ -55,7 +64,8 @@ namespace BaseRailElement
 
             if (PointList.Count < 2)
                throw new Exception("绘制线条的点至少需要2个");
-            Point[] points = new Point[PointList.Count];
+            int n = PointList.Count;
+            Point[] points = new Point[n];
 
             PointList.CopyTo(points);
 
