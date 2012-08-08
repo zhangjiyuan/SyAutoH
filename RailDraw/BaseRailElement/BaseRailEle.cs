@@ -102,7 +102,6 @@ namespace BaseRailElement
                 return;
             int x = end.X - start.X;
             int y = end.Y - start.Y;
-   //         _rotatePoint.Offset(x, y);
 
             Translate(x, y);
         }

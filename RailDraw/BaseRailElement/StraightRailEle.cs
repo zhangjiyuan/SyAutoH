@@ -30,6 +30,8 @@ namespace BaseRailElement
             get { return _ObjectStaightOp.PointList; }
         }
 
+        public StraightRailEle() { GraphType = 1; }
+
         public StraightRailEle CreatEle(Point pt, Size size)
         {
             Point pt1 = new Point(0, 0);

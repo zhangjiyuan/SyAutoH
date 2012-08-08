@@ -85,6 +85,7 @@ namespace BaseRailElement
 
             return -1;
         }
+
         public int HandleHitTest(Point point)
         {
             int n = _pointList.Count;

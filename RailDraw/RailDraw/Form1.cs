@@ -36,6 +36,13 @@ namespace RailDraw
                 ControlStyles.UserPaint | ControlStyles.Selectable | ControlStyles.UserMouse, true);
         }
 
+        protected static DrawDoc _document = DrawDoc.EmptyDocument;
+        public static DrawDoc Document
+        {
+            get { return _document; }
+            set { _document = value; BaseEvents.Document = value; }
+        }
+
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             base.OnMouseDown(e);
@@ -71,12 +78,35 @@ namespace RailDraw
 
         private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
         {
-            
+            base.OnMouseDown(e);
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                Size dragSize = SystemInformation.DragSize;
+                dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2),
+                                                                   e.Y - (dragSize.Height / 2)), dragSize);
+                pic2 = true;
+            }
         }
 
         private void pictureBox2_MouseUp(object sender, MouseEventArgs e)
         {
-            
+            if (pic2)
+            {
+                PictureBox pic = sender as PictureBox;
+
+                Point pt_new_e = PicPtTrans(sender, e);
+
+                if (0 < pt_new_e.X && DrawRegion.Size.Width > pt_new_e.X && 0 < pt_new_e.Y && DrawRegion.Size.Height > pt_new_e.Y)
+                {
+                    BaseRailElement.CurvedRailEle _curverailele = new BaseRailElement.CurvedRailEle();
+
+                    Point pt = new Point(pt_new_e.X, pt_new_e.Y);
+                    doc1.DrawObjectList.Add(_curverailele.CreatEle(pt, DrawRegion.Size));
+                    doc1.Select(_curverailele);
+                    DrawRegion.Invalidate();
+                }
+                pic1 = false;
+            }
         }
 
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e)
@@ -159,13 +189,6 @@ namespace RailDraw
             MouseEventArgs _DoubleClick = (MouseEventArgs)e;
             _ObjectEvent.OnMouseDoubleClick(_DoubleClick.Location , this.DrawRegion.Size);
             DrawRegion.Invalidate();
-        }
-
-        protected static DrawDoc _document = DrawDoc.EmptyDocument;
-        public static DrawDoc Document
-        {
-            get { return _document; }
-            set { _document = value; BaseEvents.Document = value; }
         }
 
         private void DrawRegion_MouseClick(object sender, MouseEventArgs e)

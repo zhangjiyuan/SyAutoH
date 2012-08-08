@@ -40,17 +40,42 @@ namespace BaseRailElement
             switch (_SelectObject)
             {
                 case SelectObject.SelectHandle:
-                    if (n == 1)
+                    if (_document.SelectedDrawObjectList[0].GraphType == 1)
                     {
-                        _document.SelectedDrawObjectList[0].MoveHandle(_hit,
-                            _lastPoint, point);
+                        if (n == 1)
+                        {
+                            _document.SelectedDrawObjectList[0].MoveHandle(_hit,
+                                _lastPoint, point);
+                        }
+                    }
+                    else if (_document.SelectedDrawObjectList[0].GraphType == 2)
+                    {
+                        if (n == 1)
+                        {
+                            _document.SelectedDrawObjectList[0].MoveHandle(_hit,
+                                _lastPoint, point);
+                        }
+                    }
+                    else if (_document.SelectedDrawObjectList[0].GraphType == 3)
+                    { 
                     }
                     break;
                 case SelectObject.SelectEle:
                     for (int i = 0; i < n; i++)
                     {
-                        StraightRailEle de = (StraightRailEle)_document.SelectedDrawObjectList[i];
-                        _document.SelectedDrawObjectList[i].Move(_lastPoint, point);
+                        if (_document.SelectedDrawObjectList[i].GraphType == 1)
+                        {
+                            StraightRailEle de = (StraightRailEle)_document.SelectedDrawObjectList[i];
+                            _document.SelectedDrawObjectList[i].Move(_lastPoint, point);
+                        }
+                        else if (_document.SelectedDrawObjectList[i].GraphType == 2)
+                        {
+                            CurvedRailEle de = (CurvedRailEle)_document.SelectedDrawObjectList[i];
+                            _document.SelectedDrawObjectList[i].Move(_lastPoint, point);
+                        }
+                        else if (_document.SelectedDrawObjectList[i].GraphType == 3)
+                        {
+                        }
                     }
                     break;
                 case SelectObject.SelectNone:

@@ -62,7 +62,7 @@ namespace BaseRailElement
             get { return _mirror; }
             set { _mirror = value; }
         }
-        public void CreatEle(Point pt)
+        public void CreatEle(Point pt, Size size)
         {
             ;
         }
