@@ -17,19 +17,11 @@ namespace BaseRailElement
         private ObjectStraightOp _ObjectStaightOp = new ObjectStraightOp();
         private Pen pen = new Pen(Color.Black, 1);
 
-        private float _lenght = 100;
-        public float Lenght
+        private int _lenght = 100;
+        public int Lenght
         {
             get { return _lenght; }
             set { _lenght = value; }
-        }
-
-        [Browsable(false)]
-        private bool _level = true;
-        public bool Level
-        {
-            get { return _level; }
-            set { _level = value; }
         }
 
         [Browsable(false)]
@@ -66,8 +58,30 @@ namespace BaseRailElement
                throw new Exception("绘制线条的点至少需要2个");
             int n = PointList.Count;
             Point[] points = new Point[n];
-
             PointList.CopyTo(points);
+            if (points[0].Y == points[1].Y)
+            {
+                if (_lenght != Math.Abs(points[0].X - points[1].X))
+                {
+                    if (points[0].X < points[1].X)
+                    {
+                        points[1].X = points[0].X + _lenght;
+                    }
+                    else
+                    {
+                        points[1].X = points[0].X - _lenght;
+                    }
+                }
+            }
+            else if (points[0].X == points[1].X)
+            {
+                if (_lenght != Math.Abs(points[0].Y - points[1].Y))
+                {
+                    points[1].Y = points[0].Y + _lenght;
+                }
+            }
+            PointList.Clear();
+            PointList.AddRange(points);
 
             _canvas.DrawLines(pen, points);
         }
@@ -89,7 +103,7 @@ namespace BaseRailElement
 
         protected override void Scale(int handle, int dx, int dy)
         {
-            _ObjectStaightOp.Scale(handle, dx, dy);
+            _lenght = _ObjectStaightOp.Scale(handle, dx, dy, _lenght);
         }
 
         protected override void Rotate(Point pt, Size sz)

@@ -76,15 +76,9 @@ namespace BaseRailElement
                     double d1 = Math.Sqrt(n1);
                     length = Convert.ToInt32(d1);
                 }
-                Rectangle rc = new Rectangle(pt1.X - 5, pt1.Y - 5, length + 10, 10);
+                Rectangle rc = GetRedrawRc();
                 Point[] wrapper = new Point[1];
                 wrapper[0] = point;
-                if (angle != 0)
-                {
-                    Matrix matrix = new Matrix();
-                    matrix.RotateAt(-angle, pt1);
-                    matrix.TransformPoints(wrapper);
-                }
                 if (rc.Contains(wrapper[0]))
                     return 0;
             }
@@ -101,7 +95,8 @@ namespace BaseRailElement
             {
                 Point pt = points[i];
                 Rectangle rc = new Rectangle(pt.X - 3, pt.Y - 3, 6, 6);
-                if (rc.Contains(point)) return i + 1;
+                if (rc.Contains(point)) 
+                    return i + 1;
             }
 
             return -1;
@@ -118,7 +113,7 @@ namespace BaseRailElement
             }
         }
 
-        public void Scale(int handle, int dx, int dy)
+        public int Scale(int handle, int dx, int dy, int lenght)
         {
             Point pt1 = new Point(0);
             Point pt2 = new Point(0);
@@ -134,13 +129,16 @@ namespace BaseRailElement
                 Point pt = _pointList[handle - 1];
                 pt.Offset(dx, 0);
                 _pointList[handle - 1] = pt;
+                return Math.Abs(PointList[1].X - PointList[0].X);
             }
-           else if (pt1.X == pt2.X)
+            else if (pt1.X == pt2.X)
             {
                 Point pt = _pointList[handle - 1];
                 pt.Offset(0, dy);
                 _pointList[handle - 1] = pt;
-            } 
+                return Math.Abs(PointList[1].Y - PointList[0].Y);
+            }
+            return lenght;
         }
 
         public void ChangeDirection(Point pt, Size sz)
@@ -195,6 +193,30 @@ namespace BaseRailElement
 
             _pointList.Clear();
             _pointList.AddRange(points);
+        }
+
+        public Rectangle GetRedrawRc()
+        {
+            int n = _pointList.Count;
+            int minX, minY, maxX, maxY;
+            maxX = minX = _pointList[0].X; maxY = minY = _pointList[0].Y;
+            for (int i = 1; i < n; i++)
+            {
+                if (_pointList[i].X < minX)
+                    minX = _pointList[i].X;
+                else if (_pointList[i].X > maxX)
+                    maxX = _pointList[i].X;
+
+                if (_pointList[i].Y < minY)
+                    minY = _pointList[i].Y;
+                else if (_pointList[i].Y > maxY)
+                    maxY = _pointList[i].Y;
+
+            }
+
+            Rectangle rc = new Rectangle(minX, minY, maxX - minX, maxY - minY);
+            rc.Inflate(5, 5);
+            return rc;
         }
 
         public Region GetRedrawRegion()
