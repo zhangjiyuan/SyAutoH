@@ -1,9 +1,0 @@
-D:\新建文件夹\SyAutoH\RailView\RailView\bin\Debug\RailView.exe
-D:\新建文件夹\SyAutoH\RailView\RailView\bin\Debug\RailView.pdb
-D:\新建文件夹\SyAutoH\RailView\RailView\obj\x86\Debug\ResolveAssemblyReference.cache
-D:\新建文件夹\SyAutoH\RailView\RailView\obj\x86\Debug\RailView.Properties.Resources.resources
-D:\新建文件夹\SyAutoH\RailView\RailView\obj\x86\Debug\GenerateResource.read.1.tlog
-D:\新建文件夹\SyAutoH\RailView\RailView\obj\x86\Debug\GenerateResource.write.1.tlog
-D:\新建文件夹\SyAutoH\RailView\RailView\obj\x86\Debug\RailView.exe
-D:\新建文件夹\SyAutoH\RailView\RailView\obj\x86\Debug\RailView.pdb
-D:\新建文件夹\SyAutoH\RailView\RailView\obj\x86\Debug\RailView.Form1.resources
