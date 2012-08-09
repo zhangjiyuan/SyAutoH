@@ -120,18 +120,11 @@ namespace BaseRailElement
         {
             Rotate(pt, sz);
         }
-  //      public void Rotate(float angle)
-  //      {
-  //          RotateAt(angle, RotatePoint);
-  //      }
 
         public void RotateAt(float angle, Point point)
         {
             _rotatePoint = point;
-            //         CustomRotate(angle, point);
         }
-
-        //      protected abstract void CustomRotate(float angle, Point point);
 
         internal void OnClick()
         {
