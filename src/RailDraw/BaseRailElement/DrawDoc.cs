@@ -25,7 +25,7 @@ namespace BaseRailElement
         [
         XmlArrayItem(Type = typeof(StraightRailEle)),
         XmlArrayItem(Type = typeof(CurvedRailEle)),
-        XmlArrayItem(Type = typeof(CrossRailEle)),
+        XmlArrayItem(Type = typeof(CrossLeftEle)),
         ]
 
         [XmlIgnore]

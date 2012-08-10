@@ -42,7 +42,7 @@ namespace BaseRailElement
             else if (3 == direction)
             {
                 points[0] = center;
-                points[1] = new Point(center.X , center.Y - radiu);
+                points[1] = new Point(center.X, center.Y - radiu);
                 points[2] = new Point(center.X + radiu, center.Y - radiu);
                 points[3] = new Point(center.X + radiu, center.Y);
             }
@@ -102,7 +102,7 @@ namespace BaseRailElement
             if (region.IsVisible(wrapper[0]))
                 return 0;
             else
-                return -1;           
+                return -1;
         }
 
         public int HandleHitTest(Point point, Point center, int radiu, int direction)          //角度
@@ -526,11 +526,6 @@ namespace BaseRailElement
             }
 
             return new Rectangle(center.X, center.Y, radiu, radiu);
-        }
-
-        public void ChangeDirection(Point pt, Size sz, int startangle)
-        {
-            
         }
     }
 }

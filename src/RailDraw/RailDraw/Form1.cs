@@ -15,10 +15,10 @@ namespace RailDraw
         BaseRailElement.DrawDoc doc1 = new BaseRailElement.DrawDoc();
         BaseRailElement.ObjectBaseEvents _ObjectEvent = new BaseRailElement.ObjectBaseEvents();
         
- 
         private bool pic1 = false;
         private bool pic2 = false;
         private bool pic3 = false;
+        private bool pic4 = false;
         Point _downpoint= Point.Empty;
         bool _IsMouseDown = false;
 
@@ -60,13 +60,10 @@ namespace RailDraw
             if (pic1)
             {
                 PictureBox pic = sender as PictureBox;
-
                 Point pt_new_e = PicPtTrans(sender, e);
-
                 if (0 < pt_new_e.X && DrawRegion.Size.Width > pt_new_e.X && 0 < pt_new_e.Y && DrawRegion.Size.Height > pt_new_e.Y)
                 {
                     BaseRailElement.StraightRailEle _straightrailele = new BaseRailElement.StraightRailEle();
-
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
                     doc1.DrawObjectList.Add(_straightrailele.CreatEle(pt, DrawRegion.Size));
                     doc1.Select(_straightrailele);
@@ -93,40 +90,77 @@ namespace RailDraw
             if (pic2)
             {
                 PictureBox pic = sender as PictureBox;
-
                 Point pt_new_e = PicPtTrans(sender, e);
-
                 if (0 < pt_new_e.X && DrawRegion.Size.Width > pt_new_e.X && 0 < pt_new_e.Y && DrawRegion.Size.Height > pt_new_e.Y)
                 {
                     BaseRailElement.CurvedRailEle _curverailele = new BaseRailElement.CurvedRailEle();
-
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
                     doc1.DrawObjectList.Add(_curverailele.CreatEle(pt, DrawRegion.Size));
                     doc1.Select(_curverailele);
                     DrawRegion.Invalidate();
                 }
-                pic1 = false;
+                pic2 = false;
             }
         }
 
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e)
         {
-
+            base.OnMouseDown(e);
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                Size dragSize = SystemInformation.DragSize;
+                dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2),
+                                                                   e.Y - (dragSize.Height / 2)), dragSize);
+                pic3 = true;
+            }
         }
 
         private void pictureBox3_MouseUp(object sender, MouseEventArgs e)
         {
-
+            if (pic3)
+            {
+                PictureBox pic = sender as PictureBox;
+                Point pt_new_e = PicPtTrans(sender, e);
+                if (0 < pt_new_e.X && DrawRegion.Size.Width > pt_new_e.X && 0 < pt_new_e.Y && DrawRegion.Size.Height > pt_new_e.Y)
+                {
+                    BaseRailElement.CrossLeftEle _crossleft = new BaseRailElement.CrossLeftEle();
+                    Point pt = new Point(pt_new_e.X, pt_new_e.Y);
+                    doc1.DrawObjectList.Add(_crossleft.CreatEle(pt, DrawRegion.Size));
+                    doc1.Select(_crossleft);
+                    DrawRegion.Invalidate();
+                }
+                pic3 = false;
+            }
         }
 
-        public void ResizeCanvase()
+        private void pictureBox4_MouseDown(object sender, MouseEventArgs e)
         {
-            ;
+            base.OnMouseDown(e);
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                Size dragSize = SystemInformation.DragSize;
+                dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2),
+                                                                   e.Y - (dragSize.Height / 2)), dragSize);
+                pic4 = true;
+            }
         }
 
-        public Point ClientToDocument(Point point)
+        private void pictureBox4_MouseUp(object sender, MouseEventArgs e)
         {
-            return point;
+            if (pic4)
+            {
+                PictureBox pic = sender as PictureBox;
+                Point pt_new_e = PicPtTrans(sender, e);
+                if (0 < pt_new_e.X && DrawRegion.Size.Width > pt_new_e.X && 0 < pt_new_e.Y && DrawRegion.Size.Height > pt_new_e.Y)
+                {
+                    BaseRailElement.CrossRightEle _crossright = new BaseRailElement.CrossRightEle();
+                    Point pt = new Point(pt_new_e.X, pt_new_e.Y);
+                    doc1.DrawObjectList.Add(_crossright.CreatEle(pt, DrawRegion.Size));
+                    doc1.Select(_crossright);
+                    DrawRegion.Invalidate();
+                }
+                pic4 = false;
+            }
         }
 
         public Point PicPtTrans(object sender, MouseEventArgs e)
@@ -171,9 +205,6 @@ namespace RailDraw
         private void DrawRegion_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-
-            // Calling the base class OnPaint
-
             doc1.Draw(g);
             base.OnPaint(e);
         }

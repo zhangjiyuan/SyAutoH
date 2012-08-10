@@ -1,0 +1,5 @@
+F:\RailDraw\BaseRailElement\bin\Debug\BaseRailElement.dll
+F:\RailDraw\BaseRailElement\bin\Debug\BaseRailElement.pdb
+F:\RailDraw\BaseRailElement\obj\Debug\ResolveAssemblyReference.cache
+F:\RailDraw\BaseRailElement\obj\Debug\BaseRailElement.dll
+F:\RailDraw\BaseRailElement\obj\Debug\BaseRailElement.pdb
