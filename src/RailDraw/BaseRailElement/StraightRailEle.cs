@@ -57,7 +57,7 @@ namespace BaseRailElement
                 throw new Exception("Graphics对象Canvas不能为空");
 
             if (PointList.Count < 2)
-               throw new Exception("绘制线条的点至少需要2个");
+                throw new Exception("绘制线条的点至少需要2个");
             int n = PointList.Count;
             Point[] points = new Point[n];
             PointList.CopyTo(points);

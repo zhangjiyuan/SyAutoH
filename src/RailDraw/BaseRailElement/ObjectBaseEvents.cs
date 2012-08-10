@@ -44,20 +44,29 @@ namespace BaseRailElement
                     {
                         if (n == 1)
                         {
-                            _document.SelectedDrawObjectList[0].MoveHandle(_hit,
-                                _lastPoint, point);
+                            _document.SelectedDrawObjectList[0].MoveHandle(_hit, _lastPoint, point);
                         }
                     }
                     else if (_document.SelectedDrawObjectList[0].GraphType == 2)
                     {
                         if (n == 1)
                         {
-                            _document.SelectedDrawObjectList[0].MoveHandle(_hit,
-                                _lastPoint, point);
+                            _document.SelectedDrawObjectList[0].MoveHandle(_hit, _lastPoint, point);
                         }
                     }
                     else if (_document.SelectedDrawObjectList[0].GraphType == 3)
-                    { 
+                    {
+                        if (n == 1)
+                        {
+                            _document.SelectedDrawObjectList[0].MoveHandle(_hit, _lastPoint, point);
+                        }
+                    }
+                    else if (_document.SelectedDrawObjectList[0].GraphType == 4)
+                    {
+                        if (n == 1)
+                        {
+                            _document.SelectedDrawObjectList[0].MoveHandle(_hit, _lastPoint, point);
+                        }
                     }
                     break;
                 case SelectObject.SelectEle:
@@ -75,6 +84,13 @@ namespace BaseRailElement
                         }
                         else if (_document.SelectedDrawObjectList[i].GraphType == 3)
                         {
+                            CrossLeftEle de = (CrossLeftEle)_document.SelectedDrawObjectList[i];
+                            _document.SelectedDrawObjectList[i].Move(_lastPoint, point);
+                        }
+                        else if (_document.SelectedDrawObjectList[i].GraphType == 4)
+                        {
+                            CrossRightEle de = (CrossRightEle)_document.SelectedDrawObjectList[i];
+                            _document.SelectedDrawObjectList[i].Move(_lastPoint, point);
                         }
                     }
                     break;

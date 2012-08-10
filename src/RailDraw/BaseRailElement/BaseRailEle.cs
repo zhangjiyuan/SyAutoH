@@ -120,7 +120,7 @@ namespace BaseRailElement
         {
             Rotate(pt, sz);
         }
-
+ 
         public void RotateAt(float angle, Point point)
         {
             _rotatePoint = point;
