@@ -7,8 +7,8 @@
 //
 // **********************************************************************
 
-#ifndef LogInterface_ICE
-#define LogInterface_ICE
+#ifndef FoupMove_ICE
+#define FoupMove_ICE
 
 
 module MCS
