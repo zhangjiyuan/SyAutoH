@@ -1,5 +1,0 @@
-D:\工作\程序\SyAutoH\RailDraw\BaseRailElement\bin\Release\BaseRailElement.dll
-D:\工作\程序\SyAutoH\RailDraw\BaseRailElement\bin\Release\BaseRailElement.pdb
-D:\工作\程序\SyAutoH\RailDraw\BaseRailElement\obj\Release\ResolveAssemblyReference.cache
-D:\工作\程序\SyAutoH\RailDraw\BaseRailElement\obj\Release\BaseRailElement.dll
-D:\工作\程序\SyAutoH\RailDraw\BaseRailElement\obj\Release\BaseRailElement.pdb
