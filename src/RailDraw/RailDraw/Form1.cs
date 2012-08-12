@@ -209,12 +209,6 @@ namespace RailDraw
             base.OnPaint(e);
         }
 
-        private void delete_Click(object sender, EventArgs e)
-        {
-            doc1.Delete();
-            DrawRegion.Invalidate();
-        }
-
         private void DrawRegion_DoubleClick(object sender, EventArgs e)
         {
             MouseEventArgs _DoubleClick = (MouseEventArgs)e;
@@ -238,6 +232,30 @@ namespace RailDraw
                     propertyGrid1.Refresh();
                 }
             }
+        }
+
+        private void cut_Click(object sender, EventArgs e)
+        {
+            doc1.Cut();
+            DrawRegion.Invalidate();
+        }
+
+        private void copy_Click(object sender, EventArgs e)
+        {
+            doc1.Copy();
+            DrawRegion.Invalidate();
+        }
+
+        private void paste_Click(object sender, EventArgs e)
+        {
+            doc1.Paste();
+            DrawRegion.Invalidate();
+        }
+
+        private void delete_Click(object sender, EventArgs e)
+        {
+            doc1.Delete();
+            DrawRegion.Invalidate();
         }
     }
 }

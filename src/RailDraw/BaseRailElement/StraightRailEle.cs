@@ -112,5 +112,14 @@ namespace BaseRailElement
         {
             _ObjectStaightOp.ChangeDirection(pt, sz);
         }
+
+        public object Clone()
+        {
+            StraightRailEle cl = new StraightRailEle();
+            cl.pen = pen;
+            cl.PointList.AddRange(PointList);
+            cl._lenght = _lenght;
+            return cl;
+        }
     }
 }

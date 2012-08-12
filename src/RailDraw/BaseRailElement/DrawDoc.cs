@@ -26,6 +26,7 @@ namespace BaseRailElement
         XmlArrayItem(Type = typeof(StraightRailEle)),
         XmlArrayItem(Type = typeof(CurvedRailEle)),
         XmlArrayItem(Type = typeof(CrossLeftEle)),
+        XmlArrayItem(Type = typeof(CrossRightEle)),
         ]
 
         [XmlIgnore]
@@ -34,7 +35,7 @@ namespace BaseRailElement
             get { return new DrawDoc(); }
         }
 
-        List<BaseRailEle> _CopyObjectList = new List<BaseRailEle>(2);
+        List<BaseRailEle> _CutAndCopyObjectList = new List<BaseRailEle>(2);
         List<BaseRailEle> _drawObjectList = new List<BaseRailEle>(2);  
         [Browsable(false)]
         public List<BaseRailEle> DrawObjectList
@@ -58,6 +59,12 @@ namespace BaseRailElement
             get { return _lastHitedObject; }
         }
 
+        private enum CutOrCopy
+        {
+            CutOp, CopyOp, NoneOp
+        }
+        private CutOrCopy _CutOrCopy = CutOrCopy.NoneOp;
+
         public override void Draw(Graphics _canvas)
         {
             int n = _drawObjectList.Count;
@@ -65,8 +72,7 @@ namespace BaseRailElement
             {
                 _drawObjectList[i].Draw(_canvas);
                 if (_selectedDrawObjectList.Contains(_drawObjectList[i]))
-                    _drawObjectList[i].DrawTracker(_canvas);
-                //for edit or run              
+                    _drawObjectList[i].DrawTracker(_canvas);        
             }
         }
 
@@ -116,6 +122,95 @@ namespace BaseRailElement
                 _selectedDrawObjectList.Add(obj);
         }
 
+        public void Cut()
+        {
+            _CutAndCopyObjectList.Clear();
+            if (_selectedDrawObjectList.Count > 0)
+            {
+                foreach (BaseRailEle o in _selectedDrawObjectList)
+                {
+                    _CutAndCopyObjectList.Add(o);
+                }
+                _CutOrCopy = CutOrCopy.CutOp;
+            }
+        }
+
+        public void Copy()
+        {
+            _CutAndCopyObjectList.Clear();
+            if (_selectedDrawObjectList.Count > 0)
+            {
+                foreach (BaseRailEle o in _selectedDrawObjectList)
+                {
+                    _CutAndCopyObjectList.Add(o);
+                }
+                _CutOrCopy = CutOrCopy.CopyOp;
+            }
+        }
+
+        public void Paste()
+        {
+            if (_CutAndCopyObjectList.Count > 0)
+            {
+                if (_CutOrCopy == CutOrCopy.CutOp)
+                {
+                    int n = _selectedDrawObjectList.Count;
+                    foreach (BaseRailEle obj in _selectedDrawObjectList)
+                    {
+                        _drawObjectList.Remove(obj);
+                    }
+                }
+                foreach (BaseRailEle o in _CutAndCopyObjectList)
+                {
+                    if (1 == o.GraphType)
+                    {
+                        StraightRailEle cl = (StraightRailEle)o;
+                        StraightRailEle n = (StraightRailEle)cl.Clone();
+                        _drawObjectList.Add(n);
+                        Select(n);
+                    }
+                    else if (2 == o.GraphType)
+                    {
+                        CurvedRailEle cl = (CurvedRailEle)o;
+                        CurvedRailEle n = (CurvedRailEle)cl.Clone();
+                        n.CenterDoc = new Point(n.CenterDoc.X + 20, n.CenterDoc.Y + 20);
+                        _drawObjectList.Add(n);
+                        Select(n);
+                    }
+                    else if (3 == o.GraphType)
+                    {
+                        CrossLeftEle cl = (CrossLeftEle)o;
+                        CrossLeftEle n = (CrossLeftEle)cl.Clone();
+                        n.CenterDoc = new Point(n.CenterDoc.X + 20, n.CenterDoc.Y + 20);
+                        int num = n.PointList.Count;
+                        for (int i = 0; i < num; i++)
+                        {
+                            Point pt = n.PointList[i];
+                            pt.Offset(20, 20);
+                            n.PointList[i] = pt;
+                        }
+                        _drawObjectList.Add(n);
+                        Select(n);
+                    }
+                    else if (4 == o.GraphType)
+                    {
+                        CrossRightEle cl = (CrossRightEle)o;
+                        CrossRightEle n = (CrossRightEle)cl.Clone();
+                        n.CenterDoc = new Point(n.CenterDoc.X + 20, n.CenterDoc.Y + 20);
+                        int num = n.PointList.Count;
+                        for (int i = 0; i < num; i++)
+                        {
+                            Point pt = n.PointList[i];
+                            pt.Offset(20, 20);
+                            n.PointList[i] = pt;
+                        }
+                        _drawObjectList.Add(n);
+                        Select(n);
+                    }
+                }
+            }
+        }
+
         public void Delete()
         {
             int n = _selectedDrawObjectList.Count;
@@ -125,83 +220,7 @@ namespace BaseRailElement
             }
             _selectedDrawObjectList.Clear();
         }
-
-        public bool MoveSelectionToFront()
-        {
-            int n;
-            int i;
-            List<BaseRailEle> tempList = new List<BaseRailEle>();
-            n = _drawObjectList.Count;
-
-            // Read source list in reverse order, add every selected item
-            // to temporary list and remove it from source list
-            for (i = n - 1; i >= 0; i--)
-            {
-                if (_selectedDrawObjectList.Contains(_drawObjectList[i]))
-                {
-                    tempList.Add(_drawObjectList[i]);
-                    _drawObjectList.RemoveAt(i);
-                }
-            }
-
-            // Read temporary list in direct order and insert every item
-            // to the beginning of the source list
-            n = tempList.Count;
-
-            for (i = 0; i < n; i++)
-            {
-                _drawObjectList.Insert(0, tempList[i]);
-            }
-
-            return (n > 0);
-        }
-
-        public bool MoveSelectionToBack()
-        {
-            int n;
-            int i;
-            List<BaseRailEle> tempList = new List<BaseRailEle>();
-
-            n = _drawObjectList.Count;
-
-            // Read source list in reverse order, add every selected item
-            // to temporary list and remove it from source list
-            for (i = n - 1; i >= 0; i--)
-            {
-                if (_selectedDrawObjectList.Contains(_drawObjectList[i]))
-                {
-                    tempList.Add(_drawObjectList[i]);
-                    _drawObjectList.RemoveAt(i);
-                }
-            }
-            
-            // Read temporary list in reverse order and add every item
-            // to the end of the source list
-            n = tempList.Count;
-
-            for (i = n - 1; i >= 0; i--)
-            {
-                _drawObjectList.Add(tempList[i]);
-            }
-
-            return (n > 0);
-        }
-
-        public void Cut()
-        {
-            ;
-        }
-
-        public void Copy()
-        {
-            ;
-        }
-
-        public void Paste()
-        {
-            ;
-        }
-
+      
         public override void DrawTracker(Graphics _canvas)
         {
             ;

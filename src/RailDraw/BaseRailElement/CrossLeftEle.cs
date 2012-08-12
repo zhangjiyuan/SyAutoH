@@ -179,5 +179,21 @@ namespace BaseRailElement
             }
             _ObjectCrL.ChangeDirection(_centerdoc, sz);
         }
+
+        public object Clone()
+        {
+            CrossLeftEle cl = new CrossLeftEle();
+            cl._centerdoc = _centerdoc;
+            cl._direction = _direction;
+            cl._radius = _radius;
+            cl._firstdoc = _firstdoc;
+            cl._seconddot = _seconddot;
+            cl._startangle = _startangle;
+            cl._sweepangle = _sweepangle;
+            cl._interval = _interval;
+            cl._lenghtofstr = _lenghtofstr;
+            cl.PointList.AddRange(PointList);
+            return cl;
+        }
     }
 }

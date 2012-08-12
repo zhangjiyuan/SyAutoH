@@ -131,5 +131,18 @@ namespace BaseRailElement
                 _direction = 0;
             }
         }
+
+        public object Clone()
+        {
+            CurvedRailEle cl = new CurvedRailEle();
+            cl._centerdoc = _centerdoc;
+            cl._direction = _direction;
+            cl._radius = _radius;
+            cl._firstdoc = _firstdoc;
+            cl._seconddot = _seconddot;
+            cl._startangle = _startangle;
+            cl._sweepangle = _sweepangle;
+            return cl;
+        }
     }
 }
