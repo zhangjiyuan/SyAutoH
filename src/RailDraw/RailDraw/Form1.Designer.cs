@@ -99,6 +99,7 @@ namespace RailDraw
             this.open.Name = "open";
             this.open.Size = new System.Drawing.Size(23, 22);
             this.open.Text = "open";
+            this.open.Click += new System.EventHandler(this.open_Click);
             // 
             // save
             // 
@@ -108,6 +109,7 @@ namespace RailDraw
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(23, 22);
             this.save.Text = "save";
+            this.save.Click += new System.EventHandler(this.save_Click);
             // 
             // toolStripSeparator1
             // 

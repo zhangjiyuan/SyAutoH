@@ -31,7 +31,7 @@ namespace BaseRailElement
 
         [Browsable(false)]
         private int _startangle = 90;
-        private int StartAngle
+        public int StartAngle
         {
             get { return _startangle; }
             set { _startangle = value; }
@@ -77,6 +77,14 @@ namespace BaseRailElement
         public List<Point> PointList
         {
             get { return _ObjectCrR.PointList; }
+        }
+
+        [XmlElement("direction")]
+        [Browsable(false)]
+        public int Direction
+        {
+            get { return _direction; }
+            set { _direction = value; }
         }
 
         public CrossRightEle() { GraphType = 4; }

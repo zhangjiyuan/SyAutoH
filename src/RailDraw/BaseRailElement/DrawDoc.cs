@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using System.ComponentModel;
@@ -11,6 +12,11 @@ using System.Drawing.Drawing2D;
 
 namespace BaseRailElement
 {
+    [XmlInclude(typeof(StraightRailEle))]
+    [XmlInclude(typeof(CurvedRailEle))]
+    [XmlInclude(typeof(CrossLeftEle))]
+    [XmlInclude(typeof(CrossRightEle))]
+
     public class DrawDoc:BaseRailEle
     {
         private string _name = "";

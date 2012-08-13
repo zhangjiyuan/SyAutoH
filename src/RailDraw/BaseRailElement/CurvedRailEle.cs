@@ -43,9 +43,8 @@ namespace BaseRailElement
             set { _seconddot = value; }
         }
 
-        [Browsable(false)]
         private int _startangle = 0;
-        private int StartAngle
+        public int StartAngle
         {
             get { return _startangle; }
             set { _startangle = value; }
@@ -56,6 +55,14 @@ namespace BaseRailElement
         {
             get { return _sweepangle; }
             set { _sweepangle = value; }
+        }
+
+        [XmlElement("direction")]
+        [Browsable(false)]
+        public int Direction
+        {
+            get { return _direction; }
+            set { _direction = value; }
         }
 
         public CurvedRailEle() { GraphType = 2; }

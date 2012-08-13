@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 using BaseRailElement;
 
 namespace RailDraw
@@ -21,6 +24,7 @@ namespace RailDraw
         private bool pic4 = false;
         Point _downpoint= Point.Empty;
         bool _IsMouseDown = false;
+        private string sProjectPath = "";
 
         public Form1()
         {
@@ -34,6 +38,7 @@ namespace RailDraw
             // 设置Control的相关Style，主要与绘制有关
             this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.ContainerControl |
                 ControlStyles.UserPaint | ControlStyles.Selectable | ControlStyles.UserMouse, true);
+            doc1.Name = "main";
         }
 
         protected static DrawDoc _document = DrawDoc.EmptyDocument;
@@ -220,7 +225,7 @@ namespace RailDraw
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (_document.SelectedDrawObjectList.Count > 0)
+                if (_document.SelectedDrawObjectList.Count > 0)              
                 {
                     BaseRailEle _BaseRaiEle = _document.SelectedDrawObjectList[0];
                     propertyGrid1.SelectedObject = _BaseRaiEle;
@@ -255,6 +260,80 @@ namespace RailDraw
         private void delete_Click(object sender, EventArgs e)
         {
             doc1.Delete();
+            DrawRegion.Invalidate();
+        }
+
+        private void save_Click(object sender, EventArgs e)
+        {
+            if (sProjectPath == "")
+            {
+                SaveFileDialog saveFile = new SaveFileDialog();
+                saveFile.Filter = "configuration (*.xml)|*.xml";
+                saveFile.InitialDirectory = "";
+                saveFile.Title = "存储文件";
+                saveFile.FileName = "";
+                if (saveFile.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        string projectpath = saveFile.FileName;
+                        sProjectPath = projectpath;
+                        //save form
+                        XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
+                        StreamWriter myWriter = new StreamWriter(projectpath);
+                        mySerializer.Serialize(myWriter, doc1);
+                        myWriter.Close();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("save error");
+                    }
+                }
+            }
+            else
+            {
+                try
+                {
+                    string projectpath = sProjectPath;
+                    XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
+                    StreamWriter myWriter = new StreamWriter(projectpath);
+                    mySerializer.Serialize(myWriter, doc1);
+                    myWriter.Close();
+                }
+                catch
+                {
+                    MessageBox.Show("save error");
+                }
+            }
+        }
+
+        private void open_Click(object sender, EventArgs e)
+        {
+            sProjectPath = "";
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "configuration (*.xml)|*.xml";
+            openFile.InitialDirectory = "";
+            openFile.Title = "open files";
+            openFile.FileName = "";
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                string projectpath = openFile.FileName;
+                string sname = new FileInfo(projectpath).Name;
+                Document = doc1;
+                doc1.DrawObjectList.Clear();
+                try
+                {
+                    FileStream fs = new FileStream(projectpath, FileMode.Open);
+                    XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
+                    doc1 = (DrawDoc)mySerializer.Deserialize(fs);                   
+                    fs.Close();
+                    Document = doc1;
+                }
+                catch
+                {
+                    MessageBox.Show("open error");
+                }
+            }
             DrawRegion.Invalidate();
         }
     }
