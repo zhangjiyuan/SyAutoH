@@ -31,13 +31,13 @@ namespace BaseRailElement
         }
 
         //name
-        protected string _id = "";
-        [Description("名称"), Category("名称")]
-        public string Id
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
+//        protected string _id = "";
+//        [Description("名称"), Category("名称")]
+//        public string Id
+//        {
+//            get { return _id; }
+//            set { _id = value; }
+//        }
 
         //lock
         protected bool _lock = false;
@@ -49,22 +49,22 @@ namespace BaseRailElement
         }
 
         //visible
-        protected bool _visible = true;
-        [Description("可见"), Category("可见")]
-        public bool Visible
-        {
-            get { return _visible; }
-            set { _visible = value; }
-        }
+//        protected bool _visible = true;
+//        [Description("可见"), Category("可见")]
+//        public bool Visible
+//        {
+//            get { return _visible; }
+//            set { _visible = value; }
+//        }
 
-        protected Point _rotatePoint = Point.Empty;
+//        protected Point _rotatePoint = Point.Empty;
         //[Description("旋转围绕的点"), Category("旋转角度")]
-        [Browsable(false)]
-        public virtual Point RotatePoint
-        {
-            get { return _rotatePoint; }
-            set { _rotatePoint = value; }
-        }
+//        [Browsable(false)]
+//        public virtual Point RotatePoint
+//        {
+//            get { return _rotatePoint; }
+//            set { _rotatePoint = value; }
+//        }
 
         private bool _selectable = true;
         [Browsable(false)]
@@ -88,13 +88,13 @@ namespace BaseRailElement
             set { _angle = value; }
         }
 
-        [Browsable(false)]
-        private bool _iscreat = false;
-        public bool IsCreat
-        {
-            get { return _iscreat; }
-            set { _iscreat = value; }
-        }
+//        [Browsable(false)]
+//        private bool _iscreat = false;
+//        public bool IsCreat
+//        {
+//            get { return _iscreat; }
+//            set { _iscreat = value; }
+//        }
 
         public void Move(Point start, Point end)
         {
@@ -121,10 +121,10 @@ namespace BaseRailElement
             Rotate(pt, sz);
         }
  
-        public void RotateAt(float angle, Point point)
-        {
-            _rotatePoint = point;
-        }
+//        public void RotateAt(float angle, Point point)
+//        {
+//            _rotatePoint = point;
+//        }
 
         internal void OnClick()
         {

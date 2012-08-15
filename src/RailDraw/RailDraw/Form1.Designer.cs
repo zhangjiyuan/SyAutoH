@@ -47,7 +47,6 @@ namespace RailDraw
             this.enlarge = new System.Windows.Forms.ToolStripButton();
             this.shorten = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -87,8 +86,7 @@ namespace RailDraw
             this.toolStripSeparator3,
             this.enlarge,
             this.shorten,
-            this.toolStripSeparator4,
-            this.toolStripButton11});
+            this.toolStripSeparator4});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(808, 25);
@@ -214,15 +212,6 @@ namespace RailDraw
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripButton11
-            // 
-            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
-            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton11.Name = "toolStripButton11";
-            this.toolStripButton11.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton11.Text = "object";
             // 
             // panel1
             // 
@@ -406,7 +395,6 @@ namespace RailDraw
         private System.Windows.Forms.ToolStripButton enlarge;
         private System.Windows.Forms.ToolStripButton shorten;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripButton toolStripButton11;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;

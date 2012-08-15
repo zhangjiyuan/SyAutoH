@@ -14,7 +14,7 @@ namespace BaseRailElement
     public class CrossRightEle : BaseRailEle
     {
         ObjectCrossRightOp _ObjectCrR = new ObjectCrossRightOp();
-        private int _direction = 0;
+        
         private Point _centerdoc = Point.Empty;
         public Point CenterDoc
         {
@@ -79,12 +79,19 @@ namespace BaseRailElement
             get { return _ObjectCrR.PointList; }
         }
 
-        [XmlElement("direction")]
-        [Browsable(false)]
-        public int Direction
+        public enum DIRECTION_CROSS_R
         {
-            get { return _direction; }
-            set { _direction = value; }
+            FIRST,
+            SECOND,
+            THIRD,
+            FOUR,
+            NULL
+        }
+        private DIRECTION_CROSS_R _direction_cross_r = DIRECTION_CROSS_R.NULL;
+        public DIRECTION_CROSS_R DIRECTION_CROSS_R_ATTRIBUTE
+        {
+            get { return _direction_cross_r; }
+            set { _direction_cross_r = value; }
         }
 
         public CrossRightEle() { GraphType = 4; }
@@ -92,6 +99,7 @@ namespace BaseRailElement
         public CrossRightEle CreatEle(Point center, Size size)
         {
             _centerdoc = center;
+            _direction_cross_r = DIRECTION_CROSS_R.SECOND;
             Point[] points = new Point[2];
             points[0] = new Point(center.X, center.Y + (int)_radius + (int)_interval);
             points[1] = new Point(points[0].X - (int)_lenghtofstr, points[0].Y);
@@ -122,12 +130,12 @@ namespace BaseRailElement
 
         public override void DrawTracker(Graphics _canvas)
         {
-            _ObjectCrR.DrawTracker(_canvas, _centerdoc, (int)_radius, _direction);
+            _ObjectCrR.DrawTracker(_canvas, _centerdoc, (int)_radius, _direction_cross_r);
         }
 
         public override int HitTest(Point point, bool isSelected)
         {
-            return _ObjectCrR.HitTest(point, isSelected, _centerdoc, (int)_radius, _direction, (int)_lenghtofstr, (int)_interval);
+            return _ObjectCrR.HitTest(point, isSelected, _centerdoc, (int)_radius, _direction_cross_r, (int)_lenghtofstr, (int)_interval);
         }
 
         protected override void Translate(int offsetX, int offsetY)
@@ -140,24 +148,26 @@ namespace BaseRailElement
 
         protected override void Scale(int handle, int dx, int dy)
         {
-            Rectangle rc = _ObjectCrR.Scale(handle, dx, dy, _centerdoc, (int)_radius, _direction, (int)_lenghtofstr, (int)_interval);
-            switch (_direction)
+            Rectangle rc = _ObjectCrR.Scale(handle, dx, dy, _centerdoc, (int)_radius, _direction_cross_r, (int)_lenghtofstr, (int)_interval);
+            switch (_direction_cross_r)
             {
-                case 0:
+                case DIRECTION_CROSS_R.SECOND:
                     _centerdoc = new Point(rc.Right, rc.Top);
                     _lenghtofstr = Math.Abs(PointList[1].X - PointList[0].X);
                     break;
-                case 1:
+                case DIRECTION_CROSS_R.THIRD:
                     _centerdoc = new Point(rc.Right, rc.Bottom);
                     _lenghtofstr = Math.Abs(PointList[1].Y - PointList[0].Y);
                     break;
-                case 2:
+                case DIRECTION_CROSS_R.FOUR:
                     _centerdoc = new Point(rc.Left, rc.Bottom);
                     _lenghtofstr = Math.Abs(PointList[1].X - PointList[0].X);
                     break;
-                case 3:
+                case DIRECTION_CROSS_R.FIRST:
                     _centerdoc = rc.Location;
                     _lenghtofstr = Math.Abs(PointList[1].Y - PointList[0].Y);
+                    break;
+                case DIRECTION_CROSS_R.NULL:
                     break;
             }
             _radius = rc.Width;
@@ -169,22 +179,22 @@ namespace BaseRailElement
             if (90 == _startangle)
             {
                 _startangle = 180;
-                _direction = 1;
+                _direction_cross_r = DIRECTION_CROSS_R.THIRD;
             }
             else if (180 == _startangle)
             {
                 _startangle = 270;
-                _direction = 2;
+                _direction_cross_r = DIRECTION_CROSS_R.FOUR;
             }
             else if (270 == _startangle)
             {
                 _startangle = 0;
-                _direction = 3;
+                _direction_cross_r = DIRECTION_CROSS_R.FIRST;
             }
             else if (0 == _startangle)
             {
                 _startangle = 90;
-                _direction = 0;
+                _direction_cross_r = DIRECTION_CROSS_R.SECOND;
             }
             _ObjectCrR.ChangeDirection(_centerdoc, sz);
         }
@@ -193,7 +203,6 @@ namespace BaseRailElement
         {
             CrossRightEle cl = new CrossRightEle();
             cl._centerdoc = _centerdoc;
-            cl._direction = _direction;
             cl._radius = _radius;
             cl._firstdoc = _firstdoc;
             cl._seconddot = _seconddot;
@@ -201,6 +210,7 @@ namespace BaseRailElement
             cl._sweepangle = _sweepangle;
             cl._interval = _interval;
             cl._lenghtofstr = _lenghtofstr;
+            cl._direction_cross_r = _direction_cross_r;
             cl.PointList.AddRange(PointList);
             return cl;
         }

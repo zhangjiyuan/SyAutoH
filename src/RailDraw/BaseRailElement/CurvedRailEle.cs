@@ -14,7 +14,7 @@ namespace BaseRailElement
     public class CurvedRailEle : BaseRailEle
     {
         private ObjectCurvedOp _ObjectCurved = new ObjectCurvedOp();
-        private int _direction = 0;
+        
         private Point _centerdoc = Point.Empty;
         public Point CenterDoc
         {
@@ -57,12 +57,19 @@ namespace BaseRailElement
             set { _sweepangle = value; }
         }
 
-        [XmlElement("direction")]
-        [Browsable(false)]
-        public int Direction
+        public enum DIRECTION_CURVED
         {
-            get { return _direction; }
-            set { _direction = value; }
+            FIRST, 
+            SECOND, 
+            THIRD, 
+            FOUR,
+            NULL
+        }
+        private DIRECTION_CURVED _direction_curved = DIRECTION_CURVED.NULL;
+        public DIRECTION_CURVED DIRECTION_CURVED_ATTRIBUTE
+        {
+            get { return _direction_curved; }
+            set { _direction_curved = value; }
         }
 
         public CurvedRailEle() { GraphType = 2; }
@@ -70,6 +77,7 @@ namespace BaseRailElement
         public CurvedRailEle CreatEle(Point center, Size size)
         {
             _centerdoc = center;
+            _direction_curved = DIRECTION_CURVED.FIRST;
             return this;
         }
 
@@ -93,12 +101,12 @@ namespace BaseRailElement
 
         public override void DrawTracker(Graphics _canvas)
         {
-            _ObjectCurved.DrawTracker(_canvas, _centerdoc, (int)_radius, _direction);
+            _ObjectCurved.DrawTracker(_canvas, _centerdoc, (int)_radius, _direction_curved);
         }
 
         public override int HitTest(Point point, bool isSelected)
         {
-            return _ObjectCurved.HitTest(point, isSelected, _centerdoc, (int)_radius, _direction);
+            return _ObjectCurved.HitTest(point, isSelected, _centerdoc, (int)_radius, _direction_curved);
         }
 
         protected override void Translate(int offsetX, int offsetY)
@@ -110,7 +118,7 @@ namespace BaseRailElement
 
         protected override void Scale(int handle, int dx, int dy)
         {
-            Rectangle rc = _ObjectCurved.Scale(handle, dx, dy, _centerdoc, (int)_radius, _direction);
+            Rectangle rc = _ObjectCurved.Scale(handle, dx, dy, _centerdoc, (int)_radius, _direction_curved);
             _centerdoc = rc.Location;
             _radius = rc.Width;
         }
@@ -120,22 +128,22 @@ namespace BaseRailElement
             if (0 == _startangle)
             {
                 _startangle = 90;
-                _direction = 1;
+                _direction_curved = DIRECTION_CURVED.SECOND;
             }
             else if (90 == _startangle)
             {
                 _startangle = 180;
-                _direction = 2;
+                _direction_curved = DIRECTION_CURVED.THIRD;
             }
             else if (180 == _startangle)
             {
                 _startangle = 270;
-                _direction = 3;
+                _direction_curved = DIRECTION_CURVED.FOUR;
             }
             else if (270 == _startangle)
             {
                 _startangle = 0;
-                _direction = 0;
+                _direction_curved = DIRECTION_CURVED.FIRST;
             }
         }
 
@@ -143,12 +151,12 @@ namespace BaseRailElement
         {
             CurvedRailEle cl = new CurvedRailEle();
             cl._centerdoc = _centerdoc;
-            cl._direction = _direction;
             cl._radius = _radius;
             cl._firstdoc = _firstdoc;
             cl._seconddot = _seconddot;
             cl._startangle = _startangle;
             cl._sweepangle = _sweepangle;
+            cl._direction_curved = _direction_curved;
             return cl;
         }
     }
