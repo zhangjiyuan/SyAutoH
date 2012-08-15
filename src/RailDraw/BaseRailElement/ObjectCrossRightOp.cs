@@ -458,7 +458,8 @@ namespace BaseRailElement
 
             int dw, dh;
             dw = wrapper[0].X - points[handle - 1].X;
-            dh = wrapper[0].Y - points[handle - 1].Y;            
+            dh = wrapper[0].Y - points[handle - 1].Y; 
+           
             switch (_direction)
             {
                 case CrossRightEle.DIRECTION_CROSS_R.FIRST:
