@@ -9,39 +9,22 @@
 #else
 #define ICECLIENTBASE_API __declspec(dllimport)
 
-#ifdef  WINCE
-	#ifdef _DEBUG
-		#pragma comment(lib,"IceBaseCEd.lib")
-		#pragma comment(lib,"Iceed.lib")
-	#else
-		#pragma comment(lib,"IceBaseCE.lib")
-		#pragma comment(lib,"Icee.lib")
-	#endif
-#else
-	#ifdef _DEBUG
-		#pragma comment(lib,"IceBased.lib")
+
+#ifdef _DEBUG
+		#pragma comment(lib,"IceBase.lib")
 		#pragma comment(lib,"Iced.lib")
 		#pragma comment(lib,"Iceutild.lib")
-	#else
+#else
 		#pragma comment(lib,"IceBase.lib")
 		#pragma comment(lib,"Ice.lib")
 		#pragma comment(lib,"Iceutil.lib")
 	#endif
 #endif
 
-#endif
-
-
 #pragma once
 
 #include <string>
-#ifdef WINCE
-	#include "IceE/IceE.h"
-    #include "IceE/Unicode.h"
-#else
-	#include "ice/Ice.h"
-#endif
-
+#include "ice/Ice.h"
 
 using namespace std;
 
@@ -106,5 +89,3 @@ public:
 	std::string Proxy() const { return m_strProxy; }
 	void Proxy(std::string val) { m_strProxy = val; }
 };
-
-

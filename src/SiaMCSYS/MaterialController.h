@@ -1,4 +1,6 @@
 #pragma once
+
+class CMesLink;
 class MaterialController
 {
 public:
@@ -6,5 +8,7 @@ public:
 	~MaterialController(void);
 	int Init(void);
 	void Run(void);
+private:
+	CMesLink* m_pMesLink;
 };
 
