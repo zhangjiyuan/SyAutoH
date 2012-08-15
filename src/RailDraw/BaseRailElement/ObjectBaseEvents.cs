@@ -18,7 +18,6 @@ namespace BaseRailElement
 
         private int _hit = -1;
         
-
         public override void OnLButtonDown(Point point)
         {
             base.OnLButtonDown(point);
