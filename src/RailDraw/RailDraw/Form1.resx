@@ -220,7 +220,7 @@
         YII=
 </value>
   </data>
-  <data name="toolStripButton9.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="enlarge.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGfSURBVDhPrZOha8NAFMb3r+w/WP6E1U2usq6EiTE1wkQJ
@@ -233,7 +233,7 @@
         VOSgee7UZ3HsxVnIxSkaZ9TN5kr/AKu260LUB6jDAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="toolStripButton10.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="shorten.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGVSURBVDhPrZOxSgNBEIZ9Fd/AewTTWZoyXTgsxEqCRThs
@@ -260,7 +260,7 @@
   <data name="pictureBox4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADr4AAA6+AepCscAAAACTSURBVFhH7ZVRCsAgDEO9/013h4GbH4JzxrYQih8Z7GNY
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAACTSURBVFhH7ZVRCsAgDEO9/013h4GbH4JzxrYQih8Z7GNY
         k/gsXSl6REAEvgTq+5nxQu4Z5s1DAait36+NKhoRUwARoBLYDSLUmGkBkBE1gHXKkVCvTQkwm/2u6r7q
         dsZHBotVi/rE2kdfXwWhm3gEjwhyRAjUqB6K9JqZCN3AI7iaGZ591JqjQlBPFhEThUYL/rAeIyjFImbe
         vYMAAAAASUVORK5CYII=

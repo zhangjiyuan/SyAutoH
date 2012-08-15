@@ -16,8 +16,7 @@ namespace RailDraw
     public partial class Form1 : Form
     {
         BaseRailElement.DrawDoc doc1 = new BaseRailElement.DrawDoc();
-        BaseRailElement.ObjectBaseEvents _ObjectEvent = new BaseRailElement.ObjectBaseEvents();
-        
+        BaseRailElement.ObjectBaseEvents _ObjectEvent = new BaseRailElement.ObjectBaseEvents();      
         private bool pic1 = false;
         private bool pic2 = false;
         private bool pic3 = false;
@@ -167,25 +166,14 @@ namespace RailDraw
                 pic4 = false;
             }
         }
-
-        public Point PicPtTrans(object sender, MouseEventArgs e)
-        {
-            PictureBox pic = sender as PictureBox;
-            Point pt_original = pic.Location;
-            Point pt_new = e.Location;
-            Point pt_parent = pic.Parent.Location;
-            Point pt_dr = DrawRegion.Location;
-            Point pt_transform = new Point(pt_new.X + pt_original.X + pt_parent.X - pt_dr.X, pt_new.Y + pt_original.Y + pt_parent.Y - pt_dr.Y);
-            return pt_transform;
-        }
-
+        
         private void DrawRegion_MouseDown(object sender, MouseEventArgs e)
         {
-            Point pt = e.Location;
+            Point pt = ClientToDrawregion(e.Location);
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    _ObjectEvent.OnLButtonDown(pt);
+                    _ObjectEvent.OnLButtonDown(pt);                    
                     _IsMouseDown = true;
                     break;
             }
@@ -194,9 +182,10 @@ namespace RailDraw
 
         private void DrawRegion_MouseMove(object sender, MouseEventArgs e)
         {
+            Point pt = ClientToDrawregion(e.Location);
             if (_IsMouseDown)
             {
-                _ObjectEvent.OnMouseMove(e.Location);
+                _ObjectEvent.OnMouseMove(pt);
                 this.DrawRegion.Invalidate();
             }
         }
@@ -207,17 +196,11 @@ namespace RailDraw
                 _IsMouseDown = false;
         }
 
-        private void DrawRegion_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics g = e.Graphics;
-            doc1.Draw(g);
-            base.OnPaint(e);
-        }
-
         private void DrawRegion_DoubleClick(object sender, EventArgs e)
         {
             MouseEventArgs _DoubleClick = (MouseEventArgs)e;
-            _ObjectEvent.OnMouseDoubleClick(_DoubleClick.Location , this.DrawRegion.Size);
+            Point pt = ClientToDrawregion(_DoubleClick.Location);
+            _ObjectEvent.OnMouseDoubleClick(pt, this.DrawRegion.Size);
             DrawRegion.Invalidate();
         }
 
@@ -334,6 +317,109 @@ namespace RailDraw
                     MessageBox.Show("open error");
                 }
             }
+            DrawRegion.Invalidate();
+        }
+
+        private void enlarge_Click(object sender, EventArgs e)
+        {
+            if (DrawRegion.Width < panel2.Width * 2 )
+            {
+                DrawRegion.Width += 100;
+                DrawRegion.Height += 100;
+                ResizeCanvase();
+            }
+        }
+
+        private void shorten_Click(object sender, EventArgs e)
+        {
+            if (DrawRegion.Width > panel2.Width)
+            {
+                DrawRegion.Width -= 100;
+                DrawRegion.Height -= 100;
+                ResizeCanvase();
+            }
+        }
+
+        public void ResizeCanvase()
+        {
+            int display_width = panel2.Width;
+            int display_height = panel2.Height;
+            int real_width = DrawRegion.Width;
+            int real_height = DrawRegion.Height;
+            int dw, dh, max_dw, max_dh;
+
+            if (real_width > display_width)
+            {
+                dw = display_width - vScrollBar1.Width;
+                dh = display_height - hScrollBar1.Height;
+                max_dw = real_width - dw;
+                max_dh = real_height - dh;
+
+                hScrollBar1.Visible = true;
+                hScrollBar1.Width = dw;
+                hScrollBar1.Top = dh;
+                hScrollBar1.Left = 0;
+                hScrollBar1.Maximum = max_dw;
+                hScrollBar1.LargeChange = max_dw / 5;
+                hScrollBar1.SmallChange = max_dw / 20;
+
+                vScrollBar1.Visible = true;
+                vScrollBar1.Height = dh;
+                vScrollBar1.Top = 0;
+                vScrollBar1.Left = dw;
+                vScrollBar1.Maximum = max_dh;
+                vScrollBar1.LargeChange = max_dh / 5;
+                vScrollBar1.SmallChange = max_dh / 20;
+            }
+            else
+            {
+                hScrollBar1.Visible = false;
+                vScrollBar1.Visible = false;
+
+                DrawRegion.Width = display_width;
+                DrawRegion.Height = display_height;
+            }
+            DrawRegion.Invalidate();
+        }
+
+        public Point PicPtTrans(object sender, MouseEventArgs e)
+        {
+            PictureBox pic = sender as PictureBox;
+            Point pt_original = pic.Location;
+            Point pt_new = e.Location;
+            Point pt_parent = pic.Parent.Location;
+            Point pt_dr = DrawRegion.Parent.Location;
+            Point pt_transform = new Point(pt_new.X + pt_original.X + pt_parent.X - pt_dr.X, pt_new.Y + pt_original.Y + pt_parent.Y - pt_dr.Y);
+            pt_transform = ClientToDrawregion(pt_transform);
+            return pt_transform;
+        }
+
+        public Point ClientToDrawregion(Point original_pt)
+        {
+            Point convert_pt = Point.Empty;
+            convert_pt.X = original_pt.X + hScrollBar1.Value;
+            convert_pt.Y = original_pt.Y + vScrollBar1.Value;
+            return convert_pt;
+        }
+
+        private void DrawRegion_Paint(object sender, PaintEventArgs e)
+        {
+            int dx = hScrollBar1.Value;
+            int dy = vScrollBar1.Value;
+            Graphics g = e.Graphics;
+            g.TranslateTransform(-dx, -dy);
+            doc1.Draw(e.Graphics);
+            g.ResetTransform();
+            base.OnPaint(e);
+        }
+
+        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            DrawRegion.Invalidate();
+        }
+
+        private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
             DrawRegion.Invalidate();
         }
     }

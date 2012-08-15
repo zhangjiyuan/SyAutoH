@@ -44,8 +44,8 @@ namespace RailDraw
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
+            this.enlarge = new System.Windows.Forms.ToolStripButton();
+            this.shorten = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -58,6 +58,9 @@ namespace RailDraw
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.DrawRegion = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
+            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -65,6 +68,7 @@ namespace RailDraw
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DrawRegion)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -81,8 +85,8 @@ namespace RailDraw
             this.toolStripButton7,
             this.toolStripButton8,
             this.toolStripSeparator3,
-            this.toolStripButton9,
-            this.toolStripButton10,
+            this.enlarge,
+            this.shorten,
             this.toolStripSeparator4,
             this.toolStripButton11});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -186,23 +190,25 @@ namespace RailDraw
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripButton9
+            // enlarge
             // 
-            this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton9.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton9.Image")));
-            this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton9.Name = "toolStripButton9";
-            this.toolStripButton9.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton9.Text = "enlarge";
+            this.enlarge.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.enlarge.Image = ((System.Drawing.Image)(resources.GetObject("enlarge.Image")));
+            this.enlarge.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.enlarge.Name = "enlarge";
+            this.enlarge.Size = new System.Drawing.Size(23, 22);
+            this.enlarge.Text = "enlarge";
+            this.enlarge.Click += new System.EventHandler(this.enlarge_Click);
             // 
-            // toolStripButton10
+            // shorten
             // 
-            this.toolStripButton10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton10.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton10.Image")));
-            this.toolStripButton10.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton10.Name = "toolStripButton10";
-            this.toolStripButton10.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton10.Text = "shrink";
+            this.shorten.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.shorten.Image = ((System.Drawing.Image)(resources.GetObject("shorten.Image")));
+            this.shorten.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.shorten.Name = "shorten";
+            this.shorten.Size = new System.Drawing.Size(23, 22);
+            this.shorten.Text = "shorten";
+            this.shorten.Click += new System.EventHandler(this.shorten_Click);
             // 
             // toolStripSeparator4
             // 
@@ -317,9 +323,9 @@ namespace RailDraw
             // DrawRegion
             // 
             this.DrawRegion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.DrawRegion.Location = new System.Drawing.Point(65, 28);
+            this.DrawRegion.Location = new System.Drawing.Point(0, 0);
             this.DrawRegion.Name = "DrawRegion";
-            this.DrawRegion.Size = new System.Drawing.Size(590, 385);
+            this.DrawRegion.Size = new System.Drawing.Size(591, 385);
             this.DrawRegion.TabIndex = 2;
             this.DrawRegion.TabStop = false;
             this.DrawRegion.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawRegion_Paint);
@@ -329,12 +335,40 @@ namespace RailDraw
             this.DrawRegion.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DrawRegion_MouseMove);
             this.DrawRegion.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DrawRegion_MouseUp);
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.hScrollBar1);
+            this.panel2.Controls.Add(this.vScrollBar1);
+            this.panel2.Controls.Add(this.DrawRegion);
+            this.panel2.Location = new System.Drawing.Point(65, 28);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(591, 385);
+            this.panel2.TabIndex = 3;
+            // 
+            // hScrollBar1
+            // 
+            this.hScrollBar1.Location = new System.Drawing.Point(250, 364);
+            this.hScrollBar1.Name = "hScrollBar1";
+            this.hScrollBar1.Size = new System.Drawing.Size(215, 17);
+            this.hScrollBar1.TabIndex = 4;
+            this.hScrollBar1.Visible = false;
+            this.hScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBar1_Scroll);
+            // 
+            // vScrollBar1
+            // 
+            this.vScrollBar1.Location = new System.Drawing.Point(571, 31);
+            this.vScrollBar1.Name = "vScrollBar1";
+            this.vScrollBar1.Size = new System.Drawing.Size(17, 159);
+            this.vScrollBar1.TabIndex = 3;
+            this.vScrollBar1.Visible = false;
+            this.vScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar1_Scroll);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(808, 425);
-            this.Controls.Add(this.DrawRegion);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.propertyGrid1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.toolStrip1);
@@ -349,6 +383,7 @@ namespace RailDraw
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DrawRegion)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -368,8 +403,8 @@ namespace RailDraw
         private System.Windows.Forms.ToolStripButton toolStripButton7;
         private System.Windows.Forms.ToolStripButton toolStripButton8;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton toolStripButton9;
-        private System.Windows.Forms.ToolStripButton toolStripButton10;
+        private System.Windows.Forms.ToolStripButton enlarge;
+        private System.Windows.Forms.ToolStripButton shorten;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton toolStripButton11;
         private System.Windows.Forms.Panel panel1;
@@ -383,6 +418,9 @@ namespace RailDraw
         private Rectangle dragBoxFromMouseDown;
         private PictureBox DrawRegion;
         private PictureBox pictureBox4;
+        private Panel panel2;
+        private HScrollBar hScrollBar1;
+        private VScrollBar vScrollBar1;
     }
 }
 
