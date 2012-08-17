@@ -10,6 +10,11 @@ MaterialController::MaterialController(void)
 
 MaterialController::~MaterialController(void)
 {
+	if (NULL != m_pMesLink)
+	{
+		delete m_pMesLink;
+		m_pMesLink = NULL;
+	}
 }
 
 

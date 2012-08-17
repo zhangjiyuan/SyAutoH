@@ -10,6 +10,7 @@ MesLinkServer::MesLinkServer(void)
 
 MesLinkServer::~MesLinkServer(void)
 {
+	
 }
 
 void MesLinkServer::GetProxy()

@@ -10,7 +10,7 @@ using namespace std;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	cout<< "Material Control System" << endl;
+	cout<< "Material Control System V1.0.0.1" << endl;
 	MaterialController MC;
 	if (0 != MC.Init())
 	{
