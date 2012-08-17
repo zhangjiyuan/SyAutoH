@@ -22,8 +22,8 @@ namespace BaseRailElement
             set { _centerdoc = value; }
         }
 
-        private float _radius = 50;
-        public float Radius
+        private int _radius = 50;
+        public int Radius
         {
             get { return _radius; }
             set { _radius = value; }
@@ -76,8 +76,16 @@ namespace BaseRailElement
 
         public CurvedRailEle CreatEle(Point center, Size size)
         {
-            _centerdoc = center;
-            _direction_curved = DIRECTION_CURVED.FIRST;
+           CenterDoc = center;
+            DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FIRST;
+            Point pt_first = new Point();
+            Point pt_sec = new Point();
+            pt_first.X = center.X + Radius;
+            pt_first.Y = center.Y;
+            pt_sec.X = center.X;
+            pt_sec.Y = center.Y + Radius;
+            FirstDoc = pt_first;
+            SecondDot = pt_sec;
             return this;
         }
 
@@ -88,11 +96,11 @@ namespace BaseRailElement
             if (_centerdoc.IsEmpty)
                 throw new Exception("对象不存在");
             Rectangle rc = new Rectangle();
-            rc.Location = new Point(_centerdoc.X - (int)_radius, _centerdoc.Y - (int)_radius);
-            rc.Width = (int)_radius * 2;
-            rc.Height = (int)_radius * 2;
+            rc.Location = new Point(CenterDoc .X - Radius, CenterDoc.Y - Radius);
+            rc.Width = Radius * 2;
+            rc.Height = Radius * 2;
             GraphicsPath gp = new GraphicsPath();
-            gp.AddArc(rc, _startangle, _sweepangle);
+            gp.AddArc(rc, StartAngle, SweepAngle);
             Pen pen = new Pen(Color.Black, 1);
             _canvas.DrawPath(pen, gp);
             pen.Dispose();
@@ -101,63 +109,127 @@ namespace BaseRailElement
 
         public override void DrawTracker(Graphics _canvas)
         {
-            _ObjectCurved.DrawTracker(_canvas, _centerdoc, (int)_radius, _direction_curved);
+            _ObjectCurved.DrawTracker(_canvas, CenterDoc, Radius, DIRECTION_CURVED_ATTRIBUTE);
         }
 
         public override int HitTest(Point point, bool isSelected)
         {
-            return _ObjectCurved.HitTest(point, isSelected, _centerdoc, (int)_radius, _direction_curved);
+            return _ObjectCurved.HitTest(point, isSelected, CenterDoc, Radius, DIRECTION_CURVED_ATTRIBUTE);
         }
 
         protected override void Translate(int offsetX, int offsetY)
         {
-            Point pt = _centerdoc;
+            Point pt = CenterDoc;
             pt.Offset(offsetX, offsetY);
-            _centerdoc = pt;
+            CenterDoc = pt;
+            pt = FirstDoc;
+            pt.Offset(offsetX, offsetY);
+            FirstDoc = pt;
+            pt = SecondDot;
+            pt.Offset(offsetX, offsetY);
+            SecondDot = pt;
         }
 
         protected override void Scale(int handle, int dx, int dy)
         {
-            Rectangle rc = _ObjectCurved.Scale(handle, dx, dy, _centerdoc, (int)_radius, _direction_curved);
-            _centerdoc = rc.Location;
-            _radius = rc.Width;
+            Point pt_first = new Point(FirstDoc.X, FirstDoc.Y);
+            Point pt_sec = new Point(SecondDot.X, SecondDot.Y);
+            Rectangle rc = _ObjectCurved.Scale(handle, dx, dy, CenterDoc, Radius, DIRECTION_CURVED_ATTRIBUTE);
+            CenterDoc = rc.Location;
+            Radius = rc.Width;
+            switch (DIRECTION_CURVED_ATTRIBUTE)
+            {
+                case DIRECTION_CURVED.FIRST:
+                    pt_first.X = CenterDoc.X + Radius;
+                    pt_first.Y = CenterDoc.Y;
+                    pt_sec.X = CenterDoc.X;
+                    pt_sec.Y = CenterDoc.Y + Radius;
+                    break;
+                case DIRECTION_CURVED.SECOND:
+                    pt_first.X = CenterDoc.X;
+                    pt_first.Y = CenterDoc.Y + Radius;
+                    pt_sec.X = CenterDoc.X - Radius;
+                    pt_sec.Y = CenterDoc.Y;
+                    break;
+                case DIRECTION_CURVED.THIRD:
+                    pt_first.X = CenterDoc.X - Radius;
+                    pt_first.Y = CenterDoc.Y;
+                    pt_sec.X = CenterDoc.X;
+                    pt_sec.Y = CenterDoc.Y - Radius;
+                    break;
+                case DIRECTION_CURVED.FOUR:
+                    pt_first.X = CenterDoc.X;
+                    pt_first.Y = CenterDoc.Y - Radius;
+                    pt_sec.X = CenterDoc.X + Radius;
+                    pt_sec.Y = CenterDoc.Y;
+                    break;
+                case DIRECTION_CURVED.NULL:
+                    break;
+            }
+            FirstDoc = pt_first;
+            SecondDot = pt_sec;
         }
 
         protected override void Rotate(Point pt, Size sz)
         {
-            if (0 == _startangle)
+            Point pt_first = new Point(FirstDoc.X, FirstDoc.Y);
+            Point pt_sec = new Point(SecondDot.X, SecondDot.Y);
+            switch (StartAngle)
             {
-                _startangle = 90;
-                _direction_curved = DIRECTION_CURVED.SECOND;
+                case 0:
+                    StartAngle = 90;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.SECOND;
+                    pt_first.X = CenterDoc.X;
+                    pt_first.Y = CenterDoc.Y + Radius;
+                    pt_sec.X = CenterDoc.X - Radius;
+                    pt_sec.Y = CenterDoc.Y;
+                    break;
+                case 90:
+                    StartAngle = 180;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.THIRD;
+                    pt_first.X = CenterDoc.X - Radius;
+                    pt_first.Y = CenterDoc.Y;
+                    pt_sec.X = CenterDoc.X;
+                    pt_sec.Y = CenterDoc.Y - Radius;
+                    break;
+                case 180:
+                    StartAngle = 270;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FOUR;
+                    pt_first.X = CenterDoc.X;
+                    pt_first.Y = CenterDoc.Y - Radius;
+                    pt_sec.X = CenterDoc.X + Radius;
+                    pt_sec.Y = CenterDoc.Y;
+                    break;
+                case 270:
+                    StartAngle = 0;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FIRST;
+                    pt_first.X = CenterDoc.X + Radius;
+                    pt_first.Y = CenterDoc.Y;
+                    pt_sec.X = CenterDoc.X;
+                    pt_sec.Y = CenterDoc.Y + Radius;
+                    break;
             }
-            else if (90 == _startangle)
-            {
-                _startangle = 180;
-                _direction_curved = DIRECTION_CURVED.THIRD;
-            }
-            else if (180 == _startangle)
-            {
-                _startangle = 270;
-                _direction_curved = DIRECTION_CURVED.FOUR;
-            }
-            else if (270 == _startangle)
-            {
-                _startangle = 0;
-                _direction_curved = DIRECTION_CURVED.FIRST;
-            }
+            FirstDoc = pt_first;
+            SecondDot = pt_sec;
         }
 
         public object Clone()
         {
             CurvedRailEle cl = new CurvedRailEle();
-            cl._centerdoc = _centerdoc;
-            cl._radius = _radius;
-            cl._firstdoc = _firstdoc;
-            cl._seconddot = _seconddot;
-            cl._startangle = _startangle;
-            cl._sweepangle = _sweepangle;
-            cl._direction_curved = _direction_curved;
+            cl.CenterDoc = CenterDoc;
+            cl.Radius = Radius;
+            cl.FirstDoc = FirstDoc;
+            cl.SecondDot = SecondDot;
+            cl.StartAngle = StartAngle;
+            cl.SweepAngle = SweepAngle;
+            cl.DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED_ATTRIBUTE;
             return cl;
+        }
+
+        public override void ChangePropertyValue()
+        {
+            base.ChangePropertyValue();
+            CenterDoc = _ObjectCurved.ChangePropertyValue(CenterDoc, FirstDoc, SecondDot, Radius);
         }
     }
 }

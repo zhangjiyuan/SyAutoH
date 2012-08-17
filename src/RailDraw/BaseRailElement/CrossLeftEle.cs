@@ -22,8 +22,8 @@ namespace BaseRailElement
             set { _centerdoc = value; }
         }
 
-        private float _radius = 30;
-        public float Radius
+        private int _radius = 30;
+        public int Radius
         {
             get { return _radius; }
             set { _radius = value; }
@@ -58,15 +58,15 @@ namespace BaseRailElement
             set { _seconddot = value; }
         }
 
-        private float _interval = 20;               //interval between straight and curved
-        public float Interval
+        private int _interval = 20;               //interval between straight and curved
+        public int Interval
         {
             get { return _interval; }
             set { _interval = value; }
         }
 
-        private float _lenghtofstr = 30;
-        public float LenghtOfStr
+        private int _lenghtofstr = 30;
+        public int LenghtOfStr
         {
             get { return _lenghtofstr; }
             set { _lenghtofstr = value; }
@@ -97,11 +97,11 @@ namespace BaseRailElement
 
         public CrossLeftEle CreatEle(Point center, Size size)
         {
-            _centerdoc = center;
-            _direction_cross_l = DIRECTION_CROSS_L.FIRST;
+            CenterDoc = center;
+            DIRECTION_CROSS_L_ATTRIBUTE = DIRECTION_CROSS_L.FIRST;
             Point[] points = new Point[2];
-            points[0] = new Point(center.X, center.Y + (int)_radius + (int)_interval);
-            points[1] = new Point(points[0].X + (int)_lenghtofstr, points[0].Y);
+            points[0] = new Point(center.X, center.Y + Radius + Interval);
+            points[1] = new Point(points[0].X + LenghtOfStr, points[0].Y);
             PointList.AddRange(points);
             return this;
         }
@@ -115,11 +115,11 @@ namespace BaseRailElement
             Point[] points = new Point[2];
             PointList.CopyTo(points);
             Rectangle rc = new Rectangle();
-            rc.Location = new Point(_centerdoc.X - (int)_radius, _centerdoc.Y - (int)_radius);
-            rc.Width = (int)_radius * 2;
-            rc.Height = (int)_radius * 2;
+            rc.Location = new Point(CenterDoc.X - Radius, CenterDoc.Y - Radius);
+            rc.Width = Radius * 2;
+            rc.Height = Radius * 2;
             GraphicsPath gp = new GraphicsPath();
-            gp.AddArc(rc, _startangle, _sweepangle);
+            gp.AddArc(rc, StartAngle, SweepAngle);
             Pen pen = new Pen(Color.Black, 1);
             _canvas.DrawPath(pen, gp);
             _canvas.DrawLines(pen, points);
@@ -129,85 +129,85 @@ namespace BaseRailElement
 
         public override void DrawTracker(Graphics _canvas)
         {
-            _ObjectCrL.DrawTracker(_canvas, _centerdoc, (int)_radius, _direction_cross_l);
+            _ObjectCrL.DrawTracker(_canvas, CenterDoc, Radius, DIRECTION_CROSS_L_ATTRIBUTE);
         }
 
         public override int HitTest(Point point, bool isSelected)
         {
-            return _ObjectCrL.HitTest(point, isSelected, _centerdoc, (int)_radius, _direction_cross_l, (int)_lenghtofstr, (int)_interval);
+            return _ObjectCrL.HitTest(point, isSelected, CenterDoc, Radius, DIRECTION_CROSS_L_ATTRIBUTE, LenghtOfStr, Interval);
         }
 
         protected override void Translate(int offsetX, int offsetY)
         {
-            Point pt = _centerdoc;
+            Point pt = CenterDoc;
             pt.Offset(offsetX, offsetY);
-            _centerdoc = pt;
+            CenterDoc = pt;
             _ObjectCrL.Translate(offsetX, offsetY);
         }
 
         protected override void Scale(int handle, int dx, int dy)
         {
-            Rectangle rc = _ObjectCrL.Scale(handle, dx, dy, _centerdoc, (int)_radius, _direction_cross_l, (int)_lenghtofstr, (int)_interval);
-            switch (_direction_cross_l)
+            Rectangle rc = _ObjectCrL.Scale(handle, dx, dy, CenterDoc, Radius, DIRECTION_CROSS_L_ATTRIBUTE, LenghtOfStr, Interval);
+            switch (DIRECTION_CROSS_L_ATTRIBUTE)
             {
                 case DIRECTION_CROSS_L.FIRST:
-                    _centerdoc = rc.Location;
-                    _lenghtofstr = Math.Abs(PointList[1].X - PointList[0].X);
+                    CenterDoc = rc.Location;
+                    LenghtOfStr = Math.Abs(PointList[1].X - PointList[0].X);
                     break;
                 case DIRECTION_CROSS_L.SECOND:
-                    _centerdoc = new Point(rc.Right, rc.Top);
-                    _lenghtofstr = Math.Abs(PointList[1].Y - PointList[0].Y);
+                    CenterDoc = new Point(rc.Right, rc.Top);
+                    LenghtOfStr = Math.Abs(PointList[1].Y - PointList[0].Y);
                     break;
                 case DIRECTION_CROSS_L.THIRD:
-                    _centerdoc = new Point(rc.Right, rc.Bottom);
-                    _lenghtofstr = Math.Abs(PointList[1].X - PointList[0].X);
+                    CenterDoc = new Point(rc.Right, rc.Bottom);
+                    LenghtOfStr = Math.Abs(PointList[1].X - PointList[0].X);
                     break;
                 case DIRECTION_CROSS_L.FOUR:
-                    _centerdoc = new Point(rc.Left, rc.Bottom);
-                    _lenghtofstr = Math.Abs(PointList[1].Y - PointList[0].Y);
+                    CenterDoc = new Point(rc.Left, rc.Bottom);
+                    LenghtOfStr = Math.Abs(PointList[1].Y - PointList[0].Y);
                     break;
             }
-            _radius = rc.Width;
+            Radius = rc.Width;
         }
 
         protected override void Rotate(Point pt, Size sz)
         {
-            if (0 == _startangle)
+            if (0 == StartAngle)
             {
-                _startangle = 90;
-                _direction_cross_l = DIRECTION_CROSS_L.SECOND;
+                StartAngle = 90;
+                DIRECTION_CROSS_L_ATTRIBUTE = DIRECTION_CROSS_L.SECOND;
             }
-            else if (90 == _startangle)
+            else if (90 == StartAngle)
             {
-                _startangle = 180;
-                _direction_cross_l = DIRECTION_CROSS_L.THIRD;
+                StartAngle = 180;
+                DIRECTION_CROSS_L_ATTRIBUTE = DIRECTION_CROSS_L.THIRD;
             }
             else if (180 == _startangle)
             {
-                _startangle = 270;
-                _direction_cross_l = DIRECTION_CROSS_L.FOUR;
+                StartAngle = 270;
+                DIRECTION_CROSS_L_ATTRIBUTE = DIRECTION_CROSS_L.FOUR;
             }
             else if (270 == _startangle)
             {
-                _startangle = 0;
-                _direction_cross_l = DIRECTION_CROSS_L.FIRST;
+                StartAngle = 0;
+                DIRECTION_CROSS_L_ATTRIBUTE = DIRECTION_CROSS_L.FIRST;
             }
-            _ObjectCrL.ChangeDirection(_centerdoc, sz);
+            _ObjectCrL.ChangeDirection(CenterDoc, sz);
         }
 
         public object Clone()
         {
             CrossLeftEle cl = new CrossLeftEle();
-            cl._centerdoc = _centerdoc;
-            cl._radius = _radius;
-            cl._firstdoc = _firstdoc;
-            cl._seconddot = _seconddot;
-            cl._startangle = _startangle;
-            cl._sweepangle = _sweepangle;
-            cl._interval = _interval;
-            cl._lenghtofstr = _lenghtofstr;
+            cl.CenterDoc = CenterDoc;
+            cl.Radius = Radius;
+            cl.FirstDoc = FirstDoc;
+            cl.SecondDot = SecondDot;
+            cl.StartAngle = StartAngle;
+            cl.SweepAngle = SweepAngle;
+            cl.Interval = Interval;
+            cl.LenghtOfStr = LenghtOfStr;
             cl.PointList.AddRange(PointList);
-            cl._direction_cross_l = _direction_cross_l;
+            cl.DIRECTION_CROSS_L_ATTRIBUTE = DIRECTION_CROSS_L_ATTRIBUTE;
             return cl;
         }
     }

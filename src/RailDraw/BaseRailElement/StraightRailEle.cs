@@ -38,13 +38,13 @@ namespace BaseRailElement
             Point pt2 = new Point(0, 0);
             if ((pt.X + _lenght) > size.Width)
             {
-                pt1 = new Point(pt.X - (int)_lenght, pt.Y);
+                pt1 = new Point(pt.X - Lenght, pt.Y);
                 pt2 = new Point(pt.X, pt.Y);
             }
             else
             {
                 pt1 = new Point(pt.X, pt.Y);
-                pt2 = new Point(pt.X + (int)_lenght, pt.Y);
+                pt2 = new Point(pt.X + Lenght, pt.Y);
             }
             PointList.Add(pt1);
             PointList.Add(pt2);
@@ -63,15 +63,15 @@ namespace BaseRailElement
             PointList.CopyTo(points);
             if (points[0].Y == points[1].Y)
             {
-                if (_lenght != Math.Abs(points[0].X - points[1].X))
+                if (Lenght != Math.Abs(points[0].X - points[1].X))
                 {
                     if (points[0].X < points[1].X)
                     {
-                        points[1].X = points[0].X + _lenght;
+                        points[1].X = points[0].X + Lenght;
                     }
                     else
                     {
-                        points[1].X = points[0].X - _lenght;
+                        points[1].X = points[0].X - Lenght;
                     }
                 }
             }
@@ -79,12 +79,11 @@ namespace BaseRailElement
             {
                 if (_lenght != Math.Abs(points[0].Y - points[1].Y))
                 {
-                    points[1].Y = points[0].Y + _lenght;
+                    points[1].Y = points[0].Y + Lenght;
                 }
             }
             PointList.Clear();
             PointList.AddRange(points);
-
             _canvas.DrawLines(pen, points);
         }
 
@@ -105,7 +104,7 @@ namespace BaseRailElement
 
         protected override void Scale(int handle, int dx, int dy)
         {
-            _lenght = _ObjectStaightOp.Scale(handle, dx, dy, _lenght);
+            Lenght = _ObjectStaightOp.Scale(handle, dx, dy, Lenght);
         }
 
         protected override void Rotate(Point pt, Size sz)
@@ -118,7 +117,7 @@ namespace BaseRailElement
             StraightRailEle cl = new StraightRailEle();
             cl.pen = pen;
             cl.PointList.AddRange(PointList);
-            cl._lenght = _lenght;
+            cl._lenght = Lenght;
             return cl;
         }
     }

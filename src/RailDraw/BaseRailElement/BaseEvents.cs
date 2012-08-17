@@ -46,5 +46,9 @@ namespace BaseRailElement
             _downPoint = point;
             _lastPoint = point;
         }
+
+        public virtual void ChangePropertyValue()
+        { 
+        }
     }
 }

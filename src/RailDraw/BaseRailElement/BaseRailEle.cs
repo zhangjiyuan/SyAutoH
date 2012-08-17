@@ -30,41 +30,22 @@ namespace BaseRailElement
             }
         }
 
-        //name
-//        protected string _id = "";
-//        [Description("名称"), Category("名称")]
-//        public string Id
-//        {
-//            get { return _id; }
-//            set { _id = value; }
-//        }
-
         //lock
-        protected bool _lock = false;
-        [Description("锁定"), Category("锁定")]
-        public bool Lock
+        protected bool location_lock = false;
+        [Description("位置锁定"), Category("锁定")]
+        public bool Location_Lock
         {
-            get { return _lock; }
-            set { _lock = value; }
+            get { return location_lock; }
+            set { location_lock = value; }
         }
 
-        //visible
-//        protected bool _visible = true;
-//        [Description("可见"), Category("可见")]
-//        public bool Visible
-//        {
-//            get { return _visible; }
-//            set { _visible = value; }
-//        }
-
-//        protected Point _rotatePoint = Point.Empty;
-        //[Description("旋转围绕的点"), Category("旋转角度")]
-//        [Browsable(false)]
-//        public virtual Point RotatePoint
-//        {
-//            get { return _rotatePoint; }
-//            set { _rotatePoint = value; }
-//        }
+        protected bool size_lock = false;
+        [Description("尺寸锁定"), Category("锁定")]
+        public bool Size_Lock
+        {
+            get { return size_lock; }
+            set { size_lock = value; }
+        }
 
         private bool _selectable = true;
         [Browsable(false)]
@@ -88,17 +69,9 @@ namespace BaseRailElement
             set { _angle = value; }
         }
 
-//        [Browsable(false)]
-//        private bool _iscreat = false;
-//        public bool IsCreat
-//        {
-//            get { return _iscreat; }
-//            set { _iscreat = value; }
-//        }
-
         public void Move(Point start, Point end)
         {
-            if (_lock)
+            if (location_lock)
                 return;
             int x = end.X - start.X;
             int y = end.Y - start.Y;
@@ -108,7 +81,7 @@ namespace BaseRailElement
 
         public void MoveHandle(int handle, Point start, Point end)
         {
-            if (_lock)
+            if (size_lock)
                 return;
             int dx = end.X - start.X;
             int dy = end.Y - start.Y;
@@ -120,11 +93,6 @@ namespace BaseRailElement
         {
             Rotate(pt, sz);
         }
- 
-//        public void RotateAt(float angle, Point point)
-//        {
-//            _rotatePoint = point;
-//        }
 
         internal void OnClick()
         {
@@ -141,6 +109,7 @@ namespace BaseRailElement
         protected virtual void Scale(int handle, int dx, int dy) { }
         protected virtual void Rotate(Point pt, Size sz) { }
         public virtual Region GetRedrawRegion() { return null; }
+        public virtual void ChangePropertyValue() { }
    
 
         public event EventHandler Click = null;

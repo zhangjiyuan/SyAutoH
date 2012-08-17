@@ -72,6 +72,7 @@ namespace RailDraw
                     doc1.DrawObjectList.Add(_straightrailele.CreatEle(pt, DrawRegion.Size));
                     doc1.Select(_straightrailele);
                     DrawRegion.Invalidate();
+                    propertyGrid1.Invalidate();
                 }
                 pic1 = false;
             }
@@ -102,6 +103,8 @@ namespace RailDraw
                     doc1.DrawObjectList.Add(_curverailele.CreatEle(pt, DrawRegion.Size));
                     doc1.Select(_curverailele);
                     DrawRegion.Invalidate();
+                    propertyGrid1.SelectedObject = _curverailele;
+                    propertyGrid1.Invalidate();
                 }
                 pic2 = false;
             }
@@ -132,6 +135,7 @@ namespace RailDraw
                     doc1.DrawObjectList.Add(_crossleft.CreatEle(pt, DrawRegion.Size));
                     doc1.Select(_crossleft);
                     DrawRegion.Invalidate();
+                    propertyGrid1.Invalidate();
                 }
                 pic3 = false;
             }
@@ -162,6 +166,7 @@ namespace RailDraw
                     doc1.DrawObjectList.Add(_crossright.CreatEle(pt, DrawRegion.Size));
                     doc1.Select(_crossright);
                     DrawRegion.Invalidate();
+                    propertyGrid1.Invalidate();
                 }
                 pic4 = false;
             }
@@ -202,6 +207,7 @@ namespace RailDraw
             Point pt = ClientToDrawregion(_DoubleClick.Location);
             _ObjectEvent.OnMouseDoubleClick(pt, this.DrawRegion.Size);
             DrawRegion.Invalidate();
+            propertyGrid1.Refresh();
         }
 
         private void DrawRegion_MouseClick(object sender, MouseEventArgs e)
@@ -421,6 +427,13 @@ namespace RailDraw
         private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
         {
             DrawRegion.Invalidate();
+        }
+
+        private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            _ObjectEvent.ChangePropertyValue();
+            DrawRegion.Invalidate();
+//            MessageBox.Show("11");
         }
     }
 }

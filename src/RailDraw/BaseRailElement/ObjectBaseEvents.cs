@@ -108,5 +108,11 @@ namespace BaseRailElement
                 _document.SelectedDrawObjectList[0].ChangeDirection(point , size);
             }
         }
+
+        public override void ChangePropertyValue()
+        {
+            int n = _document.SelectedDrawObjectList.Count;
+            _document.SelectedDrawObjectList[n - 1].ChangePropertyValue();
+        }
     }
 }
