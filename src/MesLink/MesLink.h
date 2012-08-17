@@ -15,6 +15,7 @@ class MesLinkServer;
 class MESLINK_API CMesLink {
 public:
 	CMesLink(void);
+	~CMesLink();
 private:
 	MesLinkServer* m_pMesServer;
 

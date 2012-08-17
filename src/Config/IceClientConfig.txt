@@ -3,7 +3,7 @@
 # Setting for Client
 #
 ########################################################
-MESLink.Proxy=ICLog:tcp -p 21200
+MESLink.Proxy=MESLink:tcp -p 21200
 
 #
 # Setting for HistoryClient

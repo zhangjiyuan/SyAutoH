@@ -3,20 +3,47 @@
 
 #include "stdafx.h"
 #include "MesSim.h"
-
-
-// 这是导出变量的一个示例
-MESSIM_API int nMesSim=0;
-
-// 这是导出函数的一个示例。
-MESSIM_API int fnMesSim(void)
-{
-	return 42;
-}
-
+#include "MesLinkClient.h"
 // 这是已导出类的构造函数。
 // 有关类定义的信息，请参阅 MesSim.h
 CMesSim::CMesSim()
 {
-	return;
+	m_pMesClient = NULL;
+}
+
+CMesSim::~CMesSim()
+{
+	if (NULL != m_pMesClient)
+	{
+		delete m_pMesClient;
+		m_pMesClient = NULL;
+	}
+}
+
+int CMesSim::Init()
+{
+	if (NULL == m_pMesClient)
+	{
+		m_pMesClient = new MesLinkClient();
+		m_pMesClient->InitIce();
+	}
+	return 0;
+}
+int CMesSim::PlaceFoup(int nFoupID, int nDevID)
+{
+	int nRet = 0;
+	if (NULL != m_pMesClient)
+	{
+		nRet = m_pMesClient->PlaceFoup(nFoupID, nDevID);
+	}
+	return nRet;
+}
+int CMesSim::PickFoup(int nFoupID, int nDevID)
+{
+	int nRet = 0;
+	if (NULL != m_pMesClient)
+	{
+		nRet = m_pMesClient->PickFoup(nFoupID, nDevID);
+	}
+	return nRet;
 }

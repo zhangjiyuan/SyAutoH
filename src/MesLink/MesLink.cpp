@@ -12,6 +12,15 @@ CMesLink::CMesLink()
 	return;
 }
 
+CMesLink::~CMesLink()
+{
+	if (NULL != m_pMesServer)
+	{
+		delete m_pMesServer;
+		m_pMesServer = NULL;
+	}
+}
+
 int CMesLink::Init()
 {
 	if (NULL == m_pMesServer)

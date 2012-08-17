@@ -10,13 +10,18 @@
 #define MESSIM_API __declspec(dllimport)
 #endif
 
+class MesLinkClient;
 // 此类是从 MesSim.dll 导出的
 class MESSIM_API CMesSim {
 public:
 	CMesSim(void);
-	// TODO: 在此添加您的方法。
+	~CMesSim();
+
+private:
+	MesLinkClient* m_pMesClient;
+
+public:
+	int Init();
+	int PlaceFoup(int nFoupID, int nDevID);
+	int PickFoup(int nFoupID, int nDevID);
 };
-
-extern MESSIM_API int nMesSim;
-
-MESSIM_API int fnMesSim(void);

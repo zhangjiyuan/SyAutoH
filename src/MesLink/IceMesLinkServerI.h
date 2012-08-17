@@ -2,7 +2,6 @@
 
 #include "IceBase.h"
 
-
 class MesLinkServer : public CIceServerBase
 {
 public:

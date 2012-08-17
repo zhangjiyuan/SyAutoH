@@ -63,6 +63,8 @@ BEGIN_MESSAGE_MAP(CMesFuncSimDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON_Pick, &CMesFuncSimDlg::OnBnClickedButtonPick)
+	ON_BN_CLICKED(IDC_BUTTON_Place, &CMesFuncSimDlg::OnBnClickedButtonPlace)
 END_MESSAGE_MAP()
 
 
@@ -98,6 +100,7 @@ BOOL CMesFuncSimDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+	m_MesSim.Init();
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -151,3 +154,32 @@ HCURSOR CMesFuncSimDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CMesFuncSimDlg::OnBnClickedButtonPick()
+{
+	int nFoup = 0;
+	int nTarget = 0;
+	GetFoupMoveParam(nFoup, nTarget);
+	m_MesSim.PickFoup(nFoup, nTarget);
+}
+
+
+void CMesFuncSimDlg::OnBnClickedButtonPlace()
+{
+	int nFoup = 0;
+	int nTarget = 0;
+	GetFoupMoveParam(nFoup, nTarget);
+	m_MesSim.PlaceFoup(nFoup, nTarget);
+}
+
+
+void CMesFuncSimDlg::GetFoupMoveParam(int& nFoup, int& nTarget)
+{
+	CString strFoup = _T("");
+	GetDlgItemText(IDC_EDIT_FOUPID, strFoup);
+	CString strDev = _T("");
+	GetDlgItemText(IDC_EDIT_TARGETID, strDev);
+	nFoup = _wtoi(strFoup);
+	nTarget = _wtoi(strDev);
+}
