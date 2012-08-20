@@ -10,18 +10,19 @@
 #define SQLACECLI_API __declspec(dllimport)
 #endif
 
+#pragma once
+#include <windows.h>
+
+class SqlServerNCLI;
 // 此类是从 SqlAceCli.dll 导出的
 class SQLACECLI_API CSqlAceCli {
 public:
 	CSqlAceCli(void);
-	// TODO: 在此添加您的方法。
+	~CSqlAceCli();
 
-	int Connect(WCHAR* wServer, WCHAR* wDBName)
-	{
-		return 0;
-	}
+private:
+	SqlServerNCLI* m_pSqlClient;
+
+public:
+	int Connect(WCHAR* wServer, WCHAR* wDBName);
 };
-
-extern SQLACECLI_API int nSqlAceCli;
-
-SQLACECLI_API int fnSqlAceCli(void);

@@ -54,6 +54,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlDB", "SqlDB", "{624173AC-7DDB-47D9-AF83-4A7E746712EC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SqlDBTest", "SqlDBTest\SqlDBTest.vcxproj", "{2BE7EC58-152A-4B27-9EA9-8BF5AA153E1B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{70C20DED-34F5-4316-A478-1626909D4A19} = {70C20DED-34F5-4316-A478-1626909D4A19}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
