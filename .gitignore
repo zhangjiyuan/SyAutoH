@@ -29,3 +29,6 @@
 /src\RailDraw\RailDraw/obj
 /src\RailDraw\RailDraw/bin
 *.cache
+*.exp
+*.filters
+Debug
