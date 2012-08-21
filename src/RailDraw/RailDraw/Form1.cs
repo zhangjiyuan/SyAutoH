@@ -26,7 +26,8 @@ namespace RailDraw
         Point _downpoint= Point.Empty;
         bool _IsMouseDown = false;
         Size drawreg_orig_size = new Size();
-        const float multi_factor = 0.1f;        
+        const float const_multi_factor = 0.1f;
+        private float multi_factor = 1;
         private string sProjectPath = "";
 
         public Form1()
@@ -84,7 +85,7 @@ namespace RailDraw
                 {
                     BaseRailElement.StraightRailEle _straightrailele = new BaseRailElement.StraightRailEle();
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
-                    doc1.DrawObjectList.Add(_straightrailele.CreatEle(pt, DrawRegion.Size));
+                    doc1.DrawObjectList.Add(_straightrailele.CreatEle(pt, DrawRegion.Size, multi_factor));
                     doc1.Select(_straightrailele);
                     DrawRegion.Invalidate();
                     propertyGrid1.Invalidate();
@@ -122,7 +123,7 @@ namespace RailDraw
                 {
                     BaseRailElement.CurvedRailEle _curverailele = new BaseRailElement.CurvedRailEle();
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
-                    doc1.DrawObjectList.Add(_curverailele.CreatEle(pt, DrawRegion.Size));
+                    doc1.DrawObjectList.Add(_curverailele.CreatEle(pt, DrawRegion.Size, multi_factor));
                     doc1.Select(_curverailele);
                     DrawRegion.Invalidate();
                     propertyGrid1.SelectedObject = _curverailele;
@@ -161,7 +162,7 @@ namespace RailDraw
                 {
                     BaseRailElement.CrossLeftEle _crossleft = new BaseRailElement.CrossLeftEle();
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
-                    doc1.DrawObjectList.Add(_crossleft.CreatEle(pt, DrawRegion.Size));
+                    doc1.DrawObjectList.Add(_crossleft.CreatEle(pt, DrawRegion.Size, multi_factor));
                     doc1.Select(_crossleft);
                     DrawRegion.Invalidate();
                     propertyGrid1.Invalidate();
@@ -193,7 +194,7 @@ namespace RailDraw
                 {
                     BaseRailElement.CrossRightEle _crossright = new BaseRailElement.CrossRightEle();
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
-                    doc1.DrawObjectList.Add(_crossright.CreatEle(pt, DrawRegion.Size));
+                    doc1.DrawObjectList.Add(_crossright.CreatEle(pt, DrawRegion.Size, multi_factor));
                     doc1.Select(_crossright);
                     DrawRegion.Invalidate();
                     propertyGrid1.Invalidate();
@@ -380,13 +381,14 @@ namespace RailDraw
         {
             if (DrawRegion.Width < drawreg_orig_size.Width * 2)
             {
-                DrawRegion.Width += (int)(drawreg_orig_size.Width * multi_factor);
-                DrawRegion.Height += (int)(drawreg_orig_size.Height * multi_factor);
-                _document.Draw_Multi_Factor = DrawRegion.Width / (float)drawreg_orig_size.Width;
+                DrawRegion.Width += (int)(drawreg_orig_size.Width * const_multi_factor);
+                DrawRegion.Height += (int)(drawreg_orig_size.Height * const_multi_factor);
+                multi_factor = DrawRegion.Width / (float)drawreg_orig_size.Width;
+                _document.Draw_Multi_Factor = multi_factor;
                 int n = _document.DrawObjectList.Count;
                 for (int i = 0; i < n; i++)
                 {
-                    _document.DrawObjectList[i].Draw_Multi_Factor = _document.Draw_Multi_Factor;
+                    _document.DrawObjectList[i].Draw_Multi_Factor = multi_factor;
                 }
                 DrawRegion.Invalidate();
             }
@@ -396,13 +398,14 @@ namespace RailDraw
         {
             if (DrawRegion.Width > drawreg_orig_size.Width)
             {
-                DrawRegion.Width -= (int)(drawreg_orig_size.Width * multi_factor);
-                DrawRegion.Height -= (int)(drawreg_orig_size.Height * multi_factor);
-                _document.Draw_Multi_Factor = DrawRegion.Width / (float)drawreg_orig_size.Width;
+                DrawRegion.Width -= (int)(drawreg_orig_size.Width * const_multi_factor);
+                DrawRegion.Height -= (int)(drawreg_orig_size.Height * const_multi_factor);
+                multi_factor = DrawRegion.Width / (float)drawreg_orig_size.Width;
+                _document.Draw_Multi_Factor = multi_factor;
                 int n=_document.DrawObjectList.Count;
                 for (int i = 0; i < n; i++)
                 {
-                    _document.DrawObjectList[i].Draw_Multi_Factor = _document.Draw_Multi_Factor;
+                    _document.DrawObjectList[i].Draw_Multi_Factor = multi_factor;
                 }
                 DrawRegion.Invalidate();
             }

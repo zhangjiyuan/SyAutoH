@@ -47,10 +47,13 @@ namespace BaseRailElement
 
         public StraightRailEle() { GraphType = 1; }
 
-        public StraightRailEle CreatEle(Point pt, Size size)
+        public StraightRailEle CreatEle(Point pt, Size size, float multi_factor)
         {
             Point[] pts = new Point[2];
-            if ((pt.X + _lenght) > size.Width)
+            Draw_Multi_Factor = multi_factor;
+            pts[0] = pt;
+            Lenght = (int)(Lenght * Draw_Multi_Factor);
+            if ((pt.X + Lenght) > size.Width)
             {
                 pts[0] = new Point(pt.X - Lenght, pt.Y);
                 pts[1] = new Point(pt.X, pt.Y);
@@ -61,6 +64,7 @@ namespace BaseRailElement
                 pts[1] = new Point(pt.X + Lenght, pt.Y);
             }
             PointList.AddRange(pts);
+            PtlToSavel();
             SaveList.AddRange(pts);
             return this;
         }

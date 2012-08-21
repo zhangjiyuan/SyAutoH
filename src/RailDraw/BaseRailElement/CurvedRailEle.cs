@@ -118,10 +118,12 @@ namespace BaseRailElement
 
         public CurvedRailEle() { GraphType = 2; }
 
-        public CurvedRailEle CreatEle(Point center, Size size)
+        public CurvedRailEle CreatEle(Point center, Size size, float multi_factor)
         {
             CenterDoc = center;
             DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FIRST;
+            Draw_Multi_Factor = multi_factor;
+            Radius = (int)(Radius * multi_factor);
             Point pt_first = new Point();
             Point pt_sec = new Point();
             pt_first.X = center.X + Radius;
@@ -130,10 +132,7 @@ namespace BaseRailElement
             pt_sec.Y = center.Y + Radius;
             FirstDoc = pt_first;
             SecondDot = pt_sec;
-
-            Save_Center = CenterDoc;
-            Save_First_Dot = FirstDoc;
-            Save_Sec_Dot = SecondDot;
+            PtlToSavel();
             return this;
         }
 

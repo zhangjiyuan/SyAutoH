@@ -96,7 +96,7 @@ namespace BaseRailElement
 
         public CrossRightEle() { GraphType = 4; }
 
-        public CrossRightEle CreatEle(Point center, Size size)
+        public CrossRightEle CreatEle(Point center, Size size, float multi_factor)
         {
             CenterDoc = center;
             DIRECTION_CROSS_R_ATTRIBUTE = DIRECTION_CROSS_R.SECOND;

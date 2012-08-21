@@ -95,7 +95,7 @@ namespace BaseRailElement
 
         public CrossLeftEle() { GraphType = 3; }
 
-        public CrossLeftEle CreatEle(Point center, Size size)
+        public CrossLeftEle CreatEle(Point center, Size size, float multi_factor)
         {
             CenterDoc = center;
             DIRECTION_CROSS_L_ATTRIBUTE = DIRECTION_CROSS_L.FIRST;
