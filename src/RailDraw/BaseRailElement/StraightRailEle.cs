@@ -24,30 +24,44 @@ namespace BaseRailElement
             set { _lenght = value; }
         }
 
+        private int _rotate_angle = 90;
+        [Browsable(false)]
+        public int Rotate_Angel
+        {
+            get { return _rotate_angle; }
+            set { _rotate_angle = value; }
+        }
+
+        [XmlIgnore]
         [Browsable(false)]
         public List<Point> PointList
         {
             get { return _ObjectStaightOp.PointList; }
         }
 
+        [Browsable(false)]
+        public List<Point> SaveList
+        {
+            get { return _ObjectStaightOp.SaveList; }
+        }        
+
         public StraightRailEle() { GraphType = 1; }
 
         public StraightRailEle CreatEle(Point pt, Size size)
         {
-            Point pt1 = new Point(0, 0);
-            Point pt2 = new Point(0, 0);
+            Point[] pts = new Point[2];
             if ((pt.X + _lenght) > size.Width)
             {
-                pt1 = new Point(pt.X - Lenght, pt.Y);
-                pt2 = new Point(pt.X, pt.Y);
+                pts[0] = new Point(pt.X - Lenght, pt.Y);
+                pts[1] = new Point(pt.X, pt.Y);
             }
             else
             {
-                pt1 = new Point(pt.X, pt.Y);
-                pt2 = new Point(pt.X + Lenght, pt.Y);
+                pts[0] = new Point(pt.X, pt.Y);
+                pts[1] = new Point(pt.X + Lenght, pt.Y);
             }
-            PointList.Add(pt1);
-            PointList.Add(pt2);
+            PointList.AddRange(pts);
+            SaveList.AddRange(pts);
             return this;
         }
 
@@ -100,16 +114,80 @@ namespace BaseRailElement
         protected override void Translate(int offsetX, int offsetY)
         {
             _ObjectStaightOp.Translate(offsetX, offsetY);
+            PtlToSavel();
         }
 
         protected override void Scale(int handle, int dx, int dy)
         {
             Lenght = _ObjectStaightOp.Scale(handle, dx, dy, Lenght);
+            PtlToSavel();
         }
 
         protected override void Rotate(Point pt, Size sz)
         {
             _ObjectStaightOp.ChangeDirection(pt, sz);
+        }
+
+        public override void RotateCounterClw()
+        {
+            base.RotateCounterClw();
+            Point pt = new Point();
+            if (PointList[0].X == PointList[1].X)
+            {
+                pt.X = PointList[0].X;
+                pt.Y = (PointList[0].Y + PointList[1].Y) / 2;
+            }
+            else if (PointList[0].Y == PointList[1].Y)
+            {
+                pt.X = (PointList[0].X + PointList[1].X) / 2;
+                pt.Y = PointList[0].Y;
+            }
+            Rotate_Angel = -90;
+            _ObjectStaightOp.Rotate(pt, Rotate_Angel);
+            PtlToSavel();
+        }
+
+        public override void RotateClw()
+        {
+            base.RotateClw();
+            Point pt = new Point();
+            if (PointList[0].X == PointList[1].X)
+            {
+                pt.X = PointList[0].X;
+                pt.Y = (PointList[0].Y + PointList[1].Y) / 2;
+            }
+            else if (PointList[0].Y == PointList[1].Y)
+            {
+                pt.X = (PointList[0].X + PointList[1].X) / 2;
+                pt.Y = PointList[0].Y;
+            }
+            Rotate_Angel = 90;
+            _ObjectStaightOp.Rotate(pt, Rotate_Angel);
+            PtlToSavel();
+        }
+       
+        public override void DrawEnlargeOrShrink(float _draw_multi_factor)
+        {
+            Point[] pts = new Point[2];
+            pts[0] = SaveList[0];
+            pts[1] = SaveList[1];
+            if (_draw_multi_factor > 1)
+            {
+                pts[0].X = (int)(pts[0].X * Draw_Multi_Factor);
+                pts[0].Y = (int)(pts[0].Y * Draw_Multi_Factor);
+                pts[1].X = (int)(pts[1].X * Draw_Multi_Factor);
+                pts[1].Y = (int)(pts[1].Y * Draw_Multi_Factor);
+            }
+            PointList.Clear();
+            PointList.AddRange(pts);
+            Lenght =(int) Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X) + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
+            base.DrawEnlargeOrShrink(draw_multi_factor);
+        }
+
+        public override void ChangePropertyValue()
+        {
+
+            base.ChangePropertyValue();
         }
 
         public object Clone()
@@ -119,6 +197,22 @@ namespace BaseRailElement
             cl.PointList.AddRange(PointList);
             cl._lenght = Lenght;
             return cl;
+        }
+
+        private void PtlToSavel()
+        {
+            Point[] pts = new Point[2];
+            pts[0] = PointList[0];
+            pts[1] = PointList[1];
+            if (Draw_Multi_Factor > 1)
+            {
+                pts[0].X = (int)(pts[0].X / Draw_Multi_Factor);
+                pts[0].Y = (int)(pts[0].Y / Draw_Multi_Factor);
+                pts[1].X = (int)(pts[1].X / Draw_Multi_Factor);
+                pts[1].Y = (int)(pts[1].Y / Draw_Multi_Factor);
+            }
+            SaveList.Clear();
+            SaveList.AddRange(pts);
         }
     }
 }

@@ -57,6 +57,50 @@ namespace BaseRailElement
             set { _sweepangle = value; }
         }
 
+        private int _rotate_angle = 90;
+        [Browsable(false)]
+        public int Rotate_Angle
+        {
+            get { return _rotate_angle; }
+            set { _rotate_angle = value; }
+        }
+
+        private Point _save_center = new Point();
+        [XmlIgnore]
+        [Browsable(false)]        
+        public Point Save_Center
+        {
+            get { return _save_center; }
+            set { _save_center = value; }
+        }
+
+        private int _save_radiu = 50;
+        [XmlIgnore]
+        [Browsable(false)]       
+        public int Save_Radiu
+        {
+            get { return _save_radiu; }
+            set { _save_radiu = value; }
+        }
+
+        private Point _save_first_dot = Point.Empty;
+        [XmlIgnore]
+        [Browsable(false)]       
+        public Point Save_First_Dot
+        {
+            get { return _save_first_dot; }
+            set { _save_first_dot = value; }
+        }
+
+        private Point _save_sec_dot = Point.Empty;
+        [XmlIgnore]
+        [Browsable(false)]        
+        public Point Save_Sec_Dot
+        {
+            get { return _save_sec_dot; }
+            set { _save_sec_dot = value; }
+        }
+
         public enum DIRECTION_CURVED
         {
             FIRST, 
@@ -76,7 +120,7 @@ namespace BaseRailElement
 
         public CurvedRailEle CreatEle(Point center, Size size)
         {
-           CenterDoc = center;
+            CenterDoc = center;
             DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FIRST;
             Point pt_first = new Point();
             Point pt_sec = new Point();
@@ -86,6 +130,10 @@ namespace BaseRailElement
             pt_sec.Y = center.Y + Radius;
             FirstDoc = pt_first;
             SecondDot = pt_sec;
+
+            Save_Center = CenterDoc;
+            Save_First_Dot = FirstDoc;
+            Save_Sec_Dot = SecondDot;
             return this;
         }
 
@@ -128,6 +176,7 @@ namespace BaseRailElement
             pt = SecondDot;
             pt.Offset(offsetX, offsetY);
             SecondDot = pt;
+            PtlToSavel();
         }
 
         protected override void Scale(int handle, int dx, int dy)
@@ -168,49 +217,106 @@ namespace BaseRailElement
             }
             FirstDoc = pt_first;
             SecondDot = pt_sec;
+            PtlToSavel();
         }
 
         protected override void Rotate(Point pt, Size sz)
         {
-            Point pt_first = new Point(FirstDoc.X, FirstDoc.Y);
-            Point pt_sec = new Point(SecondDot.X, SecondDot.Y);
+
+        }
+
+        public override void RotateCounterClw()
+        {
+            base.RotateCounterClw();
+            Rotate_Angle = -90;
+            Matrix matrix = new Matrix();
+            PointF pt_center = new PointF();
+            Point[] pts = new Point[4];
+            pts[0] = CenterDoc;
+            pts[1] = new Point(FirstDoc.X, FirstDoc.Y);
+            pts[2] = new Point(SecondDot.X, SecondDot.Y);
+            StartAngle = (StartAngle + 360) % 360;
             switch (StartAngle)
             {
                 case 0:
-                    StartAngle = 90;
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.SECOND;
-                    pt_first.X = CenterDoc.X;
-                    pt_first.Y = CenterDoc.Y + Radius;
-                    pt_sec.X = CenterDoc.X - Radius;
-                    pt_sec.Y = CenterDoc.Y;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FIRST;
+                    pt_center.X = ((float)(CenterDoc.X + FirstDoc.X)) / 2;
+                    pt_center.Y = ((float)(CenterDoc.Y + SecondDot.Y)) / 2;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FOUR;
                     break;
                 case 90:
-                    StartAngle = 180;
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.THIRD;
-                    pt_first.X = CenterDoc.X - Radius;
-                    pt_first.Y = CenterDoc.Y;
-                    pt_sec.X = CenterDoc.X;
-                    pt_sec.Y = CenterDoc.Y - Radius;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.SECOND;
+                    pt_center.X = ((float)(CenterDoc.X + SecondDot.X)) / 2;
+                    pt_center.Y = ((float)(CenterDoc.Y + FirstDoc.Y)) / 2;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FIRST;
                     break;
                 case 180:
-                    StartAngle = 270;
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FOUR;
-                    pt_first.X = CenterDoc.X;
-                    pt_first.Y = CenterDoc.Y - Radius;
-                    pt_sec.X = CenterDoc.X + Radius;
-                    pt_sec.Y = CenterDoc.Y;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.THIRD;
+                    pt_center.X = ((float)(CenterDoc.X + FirstDoc.X)) / 2;
+                    pt_center.Y = ((float)(CenterDoc.Y + SecondDot.Y)) / 2;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.SECOND;
                     break;
                 case 270:
-                    StartAngle = 0;
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FIRST;
-                    pt_first.X = CenterDoc.X + Radius;
-                    pt_first.Y = CenterDoc.Y;
-                    pt_sec.X = CenterDoc.X;
-                    pt_sec.Y = CenterDoc.Y + Radius;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FOUR;
+                    pt_center.X = ((float)(CenterDoc.X + SecondDot.X)) / 2;
+                    pt_center.Y = ((float)(CenterDoc.Y + FirstDoc.Y)) / 2;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.THIRD;
                     break;
             }
-            FirstDoc = pt_first;
-            SecondDot = pt_sec;
+            StartAngle += Rotate_Angle;
+            matrix.RotateAt(Rotate_Angle, pt_center);
+            matrix.TransformPoints(pts);
+            CenterDoc = pts[0];
+            FirstDoc = pts[1];
+            SecondDot = pts[2];
+            PtlToSavel();
+        }
+
+        public override void RotateClw()
+        {
+            base.RotateClw();
+            Rotate_Angle = 90;
+            Matrix matrix = new Matrix();
+            Point pt_center = new Point();
+            Point[] pts = new Point[4];
+            pts[0] = CenterDoc;
+            pts[1] = new Point(FirstDoc.X, FirstDoc.Y);
+            pts[2] = new Point(SecondDot.X, SecondDot.Y);
+            StartAngle = (StartAngle + 360) % 360;
+            switch (StartAngle)
+            {
+                case 0:
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FIRST;
+                    pt_center.X = (CenterDoc.X + FirstDoc.X) / 2;
+                    pt_center.Y = (CenterDoc.Y + SecondDot.Y) / 2;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.SECOND;
+                    break;
+                case 90:
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.SECOND;
+                    pt_center.X = (CenterDoc.X + SecondDot.X) / 2;
+                    pt_center.Y = (CenterDoc.Y + FirstDoc.Y) / 2;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.THIRD;
+                    break;
+                case 180:
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.THIRD;
+                    pt_center.X = (CenterDoc.X + FirstDoc.X) / 2;
+                    pt_center.Y = (CenterDoc.Y + SecondDot.Y) / 2;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FOUR;
+                    break;
+                case 270:
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FOUR;
+                    pt_center.X = (CenterDoc.X + SecondDot.X) / 2;
+                    pt_center.Y = (CenterDoc.Y + FirstDoc.Y) / 2;
+                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FIRST;
+                    break;
+            }
+            StartAngle += Rotate_Angle;
+            matrix.RotateAt(Rotate_Angle, pt_center);
+            matrix.TransformPoints(pts);
+            CenterDoc = pts[0];
+            FirstDoc = pts[1];
+            SecondDot = pts[2];
+            PtlToSavel();
         }
 
         public object Clone()
@@ -226,10 +332,53 @@ namespace BaseRailElement
             return cl;
         }
 
+        public override void DrawEnlargeOrShrink(float _draw_multi_factor)
+        {
+            Point[] pts = new Point[3];
+            pts[0] = Save_Center;
+            pts[1] = Save_First_Dot;
+            pts[2] = Save_Sec_Dot;
+            if (_draw_multi_factor > 1)
+            {
+                pts[0].X = (int)(pts[0].X * Draw_Multi_Factor);
+                pts[0].Y = (int)(pts[0].Y * Draw_Multi_Factor);
+                pts[1].X = (int)(pts[1].X * Draw_Multi_Factor);
+                pts[1].Y = (int)(pts[1].Y * Draw_Multi_Factor);
+                pts[2].X = (int)(pts[2].X * Draw_Multi_Factor);
+                pts[2].Y = (int)(pts[2].Y * Draw_Multi_Factor);               
+            }
+            CenterDoc = pts[0];
+            FirstDoc = pts[1];
+            SecondDot = pts[2];
+            Radius = (int)Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X) + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
+            base.DrawEnlargeOrShrink(draw_multi_factor);
+        }
+
+        private void PtlToSavel()
+        {
+            Point[] pts = new Point[3];
+            pts[0] = CenterDoc;
+            pts[1] = FirstDoc;
+            pts[2] = SecondDot;
+            if (Draw_Multi_Factor > 1)
+            {
+                pts[0].X = (int)(pts[0].X / draw_multi_factor);
+                pts[0].Y = (int)(pts[0].Y / draw_multi_factor);
+                pts[1].X = (int)(pts[1].X / draw_multi_factor);
+                pts[1].Y = (int)(pts[1].Y / draw_multi_factor);
+                pts[2].X = (int)(pts[2].X / draw_multi_factor);
+                pts[2].Y = (int)(pts[2].Y / draw_multi_factor);               
+            }
+            Save_Center = pts[0];
+            Save_First_Dot = pts[1];
+            Save_Sec_Dot = pts[2];
+            Save_Radiu = (int)Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X) + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
+        }
+
         public override void ChangePropertyValue()
         {
             base.ChangePropertyValue();
-            CenterDoc = _ObjectCurved.ChangePropertyValue(CenterDoc, FirstDoc, SecondDot, Radius);
+//            CenterDoc = _ObjectCurved.ChangePropertyValue(CenterDoc, FirstDoc, SecondDot, Radius);
         }
     }
 }

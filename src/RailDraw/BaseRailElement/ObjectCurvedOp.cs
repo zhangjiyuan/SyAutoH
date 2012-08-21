@@ -23,7 +23,7 @@ namespace BaseRailElement
                     points[0] = center;
                     points[1] = new Point(center.X + radiu, center.Y);
                     points[2] = new Point(center.X + radiu, center.Y + radiu);
-                    points[3] = new Point(center.X, center.Y + radiu);
+                    points[3] = new Point(center.X, center.Y + radiu);                   
                     break;
                 case CurvedRailEle.DIRECTION_CURVED.SECOND:
                     points[0] = center;

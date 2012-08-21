@@ -195,6 +195,16 @@ namespace BaseRailElement
             _ObjectCrL.ChangeDirection(CenterDoc, sz);
         }
 
+        public override void RotateCounterClw()
+        {
+            base.RotateCounterClw();
+        }
+
+        public override void RotateClw()
+        {
+            base.RotateClw();
+        }
+
         public object Clone()
         {
             CrossLeftEle cl = new CrossLeftEle();

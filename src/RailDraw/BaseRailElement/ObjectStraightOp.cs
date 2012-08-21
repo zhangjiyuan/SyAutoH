@@ -16,6 +16,13 @@ namespace BaseRailElement
             set { _pointList = value; }
         }
 
+        private List<Point> _saveList = new List<Point>();
+        public List<Point> SaveList
+        {
+            get { return _saveList; }
+            set { _saveList = value; }
+        }
+
         public void DrawTracker(Graphics canvas)
         {
             if (canvas == null)
@@ -182,6 +189,19 @@ namespace BaseRailElement
                     return;
                 }
             }
+            PointList.Clear();
+            PointList.AddRange(points);
+        }
+
+        public void Rotate(Point pt, int angle)
+        {
+            Matrix matrix = new Matrix();
+            matrix.RotateAt(angle, pt);
+
+            int n = PointList.Count;
+            Point[] points = new Point[n];
+            PointList.CopyTo(points);
+            matrix.TransformPoints(points);
             PointList.Clear();
             PointList.AddRange(points);
         }

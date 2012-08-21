@@ -47,6 +47,8 @@ namespace RailDraw
             this.enlarge = new System.Windows.Forms.ToolStripButton();
             this.shorten = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.counter_clw = new System.Windows.Forms.ToolStripButton();
+            this.clw = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -86,7 +88,9 @@ namespace RailDraw
             this.toolStripSeparator3,
             this.enlarge,
             this.shorten,
-            this.toolStripSeparator4});
+            this.toolStripSeparator4,
+            this.counter_clw,
+            this.clw});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(808, 25);
@@ -213,9 +217,29 @@ namespace RailDraw
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
+            // counter_clw
+            // 
+            this.counter_clw.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.counter_clw.Image = ((System.Drawing.Image)(resources.GetObject("counter_clw.Image")));
+            this.counter_clw.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.counter_clw.Name = "counter_clw";
+            this.counter_clw.Size = new System.Drawing.Size(23, 22);
+            this.counter_clw.Text = "counter_clw";
+            this.counter_clw.Click += new System.EventHandler(this.counter_clw_Click);
+            // 
+            // clw
+            // 
+            this.clw.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.clw.Image = ((System.Drawing.Image)(resources.GetObject("clw.Image")));
+            this.clw.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.clw.Name = "clw";
+            this.clw.Size = new System.Drawing.Size(23, 22);
+            this.clw.Text = "clw";
+            this.clw.Click += new System.EventHandler(this.clw_Click);
+            // 
             // panel1
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.pictureBox4);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
@@ -312,10 +336,11 @@ namespace RailDraw
             // 
             // DrawRegion
             // 
-            this.DrawRegion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.DrawRegion.Location = new System.Drawing.Point(0, 0);
+            this.DrawRegion.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.DrawRegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DrawRegion.Location = new System.Drawing.Point(-2, -2);
             this.DrawRegion.Name = "DrawRegion";
-            this.DrawRegion.Size = new System.Drawing.Size(591, 385);
+            this.DrawRegion.Size = new System.Drawing.Size(600, 400);
             this.DrawRegion.TabIndex = 2;
             this.DrawRegion.TabStop = false;
             this.DrawRegion.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawRegion_Paint);
@@ -327,12 +352,13 @@ namespace RailDraw
             // 
             // panel2
             // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.hScrollBar1);
             this.panel2.Controls.Add(this.vScrollBar1);
             this.panel2.Controls.Add(this.DrawRegion);
             this.panel2.Location = new System.Drawing.Point(65, 28);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(591, 385);
+            this.panel2.Size = new System.Drawing.Size(580, 385);
             this.panel2.TabIndex = 3;
             // 
             // hScrollBar1
@@ -346,7 +372,7 @@ namespace RailDraw
             // 
             // vScrollBar1
             // 
-            this.vScrollBar1.Location = new System.Drawing.Point(571, 31);
+            this.vScrollBar1.Location = new System.Drawing.Point(559, 44);
             this.vScrollBar1.Name = "vScrollBar1";
             this.vScrollBar1.Size = new System.Drawing.Size(17, 159);
             this.vScrollBar1.TabIndex = 3;
@@ -364,6 +390,7 @@ namespace RailDraw
             this.Controls.Add(this.toolStrip1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -410,6 +437,8 @@ namespace RailDraw
         private Panel panel2;
         private HScrollBar hScrollBar1;
         private VScrollBar vScrollBar1;
+        private ToolStripButton counter_clw;
+        private ToolStripButton clw;
     }
 }
 

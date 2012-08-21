@@ -20,14 +20,8 @@ namespace BaseRailElement
         [Browsable(false)]
         public int GraphType
         {
-            get
-            {
-                return _GraphType;
-            }
-            set
-            {
-                _GraphType = value;
-            }
+            get { return _GraphType; }
+            set { _GraphType = value; }
         }
 
         //lock
@@ -67,6 +61,15 @@ namespace BaseRailElement
         {
             get { return _angle; }
             set { _angle = value; }
+        }
+
+        public float draw_multi_factor = 1;
+        [XmlIgnore]
+        [Browsable(false)]
+        public float Draw_Multi_Factor
+        {
+            get { return draw_multi_factor; }
+            set { draw_multi_factor = value; }
         }
 
         public void Move(Point start, Point end)
@@ -110,8 +113,9 @@ namespace BaseRailElement
         protected virtual void Rotate(Point pt, Size sz) { }
         public virtual Region GetRedrawRegion() { return null; }
         public virtual void ChangePropertyValue() { }
-   
-
+        public virtual void RotateCounterClw() { }
+        public virtual void RotateClw() { }
+        public virtual void DrawEnlargeOrShrink(float draw_multi_factor) { }
         public event EventHandler Click = null;
     }
 }
