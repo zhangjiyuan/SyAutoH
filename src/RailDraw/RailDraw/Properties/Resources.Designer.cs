@@ -60,6 +60,13 @@ namespace RailDraw.Properties {
             }
         }
         
+        public static byte[] drap {
+            get {
+                object obj = ResourceManager.GetObject("drap", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
         public static byte[] draw {
             get {
                 object obj = ResourceManager.GetObject("draw", resourceCulture);

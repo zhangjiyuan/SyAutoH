@@ -49,6 +49,9 @@ namespace RailDraw
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.counter_clw = new System.Windows.Forms.ToolStripButton();
             this.clw = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.drap = new System.Windows.Forms.ToolStripButton();
+            this.mouse = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -90,7 +93,10 @@ namespace RailDraw
             this.shorten,
             this.toolStripSeparator4,
             this.counter_clw,
-            this.clw});
+            this.clw,
+            this.toolStripSeparator5,
+            this.drap,
+            this.mouse});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(808, 25);
@@ -237,6 +243,32 @@ namespace RailDraw
             this.clw.Text = "clw";
             this.clw.Click += new System.EventHandler(this.clw_Click);
             // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // drap
+            // 
+            this.drap.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.drap.Image = ((System.Drawing.Image)(resources.GetObject("drap.Image")));
+            this.drap.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.drap.Name = "drap";
+            this.drap.Size = new System.Drawing.Size(23, 22);
+            this.drap.Text = "drap";
+            this.drap.Click += new System.EventHandler(this.drap_Click);
+            // 
+            // mouse
+            // 
+            this.mouse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.mouse.Image = ((System.Drawing.Image)(resources.GetObject("mouse.Image")));
+            this.mouse.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.mouse.Name = "mouse";
+            this.mouse.Size = new System.Drawing.Size(23, 22);
+            this.mouse.Text = "mouse";
+            this.mouse.ToolTipText = "mouse";
+            this.mouse.Click += new System.EventHandler(this.mouse_Click);
+            // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -336,7 +368,7 @@ namespace RailDraw
             // 
             // DrawRegion
             // 
-            this.DrawRegion.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.DrawRegion.BackColor = System.Drawing.SystemColors.Control;
             this.DrawRegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DrawRegion.Location = new System.Drawing.Point(-2, -2);
             this.DrawRegion.Name = "DrawRegion";
@@ -347,11 +379,14 @@ namespace RailDraw
             this.DrawRegion.DoubleClick += new System.EventHandler(this.DrawRegion_DoubleClick);
             this.DrawRegion.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DrawRegion_MouseClick);
             this.DrawRegion.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DrawRegion_MouseDown);
+            this.DrawRegion.MouseEnter += new System.EventHandler(this.DrawRegion_MouseEnter);
+            this.DrawRegion.MouseLeave += new System.EventHandler(this.DrawRegion_MouseLeave);
             this.DrawRegion.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DrawRegion_MouseMove);
             this.DrawRegion.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DrawRegion_MouseUp);
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.hScrollBar1);
             this.panel2.Controls.Add(this.vScrollBar1);
@@ -439,6 +474,9 @@ namespace RailDraw
         private VScrollBar vScrollBar1;
         private ToolStripButton counter_clw;
         private ToolStripButton clw;
+        private ToolStripSeparator toolStripSeparator5;
+        private ToolStripButton drap;
+        private ToolStripButton mouse;
     }
 }
 

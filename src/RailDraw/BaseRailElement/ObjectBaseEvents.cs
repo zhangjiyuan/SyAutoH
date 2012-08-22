@@ -109,6 +109,14 @@ namespace BaseRailElement
             }
         }
 
+        public override Point DrapDrawRegion(Point point)
+        {
+            Point pt_offset = Point.Empty;
+            pt_offset.X = point.X - _lastPoint.X;
+            pt_offset.Y = point.Y - _lastPoint.Y;
+            base.DrapDrawRegion(point);
+            return pt_offset;
+        }
         public override void ChangePropertyValue()
         {
             int n = _document.SelectedDrawObjectList.Count;

@@ -47,6 +47,12 @@ namespace BaseRailElement
             _lastPoint = point;
         }
 
+        public virtual Point DrapDrawRegion(Point point) 
+        {
+            _lastPoint = point;
+            return point;
+        }
+
         public virtual void ChangePropertyValue()
         { 
         }
