@@ -50,8 +50,8 @@ namespace BaseRailElement
                 case CrossRightEle.DIRECTION_CROSS_R.NULL:
                     break;
             }
-            points[2] = _pointList[1];
-            points[3] = _pointList[0];
+            points[2] = PointList[1];
+            points[3] = PointList[0];
 
             for (int i = 0; i < 4; i++)
             {
@@ -89,60 +89,60 @@ namespace BaseRailElement
                     points[0] = center;
                     if (lenghtstr > radiu)
                     {
-                        points[1] = new Point(center.X, _pointList[1].Y);
-                        points[2] = _pointList[1];
+                        points[1] = new Point(center.X, PointList[1].Y);
+                        points[2] = PointList[1];
                     }
                     else
                     {
                         points[1] = new Point(center.X, center.Y + radiu);
-                        points[2] = new Point(_pointList[1].X, center.Y + radiu);
+                        points[2] = new Point(PointList[1].X, center.Y + radiu);
                     }
-                    points[3] = _pointList[0];
+                    points[3] = PointList[0];
                     rc = new Rectangle(points[0].X, points[0].Y, points[2].X - points[0].X, points[2].Y - points[0].Y);
                     break;
                 case CrossRightEle.DIRECTION_CROSS_R.SECOND:
                     points[0] = center;
                     if (lenghtstr > radiu)
                     {
-                        points[1] = new Point(_pointList[1].X, center.Y);
-                        points[2] = _pointList[1];
+                        points[1] = new Point(PointList[1].X, center.Y);
+                        points[2] = PointList[1];
                     }
                     else
                     {
                         points[1] = new Point(center.X - radiu, center.Y);
-                        points[2] = new Point(center.X - radiu, _pointList[1].Y);
+                        points[2] = new Point(center.X - radiu, PointList[1].Y);
                     }
-                    points[3] = _pointList[0];
+                    points[3] = PointList[0];
                     rc = new Rectangle(points[1].X, points[1].Y, points[0].X - points[1].X, points[2].Y - points[1].Y);
                     break;
                 case CrossRightEle.DIRECTION_CROSS_R.THIRD:
                     points[0] = center;
                     if (lenghtstr > radiu)
                     {
-                        points[1] = new Point(center.X, _pointList[1].Y);
-                        points[2] = _pointList[1];
+                        points[1] = new Point(center.X, PointList[1].Y);
+                        points[2] = PointList[1];
                     }
                     else
                     {
                         points[1] = new Point(center.X, center.Y - radiu);
-                        points[2] = new Point(_pointList[1].X, center.Y - radiu);
+                        points[2] = new Point(PointList[1].X, center.Y - radiu);
                     }
-                    points[3] = _pointList[0];
+                    points[3] = PointList[0];
                     rc = new Rectangle(points[2].X, points[2].Y, points[0].X - points[2].X, points[0].Y - points[2].Y);
                     break;
                 case CrossRightEle.DIRECTION_CROSS_R.FOUR:
                     points[0] = center;
                     if (lenghtstr > radiu)
                     {
-                        points[1] = new Point(_pointList[1].X, center.Y);
-                        points[2] = _pointList[1];
+                        points[1] = new Point(PointList[1].X, center.Y);
+                        points[2] = PointList[1];
                     }
                     else
                     {
                         points[1] = new Point(center.X + radiu, center.Y);
-                        points[2] = new Point(center.X + radiu, _pointList[1].Y);
+                        points[2] = new Point(center.X + radiu, PointList[1].Y);
                     }
-                    points[3] = _pointList[0];
+                    points[3] = PointList[0];
                     rc = new Rectangle(points[3].X, points[3].Y, points[1].X - points[3].X, points[1].Y - points[3].Y);
                     break;
                 case CrossRightEle.DIRECTION_CROSS_R.NULL:
@@ -185,8 +185,8 @@ namespace BaseRailElement
                 case CrossRightEle.DIRECTION_CROSS_R.NULL:
                     break;
             }
-            points[2] = _pointList[1];
-            points[3] = _pointList[0];
+            points[2] = PointList[1];
+            points[3] = PointList[0];
 
             for (int i = 0; i < 4; i++)
             {
@@ -200,12 +200,12 @@ namespace BaseRailElement
 
         public void Translate(int offsetX, int offsetY)
         {
-            int n = _pointList.Count;
+            int n = PointList.Count;
             for (int i = 0; i < n; i++)
             {
-                Point pt = _pointList[i];
+                Point pt = PointList[i];
                 pt.Offset(offsetX, offsetY);
-                _pointList[i] = pt;
+                PointList[i] = pt;
             }
         }
 
@@ -228,57 +228,57 @@ namespace BaseRailElement
                     points[0] = center;
                     if (lenghtofstr > radiu)
                     {
-                        points[1] = new Point(center.X, _pointList[1].Y);
-                        points[2] = _pointList[1];
+                        points[1] = new Point(center.X, PointList[1].Y);
+                        points[2] = PointList[1];
                     }
                     else
                     {
                         points[1] = new Point(center.X, center.Y + radiu);
-                        points[2] = new Point(_pointList[1].X, center.Y + radiu);
+                        points[2] = new Point(PointList[1].X, center.Y + radiu);
                     }
-                    points[3] = _pointList[0];
+                    points[3] = PointList[0];
                     break;
                 case CrossRightEle.DIRECTION_CROSS_R.SECOND:
                     points[0] = center;
                     if (lenghtofstr > radiu)
                     {
-                        points[1] = new Point(_pointList[1].X, center.Y);
-                        points[2] = _pointList[1];
+                        points[1] = new Point(PointList[1].X, center.Y);
+                        points[2] = PointList[1];
                     }
                     else
                     {
                         points[1] = new Point(center.X - radiu, center.Y);
-                        points[2] = new Point(center.X - radiu, _pointList[1].Y);
+                        points[2] = new Point(center.X - radiu, PointList[1].Y);
                     }
-                    points[3] = _pointList[0];
+                    points[3] = PointList[0];
                     break;
                 case CrossRightEle.DIRECTION_CROSS_R.THIRD:
                     points[0] = center;
                     if (lenghtofstr > radiu)
                     {
-                        points[1] = new Point(center.X, _pointList[1].Y);
-                        points[2] = _pointList[1];
+                        points[1] = new Point(center.X, PointList[1].Y);
+                        points[2] = PointList[1];
                     }
                     else
                     {
                         points[1] = new Point(center.X, center.Y - radiu);
-                        points[2] = new Point(_pointList[1].X, center.Y - radiu);
+                        points[2] = new Point(PointList[1].X, center.Y - radiu);
                     }
-                    points[3] = _pointList[0];
+                    points[3] = PointList[0];
                     break;
                 case CrossRightEle.DIRECTION_CROSS_R.FOUR:
                     points[0] = center;
                     if (lenghtofstr > radiu)
                     {
-                        points[1] = new Point(_pointList[1].X, center.Y);
-                        points[2] = _pointList[1];
+                        points[1] = new Point(PointList[1].X, center.Y);
+                        points[2] = PointList[1];
                     }
                     else
                     {
                         points[1] = new Point(center.X + radiu, center.Y);
-                        points[2] = new Point(center.X + radiu, _pointList[1].Y);
+                        points[2] = new Point(center.X + radiu, PointList[1].Y);
                     }
-                    points[3] = _pointList[0];
+                    points[3] = PointList[0];
                     break;
                 case CrossRightEle.DIRECTION_CROSS_R.NULL:
                     break;
@@ -318,9 +318,9 @@ namespace BaseRailElement
                     }
                     else if (3 == handle)
                     {
-                        Point point = _pointList[1];
+                        Point point = PointList[1];
                         point.Offset(0, dy);
-                        _pointList[1] = point;
+                        PointList[1] = point;
                         return new Rectangle(points[0].X, points[0].Y, radiu, radiu);
                     }
                     else if (4 == handle)
@@ -359,9 +359,9 @@ namespace BaseRailElement
                     }
                     else if (3 == handle)
                     {
-                        Point point = _pointList[1];
+                        Point point = PointList[1];
                         point.Offset(dx, 0);
-                        _pointList[1] = point;
+                        PointList[1] = point;
                         return new Rectangle(points[0].X - radiu, points[0].Y, radiu, radiu);
                     }
                     else if (4 == handle)
@@ -400,9 +400,9 @@ namespace BaseRailElement
                     }
                     else if (3 == handle)
                     {
-                        Point point = _pointList[1];
+                        Point point = PointList[1];
                         point.Offset(0, dy);
-                        _pointList[1] = point;
+                        PointList[1] = point;
                         return new Rectangle(points[0].X - radiu, points[0].Y - radiu, radiu, radiu);
                     }
                     else if (4 == handle)
@@ -441,9 +441,9 @@ namespace BaseRailElement
                     }
                     else if (3 == handle)
                     {
-                        Point point = _pointList[1];
+                        Point point = PointList[1];
                         point.Offset(dx, 0);
-                        _pointList[1] = point;
+                        PointList[1] = point;
                         return new Rectangle(points[0].X, points[0].Y - radiu, radiu, radiu);
                     }
                     else if (4 == handle)
@@ -490,12 +490,12 @@ namespace BaseRailElement
             Matrix matrix = new Matrix();
             matrix.RotateAt(angle, pt);
 
-            int n = _pointList.Count;
+            int n = PointList.Count;
             Point[] points = new Point[n];
-            _pointList.CopyTo(points);
+            PointList.CopyTo(points);
             matrix.TransformPoints(points);
-            _pointList.Clear();
-            _pointList.AddRange(points);
+            PointList.Clear();
+            PointList.AddRange(points);
         }
     }
 }

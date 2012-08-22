@@ -42,7 +42,9 @@ namespace BaseRailElement
         }
 
         List<BaseRailEle> _CutAndCopyObjectList = new List<BaseRailEle>(2);
+
         List<BaseRailEle> _drawObjectList = new List<BaseRailEle>(2);  
+        [XmlIgnore]
         [Browsable(false)]
         public List<BaseRailEle> DrawObjectList
         {
@@ -76,10 +78,15 @@ namespace BaseRailElement
             int n = _drawObjectList.Count;
             for (int i = 0; i < n; i++)
             {
+                if (this.Draw_Multi_Factor != -1)
+                {
+                    _drawObjectList[i].DrawEnlargeOrShrink(Draw_Multi_Factor);
+                }
                 _drawObjectList[i].Draw(_canvas);
                 if (_selectedDrawObjectList.Contains(_drawObjectList[i]))
                     _drawObjectList[i].DrawTracker(_canvas);        
             }
+            this.Draw_Multi_Factor = -1;
         }
 
         public override int HitTest(Point point, bool isSelected)
