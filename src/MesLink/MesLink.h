@@ -10,13 +10,16 @@
 #define MESLINK_API __declspec(dllimport)
 #endif
 
+class MesLinkServer;
 // 此类是从 MesLink.dll 导出的
 class MESLINK_API CMesLink {
 public:
 	CMesLink(void);
-	// TODO: 在此添加您的方法。
+	~CMesLink();
+private:
+	MesLinkServer* m_pMesServer;
+
+public:
+	int Init(void);
 };
 
-extern MESLINK_API int nMesLink;
-
-MESLINK_API int fnMesLink(void);

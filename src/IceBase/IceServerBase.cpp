@@ -25,12 +25,13 @@ void CIceServerBase::InitIce(void)
 
 		try
 		{
-			std::string strConfigfile =strBasePath + "../conf/";
+			std::string strConfigfile =strBasePath + "../config/";
 			strConfigfile += m_strConfigFileName;
 			initData.properties->load(strConfigfile);
 		}
-		catch(const Ice::FileException&)
+		catch(const Ice::FileException& ex)
 		{
+			cout<< ex.what() << endl;
 			return;
 		}
 

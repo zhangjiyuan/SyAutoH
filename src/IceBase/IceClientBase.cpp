@@ -57,7 +57,7 @@ void CIceClientBase::InitIce(void)
 		std::string strConfigfile = "";
 		try
 		{
-			strConfigfile =strBasePath + "../conf/";
+			strConfigfile =strBasePath + "../config/";
 			strConfigfile += m_strConfigFileName;
 			initData.properties->load(strConfigfile);
 		}

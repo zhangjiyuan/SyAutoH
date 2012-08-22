@@ -15,3 +15,4 @@
 
 // TODO: 在此处引用程序需要的其他头文件
 # pragma warning (disable:4512)
+# pragma warning (disable:4100)
