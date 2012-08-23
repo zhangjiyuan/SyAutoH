@@ -16,20 +16,23 @@ namespace BaseRailElement
             set { _pointList = value; }
         }
 
+        private List<Point> _saveList = new List<Point>();
+        public List<Point> SaveList
+        {
+            get { return _saveList; }
+            set { _saveList = value; }
+        }
+
         public void DrawTracker(Graphics canvas)
         {
             if (canvas == null)
                 throw new Exception("Graphics对象Canvas不能为空");
-
-            int n = _pointList.Count;
+            int n = PointList.Count;
             Point[] points = new Point[n];
-            _pointList.CopyTo(points);
-
+            PointList.CopyTo(points);
             Pen pen = new Pen(Color.White);
             pen.Width = 2;
             SolidBrush bsh = new SolidBrush(Color.Black);
-
-
             for (int i = 0; i < n; i++)
             {
                 Point pt = points[i];
@@ -55,7 +58,6 @@ namespace BaseRailElement
             {
                 Point pt1 = PointList[i];
                 Point pt2 = PointList[i + 1];
-
                 float angle = 0;
                 int length = 0;
                 if (pt1.X == pt2.X)
@@ -82,16 +84,14 @@ namespace BaseRailElement
                 if (rc.Contains(wrapper[0]))
                     return 0;
             }
-
             return -1;
         }
 
         public int HandleHitTest(Point point)
         {
-            int n = _pointList.Count;
+            int n = PointList.Count;
             Point[] points = new Point[n];
-            _pointList.CopyTo(points);
-
+            PointList.CopyTo(points);
             for (int i = 0; i < n; i++)
             {
                 Point pt = points[i];
@@ -99,18 +99,17 @@ namespace BaseRailElement
                 if (rc.Contains(point)) 
                     return i + 1;
             }
-
             return -1;
         }
 
         public void Translate(int offsetX, int offsetY)
         {
-            int n = _pointList.Count;
+            int n = PointList.Count;
             for (int i = 0; i < n; i++)
             {
-                Point pt = _pointList[i];
+                Point pt = PointList[i];
                 pt.Offset(offsetX, offsetY);
-                _pointList[i] = pt;
+                PointList[i] = pt;
             }
         }
 
@@ -118,25 +117,24 @@ namespace BaseRailElement
         {
             Point pt1 = new Point(0);
             Point pt2 = new Point(0);
-            int n = _pointList.Count;
+            int n = PointList.Count;
             for (int i = 0; i < n - 1; i++)
             {
                 pt1 = PointList[i];
                 pt2 = PointList[i + 1];
             }
-
             if (pt1.Y == pt2.Y)
             {
-                Point pt = _pointList[handle - 1];
+                Point pt = PointList[handle - 1];
                 pt.Offset(dx, 0);
-                _pointList[handle - 1] = pt;
+                PointList[handle - 1] = pt;
                 return Math.Abs(PointList[1].X - PointList[0].X);
             }
             else if (pt1.X == pt2.X)
             {
-                Point pt = _pointList[handle - 1];
+                Point pt = PointList[handle - 1];
                 pt.Offset(0, dy);
-                _pointList[handle - 1] = pt;
+                PointList[handle - 1] = pt;
                 return Math.Abs(PointList[1].Y - PointList[0].Y);
             }
             return lenght;
@@ -148,9 +146,9 @@ namespace BaseRailElement
             Matrix matrix = new Matrix();
             matrix.RotateAt(angle, pt);
 
-            int n = _pointList.Count;
+            int n = PointList.Count;
             Point[] points = new Point[n];
-            _pointList.CopyTo(points);
+            PointList.CopyTo(points);
             matrix.TransformPoints(points);
 
             for (int i = 0; i < n; i++)
@@ -186,35 +184,44 @@ namespace BaseRailElement
                             points[1].X = points[0].X - _width;
                         }
                     }
-                    _pointList.Clear();
-                    _pointList.AddRange(points);
+                    PointList.Clear();
+                    PointList.AddRange(points);
                     return;
                 }
             }
+            PointList.Clear();
+            PointList.AddRange(points);
+        }
 
-            _pointList.Clear();
-            _pointList.AddRange(points);
+        public void Rotate(Point pt, int angle)
+        {
+            Matrix matrix = new Matrix();
+            matrix.RotateAt(angle, pt);
+
+            int n = PointList.Count;
+            Point[] points = new Point[n];
+            PointList.CopyTo(points);
+            matrix.TransformPoints(points);
+            PointList.Clear();
+            PointList.AddRange(points);
         }
 
         public Rectangle GetRedrawRc()
         {
-            int n = _pointList.Count;
+            int n = PointList.Count;
             int minX, minY, maxX, maxY;
-            maxX = minX = _pointList[0].X; maxY = minY = _pointList[0].Y;
+            maxX = minX = PointList[0].X; maxY = minY = PointList[0].Y;
             for (int i = 1; i < n; i++)
             {
-                if (_pointList[i].X < minX)
-                    minX = _pointList[i].X;
-                else if (_pointList[i].X > maxX)
-                    maxX = _pointList[i].X;
-
-                if (_pointList[i].Y < minY)
-                    minY = _pointList[i].Y;
-                else if (_pointList[i].Y > maxY)
-                    maxY = _pointList[i].Y;
-
+                if (PointList[i].X < minX)
+                    minX = PointList[i].X;
+                else if (PointList[i].X > maxX)
+                    maxX = PointList[i].X;
+                if (PointList[i].Y < minY)
+                    minY = PointList[i].Y;
+                else if (PointList[i].Y > maxY)
+                    maxY = PointList[i].Y;
             }
-
             Rectangle rc = new Rectangle(minX, minY, maxX - minX, maxY - minY);
             rc.Inflate(5, 5);
             return rc;
@@ -222,23 +229,20 @@ namespace BaseRailElement
 
         public Region GetRedrawRegion()
         {
-            int n = _pointList.Count;
+            int n = PointList.Count;
             int minX, minY, maxX, maxY;
-            maxX = minX = _pointList[0].X; maxY = minY = _pointList[0].Y;
+            maxX = minX = PointList[0].X; maxY = minY = PointList[0].Y;
             for (int i = 1; i < n; i++)
             {
-                if (_pointList[i].X < minX)
-                    minX = _pointList[i].X;
-                else if (_pointList[i].X > maxX)
-                    maxX = _pointList[i].X;
-
-                if (_pointList[i].Y < minY)
-                    minY = _pointList[i].Y;
-                else if (_pointList[i].Y > maxY)
-                    maxY = _pointList[i].Y;
-
+                if (PointList[i].X < minX)
+                    minX = PointList[i].X;
+                else if (PointList[i].X > maxX)
+                    maxX = PointList[i].X;
+                if (PointList[i].Y < minY)
+                    minY = PointList[i].Y;
+                else if (PointList[i].Y > maxY)
+                    maxY = PointList[i].Y;
             }
-
             Rectangle rc = new Rectangle(minX, minY, maxX - minX, maxY - minY);
             rc.Inflate(10, 10);
             Region region = new Region(rc);

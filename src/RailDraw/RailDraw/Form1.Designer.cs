@@ -47,6 +47,11 @@ namespace RailDraw
             this.enlarge = new System.Windows.Forms.ToolStripButton();
             this.shorten = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.counter_clw = new System.Windows.Forms.ToolStripButton();
+            this.clw = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.drap = new System.Windows.Forms.ToolStripButton();
+            this.mouse = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -86,7 +91,12 @@ namespace RailDraw
             this.toolStripSeparator3,
             this.enlarge,
             this.shorten,
-            this.toolStripSeparator4});
+            this.toolStripSeparator4,
+            this.counter_clw,
+            this.clw,
+            this.toolStripSeparator5,
+            this.drap,
+            this.mouse});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(808, 25);
@@ -213,9 +223,55 @@ namespace RailDraw
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
+            // counter_clw
+            // 
+            this.counter_clw.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.counter_clw.Image = ((System.Drawing.Image)(resources.GetObject("counter_clw.Image")));
+            this.counter_clw.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.counter_clw.Name = "counter_clw";
+            this.counter_clw.Size = new System.Drawing.Size(23, 22);
+            this.counter_clw.Text = "counter_clw";
+            this.counter_clw.Click += new System.EventHandler(this.counter_clw_Click);
+            // 
+            // clw
+            // 
+            this.clw.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.clw.Image = ((System.Drawing.Image)(resources.GetObject("clw.Image")));
+            this.clw.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.clw.Name = "clw";
+            this.clw.Size = new System.Drawing.Size(23, 22);
+            this.clw.Text = "clw";
+            this.clw.Click += new System.EventHandler(this.clw_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // drap
+            // 
+            this.drap.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.drap.Image = ((System.Drawing.Image)(resources.GetObject("drap.Image")));
+            this.drap.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.drap.Name = "drap";
+            this.drap.Size = new System.Drawing.Size(23, 22);
+            this.drap.Text = "drap";
+            this.drap.Click += new System.EventHandler(this.drap_Click);
+            // 
+            // mouse
+            // 
+            this.mouse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.mouse.Image = ((System.Drawing.Image)(resources.GetObject("mouse.Image")));
+            this.mouse.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.mouse.Name = "mouse";
+            this.mouse.Size = new System.Drawing.Size(23, 22);
+            this.mouse.Text = "mouse";
+            this.mouse.ToolTipText = "mouse";
+            this.mouse.Click += new System.EventHandler(this.mouse_Click);
+            // 
             // panel1
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.pictureBox4);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
@@ -308,30 +364,36 @@ namespace RailDraw
             this.propertyGrid1.Name = "propertyGrid1";
             this.propertyGrid1.Size = new System.Drawing.Size(130, 385);
             this.propertyGrid1.TabIndex = 0;
+            this.propertyGrid1.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid1_PropertyValueChanged);
             // 
             // DrawRegion
             // 
-            this.DrawRegion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.DrawRegion.Location = new System.Drawing.Point(0, 0);
+            this.DrawRegion.BackColor = System.Drawing.SystemColors.Control;
+            this.DrawRegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DrawRegion.Location = new System.Drawing.Point(-2, -2);
             this.DrawRegion.Name = "DrawRegion";
-            this.DrawRegion.Size = new System.Drawing.Size(591, 385);
+            this.DrawRegion.Size = new System.Drawing.Size(600, 400);
             this.DrawRegion.TabIndex = 2;
             this.DrawRegion.TabStop = false;
             this.DrawRegion.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawRegion_Paint);
             this.DrawRegion.DoubleClick += new System.EventHandler(this.DrawRegion_DoubleClick);
             this.DrawRegion.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DrawRegion_MouseClick);
             this.DrawRegion.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DrawRegion_MouseDown);
+            this.DrawRegion.MouseEnter += new System.EventHandler(this.DrawRegion_MouseEnter);
+            this.DrawRegion.MouseLeave += new System.EventHandler(this.DrawRegion_MouseLeave);
             this.DrawRegion.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DrawRegion_MouseMove);
             this.DrawRegion.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DrawRegion_MouseUp);
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.hScrollBar1);
             this.panel2.Controls.Add(this.vScrollBar1);
             this.panel2.Controls.Add(this.DrawRegion);
             this.panel2.Location = new System.Drawing.Point(65, 28);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(591, 385);
+            this.panel2.Size = new System.Drawing.Size(580, 385);
             this.panel2.TabIndex = 3;
             // 
             // hScrollBar1
@@ -345,7 +407,7 @@ namespace RailDraw
             // 
             // vScrollBar1
             // 
-            this.vScrollBar1.Location = new System.Drawing.Point(571, 31);
+            this.vScrollBar1.Location = new System.Drawing.Point(559, 44);
             this.vScrollBar1.Name = "vScrollBar1";
             this.vScrollBar1.Size = new System.Drawing.Size(17, 159);
             this.vScrollBar1.TabIndex = 3;
@@ -363,6 +425,7 @@ namespace RailDraw
             this.Controls.Add(this.toolStrip1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -409,6 +472,11 @@ namespace RailDraw
         private Panel panel2;
         private HScrollBar hScrollBar1;
         private VScrollBar vScrollBar1;
+        private ToolStripButton counter_clw;
+        private ToolStripButton clw;
+        private ToolStripSeparator toolStripSeparator5;
+        private ToolStripButton drap;
+        private ToolStripButton mouse;
     }
 }
 

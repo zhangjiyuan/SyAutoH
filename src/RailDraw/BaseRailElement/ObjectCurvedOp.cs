@@ -23,7 +23,7 @@ namespace BaseRailElement
                     points[0] = center;
                     points[1] = new Point(center.X + radiu, center.Y);
                     points[2] = new Point(center.X + radiu, center.Y + radiu);
-                    points[3] = new Point(center.X, center.Y + radiu);
+                    points[3] = new Point(center.X, center.Y + radiu);                   
                     break;
                 case CurvedRailEle.DIRECTION_CURVED.SECOND:
                     points[0] = center;
@@ -56,7 +56,12 @@ namespace BaseRailElement
             bsh.Dispose();
         }
 
-        public int HitTest(Point point, bool isSelected, Point center, int radiu, CurvedRailEle.DIRECTION_CURVED _direction)
+        public int HitTest(
+            Point point,
+            bool isSelected,
+            Point center, 
+            int radiu,
+            CurvedRailEle.DIRECTION_CURVED _direction)
         {
             if (isSelected)
             {
@@ -104,7 +109,10 @@ namespace BaseRailElement
                 return -1;
         }
 
-        public int HandleHitTest(Point point, Point center, int radiu, CurvedRailEle.DIRECTION_CURVED _direction)
+        public int HandleHitTest(Point point,
+            Point center,
+            int radiu,
+            CurvedRailEle.DIRECTION_CURVED _direction)
         {
             Point[] points = new Point[4];
             switch (_direction)
@@ -145,7 +153,13 @@ namespace BaseRailElement
             return -1;
         }
 
-        public Rectangle Scale(int handle, int dx, int dy, Point center, int radiu, CurvedRailEle.DIRECTION_CURVED _direction)
+        public Rectangle Scale(
+            int handle,
+            int dx,
+            int dy,
+            Point center,
+            int radiu, 
+            CurvedRailEle.DIRECTION_CURVED _direction)
         {
             Point[] points = new Point[4];
             switch (_direction)
@@ -524,6 +538,41 @@ namespace BaseRailElement
                     break;
             }
             return new Rectangle(center.X, center.Y, radiu, radiu);
+        }
+
+        public Point ChangePropertyValue(
+            Point center, 
+            Point first_dot,
+            Point second_dot,
+            int radiu
+            )
+        {
+            int lenght = 0;
+            Point pt = new Point();
+            if(first_dot.X==center.X)
+            {
+                if (radiu != Math.Abs(first_dot.Y - center.Y))
+                {
+                    lenght = Math.Abs(first_dot.Y - center.Y) - radiu; 
+                    pt=center;
+                    pt.Offset(0,lenght);
+                    return pt;
+                }
+                else if (radiu != Math.Abs(second_dot.X - center.X))
+                {
+                    return pt=first_dot;
+                }
+            }
+            else if (first_dot.Y == center.Y)
+            { 
+            }
+            else if (second_dot.X == center.X)
+            { 
+            }
+            else if (second_dot.Y == center.Y)
+            { 
+            }
+            return pt=first_dot;
         }
     }
 }
