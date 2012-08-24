@@ -17,11 +17,20 @@ namespace BaseRailElement
         private ObjectStraightOp _ObjectStaightOp = new ObjectStraightOp();
         private Pen pen = new Pen(Color.Black, 1);
 
-        private int _lenght = 100;
-        public int Lenght
+        private int show_lenght = 100;
+        [XmlIgnore]
+        [Browsable(false)]
+        public int Show_Lenght
         {
-            get { return _lenght; }
-            set { _lenght = value; }
+            get { return show_lenght; }
+            set { show_lenght = value; }
+        }
+
+        private int real_lenght = 100;
+        public int Real_Lenght
+        {
+            get { return real_lenght; }
+            set { real_lenght = value; }
         }
 
         private int _rotate_angle = 90;
@@ -52,20 +61,19 @@ namespace BaseRailElement
             Point[] pts = new Point[2];
             Draw_Multi_Factor = multi_factor;
             pts[0] = pt;
-            Lenght = (int)(Lenght * Draw_Multi_Factor);
-            if ((pt.X + Lenght) > size.Width)
+            Show_Lenght = (int)(Show_Lenght * Draw_Multi_Factor);
+            if ((pt.X + Show_Lenght) > size.Width)
             {
-                pts[0] = new Point(pt.X - Lenght, pt.Y);
+                pts[0] = new Point(pt.X - Show_Lenght, pt.Y);
                 pts[1] = new Point(pt.X, pt.Y);
             }
             else
             {
                 pts[0] = new Point(pt.X, pt.Y);
-                pts[1] = new Point(pt.X + Lenght, pt.Y);
+                pts[1] = new Point(pt.X + Show_Lenght, pt.Y);
             }
             PointList.AddRange(pts);
             PtlToSavel();
-            SaveList.AddRange(pts);
             return this;
         }
 
@@ -75,29 +83,41 @@ namespace BaseRailElement
                 throw new Exception("Graphics对象Canvas不能为空");
 
             if (PointList.Count < 2)
-                throw new Exception("绘制线条的点至少需要2个");
+            {
+                if (SaveList.Count < 2)
+                {
+                    throw new Exception("绘制线条的点至少需要2个");
+                }
+                else
+                {
+                    Point[] pts = new Point[2];
+                    SaveList.CopyTo(pts);
+                    PointList.AddRange(pts);
+                    Show_Lenght = Real_Lenght;
+                }
+            }
             int n = PointList.Count;
             Point[] points = new Point[n];
             PointList.CopyTo(points);
             if (points[0].Y == points[1].Y)
             {
-                if (Lenght != Math.Abs(points[0].X - points[1].X))
+                if (Show_Lenght != Math.Abs(points[0].X - points[1].X))
                 {
                     if (points[0].X < points[1].X)
                     {
-                        points[1].X = points[0].X + Lenght;
+                        points[1].X = points[0].X + Show_Lenght;
                     }
                     else
                     {
-                        points[1].X = points[0].X - Lenght;
+                        points[1].X = points[0].X - Show_Lenght;
                     }
                 }
             }
             else if (points[0].X == points[1].X)
             {
-                if (_lenght != Math.Abs(points[0].Y - points[1].Y))
+                if (Show_Lenght != Math.Abs(points[0].Y - points[1].Y))
                 {
-                    points[1].Y = points[0].Y + Lenght;
+                    points[1].Y = points[0].Y + Show_Lenght;
                 }
             }
             PointList.Clear();
@@ -123,7 +143,7 @@ namespace BaseRailElement
 
         protected override void Scale(int handle, int dx, int dy)
         {
-            Lenght = _ObjectStaightOp.Scale(handle, dx, dy, Lenght);
+            Show_Lenght = _ObjectStaightOp.Scale(handle, dx, dy, Show_Lenght);
             PtlToSavel();
         }
 
@@ -184,7 +204,7 @@ namespace BaseRailElement
             }
             PointList.Clear();
             PointList.AddRange(pts);
-            Lenght =(int) Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X) + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
+            Show_Lenght  =(int) Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X) + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
             base.DrawEnlargeOrShrink(draw_multi_factor);
         }
 
@@ -199,7 +219,7 @@ namespace BaseRailElement
             StraightRailEle cl = new StraightRailEle();
             cl.pen = pen;
             cl.PointList.AddRange(PointList);
-            cl._lenght = Lenght;
+            cl.Show_Lenght = Show_Lenght;
             return cl;
         }
 
@@ -214,6 +234,7 @@ namespace BaseRailElement
                 pts[0].Y = (int)(pts[0].Y / Draw_Multi_Factor);
                 pts[1].X = (int)(pts[1].X / Draw_Multi_Factor);
                 pts[1].Y = (int)(pts[1].Y / Draw_Multi_Factor);
+                Real_Lenght =(int) Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X) + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
             }
             SaveList.Clear();
             SaveList.AddRange(pts);

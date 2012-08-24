@@ -65,6 +65,7 @@ namespace RailDraw
             this.panel2 = new System.Windows.Forms.Panel();
             this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
+            this.new_btn = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -78,6 +79,7 @@ namespace RailDraw
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.new_btn,
             this.open,
             this.save,
             this.toolStripSeparator1,
@@ -414,6 +416,16 @@ namespace RailDraw
             this.vScrollBar1.Visible = false;
             this.vScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar1_Scroll);
             // 
+            // new_btn
+            // 
+            this.new_btn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.new_btn.Image = ((System.Drawing.Image)(resources.GetObject("new_btn.Image")));
+            this.new_btn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.new_btn.Name = "new_btn";
+            this.new_btn.Size = new System.Drawing.Size(23, 22);
+            this.new_btn.Text = "new";
+            this.new_btn.Click += new System.EventHandler(this.new_btn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -477,6 +489,7 @@ namespace RailDraw
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripButton drap;
         private ToolStripButton mouse;
+        private ToolStripButton new_btn;
     }
 }
 

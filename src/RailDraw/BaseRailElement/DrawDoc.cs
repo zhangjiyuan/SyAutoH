@@ -41,17 +41,16 @@ namespace BaseRailElement
             get { return new DrawDoc(); }
         }
 
-        List<BaseRailEle> _CutAndCopyObjectList = new List<BaseRailEle>(2);
+        List<BaseRailEle> _CutAndCopyObjectList = new List<BaseRailEle>();
 
-        List<BaseRailEle> _drawObjectList = new List<BaseRailEle>(2);  
-        [XmlIgnore]
+        List<BaseRailEle> _drawObjectList = new List<BaseRailEle>();  
         [Browsable(false)]
         public List<BaseRailEle> DrawObjectList
         {
             get { return _drawObjectList; }
         }
-
-        List<BaseRailEle> _selectedDrawObjectList = new List<BaseRailEle>(2);
+       
+        List<BaseRailEle> _selectedDrawObjectList = new List<BaseRailEle>();
         [XmlIgnore]
         [Browsable(false)]
         public List<BaseRailEle> SelectedDrawObjectList

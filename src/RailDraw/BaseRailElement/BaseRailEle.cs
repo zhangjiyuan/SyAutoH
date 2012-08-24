@@ -62,7 +62,7 @@ namespace BaseRailElement
             get { return _angle; }
             set { _angle = value; }
         }
-
+      
         public float draw_multi_factor = 1;
         [XmlIgnore]
         [Browsable(false)]

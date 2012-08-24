@@ -326,46 +326,7 @@ namespace RailDraw
 
         private void save_Click(object sender, EventArgs e)
         {
-            if (sProjectPath == "")
-            {
-                SaveFileDialog saveFile = new SaveFileDialog();
-                saveFile.Filter = "configuration (*.xml)|*.xml";
-                saveFile.InitialDirectory = "";
-                saveFile.Title = "存储文件";
-                saveFile.FileName = "";
-                if (saveFile.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        string projectpath = saveFile.FileName;
-                        sProjectPath = projectpath;
-                        //save form
-                        XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
-                        StreamWriter myWriter = new StreamWriter(projectpath);
-                        mySerializer.Serialize(myWriter, doc1);
-                        myWriter.Close();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("save error");
-                    }
-                }
-            }
-            else
-            {
-                try
-                {
-                    string projectpath = sProjectPath;
-                    XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
-                    StreamWriter myWriter = new StreamWriter(projectpath);
-                    mySerializer.Serialize(myWriter, doc1);
-                    myWriter.Close();
-                }
-                catch
-                {
-                    MessageBox.Show("save error");
-                }
-            }
+            SaveFile();
         }
 
         private void open_Click(object sender, EventArgs e)
@@ -380,8 +341,14 @@ namespace RailDraw
             {
                 string projectpath = openFile.FileName;
                 string sname = new FileInfo(projectpath).Name;
-                Document = doc1;
+                Document = doc1;                
                 doc1.DrawObjectList.Clear();
+                DrawRegion.Top = 0;
+                DrawRegion.Left = 0;
+                DrawRegion.Width = drawreg_orig_size.Width;
+                DrawRegion.Height = drawreg_orig_size.Height;
+                drap_is_down = false;
+                this.Cursor = System.Windows.Forms.Cursors.Default; 
                 try
                 {
                     FileStream fs = new FileStream(projectpath, FileMode.Open);
@@ -584,6 +551,73 @@ namespace RailDraw
         {
             if (drap_is_down)
                 this.Cursor = System.Windows.Forms.Cursors.Default;
+        }
+
+        private void new_btn_Click(object sender, EventArgs e)
+        {
+            if (doc1.DrawObjectList.Count > 0)
+            {
+                SaveOfNew save_form = new SaveOfNew();
+                Point pt = new Point(this.Top + this.Height / 2, this.Left + this.Width / 2);
+                save_form.StartPosition = FormStartPosition.Manual;
+                save_form.Location = pt;
+                switch (save_form.ShowDialog())
+                {
+                    case DialogResult.Yes:
+                        SaveFile();
+                        _document.DrawObjectList.Clear();
+                        DrawRegion.Invalidate();
+                        break;
+                    case DialogResult.No:
+                        _document.DrawObjectList.Clear();
+                        DrawRegion.Invalidate();
+                        break;
+                }
+            }
+        }
+
+        private void SaveFile()
+        {
+            if (sProjectPath == "")
+            {
+                SaveFileDialog saveFile = new SaveFileDialog();
+                saveFile.Filter = "configuration (*.xml)|*.xml";
+                saveFile.InitialDirectory = "";
+                saveFile.Title = "存储文件";
+                saveFile.FileName = "";
+                if (saveFile.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        string projectpath = saveFile.FileName;
+                        sProjectPath = projectpath;
+                        //save form
+                        XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
+                        StreamWriter myWriter = new StreamWriter(projectpath);
+                        mySerializer.Serialize(myWriter, doc1);
+                        myWriter.Close();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("save error");
+                    }
+                }
+            }
+            else
+            {
+                try
+                {
+                    string projectpath = sProjectPath;
+                    XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
+                    StreamWriter myWriter = new StreamWriter(projectpath);
+                    mySerializer.Serialize(myWriter, doc1);
+                    myWriter.Close();
+                }
+                catch
+                {
+                    MessageBox.Show("save error");
+                }
+            }
         }
     }
 }
