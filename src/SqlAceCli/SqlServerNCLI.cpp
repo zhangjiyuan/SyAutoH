@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "SqlServerNCLI.h"
-
+#include <afx.h>
 
 SqlServerNCLI::SqlServerNCLI(void)
 {
@@ -320,6 +320,34 @@ int SqlServerNCLI::TProcessRecordSet(void)
 	pIAccessor->ReleaseAccessor(hAccessor, NULL);
 	pIAccessor->Release();
 	delete [] pBindings;
+
+	return 0;
+}
+
+#include <atldbcli.h>
+#include <atldbsch.h>
+
+int SqlServerNCLI::TestMfcOleDB(void)
+{
+	HRESULT hr;
+	CDataSource ds;
+	hr = ds.OpenFromInitializationString(L"Provider=SQLNCLI10;Server=SDNY-PC\\AMHS;Database=MCS;Trusted_Connection=yes");
+	
+	if (FAILED(hr))
+	{
+		cout<< "CDataSource open failed." << endl;
+		return -1;
+	}
+	CSession sn;
+	sn.Open(ds);
+
+	CTables tbs;
+	tbs.Open(sn);
+
+	while(tbs.MoveNext() == S_OK)
+	{
+		printf("%ls: %ls \r\n", tbs.m_szType, tbs.m_szName);
+	}
 
 	return 0;
 }

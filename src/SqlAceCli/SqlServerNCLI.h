@@ -38,5 +38,6 @@ public:
 	int CreationSession(void);
 	int ExecuteSQL(WCHAR* sSQLCMD);
 	int TProcessRecordSet(void);
+	int TestMfcOleDB(void);
 };
 
