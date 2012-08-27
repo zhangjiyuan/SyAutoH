@@ -25,4 +25,6 @@ private:
 
 public:
 	int Connect(WCHAR* wServer, WCHAR* wDBName);
+	int ExecuteSQL(WCHAR* wSqlCmd);
+	int PutOutRecordSet(void);
 };
