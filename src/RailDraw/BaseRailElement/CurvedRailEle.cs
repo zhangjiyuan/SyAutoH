@@ -13,117 +13,117 @@ namespace BaseRailElement
 {
     public class CurvedRailEle : BaseRailEle
     {
-        private ObjectCurvedOp _ObjectCurved = new ObjectCurvedOp();
+        private ObjectCurvedOp objectCurved = new ObjectCurvedOp();
         
-        private Point _centerdoc = Point.Empty;
+        private Point centerDoc = Point.Empty;
         public Point CenterDoc
         {
-            get { return _centerdoc; }
-            set { _centerdoc = value; }
+            get { return centerDoc; }
+            set { centerDoc = value; }
         }
 
-        private int _radius = 50;
+        private int radius = 50;
         public int Radius
         {
-            get { return _radius; }
-            set { _radius = value; }
+            get { return radius; }
+            set { radius = value; }
         }
 
-        private Point _firstdoc = Point.Empty;
+        private Point firstDoc = Point.Empty;
         public Point FirstDoc
         {
-            get { return _firstdoc; }
-            set { _firstdoc = value; }
+            get { return firstDoc; }
+            set { firstDoc = value; }
         }
 
-        private Point _seconddot = Point.Empty;
+        private Point secondDot = Point.Empty;
         public Point SecondDot
         {
-            get { return _seconddot; }
-            set { _seconddot = value; }
+            get { return secondDot; }
+            set { secondDot = value; }
         }
 
-        private int _startangle = 0;
+        private int startAngle = 0;
         public int StartAngle
         {
-            get { return _startangle; }
-            set { _startangle = value; }
+            get { return startAngle; }
+            set { startAngle = value; }
         }
 
-        private int _sweepangle = 90;
+        private int sweepAngle = 90;
         private int SweepAngle
         {
-            get { return _sweepangle; }
-            set { _sweepangle = value; }
+            get { return sweepAngle; }
+            set { sweepAngle = value; }
         }
 
-        private int _rotate_angle = 90;
+        private int rotateAngle = 90;
         [Browsable(false)]
-        public int Rotate_Angle
+        public int RotateAngle
         {
-            get { return _rotate_angle; }
-            set { _rotate_angle = value; }
+            get { return rotateAngle; }
+            set { rotateAngle = value; }
         }
 
-        private Point _save_center = new Point();
+        private Point saveCenter = new Point();
         [XmlIgnore]
         [Browsable(false)]        
-        public Point Save_Center
+        public Point SaveCenter
         {
-            get { return _save_center; }
-            set { _save_center = value; }
+            get { return saveCenter; }
+            set { saveCenter = value; }
         }
 
-        private int _save_radiu = 50;
+        private int saveRadiu = 50;
         [XmlIgnore]
         [Browsable(false)]       
-        public int Save_Radiu
+        public int SaveRadiu
         {
-            get { return _save_radiu; }
-            set { _save_radiu = value; }
+            get { return saveRadiu; }
+            set { saveRadiu = value; }
         }
 
-        private Point _save_first_dot = Point.Empty;
+        private Point saveFirstDot = Point.Empty;
         [XmlIgnore]
         [Browsable(false)]       
-        public Point Save_First_Dot
+        public Point SaveFirstDot
         {
-            get { return _save_first_dot; }
-            set { _save_first_dot = value; }
+            get { return saveFirstDot; }
+            set { saveFirstDot = value; }
         }
 
-        private Point _save_sec_dot = Point.Empty;
+        private Point saveSecDot = Point.Empty;
         [XmlIgnore]
         [Browsable(false)]        
-        public Point Save_Sec_Dot
+        public Point SaveSecDot
         {
-            get { return _save_sec_dot; }
-            set { _save_sec_dot = value; }
+            get { return saveSecDot; }
+            set { saveSecDot = value; }
         }
 
-        public enum DIRECTION_CURVED
+        public enum DirectonCurved
         {
-            FIRST, 
-            SECOND, 
-            THIRD, 
-            FOUR,
+            first, 
+            second, 
+            third, 
+            four,
             NULL
         }
-        private DIRECTION_CURVED _direction_curved = DIRECTION_CURVED.NULL;
-        public DIRECTION_CURVED DIRECTION_CURVED_ATTRIBUTE
+        private DirectonCurved directionCurved = DirectonCurved.NULL;
+        public DirectonCurved DirectionCurvedAttribute
         {
-            get { return _direction_curved; }
-            set { _direction_curved = value; }
+            get { return directionCurved; }
+            set { directionCurved = value; }
         }
 
         public CurvedRailEle() { GraphType = 2; }
 
-        public CurvedRailEle CreatEle(Point center, Size size, float multi_factor)
+        public CurvedRailEle CreatEle(Point center, Size size, float multiFactor)
         {
             CenterDoc = center;
-            DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FIRST;
-            Draw_Multi_Factor = multi_factor;
-            Radius = (int)(Radius * multi_factor);
+            DirectionCurvedAttribute = DirectonCurved.first;
+            DrawMultiFactor = multiFactor;
+            Radius = (int)(Radius * multiFactor);
             Point pt_first = new Point();
             Point pt_sec = new Point();
             pt_first.X = center.X + Radius;
@@ -140,7 +140,7 @@ namespace BaseRailElement
         {
             if (_canvas == null)
                 throw new Exception("Graphics对象Canvas不能为空");
-            if (_centerdoc.IsEmpty)
+            if (CenterDoc.IsEmpty)
                 throw new Exception("对象不存在");
             Rectangle rc = new Rectangle();
             rc.Location = new Point(CenterDoc .X - Radius, CenterDoc.Y - Radius);
@@ -156,12 +156,12 @@ namespace BaseRailElement
 
         public override void DrawTracker(Graphics _canvas)
         {
-            _ObjectCurved.DrawTracker(_canvas, CenterDoc, Radius, DIRECTION_CURVED_ATTRIBUTE);
+            objectCurved.DrawTracker(_canvas, CenterDoc, Radius, DirectionCurvedAttribute);
         }
 
         public override int HitTest(Point point, bool isSelected)
         {
-            return _ObjectCurved.HitTest(point, isSelected, CenterDoc, Radius, DIRECTION_CURVED_ATTRIBUTE);
+            return objectCurved.HitTest(point, isSelected, CenterDoc, Radius, DirectionCurvedAttribute);
         }
 
         protected override void Translate(int offsetX, int offsetY)
@@ -182,36 +182,36 @@ namespace BaseRailElement
         {
             Point pt_first = new Point(FirstDoc.X, FirstDoc.Y);
             Point pt_sec = new Point(SecondDot.X, SecondDot.Y);
-            Rectangle rc = _ObjectCurved.Scale(handle, dx, dy, CenterDoc, Radius, DIRECTION_CURVED_ATTRIBUTE);
+            Rectangle rc = objectCurved.Scale(handle, dx, dy, CenterDoc, Radius, DirectionCurvedAttribute);
             CenterDoc = rc.Location;
             Radius = rc.Width;
-            switch (DIRECTION_CURVED_ATTRIBUTE)
+            switch (DirectionCurvedAttribute)
             {
-                case DIRECTION_CURVED.FIRST:
+                case DirectonCurved.first:
                     pt_first.X = CenterDoc.X + Radius;
                     pt_first.Y = CenterDoc.Y;
                     pt_sec.X = CenterDoc.X;
                     pt_sec.Y = CenterDoc.Y + Radius;
                     break;
-                case DIRECTION_CURVED.SECOND:
+                case DirectonCurved.second:
                     pt_first.X = CenterDoc.X;
                     pt_first.Y = CenterDoc.Y + Radius;
                     pt_sec.X = CenterDoc.X - Radius;
                     pt_sec.Y = CenterDoc.Y;
                     break;
-                case DIRECTION_CURVED.THIRD:
+                case DirectonCurved.third:
                     pt_first.X = CenterDoc.X - Radius;
                     pt_first.Y = CenterDoc.Y;
                     pt_sec.X = CenterDoc.X;
                     pt_sec.Y = CenterDoc.Y - Radius;
                     break;
-                case DIRECTION_CURVED.FOUR:
+                case DirectonCurved.four:
                     pt_first.X = CenterDoc.X;
                     pt_first.Y = CenterDoc.Y - Radius;
                     pt_sec.X = CenterDoc.X + Radius;
                     pt_sec.Y = CenterDoc.Y;
                     break;
-                case DIRECTION_CURVED.NULL:
+                case DirectonCurved.NULL:
                     break;
             }
             FirstDoc = pt_first;
@@ -227,7 +227,7 @@ namespace BaseRailElement
         public override void RotateCounterClw()
         {
             base.RotateCounterClw();
-            Rotate_Angle = -90;
+            RotateAngle = -90;
             Matrix matrix = new Matrix();
             PointF pt_center = new PointF();
             Point[] pts = new Point[4];
@@ -238,32 +238,32 @@ namespace BaseRailElement
             switch (StartAngle)
             {
                 case 0:
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FIRST;
+                    DirectionCurvedAttribute = DirectonCurved.first;
                     pt_center.X = ((float)(CenterDoc.X + FirstDoc.X)) / 2;
                     pt_center.Y = ((float)(CenterDoc.Y + SecondDot.Y)) / 2;
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FOUR;
+                    DirectionCurvedAttribute = DirectonCurved.four;
                     break;
                 case 90:
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.SECOND;
+                    DirectionCurvedAttribute = DirectonCurved.second;
                     pt_center.X = ((float)(CenterDoc.X + SecondDot.X)) / 2;
                     pt_center.Y = ((float)(CenterDoc.Y + FirstDoc.Y)) / 2;
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FIRST;
+                    DirectionCurvedAttribute = DirectonCurved.first;
                     break;
                 case 180:
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.THIRD;
+                    DirectionCurvedAttribute = DirectonCurved.third;
                     pt_center.X = ((float)(CenterDoc.X + FirstDoc.X)) / 2;
                     pt_center.Y = ((float)(CenterDoc.Y + SecondDot.Y)) / 2;
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.SECOND;
+                    DirectionCurvedAttribute = DirectonCurved.second;
                     break;
                 case 270:
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FOUR;
+                    DirectionCurvedAttribute = DirectonCurved.four;
                     pt_center.X = ((float)(CenterDoc.X + SecondDot.X)) / 2;
                     pt_center.Y = ((float)(CenterDoc.Y + FirstDoc.Y)) / 2;
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.THIRD;
+                    DirectionCurvedAttribute = DirectonCurved.third;
                     break;
             }
-            StartAngle += Rotate_Angle;
-            matrix.RotateAt(Rotate_Angle, pt_center);
+            StartAngle += RotateAngle;
+            matrix.RotateAt(RotateAngle, pt_center);
             matrix.TransformPoints(pts);
             CenterDoc = pts[0];
             FirstDoc = pts[1];
@@ -274,7 +274,7 @@ namespace BaseRailElement
         public override void RotateClw()
         {
             base.RotateClw();
-            Rotate_Angle = 90;
+            RotateAngle = 90;
             Matrix matrix = new Matrix();
             Point pt_center = new Point();
             Point[] pts = new Point[4];
@@ -285,32 +285,32 @@ namespace BaseRailElement
             switch (StartAngle)
             {
                 case 0:
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FIRST;
+                    DirectionCurvedAttribute = DirectonCurved.first;
                     pt_center.X = (CenterDoc.X + FirstDoc.X) / 2;
                     pt_center.Y = (CenterDoc.Y + SecondDot.Y) / 2;
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.SECOND;
+                    DirectionCurvedAttribute = DirectonCurved.second;
                     break;
                 case 90:
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.SECOND;
+                    DirectionCurvedAttribute = DirectonCurved.second;
                     pt_center.X = (CenterDoc.X + SecondDot.X) / 2;
                     pt_center.Y = (CenterDoc.Y + FirstDoc.Y) / 2;
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.THIRD;
+                    DirectionCurvedAttribute = DirectonCurved.third;
                     break;
                 case 180:
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.THIRD;
+                    DirectionCurvedAttribute = DirectonCurved.third;
                     pt_center.X = (CenterDoc.X + FirstDoc.X) / 2;
                     pt_center.Y = (CenterDoc.Y + SecondDot.Y) / 2;
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FOUR;
+                    DirectionCurvedAttribute = DirectonCurved.four;
                     break;
                 case 270:
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FOUR;
+                    DirectionCurvedAttribute = DirectonCurved.four;
                     pt_center.X = (CenterDoc.X + SecondDot.X) / 2;
                     pt_center.Y = (CenterDoc.Y + FirstDoc.Y) / 2;
-                    DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED.FIRST;
+                    DirectionCurvedAttribute = DirectonCurved.first;
                     break;
             }
-            StartAngle += Rotate_Angle;
-            matrix.RotateAt(Rotate_Angle, pt_center);
+            StartAngle += RotateAngle;
+            matrix.RotateAt(RotateAngle, pt_center);
             matrix.TransformPoints(pts);
             CenterDoc = pts[0];
             FirstDoc = pts[1];
@@ -327,30 +327,30 @@ namespace BaseRailElement
             cl.SecondDot = SecondDot;
             cl.StartAngle = StartAngle;
             cl.SweepAngle = SweepAngle;
-            cl.DIRECTION_CURVED_ATTRIBUTE = DIRECTION_CURVED_ATTRIBUTE;
+            cl.DirectionCurvedAttribute = DirectionCurvedAttribute;
             return cl;
         }
 
         public override void DrawEnlargeOrShrink(float _draw_multi_factor)
         {
             Point[] pts = new Point[3];
-            pts[0] = Save_Center;
-            pts[1] = Save_First_Dot;
-            pts[2] = Save_Sec_Dot;
+            pts[0] = SaveCenter;
+            pts[1] = SaveFirstDot;
+            pts[2] = SaveSecDot;
             if (_draw_multi_factor > 1)
             {
-                pts[0].X = (int)(pts[0].X * Draw_Multi_Factor);
-                pts[0].Y = (int)(pts[0].Y * Draw_Multi_Factor);
-                pts[1].X = (int)(pts[1].X * Draw_Multi_Factor);
-                pts[1].Y = (int)(pts[1].Y * Draw_Multi_Factor);
-                pts[2].X = (int)(pts[2].X * Draw_Multi_Factor);
-                pts[2].Y = (int)(pts[2].Y * Draw_Multi_Factor);               
+                pts[0].X = (int)(pts[0].X * DrawMultiFactor);
+                pts[0].Y = (int)(pts[0].Y * DrawMultiFactor);
+                pts[1].X = (int)(pts[1].X * DrawMultiFactor);
+                pts[1].Y = (int)(pts[1].Y * DrawMultiFactor);
+                pts[2].X = (int)(pts[2].X * DrawMultiFactor);
+                pts[2].Y = (int)(pts[2].Y * DrawMultiFactor);               
             }
             CenterDoc = pts[0];
             FirstDoc = pts[1];
             SecondDot = pts[2];
             Radius = (int)Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X) + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
-            base.DrawEnlargeOrShrink(draw_multi_factor);
+            base.DrawEnlargeOrShrink(drawMultiFactor);
         }
 
         private void PtlToSavel()
@@ -359,19 +359,19 @@ namespace BaseRailElement
             pts[0] = CenterDoc;
             pts[1] = FirstDoc;
             pts[2] = SecondDot;
-            if (Draw_Multi_Factor > 1)
+            if (DrawMultiFactor > 1)
             {
-                pts[0].X = (int)(pts[0].X / draw_multi_factor);
-                pts[0].Y = (int)(pts[0].Y / draw_multi_factor);
-                pts[1].X = (int)(pts[1].X / draw_multi_factor);
-                pts[1].Y = (int)(pts[1].Y / draw_multi_factor);
-                pts[2].X = (int)(pts[2].X / draw_multi_factor);
-                pts[2].Y = (int)(pts[2].Y / draw_multi_factor);               
+                pts[0].X = (int)(pts[0].X / drawMultiFactor);
+                pts[0].Y = (int)(pts[0].Y / drawMultiFactor);
+                pts[1].X = (int)(pts[1].X / drawMultiFactor);
+                pts[1].Y = (int)(pts[1].Y / drawMultiFactor);
+                pts[2].X = (int)(pts[2].X / drawMultiFactor);
+                pts[2].Y = (int)(pts[2].Y / drawMultiFactor);               
             }
-            Save_Center = pts[0];
-            Save_First_Dot = pts[1];
-            Save_Sec_Dot = pts[2];
-            Save_Radiu = (int)Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X) + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
+            SaveCenter = pts[0];
+            SaveFirstDot = pts[1];
+            SaveSecDot = pts[2];
+            SaveRadiu = (int)Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X) + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
         }
 
         public override void ChangePropertyValue()

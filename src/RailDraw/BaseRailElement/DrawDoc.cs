@@ -77,15 +77,15 @@ namespace BaseRailElement
             int n = _drawObjectList.Count;
             for (int i = 0; i < n; i++)
             {
-                if (this.Draw_Multi_Factor != -1)
+                if (this.DrawMultiFactor != -1)
                 {
-                    _drawObjectList[i].DrawEnlargeOrShrink(Draw_Multi_Factor);
+                    _drawObjectList[i].DrawEnlargeOrShrink(DrawMultiFactor);
                 }
                 _drawObjectList[i].Draw(_canvas);
                 if (_selectedDrawObjectList.Contains(_drawObjectList[i]))
                     _drawObjectList[i].DrawTracker(_canvas);        
             }
-            this.Draw_Multi_Factor = -1;
+            this.DrawMultiFactor = -1;
         }
 
         public override int HitTest(Point point, bool isSelected)

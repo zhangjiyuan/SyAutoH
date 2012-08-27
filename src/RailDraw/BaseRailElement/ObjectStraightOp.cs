@@ -9,18 +9,18 @@ namespace BaseRailElement
 {
     public class ObjectStraightOp
     {
-        private List<Point> _pointList = new List<Point>();
+        private List<Point> pointList = new List<Point>();
         public List<Point> PointList
         {
-            get { return _pointList; }
-            set { _pointList = value; }
+            get { return pointList; }
+            set { pointList = value; }
         }
 
-        private List<Point> _saveList = new List<Point>();
+        private List<Point> saveList = new List<Point>();
         public List<Point> SaveList
         {
-            get { return _saveList; }
-            set { _saveList = value; }
+            get { return saveList; }
+            set { saveList = value; }
         }
 
         public void DrawTracker(Graphics canvas)

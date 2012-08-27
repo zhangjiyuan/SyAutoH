@@ -16,65 +16,65 @@ namespace BaseRailElement
     public abstract class BaseRailEle
     {
         //以下为对象基本属性
-        private int _GraphType = 0;
+        private int graphType = 0;
         [Browsable(false)]
         public int GraphType
         {
-            get { return _GraphType; }
-            set { _GraphType = value; }
+            get { return graphType; }
+            set { graphType = value; }
         }
 
         //lock
-        protected bool location_lock = false;
+        protected bool locationLock = false;
         [Description("位置锁定"), Category("锁定")]
         public bool Location_Lock
         {
-            get { return location_lock; }
-            set { location_lock = value; }
+            get { return locationLock; }
+            set { locationLock = value; }
         }
 
-        protected bool size_lock = false;
+        protected bool sizeLock = false;
         [Description("尺寸锁定"), Category("锁定")]
         public bool Size_Lock
         {
-            get { return size_lock; }
-            set { size_lock = value; }
+            get { return sizeLock; }
+            set { sizeLock = value; }
         }
 
-        private bool _selectable = true;
+        private bool selectable = true;
         [Browsable(false)]
         public bool Selectable
         {
-            get { return _selectable; }
-            set { _selectable = value; }
+            get { return selectable; }
+            set { selectable = value; }
         }
 
-        private float _speed = 0;
+        private float speed = 0;
         public float Speed
         {
-            get { return _speed; }
-            set { _speed = value; }
+            get { return speed; }
+            set { speed = value; }
         }
 
-        private float _angle = 0;
+        private float angle = 0;
         public float Angle
         {
-            get { return _angle; }
-            set { _angle = value; }
+            get { return angle; }
+            set { angle = value; }
         }
       
-        public float draw_multi_factor = 1;
+        public float drawMultiFactor = 1;
         [XmlIgnore]
         [Browsable(false)]
-        public float Draw_Multi_Factor
+        public float DrawMultiFactor
         {
-            get { return draw_multi_factor; }
-            set { draw_multi_factor = value; }
+            get { return drawMultiFactor; }
+            set { drawMultiFactor = value; }
         }
 
         public void Move(Point start, Point end)
         {
-            if (location_lock)
+            if (locationLock)
                 return;
             int x = end.X - start.X;
             int y = end.Y - start.Y;
@@ -84,7 +84,7 @@ namespace BaseRailElement
 
         public void MoveHandle(int handle, Point start, Point end)
         {
-            if (size_lock)
+            if (sizeLock)
                 return;
             int dx = end.X - start.X;
             int dy = end.Y - start.Y;

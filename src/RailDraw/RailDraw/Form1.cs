@@ -18,17 +18,17 @@ namespace RailDraw
     public partial class Form1 : Form
     {
         BaseRailElement.DrawDoc doc1 = new BaseRailElement.DrawDoc();
-        BaseRailElement.ObjectBaseEvents _ObjectEvent = new BaseRailElement.ObjectBaseEvents();      
+        BaseRailElement.ObjectBaseEvents objectEvent = new BaseRailElement.ObjectBaseEvents();      
         private bool pic1 = false;
         private bool pic2 = false;
         private bool pic3 = false;
         private bool pic4 = false;
-        Point _downpoint= Point.Empty;
-        bool mouse_is_down = false;
-        bool drap_is_down = false;
-        Size drawreg_orig_size = new Size();
-        const float const_multi_factor = 0.1f;
-        private float multi_factor = 1;
+//        Point _downpoint= Point.Empty;
+        bool mouseIsDown = false;
+        bool drapIsOown = false;
+        Size drawregOrigSize = new Size();
+        const float CONST_MULTI_FACTOR = 0.1f;
+        private float multiFactor = 1;
         private string sProjectPath = "";
 
         public Form1()
@@ -36,8 +36,8 @@ namespace RailDraw
             InitializeComponent();
             MyInit();
             Document=doc1;
-            drawreg_orig_size.Width = DrawRegion.Width;
-            drawreg_orig_size.Height = DrawRegion.Height;
+            drawregOrigSize.Width = DrawRegion.Width;
+            drawregOrigSize.Height = DrawRegion.Height;
         }
 
         private void MyInit()
@@ -61,7 +61,7 @@ namespace RailDraw
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             base.OnMouseDown(e);
-            if ((e.Button & MouseButtons.Left) == MouseButtons.Left && !drap_is_down)
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left && !drapIsOown)
             {
                 Size dragSize = SystemInformation.DragSize;
                 dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2)), dragSize);
@@ -74,7 +74,7 @@ namespace RailDraw
                 this.Cursor = a;
                 pic1 = true;               
             }
-            else if (drap_is_down)
+            else if (drapIsOown)
             {
                 this.Cursor = System.Windows.Forms.Cursors.No;
             }
@@ -90,7 +90,7 @@ namespace RailDraw
                 {
                     BaseRailElement.StraightRailEle _straightrailele = new BaseRailElement.StraightRailEle();
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
-                    doc1.DrawObjectList.Add(_straightrailele.CreatEle(pt, DrawRegion.Size, multi_factor));
+                    doc1.DrawObjectList.Add(_straightrailele.CreatEle(pt, DrawRegion.Size, multiFactor));
                     doc1.Select(_straightrailele);
                     DrawRegion.Invalidate();
                     propertyGrid1.Invalidate();
@@ -103,7 +103,7 @@ namespace RailDraw
         private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
         {
             base.OnMouseDown(e);
-            if ((e.Button & MouseButtons.Left) == MouseButtons.Left && !drap_is_down)
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left && !drapIsOown)
             {
                 Size dragSize = SystemInformation.DragSize;
                 dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2)), dragSize);
@@ -116,7 +116,7 @@ namespace RailDraw
                 this.Cursor = a;
                 pic2 = true;
             }
-            else if (drap_is_down)
+            else if (drapIsOown)
             {
                 this.Cursor = System.Windows.Forms.Cursors.No;
             }
@@ -132,7 +132,7 @@ namespace RailDraw
                 {
                     BaseRailElement.CurvedRailEle _curverailele = new BaseRailElement.CurvedRailEle();
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
-                    doc1.DrawObjectList.Add(_curverailele.CreatEle(pt, DrawRegion.Size, multi_factor));
+                    doc1.DrawObjectList.Add(_curverailele.CreatEle(pt, DrawRegion.Size, multiFactor));
                     doc1.Select(_curverailele);
                     DrawRegion.Invalidate();
                     propertyGrid1.SelectedObject = _curverailele;
@@ -146,7 +146,7 @@ namespace RailDraw
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e)
         {
             base.OnMouseDown(e);
-            if ((e.Button & MouseButtons.Left) == MouseButtons.Left && !drap_is_down)
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left && !drapIsOown)
             {
                 Size dragSize = SystemInformation.DragSize;
                 dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2)), dragSize);
@@ -159,7 +159,7 @@ namespace RailDraw
                 this.Cursor = a;
                 pic3 = true;
             }
-            else if (drap_is_down)
+            else if (drapIsOown)
             {
                 this.Cursor = System.Windows.Forms.Cursors.No;
             }
@@ -175,7 +175,7 @@ namespace RailDraw
                 {
                     BaseRailElement.CrossLeftEle _crossleft = new BaseRailElement.CrossLeftEle();
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
-                    doc1.DrawObjectList.Add(_crossleft.CreatEle(pt, DrawRegion.Size, multi_factor));
+                    doc1.DrawObjectList.Add(_crossleft.CreatEle(pt, DrawRegion.Size, multiFactor));
                     doc1.Select(_crossleft);
                     DrawRegion.Invalidate();
                     propertyGrid1.Invalidate();
@@ -208,7 +208,7 @@ namespace RailDraw
                 {
                     BaseRailElement.CrossRightEle _crossright = new BaseRailElement.CrossRightEle();
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
-                    doc1.DrawObjectList.Add(_crossright.CreatEle(pt, DrawRegion.Size, multi_factor));
+                    doc1.DrawObjectList.Add(_crossright.CreatEle(pt, DrawRegion.Size, multiFactor));
                     doc1.Select(_crossright);
                     DrawRegion.Invalidate();
                     propertyGrid1.Invalidate();
@@ -223,8 +223,8 @@ namespace RailDraw
             switch (e.Button)
             {
                 case MouseButtons.Left:                    
-                    _ObjectEvent.OnLButtonDown(pt);
-                    mouse_is_down = true;
+                    objectEvent.OnLButtonDown(pt);
+                    mouseIsDown = true;
                     break;
             }
             this.DrawRegion.Invalidate();
@@ -233,9 +233,9 @@ namespace RailDraw
         private void DrawRegion_MouseMove(object sender, MouseEventArgs e)
         {
             Point pt = ClientToDrawregion(e.Location);
-            if (mouse_is_down && !drap_is_down)
+            if (mouseIsDown && !drapIsOown)
             {
-                _ObjectEvent.OnMouseMove(pt);                    
+                objectEvent.OnMouseMove(pt);                    
                 this.DrawRegion.Invalidate();
             }
         }
@@ -243,13 +243,13 @@ namespace RailDraw
         private void DrawRegion_MouseUp(object sender, MouseEventArgs e)
         {
             Point pt = ClientToDrawregion(e.Location);
-            if (mouse_is_down)
-                mouse_is_down = false;
-            if (drap_is_down)
+            if (mouseIsDown)
+                mouseIsDown = false;
+            if (drapIsOown)
             {
-                Point pt_offset = _ObjectEvent.DrapDrawRegion(pt);
+                Point pt_offset = objectEvent.DrapDrawRegion(pt);
                 DrawRegion.Location = new Point(DrawRegion.Location.X + pt_offset.X, DrawRegion.Location.Y + pt_offset.Y);
-                drap_is_down = true;
+                drapIsOown = true;
             }
         }
 
@@ -257,7 +257,7 @@ namespace RailDraw
         {
             MouseEventArgs _DoubleClick = (MouseEventArgs)e;
             Point pt = ClientToDrawregion(_DoubleClick.Location);
-            _ObjectEvent.OnMouseDoubleClick(pt, this.DrawRegion.Size);
+            objectEvent.OnMouseDoubleClick(pt, this.DrawRegion.Size);
             DrawRegion.Invalidate();
             propertyGrid1.Refresh();
         }
@@ -345,9 +345,9 @@ namespace RailDraw
                 doc1.DrawObjectList.Clear();
                 DrawRegion.Top = 0;
                 DrawRegion.Left = 0;
-                DrawRegion.Width = drawreg_orig_size.Width;
-                DrawRegion.Height = drawreg_orig_size.Height;
-                drap_is_down = false;
+                DrawRegion.Width = drawregOrigSize.Width;
+                DrawRegion.Height = drawregOrigSize.Height;
+                drapIsOown = false;
                 this.Cursor = System.Windows.Forms.Cursors.Default; 
                 try
                 {
@@ -367,16 +367,16 @@ namespace RailDraw
 
         private void enlarge_Click(object sender, EventArgs e)
         {
-            if (DrawRegion.Width < drawreg_orig_size.Width * 2)
+            if (DrawRegion.Width < drawregOrigSize.Width * 2)
             {
-                DrawRegion.Width += (int)(drawreg_orig_size.Width * const_multi_factor);
-                DrawRegion.Height += (int)(drawreg_orig_size.Height * const_multi_factor);
-                multi_factor = DrawRegion.Width / (float)drawreg_orig_size.Width;
-                _document.Draw_Multi_Factor = multi_factor;
+                DrawRegion.Width += (int)(drawregOrigSize.Width * CONST_MULTI_FACTOR);
+                DrawRegion.Height += (int)(drawregOrigSize.Height * CONST_MULTI_FACTOR);
+                multiFactor = DrawRegion.Width / (float)drawregOrigSize.Width;
+                _document.DrawMultiFactor = multiFactor;
                 int n = _document.DrawObjectList.Count;
                 for (int i = 0; i < n; i++)
                 {
-                    _document.DrawObjectList[i].Draw_Multi_Factor = multi_factor;
+                    _document.DrawObjectList[i].DrawMultiFactor = multiFactor;
                 }
                 DrawRegion.Invalidate();
             }
@@ -384,16 +384,16 @@ namespace RailDraw
 
         private void shorten_Click(object sender, EventArgs e)
         {
-            if (DrawRegion.Width > drawreg_orig_size.Width)
+            if (DrawRegion.Width > drawregOrigSize.Width)
             {
-                DrawRegion.Width -= (int)(drawreg_orig_size.Width * const_multi_factor);
-                DrawRegion.Height -= (int)(drawreg_orig_size.Height * const_multi_factor);
-                multi_factor = DrawRegion.Width / (float)drawreg_orig_size.Width;
-                _document.Draw_Multi_Factor = multi_factor;
+                DrawRegion.Width -= (int)(drawregOrigSize.Width * CONST_MULTI_FACTOR);
+                DrawRegion.Height -= (int)(drawregOrigSize.Height * CONST_MULTI_FACTOR);
+                multiFactor = DrawRegion.Width / (float)drawregOrigSize.Width;
+                _document.DrawMultiFactor = multiFactor;
                 int n=_document.DrawObjectList.Count;
                 for (int i = 0; i < n; i++)
                 {
-                    _document.DrawObjectList[i].Draw_Multi_Factor = multi_factor;
+                    _document.DrawObjectList[i].DrawMultiFactor = multiFactor;
                 }
                 DrawRegion.Invalidate();
             }
@@ -485,7 +485,7 @@ namespace RailDraw
 
         private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
-            _ObjectEvent.ChangePropertyValue();
+            objectEvent.ChangePropertyValue();
             DrawRegion.Invalidate();
         }
 
@@ -522,19 +522,19 @@ namespace RailDraw
 
         private void drap_Click(object sender, EventArgs e)
         {
-            drap_is_down = true;
+            drapIsOown = true;
         }
 
         private void mouse_Click(object sender, EventArgs e)
         {
-            drap_is_down = false;
+            drapIsOown = false;
             this.Cursor = System.Windows.Forms.Cursors.Default; 
         }
 
 
         private void DrawRegion_MouseEnter(object sender, EventArgs e)
         {
-            if (drap_is_down)
+            if (drapIsOown)
             {
                 byte[] cursorbuffer = RailDraw.Properties.Resources.drap;
                 FileStream fs = new FileStream("temp_cur.dat", FileMode.Create);
@@ -544,12 +544,11 @@ namespace RailDraw
                 File.Delete("temp_cur.dat");
                 this.Cursor = a;
             }
- 
         }
 
         private void DrawRegion_MouseLeave(object sender, EventArgs e)
         {
-            if (drap_is_down)
+            if (drapIsOown)
                 this.Cursor = System.Windows.Forms.Cursors.Default;
         }
 
@@ -558,9 +557,7 @@ namespace RailDraw
             if (doc1.DrawObjectList.Count > 0)
             {
                 SaveOfNew save_form = new SaveOfNew();
-                Point pt = new Point(this.Top + this.Height / 2, this.Left + this.Width / 2);
-                save_form.StartPosition = FormStartPosition.Manual;
-                save_form.Location = pt;
+                save_form.StartPosition = FormStartPosition.CenterParent;
                 switch (save_form.ShowDialog())
                 {
                     case DialogResult.Yes:
