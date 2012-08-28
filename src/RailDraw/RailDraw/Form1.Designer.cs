@@ -33,6 +33,7 @@ namespace RailDraw
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.new_btn = new System.Windows.Forms.ToolStripButton();
             this.open = new System.Windows.Forms.ToolStripButton();
             this.save = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -65,7 +66,6 @@ namespace RailDraw
             this.panel2 = new System.Windows.Forms.Panel();
             this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
-            this.new_btn = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -104,6 +104,16 @@ namespace RailDraw
             this.toolStrip1.Size = new System.Drawing.Size(808, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // new_btn
+            // 
+            this.new_btn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.new_btn.Image = ((System.Drawing.Image)(resources.GetObject("new_btn.Image")));
+            this.new_btn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.new_btn.Name = "new_btn";
+            this.new_btn.Size = new System.Drawing.Size(23, 22);
+            this.new_btn.Text = "new";
+            this.new_btn.Click += new System.EventHandler(this.new_btn_Click);
             // 
             // open
             // 
@@ -415,16 +425,6 @@ namespace RailDraw
             this.vScrollBar1.TabIndex = 3;
             this.vScrollBar1.Visible = false;
             this.vScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar1_Scroll);
-            // 
-            // new_btn
-            // 
-            this.new_btn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.new_btn.Image = ((System.Drawing.Image)(resources.GetObject("new_btn.Image")));
-            this.new_btn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.new_btn.Name = "new_btn";
-            this.new_btn.Size = new System.Drawing.Size(23, 22);
-            this.new_btn.Text = "new";
-            this.new_btn.Click += new System.EventHandler(this.new_btn_Click);
             // 
             // Form1
             // 

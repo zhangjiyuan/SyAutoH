@@ -27,7 +27,7 @@ namespace BaseRailElement
         //lock
         protected bool locationLock = false;
         [Description("位置锁定"), Category("锁定")]
-        public bool Location_Lock
+        public bool LocationLock
         {
             get { return locationLock; }
             set { locationLock = value; }
@@ -35,7 +35,7 @@ namespace BaseRailElement
 
         protected bool sizeLock = false;
         [Description("尺寸锁定"), Category("锁定")]
-        public bool Size_Lock
+        public bool SizeLock
         {
             get { return sizeLock; }
             set { sizeLock = value; }
@@ -63,7 +63,7 @@ namespace BaseRailElement
             set { angle = value; }
         }
       
-        public float drawMultiFactor = 1;
+        private float drawMultiFactor = 1;
         [XmlIgnore]
         [Browsable(false)]
         public float DrawMultiFactor

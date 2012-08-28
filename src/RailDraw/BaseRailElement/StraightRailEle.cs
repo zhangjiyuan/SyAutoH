@@ -27,7 +27,7 @@ namespace BaseRailElement
         }
 
         private int realLenght = 100;
-        public int RealLenght
+        public int Lenght
         {
             get { return realLenght; }
             set { realLenght = value; }
@@ -81,7 +81,6 @@ namespace BaseRailElement
         {
             if (canvas == null)
                 throw new Exception("Graphics对象Canvas不能为空");
-
             if (PointList.Count < 2)
             {
                 if (SaveList.Count < 2)
@@ -93,7 +92,7 @@ namespace BaseRailElement
                     Point[] pts = new Point[2];
                     SaveList.CopyTo(pts);
                     PointList.AddRange(pts);
-                    ShowLenght = RealLenght;
+                    ShowLenght = Lenght;
                 }
             }
             int n = PointList.Count;
@@ -234,7 +233,7 @@ namespace BaseRailElement
                 pts[0].Y = (int)(pts[0].Y / DrawMultiFactor);
                 pts[1].X = (int)(pts[1].X / DrawMultiFactor);
                 pts[1].Y = (int)(pts[1].Y / DrawMultiFactor);
-                RealLenght =(int) Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X) + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
+                Lenght =(int) Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X) + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
             }
             SaveList.Clear();
             SaveList.AddRange(pts);

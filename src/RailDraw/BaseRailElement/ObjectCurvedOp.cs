@@ -13,7 +13,6 @@ namespace BaseRailElement
         {
             if (canvas == null)
                 throw new Exception("Graphics对象Canvas不能为空");
-
             Pen pen = new Pen(Color.White, 2);
             SolidBrush bsh = new SolidBrush(Color.Black);
             Point[] points = new Point[4];
@@ -61,21 +60,20 @@ namespace BaseRailElement
             bool isSelected,
             Point center, 
             int radiu,
-            CurvedRailEle.DirectonCurved _direction)
+            CurvedRailEle.DirectonCurved direction)
         {
             if (isSelected)
             {
-                int handleHit = HandleHitTest(point, center, radiu, _direction);
-                if (handleHit > 0) return handleHit;
+                int handleHit = HandleHitTest(point, center, radiu, direction);
+                if (handleHit > 0) 
+                    return handleHit;
             }
-
             // 判断是否在内部
             Point[] wrapper = new Point[1];
             wrapper[0] = point;
             Rectangle rc = new Rectangle();
             Point[] points = new Point[4];
-
-            switch (_direction)
+            switch (direction)
             {
                 case CurvedRailEle.DirectonCurved.first:
                     points[0] = center;
@@ -148,7 +146,8 @@ namespace BaseRailElement
             {
                 Point pt = points[i];
                 Rectangle rc = new Rectangle(pt.X - 3, pt.Y - 3, 6, 6);
-                if (rc.Contains(point)) return i + 1;
+                if (rc.Contains(point)) 
+                    return i + 1;
             }
             return -1;
         }

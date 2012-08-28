@@ -51,7 +51,6 @@
     <Compile Include="CurvedRailEle.cs" />
     <Compile Include="DrawDoc.cs" />
     <Compile Include="ObjectBaseEvents.cs" />
-    <Compile Include="ObjectCrossEle.cs" />
     <Compile Include="ObjectCrossLeftOp.cs" />
     <Compile Include="ObjectCrossOp.cs" />
     <Compile Include="ObjectCrossRightOp.cs" />

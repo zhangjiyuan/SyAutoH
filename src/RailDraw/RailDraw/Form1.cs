@@ -173,10 +173,14 @@ namespace RailDraw
                 Point pt_new_e = PicPtTrans(sender, e);
                 if (0 < pt_new_e.X && DrawRegion.Size.Width > pt_new_e.X && 0 < pt_new_e.Y && DrawRegion.Size.Height > pt_new_e.Y)
                 {
-                    BaseRailElement.CrossLeftEle _crossleft = new BaseRailElement.CrossLeftEle();
+                    BaseRailElement.CrossEle crossLeft = new CrossEle();
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
-                    doc1.DrawObjectList.Add(_crossleft.CreatEle(pt, DrawRegion.Size, multiFactor));
-                    doc1.Select(_crossleft);
+                    doc1.DrawObjectList.Add(crossLeft.CreatEle(pt, DrawRegion.Size, multiFactor));
+                    doc1.Select(crossLeft);
+//                    BaseRailElement.CrossLeftEle _crossleft = new BaseRailElement.CrossLeftEle();
+//                    Point pt = new Point(pt_new_e.X, pt_new_e.Y);
+//                    doc1.DrawObjectList.Add(_crossleft.CreatEle(pt, DrawRegion.Size, multiFactor));
+//                    doc1.Select(_crossleft);
                     DrawRegion.Invalidate();
                     propertyGrid1.Invalidate();
                 }

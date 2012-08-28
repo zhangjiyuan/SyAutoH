@@ -78,14 +78,11 @@ namespace BaseRailElement
                 int handleHit = HandleHitTest(point, center, radiu, _direction);
                 if (handleHit > 0) return handleHit;
             }
-
             // 判断是否在内部
             Point[] wrapper = new Point[1];
             wrapper[0] = point;
-
             Rectangle rc = new Rectangle();
             Point[] points = new Point[4];
-           
             switch (_direction)
             {
                 case CrossLeftEle.DIRECTION_CROSS_L.FIRST:

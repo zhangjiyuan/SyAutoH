@@ -21,9 +21,7 @@ namespace BaseRailElement
         public override void OnLButtonDown(Point point)
         {
             base.OnLButtonDown(point);
-
-            int hit = _document.HitTest(point, false);
-
+            int hit = document.HitTest(point, false);
             _hit = hit;
             if (hit > 0)
                 _SelectObject = SelectObject.SelectHandle;
@@ -35,61 +33,73 @@ namespace BaseRailElement
 
         public override void OnMouseMove(Point point)
         {
-            int n = _document.SelectedDrawObjectList.Count;
+            int n = document.SelectedDrawObjectList.Count;
             switch (_SelectObject)
             {
                 case SelectObject.SelectHandle:
-                    if (_document.SelectedDrawObjectList[0].GraphType == 1)
+                    if (document.SelectedDrawObjectList[0].GraphType == 1)
                     {
                         if (n == 1)
                         {
-                            _document.SelectedDrawObjectList[0].MoveHandle(_hit, _lastPoint, point);
+                            document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
                         }
                     }
-                    else if (_document.SelectedDrawObjectList[0].GraphType == 2)
+                    else if (document.SelectedDrawObjectList[0].GraphType == 2)
                     {
                         if (n == 1)
                         {
-                            _document.SelectedDrawObjectList[0].MoveHandle(_hit, _lastPoint, point);
+                            document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
                         }
                     }
-                    else if (_document.SelectedDrawObjectList[0].GraphType == 3)
+                    else if (document.SelectedDrawObjectList[0].GraphType == 3)
                     {
                         if (n == 1)
                         {
-                            _document.SelectedDrawObjectList[0].MoveHandle(_hit, _lastPoint, point);
+                            document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
                         }
                     }
-                    else if (_document.SelectedDrawObjectList[0].GraphType == 4)
+                    else if (document.SelectedDrawObjectList[0].GraphType == 4)
                     {
                         if (n == 1)
                         {
-                            _document.SelectedDrawObjectList[0].MoveHandle(_hit, _lastPoint, point);
+                            document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
+                        }
+                    }
+                    else if (document.SelectedDrawObjectList[0].GraphType == 5)
+                    {
+                        if (n == 1)
+                        {
+                            document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
                         }
                     }
                     break;
                 case SelectObject.SelectEle:
                     for (int i = 0; i < n; i++)
                     {
-                        if (_document.SelectedDrawObjectList[i].GraphType == 1)
+                        if (document.SelectedDrawObjectList[i].GraphType == 1)
                         {
-                            StraightRailEle de = (StraightRailEle)_document.SelectedDrawObjectList[i];
-                            _document.SelectedDrawObjectList[i].Move(_lastPoint, point);
+                            StraightRailEle de = (StraightRailEle)document.SelectedDrawObjectList[i];
+                            document.SelectedDrawObjectList[i].Move(lastPoint, point);
                         }
-                        else if (_document.SelectedDrawObjectList[i].GraphType == 2)
+                        else if (document.SelectedDrawObjectList[i].GraphType == 2)
                         {
-                            CurvedRailEle de = (CurvedRailEle)_document.SelectedDrawObjectList[i];
-                            _document.SelectedDrawObjectList[i].Move(_lastPoint, point);
+                            CurvedRailEle de = (CurvedRailEle)document.SelectedDrawObjectList[i];
+                            document.SelectedDrawObjectList[i].Move(lastPoint, point);
                         }
-                        else if (_document.SelectedDrawObjectList[i].GraphType == 3)
+                        else if (document.SelectedDrawObjectList[i].GraphType == 3)
                         {
-                            CrossLeftEle de = (CrossLeftEle)_document.SelectedDrawObjectList[i];
-                            _document.SelectedDrawObjectList[i].Move(_lastPoint, point);
+                            CrossLeftEle de = (CrossLeftEle)document.SelectedDrawObjectList[i];
+                            document.SelectedDrawObjectList[i].Move(lastPoint, point);
                         }
-                        else if (_document.SelectedDrawObjectList[i].GraphType == 4)
+                        else if (document.SelectedDrawObjectList[i].GraphType == 4)
                         {
-                            CrossRightEle de = (CrossRightEle)_document.SelectedDrawObjectList[i];
-                            _document.SelectedDrawObjectList[i].Move(_lastPoint, point);
+                            CrossRightEle de = (CrossRightEle)document.SelectedDrawObjectList[i];
+                            document.SelectedDrawObjectList[i].Move(lastPoint, point);
+                        }
+                        else if (document.SelectedDrawObjectList[i].GraphType == 5)
+                        {
+                            CrossEle de = (CrossEle)document.SelectedDrawObjectList[i];
+                            document.SelectedDrawObjectList[i].Move(lastPoint, point);
                         }
                     }
                     break;
@@ -102,25 +112,24 @@ namespace BaseRailElement
         public override void OnMouseDoubleClick(Point point , Size size)
         {
             base.OnMouseDoubleClick(point, size);
-
             if (_hit >= 0)
             {
-                _document.SelectedDrawObjectList[0].ChangeDirection(point , size);
+                document.SelectedDrawObjectList[0].ChangeDirection(point , size);
             }
         }
 
         public override Point DrapDrawRegion(Point point)
         {
             Point pt_offset = Point.Empty;
-            pt_offset.X = point.X - _lastPoint.X;
-            pt_offset.Y = point.Y - _lastPoint.Y;
+            pt_offset.X = point.X - lastPoint.X;
+            pt_offset.Y = point.Y - lastPoint.Y;
             base.DrapDrawRegion(point);
             return pt_offset;
         }
         public override void ChangePropertyValue()
         {
-            int n = _document.SelectedDrawObjectList.Count;
-            _document.SelectedDrawObjectList[n - 1].ChangePropertyValue();
+            int n = document.SelectedDrawObjectList.Count;
+            document.SelectedDrawObjectList[n - 1].ChangePropertyValue();
         }
     }
 }

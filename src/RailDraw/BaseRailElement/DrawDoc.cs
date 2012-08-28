@@ -185,7 +185,7 @@ namespace BaseRailElement
                     {
                         CurvedRailEle cl = (CurvedRailEle)o;
                         CurvedRailEle n = (CurvedRailEle)cl.Clone();
-                        n.CenterDoc = new Point(n.CenterDoc.X + 20, n.CenterDoc.Y + 20);
+                        n.ShowCenterDoc = new Point(n.ShowCenterDoc.X + 20, n.ShowCenterDoc.Y + 20);
                         _drawObjectList.Add(n);
                         Select(n);
                     }
