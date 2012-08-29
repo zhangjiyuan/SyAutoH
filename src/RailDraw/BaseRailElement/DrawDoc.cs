@@ -186,6 +186,8 @@ namespace BaseRailElement
                         CurvedRailEle cl = (CurvedRailEle)o;
                         CurvedRailEle n = (CurvedRailEle)cl.Clone();
                         n.ShowCenterDoc = new Point(n.ShowCenterDoc.X + 20, n.ShowCenterDoc.Y + 20);
+                        n.ShowFirstDoc = new Point(n.ShowFirstDoc.X + 20, n.ShowFirstDoc.Y + 20);
+                        n.ShowSecondDot = new Point(n.ShowSecondDot.X + 20, n.ShowSecondDot.Y + 20);
                         _drawObjectList.Add(n);
                         Select(n);
                     }
@@ -235,7 +237,6 @@ namespace BaseRailElement
       
         public override void DrawTracker(Graphics _canvas)
         {
-            ;
         }
 
         protected override void Translate(int offsetX, int offsetY)

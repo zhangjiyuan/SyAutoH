@@ -92,7 +92,6 @@ namespace BaseRailElement
         {
             get { return _default; }
         }
-
         # endregion
     }
 }

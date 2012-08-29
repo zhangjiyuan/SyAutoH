@@ -328,23 +328,28 @@ namespace BaseRailElement
         public object Clone()
         {
             CurvedRailEle cl = new CurvedRailEle();
+            cl.Center = Center;
+            cl.Radiu = Radiu;
+            cl.FirstDot = FirstDot;
+            cl.SecDot = SecDot;
             cl.ShowCenterDoc = ShowCenterDoc;
             cl.ShowRadius = ShowRadius;
             cl.ShowFirstDoc = ShowFirstDoc;
             cl.ShowSecondDot = ShowSecondDot;
             cl.StartAngle = StartAngle;
             cl.SweepAngle = SweepAngle;
+            cl.DrawMultiFactor = DrawMultiFactor;
             cl.DirectionCurvedAttribute = DirectionCurvedAttribute;
             return cl;
         }
 
-        public override void DrawEnlargeOrShrink(float _draw_multi_factor)
+        public override void DrawEnlargeOrShrink(float multiFactor)
         {
             Point[] pts = new Point[3];
             pts[0] = Center;
             pts[1] = FirstDot;
             pts[2] = SecDot;
-            if (_draw_multi_factor > 1)
+            if (multiFactor > 1)
             {
                 pts[0].X = (int)(pts[0].X * DrawMultiFactor);
                 pts[0].Y = (int)(pts[0].Y * DrawMultiFactor);

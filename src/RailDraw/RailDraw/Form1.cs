@@ -506,10 +506,8 @@ namespace RailDraw
             int right_border = left_border;
             int top_border = panel_1_location.Y + SystemInformation.CaptionHeight;
             int bottom_border = panel_1_location.Y;
-
             //set location var
             propertygrid_location.X = form_size.X - propertygrid_size.X - right_border-20;
-                ;
             //set size var
             panel_1_size.Y = form_size.Y - top_border - bottom_border;
             panel_2_size.X = propertygrid_location.X - panel_2_location.X - 10;

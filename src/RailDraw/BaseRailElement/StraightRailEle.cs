@@ -219,6 +219,7 @@ namespace BaseRailElement
             cl.pen = pen;
             cl.PointList.AddRange(PointList);
             cl.ShowLenght = ShowLenght;
+            cl.DrawMultiFactor = DrawMultiFactor;
             return cl;
         }
 
