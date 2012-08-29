@@ -68,10 +68,6 @@ int CSqlAceCli::Connect(WCHAR* wServer, WCHAR* wDBName)
 	}
 
 	int nHR = m_pSqlClient->InitializeAndEstablishConnection(wServer, wDBName);
-	if (0 == nHR)
-	{
-		nHR = m_pSqlClient->CreationSession();
-	}
 
 	m_pSqlClient->TestMfcOleDB();
 
@@ -94,7 +90,7 @@ int CSqlAceCli::PutOutRecordSet(void)
 {
 	if (NULL != m_pSqlClient)
 	{
-		return m_pSqlClient->TProcessRecordSet();
+		//return m_pSqlClient->TProcessRecordSet();
 	}
 
 	return -1;

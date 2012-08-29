@@ -33,5 +33,8 @@
 using namespace std;
 // TODO: 在此处引用程序需要的其他头文件
 #include <SQLNCLI.h>
-#include <msdadc.h>   // for IDataConvert
-#include <msdaguid.h>   // for IDataConvert
+//#include <msdadc.h>   // for IDataConvert
+//#include <msdaguid.h>   // for IDataConvert
+
+#include <atldbcli.h>
+#include <atldbsch.h>

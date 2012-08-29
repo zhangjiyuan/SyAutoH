@@ -1,110 +1,40 @@
 #include "StdAfx.h"
 #include "SqlServerNCLI.h"
-#include <afx.h>
+#include "DBUser.h"
+#include "UserCommand.h"
+#include "UserA.h"
 
 SqlServerNCLI::SqlServerNCLI(void)
 {
-	pIDBInitialize = NULL;
-	pIDBProperties = NULL;
-	pIDBCreateSession = NULL;
-	pIDBCreateCommand = NULL;
-	pICommandText = NULL;
-	pIRowset = NULL;
-	pIColumnsInfo = NULL;
 
-	pDBColumnInfo = NULL;
-	pIAccessor =  NULL;
-
-	cNumRows = 0;
-	ConsumerBufColOffset = 0;
-	pRows = &hRows[0];
 }
 
 
 SqlServerNCLI::~SqlServerNCLI(void)
 {
+	CoUninitialize();
 }
 
 
 int SqlServerNCLI::InitializeAndEstablishConnection(WCHAR* wsServer, WCHAR* wsDataBase)
 {
 	CoInitialize(NULL);
-	HRESULT hr;
 
-	// Obtain access to the SQLNCLI provider.
-	hr = CoCreateInstance( CLSID_SQLNCLI10,
-		NULL,
-		CLSCTX_INPROC_SERVER,
-		IID_IDBInitialize,
-		(void **) &pIDBInitialize);
+	/*HRESULT hr;
+	CString strConnection = L"Provider=SQLNCLI10;"
+		L"Server=#S#;Database=#DB#;Trusted_Connection=yes";
+	strConnection.Replace(L"#S#", wsServer);
+	strConnection.Replace(L"#DB#", wsDataBase);
 
-	if (FAILED(hr)) 
+	hr = ds.OpenFromInitializationString(strConnection);
+
+	if (FAILED(hr))
 	{
-		printf("Failed to get IDBInitialize interface.\n");
-		// Handle errors here.
+		cout<< "CDataSource open failed." << endl;
 		return -1;
 	}
+	sn.Open(ds);*/
 
-	// Initialize the property values needed to establish the connection.
-	for ( int i = 0 ; i < 4 ; i++ )
-	{
-		VariantInit(&InitProperties[i].vValue);
-	}
-
-	// Server name.
-	InitProperties[0].dwPropertyID = DBPROP_INIT_DATASOURCE;
-	InitProperties[0].vValue.vt = VT_BSTR;
-
-	InitProperties[0].vValue.bstrVal= SysAllocString(wsServer);
-	InitProperties[0].dwOptions = DBPROPOPTIONS_REQUIRED;
-	InitProperties[0].colid = DB_NULLID;
-
-	// Database.
-	InitProperties[1].dwPropertyID = DBPROP_INIT_CATALOG;
-	InitProperties[1].vValue.vt = VT_BSTR;
-	InitProperties[1].vValue.bstrVal = SysAllocString(wsDataBase);
-	InitProperties[1].dwOptions = DBPROPOPTIONS_REQUIRED;
-	InitProperties[1].colid = DB_NULLID;
-
-	InitProperties[2].dwPropertyID = DBPROP_AUTH_INTEGRATED;
-	InitProperties[2].vValue.vt = VT_BSTR;
-	InitProperties[2].vValue.bstrVal = SysAllocString(L"SSPI");
-	InitProperties[2].dwOptions = DBPROPOPTIONS_REQUIRED;
-	InitProperties[2].colid = DB_NULLID;
-
-	// Properties are set, now construct the DBPROPSET structure (rgInitPropSet) used to pass 
-	// an array of DBPROP structures (InitProperties) to the SetProperties method.
-	rgInitPropSet[0].guidPropertySet = DBPROPSET_DBINIT;
-	rgInitPropSet[0].cProperties = 4;
-	rgInitPropSet[0].rgProperties = InitProperties;
-
-	// Set initialization properties.
-	hr = pIDBInitialize->QueryInterface(IID_IDBProperties, (void **)&pIDBProperties);
-	if (FAILED(hr)) 
-	{
-		cout << "Failed to get IDBProperties interface.\n";
-		// Handle errors here.
-		return -1;
-	}
-
-	hr = pIDBProperties->SetProperties(1, rgInitPropSet); 
-	if (FAILED(hr)) 
-	{
-		cout << "Failed to set initialization properties.\n";
-		// Handle errors here.
-		return -1;
-	}
-
-	pIDBProperties->Release();
-
-	// Now establish the connection to the data source.
-	if (FAILED(pIDBInitialize->Initialize())) 
-	{
-		cout << "Problem in establishing connection to the data"
-			"source.\n";
-		// Handle errors here.
-		return -1;
-	}
 	return 0;
 }
 
@@ -115,239 +45,79 @@ int SqlServerNCLI::ReleaseResource(void)
 }
 
 
-int SqlServerNCLI::CreationSession(void)
-{
-	// Create a session object.
-	if (FAILED(pIDBInitialize->QueryInterface( IID_IDBCreateSession,
-		(void**) &pIDBCreateSession))) 
-	{
-			cout << "Failed to obtain IDBCreateSession interface.\n";
-			// Handle error.
-			return -1;
-	}
-	return 0;
-}
-
-
 int SqlServerNCLI::ExecuteSQL(WCHAR* sSQLCMD)
 {
-	HRESULT hr;
-
-	if (FAILED(pIDBCreateSession->CreateSession( NULL, 
-		IID_IDBCreateCommand, 
-		(IUnknown**) &pIDBCreateCommand))) {
-			cout << "pIDBCreateSession->CreateSession failed.\n";
-			// Handle error.
-			return -1;
-	}
-
-	// Access the ICommandText interface.
-	if (FAILED(pIDBCreateCommand->CreateCommand( NULL, 
-		IID_ICommandText, 
-		(IUnknown**) &pICommandText))) {
-			cout << "Failed to access ICommand interface.\n";
-			// Handle error.
-			return -1;
-	}
-
-	// Use SetCommandText() to specify the command text.
-	if (FAILED(pICommandText->SetCommandText(DBGUID_DBSQL, sSQLCMD))) {
-		cout << "Failed to set command text.\n";
-		// Handle error.
-		return -1;
-	}
-
-	// Execute the command.
-	if (FAILED(hr = pICommandText->Execute( NULL, 
-		IID_IRowset, 
-		NULL, 
-		&cNumRows, 
-		(IUnknown **) &pIRowset))) {
-			cout << "Failed to execute command.\n";
-			// Handle error.
-			return -1;
-	}
-
 	return 0;
 }
-
-
-int SqlServerNCLI::TProcessRecordSet(void)
-{
-	HRESULT hr;
-	int i=0;
-	int j=0;
-	hr = pIRowset->QueryInterface(IID_IColumnsInfo, (void **)&pIColumnsInfo);
-	if (FAILED(hr)) 
-	{
-		cout << "Failed to get IColumnsInfo interface.\n";
-		// Handle errors here.
-		return -1;
-	} 
-
-	// Retrieve the column information.
-	pIColumnsInfo->GetColumnInfo(&lNumCols, &pDBColumnInfo, &pStringsBuffer);
-
-	// Free the column information interface.
-	pIColumnsInfo->Release();
-
-	// Create a DBBINDING array.
-	DBBINDING * p = (pBindings = new DBBINDING[lNumCols]);
-	if (!(p /* pBindings = new DBBINDING[lNumCols] */ ))
-		return -1;
-
-	// Using the ColumnInfo structure, fill out the pBindings array.
-	for ( j = 0 ; j < lNumCols ; j++ ) 
-	{
-		pBindings[j].iOrdinal = j+1;
-		pBindings[j].obValue = ConsumerBufColOffset;
-		pBindings[j].pTypeInfo = NULL;
-		pBindings[j].pObject = NULL;
-		pBindings[j].pBindExt = NULL;
-		pBindings[j].dwPart = DBPART_VALUE;
-		pBindings[j].dwMemOwner = DBMEMOWNER_CLIENTOWNED;
-		pBindings[j].eParamIO = DBPARAMIO_NOTPARAM;
-		pBindings[j].cbMaxLen = (pDBColumnInfo[j].wType == DBTYPE_WSTR) ? pDBColumnInfo[j].ulColumnSize * 2 : pDBColumnInfo[j].ulColumnSize;
-		pBindings[j].dwFlags = 0;
-		pBindings[j].wType = pDBColumnInfo[j].wType;
-		pBindings[j].bPrecision = pDBColumnInfo[j].bPrecision;
-		pBindings[j].bScale = pDBColumnInfo[j].bScale;
-
-		// Compute the next buffer offset.
-		ConsumerBufColOffset = 
-			ConsumerBufColOffset + pBindings[j].cbMaxLen;
-	};
-
-	// Get the IAccessor interface.
-	hr = pIRowset->QueryInterface(IID_IAccessor, (void **) &pIAccessor);
-	if (FAILED(hr)) 
-	{
-		cout << "Failed to obtain IAccessor interface.\n";
-		// Handle errors here.
-		return -1;
-	}
-
-	// Create an accessor from the set of bindings (pBindings).
-	pIAccessor->CreateAccessor(DBACCESSOR_ROWDATA, lNumCols, pBindings, 0, &hAccessor, NULL);
-
-	// Print column names.
-	for ( j = 0 ; j < lNumCols ; j++ )
-		printf("%-40S", pDBColumnInfo[j].pwszName);
-
-	printf("\n");   // new line after the column names
-
-	// Get a set of 10 rows.
-	pIRowset->GetNextRows( NULL, 0, 10, &lNumRowsRetrieved, &pRows);
-
-	// Allocate space for the row buffer.
-	BYTE * pBuffer = new BYTE[ConsumerBufColOffset];
-	if (!(pBuffer /* = new BYTE[ConsumerBufColOffset] */ )) 
-	{
-		// Free up all allocated memory.
-		pIAccessor->ReleaseAccessor(hAccessor, NULL);
-		pIAccessor->Release();
-		delete [] pBindings;
-
-		return 0;
-	}
-
-	// Create an instance of the data conversion library to convert DBTYPE_CY to string for display
-	IDataConvert* pIDataConvert;
-	CoCreateInstance(CLSID_OLEDB_CONVERSIONLIBRARY,
-		NULL,
-		CLSCTX_INPROC_SERVER,
-		IID_IDataConvert,
-		(void**)&pIDataConvert);
-
-	// variables used in DataConvert
-	DBLENGTH cbDstLength;
-	DBSTATUS dbsStatus;
-	char strCurrency0[25];
-	char strCurrency1[25];
-
-	// Display the rows.
-	while ( lNumRowsRetrieved > 0 ) 
-	{
-		// For each row, print the column data.
-		for ( j = 0 ; j < lNumRowsRetrieved ; j++ ) 
-		{
-			// Clear the buffer.
-			memset(pBuffer, 0, ConsumerBufColOffset);
-
-			// Get the row data values.
-			pIRowset->GetData(hRows[j], hAccessor, pBuffer);
-
-			// Convert DBTYPE_CY values to string		 
-			pIDataConvert->DataConvert(DBTYPE_I4,   // wSrcType
-				DBTYPE_STR,   // wDstType
-				sizeof(LARGE_INTEGER),   // cbSrcLength 
-				&cbDstLength,   // pcbDstLength
-				&pBuffer[pBindings[0].obValue],   // pSrc
-				strCurrency0,   // pDst
-				sizeof(strCurrency0),   //cbDstMaxLength
-				DBSTATUS_S_OK,   // dbsSrcStatus
-				&dbsStatus,   // pdbsStatus
-				0,   // bPrecision (used for DBTYPE_NUMERIC only)
-				0,   // bScale (used for DBTYPE_NUMERIC only)
-				DBDATACONVERT_DEFAULT);   // dwFlags	
-
-			pIDataConvert->DataConvert(DBTYPE_WSTR,   // wSrcType
-				DBTYPE_STR,   // wDstType
-				20,   // cbSrcLength 
-				&cbDstLength,   // pcbDstLength
-				&pBuffer[pBindings[1].obValue],   // pSrc
-				strCurrency1,   // pDst
-				sizeof(strCurrency1),   // cbDstMaxLength
-				DBSTATUS_S_OK,   // dbsSrcStatus
-				&dbsStatus,   // pdbsStatus
-				0,   // bPrecision (used for DBTYPE_NUMERIC only)
-				0,   // bScale (used for DBTYPE_NUMERIC only)
-				DBDATACONVERT_DEFAULT); // dwFlags
-
-			// Print cost and price values.
-			printf("%-40s%s\n", strCurrency0, strCurrency1); //sparra
-		};
-
-		// Release the rows retrieved.
-		pIRowset->ReleaseRows(lNumRowsRetrieved, hRows, NULL, NULL, NULL);
-
-		// Get the next set of 10 rows.
-		pIRowset->GetNextRows(NULL, 0, 10, &lNumRowsRetrieved, &pRows);
-	}
-
-	// Free up all allocated memory.
-	delete [] pBuffer;
-	pIAccessor->ReleaseAccessor(hAccessor, NULL);
-	pIAccessor->Release();
-	delete [] pBindings;
-
-	return 0;
-}
-
-#include <atldbcli.h>
-#include <atldbsch.h>
 
 int SqlServerNCLI::TestMfcOleDB(void)
 {
+	//CTables tbs;
+	//tbs.Open(sn);
+
+	//while(tbs.MoveNext() == S_OK)
+	//{
+	//	printf("%ls: %ls \r\n", tbs.m_szType, tbs.m_szName);
+	////}
 	HRESULT hr;
-	CDataSource ds;
-	hr = ds.OpenFromInitializationString(L"Provider=SQLNCLI10;Server=SDNY-PC\\AMHS;Database=MCS;Trusted_Connection=yes");
+	CUserA dbUser;
+	hr = dbUser.OpenAll();
+	while(dbUser.MoveNext() != DB_S_ENDOFROWSET)
+	{
+		CString line;
+		line.Format(L"ID: %d | Name: %s | PW: %s | Right: %d \r\n", dbUser.m_id,
+			dbUser.m_Name, dbUser.m_Password, dbUser.m_UserRight);
+		_tprintf(line);
+		//dbUser.m_UserRight++;
+		//dbUser.SetData();
+	}
 	
-	if (FAILED(hr))
+
+	dbUser.MoveLast();
+	//++dbUser.m_id;
+	//memset(dbUser.m_Name, 0, dbUser.m_dwNameLength);
+	//_tcscpy_s(dbUser.m_Name, dbUser.m_dwNameLength, _T("Insert"));
+	wcscpy_s(dbUser.m_Name, L"HLOOInsert");
+	//dbUser.m_dwidLength = 7;
+	wcscpy_s(dbUser.m_Password, L"InsertP");
+	//dbUser.m_dwPasswordLength = 8;
+	dbUser.m_UserRight = 3;
+	dbUser.m_dwidStatus = DBSTATUS_S_IGNORE;
+	dbUser.m_dwNameStatus = DBSTATUS_S_OK;
+	dbUser.m_dwPasswordStatus = DBSTATUS_S_OK;
+	dbUser.m_dwUserRightStatus = DBSTATUS_S_OK;
+	hr = dbUser.Insert();
+	DWORD dwError = GetLastError();
+	
+	//dbUser.SetData();
+	dbUser.UpdateAll();
+	//dbUser.CloseAll();
+
+	/*CUserCommand uc;
+	hr = uc.OpenAll();
+	while(uc.MoveNext() != DB_S_ENDOFROWSET)
 	{
-		cout<< "CDataSource open failed." << endl;
-		return -1;
-	}
-	CSession sn;
-	sn.Open(ds);
-
-	CTables tbs;
-	tbs.Open(sn);
-
-	while(tbs.MoveNext() == S_OK)
-	{
-		printf("%ls: %ls \r\n", tbs.m_szType, tbs.m_szName);
+	CString line;
+	line.Format(L"ID: %d Name: %s PW: %s Right: %d \r\n", uc.m_id,
+	uc.m_Name, uc.m_Password, uc.m_UserRight);
+	_tprintf(line);	
 	}
 
+	wcscpy_s(uc.m_Name, L"Hello");
+	wcscpy_s(uc.m_Password, L"dde");
+	uc.m_UserRight = 4;
+	uc.m_dwidStatus = DBSTATUS_S_OK;
+	uc.m_dwNameStatus = DBSTATUS_S_OK;
+	uc.m_dwPasswordStatus =DBSTATUS_S_OK;
+	uc.m_dwUserRightStatus = DBSTATUS_S_OK;
+	hr = uc.Insert();
+
+	uc.SetData();
+	uc.Update();
+
+	uc.CloseAll();*/
+	//uc.SetData();
+	//uc.UpdateAll();
+	
 	return 0;
 }
