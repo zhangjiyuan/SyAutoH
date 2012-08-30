@@ -206,14 +206,12 @@ namespace BaseRailElement
             {
                 points[i] = PointList[i];
             }
- //               PointList.CopyTo(points);
             matrix.TransformPoints(points);
             PointList.Clear();
             for (int i = 0; i < 8; i++)
             {
                 PointList.Add(Point.Ceiling(points[i]));
             }
-//                PointList.AddRange(points);
             PtlToSavel();
         }
 
@@ -223,8 +221,8 @@ namespace BaseRailElement
             RotateAngle = 90;
             Matrix matrix = new Matrix();
             PointF ptCenter = new PointF();
-            Point[] points = new Point[8];
-            Point[] pts = new Point[4];
+            PointF[] points = new PointF[8];
+            PointF[] pts = new PointF[4];
             pts[0] = PointList[0];
             pts[1] = PointList[3];
             pts[2] = PointList[5];
@@ -261,10 +259,16 @@ namespace BaseRailElement
             }
             StartAngle += RotateAngle;
             matrix.RotateAt(RotateAngle, ptCenter);
-            PointList.CopyTo(points);
+            for (int i = 0; i < 8; i++)
+            {
+                points[i] = PointList[i];
+            }
             matrix.TransformPoints(points);
             PointList.Clear();
-            PointList.AddRange(points);
+            for (int i = 0; i < 8; i++)
+            {
+                PointList.Add(Point.Ceiling(points[i]));
+            }
             PtlToSavel();
         }
 
