@@ -1,109 +1,123 @@
 #include "StdAfx.h"
 #include "SqlServerNCLI.h"
-
+#include "DBUser.h"
+#include "UserCommand.h"
+#include "UserA.h"
 
 SqlServerNCLI::SqlServerNCLI(void)
 {
-	pIDBInitialize = NULL;
-	pIDBProperties = NULL;
-	pIDBCreateSession = NULL;
-	pIDBCreateCommand = NULL;
-	pICommandText = NULL;
-	pIRowset = NULL;
-	pIColumnsInfo = NULL;
 
-	pDBColumnInfo = NULL;
-	pIAccessor =  NULL;
-
-	cNumRows = 0;
-	ConsumerBufColOffset = 0;
-	pRows = &hRows[0];
 }
 
 
 SqlServerNCLI::~SqlServerNCLI(void)
 {
+	CoUninitialize();
 }
 
 
 int SqlServerNCLI::InitializeAndEstablishConnection(WCHAR* wsServer, WCHAR* wsDataBase)
 {
 	CoInitialize(NULL);
+
+	/*HRESULT hr;
+	CString strConnection = L"Provider=SQLNCLI10;"
+		L"Server=#S#;Database=#DB#;Trusted_Connection=yes";
+	strConnection.Replace(L"#S#", wsServer);
+	strConnection.Replace(L"#DB#", wsDataBase);
+
+	hr = ds.OpenFromInitializationString(strConnection);
+
+	if (FAILED(hr))
+	{
+		cout<< "CDataSource open failed." << endl;
+		return -1;
+	}
+	sn.Open(ds);*/
+
+	return 0;
+}
+
+
+int SqlServerNCLI::ReleaseResource(void)
+{
+	return 0;
+}
+
+
+int SqlServerNCLI::ExecuteSQL(WCHAR* sSQLCMD)
+{
+	return 0;
+}
+
+int SqlServerNCLI::TestMfcOleDB(void)
+{
+	//CTables tbs;
+	//tbs.Open(sn);
+
+	//while(tbs.MoveNext() == S_OK)
+	//{
+	//	printf("%ls: %ls \r\n", tbs.m_szType, tbs.m_szName);
+	////}
 	HRESULT hr;
-
-	// Obtain access to the SQLNCLI provider.
-	hr = CoCreateInstance( CLSID_SQLNCLI10,
-		NULL,
-		CLSCTX_INPROC_SERVER,
-		IID_IDBInitialize,
-		(void **) &pIDBInitialize);
-
-	if (FAILED(hr)) 
+	CUserA dbUser;
+	hr = dbUser.OpenAll();
+	while(dbUser.MoveNext() != DB_S_ENDOFROWSET)
 	{
-		printf("Failed to get IDBInitialize interface.\n");
-		// Handle errors here.
-		return -1;
+		CString line;
+		line.Format(L"ID: %d | Name: %s | PW: %s | Right: %d \r\n", dbUser.m_id,
+			dbUser.m_Name, dbUser.m_Password, dbUser.m_UserRight);
+		_tprintf(line);
+		//dbUser.m_UserRight++;
+		//dbUser.SetData();
+	}
+	
+
+	dbUser.MoveLast();
+	//++dbUser.m_id;
+	//memset(dbUser.m_Name, 0, dbUser.m_dwNameLength);
+	//_tcscpy_s(dbUser.m_Name, dbUser.m_dwNameLength, _T("Insert"));
+	wcscpy_s(dbUser.m_Name, L"HLOOInsert");
+	//dbUser.m_dwidLength = 7;
+	wcscpy_s(dbUser.m_Password, L"InsertP");
+	//dbUser.m_dwPasswordLength = 8;
+	dbUser.m_UserRight = 3;
+	dbUser.m_dwidStatus = DBSTATUS_S_IGNORE;
+	dbUser.m_dwNameStatus = DBSTATUS_S_OK;
+	dbUser.m_dwPasswordStatus = DBSTATUS_S_OK;
+	dbUser.m_dwUserRightStatus = DBSTATUS_S_OK;
+	hr = dbUser.Insert();
+	DWORD dwError = GetLastError();
+	
+	//dbUser.SetData();
+	dbUser.UpdateAll();
+	//dbUser.CloseAll();
+
+	/*CUserCommand uc;
+	hr = uc.OpenAll();
+	while(uc.MoveNext() != DB_S_ENDOFROWSET)
+	{
+	CString line;
+	line.Format(L"ID: %d Name: %s PW: %s Right: %d \r\n", uc.m_id,
+	uc.m_Name, uc.m_Password, uc.m_UserRight);
+	_tprintf(line);	
 	}
 
-	// Initialize the property values needed to establish the connection.
-	for ( int i = 0 ; i < 4 ; i++ )
-	{
-		VariantInit(&InitProperties[i].vValue);
-	}
+	wcscpy_s(uc.m_Name, L"Hello");
+	wcscpy_s(uc.m_Password, L"dde");
+	uc.m_UserRight = 4;
+	uc.m_dwidStatus = DBSTATUS_S_OK;
+	uc.m_dwNameStatus = DBSTATUS_S_OK;
+	uc.m_dwPasswordStatus =DBSTATUS_S_OK;
+	uc.m_dwUserRightStatus = DBSTATUS_S_OK;
+	hr = uc.Insert();
 
-	// Server name.
-	InitProperties[0].dwPropertyID = DBPROP_INIT_DATASOURCE;
-	InitProperties[0].vValue.vt = VT_BSTR;
+	uc.SetData();
+	uc.Update();
 
-	InitProperties[0].vValue.bstrVal= SysAllocString(wsServer);
-	InitProperties[0].dwOptions = DBPROPOPTIONS_REQUIRED;
-	InitProperties[0].colid = DB_NULLID;
-
-	// Database.
-	InitProperties[1].dwPropertyID = DBPROP_INIT_CATALOG;
-	InitProperties[1].vValue.vt = VT_BSTR;
-	InitProperties[1].vValue.bstrVal = SysAllocString(wsDataBase);
-	InitProperties[1].dwOptions = DBPROPOPTIONS_REQUIRED;
-	InitProperties[1].colid = DB_NULLID;
-
-	InitProperties[2].dwPropertyID = DBPROP_AUTH_INTEGRATED;
-	InitProperties[2].vValue.vt = VT_BSTR;
-	InitProperties[2].vValue.bstrVal = SysAllocString(L"SSPI");
-	InitProperties[2].dwOptions = DBPROPOPTIONS_REQUIRED;
-	InitProperties[2].colid = DB_NULLID;
-
-	// Properties are set, now construct the DBPROPSET structure (rgInitPropSet) used to pass 
-	// an array of DBPROP structures (InitProperties) to the SetProperties method.
-	rgInitPropSet[0].guidPropertySet = DBPROPSET_DBINIT;
-	rgInitPropSet[0].cProperties = 4;
-	rgInitPropSet[0].rgProperties = InitProperties;
-
-	// Set initialization properties.
-	hr = pIDBInitialize->QueryInterface(IID_IDBProperties, (void **)&pIDBProperties);
-	if (FAILED(hr)) 
-	{
-		cout << "Failed to get IDBProperties interface.\n";
-		// Handle errors here.
-		return -1;
-	}
-
-	hr = pIDBProperties->SetProperties(1, rgInitPropSet); 
-	if (FAILED(hr)) 
-	{
-		cout << "Failed to set initialization properties.\n";
-		// Handle errors here.
-		return -1;
-	}
-
-	pIDBProperties->Release();
-
-	// Now establish the connection to the data source.
-	if (FAILED(pIDBInitialize->Initialize())) 
-	{
-		cout << "Problem in establishing connection to the data"
-			"source.\n";
-		// Handle errors here.
-		return -1;
-	}
+	uc.CloseAll();*/
+	//uc.SetData();
+	//uc.UpdateAll();
+	
 	return 0;
 }

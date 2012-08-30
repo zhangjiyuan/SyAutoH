@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "../SqlAceCli/SqlAceCli.h"
+#include <string>
 #include <iostream>
 using namespace std;
 
@@ -17,6 +18,26 @@ int _tmain(int argc, _TCHAR* argv[])
 	else
 	{
 		cout<<"Success to open the database." << endl;
+	}
+
+	WCHAR* wSql = L"Select * from [User]";
+
+	int nExeSql = sqlAce.ExecuteSQL(wSql);
+	if (nExeSql != 0)
+	{
+		cout<<"Failed to Execute Sql" << endl;
+	}
+	else
+	{
+		cout<<"Success to Execute Sql" << endl;
+	}
+
+	sqlAce.PutOutRecordSet();
+
+	string str;
+	while(cin>>str)
+	{
+		cout<< str<<endl;
 	}
 
 	return 0;
