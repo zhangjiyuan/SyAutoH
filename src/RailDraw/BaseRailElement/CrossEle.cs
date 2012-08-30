@@ -206,14 +206,12 @@ namespace BaseRailElement
             {
                 points[i] = PointList[i];
             }
- //               PointList.CopyTo(points);
             matrix.TransformPoints(points);
             PointList.Clear();
             for (int i = 0; i < 8; i++)
             {
                 PointList.Add(Point.Ceiling(points[i]));
             }
-//                PointList.AddRange(points);
             PtlToSavel();
         }
 
@@ -223,8 +221,8 @@ namespace BaseRailElement
             RotateAngle = 90;
             Matrix matrix = new Matrix();
             PointF ptCenter = new PointF();
-            Point[] points = new Point[8];
-            Point[] pts = new Point[4];
+            PointF[] points = new PointF[8];
+            PointF[] pts = new PointF[4];
             pts[0] = PointList[0];
             pts[1] = PointList[3];
             pts[2] = PointList[5];
@@ -261,10 +259,16 @@ namespace BaseRailElement
             }
             StartAngle += RotateAngle;
             matrix.RotateAt(RotateAngle, ptCenter);
-            PointList.CopyTo(points);
+            for (int i = 0; i < 8; i++)
+            {
+                points[i] = PointList[i];
+            }
             matrix.TransformPoints(points);
             PointList.Clear();
-            PointList.AddRange(points);
+            for (int i = 0; i < 8; i++)
+            {
+                PointList.Add(Point.Ceiling(points[i]));
+            }
             PtlToSavel();
         }
 
@@ -316,12 +320,13 @@ namespace BaseRailElement
 
         public override void ObjectMirror()
         {
-            Point ptCenter = Point.Empty;
-            Point[] pts = new Point[8];
-            PointList.CopyTo(pts);
+            PointF ptCenter = PointF.Empty;
+            PointF[] pts = new PointF[8];
+            for (int i = 0; i < 8; i++)
+                pts[i] = PointList[i];
             if (PointList[0].Y == PointList[5].Y)
             {
-                ptCenter = new Point((PointList[0].X + PointList[5].X) / 2, PointList[0].Y);
+                ptCenter = new PointF((float)(PointList[0].X + PointList[5].X) / 2, PointList[0].Y);
                 for (int i = 0; i < 8; i++)
                 {
                     if (pts[i].X < ptCenter.X)
@@ -332,7 +337,7 @@ namespace BaseRailElement
             }
             else if (PointList[0].X == PointList[5].X)
             {
-                ptCenter = new Point(PointList[0].X, (PointList[0].Y + PointList[5].Y) / 2);
+                ptCenter = new PointF(PointList[0].X, (float)(PointList[0].Y + PointList[5].Y) / 2);
                 for (int i = 0; i < 8; i++)
                 {
                     if (pts[i].Y < ptCenter.Y)
@@ -346,7 +351,8 @@ namespace BaseRailElement
             else if (!Mirror)
                 Mirror = true;
             PointList.Clear();
-            PointList.AddRange(pts);
+            for (int i = 0; i < 8; i++)
+                PointList.Add(Point.Ceiling(pts[i]));
             PtlToSavel();
         }
     }
