@@ -32,13 +32,6 @@ namespace BaseRailElement
             set { lenghtOfStrai = value; }
         }
 
-//        private int lenghtOfCross = 0;
-//        public int LenghtOfCross
- //       {
-//            get { return lenghtOfCross; }
-//            set { lenghtOfCross = value; }
-//        }
-
         [XmlIgnore]
         [Browsable(false)]
         public List<Point> PointList
@@ -51,20 +44,6 @@ namespace BaseRailElement
         {
             get { return objectCrossOp.SaveList; }
         }
-
-//        private int angleOfStrai = 0;
-//        public int AngleOfStrai
-//        {
-//            get { return angleOfStrai; }
-//            set { angleOfStrai = value; }
-//        }
-
-//        private int angleOfross = 45;
-//        public int AngleOfCross
-//        {
-//            get { return angleOfross; }
-//            set { angleOfross = value; }
-//        }
 
         private int startAngle = 0;
         public int StartAngle
@@ -105,17 +84,17 @@ namespace BaseRailElement
             pts[0] = pt;
             pts[1].X = (int)(pts[0].X + 30 * multiFactor);
             pts[1].Y = pts[0].Y;
-            pts[2].X = (int)(pts[0].X + 30 * multiFactor);
+            pts[2].X = pts[1].X;
             pts[2].Y = (int)(pts[0].Y + 5 * multiFactor);
             pts[3].X = (int)(pts[0].X + 70 * multiFactor);
-            pts[3].Y = (int)(pts[0].Y + 5 * multiFactor);
-            pts[4].X = (int)(pts[0].X + 70 * multiFactor);
+            pts[3].Y = pts[2].Y;
+            pts[4].X = pts[3].X;
             pts[4].Y = pts[0].Y;
             pts[5].X = (int)(pts[0].X + lenghtOfStrai * multiFactor);
             pts[5].Y = pts[0].Y;
-            pts[6].X = (int)(pts[0].X + 30 * multiFactor);
+            pts[6].X = pts[1].X;
             pts[6].Y = (int)(pts[0].Y - 5 * multiFactor);
-            pts[7].X = (int)(pts[0].X + 70 * multiFactor);
+            pts[7].X = pts[3].X;
             pts[7].Y = (int)(pts[0].Y - 45* multiFactor);
             PointList.AddRange(pts);
             DirectionOfCross = DirectionCross.first;
@@ -185,8 +164,8 @@ namespace BaseRailElement
             RotateAngle = -90;
             Matrix matrix = new Matrix();
             PointF ptCenter = new PointF();
-            Point[] points = new Point[8];
-            Point[] pts = new Point[4];
+            PointF[] points = new PointF[8];
+            PointF[] pts = new PointF[4];
             pts[0] = PointList[0];
             pts[1] = PointList[3];
             pts[2] = PointList[5];
@@ -223,10 +202,18 @@ namespace BaseRailElement
             }
             StartAngle += RotateAngle;
             matrix.RotateAt(RotateAngle, ptCenter);
-            PointList.CopyTo(points);
+            for (int i = 0; i < 8; i++)
+            {
+                points[i] = PointList[i];
+            }
+ //               PointList.CopyTo(points);
             matrix.TransformPoints(points);
             PointList.Clear();
-            PointList.AddRange(points);
+            for (int i = 0; i < 8; i++)
+            {
+                PointList.Add(Point.Ceiling(points[i]));
+            }
+//                PointList.AddRange(points);
             PtlToSavel();
         }
 
