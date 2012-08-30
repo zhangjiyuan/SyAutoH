@@ -46,14 +46,10 @@
     <Compile Include="BaseRailEle.cs" />
     <Compile Include="ColorConverter.cs" />
     <Compile Include="CrossEle.cs" />
-    <Compile Include="CrossLeftEle.cs" />
-    <Compile Include="CrossRightEle.cs" />
     <Compile Include="CurvedRailEle.cs" />
     <Compile Include="DrawDoc.cs" />
     <Compile Include="ObjectBaseEvents.cs" />
-    <Compile Include="ObjectCrossLeftOp.cs" />
     <Compile Include="ObjectCrossOp.cs" />
-    <Compile Include="ObjectCrossRightOp.cs" />
     <Compile Include="ObjectCurvedOp.cs" />
     <Compile Include="ObjectStraightOp.cs" />
     <Compile Include="PenStyle.cs" />

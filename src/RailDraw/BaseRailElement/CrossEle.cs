@@ -17,6 +17,14 @@ namespace BaseRailElement
         ObjectCrossOp objectCrossOp = new ObjectCrossOp();
         private Pen pen = new Pen(Color.Black, 1);
 
+        private bool mirror = false;
+        [Browsable(false)]
+        public bool Mirror
+        {
+            get { return mirror; }
+            set { mirror = value; }
+        }
+
         private int lenghtOfStrai = 100;
         public int LineOfCross
         {
@@ -149,7 +157,7 @@ namespace BaseRailElement
 
         public override int HitTest(Point point, bool isSelected)
         {
-            return objectCrossOp.HitTest(point, isSelected, DirectionOfCross);
+            return objectCrossOp.HitTest(point, isSelected, DirectionOfCross, Mirror);
         }
 
         protected override void Translate(int offsetX, int offsetY)
@@ -167,7 +175,7 @@ namespace BaseRailElement
 
         protected override void Scale(int handle, int dx, int dy)
         {
-            objectCrossOp.scale(handle, dx, dy);
+            objectCrossOp.scale(handle, dx, dy, Mirror);
             PtlToSavel();
         }
 
@@ -317,6 +325,42 @@ namespace BaseRailElement
             }
             SaveList.Clear();
             SaveList.AddRange(pts);
+        }
+
+        public override void ObjectMirror()
+        {
+            Point ptCenter = Point.Empty;
+            Point[] pts = new Point[8];
+            PointList.CopyTo(pts);
+            if (PointList[0].Y == PointList[5].Y)
+            {
+                ptCenter = new Point((PointList[0].X + PointList[5].X) / 2, PointList[0].Y);
+                for (int i = 0; i < 8; i++)
+                {
+                    if (pts[i].X < ptCenter.X)
+                        pts[i].X += 2 * Math.Abs(pts[i].X - ptCenter.X);
+                    else
+                        pts[i].X -= 2 * Math.Abs(pts[i].X - ptCenter.X);
+                }
+            }
+            else if (PointList[0].X == PointList[5].X)
+            {
+                ptCenter = new Point(PointList[0].X, (PointList[0].Y + PointList[5].Y) / 2);
+                for (int i = 0; i < 8; i++)
+                {
+                    if (pts[i].Y < ptCenter.Y)
+                        pts[i].Y += 2 * Math.Abs(pts[i].Y - ptCenter.Y);
+                    else
+                        pts[i].Y -= 2 * Math.Abs(pts[i].Y - ptCenter.Y);
+                }
+            }
+            if (Mirror)
+                Mirror = false;
+            else if (!Mirror)
+                Mirror = true;
+            PointList.Clear();
+            PointList.AddRange(pts);
+            PtlToSavel();
         }
     }
 }

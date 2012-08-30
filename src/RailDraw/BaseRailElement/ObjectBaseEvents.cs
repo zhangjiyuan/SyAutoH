@@ -86,16 +86,6 @@ namespace BaseRailElement
                             CurvedRailEle de = (CurvedRailEle)document.SelectedDrawObjectList[i];
                             document.SelectedDrawObjectList[i].Move(lastPoint, point);
                         }
-                        else if (document.SelectedDrawObjectList[i].GraphType == 3)
-                        {
-                            CrossLeftEle de = (CrossLeftEle)document.SelectedDrawObjectList[i];
-                            document.SelectedDrawObjectList[i].Move(lastPoint, point);
-                        }
-                        else if (document.SelectedDrawObjectList[i].GraphType == 4)
-                        {
-                            CrossRightEle de = (CrossRightEle)document.SelectedDrawObjectList[i];
-                            document.SelectedDrawObjectList[i].Move(lastPoint, point);
-                        }
                         else if (document.SelectedDrawObjectList[i].GraphType == 5)
                         {
                             CrossEle de = (CrossEle)document.SelectedDrawObjectList[i];
@@ -107,15 +97,6 @@ namespace BaseRailElement
                     break;
             }
             base.OnMouseMove(point);
-        }
-
-        public override void OnMouseDoubleClick(Point point , Size size)
-        {
-            base.OnMouseDoubleClick(point, size);
-            if (_hit >= 0)
-            {
-                document.SelectedDrawObjectList[0].ChangeDirection(point , size);
-            }
         }
 
         public override Point DrapDrawRegion(Point point)

@@ -14,8 +14,7 @@ namespace BaseRailElement
 {
     [XmlInclude(typeof(StraightRailEle))]
     [XmlInclude(typeof(CurvedRailEle))]
-    [XmlInclude(typeof(CrossLeftEle))]
-    [XmlInclude(typeof(CrossRightEle))]
+    [XmlInclude(typeof(CrossEle))]
 
     public class DrawDoc:BaseRailEle
     {
@@ -31,8 +30,7 @@ namespace BaseRailElement
         [
         XmlArrayItem(Type = typeof(StraightRailEle)),
         XmlArrayItem(Type = typeof(CurvedRailEle)),
-        XmlArrayItem(Type = typeof(CrossLeftEle)),
-        XmlArrayItem(Type = typeof(CrossRightEle)),
+        XmlArrayItem(Type = typeof(CrossEle)),
         ]
 
         [XmlIgnore]
@@ -188,36 +186,6 @@ namespace BaseRailElement
                         n.ShowCenterDoc = new Point(n.ShowCenterDoc.X + 20, n.ShowCenterDoc.Y + 20);
                         n.ShowFirstDoc = new Point(n.ShowFirstDoc.X + 20, n.ShowFirstDoc.Y + 20);
                         n.ShowSecondDot = new Point(n.ShowSecondDot.X + 20, n.ShowSecondDot.Y + 20);
-                        _drawObjectList.Add(n);
-                        Select(n);
-                    }
-                    else if (3 == o.GraphType)
-                    {
-                        CrossLeftEle cl = (CrossLeftEle)o;
-                        CrossLeftEle n = (CrossLeftEle)cl.Clone();
-                        n.CenterDoc = new Point(n.CenterDoc.X + 20, n.CenterDoc.Y + 20);
-                        int num = n.PointList.Count;
-                        for (int i = 0; i < num; i++)
-                        {
-                            Point pt = n.PointList[i];
-                            pt.Offset(20, 20);
-                            n.PointList[i] = pt;
-                        }
-                        _drawObjectList.Add(n);
-                        Select(n);
-                    }
-                    else if (4 == o.GraphType)
-                    {
-                        CrossRightEle cl = (CrossRightEle)o;
-                        CrossRightEle n = (CrossRightEle)cl.Clone();
-                        n.CenterDoc = new Point(n.CenterDoc.X + 20, n.CenterDoc.Y + 20);
-                        int num = n.PointList.Count;
-                        for (int i = 0; i < num; i++)
-                        {
-                            Point pt = n.PointList[i];
-                            pt.Offset(20, 20);
-                            n.PointList[i] = pt;
-                        }
                         _drawObjectList.Add(n);
                         Select(n);
                     }

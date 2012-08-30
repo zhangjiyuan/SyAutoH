@@ -46,11 +46,12 @@ namespace BaseRailElement
         public int HitTest(
             Point point,
             bool isSelected,
-            CrossEle.DirectionCross direction)
+            CrossEle.DirectionCross direction,
+            bool isMirror)
         {
             if (isSelected)
             {
-                int handleHit = HandleHitTest(point, direction);
+                int handleHit = HandleHitTest(point, direction, isMirror);
                 if (handleHit > 0)
                     return handleHit;
             }
@@ -58,9 +59,17 @@ namespace BaseRailElement
             wrapper = point;
             Rectangle rc = new Rectangle();
             Point[] pts = new Point[4];
-            pts[0] = PointList[0];
-            pts[1] = PointList[3];
-            pts[2] = PointList[5];
+            if (!isMirror)
+            {
+                pts[0] = PointList[0];
+                pts[2] = PointList[5];
+            }
+            else if (isMirror)
+            {
+                pts[0] = PointList[5];
+                pts[2] = PointList[0];
+            }
+            pts[1] = PointList[3];           
             pts[3] = PointList[7];
             switch (direction)
             {
@@ -88,7 +97,7 @@ namespace BaseRailElement
                 return -1;
         }
 
-        public int HandleHitTest(Point point, CrossEle.DirectionCross direction)
+        public int HandleHitTest(Point point, CrossEle.DirectionCross direction, bool isMirror)
         {
             Point[] pts = new Point[4];
             pts[0] = PointList[0];
@@ -105,7 +114,7 @@ namespace BaseRailElement
             return -1;
         }
 
-        public int scale(int handle, int dx, int dy)
+        public int scale(int handle, int dx, int dy, bool isMirror)
         {
             Point[] ptsList = new Point[8];
             Point[] ptsHandle = new Point[4];
@@ -148,9 +157,15 @@ namespace BaseRailElement
                         }
                         break;
                     case 4:
-                        if (Math.Abs(ptsList[7].X - ptsList[6].X) > (1 + Math.Abs(dx)) && (dx * dy) < 0)
+                        if (!isMirror && Math.Abs(ptsList[7].X - ptsList[6].X) > (1 + Math.Abs(dx)) && (dx * dy) < 0)
                         {
                             ptsList[7].Offset(dx, -dx);
+                            if (Math.Abs(ptsList[7].X - ptsList[6].X) > (1 + Math.Abs(dx)))
+                                PointList[7] = ptsList[7];
+                        }
+                        else if (isMirror && Math.Abs(ptsList[7].X - ptsList[6].X) > (1 + Math.Abs(dx)) && (dx * dy) > 0)
+                        {
+                            ptsList[7].Offset(dx, dx);
                             if (Math.Abs(ptsList[7].X - ptsList[6].X) > (1 + Math.Abs(dx)))
                                 PointList[7] = ptsList[7];
                         }
@@ -193,9 +208,15 @@ namespace BaseRailElement
                         }
                         break;
                     case 4:
-                        if (Math.Abs(ptsList[7].Y - ptsList[6].Y) > (1 + Math.Abs(dy)) && (dx * dy) > 0)
+                        if (!isMirror && Math.Abs(ptsList[7].Y - ptsList[6].Y) > (1 + Math.Abs(dy)) && (dx * dy) > 0)
                         {
                             ptsList[7].Offset(dy, dy);
+                            if (Math.Abs(ptsList[7].Y - ptsList[6].Y) > (1 + Math.Abs(dy)))
+                                PointList[7] = ptsList[7];
+                        }
+                        else if (isMirror && Math.Abs(ptsList[7].Y - ptsList[6].Y) > (1 + Math.Abs(dy)) && (dx * dy) < 0)
+                        {
+                            ptsList[7].Offset(-dy, dy);
                             if (Math.Abs(ptsList[7].Y - ptsList[6].Y) > (1 + Math.Abs(dy)))
                                 PointList[7] = ptsList[7];
                         }

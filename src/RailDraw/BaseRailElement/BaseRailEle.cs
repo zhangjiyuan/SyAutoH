@@ -94,7 +94,7 @@ namespace BaseRailElement
 
         public void ChangeDirection(Point pt , Size sz)
         {
-            Rotate(pt, sz);
+//            Rotate(pt, sz);
         }
 
         internal void OnClick()
@@ -116,6 +116,7 @@ namespace BaseRailElement
         public virtual void RotateCounterClw() { }
         public virtual void RotateClw() { }
         public virtual void DrawEnlargeOrShrink(float draw_multi_factor) { }
+        public virtual void ObjectMirror() { }
         public event EventHandler Click = null;
     }
 }

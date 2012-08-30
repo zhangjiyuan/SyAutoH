@@ -53,8 +53,8 @@ namespace RailDraw
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.drap = new System.Windows.Forms.ToolStripButton();
             this.mouse = new System.Windows.Forms.ToolStripButton();
+            this.mirror = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -68,7 +68,6 @@ namespace RailDraw
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -98,7 +97,8 @@ namespace RailDraw
             this.clw,
             this.toolStripSeparator5,
             this.drap,
-            this.mouse});
+            this.mouse,
+            this.mirror});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(808, 25);
@@ -281,10 +281,19 @@ namespace RailDraw
             this.mouse.ToolTipText = "mouse";
             this.mouse.Click += new System.EventHandler(this.mouse_Click);
             // 
+            // mirror
+            // 
+            this.mirror.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.mirror.Image = ((System.Drawing.Image)(resources.GetObject("mirror.Image")));
+            this.mirror.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.mirror.Name = "mirror";
+            this.mirror.Size = new System.Drawing.Size(23, 22);
+            this.mirror.Text = "mirror";
+            this.mirror.Click += new System.EventHandler(this.mirror_Click);
+            // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.pictureBox4);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.pictureBox3);
@@ -295,17 +304,6 @@ namespace RailDraw
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(47, 385);
             this.panel1.TabIndex = 1;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(6, 171);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox4.TabIndex = 3;
-            this.pictureBox4.TabStop = false;
-            this.pictureBox4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox4_MouseDown);
-            this.pictureBox4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox4_MouseUp);
             // 
             // label3
             // 
@@ -388,7 +386,6 @@ namespace RailDraw
             this.DrawRegion.TabIndex = 2;
             this.DrawRegion.TabStop = false;
             this.DrawRegion.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawRegion_Paint);
-            this.DrawRegion.DoubleClick += new System.EventHandler(this.DrawRegion_DoubleClick);
             this.DrawRegion.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DrawRegion_MouseClick);
             this.DrawRegion.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DrawRegion_MouseDown);
             this.DrawRegion.MouseEnter += new System.EventHandler(this.DrawRegion_MouseEnter);
@@ -442,7 +439,6 @@ namespace RailDraw
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -480,7 +476,6 @@ namespace RailDraw
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private Rectangle dragBoxFromMouseDown;
         private PictureBox DrawRegion;
-        private PictureBox pictureBox4;
         private Panel panel2;
         private HScrollBar hScrollBar1;
         private VScrollBar vScrollBar1;
@@ -490,6 +485,7 @@ namespace RailDraw
         private ToolStripButton drap;
         private ToolStripButton mouse;
         private ToolStripButton new_btn;
+        private ToolStripButton mirror;
     }
 }
 
