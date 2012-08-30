@@ -577,8 +577,11 @@ namespace RailDraw
 
         private void mirror_Click(object sender, EventArgs e)
         {
-            Document.SelectedDrawObjectList[0].ObjectMirror();
-            DrawRegion.Invalidate();
+            if (Document.SelectedDrawObjectList.Count > 0)
+            {
+                Document.SelectedDrawObjectList[0].ObjectMirror();
+                DrawRegion.Invalidate();
+            }
         }
     }
 }
