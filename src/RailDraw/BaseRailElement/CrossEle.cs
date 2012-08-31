@@ -77,25 +77,25 @@ namespace BaseRailElement
 
         public CrossEle() { GraphType = 5; }
 
-        public CrossEle CreatEle(Point pt, Size size, float multiFactor)
+        public CrossEle CreatEle(Point pt, Size size, int multiFactor)
         {
             Point[] pts = new Point[8];
             DrawMultiFactor = multiFactor;
             pts[0] = pt;
-            pts[1].X = (int)(pts[0].X + 30 * multiFactor);
+            pts[1].X = pts[0].X + 30 * multiFactor;
             pts[1].Y = pts[0].Y;
             pts[2].X = pts[1].X;
-            pts[2].Y = (int)(pts[0].Y + 5 * multiFactor);
-            pts[3].X = (int)(pts[0].X + 70 * multiFactor);
+            pts[2].Y = pts[0].Y + 5 * multiFactor;
+            pts[3].X = pts[0].X + 70 * multiFactor;
             pts[3].Y = pts[2].Y;
             pts[4].X = pts[3].X;
             pts[4].Y = pts[0].Y;
-            pts[5].X = (int)(pts[0].X + lenghtOfStrai * multiFactor);
+            pts[5].X = pts[0].X + lenghtOfStrai * multiFactor;
             pts[5].Y = pts[0].Y;
             pts[6].X = pts[1].X;
-            pts[6].Y = (int)(pts[0].Y - 5 * multiFactor);
+            pts[6].Y = pts[0].Y - 5 * multiFactor;
             pts[7].X = pts[3].X;
-            pts[7].Y = (int)(pts[0].Y - 45* multiFactor);
+            pts[7].Y = pts[0].Y - 45* multiFactor;
             PointList.AddRange(pts);
             DirectionOfCross = DirectionCross.first;
             PtlToSavel();
@@ -293,8 +293,8 @@ namespace BaseRailElement
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    pts[i].X = (int)(pts[i].X * DrawMultiFactor);
-                    pts[i].Y = (int)(pts[i].Y * DrawMultiFactor);
+                    pts[i].X = pts[i].X * DrawMultiFactor;
+                    pts[i].Y = pts[i].Y * DrawMultiFactor;
                 }                
             }
             PointList.Clear();
@@ -310,8 +310,8 @@ namespace BaseRailElement
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    pts[i].X = (int)(pts[i].X / DrawMultiFactor);
-                    pts[i].Y = (int)(pts[i].Y / DrawMultiFactor);
+                    pts[i].X = pts[i].X / DrawMultiFactor;
+                    pts[i].Y = pts[i].Y / DrawMultiFactor;
                 }
             }
             SaveList.Clear();

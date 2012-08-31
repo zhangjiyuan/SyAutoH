@@ -25,8 +25,8 @@ namespace RailDraw
         bool mouseIsDown = false;
         bool drapIsOown = false;
         Size drawregOrigSize = new Size();
-        const float CONST_MULTI_FACTOR = 0.5f;
-        private float multiFactor = 1;
+        const int CONST_MULTI_FACTOR = 1;
+        private int multiFactor = 1;
         private string sProjectPath = "";
 
         public Form1()
@@ -331,9 +331,9 @@ namespace RailDraw
         {
             if (DrawRegion.Width < drawregOrigSize.Width * 4)
             {
-                DrawRegion.Width += (int)(drawregOrigSize.Width * CONST_MULTI_FACTOR);
-                DrawRegion.Height += (int)(drawregOrigSize.Height * CONST_MULTI_FACTOR);
-                multiFactor = DrawRegion.Width / (float)drawregOrigSize.Width;
+                DrawRegion.Width += (drawregOrigSize.Width * CONST_MULTI_FACTOR);
+                DrawRegion.Height += (drawregOrigSize.Height * CONST_MULTI_FACTOR);
+                multiFactor = DrawRegion.Width / drawregOrigSize.Width;
                 _document.DrawMultiFactor = multiFactor;
                 int n = _document.DrawObjectList.Count;
                 for (int i = 0; i < n; i++)
@@ -348,9 +348,9 @@ namespace RailDraw
         {
             if (DrawRegion.Width > drawregOrigSize.Width)
             {
-                DrawRegion.Width -= (int)(drawregOrigSize.Width * CONST_MULTI_FACTOR);
-                DrawRegion.Height -= (int)(drawregOrigSize.Height * CONST_MULTI_FACTOR);
-                multiFactor = DrawRegion.Width / (float)drawregOrigSize.Width;
+                DrawRegion.Width -= (drawregOrigSize.Width * CONST_MULTI_FACTOR);
+                DrawRegion.Height -= (drawregOrigSize.Height * CONST_MULTI_FACTOR);
+                multiFactor = DrawRegion.Width / drawregOrigSize.Width;
                 _document.DrawMultiFactor = multiFactor;
                 int n=_document.DrawObjectList.Count;
                 for (int i = 0; i < n; i++)

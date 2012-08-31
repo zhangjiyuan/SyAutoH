@@ -56,12 +56,12 @@ namespace BaseRailElement
 
         public StraightRailEle() { GraphType = 1; }
 
-        public StraightRailEle CreatEle(Point pt, Size size, float multiFactor)
+        public StraightRailEle CreatEle(Point pt, Size size, int multiFactor)
         {
             Point[] pts = new Point[2];
             DrawMultiFactor = multiFactor;
             pts[0] = pt;
-            ShowLenght = (int)(ShowLenght * DrawMultiFactor + 0.5);
+            ShowLenght = ShowLenght * DrawMultiFactor;
             if ((pt.X + ShowLenght) > size.Width)
             {
                 pts[0] = new Point(pt.X - ShowLenght, pt.Y);
@@ -191,30 +191,27 @@ namespace BaseRailElement
        
         public override void DrawEnlargeOrShrink(float drawMultiFactor)
         {
-            PointF[] pts = new PointF[2];
+            Point[] pts = new Point[2];
             pts[0] = SaveList[0];
             pts[1] = SaveList[1];
             if (drawMultiFactor > 1)
             {
-                pts[0].X = (int)(pts[0].X * DrawMultiFactor);
-                pts[0].Y = (int)(pts[0].Y * DrawMultiFactor);
-                pts[1].X = (int)(pts[1].X * DrawMultiFactor);
-                pts[1].Y = (int)(pts[1].Y * DrawMultiFactor);
+                pts[0].X = pts[0].X * DrawMultiFactor;
+                pts[0].Y = pts[0].Y * DrawMultiFactor;
+                pts[1].X = pts[1].X * DrawMultiFactor;
+                pts[1].Y = pts[1].Y * DrawMultiFactor;
             }
             PointList.Clear();
-            PointList.Add(Point.Ceiling(pts[0]));
-            PointList.Add(Point.Ceiling(pts[1]));
-            ShowLenght  =(int) Math.Sqrt((pts[0].X - pts[1].X) * (pts[0].X - pts[1].X)
-                + (pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
+            PointList.AddRange(pts);
+            ShowLenght = Math.Abs(pts[0].X - pts[1].X) + Math.Abs(pts[0].Y - pts[1].Y);
             base.DrawEnlargeOrShrink(drawMultiFactor);
         }
 
         public override void ChangePropertyValue()
         {
-            PointF[] ptfs = new PointF[2];
-            for (int i = 0; i < 2; i++)
-                ptfs[i] = PointList[i];
-            ShowLenght = (int)(Lenght * DrawMultiFactor);
+            Point[] ptfs = new Point[2];
+            PointList.CopyTo(ptfs);
+            ShowLenght = Lenght * DrawMultiFactor;
             if (PointList[0].X == PointList[1].X)
             {
                 if (PointList[0].Y < PointList[1].Y)
@@ -230,8 +227,7 @@ namespace BaseRailElement
                     ptfs[0].X = ptfs[1].X + ShowLenght;
             }
             PointList.Clear();
-            for (int i = 0; i < 2; i++)
-                PointList.Add(Point.Ceiling(ptfs[i]));
+            PointList.AddRange(ptfs);
             PtlToSavel();
             base.ChangePropertyValue();
         }
@@ -253,13 +249,12 @@ namespace BaseRailElement
             pts[1] = PointList[1];
             if (DrawMultiFactor > 1)
             {
-                pts[0].X = (int)(pts[0].X / DrawMultiFactor);
-                pts[0].Y = (int)(pts[0].Y / DrawMultiFactor);
-                pts[1].X = (int)(pts[1].X / DrawMultiFactor);
-                pts[1].Y = (int)(pts[1].Y / DrawMultiFactor);
+                pts[0].X = pts[0].X / DrawMultiFactor;
+                pts[0].Y = pts[0].Y / DrawMultiFactor;
+                pts[1].X = pts[1].X / DrawMultiFactor;
+                pts[1].Y = pts[1].Y / DrawMultiFactor;
             }
-            Lenght = (int)Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X)
-                + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
+            Lenght = Math.Abs(pts[0].X - pts[1].X) + Math.Abs(pts[0].Y - pts[1].Y);
             SaveList.Clear();
             SaveList.AddRange(pts);
         }
