@@ -57,6 +57,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>sqlncli10.lib;msdasc.lib</AdditionalDependencies>
+      <ImportLibrary>../lib/$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -80,14 +81,13 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DBUser.h" />
+    <ClInclude Include="FoupCommander.h" />
+    <ClInclude Include="McsUserCommander.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SqlAceCli.h" />
     <ClInclude Include="SqlServerNCLI.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="UserA.h" />
-    <ClInclude Include="UserCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SqlAceCli.cpp" />

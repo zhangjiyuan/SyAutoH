@@ -53,11 +53,7 @@ CSqlAceCli::CSqlAceCli()
 
 CSqlAceCli::~CSqlAceCli()
 {
-	if (NULL != m_pSqlClient)
-	{
-		delete m_pSqlClient;
-		m_pSqlClient = NULL;
-	}
+	Clean();
 }
 
 int CSqlAceCli::Connect(WCHAR* wServer, WCHAR* wDBName)
@@ -94,4 +90,16 @@ int CSqlAceCli::PutOutRecordSet(void)
 	}
 
 	return -1;
+}
+
+
+int CSqlAceCli::Clean(void)
+{
+	if (NULL != m_pSqlClient)
+	{
+		delete m_pSqlClient;
+		m_pSqlClient = NULL;
+	}
+
+	return 0;
 }
