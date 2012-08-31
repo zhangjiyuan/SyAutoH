@@ -110,10 +110,10 @@ namespace BaseRailElement
         public int HandleHitTest(Point point,
             Point center,
             int radiu,
-            CurvedRailEle.DirectonCurved _direction)
+            CurvedRailEle.DirectonCurved direction)
         {
             Point[] points = new Point[4];
-            switch (_direction)
+            switch (direction)
             {
                 case CurvedRailEle.DirectonCurved.first:
                     points[0] = center;
@@ -158,10 +158,10 @@ namespace BaseRailElement
             int dy,
             Point center,
             int radiu,
-            CurvedRailEle.DirectonCurved _direction)
+            CurvedRailEle.DirectonCurved direction)
         {
             Point[] points = new Point[4];
-            switch (_direction)
+            switch (direction)
             {
                 case CurvedRailEle.DirectonCurved.first:
                     points[0] = center;
@@ -192,7 +192,7 @@ namespace BaseRailElement
             }
             Point pt = points[handle - 1];
             Point[] wrapper = new Point[] { pt };
-            switch (_direction)
+            switch (direction)
             {
                 case CurvedRailEle.DirectonCurved.first:
                     if (1 == handle)
@@ -459,7 +459,7 @@ namespace BaseRailElement
             dw = wrapper[0].X - points[handle - 1].X;
             dh = wrapper[0].Y - points[handle - 1].Y;
             
-            switch (_direction)
+            switch (direction)
             {
                 case CurvedRailEle.DirectonCurved.first:
                     switch (handle)

@@ -63,10 +63,10 @@ namespace BaseRailElement
             set { angle = value; }
         }
       
-        private float drawMultiFactor = 1;
+        private int drawMultiFactor = 1;
         [XmlIgnore]
         [Browsable(false)]
-        public float DrawMultiFactor
+        public int DrawMultiFactor
         {
             get { return drawMultiFactor; }
             set { drawMultiFactor = value; }

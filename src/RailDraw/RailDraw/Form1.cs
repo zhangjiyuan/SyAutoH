@@ -25,8 +25,8 @@ namespace RailDraw
         bool mouseIsDown = false;
         bool drapIsOown = false;
         Size drawregOrigSize = new Size();
-        const float CONST_MULTI_FACTOR = 0.1f;
-        private float multiFactor = 1;
+        const int CONST_MULTI_FACTOR = 1;
+        private int multiFactor = 1;
         private string sProjectPath = "";
 
         public Form1()
@@ -62,14 +62,9 @@ namespace RailDraw
             if ((e.Button & MouseButtons.Left) == MouseButtons.Left && !drapIsOown)
             {
                 Size dragSize = SystemInformation.DragSize;
-                dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2)), dragSize);
-                byte[] cursorbuffer = RailDraw.Properties.Resources.draw;
-                FileStream fs = new FileStream("temp_cur.dat", FileMode.Create);
-                fs.Write(cursorbuffer, 0, cursorbuffer.Length);
-                fs.Close();
-                Cursor a= new Cursor(LoadCursorFromFile("temp_cur.dat"));
-                File.Delete("temp_cur.dat");
-                this.Cursor = a;
+                dragBoxFromMouseDown = new Rectangle(
+                    new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2)), dragSize);
+                CreatCursor("draw");
                 pic1 = true;               
             }
             else if (drapIsOown)
@@ -104,14 +99,9 @@ namespace RailDraw
             if ((e.Button & MouseButtons.Left) == MouseButtons.Left && !drapIsOown)
             {
                 Size dragSize = SystemInformation.DragSize;
-                dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2)), dragSize);
-                byte[] cursorbuffer = RailDraw.Properties.Resources.draw;
-                FileStream fs = new FileStream("temp_cur.dat", FileMode.Create);
-                fs.Write(cursorbuffer, 0, cursorbuffer.Length);
-                fs.Close();
-                Cursor a = new Cursor(LoadCursorFromFile("temp_cur.dat"));
-                File.Delete("temp_cur.dat");
-                this.Cursor = a;
+                dragBoxFromMouseDown = new Rectangle(
+                    new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2)), dragSize);
+                CreatCursor("draw");
                 pic2 = true;
             }
             else if (drapIsOown)
@@ -147,14 +137,9 @@ namespace RailDraw
             if ((e.Button & MouseButtons.Left) == MouseButtons.Left && !drapIsOown)
             {
                 Size dragSize = SystemInformation.DragSize;
-                dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2)), dragSize);
-                byte[] cursorbuffer = RailDraw.Properties.Resources.draw;
-                FileStream fs = new FileStream("temp_cur.dat", FileMode.Create);
-                fs.Write(cursorbuffer, 0, cursorbuffer.Length);
-                fs.Close();
-                Cursor a = new Cursor(LoadCursorFromFile("temp_cur.dat"));
-                File.Delete("temp_cur.dat");
-                this.Cursor = a;
+                dragBoxFromMouseDown = new Rectangle(
+                    new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2)), dragSize);
+                CreatCursor("draw");
                 pic3 = true;
             }
             else if (drapIsOown)
@@ -175,10 +160,6 @@ namespace RailDraw
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
                     doc1.DrawObjectList.Add(crossLeft.CreatEle(pt, DrawRegion.Size, multiFactor));
                     doc1.Select(crossLeft);
-//                    BaseRailElement.CrossLeftEle _crossleft = new BaseRailElement.CrossLeftEle();
-//                    Point pt = new Point(pt_new_e.X, pt_new_e.Y);
-//                    doc1.DrawObjectList.Add(_crossleft.CreatEle(pt, DrawRegion.Size, multiFactor));
-//                    doc1.Select(_crossleft);
                     DrawRegion.Invalidate();
                     propertyGrid1.Invalidate();
                 }
@@ -329,17 +310,18 @@ namespace RailDraw
 
         private void enlarge_Click(object sender, EventArgs e)
         {
-            if (DrawRegion.Width < drawregOrigSize.Width * 2)
+            if (DrawRegion.Width < drawregOrigSize.Width * 4)
             {
-                DrawRegion.Width += (int)(drawregOrigSize.Width * CONST_MULTI_FACTOR);
-                DrawRegion.Height += (int)(drawregOrigSize.Height * CONST_MULTI_FACTOR);
-                multiFactor = DrawRegion.Width / (float)drawregOrigSize.Width;
+                DrawRegion.Width += (drawregOrigSize.Width * CONST_MULTI_FACTOR);
+                DrawRegion.Height += (drawregOrigSize.Height * CONST_MULTI_FACTOR);
+                multiFactor = DrawRegion.Width / drawregOrigSize.Width;
                 _document.DrawMultiFactor = multiFactor;
                 int n = _document.DrawObjectList.Count;
                 for (int i = 0; i < n; i++)
                 {
                     _document.DrawObjectList[i].DrawMultiFactor = multiFactor;
                 }
+                ChangeDrawRegionLoction();
                 DrawRegion.Invalidate();
             }
         }
@@ -348,18 +330,19 @@ namespace RailDraw
         {
             if (DrawRegion.Width > drawregOrigSize.Width)
             {
-                DrawRegion.Width -= (int)(drawregOrigSize.Width * CONST_MULTI_FACTOR);
-                DrawRegion.Height -= (int)(drawregOrigSize.Height * CONST_MULTI_FACTOR);
-                multiFactor = DrawRegion.Width / (float)drawregOrigSize.Width;
+                DrawRegion.Width -= (drawregOrigSize.Width * CONST_MULTI_FACTOR);
+                DrawRegion.Height -= (drawregOrigSize.Height * CONST_MULTI_FACTOR);
+                multiFactor = DrawRegion.Width / drawregOrigSize.Width;
                 _document.DrawMultiFactor = multiFactor;
                 int n=_document.DrawObjectList.Count;
                 for (int i = 0; i < n; i++)
                     _document.DrawObjectList[i].DrawMultiFactor = multiFactor;
                 DrawRegion.Invalidate();
+                ChangeDrawRegionLoction();
             }
         }
 
-        public void ResizeCanvase()
+/*        public void ResizeCanvase()
         {
             int display_width = panel2.Width;
             int display_height = panel2.Height;
@@ -400,7 +383,7 @@ namespace RailDraw
             }
             DrawRegion.Invalidate();
         }
-
+*/
         public Point PicPtTrans(object sender, MouseEventArgs e)
         {
             PictureBox pic = sender as PictureBox;
@@ -416,9 +399,8 @@ namespace RailDraw
 
         public Point ClientToDrawregion(Point original_pt)
         {
-            Point convert_pt = Point.Empty;
-            convert_pt.X = original_pt.X + hScrollBar1.Value;
-            convert_pt.Y = original_pt.Y + vScrollBar1.Value;
+            Point convert_pt = new Point(original_pt.X + hScrollBar1.Value,
+                original_pt.Y + vScrollBar1.Value);
             return convert_pt;
         }
 
@@ -476,6 +458,7 @@ namespace RailDraw
             panel2.Width = panel_2_size.X;
             panel2.Height = panel_2_size.Y;
             propertyGrid1.Height = propertygrid_size.Y;
+            ChangeDrawRegionLoction();
         }
 
         private void drap_Click(object sender, EventArgs e)
@@ -494,13 +477,7 @@ namespace RailDraw
         {
             if (drapIsOown)
             {
-                byte[] cursorbuffer = RailDraw.Properties.Resources.drap;
-                FileStream fs = new FileStream("temp_cur.dat", FileMode.Create);
-                fs.Write(cursorbuffer, 0, cursorbuffer.Length);
-                fs.Close();
-                Cursor a = new Cursor(LoadCursorFromFile("temp_cur.dat"));
-                File.Delete("temp_cur.dat");
-                this.Cursor = a;
+                CreatCursor("drap");
             }
         }
 
@@ -582,6 +559,43 @@ namespace RailDraw
                 Document.SelectedDrawObjectList[0].ObjectMirror();
                 DrawRegion.Invalidate();
             }
+        }
+
+        private void CreatCursor(string str)
+        {
+            byte[] cursorbuffer;
+            FileStream fs;
+            switch (str)
+            {
+                case "drap":
+                    cursorbuffer = RailDraw.Properties.Resources.drap;
+                    fs = new FileStream("temp_cur.dat", FileMode.Create);
+                    fs.Write(cursorbuffer, 0, cursorbuffer.Length);
+                    fs.Close();
+                    break;
+                case "draw":
+                    cursorbuffer = RailDraw.Properties.Resources.draw;
+                    fs = new FileStream("temp_cur.dat", FileMode.Create);
+                    fs.Write(cursorbuffer, 0, cursorbuffer.Length);
+                    fs.Close();
+                    break;
+            }          
+            Cursor a = new Cursor(LoadCursorFromFile("temp_cur.dat"));
+            File.Delete("temp_cur.dat");
+            this.Cursor = a;
+        }
+
+        private void ChangeDrawRegionLoction()
+        {
+            Point drawRegionLoc = Point.Empty;
+            Point drawRegionSize = (Point)DrawRegion.Size;
+            Point panel2Size = (Point)panel2.Size;
+            Point centerDrawRegion = new Point(drawRegionSize.X / 2, drawRegionSize.Y / 2);
+            Point centerPanel = new Point(panel2Size.X / 2, panel2Size.Y / 2);
+            int dx = centerPanel.X - centerDrawRegion.X;
+            int dy = centerPanel.Y - centerDrawRegion.Y;
+            drawRegionLoc.Offset(dx, dy);
+            DrawRegion.Location = drawRegionLoc;
         }
     }
 }
