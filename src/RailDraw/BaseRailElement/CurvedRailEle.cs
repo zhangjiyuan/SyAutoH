@@ -123,13 +123,9 @@ namespace BaseRailElement
             ShowCenterDoc = center;
             DirectionCurvedAttribute = DirectonCurved.first;
             DrawMultiFactor = multiFactor;
-            ShowRadius = (int)(ShowRadius * multiFactor);
-            Point pt_first = new Point();
-            Point pt_sec = new Point();
-            pt_first.X = center.X + ShowRadius;
-            pt_first.Y = center.Y;
-            pt_sec.X = center.X;
-            pt_sec.Y = center.Y + ShowRadius;
+            ShowRadius = (int)(ShowRadius * multiFactor + 0.5);
+            Point pt_first = new Point(center.X + ShowRadius, center.Y);
+            Point pt_sec = new Point(center.X, center.Y + ShowRadius);
             ShowFirstDoc = pt_first;
             ShowSecondDot = pt_sec;
             PtlToSavel();
@@ -237,7 +233,7 @@ namespace BaseRailElement
             RotateAngle = -90;
             Matrix matrix = new Matrix();
             PointF pt_center = new PointF();
-            Point[] pts = new Point[4];
+            PointF[] pts = new PointF[4];
             pts[0] = ShowCenterDoc;
             pts[1] = new Point(ShowFirstDoc.X, ShowFirstDoc.Y);
             pts[2] = new Point(ShowSecondDot.X, ShowSecondDot.Y);
@@ -272,9 +268,9 @@ namespace BaseRailElement
             StartAngle += RotateAngle;
             matrix.RotateAt(RotateAngle, pt_center);
             matrix.TransformPoints(pts);
-            ShowCenterDoc = pts[0];
-            ShowFirstDoc = pts[1];
-            ShowSecondDot = pts[2];
+            ShowCenterDoc = Point.Ceiling(pts[0]);
+            ShowFirstDoc = Point.Ceiling(pts[1]);
+            ShowSecondDot = Point.Ceiling(pts[2]);
             PtlToSavel();
         }
 
@@ -283,8 +279,8 @@ namespace BaseRailElement
             base.RotateClw();
             RotateAngle = 90;
             Matrix matrix = new Matrix();
-            Point pt_center = new Point();
-            Point[] pts = new Point[4];
+            PointF pt_center = PointF.Empty;
+            PointF[] pts = new PointF[4];
             pts[0] = ShowCenterDoc;
             pts[1] = new Point(ShowFirstDoc.X, ShowFirstDoc.Y);
             pts[2] = new Point(ShowSecondDot.X, ShowSecondDot.Y);
@@ -319,9 +315,9 @@ namespace BaseRailElement
             StartAngle += RotateAngle;
             matrix.RotateAt(RotateAngle, pt_center);
             matrix.TransformPoints(pts);
-            ShowCenterDoc = pts[0];
-            ShowFirstDoc = pts[1];
-            ShowSecondDot = pts[2];
+            ShowCenterDoc = Point.Ceiling(pts[0]);
+            ShowFirstDoc = Point.Ceiling(pts[1]);
+            ShowSecondDot = Point.Ceiling(pts[2]);
             PtlToSavel();
         }
 
@@ -345,51 +341,50 @@ namespace BaseRailElement
 
         public override void DrawEnlargeOrShrink(float multiFactor)
         {
-            Point[] pts = new Point[3];
+            PointF[] pts = new PointF[3];
             pts[0] = Center;
             pts[1] = FirstDot;
             pts[2] = SecDot;
             if (multiFactor > 1)
             {
-                pts[0].X = (int)(pts[0].X * DrawMultiFactor);
-                pts[0].Y = (int)(pts[0].Y * DrawMultiFactor);
-                pts[1].X = (int)(pts[1].X * DrawMultiFactor);
-                pts[1].Y = (int)(pts[1].Y * DrawMultiFactor);
-                pts[2].X = (int)(pts[2].X * DrawMultiFactor);
-                pts[2].Y = (int)(pts[2].Y * DrawMultiFactor);               
+                for (int i = 0; i < 3; i++)
+                {
+                    pts[i].X = pts[i].X * DrawMultiFactor;
+                    pts[i].Y = pts[i].Y * DrawMultiFactor;
+                }
             }
-            ShowCenterDoc = pts[0];
-            ShowFirstDoc = pts[1];
-            ShowSecondDot = pts[2];
-            ShowRadius = (int)Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X) + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
+            ShowCenterDoc = Point.Ceiling(pts[0]);
+            ShowFirstDoc = Point.Ceiling(pts[1]);
+            ShowSecondDot = Point.Ceiling(pts[2]);
+            ShowRadius = (int)(Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X)
+                + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y)) + 0.5);
             base.DrawEnlargeOrShrink(DrawMultiFactor);
         }
 
         private void PtlToSavel()
         {
-            Point[] pts = new Point[3];
+            PointF[] pts = new PointF[3];
             pts[0] = ShowCenterDoc;
             pts[1] = ShowFirstDoc;
             pts[2] = ShowSecondDot;
             if (DrawMultiFactor > 1)
             {
-                pts[0].X = (int)(pts[0].X / DrawMultiFactor);
-                pts[0].Y = (int)(pts[0].Y / DrawMultiFactor);
-                pts[1].X = (int)(pts[1].X / DrawMultiFactor);
-                pts[1].Y = (int)(pts[1].Y / DrawMultiFactor);
-                pts[2].X = (int)(pts[2].X / DrawMultiFactor);
-                pts[2].Y = (int)(pts[2].Y / DrawMultiFactor);               
+                for (int i = 0; i < 3; i++)
+                {
+                    pts[i].X = pts[i].X / DrawMultiFactor;
+                    pts[i].Y = pts[i].Y / DrawMultiFactor;
+                }           
             }
-            Center = pts[0];
-            FirstDot = pts[1];
-            SecDot = pts[2];
-            Radiu = (int)Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X) + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y));
+            Center = Point.Ceiling(pts[0]);
+            FirstDot = Point.Ceiling(pts[1]);
+            SecDot = Point.Ceiling(pts[2]);
+            Radiu = (int)(Math.Sqrt((double)(pts[0].X - pts[1].X) * (pts[0].X - pts[1].X)
+                + (double)(pts[0].Y - pts[1].Y) * (pts[0].Y - pts[1].Y)) + 0.5);
         }
 
         public override void ChangePropertyValue()
         {
             base.ChangePropertyValue();
-//            ShowCenterDoc = _ObjectCurved.ChangePropertyValue(ShowCenterDoc, ShowFirstDoc, SecondDot, ShowRadius);
         }
     }
 }

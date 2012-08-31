@@ -25,7 +25,7 @@ namespace RailDraw
         bool mouseIsDown = false;
         bool drapIsOown = false;
         Size drawregOrigSize = new Size();
-        const float CONST_MULTI_FACTOR = 0.1f;
+        const float CONST_MULTI_FACTOR = 0.5f;
         private float multiFactor = 1;
         private string sProjectPath = "";
 
@@ -329,7 +329,7 @@ namespace RailDraw
 
         private void enlarge_Click(object sender, EventArgs e)
         {
-            if (DrawRegion.Width < drawregOrigSize.Width * 2)
+            if (DrawRegion.Width < drawregOrigSize.Width * 4)
             {
                 DrawRegion.Width += (int)(drawregOrigSize.Width * CONST_MULTI_FACTOR);
                 DrawRegion.Height += (int)(drawregOrigSize.Height * CONST_MULTI_FACTOR);
