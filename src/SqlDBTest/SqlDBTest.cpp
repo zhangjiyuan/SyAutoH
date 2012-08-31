@@ -33,12 +33,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	sqlAce.PutOutRecordSet();
-
-	string str;
-	while(cin>>str)
-	{
-		cout<< str<<endl;
-	}
+	
+	sqlAce.Clean();
+	getchar();
 
 	return 0;
 }
