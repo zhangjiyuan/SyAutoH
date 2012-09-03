@@ -68,7 +68,6 @@ namespace BaseRailElement
                 if (handleHit > 0) 
                     return handleHit;
             }
-            // 判断是否在内部
             Point[] wrapper = new Point[1];
             wrapper[0] = point;
             Rectangle rc = new Rectangle();
