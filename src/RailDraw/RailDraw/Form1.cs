@@ -42,8 +42,7 @@ namespace RailDraw
         {
             // 设置Control的相关Style，主要与绘制有关
             this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.ContainerControl |
-                ControlStyles.UserPaint | ControlStyles.Selectable | ControlStyles.UserMouse, true);
-            doc1.Name = "main";           
+                ControlStyles.UserPaint | ControlStyles.Selectable | ControlStyles.UserMouse, true);       
         }
 
         protected static DrawDoc _document = DrawDoc.EmptyDocument;
@@ -523,7 +522,6 @@ namespace RailDraw
                     {
                         string projectpath = saveFile.FileName;
                         sProjectPath = projectpath;
-                        //save form
                         XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
                         StreamWriter myWriter = new StreamWriter(projectpath);
                         mySerializer.Serialize(myWriter, doc1);

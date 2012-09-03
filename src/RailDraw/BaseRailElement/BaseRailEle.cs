@@ -55,13 +55,6 @@ namespace BaseRailElement
             get { return speed; }
             set { speed = value; }
         }
-
-        private float angle = 0;
-        public float Angle
-        {
-            get { return angle; }
-            set { angle = value; }
-        }
       
         private int drawMultiFactor = 1;
         [XmlIgnore]
