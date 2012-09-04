@@ -540,37 +540,37 @@ namespace BaseRailElement
 
         public Point ChangePropertyValue(
             Point center, 
-            Point first_dot,
-            Point second_dot,
+            Point firstDot,
+            Point secondDot,
             int radiu
             )
         {
             int lenght = 0;
             Point pt = new Point();
-            if(first_dot.X==center.X)
+            if(firstDot.X==center.X)
             {
-                if (radiu != Math.Abs(first_dot.Y - center.Y))
+                if (radiu != Math.Abs(firstDot.Y - center.Y))
                 {
-                    lenght = Math.Abs(first_dot.Y - center.Y) - radiu; 
+                    lenght = Math.Abs(firstDot.Y - center.Y) - radiu; 
                     pt=center;
                     pt.Offset(0,lenght);
                     return pt;
                 }
-                else if (radiu != Math.Abs(second_dot.X - center.X))
+                else if (radiu != Math.Abs(secondDot.X - center.X))
                 {
-                    return pt=first_dot;
+                    return pt = firstDot;
                 }
             }
-            else if (first_dot.Y == center.Y)
+            else if (firstDot.Y == center.Y)
             { 
             }
-            else if (second_dot.X == center.X)
+            else if (secondDot.X == center.X)
             { 
             }
-            else if (second_dot.Y == center.Y)
+            else if (secondDot.Y == center.Y)
             { 
             }
-            return pt=first_dot;
+            return pt = firstDot;
         }
     }
 }

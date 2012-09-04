@@ -258,5 +258,10 @@ namespace BaseRailElement
             SaveList.Clear();
             SaveList.AddRange(pts);
         }
+
+        public override bool ChosedInRegion(Rectangle rect)
+        {
+            return objectStaightOp.ChosedInRegion(rect);          
+        }
     }
 }
