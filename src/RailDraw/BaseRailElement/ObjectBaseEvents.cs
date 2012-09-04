@@ -29,6 +29,13 @@ namespace BaseRailElement
                 _SelectObject = SelectObject.SelectEle;
             else
                 _SelectObject = SelectObject.SelectNone;
+            document.changeChooseSign(true, point);
+        }
+
+        public override void OnLButtonUp(Point point)
+        {
+            base.OnLButtonUp(point);
+            document.changeChooseSign(false, point);
         }
 
         public override void OnMouseMove(Point point)
@@ -94,6 +101,7 @@ namespace BaseRailElement
                     }
                     break;
                 case SelectObject.SelectNone:
+                    document.changeChooseSign(true, point);
                     break;
             }
             base.OnMouseMove(point);

@@ -87,7 +87,18 @@ namespace BaseRailElement
         }
 
         private Point firstDot = Point.Empty;
+        public Point FirstDot
+        {
+            get { return firstDot; }
+            set { firstDot = value; }
+        }
+
         private Point secDot = Point.Empty;
+        public Point SecDot
+        {
+            get { return secDot; }
+            set { secDot = value; }
+        }
 
         public enum DirectonCurved
         {
@@ -430,6 +441,16 @@ namespace BaseRailElement
             }
             PtlToSavel();
             base.ChangePropertyValue();
+        }
+
+        public override bool ChosedInRegion(Rectangle rect)
+        {
+            if (rect.Contains(showCenterDot) && 
+                rect.Contains(showFirstDot) && 
+                rect.Contains(showSecondDot))
+                return true;
+            else
+                return false;
         }
     }
 }

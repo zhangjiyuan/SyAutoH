@@ -310,5 +310,19 @@ namespace BaseRailElement
             }
             return 0;
         }
+
+        public bool ChosedInRegion(Rectangle rect)
+        {
+            int containedNum = 0;
+            int n = pointList.Count;
+            for (int i = 0; i < n; i++)
+            {
+                if (rect.Contains(pointList[i]))
+                    containedNum++;
+            }
+            if (containedNum == n)
+                return true;
+            return false;
+        }
     }
 }

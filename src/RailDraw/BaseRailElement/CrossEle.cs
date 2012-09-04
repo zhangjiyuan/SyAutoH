@@ -483,5 +483,9 @@ namespace BaseRailElement
                     break;
             }
         }
+        public override bool ChosedInRegion(Rectangle rect)
+        {
+            return objectCrossOp.ChosedInRegion(rect);
+        }
     }
 }

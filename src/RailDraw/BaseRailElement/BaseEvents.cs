@@ -30,13 +30,19 @@ namespace BaseRailElement
             get { return lastPoint; }
             set { lastPoint = value; }
         }
-
+        
         public virtual void OnLButtonDown(Point point)
         {
             downPoint = point;
             lastPoint = point;
         }
+
         public virtual void OnMouseMove(Point point)
+        {
+            lastPoint = point;
+        }
+
+        public virtual void OnLButtonUp(Point point)
         {
             lastPoint = point;
         }

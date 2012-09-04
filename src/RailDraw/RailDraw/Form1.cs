@@ -80,11 +80,12 @@ namespace RailDraw
                 Point pt_new_e = PicPtTrans(sender, e);
                 if (0 < pt_new_e.X && DrawRegion.Size.Width > pt_new_e.X && 0 < pt_new_e.Y && DrawRegion.Size.Height > pt_new_e.Y)
                 {
-                    BaseRailElement.StraightRailEle _straightrailele = new BaseRailElement.StraightRailEle();
+                    BaseRailElement.StraightRailEle strRailEle = new BaseRailElement.StraightRailEle();
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
-                    doc1.DrawObjectList.Add(_straightrailele.CreatEle(pt, DrawRegion.Size, multiFactor));
-                    doc1.Select(_straightrailele);
+                    doc1.DrawObjectList.Add(strRailEle.CreatEle(pt, DrawRegion.Size, multiFactor));
+                    doc1.SelectOne(strRailEle);
                     DrawRegion.Invalidate();
+                    propertyGrid1.SelectedObject = strRailEle;
                     propertyGrid1.Invalidate();
                 }               
                 pic1 = false;
@@ -117,12 +118,12 @@ namespace RailDraw
                 Point pt_new_e = PicPtTrans(sender, e);
                 if (0 < pt_new_e.X && DrawRegion.Size.Width > pt_new_e.X && 0 < pt_new_e.Y && DrawRegion.Size.Height > pt_new_e.Y)
                 {
-                    BaseRailElement.CurvedRailEle _curverailele = new BaseRailElement.CurvedRailEle();
+                    BaseRailElement.CurvedRailEle CurveRailEle = new BaseRailElement.CurvedRailEle();
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
-                    doc1.DrawObjectList.Add(_curverailele.CreatEle(pt, DrawRegion.Size, multiFactor));
-                    doc1.Select(_curverailele);
+                    doc1.DrawObjectList.Add(CurveRailEle.CreatEle(pt, DrawRegion.Size, multiFactor));
+                    doc1.SelectOne(CurveRailEle);
                     DrawRegion.Invalidate();
-                    propertyGrid1.SelectedObject = _curverailele;
+                    propertyGrid1.SelectedObject = CurveRailEle;
                     propertyGrid1.Invalidate();
                 }               
                 pic2 = false;
@@ -158,8 +159,9 @@ namespace RailDraw
                     BaseRailElement.CrossEle crossLeft = new CrossEle();
                     Point pt = new Point(pt_new_e.X, pt_new_e.Y);
                     doc1.DrawObjectList.Add(crossLeft.CreatEle(pt, DrawRegion.Size, multiFactor));
-                    doc1.Select(crossLeft);
+                    doc1.SelectOne(crossLeft);
                     DrawRegion.Invalidate();
+                    propertyGrid1.SelectedObject = crossLeft;
                     propertyGrid1.Invalidate();
                 }
                 this.Cursor = System.Windows.Forms.Cursors.Default;
@@ -202,6 +204,8 @@ namespace RailDraw
                 DrawRegion.Location = new Point(DrawRegion.Location.X + pt_offset.X, DrawRegion.Location.Y + pt_offset.Y);
                 drapIsOown = true;
             }
+            objectEvent.OnLButtonUp(pt);
+            this.DrawRegion.Invalidate();
         }
 
         private void DrawRegion_MouseClick(object sender, MouseEventArgs e)
