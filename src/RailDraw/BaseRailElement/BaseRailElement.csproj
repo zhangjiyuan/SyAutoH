@@ -51,9 +51,11 @@
     <Compile Include="ObjectBaseEvents.cs" />
     <Compile Include="ObjectCrossOp.cs" />
     <Compile Include="ObjectCurvedOp.cs" />
+    <Compile Include="ObjectLabelOp.cs" />
     <Compile Include="ObjectStraightOp.cs" />
     <Compile Include="PenStyle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RailLabel.cs" />
     <Compile Include="StraightRailEle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

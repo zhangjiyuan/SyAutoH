@@ -93,6 +93,11 @@ namespace BaseRailElement
                             CurvedRailEle de = (CurvedRailEle)document.SelectedDrawObjectList[i];
                             document.SelectedDrawObjectList[i].Move(lastPoint, point);
                         }
+                        else if (document.SelectedDrawObjectList[i].GraphType == 4)
+                        {
+                            RailLabal de = (RailLabal)document.SelectedDrawObjectList[i];
+                            document.SelectedDrawObjectList[i].Move(lastPoint, point);
+                        }
                         else if (document.SelectedDrawObjectList[i].GraphType == 5)
                         {
                             CrossEle de = (CrossEle)document.SelectedDrawObjectList[i];
