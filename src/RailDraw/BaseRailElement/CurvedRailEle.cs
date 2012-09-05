@@ -102,11 +102,7 @@ namespace BaseRailElement
 
         public enum DirectonCurved
         {
-            first, 
-            second, 
-            third, 
-            four,
-            NULL
+            first, second, third, four, NULL
         }
         private DirectonCurved directionCurved = DirectonCurved.NULL;
         [Browsable(false)]

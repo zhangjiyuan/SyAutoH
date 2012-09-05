@@ -47,13 +47,11 @@ namespace BaseRailElement
         public int HitTest(Point point, bool isSelected)
         {
             int n = pointList.Count;
-
             if (isSelected)
             {
                 int hit = HandleHitTest(point);
                 if (hit >= 0) return hit;
             }
-
             for (int i = 0; i < n - 1; i++)
             {
                 Point pt1 = pointList[i];

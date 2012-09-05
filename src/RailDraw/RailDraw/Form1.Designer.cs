@@ -54,6 +54,8 @@ namespace RailDraw
             this.drap = new System.Windows.Forms.ToolStripButton();
             this.mouse = new System.Windows.Forms.ToolStripButton();
             this.mirror = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.addtext = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -64,8 +66,6 @@ namespace RailDraw
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.DrawRegion = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
-            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -98,7 +98,9 @@ namespace RailDraw
             this.toolStripSeparator5,
             this.drap,
             this.mouse,
-            this.mirror});
+            this.mirror,
+            this.toolStripSeparator6,
+            this.addtext});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(808, 25);
@@ -291,6 +293,21 @@ namespace RailDraw
             this.mirror.Text = "mirror";
             this.mirror.Click += new System.EventHandler(this.mirror_Click);
             // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            // 
+            // addtext
+            // 
+            this.addtext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addtext.Image = ((System.Drawing.Image)(resources.GetObject("addtext.Image")));
+            this.addtext.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addtext.Name = "addtext";
+            this.addtext.Size = new System.Drawing.Size(23, 22);
+            this.addtext.Text = "addtext";
+            this.addtext.Click += new System.EventHandler(this.addtext_Click);
+            // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -397,31 +414,11 @@ namespace RailDraw
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.hScrollBar1);
-            this.panel2.Controls.Add(this.vScrollBar1);
             this.panel2.Controls.Add(this.DrawRegion);
             this.panel2.Location = new System.Drawing.Point(65, 28);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(580, 385);
             this.panel2.TabIndex = 3;
-            // 
-            // hScrollBar1
-            // 
-            this.hScrollBar1.Location = new System.Drawing.Point(250, 364);
-            this.hScrollBar1.Name = "hScrollBar1";
-            this.hScrollBar1.Size = new System.Drawing.Size(215, 17);
-            this.hScrollBar1.TabIndex = 4;
-            this.hScrollBar1.Visible = false;
-            this.hScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBar1_Scroll);
-            // 
-            // vScrollBar1
-            // 
-            this.vScrollBar1.Location = new System.Drawing.Point(559, 44);
-            this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(17, 159);
-            this.vScrollBar1.TabIndex = 3;
-            this.vScrollBar1.Visible = false;
-            this.vScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar1_Scroll);
             // 
             // Form1
             // 
@@ -477,8 +474,6 @@ namespace RailDraw
         private Rectangle dragBoxFromMouseDown;
         private PictureBox DrawRegion;
         private Panel panel2;
-        private HScrollBar hScrollBar1;
-        private VScrollBar vScrollBar1;
         private ToolStripButton counter_clw;
         private ToolStripButton clw;
         private ToolStripSeparator toolStripSeparator5;
@@ -486,6 +481,8 @@ namespace RailDraw
         private ToolStripButton mouse;
         private ToolStripButton new_btn;
         private ToolStripButton mirror;
+        private ToolStripSeparator toolStripSeparator6;
+        private ToolStripButton addtext;
     }
 }
 

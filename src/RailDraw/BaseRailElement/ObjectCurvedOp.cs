@@ -537,40 +537,5 @@ namespace BaseRailElement
             }
             return new Rectangle(center.X, center.Y, radiu, radiu);
         }
-
-        public Point ChangePropertyValue(
-            Point center, 
-            Point firstDot,
-            Point secondDot,
-            int radiu
-            )
-        {
-            int lenght = 0;
-            Point pt = new Point();
-            if(firstDot.X==center.X)
-            {
-                if (radiu != Math.Abs(firstDot.Y - center.Y))
-                {
-                    lenght = Math.Abs(firstDot.Y - center.Y) - radiu; 
-                    pt=center;
-                    pt.Offset(0,lenght);
-                    return pt;
-                }
-                else if (radiu != Math.Abs(secondDot.X - center.X))
-                {
-                    return pt = firstDot;
-                }
-            }
-            else if (firstDot.Y == center.Y)
-            { 
-            }
-            else if (secondDot.X == center.X)
-            { 
-            }
-            else if (secondDot.Y == center.Y)
-            { 
-            }
-            return pt = firstDot;
-        }
     }
 }
