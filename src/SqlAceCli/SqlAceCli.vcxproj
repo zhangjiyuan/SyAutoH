@@ -81,7 +81,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FoupCommander.h" />
+    <ClInclude Include="DBFoup.h" />
     <ClInclude Include="McsUserCommander.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SqlAceCli.h" />

@@ -28,4 +28,5 @@ public:
 	int ExecuteSQL(WCHAR* wSqlCmd);
 	int PutOutRecordSet(void);
 	int Clean(void);
+	int FindFoupLocation(WCHAR* sFoupID, int& nOHV, int& nStocker);
 };

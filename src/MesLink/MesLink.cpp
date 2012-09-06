@@ -30,3 +30,9 @@ int CMesLink::Init()
 	}
 	return 0;
 }
+
+int CMesLink::GetMesData(CMesData& data)
+{
+
+	return 0;
+}

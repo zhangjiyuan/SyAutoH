@@ -32,7 +32,28 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout<<"Success to Execute Sql" << endl;
 	}
 
-	sqlAce.PutOutRecordSet();
+	//sqlAce.PutOutRecordSet();
+
+	int nOHT  = 0;
+	int nStocker = 0;
+	int nFoupFind = sqlAce.FindFoupLocation(L"Foup-S1", nOHT, nStocker);
+	if (0 == nFoupFind)
+	{
+		cout<< "Find Foup-S1 OHT:" << nOHT << " Stocker:" << nStocker << endl;
+	}
+
+	nFoupFind = sqlAce.FindFoupLocation(L"Foup-S6", nOHT, nStocker);
+	if (0 == nFoupFind)
+	{
+		cout<< "Find Foup-S6 OHT:" << nOHT << " Stocker:" << nStocker << endl;
+	}
+
+	nFoupFind = sqlAce.FindFoupLocation(L"Foup-S2", nOHT, nStocker);
+	if (0 == nFoupFind)
+	{
+		cout<< "Find Foup-S2 OHT:" << nOHT << " Stocker:" << nStocker << endl;
+	}
+
 	
 	sqlAce.Clean();
 	getchar();

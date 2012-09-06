@@ -31,4 +31,9 @@ int MaterialController::Init(void)
 
 void MaterialController::Run(void)
 {
+	while(1)
+	{
+		CMesData data;
+		m_pMesLink->GetMesData(data);
+	}
 }

@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "SqlServerNCLI.h"
 
-#include "FoupCommander.h"
+#include "DBFoup.h"
 #include "McsUserCommander.h"
 
 SqlServerNCLI::SqlServerNCLI(void)

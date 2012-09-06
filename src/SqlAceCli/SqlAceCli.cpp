@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "SqlAceCli.h"
 #include "SqlServerNCLI.h"
+#include "DBFoup.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -65,7 +66,7 @@ int CSqlAceCli::Connect(WCHAR* wServer, WCHAR* wDBName)
 
 	int nHR = m_pSqlClient->InitializeAndEstablishConnection(wServer, wDBName);
 
-	m_pSqlClient->TestMfcOleDB();
+	//m_pSqlClient->TestMfcOleDB();
 
 	return nHR;
 }
@@ -100,6 +101,39 @@ int CSqlAceCli::Clean(void)
 		delete m_pSqlClient;
 		m_pSqlClient = NULL;
 	}
+
+	return 0;
+}
+
+
+int CSqlAceCli::FindFoupLocation(WCHAR* sFoupID, int& nOHV, int& nStocker)
+{
+	nOHV = 0;
+	nStocker = 0;
+
+	CFoupCommander foupCmd;
+	foupCmd.OpenDataSource();
+	CString strFind = L"SELECT * From Foup where FoupID = '#@#'";
+	strFind.Replace(L"#@#", sFoupID);
+	HRESULT hr = foupCmd.Open(foupCmd.m_session, strFind);
+	if (FAILED(hr))
+	{
+		cout << "Open Foup Failed." << endl;
+		return -1;
+	}
+
+	if(foupCmd.MoveFirst() != DB_S_ENDOFROWSET)
+	{
+		//CString line;
+		//line.Format(L"ID: %d | Lot: %s | OHV: %d | STOCKER: %d | Status: %s\r\n", 
+		//	foupCmd.m_ID, foupCmd.m_Lot, foupCmd.m_OHV, 
+		//	foupCmd.m_STOCKER, foupCmd.m_Status);
+		//_tprintf(line);
+		nOHV = foupCmd.m_OHV;
+		nStocker = foupCmd.m_STOCKER;
+	}
+
+	foupCmd.CloseAll();
 
 	return 0;
 }

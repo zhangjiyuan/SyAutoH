@@ -10,6 +10,14 @@
 #define MESLINK_API __declspec(dllimport)
 #endif
 
+class MESLINK_API CMesData
+{
+public:
+	int nType;
+	int nFoupID;
+	int nEquID;
+};
+
 class MesLinkServer;
 // 此类是从 MesLink.dll 导出的
 class MESLINK_API CMesLink {
@@ -21,5 +29,6 @@ private:
 
 public:
 	int Init(void);
+	int GetMesData(CMesData& data);
 };
 
