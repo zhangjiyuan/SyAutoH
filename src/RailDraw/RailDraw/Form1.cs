@@ -417,7 +417,7 @@ namespace RailDraw
         private void addtext_Click(object sender, EventArgs e)
         {
             BaseRailElement.RailLabal railLalal = new RailLabal();
-            document.DrawObjectList.Add(railLalal.CreatEle());
+            document.DrawObjectList.Add(railLalal.CreatEle(multiFactor));
             DrawRegion.Invalidate();
         }
         #endregion        
