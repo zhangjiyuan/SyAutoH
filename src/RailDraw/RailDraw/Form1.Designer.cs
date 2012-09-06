@@ -54,6 +54,8 @@ namespace RailDraw
             this.drap = new System.Windows.Forms.ToolStripButton();
             this.mouse = new System.Windows.Forms.ToolStripButton();
             this.mirror = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.addtext = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -64,8 +66,26 @@ namespace RailDraw
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.DrawRegion = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
-            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuCut = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPaste = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuChooseAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuView = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuScale = new System.Windows.Forms.ToolStripMenuItem();
+            this.menupercentone = new System.Windows.Forms.ToolStripMenuItem();
+            this.menupercenttwo = new System.Windows.Forms.ToolStripMenuItem();
+            this.menupercentthree = new System.Windows.Forms.ToolStripMenuItem();
+            this.menupercentfour = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -73,6 +93,7 @@ namespace RailDraw
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DrawRegion)).BeginInit();
             this.panel2.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -98,8 +119,10 @@ namespace RailDraw
             this.toolStripSeparator5,
             this.drap,
             this.mouse,
-            this.mirror});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.mirror,
+            this.toolStripSeparator6,
+            this.addtext});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(808, 25);
             this.toolStrip1.TabIndex = 0;
@@ -291,6 +314,21 @@ namespace RailDraw
             this.mirror.Text = "mirror";
             this.mirror.Click += new System.EventHandler(this.mirror_Click);
             // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            // 
+            // addtext
+            // 
+            this.addtext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addtext.Image = ((System.Drawing.Image)(resources.GetObject("addtext.Image")));
+            this.addtext.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addtext.Name = "addtext";
+            this.addtext.Size = new System.Drawing.Size(23, 22);
+            this.addtext.Text = "addtext";
+            this.addtext.Click += new System.EventHandler(this.addtext_Click);
+            // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -300,15 +338,15 @@ namespace RailDraw
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(12, 28);
+            this.panel1.Location = new System.Drawing.Point(7, 53);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(47, 385);
+            this.panel1.Size = new System.Drawing.Size(47, 384);
             this.panel1.TabIndex = 1;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 156);
+            this.label3.Location = new System.Drawing.Point(11, 154);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 12);
             this.label3.TabIndex = 5;
@@ -317,7 +355,7 @@ namespace RailDraw
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 100);
+            this.label2.Location = new System.Drawing.Point(10, 98);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 4;
@@ -327,7 +365,7 @@ namespace RailDraw
             // 
             this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(6, 122);
+            this.pictureBox3.Location = new System.Drawing.Point(6, 120);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(32, 32);
             this.pictureBox3.TabIndex = 3;
@@ -339,7 +377,7 @@ namespace RailDraw
             // 
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(6, 66);
+            this.pictureBox2.Location = new System.Drawing.Point(6, 64);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(32, 32);
             this.pictureBox2.TabIndex = 2;
@@ -350,7 +388,7 @@ namespace RailDraw
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 44);
+            this.label1.Location = new System.Drawing.Point(10, 42);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 1;
@@ -360,7 +398,7 @@ namespace RailDraw
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(6, 6);
+            this.pictureBox1.Location = new System.Drawing.Point(6, 4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(32, 32);
             this.pictureBox1.TabIndex = 0;
@@ -370,7 +408,7 @@ namespace RailDraw
             // 
             // propertyGrid1
             // 
-            this.propertyGrid1.Location = new System.Drawing.Point(662, 28);
+            this.propertyGrid1.Location = new System.Drawing.Point(666, 52);
             this.propertyGrid1.Name = "propertyGrid1";
             this.propertyGrid1.Size = new System.Drawing.Size(130, 385);
             this.propertyGrid1.TabIndex = 0;
@@ -397,41 +435,183 @@ namespace RailDraw
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.hScrollBar1);
-            this.panel2.Controls.Add(this.vScrollBar1);
             this.panel2.Controls.Add(this.DrawRegion);
-            this.panel2.Location = new System.Drawing.Point(65, 28);
+            this.panel2.Location = new System.Drawing.Point(60, 52);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(580, 385);
             this.panel2.TabIndex = 3;
             // 
-            // hScrollBar1
+            // menuStrip1
             // 
-            this.hScrollBar1.Location = new System.Drawing.Point(250, 364);
-            this.hScrollBar1.Name = "hScrollBar1";
-            this.hScrollBar1.Size = new System.Drawing.Size(215, 17);
-            this.hScrollBar1.TabIndex = 4;
-            this.hScrollBar1.Visible = false;
-            this.hScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBar1_Scroll);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuFile,
+            this.menuEdit,
+            this.menuView,
+            this.menuHelp});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(808, 25);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // vScrollBar1
+            // menuFile
             // 
-            this.vScrollBar1.Location = new System.Drawing.Point(559, 44);
-            this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(17, 159);
-            this.vScrollBar1.TabIndex = 3;
-            this.vScrollBar1.Visible = false;
-            this.vScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar1_Scroll);
+            this.menuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuNew,
+            this.menuOpen,
+            this.menuSave,
+            this.menuSaveAs,
+            this.menuClose});
+            this.menuFile.Name = "menuFile";
+            this.menuFile.Size = new System.Drawing.Size(39, 21);
+            this.menuFile.Text = "File";
+            // 
+            // menuNew
+            // 
+            this.menuNew.Name = "menuNew";
+            this.menuNew.Size = new System.Drawing.Size(120, 22);
+            this.menuNew.Text = "New";
+            this.menuNew.Click += new System.EventHandler(this.new_btn_Click);
+            // 
+            // menuOpen
+            // 
+            this.menuOpen.Name = "menuOpen";
+            this.menuOpen.Size = new System.Drawing.Size(120, 22);
+            this.menuOpen.Text = "Open";
+            this.menuOpen.Click += new System.EventHandler(this.open_Click);
+            // 
+            // menuSave
+            // 
+            this.menuSave.Name = "menuSave";
+            this.menuSave.Size = new System.Drawing.Size(120, 22);
+            this.menuSave.Text = "Save";
+            this.menuSave.Click += new System.EventHandler(this.save_Click);
+            // 
+            // menuSaveAs
+            // 
+            this.menuSaveAs.Name = "menuSaveAs";
+            this.menuSaveAs.Size = new System.Drawing.Size(120, 22);
+            this.menuSaveAs.Text = "Save as";
+            this.menuSaveAs.Click += new System.EventHandler(this.menuSaveAs_Click);
+            // 
+            // menuClose
+            // 
+            this.menuClose.Name = "menuClose";
+            this.menuClose.Size = new System.Drawing.Size(120, 22);
+            this.menuClose.Text = "Close";
+            this.menuClose.Click += new System.EventHandler(this.menuClose_Click);
+            // 
+            // menuEdit
+            // 
+            this.menuEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuCut,
+            this.menuCopy,
+            this.menuPaste,
+            this.menuDelete,
+            this.menuChooseAll});
+            this.menuEdit.Name = "menuEdit";
+            this.menuEdit.Size = new System.Drawing.Size(42, 21);
+            this.menuEdit.Text = "Edit";
+            // 
+            // menuCut
+            // 
+            this.menuCut.Name = "menuCut";
+            this.menuCut.Size = new System.Drawing.Size(113, 22);
+            this.menuCut.Text = "Cut";
+            this.menuCut.Click += new System.EventHandler(this.cut_Click);
+            // 
+            // menuCopy
+            // 
+            this.menuCopy.Name = "menuCopy";
+            this.menuCopy.Size = new System.Drawing.Size(113, 22);
+            this.menuCopy.Text = "Copy";
+            this.menuCopy.Click += new System.EventHandler(this.copy_Click);
+            // 
+            // menuPaste
+            // 
+            this.menuPaste.Name = "menuPaste";
+            this.menuPaste.Size = new System.Drawing.Size(113, 22);
+            this.menuPaste.Text = "Paste";
+            this.menuPaste.Click += new System.EventHandler(this.paste_Click);
+            // 
+            // menuDelete
+            // 
+            this.menuDelete.Name = "menuDelete";
+            this.menuDelete.Size = new System.Drawing.Size(113, 22);
+            this.menuDelete.Text = "Delete";
+            this.menuDelete.Click += new System.EventHandler(this.delete_Click);
+            // 
+            // menuChooseAll
+            // 
+            this.menuChooseAll.Name = "menuChooseAll";
+            this.menuChooseAll.Size = new System.Drawing.Size(113, 22);
+            this.menuChooseAll.Text = "All";
+            this.menuChooseAll.Click += new System.EventHandler(this.menuChooseAll_Click);
+            // 
+            // menuView
+            // 
+            this.menuView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuScale});
+            this.menuView.Name = "menuView";
+            this.menuView.Size = new System.Drawing.Size(47, 21);
+            this.menuView.Text = "View";
+            // 
+            // menuScale
+            // 
+            this.menuScale.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menupercentone,
+            this.menupercenttwo,
+            this.menupercentthree,
+            this.menupercentfour});
+            this.menuScale.Name = "menuScale";
+            this.menuScale.Size = new System.Drawing.Size(106, 22);
+            this.menuScale.Text = "Scale";
+            // 
+            // menupercentone
+            // 
+            this.menupercentone.Name = "menupercentone";
+            this.menupercentone.Size = new System.Drawing.Size(108, 22);
+            this.menupercentone.Text = "100%";
+            this.menupercentone.Click += new System.EventHandler(this.menupercentone_Click);
+            // 
+            // menupercenttwo
+            // 
+            this.menupercenttwo.Name = "menupercenttwo";
+            this.menupercenttwo.Size = new System.Drawing.Size(108, 22);
+            this.menupercenttwo.Text = "200%";
+            this.menupercenttwo.Click += new System.EventHandler(this.menupercentone_Click);
+            // 
+            // menupercentthree
+            // 
+            this.menupercentthree.Name = "menupercentthree";
+            this.menupercentthree.Size = new System.Drawing.Size(108, 22);
+            this.menupercentthree.Text = "300%";
+            this.menupercentthree.Click += new System.EventHandler(this.menupercentone_Click);
+            // 
+            // menupercentfour
+            // 
+            this.menupercentfour.Name = "menupercentfour";
+            this.menupercentfour.Size = new System.Drawing.Size(108, 22);
+            this.menupercentfour.Text = "400%";
+            this.menupercentfour.Click += new System.EventHandler(this.menupercentone_Click);
+            // 
+            // menuHelp
+            // 
+            this.menuHelp.Name = "menuHelp";
+            this.menuHelp.Size = new System.Drawing.Size(47, 21);
+            this.menuHelp.Text = "Help";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(808, 425);
+            this.ClientSize = new System.Drawing.Size(808, 457);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.propertyGrid1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "RailDraw";
             this.Resize += new System.EventHandler(this.Form1_Resize);
@@ -444,6 +624,8 @@ namespace RailDraw
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DrawRegion)).EndInit();
             this.panel2.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -477,8 +659,6 @@ namespace RailDraw
         private Rectangle dragBoxFromMouseDown;
         private PictureBox DrawRegion;
         private Panel panel2;
-        private HScrollBar hScrollBar1;
-        private VScrollBar vScrollBar1;
         private ToolStripButton counter_clw;
         private ToolStripButton clw;
         private ToolStripSeparator toolStripSeparator5;
@@ -486,6 +666,28 @@ namespace RailDraw
         private ToolStripButton mouse;
         private ToolStripButton new_btn;
         private ToolStripButton mirror;
+        private ToolStripSeparator toolStripSeparator6;
+        private ToolStripButton addtext;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem menuFile;
+        private ToolStripMenuItem menuNew;
+        private ToolStripMenuItem menuOpen;
+        private ToolStripMenuItem menuSave;
+        private ToolStripMenuItem menuSaveAs;
+        private ToolStripMenuItem menuClose;
+        private ToolStripMenuItem menuEdit;
+        private ToolStripMenuItem menuCut;
+        private ToolStripMenuItem menuCopy;
+        private ToolStripMenuItem menuPaste;
+        private ToolStripMenuItem menuDelete;
+        private ToolStripMenuItem menuChooseAll;
+        private ToolStripMenuItem menuView;
+        private ToolStripMenuItem menuHelp;
+        private ToolStripMenuItem menuScale;
+        private ToolStripMenuItem menupercentone;
+        private ToolStripMenuItem menupercenttwo;
+        private ToolStripMenuItem menupercentthree;
+        private ToolStripMenuItem menupercentfour;
     }
 }
 

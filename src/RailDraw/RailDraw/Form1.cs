@@ -45,16 +45,17 @@ namespace RailDraw
                 ControlStyles.UserPaint | ControlStyles.Selectable | ControlStyles.UserMouse, true);       
         }
 
-        protected static DrawDoc _document = DrawDoc.EmptyDocument;
+        protected static DrawDoc document = DrawDoc.EmptyDocument;
         public static DrawDoc Document
         {
-            get { return _document; }
-            set { _document = value; BaseEvents.Document = value; }
+            get { return document; }
+            set { document = value; BaseEvents.Document = value; }
         }
 
         [DllImport("user32")]
         private static extern IntPtr LoadCursorFromFile(string fileName);
 
+        #region 拖放图元
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             base.OnMouseDown(e);
@@ -169,10 +170,13 @@ namespace RailDraw
             }
             this.Cursor = System.Windows.Forms.Cursors.Default;
         }
-   
+
+        #endregion
+
+        #region 画图板鼠标操作
         private void DrawRegion_MouseDown(object sender, MouseEventArgs e)
         {
-            Point pt = ClientToDrawregion(e.Location);
+            Point pt = e.Location;
             switch (e.Button)
             {
                 case MouseButtons.Left:                    
@@ -185,7 +189,7 @@ namespace RailDraw
 
         private void DrawRegion_MouseMove(object sender, MouseEventArgs e)
         {
-            Point pt = ClientToDrawregion(e.Location);
+            Point pt = e.Location;
             if (mouseIsDown && !drapIsOown)
             {
                 objectEvent.OnMouseMove(pt);                    
@@ -195,7 +199,7 @@ namespace RailDraw
 
         private void DrawRegion_MouseUp(object sender, MouseEventArgs e)
         {
-            Point pt = ClientToDrawregion(e.Location);
+            Point pt = e.Location;
             if (mouseIsDown)
                 mouseIsDown = false;
             if (drapIsOown)
@@ -212,16 +216,174 @@ namespace RailDraw
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (_document.SelectedDrawObjectList.Count > 0)              
+                if (document.SelectedDrawObjectList.Count > 0)              
                 {
-                    BaseRailEle _BaseRaiEle = _document.SelectedDrawObjectList[0];
+                    BaseRailEle _BaseRaiEle = document.SelectedDrawObjectList[0];
                     propertyGrid1.SelectedObject = _BaseRaiEle;
                     propertyGrid1.Refresh();
                 }
                 else
                 {
-                    propertyGrid1.SelectedObject = _document;
+                    propertyGrid1.SelectedObject = document;
                     propertyGrid1.Refresh();                    
+                }
+            }
+        }
+
+        private void DrawRegion_MouseEnter(object sender, EventArgs e)
+        {
+            if (drapIsOown)
+            {
+                CreatCursor("drap");
+            }
+        }
+
+        private void DrawRegion_MouseLeave(object sender, EventArgs e)
+        {
+            if (drapIsOown)
+                this.Cursor = System.Windows.Forms.Cursors.Default;
+        }
+
+        private void DrawRegion_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            doc1.Draw(e.Graphics);
+            g.ResetTransform();
+            base.OnPaint(e);
+        }
+        #endregion
+
+        #region 菜单操作
+        private void menuSaveAs_Click(object sender, EventArgs e)
+        {
+            sProjectPath = "";
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.Filter = "configuration (*.xml)|*.xml";
+            saveFile.InitialDirectory = "";
+            saveFile.Title = "另存为文件";
+            saveFile.FileName = "";
+            SaveFile(saveFile);
+        }
+
+        private void menuClose_Click(object sender, EventArgs e)
+        {
+            //            new_btn_Click(null, null);
+            System.Environment.Exit(0);
+        }
+
+        private void menuChooseAll_Click(object sender, EventArgs e)
+        {
+            document.SelectedDrawObjectList.Clear();
+            if (document.DrawObjectList.Count > 0)
+            {
+                foreach (BaseRailEle o in document.DrawObjectList)
+                    document.SelectedDrawObjectList.Add(o);
+            }
+            DrawRegion.Invalidate();
+        }
+
+        private void menupercentone_Click(object sender, EventArgs e)
+        {
+            if (sender is System.Windows.Forms.ToolStripMenuItem)
+            {
+                System.Windows.Forms.ToolStripMenuItem item = (System.Windows.Forms.ToolStripMenuItem)sender;
+                System.Windows.Forms.ToolStrip parent = item.GetCurrentParent();
+                int i = parent.Items.IndexOf(item);
+                int multi = i + 1;
+                DrawRegion.Width = drawregOrigSize.Width * multi;
+                DrawRegion.Height = drawregOrigSize.Height * multi;
+                EnlargeAndShortenCanvas(multi);
+            }
+        }
+        #endregion
+
+        #region 工具栏操作
+        private void new_btn_Click(object sender, EventArgs e)
+        {
+            if (doc1.DrawObjectList.Count > 0)
+            {
+                SaveOfNew save_form = new SaveOfNew();
+                save_form.StartPosition = FormStartPosition.CenterParent;
+                switch (save_form.ShowDialog())
+                {
+                    case DialogResult.Yes:
+                        SaveFileDialog saveFile = new SaveFileDialog();
+                saveFile.Filter = "configuration (*.xml)|*.xml";
+                saveFile.InitialDirectory = "";
+                saveFile.Title = "存储文件";
+                saveFile.FileName = "";
+                        SaveFile(saveFile);
+                        document.DrawObjectList.Clear();
+                        DrawRegion.Invalidate();
+                        break;
+                    case DialogResult.No:
+                        document.DrawObjectList.Clear();
+                        DrawRegion.Invalidate();
+                        break;
+                }
+            }
+        }
+
+        private void open_Click(object sender, EventArgs e)
+        {
+            sProjectPath = "";
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "configuration (*.xml)|*.xml";
+            openFile.InitialDirectory = "";
+            openFile.Title = "open files";
+            openFile.FileName = "";
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                string projectpath = openFile.FileName;
+                string sname = new FileInfo(projectpath).Name;
+                Document = doc1;
+                doc1.DrawObjectList.Clear();
+                DrawRegion.Top = 0;
+                DrawRegion.Left = 0;
+                DrawRegion.Width = drawregOrigSize.Width;
+                DrawRegion.Height = drawregOrigSize.Height;
+                drapIsOown = false;
+                this.Cursor = System.Windows.Forms.Cursors.Default;
+                try
+                {
+                    FileStream fs = new FileStream(projectpath, FileMode.Open);
+                    XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
+                    doc1 = (DrawDoc)mySerializer.Deserialize(fs);
+                    fs.Close();
+                    Document = doc1;
+                }
+                catch
+                {
+                    MessageBox.Show("open error");
+                }
+            }
+            DrawRegion.Invalidate();
+        }
+
+        private void save_Click(object sender, EventArgs e)
+        {
+            if (sProjectPath == "")
+            {
+                SaveFileDialog saveFile = new SaveFileDialog();
+                saveFile.Filter = "configuration (*.xml)|*.xml";
+                saveFile.InitialDirectory = "";
+                saveFile.Title = "存储文件";
+                saveFile.FileName = "";
+                SaveFile(saveFile);
+            }
+            else
+            {
+                try
+                {
+                    string projectpath = sProjectPath;
+                    XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
+                    StreamWriter myWriter = new StreamWriter(projectpath);
+                    mySerializer.Serialize(myWriter, doc1);
+                    myWriter.Close();
+                }
+                catch
+                {
+                    MessageBox.Show("save error");
                 }
             }
         }
@@ -250,67 +412,6 @@ namespace RailDraw
             DrawRegion.Invalidate();
         }
 
-        private void counter_clw_Click(object sender, EventArgs e)
-        {
-            if (_document.SelectedDrawObjectList.Count > 0)
-            {
-                _document.SelectedDrawObjectList[0].RotateCounterClw();
-                DrawRegion.Invalidate();
-                propertyGrid1.Refresh();
-            }          
-        }
-
-        private void clw_Click(object sender, EventArgs e)
-        {
-            if (_document.SelectedDrawObjectList.Count > 0)
-            {
-                _document.SelectedDrawObjectList[0].RotateClw();
-                DrawRegion.Invalidate();
-                propertyGrid1.Refresh();
-            }
-        } 
-
-        private void save_Click(object sender, EventArgs e)
-        {
-            SaveFile();
-        }
-
-        private void open_Click(object sender, EventArgs e)
-        {
-            sProjectPath = "";
-            OpenFileDialog openFile = new OpenFileDialog();
-            openFile.Filter = "configuration (*.xml)|*.xml";
-            openFile.InitialDirectory = "";
-            openFile.Title = "open files";
-            openFile.FileName = "";
-            if (openFile.ShowDialog() == DialogResult.OK)
-            {
-                string projectpath = openFile.FileName;
-                string sname = new FileInfo(projectpath).Name;
-                Document = doc1;                
-                doc1.DrawObjectList.Clear();
-                DrawRegion.Top = 0;
-                DrawRegion.Left = 0;
-                DrawRegion.Width = drawregOrigSize.Width;
-                DrawRegion.Height = drawregOrigSize.Height;
-                drapIsOown = false;
-                this.Cursor = System.Windows.Forms.Cursors.Default; 
-                try
-                {
-                    FileStream fs = new FileStream(projectpath, FileMode.Open);
-                    XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
-                    doc1 = (DrawDoc)mySerializer.Deserialize(fs);                   
-                    fs.Close();
-                    Document = doc1;
-                }
-                catch
-                {
-                    MessageBox.Show("open error");
-                }
-            }
-            DrawRegion.Invalidate();
-        }
-
         private void enlarge_Click(object sender, EventArgs e)
         {
             if (DrawRegion.Width < drawregOrigSize.Width * 4)
@@ -318,11 +419,11 @@ namespace RailDraw
                 DrawRegion.Width += (drawregOrigSize.Width * CONST_MULTI_FACTOR);
                 DrawRegion.Height += (drawregOrigSize.Height * CONST_MULTI_FACTOR);
                 multiFactor = DrawRegion.Width / drawregOrigSize.Width;
-                _document.DrawMultiFactor = multiFactor;
-                int n = _document.DrawObjectList.Count;
+                document.DrawMultiFactor = multiFactor;
+                int n = document.DrawObjectList.Count;
                 for (int i = 0; i < n; i++)
                 {
-                    _document.DrawObjectList[i].DrawMultiFactor = multiFactor;
+                    document.DrawObjectList[i].DrawMultiFactor = multiFactor;
                 }
                 ChangeDrawRegionLoction();
                 DrawRegion.Invalidate();
@@ -336,57 +437,63 @@ namespace RailDraw
                 DrawRegion.Width -= (drawregOrigSize.Width * CONST_MULTI_FACTOR);
                 DrawRegion.Height -= (drawregOrigSize.Height * CONST_MULTI_FACTOR);
                 multiFactor = DrawRegion.Width / drawregOrigSize.Width;
-                _document.DrawMultiFactor = multiFactor;
-                int n=_document.DrawObjectList.Count;
+                document.DrawMultiFactor = multiFactor;
+                int n = document.DrawObjectList.Count;
                 for (int i = 0; i < n; i++)
-                    _document.DrawObjectList[i].DrawMultiFactor = multiFactor;
+                    document.DrawObjectList[i].DrawMultiFactor = multiFactor;
                 DrawRegion.Invalidate();
                 ChangeDrawRegionLoction();
             }
         }
 
-/*        public void ResizeCanvase()
+        private void counter_clw_Click(object sender, EventArgs e)
         {
-            int display_width = panel2.Width;
-            int display_height = panel2.Height;
-            int real_width = DrawRegion.Width;
-            int real_height = DrawRegion.Height;
-            int dw, dh, max_dw, max_dh;
-
-            if (real_width > display_width)
+            if (document.SelectedDrawObjectList.Count > 0)
             {
-                dw = display_width - vScrollBar1.Width;
-                dh = display_height - hScrollBar1.Height;
-                max_dw = real_width - dw;
-                max_dh = real_height - dh;
+                document.SelectedDrawObjectList[0].RotateCounterClw();
+                DrawRegion.Invalidate();
+                propertyGrid1.Refresh();
+            }          
+        }
 
-                hScrollBar1.Visible = true;
-                hScrollBar1.Width = dw;
-                hScrollBar1.Top = dh;
-                hScrollBar1.Left = 0;
-                hScrollBar1.Maximum = max_dw;
-                hScrollBar1.LargeChange = max_dw / 5;
-                hScrollBar1.SmallChange = max_dw / 20;
-
-                vScrollBar1.Visible = true;
-                vScrollBar1.Height = dh;
-                vScrollBar1.Top = 0;
-                vScrollBar1.Left = dw;
-                vScrollBar1.Maximum = max_dh;
-                vScrollBar1.LargeChange = max_dh / 5;
-                vScrollBar1.SmallChange = max_dh / 20;
-            }
-            else
+        private void clw_Click(object sender, EventArgs e)
+        {
+            if (document.SelectedDrawObjectList.Count > 0)
             {
-                hScrollBar1.Visible = false;
-                vScrollBar1.Visible = false;
-
-                DrawRegion.Width = display_width;
-                DrawRegion.Height = display_height;
+                document.SelectedDrawObjectList[0].RotateClw();
+                DrawRegion.Invalidate();
+                propertyGrid1.Refresh();
             }
+        }
+
+        private void drap_Click(object sender, EventArgs e)
+        {
+            drapIsOown = true;
+        }
+
+        private void mouse_Click(object sender, EventArgs e)
+        {
+            drapIsOown = false;
+            this.Cursor = System.Windows.Forms.Cursors.Default;
+        }
+
+        private void mirror_Click(object sender, EventArgs e)
+        {
+            if (Document.SelectedDrawObjectList.Count > 0)
+            {
+                Document.SelectedDrawObjectList[0].ObjectMirror();
+                DrawRegion.Invalidate();
+            }
+        }
+
+        private void addtext_Click(object sender, EventArgs e)
+        {
+            BaseRailElement.RailLabal railLalal = new RailLabal();
+            document.DrawObjectList.Add(railLalal.CreatEle(multiFactor));
             DrawRegion.Invalidate();
         }
-*/
+        #endregion        
+        
         public Point PicPtTrans(object sender, MouseEventArgs e)
         {
             PictureBox pic = sender as PictureBox;
@@ -396,36 +503,7 @@ namespace RailDraw
             Point pt_dr = DrawRegion.Parent.Location;
             Point pt_transform = new Point(pt_new.X + pt_original.X + pt_parent.X - DrawRegion.Location.X - pt_dr.X,
                 pt_new.Y + pt_original.Y + pt_parent.Y - DrawRegion.Location.Y - pt_dr.Y);
-            pt_transform = ClientToDrawregion(pt_transform);
             return pt_transform;
-        }
-
-        public Point ClientToDrawregion(Point original_pt)
-        {
-            Point convert_pt = new Point(original_pt.X + hScrollBar1.Value,
-                original_pt.Y + vScrollBar1.Value);
-            return convert_pt;
-        }
-
-        private void DrawRegion_Paint(object sender, PaintEventArgs e)
-        {
-            int dx = hScrollBar1.Value;
-            int dy = vScrollBar1.Value;
-            Graphics g = e.Graphics;
-            g.TranslateTransform(-dx, -dy);
-            doc1.Draw(e.Graphics);
-            g.ResetTransform();
-            base.OnPaint(e);
-        }
-
-        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
-        {
-            DrawRegion.Invalidate();
-        }
-
-        private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
-        {
-            DrawRegion.Invalidate();
         }
 
         private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
@@ -464,84 +542,14 @@ namespace RailDraw
             ChangeDrawRegionLoction();
         }
 
-        private void drap_Click(object sender, EventArgs e)
+        private void SaveFile(SaveFileDialog sFile)
         {
-            drapIsOown = true;
-        }
-
-        private void mouse_Click(object sender, EventArgs e)
-        {
-            drapIsOown = false;
-            this.Cursor = System.Windows.Forms.Cursors.Default; 
-        }
-
-
-        private void DrawRegion_MouseEnter(object sender, EventArgs e)
-        {
-            if (drapIsOown)
-            {
-                CreatCursor("drap");
-            }
-        }
-
-        private void DrawRegion_MouseLeave(object sender, EventArgs e)
-        {
-            if (drapIsOown)
-                this.Cursor = System.Windows.Forms.Cursors.Default;
-        }
-
-        private void new_btn_Click(object sender, EventArgs e)
-        {
-            if (doc1.DrawObjectList.Count > 0)
-            {
-                SaveOfNew save_form = new SaveOfNew();
-                save_form.StartPosition = FormStartPosition.CenterParent;
-                switch (save_form.ShowDialog())
-                {
-                    case DialogResult.Yes:
-                        SaveFile();
-                        _document.DrawObjectList.Clear();
-                        DrawRegion.Invalidate();
-                        break;
-                    case DialogResult.No:
-                        _document.DrawObjectList.Clear();
-                        DrawRegion.Invalidate();
-                        break;
-                }
-            }
-        }
-
-        private void SaveFile()
-        {
-            if (sProjectPath == "")
-            {
-                SaveFileDialog saveFile = new SaveFileDialog();
-                saveFile.Filter = "configuration (*.xml)|*.xml";
-                saveFile.InitialDirectory = "";
-                saveFile.Title = "存储文件";
-                saveFile.FileName = "";
-                if (saveFile.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        string projectpath = saveFile.FileName;
-                        sProjectPath = projectpath;
-                        XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
-                        StreamWriter myWriter = new StreamWriter(projectpath);
-                        mySerializer.Serialize(myWriter, doc1);
-                        myWriter.Close();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("save error");
-                    }
-                }
-            }
-            else
+            if (sFile.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    string projectpath = sProjectPath;
+                    string projectpath = sFile.FileName;
+                    sProjectPath = projectpath;
                     XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
                     StreamWriter myWriter = new StreamWriter(projectpath);
                     mySerializer.Serialize(myWriter, doc1);
@@ -551,15 +559,6 @@ namespace RailDraw
                 {
                     MessageBox.Show("save error");
                 }
-            }
-        }
-
-        private void mirror_Click(object sender, EventArgs e)
-        {
-            if (Document.SelectedDrawObjectList.Count > 0)
-            {
-                Document.SelectedDrawObjectList[0].ObjectMirror();
-                DrawRegion.Invalidate();
             }
         }
 
@@ -598,6 +597,15 @@ namespace RailDraw
             int dy = centerPanel.Y - centerDrawRegion.Y;
             drawRegionLoc.Offset(dx, dy);
             DrawRegion.Location = drawRegionLoc;
+        }
+
+        private void EnlargeAndShortenCanvas(int drawMulti)
+        {
+            int n = document.DrawObjectList.Count;
+            for (int i = 0; i < n; i++)
+                document.DrawObjectList[i].DrawMultiFactor = drawMulti;
+            DrawRegion.Invalidate();
+            ChangeDrawRegionLoction();
         }
     }
 }

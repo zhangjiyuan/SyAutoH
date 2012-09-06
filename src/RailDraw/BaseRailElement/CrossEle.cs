@@ -26,37 +26,73 @@ namespace BaseRailElement
         }
 
         private int lenghtOfStrai = 100;
-
+       
         private int firstPart = 30;
         [Category("lenght")]
         public int FirstPart
         {
-            get { return objectCrossOp.FirstPart; }
-            set { firstPart = value; objectCrossOp.FirstPart = value; }
+            get { return firstPart; }
+            set { firstPart = value; }
         }
 
         private int secPart = 40;
         [Category("lenght")]
         public int SecPart
         {
-            get { return objectCrossOp.SecPart; }
-            set { secPart = value; objectCrossOp.SecPart = value; }
+            get { return secPart; }
+            set { secPart = value; }
         }
 
         private int thPart = 30;
         [Category("lenght")]
         public int ThPart
         {
-            get { return objectCrossOp.ThPart; }
-            set { thPart = value; objectCrossOp.ThPart = value; }
+            get { return thPart; }
+            set { thPart = value; }
         }
 
         private Point fourPart = new Point(40, 40);
         [Category("lenght")]
         public Point FourPart
         {
+            get { return fourPart; }
+            set { fourPart = value; }
+        }
+
+        private int showFirstPart = 30;
+        [XmlIgnore]
+        [Browsable(false)]
+        public int ShowFirstPart
+        {
+            get { return objectCrossOp.FirstPart; }
+            set { showFirstPart = value; objectCrossOp.FirstPart = value; }
+        }
+
+        private int showSecPart = 40;
+        [XmlIgnore]
+        [Browsable(false)]
+        public int ShowSecPart
+        {
+            get { return objectCrossOp.SecPart; }
+            set { showSecPart = value; objectCrossOp.SecPart = value; }
+        }
+
+        private int showThPart = 30;
+        [XmlIgnore]
+        [Browsable(false)]
+        public int ShowThPart
+        {
+            get { return objectCrossOp.ThPart; }
+            set { showThPart = value; objectCrossOp.ThPart = value; }
+        }
+
+        private Point showFourPart = new Point(40, 40);
+        [XmlIgnore]
+        [Browsable(false)]
+        public Point ShowFourPart
+        {
             get { return objectCrossOp.FourPart; }
-            set { fourPart = value; objectCrossOp.FourPart = value; }
+            set { showFourPart = value; objectCrossOp.FourPart = value; }
         }
 
         [XmlIgnore]
@@ -90,11 +126,7 @@ namespace BaseRailElement
 
         public enum DirectionCross
         {
-            first,
-            second,
-            third,
-            four,
-            NULL
+            first, second, third, four, NULL
         }
         private DirectionCross directionOfCross = DirectionCross.NULL;
         [Browsable(false)]
@@ -104,7 +136,7 @@ namespace BaseRailElement
             set { directionOfCross = value; }
         }
 
-        public CrossEle() { GraphType = 5; }
+        public CrossEle() { GraphType = 3; }
 
         public CrossEle CreatEle(Point pt, Size size, int multiFactor)
         {
@@ -184,6 +216,11 @@ namespace BaseRailElement
         protected override void Scale(int handle, int dx, int dy)
         {
             objectCrossOp.scale(handle, dx, dy, Mirror);
+            firstPart = ShowFirstPart / DrawMultiFactor;
+            secPart = ShowSecPart / DrawMultiFactor;
+            thPart = ShowThPart / DrawMultiFactor;
+            fourPart.X = ShowFourPart.X / DrawMultiFactor;
+            fourPart.Y = ShowFourPart.Y / DrawMultiFactor;
             PtlToSavel();
         }
 
@@ -304,14 +341,25 @@ namespace BaseRailElement
         public object Clone()
         {
             CrossEle cl = new CrossEle();
+            Point[] pts = new Point[8];
+            PointList.CopyTo(pts);
+            for (int i = 0; i < 8; i++)
+            {
+                pts[i].Offset(20 * DrawMultiFactor, 20 * DrawMultiFactor);
+            }
+            cl.PointList.AddRange(pts);
+            SaveList.CopyTo(pts);
+            for (int i = 0; i < 8; i++)
+            {
+                pts[i].Offset(20, 20);
+            }
+            cl.SaveList.AddRange(pts);
             cl.lenghtOfStrai = lenghtOfStrai;
             cl.startAngle = startAngle;
             cl.rotateAngle = rotateAngle;
-            cl.PointList.AddRange(PointList);
-            cl.SaveList.AddRange(SaveList);
             cl.directionOfCross = directionOfCross;
             cl.DrawMultiFactor = DrawMultiFactor;
-            return this;
+            return cl;
         }
 
         public override void DrawEnlargeOrShrink(float multiFactor)
@@ -328,6 +376,11 @@ namespace BaseRailElement
             }
             PointList.Clear();
             PointList.AddRange(pts);
+            Point ptTemp = new Point(fourPart.X * DrawMultiFactor, fourPart.Y * DrawMultiFactor);
+            ShowFirstPart = firstPart * DrawMultiFactor;
+            ShowSecPart = secPart * DrawMultiFactor;
+            ShowThPart = thPart * DrawMultiFactor;
+            ShowFourPart = ptTemp;
             base.DrawEnlargeOrShrink(DrawMultiFactor);
         }
 
@@ -341,8 +394,8 @@ namespace BaseRailElement
                 {
                     pts[i].X = pts[i].X / DrawMultiFactor;
                     pts[i].Y = pts[i].Y / DrawMultiFactor;
-                }
-            }
+                }               
+            }            
             SaveList.Clear();
             SaveList.AddRange(pts);
         }
@@ -387,28 +440,33 @@ namespace BaseRailElement
 
         public override void ChangePropertyValue()
         {
+            Point ptTemp = new Point(fourPart.X * DrawMultiFactor, fourPart.Y * DrawMultiFactor);
             Point[] ptsList = new Point[8];
             PointList.CopyTo(ptsList);
+            ShowFirstPart = firstPart * DrawMultiFactor;
+            ShowSecPart = secPart * DrawMultiFactor;
+            ShowThPart = thPart * DrawMultiFactor;
+            ShowFourPart = ptTemp;
             switch (directionOfCross)
             {
                 case DirectionCross.first:
                     if (PointList[0].X < PointList[1].X)
                     {
-                        ptsList[0].X = PointList[1].X - firstPart;
-                        ptsList[3].X = ptsList[1].X + secPart;
+                        ptsList[0].X = PointList[1].X - showFirstPart;
+                        ptsList[3].X = ptsList[1].X + showSecPart;
                         ptsList[4].X = ptsList[3].X;
-                        ptsList[5].X = ptsList[3].X + thPart;
-                        ptsList[7].X = ptsList[6].X + fourPart.X;
-                        ptsList[7].Y = ptsList[6].Y - fourPart.Y;
+                        ptsList[5].X = ptsList[3].X + showThPart;
+                        ptsList[7].X = ptsList[6].X + showFourPart.X;
+                        ptsList[7].Y = ptsList[6].Y - showFourPart.Y;
                     }
                     else
                     {
-                        ptsList[0].X = PointList[1].X + firstPart;
-                        ptsList[3].X = ptsList[1].X - secPart;
+                        ptsList[0].X = PointList[1].X + showFirstPart;
+                        ptsList[3].X = ptsList[1].X - showSecPart;
                         ptsList[4].X = ptsList[3].X;
-                        ptsList[5].X = ptsList[3].X - thPart;
-                        ptsList[7].X = ptsList[6].X - fourPart.X;
-                        ptsList[7].Y = ptsList[6].Y - fourPart.Y;
+                        ptsList[5].X = ptsList[3].X - showThPart;
+                        ptsList[7].X = ptsList[6].X - showFourPart.X;
+                        ptsList[7].Y = ptsList[6].Y - showFourPart.Y;
                     }
                     PointList.Clear();
                     PointList.AddRange(ptsList);
@@ -416,21 +474,21 @@ namespace BaseRailElement
                 case DirectionCross.second:
                     if (PointList[0].Y < PointList[1].Y)
                     {
-                        ptsList[0].Y = ptsList[1].Y - firstPart;
-                        ptsList[3].Y = ptsList[1].Y + secPart;
+                        ptsList[0].Y = ptsList[1].Y - showFirstPart;
+                        ptsList[3].Y = ptsList[1].Y + showSecPart;
                         ptsList[4].Y = ptsList[3].Y;
-                        ptsList[5].Y = ptsList[3].Y + thPart;
-                        ptsList[7].X = ptsList[6].X + fourPart.X;
-                        ptsList[7].Y = ptsList[6].Y + fourPart.Y;
+                        ptsList[5].Y = ptsList[3].Y + showThPart;
+                        ptsList[7].X = ptsList[6].X + showFourPart.X;
+                        ptsList[7].Y = ptsList[6].Y + showFourPart.Y;
                     }
                     else
                     {
-                        ptsList[0].Y = ptsList[1].Y + firstPart;
-                        ptsList[3].Y = ptsList[1].Y - secPart;
+                        ptsList[0].Y = ptsList[1].Y + showFirstPart;
+                        ptsList[3].Y = ptsList[1].Y - showSecPart;
                         ptsList[4].Y = ptsList[3].Y;
-                        ptsList[5].Y = ptsList[3].Y - thPart;
-                        ptsList[7].X = ptsList[6].X + fourPart.X;
-                        ptsList[7].Y = ptsList[6].Y - fourPart.Y;
+                        ptsList[5].Y = ptsList[3].Y - showThPart;
+                        ptsList[7].X = ptsList[6].X + showFourPart.X;
+                        ptsList[7].Y = ptsList[6].Y - showFourPart.Y;
                     }
                     PointList.Clear();
                     PointList.AddRange(ptsList);
@@ -438,21 +496,21 @@ namespace BaseRailElement
                 case DirectionCross.third:
                     if (PointList[0].X < PointList[1].X)
                     {
-                        ptsList[0].X = PointList[1].X - firstPart;
-                        ptsList[3].X = ptsList[1].X + secPart;
+                        ptsList[0].X = PointList[1].X - showFirstPart;
+                        ptsList[3].X = ptsList[1].X + showSecPart;
                         ptsList[4].X = ptsList[3].X;
-                        ptsList[5].X = ptsList[3].X + thPart;
-                        ptsList[7].X = ptsList[6].X + fourPart.X;
-                        ptsList[7].Y = ptsList[6].Y + fourPart.Y;
+                        ptsList[5].X = ptsList[3].X + showThPart;
+                        ptsList[7].X = ptsList[6].X + showFourPart.X;
+                        ptsList[7].Y = ptsList[6].Y + showFourPart.Y;
                     }
                     else
                     {
-                        ptsList[0].X = PointList[1].X + firstPart;
-                        ptsList[3].X = ptsList[1].X - secPart;
+                        ptsList[0].X = PointList[1].X + showFirstPart;
+                        ptsList[3].X = ptsList[1].X - showSecPart;
                         ptsList[4].X = ptsList[3].X;
-                        ptsList[5].X = ptsList[3].X - thPart;
-                        ptsList[7].X = ptsList[6].X - fourPart.X;
-                        ptsList[7].Y = ptsList[6].Y + fourPart.Y;
+                        ptsList[5].X = ptsList[3].X - showThPart;
+                        ptsList[7].X = ptsList[6].X - showFourPart.X;
+                        ptsList[7].Y = ptsList[6].Y + showFourPart.Y;
                     }
                     PointList.Clear();
                     PointList.AddRange(ptsList);
@@ -460,21 +518,21 @@ namespace BaseRailElement
                 case DirectionCross.four:
                     if (PointList[0].Y < PointList[1].Y)
                     {
-                        ptsList[0].Y = ptsList[1].Y - firstPart;
-                        ptsList[3].Y = ptsList[1].Y + secPart;
+                        ptsList[0].Y = ptsList[1].Y - showFirstPart;
+                        ptsList[3].Y = ptsList[1].Y + showSecPart;
                         ptsList[4].Y = ptsList[3].Y;
-                        ptsList[5].Y = ptsList[3].Y + thPart;
-                        ptsList[7].X = ptsList[6].X - fourPart.X;
-                        ptsList[7].Y = ptsList[6].Y + fourPart.Y;
+                        ptsList[5].Y = ptsList[3].Y + showThPart;
+                        ptsList[7].X = ptsList[6].X - showFourPart.X;
+                        ptsList[7].Y = ptsList[6].Y + showFourPart.Y;
                     }
                     else
                     {
-                        ptsList[0].Y = ptsList[1].Y + firstPart;
-                        ptsList[3].Y = ptsList[1].Y - secPart;
+                        ptsList[0].Y = ptsList[1].Y + showFirstPart;
+                        ptsList[3].Y = ptsList[1].Y - showSecPart;
                         ptsList[4].Y = ptsList[3].Y;
-                        ptsList[5].Y = ptsList[3].Y - thPart;
-                        ptsList[7].X = ptsList[6].X - fourPart.X;
-                        ptsList[7].Y = ptsList[6].Y - fourPart.Y;
+                        ptsList[5].Y = ptsList[3].Y - showThPart;
+                        ptsList[7].X = ptsList[6].X - showFourPart.X;
+                        ptsList[7].Y = ptsList[6].Y - showFourPart.Y;
                     }
                     PointList.Clear();
                     PointList.AddRange(ptsList);
@@ -482,6 +540,7 @@ namespace BaseRailElement
                 case DirectionCross.NULL:
                     break;
             }
+            PtlToSavel();
         }
         public override bool ChosedInRegion(Rectangle rect)
         {
