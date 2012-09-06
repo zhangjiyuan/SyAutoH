@@ -136,7 +136,7 @@ namespace BaseRailElement
             set { directionOfCross = value; }
         }
 
-        public CrossEle() { GraphType = 5; }
+        public CrossEle() { GraphType = 3; }
 
         public CrossEle CreatEle(Point pt, Size size, int multiFactor)
         {
@@ -341,14 +341,25 @@ namespace BaseRailElement
         public object Clone()
         {
             CrossEle cl = new CrossEle();
+            Point[] pts = new Point[8];
+            PointList.CopyTo(pts);
+            for (int i = 0; i < 8; i++)
+            {
+                pts[i].Offset(20 * DrawMultiFactor, 20 * DrawMultiFactor);
+            }
+            cl.PointList.AddRange(pts);
+            SaveList.CopyTo(pts);
+            for (int i = 0; i < 8; i++)
+            {
+                pts[i].Offset(20, 20);
+            }
+            cl.SaveList.AddRange(pts);
             cl.lenghtOfStrai = lenghtOfStrai;
             cl.startAngle = startAngle;
             cl.rotateAngle = rotateAngle;
-            cl.PointList.AddRange(PointList);
-            cl.SaveList.AddRange(SaveList);
             cl.directionOfCross = directionOfCross;
             cl.DrawMultiFactor = DrawMultiFactor;
-            return this;
+            return cl;
         }
 
         public override void DrawEnlargeOrShrink(float multiFactor)

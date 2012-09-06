@@ -16,33 +16,9 @@ namespace BaseRailElement
         private ObjectCurvedOp objectCurved = new ObjectCurvedOp();
 
         private int showRadius = 50;
-
         private Point showCenterDot = Point.Empty;
-        [XmlIgnore]
-        [Browsable(false)]
-        public Point ShowCenterDot
-        {
-            get { return showCenterDot; }
-            set { showCenterDot = value; }
-        }
-
         private Point showFirstDot = Point.Empty;
-        [XmlIgnore]
-        [Browsable(false)]  
-        public Point ShowFirstDot
-        {
-            get { return showFirstDot; }
-            set { showFirstDot = value; }
-        }
-
         private Point showSecondDot = Point.Empty;
-        [XmlIgnore]
-        [Browsable(false)]   
-        public Point ShowSecondDot
-        {
-            get { return showSecondDot; }
-            set { showSecondDot = value; }
-        }
 
         private int startAngle = 0;
         [Browsable(false)]
@@ -320,14 +296,21 @@ namespace BaseRailElement
         public object Clone()
         {
             CurvedRailEle cl = new CurvedRailEle();
+            Point pt = new Point();
             cl.Center = center;
             cl.Radiu = Radiu;
             cl.firstDot = firstDot;
             cl.secDot = secDot;
-            cl.showCenterDot = showCenterDot;
             cl.showRadius = showRadius;
-            cl.showFirstDot = showFirstDot;
-            cl.showSecondDot = showSecondDot;
+            pt = showCenterDot;
+            pt.Offset(20, 20);
+            cl.showCenterDot = pt;
+            pt = showFirstDot;
+            pt.Offset(20, 20);
+            cl.showFirstDot = pt;
+            pt = showSecondDot;
+            pt.Offset(20, 20);
+            cl.showSecondDot = pt;
             cl.startAngle = startAngle;
             cl.sweepAngle = sweepAngle;
             cl.DrawMultiFactor = DrawMultiFactor;

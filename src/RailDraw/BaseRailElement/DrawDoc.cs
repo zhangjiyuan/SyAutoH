@@ -189,9 +189,20 @@ namespace BaseRailElement
                     {
                         CurvedRailEle cl = (CurvedRailEle)o;
                         CurvedRailEle n = (CurvedRailEle)cl.Clone();
-                        n.ShowCenterDot = new Point(n.ShowCenterDot.X + 20, n.ShowCenterDot.Y + 20);
-                        n.ShowFirstDot = new Point(n.ShowFirstDot.X + 20, n.ShowFirstDot.Y + 20);
-                        n.ShowSecondDot = new Point(n.ShowSecondDot.X + 20, n.ShowSecondDot.Y + 20);
+                        drawObjectList.Add(n);
+                        SelectOne(n);
+                    }
+                    else if (3 == o.GraphType)
+                    {
+                        CrossEle cl = (CrossEle)o;
+                        CrossEle n = (CrossEle)cl.Clone();
+                        drawObjectList.Add(n);
+                        SelectOne(n);
+                    }
+                    else if (4 == o.GraphType)
+                    {
+                        RailLabal cl = (RailLabal)o;
+                        RailLabal n = (RailLabal)cl.Clone();
                         drawObjectList.Add(n);
                         SelectOne(n);
                     }

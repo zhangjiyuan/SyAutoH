@@ -72,13 +72,6 @@ namespace BaseRailElement
                             document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
                         }
                     }
-                    else if (document.SelectedDrawObjectList[0].GraphType == 5)
-                    {
-                        if (n == 1)
-                        {
-                            document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
-                        }
-                    }
                     break;
                 case SelectObject.SelectEle:
                     for (int i = 0; i < n; i++)
@@ -93,14 +86,14 @@ namespace BaseRailElement
                             CurvedRailEle de = (CurvedRailEle)document.SelectedDrawObjectList[i];
                             document.SelectedDrawObjectList[i].Move(lastPoint, point);
                         }
+                        else if (document.SelectedDrawObjectList[i].GraphType == 3)
+                        {
+                            CrossEle de = (CrossEle)document.SelectedDrawObjectList[i];
+                            document.SelectedDrawObjectList[i].Move(lastPoint, point);
+                        }
                         else if (document.SelectedDrawObjectList[i].GraphType == 4)
                         {
                             RailLabal de = (RailLabal)document.SelectedDrawObjectList[i];
-                            document.SelectedDrawObjectList[i].Move(lastPoint, point);
-                        }
-                        else if (document.SelectedDrawObjectList[i].GraphType == 5)
-                        {
-                            CrossEle de = (CrossEle)document.SelectedDrawObjectList[i];
                             document.SelectedDrawObjectList[i].Move(lastPoint, point);
                         }
                     }
