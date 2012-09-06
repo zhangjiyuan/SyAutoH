@@ -253,6 +253,50 @@ namespace RailDraw
         }
         #endregion
 
+        #region 菜单操作
+        private void menuSaveAs_Click(object sender, EventArgs e)
+        {
+            sProjectPath = "";
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.Filter = "configuration (*.xml)|*.xml";
+            saveFile.InitialDirectory = "";
+            saveFile.Title = "另存为文件";
+            saveFile.FileName = "";
+            SaveFile(saveFile);
+        }
+
+        private void menuClose_Click(object sender, EventArgs e)
+        {
+            //            new_btn_Click(null, null);
+            System.Environment.Exit(0);
+        }
+
+        private void menuChooseAll_Click(object sender, EventArgs e)
+        {
+            document.SelectedDrawObjectList.Clear();
+            if (document.DrawObjectList.Count > 0)
+            {
+                foreach (BaseRailEle o in document.DrawObjectList)
+                    document.SelectedDrawObjectList.Add(o);
+            }
+            DrawRegion.Invalidate();
+        }
+
+        private void menupercentone_Click(object sender, EventArgs e)
+        {
+            if (sender is System.Windows.Forms.ToolStripMenuItem)
+            {
+                System.Windows.Forms.ToolStripMenuItem item = (System.Windows.Forms.ToolStripMenuItem)sender;
+                System.Windows.Forms.ToolStrip parent = item.GetCurrentParent();
+                int i = parent.Items.IndexOf(item);
+                int multi = i + 1;
+                DrawRegion.Width = drawregOrigSize.Width * multi;
+                DrawRegion.Height = drawregOrigSize.Height * multi;
+                EnlargeAndShortenCanvas(multi);
+            }
+        }
+        #endregion
+
         #region 工具栏操作
         private void new_btn_Click(object sender, EventArgs e)
         {
@@ -263,7 +307,12 @@ namespace RailDraw
                 switch (save_form.ShowDialog())
                 {
                     case DialogResult.Yes:
-                        SaveFile();
+                        SaveFileDialog saveFile = new SaveFileDialog();
+                saveFile.Filter = "configuration (*.xml)|*.xml";
+                saveFile.InitialDirectory = "";
+                saveFile.Title = "存储文件";
+                saveFile.FileName = "";
+                        SaveFile(saveFile);
                         document.DrawObjectList.Clear();
                         DrawRegion.Invalidate();
                         break;
@@ -313,7 +362,30 @@ namespace RailDraw
 
         private void save_Click(object sender, EventArgs e)
         {
-            SaveFile();
+            if (sProjectPath == "")
+            {
+                SaveFileDialog saveFile = new SaveFileDialog();
+                saveFile.Filter = "configuration (*.xml)|*.xml";
+                saveFile.InitialDirectory = "";
+                saveFile.Title = "存储文件";
+                saveFile.FileName = "";
+                SaveFile(saveFile);
+            }
+            else
+            {
+                try
+                {
+                    string projectpath = sProjectPath;
+                    XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
+                    StreamWriter myWriter = new StreamWriter(projectpath);
+                    mySerializer.Serialize(myWriter, doc1);
+                    myWriter.Close();
+                }
+                catch
+                {
+                    MessageBox.Show("save error");
+                }
+            }
         }
 
         private void cut_Click(object sender, EventArgs e)
@@ -470,37 +542,14 @@ namespace RailDraw
             ChangeDrawRegionLoction();
         }
 
-        private void SaveFile()
+        private void SaveFile(SaveFileDialog sFile)
         {
-            if (sProjectPath == "")
-            {
-                SaveFileDialog saveFile = new SaveFileDialog();
-                saveFile.Filter = "configuration (*.xml)|*.xml";
-                saveFile.InitialDirectory = "";
-                saveFile.Title = "存储文件";
-                saveFile.FileName = "";
-                if (saveFile.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        string projectpath = saveFile.FileName;
-                        sProjectPath = projectpath;
-                        XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
-                        StreamWriter myWriter = new StreamWriter(projectpath);
-                        mySerializer.Serialize(myWriter, doc1);
-                        myWriter.Close();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("save error");
-                    }
-                }
-            }
-            else
+            if (sFile.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    string projectpath = sProjectPath;
+                    string projectpath = sFile.FileName;
+                    sProjectPath = projectpath;
                     XmlSerializer mySerializer = new XmlSerializer(typeof(DrawDoc));
                     StreamWriter myWriter = new StreamWriter(projectpath);
                     mySerializer.Serialize(myWriter, doc1);
@@ -548,6 +597,15 @@ namespace RailDraw
             int dy = centerPanel.Y - centerDrawRegion.Y;
             drawRegionLoc.Offset(dx, dy);
             DrawRegion.Location = drawRegionLoc;
-        }        
+        }
+
+        private void EnlargeAndShortenCanvas(int drawMulti)
+        {
+            int n = document.DrawObjectList.Count;
+            for (int i = 0; i < n; i++)
+                document.DrawObjectList[i].DrawMultiFactor = drawMulti;
+            DrawRegion.Invalidate();
+            ChangeDrawRegionLoction();
+        }
     }
 }
