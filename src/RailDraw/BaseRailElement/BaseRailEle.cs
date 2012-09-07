@@ -55,18 +55,11 @@ namespace BaseRailElement
             get { return speed; }
             set { speed = value; }
         }
-
-        private float angle = 0;
-        public float Angle
-        {
-            get { return angle; }
-            set { angle = value; }
-        }
       
-        private float drawMultiFactor = 1;
+        private int drawMultiFactor = 1;
         [XmlIgnore]
         [Browsable(false)]
-        public float DrawMultiFactor
+        public int DrawMultiFactor
         {
             get { return drawMultiFactor; }
             set { drawMultiFactor = value; }
@@ -92,11 +85,6 @@ namespace BaseRailElement
             Scale(handle, dx, dy);
         }
 
-        public void ChangeDirection(Point pt , Size sz)
-        {
-//            Rotate(pt, sz);
-        }
-
         internal void OnClick()
         {
             if (Click != null)
@@ -106,9 +94,9 @@ namespace BaseRailElement
         }
 
         public abstract void Draw(Graphics _canvas);
-        public abstract void DrawTracker(Graphics canvas);
-        public abstract int HitTest(Point point, bool isSelected);
-        protected abstract void Translate(int offsetX, int offsetY);
+        public virtual void DrawTracker(Graphics canvas) { }
+        public virtual int HitTest(Point point, bool isSelected) { return 1; }
+        protected virtual void Translate(int offsetX, int offsetY) { }
         protected virtual void Scale(int handle, int dx, int dy) { }
         protected virtual void Rotate(Point pt, Size sz) { }
         public virtual Region GetRedrawRegion() { return null; }
@@ -117,6 +105,7 @@ namespace BaseRailElement
         public virtual void RotateClw() { }
         public virtual void DrawEnlargeOrShrink(float draw_multi_factor) { }
         public virtual void ObjectMirror() { }
+        public virtual bool ChosedInRegion(Rectangle rect) { return false; }
         public event EventHandler Click = null;
     }
 }

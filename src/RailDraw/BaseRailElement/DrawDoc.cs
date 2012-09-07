@@ -39,30 +39,24 @@ namespace BaseRailElement
             get { return new DrawDoc(); }
         }
 
-        List<BaseRailEle> _CutAndCopyObjectList = new List<BaseRailEle>();
-
-        List<BaseRailEle> _drawObjectList = new List<BaseRailEle>();  
+        List<BaseRailEle> drawObjectList = new List<BaseRailEle>();  
         [Browsable(false)]
         public List<BaseRailEle> DrawObjectList
         {
-            get { return _drawObjectList; }
+            get { return drawObjectList; }
         }
        
-        List<BaseRailEle> _selectedDrawObjectList = new List<BaseRailEle>();
+        List<BaseRailEle> selectedDrawObjectList = new List<BaseRailEle>();
         [XmlIgnore]
         [Browsable(false)]
         public List<BaseRailEle> SelectedDrawObjectList
         {
-            get { return _selectedDrawObjectList; }
+            get { return selectedDrawObjectList; }
         }
 
-        private BaseRailEle _lastHitedObject = null;
-        [XmlIgnore]
-        [Browsable(false)]
-        public BaseRailEle LastHitedObject
-        {
-            get { return _lastHitedObject; }
-        }
+        List<BaseRailEle> CutAndCopyObjectList = new List<BaseRailEle>();
+
+        private BaseRailEle lastHitedObject = null;
 
         private enum CutOrCopy
         {
@@ -70,76 +64,88 @@ namespace BaseRailElement
         }
         private CutOrCopy _CutOrCopy = CutOrCopy.NoneOp;
 
-        public override void Draw(Graphics _canvas)
+        private bool chooseObject = false;
+        private Point downPoint = Point.Empty;
+        private Point lastPoint = Point.Empty;
+
+        public override void Draw(Graphics canvas)
         {
-            int n = _drawObjectList.Count;
+            int n = drawObjectList.Count;
             for (int i = 0; i < n; i++)
             {
                 if (this.DrawMultiFactor != -1)
                 {
-                    _drawObjectList[i].DrawEnlargeOrShrink(DrawMultiFactor);
+                    drawObjectList[i].DrawEnlargeOrShrink(DrawMultiFactor);
                 }
-                _drawObjectList[i].Draw(_canvas);
-                if (_selectedDrawObjectList.Contains(_drawObjectList[i]))
-                    _drawObjectList[i].DrawTracker(_canvas);        
+                drawObjectList[i].Draw(canvas);
+                if (selectedDrawObjectList.Contains(drawObjectList[i]))
+                    drawObjectList[i].DrawTracker(canvas);
             }
             this.DrawMultiFactor = -1;
+            if (chooseObject)
+            {
+                ChooseObject(canvas);
+            }
         }
 
         public override int HitTest(Point point, bool isSelected)
         {
             int n = 0;
             int hit = -1;
-            n = _selectedDrawObjectList.Count;
+            n = selectedDrawObjectList.Count;
             for (int i = 0; i < n; i++)
             {
-                hit = _selectedDrawObjectList[i].HitTest(point, true);
+                hit = selectedDrawObjectList[i].HitTest(point, true);
                 if (hit >= 0)
                 {
-                    _lastHitedObject = _selectedDrawObjectList[i];
+                    lastHitedObject = selectedDrawObjectList[i];
                     return hit;
                 }
             }
 
-            n = _drawObjectList.Count;
+            n = drawObjectList.Count;
             for (int i = n - 1; i >= 0; i--)
             {
-                hit = _drawObjectList[i].HitTest(point, false);
+                hit = drawObjectList[i].HitTest(point, false);
                 if (hit >= 0)
                 {
-                    _lastHitedObject = _drawObjectList[i];
+                    lastHitedObject = drawObjectList[i];
 
-                    if (_drawObjectList[i].Selectable)
+                    if (drawObjectList[i].Selectable)
                     {
-                        _selectedDrawObjectList.Clear();
-                        _selectedDrawObjectList.Add(_drawObjectList[i]);
-
+                        SelectOne(drawObjectList[i]);
                         return hit;
                     }
                     break;
                 }
-
             }
-            if (hit == -1) _lastHitedObject = null;
-            _selectedDrawObjectList.Clear();
+            if (hit == -1)
+                lastHitedObject = null;
+            selectedDrawObjectList.Clear();
             return -1;
         }
 
-        public void Select(BaseRailEle obj)
+        public void SelectOne(BaseRailEle obj)
         {
-            _selectedDrawObjectList.Clear();
+            selectedDrawObjectList.Clear();
             if (obj != null)
-                _selectedDrawObjectList.Add(obj);
+                selectedDrawObjectList.Add(obj);
+        }
+
+        public void SelectMore(BaseRailEle obj)
+        {
+            if (obj != null)
+                selectedDrawObjectList.Add(obj);
         }
 
         public void Cut()
         {
-            _CutAndCopyObjectList.Clear();
-            if (_selectedDrawObjectList.Count > 0)
+            CutAndCopyObjectList.Clear();
+            if (selectedDrawObjectList.Count > 0)
             {
-                foreach (BaseRailEle o in _selectedDrawObjectList)
+                foreach (BaseRailEle o in selectedDrawObjectList)
                 {
-                    _CutAndCopyObjectList.Add(o);
+                    CutAndCopyObjectList.Add(o);
                 }
                 _CutOrCopy = CutOrCopy.CutOp;
             }
@@ -147,12 +153,12 @@ namespace BaseRailElement
 
         public void Copy()
         {
-            _CutAndCopyObjectList.Clear();
-            if (_selectedDrawObjectList.Count > 0)
+            CutAndCopyObjectList.Clear();
+            if (selectedDrawObjectList.Count > 0)
             {
-                foreach (BaseRailEle o in _selectedDrawObjectList)
+                foreach (BaseRailEle o in selectedDrawObjectList)
                 {
-                    _CutAndCopyObjectList.Add(o);
+                    CutAndCopyObjectList.Add(o);
                 }
                 _CutOrCopy = CutOrCopy.CopyOp;
             }
@@ -160,34 +166,45 @@ namespace BaseRailElement
 
         public void Paste()
         {
-            if (_CutAndCopyObjectList.Count > 0)
+            if (CutAndCopyObjectList.Count > 0)
             {
                 if (_CutOrCopy == CutOrCopy.CutOp)
                 {
-                    int n = _selectedDrawObjectList.Count;
-                    foreach (BaseRailEle obj in _selectedDrawObjectList)
+                    int n = selectedDrawObjectList.Count;
+                    foreach (BaseRailEle obj in selectedDrawObjectList)
                     {
-                        _drawObjectList.Remove(obj);
+                        drawObjectList.Remove(obj);
                     }
                 }
-                foreach (BaseRailEle o in _CutAndCopyObjectList)
+                foreach (BaseRailEle o in CutAndCopyObjectList)
                 {
                     if (1 == o.GraphType)
                     {
                         StraightRailEle cl = (StraightRailEle)o;
                         StraightRailEle n = (StraightRailEle)cl.Clone();
-                        _drawObjectList.Add(n);
-                        Select(n);
+                        drawObjectList.Add(n);
+                        SelectOne(n);
                     }
                     else if (2 == o.GraphType)
                     {
                         CurvedRailEle cl = (CurvedRailEle)o;
                         CurvedRailEle n = (CurvedRailEle)cl.Clone();
-                        n.ShowCenterDoc = new Point(n.ShowCenterDoc.X + 20, n.ShowCenterDoc.Y + 20);
-                        n.ShowFirstDoc = new Point(n.ShowFirstDoc.X + 20, n.ShowFirstDoc.Y + 20);
-                        n.ShowSecondDot = new Point(n.ShowSecondDot.X + 20, n.ShowSecondDot.Y + 20);
-                        _drawObjectList.Add(n);
-                        Select(n);
+                        drawObjectList.Add(n);
+                        SelectOne(n);
+                    }
+                    else if (3 == o.GraphType)
+                    {
+                        CrossEle cl = (CrossEle)o;
+                        CrossEle n = (CrossEle)cl.Clone();
+                        drawObjectList.Add(n);
+                        SelectOne(n);
+                    }
+                    else if (4 == o.GraphType)
+                    {
+                        RailLabal cl = (RailLabal)o;
+                        RailLabal n = (RailLabal)cl.Clone();
+                        drawObjectList.Add(n);
+                        SelectOne(n);
                     }
                 }
             }
@@ -195,20 +212,50 @@ namespace BaseRailElement
 
         public void Delete()
         {
-            int n = _selectedDrawObjectList.Count;
-            foreach (BaseRailEle obj in _selectedDrawObjectList)
+            int n = selectedDrawObjectList.Count;
+            foreach (BaseRailEle obj in selectedDrawObjectList)
             {
-                _drawObjectList.Remove(obj);
+                drawObjectList.Remove(obj);
             }
-            _selectedDrawObjectList.Clear();
-        }
-      
-        public override void DrawTracker(Graphics _canvas)
-        {
+            selectedDrawObjectList.Clear();
         }
 
-        protected override void Translate(int offsetX, int offsetY)
+        public void ChooseObject(Graphics gp)
         {
+            Rectangle rc = new Rectangle(downPoint.X, downPoint.Y, lastPoint.X - downPoint.X, lastPoint.Y - downPoint.Y);
+            Pen pen = new Pen(Color.Black, 1);
+            pen.DashStyle = DashStyle.Dot;
+            gp.DrawRectangle(pen, rc);
+            pen.Dispose();
+        }
+
+        public void changeChooseSign(bool isDown,Point pt)
+        {
+            if (isDown)
+            {
+                if (!chooseObject)
+                {
+                    downPoint = pt;
+                    chooseObject = true;
+                }
+                else
+                    lastPoint = pt;
+            }
+            else
+            {
+                Rectangle rc = new Rectangle(downPoint.X, downPoint.Y, lastPoint.X - downPoint.X, lastPoint.Y - downPoint.Y);
+                int num = drawObjectList.Count;
+                for (int i = 0; i < num; i++)
+                {
+                    if (drawObjectList[i].ChosedInRegion(rc))
+                    {
+                        SelectMore(drawObjectList[i]);
+                    }
+                }
+                chooseObject = false;
+                downPoint = Point.Empty;
+                lastPoint = Point.Empty;
+            }
         }
     }
 }

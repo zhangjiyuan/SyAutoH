@@ -1,15 +1,15 @@
-// DBUser.h : DBUser 的声明
+// McsUserCommander.h : CMcsUserCommander 的声明
 
 #pragma once
 
-// 代码生成在 2012年8月28日, 16:17
+// 代码生成在 2012年8月31日, 14:40
 
-class DBUserAccessor
+class CMcsUserCommanderAccessor
 {
 public:
 	LONG m_id;
-	TCHAR m_Name[31];
-	TCHAR m_Password[37];
+	TCHAR m_Name[51];
+	TCHAR m_Password[51];
 	LONG m_UserRight;
 
 	// 以下向导生成的数据成员包含
@@ -77,7 +77,19 @@ public:
 
 	CSession m_session;
 
-	BEGIN_COLUMN_MAP(DBUserAccessor)
+	DEFINE_COMMAND_EX(CMcsUserCommanderAccessor, L" \
+	SELECT \
+		id, \
+		Name, \
+		Password, \
+		UserRight \
+		FROM dbo.McsUser")
+
+
+	// 为解决某些提供程序的若干问题，以下代码可能以
+	// 不同于提供程序所报告的顺序来绑定列
+
+	BEGIN_COLUMN_MAP(CMcsUserCommanderAccessor)
 		COLUMN_ENTRY_LENGTH_STATUS(1, m_id, m_dwidLength, m_dwidStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(2, m_Name, m_dwNameLength, m_dwNameStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(3, m_Password, m_dwPasswordLength, m_dwPasswordStatus)
@@ -85,7 +97,7 @@ public:
 	END_COLUMN_MAP()
 };
 
-class DBUser : public CTable<CAccessor<DBUserAccessor> >
+class CMcsUserCommander : public CCommand<CAccessor<CMcsUserCommanderAccessor> >
 {
 public:
 	HRESULT OpenAll()
@@ -122,7 +134,7 @@ public:
 
 	HRESULT OpenRowset(DBPROPSET *pPropSet = NULL)
 	{
-		HRESULT hr = Open(m_session, L"[User]", pPropSet);
+		HRESULT hr = Open(m_session, NULL, pPropSet);
 #ifdef _DEBUG
 		if(FAILED(hr))
 			AtlTraceErrorRecords(hr);
@@ -133,6 +145,7 @@ public:
 	void CloseAll()
 	{
 		Close();
+		ReleaseCommand();
 		CloseDataSource();
 	}
 };

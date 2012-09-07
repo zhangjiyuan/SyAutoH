@@ -1,16 +1,18 @@
-// UserCommand.h : CUserCommand 的声明
+// DBFoup.h : CFoupCommander 的声明
 
 #pragma once
 
-// 代码生成在 2012年8月28日, 16:31
+// 代码生成在 2012年9月6日, 16:00
 
-class CUserCommandAccessor
+class CFoupCommanderAccessor
 {
 public:
-	LONG m_id;
-	TCHAR m_Name[31];
-	TCHAR m_Password[37];
-	LONG m_UserRight;
+	LONG m_ID;
+	LONG m_OHV;
+	LONG m_STOCKER;
+	TCHAR m_Status[51];
+	TCHAR m_Lot[51];
+	TCHAR m_FoupID[51];
 
 	// 以下向导生成的数据成员包含
 	//列映射中相应字段的状态值。
@@ -21,20 +23,24 @@ public:
 	//“向导生成的访问器中的字段状态数据成员”。
 	// 注意: 在设置/插入数据前必须初始化这些字段!
 
-	DBSTATUS m_dwidStatus;
-	DBSTATUS m_dwNameStatus;
-	DBSTATUS m_dwPasswordStatus;
-	DBSTATUS m_dwUserRightStatus;
+	DBSTATUS m_dwIDStatus;
+	DBSTATUS m_dwOHVStatus;
+	DBSTATUS m_dwSTOCKERStatus;
+	DBSTATUS m_dwStatusStatus;
+	DBSTATUS m_dwLotStatus;
+	DBSTATUS m_dwFoupIDStatus;
 
 	// 以下向导生成的数据成员包含
 	//列映射中相应字段的长度值。
 	// 注意: 对变长列，在设置/插入
 	//       数据前必须初始化这些字段!
 
-	DBLENGTH m_dwidLength;
-	DBLENGTH m_dwNameLength;
-	DBLENGTH m_dwPasswordLength;
-	DBLENGTH m_dwUserRightLength;
+	DBLENGTH m_dwIDLength;
+	DBLENGTH m_dwOHVLength;
+	DBLENGTH m_dwSTOCKERLength;
+	DBLENGTH m_dwStatusLength;
+	DBLENGTH m_dwLotLength;
+	DBLENGTH m_dwFoupIDLength;
 
 
 	void GetRowsetProperties(CDBPropSet* pPropSet)
@@ -77,27 +83,31 @@ public:
 
 	CSession m_session;
 
-	DEFINE_COMMAND_EX(CUserCommandAccessor, L" \
+	DEFINE_COMMAND_EX(CFoupCommanderAccessor, L" \
 	SELECT \
-		id, \
-		Name, \
-		Password, \
-		UserRight \
-		FROM dbo.McsUser")
+		ID, \
+		OHV, \
+		STOCKER, \
+		Status, \
+		Lot, \
+		FoupID \
+		FROM dbo.Foup")
 
 
 	// 为解决某些提供程序的若干问题，以下代码可能以
 	// 不同于提供程序所报告的顺序来绑定列
 
-	BEGIN_COLUMN_MAP(CUserCommandAccessor)
-		COLUMN_ENTRY_LENGTH_STATUS(1, m_id, m_dwidLength, m_dwidStatus)
-		COLUMN_ENTRY_LENGTH_STATUS(2, m_Name, m_dwNameLength, m_dwNameStatus)
-		COLUMN_ENTRY_LENGTH_STATUS(3, m_Password, m_dwPasswordLength, m_dwPasswordStatus)
-		COLUMN_ENTRY_LENGTH_STATUS(4, m_UserRight, m_dwUserRightLength, m_dwUserRightStatus)
+	BEGIN_COLUMN_MAP(CFoupCommanderAccessor)
+		COLUMN_ENTRY_LENGTH_STATUS(1, m_ID, m_dwIDLength, m_dwIDStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(2, m_OHV, m_dwOHVLength, m_dwOHVStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(3, m_STOCKER, m_dwSTOCKERLength, m_dwSTOCKERStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(4, m_Status, m_dwStatusLength, m_dwStatusStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(5, m_Lot, m_dwLotLength, m_dwLotStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(6, m_FoupID, m_dwFoupIDLength, m_dwFoupIDStatus)
 	END_COLUMN_MAP()
 };
 
-class CUserCommand : public CCommand<CAccessor<CUserCommandAccessor> >
+class CFoupCommander : public CCommand<CAccessor<CFoupCommanderAccessor> >
 {
 public:
 	HRESULT OpenAll()
