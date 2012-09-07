@@ -24,6 +24,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	while(cin>>str)
 	{
 		cout<< str<<endl;
+		if (str.compare("quit") == 0)
+		{
+			return 0;
+		}
 	}
 	return 0;
 }

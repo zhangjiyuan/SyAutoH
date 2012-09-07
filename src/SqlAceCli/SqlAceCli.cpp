@@ -50,11 +50,13 @@ int _tmain(int argc, TCHAR* argv[], TCHAR* envp[])
 CSqlAceCli::CSqlAceCli()
 {
 	m_pSqlClient = NULL;
+	CoInitialize(NULL);
 }
 
 CSqlAceCli::~CSqlAceCli()
 {
 	Clean();
+	CoUninitialize();
 }
 
 int CSqlAceCli::Connect(WCHAR* wServer, WCHAR* wDBName)
@@ -108,14 +110,20 @@ int CSqlAceCli::Clean(void)
 
 int CSqlAceCli::FindFoupLocation(WCHAR* sFoupID, int& nOHV, int& nStocker)
 {
+	CoInitialize(NULL);
 	nOHV = 0;
 	nStocker = 0;
-
+	HRESULT hr;
 	CFoupCommander foupCmd;
-	foupCmd.OpenDataSource();
+	hr = foupCmd.OpenDataSource();
+	if (FAILED(hr))
+	{
+		cout << "Open Foup Failed." << endl;
+		return -1;
+	}
 	CString strFind = L"SELECT * From Foup where FoupID = '#@#'";
 	strFind.Replace(L"#@#", sFoupID);
-	HRESULT hr = foupCmd.Open(foupCmd.m_session, strFind);
+	hr = foupCmd.Open(foupCmd.m_session, strFind);
 	if (FAILED(hr))
 	{
 		cout << "Open Foup Failed." << endl;
@@ -134,6 +142,7 @@ int CSqlAceCli::FindFoupLocation(WCHAR* sFoupID, int& nOHV, int& nStocker)
 	}
 
 	foupCmd.CloseAll();
+	CoUninitialize();
 
 	return 0;
 }
