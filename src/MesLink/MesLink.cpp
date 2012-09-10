@@ -21,11 +21,12 @@ CMesLink::~CMesLink()
 	}
 }
 
-int CMesLink::Init()
+int CMesLink::Init(CSource* pSrc)
 {
 	if (NULL == m_pMesServer)
 	{
 		m_pMesServer = new MesLinkServer();
+		m_pMesServer->Source(pSrc);
 		m_pMesServer->InitIce();
 	}
 	return 0;

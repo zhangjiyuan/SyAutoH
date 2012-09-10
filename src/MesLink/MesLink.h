@@ -10,12 +10,22 @@
 #define MESLINK_API __declspec(dllimport)
 #endif
 
+#pragma  once
+
 class MESLINK_API CMesData
 {
 public:
 	int nType;
 	int nFoupID;
 	int nEquID;
+};
+
+[event_source(native)]
+class CSource 
+{
+public:
+	__event void MyEvent(int nValue);
+	__event void MyEventS(TCHAR* sValue, int nV);
 };
 
 class MesLinkServer;
@@ -28,7 +38,7 @@ private:
 	MesLinkServer* m_pMesServer;
 
 public:
-	int Init(void);
+	int Init(CSource* src);
 	int GetMesData(CMesData& data);
 };
 

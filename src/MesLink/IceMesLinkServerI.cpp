@@ -10,11 +10,12 @@ MesLinkServer::MesLinkServer(void)
 
 MesLinkServer::~MesLinkServer(void)
 {
-	
+	EndIce();
 }
 
 void MesLinkServer::GetProxy()
 {
 	IceMesLinkI* pManager = new IceMesLinkI();
+	pManager->SetSource(m_pSource);
 	m_objPtr = pManager;
 }
