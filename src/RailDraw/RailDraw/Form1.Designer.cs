@@ -408,7 +408,7 @@ namespace RailDraw
             // 
             // propertyGrid1
             // 
-            this.propertyGrid1.Location = new System.Drawing.Point(666, 52);
+            this.propertyGrid1.Location = new System.Drawing.Point(655, 52);
             this.propertyGrid1.Name = "propertyGrid1";
             this.propertyGrid1.Size = new System.Drawing.Size(130, 385);
             this.propertyGrid1.TabIndex = 0;

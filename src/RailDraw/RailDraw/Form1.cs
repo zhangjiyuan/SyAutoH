@@ -514,26 +514,20 @@ namespace RailDraw
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            Point form_size = new Point(this.Width, this.Height);
+            Point form_size = (Point)this.ClientSize;
             Point panel_1_location = panel1.Location;
             Point panel_2_location = panel2.Location;
             Point propertygrid_location = propertyGrid1.Location;
             Point panel_1_size = new Point(panel1.Width, panel1.Height);
             Point panel_2_size = new Point(panel2.Width, panel2.Height);
             Point propertygrid_size = new Point(propertyGrid1.Width, propertyGrid1.Height);
-            int left_border = panel_1_location.X;
-            int right_border = left_border;
-            int top_border = panel_1_location.Y + SystemInformation.CaptionHeight;
-            int bottom_border = panel_1_location.Y;
-            //set location var
-            propertygrid_location.X = form_size.X - propertygrid_size.X - right_border-20;
-            //set size var
-            panel_1_size.Y = form_size.Y - top_border - bottom_border;
-            panel_2_size.X = propertygrid_location.X - panel_2_location.X - 10;
+
+            panel_1_size.Y = form_size.Y - menuStrip1.Height - toolStrip1.Height - 20;
+            panel_2_size.X = form_size.X - panel_1_size.X - propertygrid_size.X - 30;
             panel_2_size.Y = panel_1_size.Y;
             propertygrid_size.Y = panel_1_size.Y;
             //set location
-            propertyGrid1.Left = propertygrid_location.X;
+            propertyGrid1.Left = panel_2_location.X + panel_2_size.X + 10;
             //set size
             panel1.Height = panel_1_size.Y;
             panel2.Width = panel_2_size.X;
