@@ -11,9 +11,11 @@ namespace RailView
 {
     public partial class ShowRegion : UserControl
     {
+        private ReadRailInfo readRailInfo = new ReadRailInfo();
         public ShowRegion()
         {
             InitializeComponent();
+            readRailInfo.OpenFile();
         }
     }
 }
