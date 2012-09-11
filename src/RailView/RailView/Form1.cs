@@ -15,6 +15,8 @@ namespace RailView
         {
             InitializeComponent();
             ComponentLocChanged();
+            ReadRailInfo railInfo = new ReadRailInfo();
+            railInfo.OpenFile();
             this.Invalidate();
         }
 
@@ -27,21 +29,23 @@ namespace RailView
         {
             Size railViewSz = this.ClientSize;
             Size menuSz = this.menuStrip1.Size;
-            Size baseInfoSz = this.baseInfoTreeView1.Size;
-            Size showRegSz = this.showRegion1.Size;
-            Size sysStaSz = this.systemStatues1.Size;
+            Size baseInfoSz = this.baseInfoTreeView.Size;
+            Size showRegSz = this.showRegion.Size;
+            Size sysStaSz = this.systemStatues.Size;
             baseInfoSz.Height = railViewSz.Height - menuSz.Height-10;
-            sysStaSz.Width = railViewSz.Width - baseInfoSz.Width - 10;
+            sysStaSz.Width = railViewSz.Width - baseInfoSz.Width - 30;
             sysStaSz.Height = 150;
             showRegSz.Width = sysStaSz.Width;
             showRegSz.Height = railViewSz.Height - menuSz.Height - 10 - sysStaSz.Height;
-            this.baseInfoTreeView1.Size = baseInfoSz;
-            this.showRegion1.Size = showRegSz;
-            this.systemStatues1.Size = sysStaSz;
-            this.showRegion1.Location = new Point(
-                baseInfoTreeView1.Left + baseInfoTreeView1.Width + 10, menuSz.Height);
-            this.systemStatues1.Location = new Point(
-                showRegion1.Location.X, showRegion1.Location.Y + showRegion1.Height);
+            this.baseInfoTreeView.Size = baseInfoSz;
+            this.showRegion.Size = showRegSz;
+            this.showPic.Size = showRegSz;
+            this.systemStatues.Size = sysStaSz;            
+            this.showRegion.Location = new Point(
+                baseInfoTreeView.Left + baseInfoTreeView.Width + 10, menuSz.Height);
+            this.systemStatues.Location = new Point(
+                showRegion.Location.X, showRegion.Location.Y + showRegion.Height);
+  
         }       
     }   
 }

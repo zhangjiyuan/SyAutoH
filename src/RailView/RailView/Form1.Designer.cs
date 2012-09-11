@@ -30,13 +30,88 @@ namespace RailView
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("在线车辆");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("以分配队列");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("报警");
+            this.baseInfoTreeView = new System.Windows.Forms.TreeView();
+            this.showRegion = new System.Windows.Forms.Panel();
+            this.showPic = new System.Windows.Forms.PictureBox();
+            this.systemStatues = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.systemStatues1 = new RailView.SystemStatues();
-            this.showRegion1 = new RailView.ShowRegion();
-            this.baseInfoTreeView1 = new RailView.BaseInfoTreeView();
+            this.showRegion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.showPic)).BeginInit();
+            this.systemStatues.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // baseInfoTreeView
+            // 
+            this.baseInfoTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.baseInfoTreeView.Location = new System.Drawing.Point(12, 28);
+            this.baseInfoTreeView.Name = "baseInfoTreeView";
+            treeNode7.Name = "CarsOnline";
+            treeNode7.Text = "在线车辆";
+            treeNode8.Name = "QueueAssign";
+            treeNode8.Text = "以分配队列";
+            treeNode9.Name = "Alarm";
+            treeNode9.Text = "报警";
+            this.baseInfoTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode8,
+            treeNode9});
+            this.baseInfoTreeView.Size = new System.Drawing.Size(109, 457);
+            this.baseInfoTreeView.TabIndex = 0;
+            // 
+            // showRegion
+            // 
+            this.showRegion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.showRegion.Controls.Add(this.showPic);
+            this.showRegion.Location = new System.Drawing.Point(127, 28);
+            this.showRegion.Name = "showRegion";
+            this.showRegion.Size = new System.Drawing.Size(669, 350);
+            this.showRegion.TabIndex = 1;
+            // 
+            // showPic
+            // 
+            this.showPic.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.showPic.Location = new System.Drawing.Point(0, 0);
+            this.showPic.Name = "showPic";
+            this.showPic.Size = new System.Drawing.Size(667, 348);
+            this.showPic.TabIndex = 0;
+            this.showPic.TabStop = false;
+            // 
+            // systemStatues
+            // 
+            this.systemStatues.Controls.Add(this.tabPage1);
+            this.systemStatues.Controls.Add(this.tabPage2);
+            this.systemStatues.Location = new System.Drawing.Point(127, 385);
+            this.systemStatues.Name = "systemStatues";
+            this.systemStatues.SelectedIndex = 0;
+            this.systemStatues.Size = new System.Drawing.Size(669, 100);
+            this.systemStatues.TabIndex = 2;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(661, 74);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(192, 74);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
             // 
@@ -45,7 +120,7 @@ namespace RailView
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(808, 25);
-            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
@@ -54,55 +129,38 @@ namespace RailView
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // systemStatues1
-            // 
-            this.systemStatues1.Location = new System.Drawing.Point(176, 355);
-            this.systemStatues1.Name = "systemStatues1";
-            this.systemStatues1.Size = new System.Drawing.Size(400, 100);
-            this.systemStatues1.TabIndex = 3;
-            // 
-            // showRegion1
-            // 
-            this.showRegion1.Location = new System.Drawing.Point(176, 25);
-            this.showRegion1.Name = "showRegion1";
-            this.showRegion1.Size = new System.Drawing.Size(500, 300);
-            this.showRegion1.TabIndex = 2;
-            // 
-            // baseInfoTreeView1
-            // 
-            this.baseInfoTreeView1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.baseInfoTreeView1.Location = new System.Drawing.Point(0, 25);
-            this.baseInfoTreeView1.Name = "baseInfoTreeView1";
-            this.baseInfoTreeView1.Size = new System.Drawing.Size(170, 430);
-            this.baseInfoTreeView1.TabIndex = 1;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(808, 497);
-            this.Controls.Add(this.systemStatues1);
-            this.Controls.Add(this.showRegion1);
-            this.Controls.Add(this.baseInfoTreeView1);
+            this.Controls.Add(this.systemStatues);
+            this.Controls.Add(this.showRegion);
+            this.Controls.Add(this.baseInfoTreeView);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "RailView";
             this.Resize += new System.EventHandler(this.Form1_Resize);
+            this.showRegion.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.showPic)).EndInit();
+            this.systemStatues.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
-
         #endregion
 
+        private TreeView baseInfoTreeView;
+        private Panel showRegion;
+        private PictureBox showPic;
+        private TabControl systemStatues;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
-        private BaseInfoTreeView baseInfoTreeView1;
-        private ShowRegion showRegion1;
-        private SystemStatues systemStatues1;
     }
 }
