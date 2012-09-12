@@ -30,3 +30,10 @@ public:
 	int Clean(void);
 	int FindFoupLocation(WCHAR* sFoupID, int& nOHV, int& nStocker);
 };
+
+class SQLACECLI_API DBUserAce
+{
+public:
+	DBUserAce(void);
+	~DBUserAce(void);
+};
