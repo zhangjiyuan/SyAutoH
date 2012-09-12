@@ -65,6 +65,7 @@ BEGIN_MESSAGE_MAP(CCypTestDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BN_HASH, &CCypTestDlg::OnBnClickedBnHash)
+	ON_BN_CLICKED(IDC_BN_LOGIN, &CCypTestDlg::OnBnClickedBnLogin)
 END_MESSAGE_MAP()
 
 
@@ -166,4 +167,18 @@ void CCypTestDlg::OnBnClickedBnHash()
 	cryptAgent.HashString(strSrc, bufhash);
 	strHash = bufhash;
 	SetDlgItemText(IDC_EDIT_HASH, strHash);
+}
+
+
+void CCypTestDlg::OnBnClickedBnLogin()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CString strUser;
+	CString strPW;
+	GetDlgItemText(IDC_EDIT_USER, strUser);
+	GetDlgItemText(IDC_EDIT_PW, strPW);
+	CCypAce cryptAgent;
+	CString strRet = CypHashUserInfo(strUser, strPW);
+	CString strHash = strRet;
+	SetDlgItemText(IDC_EDIT_USERHASH, strHash);
 }

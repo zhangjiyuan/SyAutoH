@@ -16,9 +16,13 @@ class CYPACE_API CCypAce
 public:
 	CCypAce(void);
 	// TODO: 在此添加您的方法。
+private:
+	LPTSTR GetHarassString(LPCTSTR strUserName, LPCTSTR strPassword, 
+		LPCTSTR strHighMark, LPCTSTR strLowMark);
 public:
 	bool HashString(LPCTSTR strInput, LPTSTR strHash);
 public:
-	LPTSTR HashUserInfo(LPCTSTR strUserName, LPCTSTR strPassword, 
-		LPCTSTR strHighMark, LPCTSTR strLowMark);
+	LPTSTR HashUserInfo(LPCTSTR strUserName, LPCTSTR strPassword);
 };
+
+extern "C" CYPACE_API LPTSTR CypHashUserInfo(LPCTSTR strUserName, LPCTSTR strPW);

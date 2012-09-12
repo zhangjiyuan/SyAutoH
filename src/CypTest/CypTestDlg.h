@@ -31,4 +31,5 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedBnHash();
+	afx_msg void OnBnClickedBnLogin();
 };

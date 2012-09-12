@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <tchar.h>
 
+LPCTSTR lsHigh = L"$";
+LPCTSTR lsLow = L"&";
 // 这是已导出类的构造函数。
 // 有关类定义的信息，请参阅 CypAce.h
 CCypAce::CCypAce()
@@ -14,9 +16,49 @@ CCypAce::CCypAce()
 	return;
 }
 
-LPTSTR CCypAce::HashUserInfo(LPCTSTR strUserName, LPCTSTR strPassword, LPCTSTR strHighMark, LPCTSTR strLowMark)
+LPTSTR CCypAce::HashUserInfo(LPCTSTR strUserName, LPCTSTR strPassword)
 {
-	return LPTSTR();
+	CString csUserName = strUserName;
+	csUserName.MakeLower();
+	CString strRet = L"";
+	strRet = GetHarassString(csUserName, strPassword, lsHigh, lsLow);
+	return strRet.AllocSysString();
+}
+
+LPTSTR CCypAce::GetHarassString(LPCTSTR strUserName, LPCTSTR strPassword, 
+	LPCTSTR strHighMark, LPCTSTR strLowMark)
+{
+	
+	if (strUserName[0] == 0)
+	{
+		return false;
+	}
+
+	TCHAR chFirst = strUserName[0];
+	chFirst  = chFirst&0x0F;
+	CString strHarass = L"";
+	for(int i=0;i<4;i++)
+	{
+		if((chFirst>>i&0x01) != 0 )
+			strHarass = strHighMark + strHarass;
+		else
+			strHarass = strLowMark + strHarass;
+	}
+	CString strUserInfoHarassed = L"";
+	strUserInfoHarassed += strUserName;
+	strUserInfoHarassed += strHarass;
+	strUserInfoHarassed += strPassword;
+
+	TCHAR tchash[256] = {0};
+	if (HashString(strUserInfoHarassed, tchash))
+	{
+		CString strRet = tchash;
+		return strRet.AllocSysString();
+	}
+	else
+	{
+		return L"";
+	}
 }
 
 
@@ -103,4 +145,14 @@ ErrorExit:
 		CryptReleaseContext(hProv, 0);
 
 	return rc;
+}
+
+//////////////////////////////////////////////////////////////////////////
+//
+LPTSTR CypHashUserInfo(LPCTSTR strUserName, LPCTSTR strPW)
+{
+	CCypAce cypAce;
+	CString strHash = L"";
+	strHash = cypAce.HashUserInfo(strUserName, strPW);
+	return strHash.AllocSysString();
 }
