@@ -45,23 +45,23 @@ static const ::std::string __MCS__GuiDataHub__ReadData_name = "ReadData";
 
 static const ::std::string __MCS__GuiDataHub__WriteData_name = "WriteData";
 
-static const ::std::string __MCS__UserManagment__CreateUser_name = "CreateUser";
+static const ::std::string __MCS__UserManagement__CreateUser_name = "CreateUser";
 
-static const ::std::string __MCS__UserManagment__SetUserPW_name = "SetUserPW";
+static const ::std::string __MCS__UserManagement__SetUserPW_name = "SetUserPW";
 
-static const ::std::string __MCS__UserManagment__SetUserRithg_name = "SetUserRithg";
+static const ::std::string __MCS__UserManagement__SetUserRithg_name = "SetUserRithg";
 
-static const ::std::string __MCS__UserManagment__DeleteUser_name = "DeleteUser";
+static const ::std::string __MCS__UserManagement__DeleteUser_name = "DeleteUser";
 
-static const ::std::string __MCS__UserManagment__GetUserCount_name = "GetUserCount";
+static const ::std::string __MCS__UserManagement__GetUserCount_name = "GetUserCount";
 
-static const ::std::string __MCS__UserManagment__GetUserList_name = "GetUserList";
+static const ::std::string __MCS__UserManagement__GetUserList_name = "GetUserList";
 
 ::Ice::Object* IceInternal::upCast(::MCS::GuiDataHub* p) { return p; }
 ::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::MCS::GuiDataHub* p) { return p; }
 
-::Ice::Object* IceInternal::upCast(::MCS::UserManagment* p) { return p; }
-::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::MCS::UserManagment* p) { return p; }
+::Ice::Object* IceInternal::upCast(::MCS::UserManagement* p) { return p; }
+::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::MCS::UserManagement* p) { return p; }
 
 void
 MCS::__read(::IceInternal::BasicStream* __is, ::MCS::GuiDataHubPrx& v)
@@ -80,7 +80,7 @@ MCS::__read(::IceInternal::BasicStream* __is, ::MCS::GuiDataHubPrx& v)
 }
 
 void
-MCS::__read(::IceInternal::BasicStream* __is, ::MCS::UserManagmentPrx& v)
+MCS::__read(::IceInternal::BasicStream* __is, ::MCS::UserManagementPrx& v)
 {
     ::Ice::ObjectPrx proxy;
     __is->read(proxy);
@@ -90,7 +90,7 @@ MCS::__read(::IceInternal::BasicStream* __is, ::MCS::UserManagmentPrx& v)
     }
     else
     {
-        v = new ::IceProxy::MCS::UserManagment;
+        v = new ::IceProxy::MCS::UserManagement;
         v->__copyFrom(proxy);
     }
 }
@@ -435,7 +435,7 @@ IceProxy::MCS::GuiDataHub::__newInstance() const
 }
 
 ::Ice::Int
-IceProxy::MCS::UserManagment::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __ctx)
+IceProxy::MCS::UserManagement::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -443,9 +443,9 @@ IceProxy::MCS::UserManagment::CreateUser(const ::std::string& user, const ::std:
         ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
         try
         {
-            __checkTwowayOnly(__MCS__UserManagment__CreateUser_name);
+            __checkTwowayOnly(__MCS__UserManagement__CreateUser_name);
             __delBase = __getDelegate(false);
-            ::IceDelegate::MCS::UserManagment* __del = dynamic_cast< ::IceDelegate::MCS::UserManagment*>(__delBase.get());
+            ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
             return __del->CreateUser(user, pass, session, __ctx);
         }
         catch(const ::IceInternal::LocalExceptionWrapper& __ex)
@@ -460,13 +460,13 @@ IceProxy::MCS::UserManagment::CreateUser(const ::std::string& user, const ::std:
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::UserManagment::begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::UserManagement::begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
-    __checkAsyncTwowayOnly(__MCS__UserManagment__CreateUser_name);
-    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagment__CreateUser_name, __del, __cookie);
+    __checkAsyncTwowayOnly(__MCS__UserManagement__CreateUser_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__CreateUser_name, __del, __cookie);
     try
     {
-        __result->__prepare(__MCS__UserManagment__CreateUser_name, ::Ice::Idempotent, __ctx);
+        __result->__prepare(__MCS__UserManagement__CreateUser_name, ::Ice::Idempotent, __ctx);
         ::IceInternal::BasicStream* __os = __result->__getOs();
         __os->write(user);
         __os->write(pass);
@@ -482,9 +482,9 @@ IceProxy::MCS::UserManagment::begin_CreateUser(const ::std::string& user, const 
 }
 
 ::Ice::Int
-IceProxy::MCS::UserManagment::end_CreateUser(const ::Ice::AsyncResultPtr& __result)
+IceProxy::MCS::UserManagement::end_CreateUser(const ::Ice::AsyncResultPtr& __result)
 {
-    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagment__CreateUser_name);
+    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagement__CreateUser_name);
     ::Ice::Int __ret;
     if(!__result->__wait())
     {
@@ -505,7 +505,7 @@ IceProxy::MCS::UserManagment::end_CreateUser(const ::Ice::AsyncResultPtr& __resu
 }
 
 ::Ice::Int
-IceProxy::MCS::UserManagment::SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __ctx)
+IceProxy::MCS::UserManagement::SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -513,9 +513,9 @@ IceProxy::MCS::UserManagment::SetUserPW(::Ice::Int nUID, const ::std::string& pa
         ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
         try
         {
-            __checkTwowayOnly(__MCS__UserManagment__SetUserPW_name);
+            __checkTwowayOnly(__MCS__UserManagement__SetUserPW_name);
             __delBase = __getDelegate(false);
-            ::IceDelegate::MCS::UserManagment* __del = dynamic_cast< ::IceDelegate::MCS::UserManagment*>(__delBase.get());
+            ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
             return __del->SetUserPW(nUID, pass, session, __ctx);
         }
         catch(const ::IceInternal::LocalExceptionWrapper& __ex)
@@ -530,13 +530,13 @@ IceProxy::MCS::UserManagment::SetUserPW(::Ice::Int nUID, const ::std::string& pa
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::UserManagment::begin_SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::UserManagement::begin_SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
-    __checkAsyncTwowayOnly(__MCS__UserManagment__SetUserPW_name);
-    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagment__SetUserPW_name, __del, __cookie);
+    __checkAsyncTwowayOnly(__MCS__UserManagement__SetUserPW_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__SetUserPW_name, __del, __cookie);
     try
     {
-        __result->__prepare(__MCS__UserManagment__SetUserPW_name, ::Ice::Idempotent, __ctx);
+        __result->__prepare(__MCS__UserManagement__SetUserPW_name, ::Ice::Idempotent, __ctx);
         ::IceInternal::BasicStream* __os = __result->__getOs();
         __os->write(nUID);
         __os->write(pass);
@@ -552,9 +552,9 @@ IceProxy::MCS::UserManagment::begin_SetUserPW(::Ice::Int nUID, const ::std::stri
 }
 
 ::Ice::Int
-IceProxy::MCS::UserManagment::end_SetUserPW(const ::Ice::AsyncResultPtr& __result)
+IceProxy::MCS::UserManagement::end_SetUserPW(const ::Ice::AsyncResultPtr& __result)
 {
-    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagment__SetUserPW_name);
+    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagement__SetUserPW_name);
     ::Ice::Int __ret;
     if(!__result->__wait())
     {
@@ -575,7 +575,7 @@ IceProxy::MCS::UserManagment::end_SetUserPW(const ::Ice::AsyncResultPtr& __resul
 }
 
 ::Ice::Int
-IceProxy::MCS::UserManagment::SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __ctx)
+IceProxy::MCS::UserManagement::SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -583,9 +583,9 @@ IceProxy::MCS::UserManagment::SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, :
         ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
         try
         {
-            __checkTwowayOnly(__MCS__UserManagment__SetUserRithg_name);
+            __checkTwowayOnly(__MCS__UserManagement__SetUserRithg_name);
             __delBase = __getDelegate(false);
-            ::IceDelegate::MCS::UserManagment* __del = dynamic_cast< ::IceDelegate::MCS::UserManagment*>(__delBase.get());
+            ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
             return __del->SetUserRithg(nUID, nRight, session, __ctx);
         }
         catch(const ::IceInternal::LocalExceptionWrapper& __ex)
@@ -600,13 +600,13 @@ IceProxy::MCS::UserManagment::SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, :
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::UserManagment::begin_SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::UserManagement::begin_SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
-    __checkAsyncTwowayOnly(__MCS__UserManagment__SetUserRithg_name);
-    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagment__SetUserRithg_name, __del, __cookie);
+    __checkAsyncTwowayOnly(__MCS__UserManagement__SetUserRithg_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__SetUserRithg_name, __del, __cookie);
     try
     {
-        __result->__prepare(__MCS__UserManagment__SetUserRithg_name, ::Ice::Idempotent, __ctx);
+        __result->__prepare(__MCS__UserManagement__SetUserRithg_name, ::Ice::Idempotent, __ctx);
         ::IceInternal::BasicStream* __os = __result->__getOs();
         __os->write(nUID);
         __os->write(nRight);
@@ -622,9 +622,9 @@ IceProxy::MCS::UserManagment::begin_SetUserRithg(::Ice::Int nUID, ::Ice::Int nRi
 }
 
 ::Ice::Int
-IceProxy::MCS::UserManagment::end_SetUserRithg(const ::Ice::AsyncResultPtr& __result)
+IceProxy::MCS::UserManagement::end_SetUserRithg(const ::Ice::AsyncResultPtr& __result)
 {
-    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagment__SetUserRithg_name);
+    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagement__SetUserRithg_name);
     ::Ice::Int __ret;
     if(!__result->__wait())
     {
@@ -645,7 +645,7 @@ IceProxy::MCS::UserManagment::end_SetUserRithg(const ::Ice::AsyncResultPtr& __re
 }
 
 ::Ice::Int
-IceProxy::MCS::UserManagment::DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::Ice::Context* __ctx)
+IceProxy::MCS::UserManagement::DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -653,9 +653,9 @@ IceProxy::MCS::UserManagment::DeleteUser(::Ice::Int nUID, ::Ice::Int session, co
         ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
         try
         {
-            __checkTwowayOnly(__MCS__UserManagment__DeleteUser_name);
+            __checkTwowayOnly(__MCS__UserManagement__DeleteUser_name);
             __delBase = __getDelegate(false);
-            ::IceDelegate::MCS::UserManagment* __del = dynamic_cast< ::IceDelegate::MCS::UserManagment*>(__delBase.get());
+            ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
             return __del->DeleteUser(nUID, session, __ctx);
         }
         catch(const ::IceInternal::LocalExceptionWrapper& __ex)
@@ -670,13 +670,13 @@ IceProxy::MCS::UserManagment::DeleteUser(::Ice::Int nUID, ::Ice::Int session, co
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::UserManagment::begin_DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::UserManagement::begin_DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
-    __checkAsyncTwowayOnly(__MCS__UserManagment__DeleteUser_name);
-    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagment__DeleteUser_name, __del, __cookie);
+    __checkAsyncTwowayOnly(__MCS__UserManagement__DeleteUser_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__DeleteUser_name, __del, __cookie);
     try
     {
-        __result->__prepare(__MCS__UserManagment__DeleteUser_name, ::Ice::Idempotent, __ctx);
+        __result->__prepare(__MCS__UserManagement__DeleteUser_name, ::Ice::Idempotent, __ctx);
         ::IceInternal::BasicStream* __os = __result->__getOs();
         __os->write(nUID);
         __os->write(session);
@@ -691,9 +691,9 @@ IceProxy::MCS::UserManagment::begin_DeleteUser(::Ice::Int nUID, ::Ice::Int sessi
 }
 
 ::Ice::Int
-IceProxy::MCS::UserManagment::end_DeleteUser(const ::Ice::AsyncResultPtr& __result)
+IceProxy::MCS::UserManagement::end_DeleteUser(const ::Ice::AsyncResultPtr& __result)
 {
-    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagment__DeleteUser_name);
+    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagement__DeleteUser_name);
     ::Ice::Int __ret;
     if(!__result->__wait())
     {
@@ -714,7 +714,7 @@ IceProxy::MCS::UserManagment::end_DeleteUser(const ::Ice::AsyncResultPtr& __resu
 }
 
 ::Ice::Int
-IceProxy::MCS::UserManagment::GetUserCount(const ::Ice::Context* __ctx)
+IceProxy::MCS::UserManagement::GetUserCount(const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -722,9 +722,9 @@ IceProxy::MCS::UserManagment::GetUserCount(const ::Ice::Context* __ctx)
         ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
         try
         {
-            __checkTwowayOnly(__MCS__UserManagment__GetUserCount_name);
+            __checkTwowayOnly(__MCS__UserManagement__GetUserCount_name);
             __delBase = __getDelegate(false);
-            ::IceDelegate::MCS::UserManagment* __del = dynamic_cast< ::IceDelegate::MCS::UserManagment*>(__delBase.get());
+            ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
             return __del->GetUserCount(__ctx);
         }
         catch(const ::IceInternal::LocalExceptionWrapper& __ex)
@@ -739,13 +739,13 @@ IceProxy::MCS::UserManagment::GetUserCount(const ::Ice::Context* __ctx)
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::UserManagment::begin_GetUserCount(const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::UserManagement::begin_GetUserCount(const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
-    __checkAsyncTwowayOnly(__MCS__UserManagment__GetUserCount_name);
-    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagment__GetUserCount_name, __del, __cookie);
+    __checkAsyncTwowayOnly(__MCS__UserManagement__GetUserCount_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__GetUserCount_name, __del, __cookie);
     try
     {
-        __result->__prepare(__MCS__UserManagment__GetUserCount_name, ::Ice::Idempotent, __ctx);
+        __result->__prepare(__MCS__UserManagement__GetUserCount_name, ::Ice::Idempotent, __ctx);
         ::IceInternal::BasicStream* __os = __result->__getOs();
         __os->endWriteEncaps();
         __result->__send(true);
@@ -758,9 +758,9 @@ IceProxy::MCS::UserManagment::begin_GetUserCount(const ::Ice::Context* __ctx, co
 }
 
 ::Ice::Int
-IceProxy::MCS::UserManagment::end_GetUserCount(const ::Ice::AsyncResultPtr& __result)
+IceProxy::MCS::UserManagement::end_GetUserCount(const ::Ice::AsyncResultPtr& __result)
 {
-    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagment__GetUserCount_name);
+    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagement__GetUserCount_name);
     ::Ice::Int __ret;
     if(!__result->__wait())
     {
@@ -781,7 +781,7 @@ IceProxy::MCS::UserManagment::end_GetUserCount(const ::Ice::AsyncResultPtr& __re
 }
 
 ::MCS::UserList
-IceProxy::MCS::UserManagment::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __ctx)
+IceProxy::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -789,9 +789,9 @@ IceProxy::MCS::UserManagment::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, 
         ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
         try
         {
-            __checkTwowayOnly(__MCS__UserManagment__GetUserList_name);
+            __checkTwowayOnly(__MCS__UserManagement__GetUserList_name);
             __delBase = __getDelegate(false);
-            ::IceDelegate::MCS::UserManagment* __del = dynamic_cast< ::IceDelegate::MCS::UserManagment*>(__delBase.get());
+            ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
             return __del->GetUserList(nBegin, nCount, __ctx);
         }
         catch(const ::IceInternal::LocalExceptionWrapper& __ex)
@@ -806,13 +806,13 @@ IceProxy::MCS::UserManagment::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, 
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::UserManagment::begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::UserManagement::begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
-    __checkAsyncTwowayOnly(__MCS__UserManagment__GetUserList_name);
-    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagment__GetUserList_name, __del, __cookie);
+    __checkAsyncTwowayOnly(__MCS__UserManagement__GetUserList_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__GetUserList_name, __del, __cookie);
     try
     {
-        __result->__prepare(__MCS__UserManagment__GetUserList_name, ::Ice::Idempotent, __ctx);
+        __result->__prepare(__MCS__UserManagement__GetUserList_name, ::Ice::Idempotent, __ctx);
         ::IceInternal::BasicStream* __os = __result->__getOs();
         __os->write(nBegin);
         __os->write(nCount);
@@ -827,9 +827,9 @@ IceProxy::MCS::UserManagment::begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nC
 }
 
 ::MCS::UserList
-IceProxy::MCS::UserManagment::end_GetUserList(const ::Ice::AsyncResultPtr& __result)
+IceProxy::MCS::UserManagement::end_GetUserList(const ::Ice::AsyncResultPtr& __result)
 {
-    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagment__GetUserList_name);
+    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagement__GetUserList_name);
     ::MCS::UserList __ret;
     if(!__result->__wait())
     {
@@ -850,27 +850,27 @@ IceProxy::MCS::UserManagment::end_GetUserList(const ::Ice::AsyncResultPtr& __res
 }
 
 const ::std::string&
-IceProxy::MCS::UserManagment::ice_staticId()
+IceProxy::MCS::UserManagement::ice_staticId()
 {
-    return ::MCS::UserManagment::ice_staticId();
+    return ::MCS::UserManagement::ice_staticId();
 }
 
 ::IceInternal::Handle< ::IceDelegateM::Ice::Object>
-IceProxy::MCS::UserManagment::__createDelegateM()
+IceProxy::MCS::UserManagement::__createDelegateM()
 {
-    return ::IceInternal::Handle< ::IceDelegateM::Ice::Object>(new ::IceDelegateM::MCS::UserManagment);
+    return ::IceInternal::Handle< ::IceDelegateM::Ice::Object>(new ::IceDelegateM::MCS::UserManagement);
 }
 
 ::IceInternal::Handle< ::IceDelegateD::Ice::Object>
-IceProxy::MCS::UserManagment::__createDelegateD()
+IceProxy::MCS::UserManagement::__createDelegateD()
 {
-    return ::IceInternal::Handle< ::IceDelegateD::Ice::Object>(new ::IceDelegateD::MCS::UserManagment);
+    return ::IceInternal::Handle< ::IceDelegateD::Ice::Object>(new ::IceDelegateD::MCS::UserManagement);
 }
 
 ::IceProxy::Ice::Object*
-IceProxy::MCS::UserManagment::__newInstance() const
+IceProxy::MCS::UserManagement::__newInstance() const
 {
-    return new UserManagment;
+    return new UserManagement;
 }
 
 ::Ice::Int
@@ -1042,9 +1042,9 @@ IceDelegateM::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::
 }
 
 ::Ice::Int
-IceDelegateM::MCS::UserManagment::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateM::MCS::UserManagement::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __context)
 {
-    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagment__CreateUser_name, ::Ice::Idempotent, __context);
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__CreateUser_name, ::Ice::Idempotent, __context);
     try
     {
         ::IceInternal::BasicStream* __os = __og.os();
@@ -1085,9 +1085,9 @@ IceDelegateM::MCS::UserManagment::CreateUser(const ::std::string& user, const ::
 }
 
 ::Ice::Int
-IceDelegateM::MCS::UserManagment::SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateM::MCS::UserManagement::SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __context)
 {
-    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagment__SetUserPW_name, ::Ice::Idempotent, __context);
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__SetUserPW_name, ::Ice::Idempotent, __context);
     try
     {
         ::IceInternal::BasicStream* __os = __og.os();
@@ -1128,9 +1128,9 @@ IceDelegateM::MCS::UserManagment::SetUserPW(::Ice::Int nUID, const ::std::string
 }
 
 ::Ice::Int
-IceDelegateM::MCS::UserManagment::SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateM::MCS::UserManagement::SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __context)
 {
-    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagment__SetUserRithg_name, ::Ice::Idempotent, __context);
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__SetUserRithg_name, ::Ice::Idempotent, __context);
     try
     {
         ::IceInternal::BasicStream* __os = __og.os();
@@ -1171,9 +1171,9 @@ IceDelegateM::MCS::UserManagment::SetUserRithg(::Ice::Int nUID, ::Ice::Int nRigh
 }
 
 ::Ice::Int
-IceDelegateM::MCS::UserManagment::DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateM::MCS::UserManagement::DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::Ice::Context* __context)
 {
-    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagment__DeleteUser_name, ::Ice::Idempotent, __context);
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__DeleteUser_name, ::Ice::Idempotent, __context);
     try
     {
         ::IceInternal::BasicStream* __os = __og.os();
@@ -1213,9 +1213,9 @@ IceDelegateM::MCS::UserManagment::DeleteUser(::Ice::Int nUID, ::Ice::Int session
 }
 
 ::Ice::Int
-IceDelegateM::MCS::UserManagment::GetUserCount(const ::Ice::Context* __context)
+IceDelegateM::MCS::UserManagement::GetUserCount(const ::Ice::Context* __context)
 {
-    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagment__GetUserCount_name, ::Ice::Idempotent, __context);
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__GetUserCount_name, ::Ice::Idempotent, __context);
     bool __ok = __og.invoke();
     ::Ice::Int __ret;
     try
@@ -1245,9 +1245,9 @@ IceDelegateM::MCS::UserManagment::GetUserCount(const ::Ice::Context* __context)
 }
 
 ::MCS::UserList
-IceDelegateM::MCS::UserManagment::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __context)
+IceDelegateM::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __context)
 {
-    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagment__GetUserList_name, ::Ice::Idempotent, __context);
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__GetUserList_name, ::Ice::Idempotent, __context);
     try
     {
         ::IceInternal::BasicStream* __os = __og.os();
@@ -1567,7 +1567,7 @@ IceDelegateD::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::
 }
 
 ::Ice::Int
-IceDelegateD::MCS::UserManagment::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateD::MCS::UserManagement::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
@@ -1585,7 +1585,7 @@ IceDelegateD::MCS::UserManagment::CreateUser(const ::std::string& user, const ::
         virtual ::Ice::DispatchStatus
         run(::Ice::Object* object)
         {
-            ::MCS::UserManagment* servant = dynamic_cast< ::MCS::UserManagment*>(object);
+            ::MCS::UserManagement* servant = dynamic_cast< ::MCS::UserManagement*>(object);
             if(!servant)
             {
                 throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
@@ -1603,7 +1603,7 @@ IceDelegateD::MCS::UserManagment::CreateUser(const ::std::string& user, const ::
     };
     
     ::Ice::Current __current;
-    __initCurrent(__current, __MCS__UserManagment__CreateUser_name, ::Ice::Idempotent, __context);
+    __initCurrent(__current, __MCS__UserManagement__CreateUser_name, ::Ice::Idempotent, __context);
     ::Ice::Int __result;
     try
     {
@@ -1639,7 +1639,7 @@ IceDelegateD::MCS::UserManagment::CreateUser(const ::std::string& user, const ::
 }
 
 ::Ice::Int
-IceDelegateD::MCS::UserManagment::SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateD::MCS::UserManagement::SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
@@ -1657,7 +1657,7 @@ IceDelegateD::MCS::UserManagment::SetUserPW(::Ice::Int nUID, const ::std::string
         virtual ::Ice::DispatchStatus
         run(::Ice::Object* object)
         {
-            ::MCS::UserManagment* servant = dynamic_cast< ::MCS::UserManagment*>(object);
+            ::MCS::UserManagement* servant = dynamic_cast< ::MCS::UserManagement*>(object);
             if(!servant)
             {
                 throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
@@ -1675,7 +1675,7 @@ IceDelegateD::MCS::UserManagment::SetUserPW(::Ice::Int nUID, const ::std::string
     };
     
     ::Ice::Current __current;
-    __initCurrent(__current, __MCS__UserManagment__SetUserPW_name, ::Ice::Idempotent, __context);
+    __initCurrent(__current, __MCS__UserManagement__SetUserPW_name, ::Ice::Idempotent, __context);
     ::Ice::Int __result;
     try
     {
@@ -1711,7 +1711,7 @@ IceDelegateD::MCS::UserManagment::SetUserPW(::Ice::Int nUID, const ::std::string
 }
 
 ::Ice::Int
-IceDelegateD::MCS::UserManagment::SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateD::MCS::UserManagement::SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
@@ -1729,7 +1729,7 @@ IceDelegateD::MCS::UserManagment::SetUserRithg(::Ice::Int nUID, ::Ice::Int nRigh
         virtual ::Ice::DispatchStatus
         run(::Ice::Object* object)
         {
-            ::MCS::UserManagment* servant = dynamic_cast< ::MCS::UserManagment*>(object);
+            ::MCS::UserManagement* servant = dynamic_cast< ::MCS::UserManagement*>(object);
             if(!servant)
             {
                 throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
@@ -1747,7 +1747,7 @@ IceDelegateD::MCS::UserManagment::SetUserRithg(::Ice::Int nUID, ::Ice::Int nRigh
     };
     
     ::Ice::Current __current;
-    __initCurrent(__current, __MCS__UserManagment__SetUserRithg_name, ::Ice::Idempotent, __context);
+    __initCurrent(__current, __MCS__UserManagement__SetUserRithg_name, ::Ice::Idempotent, __context);
     ::Ice::Int __result;
     try
     {
@@ -1783,7 +1783,7 @@ IceDelegateD::MCS::UserManagment::SetUserRithg(::Ice::Int nUID, ::Ice::Int nRigh
 }
 
 ::Ice::Int
-IceDelegateD::MCS::UserManagment::DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateD::MCS::UserManagement::DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
@@ -1800,7 +1800,7 @@ IceDelegateD::MCS::UserManagment::DeleteUser(::Ice::Int nUID, ::Ice::Int session
         virtual ::Ice::DispatchStatus
         run(::Ice::Object* object)
         {
-            ::MCS::UserManagment* servant = dynamic_cast< ::MCS::UserManagment*>(object);
+            ::MCS::UserManagement* servant = dynamic_cast< ::MCS::UserManagement*>(object);
             if(!servant)
             {
                 throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
@@ -1817,7 +1817,7 @@ IceDelegateD::MCS::UserManagment::DeleteUser(::Ice::Int nUID, ::Ice::Int session
     };
     
     ::Ice::Current __current;
-    __initCurrent(__current, __MCS__UserManagment__DeleteUser_name, ::Ice::Idempotent, __context);
+    __initCurrent(__current, __MCS__UserManagement__DeleteUser_name, ::Ice::Idempotent, __context);
     ::Ice::Int __result;
     try
     {
@@ -1853,7 +1853,7 @@ IceDelegateD::MCS::UserManagment::DeleteUser(::Ice::Int nUID, ::Ice::Int session
 }
 
 ::Ice::Int
-IceDelegateD::MCS::UserManagment::GetUserCount(const ::Ice::Context* __context)
+IceDelegateD::MCS::UserManagement::GetUserCount(const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
@@ -1868,7 +1868,7 @@ IceDelegateD::MCS::UserManagment::GetUserCount(const ::Ice::Context* __context)
         virtual ::Ice::DispatchStatus
         run(::Ice::Object* object)
         {
-            ::MCS::UserManagment* servant = dynamic_cast< ::MCS::UserManagment*>(object);
+            ::MCS::UserManagement* servant = dynamic_cast< ::MCS::UserManagement*>(object);
             if(!servant)
             {
                 throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
@@ -1883,7 +1883,7 @@ IceDelegateD::MCS::UserManagment::GetUserCount(const ::Ice::Context* __context)
     };
     
     ::Ice::Current __current;
-    __initCurrent(__current, __MCS__UserManagment__GetUserCount_name, ::Ice::Idempotent, __context);
+    __initCurrent(__current, __MCS__UserManagement__GetUserCount_name, ::Ice::Idempotent, __context);
     ::Ice::Int __result;
     try
     {
@@ -1919,7 +1919,7 @@ IceDelegateD::MCS::UserManagment::GetUserCount(const ::Ice::Context* __context)
 }
 
 ::MCS::UserList
-IceDelegateD::MCS::UserManagment::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __context)
+IceDelegateD::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
@@ -1936,7 +1936,7 @@ IceDelegateD::MCS::UserManagment::GetUserList(::Ice::Int nBegin, ::Ice::Int nCou
         virtual ::Ice::DispatchStatus
         run(::Ice::Object* object)
         {
-            ::MCS::UserManagment* servant = dynamic_cast< ::MCS::UserManagment*>(object);
+            ::MCS::UserManagement* servant = dynamic_cast< ::MCS::UserManagement*>(object);
             if(!servant)
             {
                 throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
@@ -1953,7 +1953,7 @@ IceDelegateD::MCS::UserManagment::GetUserList(::Ice::Int nBegin, ::Ice::Int nCou
     };
     
     ::Ice::Current __current;
-    __initCurrent(__current, __MCS__UserManagment__GetUserList_name, ::Ice::Idempotent, __context);
+    __initCurrent(__current, __MCS__UserManagement__GetUserList_name, ::Ice::Idempotent, __context);
     ::MCS::UserList __result;
     try
     {
@@ -2216,44 +2216,44 @@ MCS::__patch__GuiDataHubPtr(void* __addr, ::Ice::ObjectPtr& v)
 }
 
 ::Ice::ObjectPtr
-MCS::UserManagment::ice_clone() const
+MCS::UserManagement::ice_clone() const
 {
     throw ::Ice::CloneNotImplementedException(__FILE__, __LINE__);
     return 0; // to avoid a warning with some compilers
 }
 
-static const ::std::string __MCS__UserManagment_ids[2] =
+static const ::std::string __MCS__UserManagement_ids[2] =
 {
     "::Ice::Object",
-    "::MCS::UserManagment"
+    "::MCS::UserManagement"
 };
 
 bool
-MCS::UserManagment::ice_isA(const ::std::string& _s, const ::Ice::Current&) const
+MCS::UserManagement::ice_isA(const ::std::string& _s, const ::Ice::Current&) const
 {
-    return ::std::binary_search(__MCS__UserManagment_ids, __MCS__UserManagment_ids + 2, _s);
+    return ::std::binary_search(__MCS__UserManagement_ids, __MCS__UserManagement_ids + 2, _s);
 }
 
 ::std::vector< ::std::string>
-MCS::UserManagment::ice_ids(const ::Ice::Current&) const
+MCS::UserManagement::ice_ids(const ::Ice::Current&) const
 {
-    return ::std::vector< ::std::string>(&__MCS__UserManagment_ids[0], &__MCS__UserManagment_ids[2]);
+    return ::std::vector< ::std::string>(&__MCS__UserManagement_ids[0], &__MCS__UserManagement_ids[2]);
 }
 
 const ::std::string&
-MCS::UserManagment::ice_id(const ::Ice::Current&) const
+MCS::UserManagement::ice_id(const ::Ice::Current&) const
 {
-    return __MCS__UserManagment_ids[1];
+    return __MCS__UserManagement_ids[1];
 }
 
 const ::std::string&
-MCS::UserManagment::ice_staticId()
+MCS::UserManagement::ice_staticId()
 {
-    return __MCS__UserManagment_ids[1];
+    return __MCS__UserManagement_ids[1];
 }
 
 ::Ice::DispatchStatus
-MCS::UserManagment::___CreateUser(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+MCS::UserManagement::___CreateUser(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
 {
     __checkMode(::Ice::Idempotent, __current.mode);
     ::IceInternal::BasicStream* __is = __inS.is();
@@ -2272,7 +2272,7 @@ MCS::UserManagment::___CreateUser(::IceInternal::Incoming& __inS, const ::Ice::C
 }
 
 ::Ice::DispatchStatus
-MCS::UserManagment::___SetUserPW(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+MCS::UserManagement::___SetUserPW(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
 {
     __checkMode(::Ice::Idempotent, __current.mode);
     ::IceInternal::BasicStream* __is = __inS.is();
@@ -2291,7 +2291,7 @@ MCS::UserManagment::___SetUserPW(::IceInternal::Incoming& __inS, const ::Ice::Cu
 }
 
 ::Ice::DispatchStatus
-MCS::UserManagment::___SetUserRithg(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+MCS::UserManagement::___SetUserRithg(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
 {
     __checkMode(::Ice::Idempotent, __current.mode);
     ::IceInternal::BasicStream* __is = __inS.is();
@@ -2310,7 +2310,7 @@ MCS::UserManagment::___SetUserRithg(::IceInternal::Incoming& __inS, const ::Ice:
 }
 
 ::Ice::DispatchStatus
-MCS::UserManagment::___DeleteUser(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+MCS::UserManagement::___DeleteUser(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
 {
     __checkMode(::Ice::Idempotent, __current.mode);
     ::IceInternal::BasicStream* __is = __inS.is();
@@ -2327,7 +2327,7 @@ MCS::UserManagment::___DeleteUser(::IceInternal::Incoming& __inS, const ::Ice::C
 }
 
 ::Ice::DispatchStatus
-MCS::UserManagment::___GetUserCount(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+MCS::UserManagement::___GetUserCount(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
 {
     __checkMode(::Ice::Idempotent, __current.mode);
     __inS.is()->skipEmptyEncaps();
@@ -2338,7 +2338,7 @@ MCS::UserManagment::___GetUserCount(::IceInternal::Incoming& __inS, const ::Ice:
 }
 
 ::Ice::DispatchStatus
-MCS::UserManagment::___GetUserList(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+MCS::UserManagement::___GetUserList(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
 {
     __checkMode(::Ice::Idempotent, __current.mode);
     ::IceInternal::BasicStream* __is = __inS.is();
@@ -2361,7 +2361,7 @@ MCS::UserManagment::___GetUserList(::IceInternal::Incoming& __inS, const ::Ice::
     return ::Ice::DispatchOK;
 }
 
-static ::std::string __MCS__UserManagment_all[] =
+static ::std::string __MCS__UserManagement_all[] =
 {
     "CreateUser",
     "DeleteUser",
@@ -2376,15 +2376,15 @@ static ::std::string __MCS__UserManagment_all[] =
 };
 
 ::Ice::DispatchStatus
-MCS::UserManagment::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& current)
+MCS::UserManagement::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& current)
 {
-    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__UserManagment_all, __MCS__UserManagment_all + 10, current.operation);
+    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__UserManagement_all, __MCS__UserManagement_all + 10, current.operation);
     if(r.first == r.second)
     {
         throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
     }
 
-    switch(r.first - __MCS__UserManagment_all)
+    switch(r.first - __MCS__UserManagement_all)
     {
         case 0:
         {
@@ -2433,7 +2433,7 @@ MCS::UserManagment::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current
 }
 
 void
-MCS::UserManagment::__write(::IceInternal::BasicStream* __os) const
+MCS::UserManagement::__write(::IceInternal::BasicStream* __os) const
 {
     __os->writeTypeId(ice_staticId());
     __os->startWriteSlice();
@@ -2446,7 +2446,7 @@ MCS::UserManagment::__write(::IceInternal::BasicStream* __os) const
 }
 
 void
-MCS::UserManagment::__read(::IceInternal::BasicStream* __is, bool __rid)
+MCS::UserManagement::__read(::IceInternal::BasicStream* __is, bool __rid)
 {
     if(__rid)
     {
@@ -2465,30 +2465,30 @@ MCS::UserManagment::__read(::IceInternal::BasicStream* __is, bool __rid)
 // COMPILERFIX: Stream API is not supported with VC++ 6
 #if !defined(_MSC_VER) || (_MSC_VER >= 1300)
 void
-MCS::UserManagment::__write(const ::Ice::OutputStreamPtr&) const
+MCS::UserManagement::__write(const ::Ice::OutputStreamPtr&) const
 {
     Ice::MarshalException ex(__FILE__, __LINE__);
-    ex.reason = "type MCS::UserManagment was not generated with stream support";
+    ex.reason = "type MCS::UserManagement was not generated with stream support";
     throw ex;
 }
 
 void
-MCS::UserManagment::__read(const ::Ice::InputStreamPtr&, bool)
+MCS::UserManagement::__read(const ::Ice::InputStreamPtr&, bool)
 {
     Ice::MarshalException ex(__FILE__, __LINE__);
-    ex.reason = "type MCS::UserManagment was not generated with stream support";
+    ex.reason = "type MCS::UserManagement was not generated with stream support";
     throw ex;
 }
 #endif
 
 void 
-MCS::__patch__UserManagmentPtr(void* __addr, ::Ice::ObjectPtr& v)
+MCS::__patch__UserManagementPtr(void* __addr, ::Ice::ObjectPtr& v)
 {
-    ::MCS::UserManagmentPtr* p = static_cast< ::MCS::UserManagmentPtr*>(__addr);
+    ::MCS::UserManagementPtr* p = static_cast< ::MCS::UserManagementPtr*>(__addr);
     assert(p);
-    *p = ::MCS::UserManagmentPtr::dynamicCast(v);
+    *p = ::MCS::UserManagementPtr::dynamicCast(v);
     if(v && !*p)
     {
-        IceInternal::Ex::throwUOE(::MCS::UserManagment::ice_staticId(), v->ice_id());
+        IceInternal::Ex::throwUOE(::MCS::UserManagement::ice_staticId(), v->ice_id());
     }
 }

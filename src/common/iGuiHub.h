@@ -56,7 +56,7 @@ namespace MCS
 
 class GuiDataHub;
 
-class UserManagment;
+class UserManagement;
 
 }
 
@@ -69,9 +69,9 @@ class GuiDataHub;
 bool operator==(const GuiDataHub&, const GuiDataHub&);
 bool operator<(const GuiDataHub&, const GuiDataHub&);
 
-class UserManagment;
-bool operator==(const UserManagment&, const UserManagment&);
-bool operator<(const UserManagment&, const UserManagment&);
+class UserManagement;
+bool operator==(const UserManagement&, const UserManagement&);
+bool operator<(const UserManagement&, const UserManagement&);
 
 }
 
@@ -81,8 +81,8 @@ namespace IceInternal
 ::Ice::Object* upCast(::MCS::GuiDataHub*);
 ::IceProxy::Ice::Object* upCast(::IceProxy::MCS::GuiDataHub*);
 
-::Ice::Object* upCast(::MCS::UserManagment*);
-::IceProxy::Ice::Object* upCast(::IceProxy::MCS::UserManagment*);
+::Ice::Object* upCast(::MCS::UserManagement*);
+::IceProxy::Ice::Object* upCast(::IceProxy::MCS::UserManagement*);
 
 }
 
@@ -95,11 +95,11 @@ typedef ::IceInternal::ProxyHandle< ::IceProxy::MCS::GuiDataHub> GuiDataHubPrx;
 void __read(::IceInternal::BasicStream*, GuiDataHubPrx&);
 void __patch__GuiDataHubPtr(void*, ::Ice::ObjectPtr&);
 
-typedef ::IceInternal::Handle< ::MCS::UserManagment> UserManagmentPtr;
-typedef ::IceInternal::ProxyHandle< ::IceProxy::MCS::UserManagment> UserManagmentPrx;
+typedef ::IceInternal::Handle< ::MCS::UserManagement> UserManagementPtr;
+typedef ::IceInternal::ProxyHandle< ::IceProxy::MCS::UserManagement> UserManagementPrx;
 
-void __read(::IceInternal::BasicStream*, UserManagmentPrx&);
-void __patch__UserManagmentPtr(void*, ::Ice::ObjectPtr&);
+void __read(::IceInternal::BasicStream*, UserManagementPrx&);
+void __patch__UserManagementPtr(void*, ::Ice::ObjectPtr&);
 
 }
 
@@ -208,23 +208,23 @@ typedef ::IceUtil::Handle< Callback_GuiDataHub_ReadData_Base> Callback_GuiDataHu
 class Callback_GuiDataHub_WriteData_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_GuiDataHub_WriteData_Base> Callback_GuiDataHub_WriteDataPtr;
 
-class Callback_UserManagment_CreateUser_Base : virtual public ::IceInternal::CallbackBase { };
-typedef ::IceUtil::Handle< Callback_UserManagment_CreateUser_Base> Callback_UserManagment_CreateUserPtr;
+class Callback_UserManagement_CreateUser_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_UserManagement_CreateUser_Base> Callback_UserManagement_CreateUserPtr;
 
-class Callback_UserManagment_SetUserPW_Base : virtual public ::IceInternal::CallbackBase { };
-typedef ::IceUtil::Handle< Callback_UserManagment_SetUserPW_Base> Callback_UserManagment_SetUserPWPtr;
+class Callback_UserManagement_SetUserPW_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_UserManagement_SetUserPW_Base> Callback_UserManagement_SetUserPWPtr;
 
-class Callback_UserManagment_SetUserRithg_Base : virtual public ::IceInternal::CallbackBase { };
-typedef ::IceUtil::Handle< Callback_UserManagment_SetUserRithg_Base> Callback_UserManagment_SetUserRithgPtr;
+class Callback_UserManagement_SetUserRithg_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_UserManagement_SetUserRithg_Base> Callback_UserManagement_SetUserRithgPtr;
 
-class Callback_UserManagment_DeleteUser_Base : virtual public ::IceInternal::CallbackBase { };
-typedef ::IceUtil::Handle< Callback_UserManagment_DeleteUser_Base> Callback_UserManagment_DeleteUserPtr;
+class Callback_UserManagement_DeleteUser_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_UserManagement_DeleteUser_Base> Callback_UserManagement_DeleteUserPtr;
 
-class Callback_UserManagment_GetUserCount_Base : virtual public ::IceInternal::CallbackBase { };
-typedef ::IceUtil::Handle< Callback_UserManagment_GetUserCount_Base> Callback_UserManagment_GetUserCountPtr;
+class Callback_UserManagement_GetUserCount_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_UserManagement_GetUserCount_Base> Callback_UserManagement_GetUserCountPtr;
 
-class Callback_UserManagment_GetUserList_Base : virtual public ::IceInternal::CallbackBase { };
-typedef ::IceUtil::Handle< Callback_UserManagment_GetUserList_Base> Callback_UserManagment_GetUserListPtr;
+class Callback_UserManagement_GetUserList_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_UserManagement_GetUserList_Base> Callback_UserManagement_GetUserListPtr;
 
 }
 
@@ -629,7 +629,7 @@ private:
     virtual ::IceProxy::Ice::Object* __newInstance() const;
 };
 
-class UserManagment : virtual public ::IceProxy::Ice::Object
+class UserManagement : virtual public ::IceProxy::Ice::Object
 {
 public:
 
@@ -662,12 +662,12 @@ public:
         return begin_CreateUser(user, pass, session, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::MCS::Callback_UserManagment_CreateUserPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::MCS::Callback_UserManagement_CreateUserPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_CreateUser(user, pass, session, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagment_CreateUserPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_CreateUserPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_CreateUser(user, pass, session, &__ctx, __del, __cookie);
     }
@@ -710,12 +710,12 @@ public:
         return begin_SetUserPW(nUID, pass, session, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::MCS::Callback_UserManagment_SetUserPWPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::MCS::Callback_UserManagement_SetUserPWPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_SetUserPW(nUID, pass, session, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagment_SetUserPWPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_SetUserPWPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_SetUserPW(nUID, pass, session, &__ctx, __del, __cookie);
     }
@@ -758,12 +758,12 @@ public:
         return begin_SetUserRithg(nUID, nRight, session, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::MCS::Callback_UserManagment_SetUserRithgPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::MCS::Callback_UserManagement_SetUserRithgPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_SetUserRithg(nUID, nRight, session, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagment_SetUserRithgPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_SetUserRithgPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_SetUserRithg(nUID, nRight, session, &__ctx, __del, __cookie);
     }
@@ -806,12 +806,12 @@ public:
         return begin_DeleteUser(nUID, session, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::MCS::Callback_UserManagment_DeleteUserPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::MCS::Callback_UserManagement_DeleteUserPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_DeleteUser(nUID, session, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagment_DeleteUserPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_DeleteUserPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_DeleteUser(nUID, session, &__ctx, __del, __cookie);
     }
@@ -854,12 +854,12 @@ public:
         return begin_GetUserCount(&__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_GetUserCount(const ::MCS::Callback_UserManagment_GetUserCountPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_GetUserCount(const ::MCS::Callback_UserManagement_GetUserCountPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_GetUserCount(0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_GetUserCount(const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagment_GetUserCountPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_GetUserCount(const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_GetUserCountPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_GetUserCount(&__ctx, __del, __cookie);
     }
@@ -902,12 +902,12 @@ public:
         return begin_GetUserList(nBegin, nCount, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::MCS::Callback_UserManagment_GetUserListPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::MCS::Callback_UserManagement_GetUserListPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_GetUserList(nBegin, nCount, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagment_GetUserListPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_GetUserListPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_GetUserList(nBegin, nCount, &__ctx, __del, __cookie);
     }
@@ -921,193 +921,193 @@ private:
     
 public:
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_context(const ::Ice::Context& __context) const
+    ::IceInternal::ProxyHandle<UserManagement> ice_context(const ::Ice::Context& __context) const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_context(__context).get());
+        return dynamic_cast<UserManagement*>(_Base::ice_context(__context).get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_context(__context).get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_context(__context).get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_adapterId(const std::string& __id) const
+    ::IceInternal::ProxyHandle<UserManagement> ice_adapterId(const std::string& __id) const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_adapterId(__id).get());
+        return dynamic_cast<UserManagement*>(_Base::ice_adapterId(__id).get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_adapterId(__id).get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_adapterId(__id).get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_endpoints(const ::Ice::EndpointSeq& __endpoints) const
+    ::IceInternal::ProxyHandle<UserManagement> ice_endpoints(const ::Ice::EndpointSeq& __endpoints) const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_endpoints(__endpoints).get());
+        return dynamic_cast<UserManagement*>(_Base::ice_endpoints(__endpoints).get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_endpoints(__endpoints).get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_endpoints(__endpoints).get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_locatorCacheTimeout(int __timeout) const
+    ::IceInternal::ProxyHandle<UserManagement> ice_locatorCacheTimeout(int __timeout) const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_locatorCacheTimeout(__timeout).get());
+        return dynamic_cast<UserManagement*>(_Base::ice_locatorCacheTimeout(__timeout).get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_locatorCacheTimeout(__timeout).get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_locatorCacheTimeout(__timeout).get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_connectionCached(bool __cached) const
+    ::IceInternal::ProxyHandle<UserManagement> ice_connectionCached(bool __cached) const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_connectionCached(__cached).get());
+        return dynamic_cast<UserManagement*>(_Base::ice_connectionCached(__cached).get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_connectionCached(__cached).get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_connectionCached(__cached).get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_endpointSelection(::Ice::EndpointSelectionType __est) const
+    ::IceInternal::ProxyHandle<UserManagement> ice_endpointSelection(::Ice::EndpointSelectionType __est) const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_endpointSelection(__est).get());
+        return dynamic_cast<UserManagement*>(_Base::ice_endpointSelection(__est).get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_endpointSelection(__est).get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_endpointSelection(__est).get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_secure(bool __secure) const
+    ::IceInternal::ProxyHandle<UserManagement> ice_secure(bool __secure) const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_secure(__secure).get());
+        return dynamic_cast<UserManagement*>(_Base::ice_secure(__secure).get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_secure(__secure).get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_secure(__secure).get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_preferSecure(bool __preferSecure) const
+    ::IceInternal::ProxyHandle<UserManagement> ice_preferSecure(bool __preferSecure) const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_preferSecure(__preferSecure).get());
+        return dynamic_cast<UserManagement*>(_Base::ice_preferSecure(__preferSecure).get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_preferSecure(__preferSecure).get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_preferSecure(__preferSecure).get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_router(const ::Ice::RouterPrx& __router) const
+    ::IceInternal::ProxyHandle<UserManagement> ice_router(const ::Ice::RouterPrx& __router) const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_router(__router).get());
+        return dynamic_cast<UserManagement*>(_Base::ice_router(__router).get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_router(__router).get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_router(__router).get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_locator(const ::Ice::LocatorPrx& __locator) const
+    ::IceInternal::ProxyHandle<UserManagement> ice_locator(const ::Ice::LocatorPrx& __locator) const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_locator(__locator).get());
+        return dynamic_cast<UserManagement*>(_Base::ice_locator(__locator).get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_locator(__locator).get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_locator(__locator).get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_collocationOptimized(bool __co) const
+    ::IceInternal::ProxyHandle<UserManagement> ice_collocationOptimized(bool __co) const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_collocationOptimized(__co).get());
+        return dynamic_cast<UserManagement*>(_Base::ice_collocationOptimized(__co).get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_collocationOptimized(__co).get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_collocationOptimized(__co).get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_twoway() const
+    ::IceInternal::ProxyHandle<UserManagement> ice_twoway() const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_twoway().get());
+        return dynamic_cast<UserManagement*>(_Base::ice_twoway().get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_twoway().get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_twoway().get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_oneway() const
+    ::IceInternal::ProxyHandle<UserManagement> ice_oneway() const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_oneway().get());
+        return dynamic_cast<UserManagement*>(_Base::ice_oneway().get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_oneway().get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_oneway().get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_batchOneway() const
+    ::IceInternal::ProxyHandle<UserManagement> ice_batchOneway() const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_batchOneway().get());
+        return dynamic_cast<UserManagement*>(_Base::ice_batchOneway().get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_batchOneway().get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_batchOneway().get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_datagram() const
+    ::IceInternal::ProxyHandle<UserManagement> ice_datagram() const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_datagram().get());
+        return dynamic_cast<UserManagement*>(_Base::ice_datagram().get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_datagram().get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_datagram().get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_batchDatagram() const
+    ::IceInternal::ProxyHandle<UserManagement> ice_batchDatagram() const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_batchDatagram().get());
+        return dynamic_cast<UserManagement*>(_Base::ice_batchDatagram().get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_batchDatagram().get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_batchDatagram().get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_compress(bool __compress) const
+    ::IceInternal::ProxyHandle<UserManagement> ice_compress(bool __compress) const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_compress(__compress).get());
+        return dynamic_cast<UserManagement*>(_Base::ice_compress(__compress).get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_compress(__compress).get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_compress(__compress).get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_timeout(int __timeout) const
+    ::IceInternal::ProxyHandle<UserManagement> ice_timeout(int __timeout) const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_timeout(__timeout).get());
+        return dynamic_cast<UserManagement*>(_Base::ice_timeout(__timeout).get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_timeout(__timeout).get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_timeout(__timeout).get());
     #endif
     }
     
-    ::IceInternal::ProxyHandle<UserManagment> ice_connectionId(const std::string& __id) const
+    ::IceInternal::ProxyHandle<UserManagement> ice_connectionId(const std::string& __id) const
     {
     #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
         typedef ::IceProxy::Ice::Object _Base;
-        return dynamic_cast<UserManagment*>(_Base::ice_connectionId(__id).get());
+        return dynamic_cast<UserManagement*>(_Base::ice_connectionId(__id).get());
     #else
-        return dynamic_cast<UserManagment*>(::IceProxy::Ice::Object::ice_connectionId(__id).get());
+        return dynamic_cast<UserManagement*>(::IceProxy::Ice::Object::ice_connectionId(__id).get());
     #endif
     }
     
@@ -1143,7 +1143,7 @@ public:
     virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
 };
 
-class UserManagment : virtual public ::IceDelegate::Ice::Object
+class UserManagement : virtual public ::IceDelegate::Ice::Object
 {
 public:
 
@@ -1184,8 +1184,8 @@ public:
     virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 };
 
-class UserManagment : virtual public ::IceDelegate::MCS::UserManagment,
-                      virtual public ::IceDelegateM::Ice::Object
+class UserManagement : virtual public ::IceDelegate::MCS::UserManagement,
+                       virtual public ::IceDelegateM::Ice::Object
 {
 public:
 
@@ -1226,8 +1226,8 @@ public:
     virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 };
 
-class UserManagment : virtual public ::IceDelegate::MCS::UserManagment,
-                      virtual public ::IceDelegateD::Ice::Object
+class UserManagement : virtual public ::IceDelegate::MCS::UserManagement,
+                       virtual public ::IceDelegateD::Ice::Object
 {
 public:
 
@@ -1298,12 +1298,12 @@ inline bool operator<(const GuiDataHub& l, const GuiDataHub& r)
     return static_cast<const ::Ice::Object&>(l) < static_cast<const ::Ice::Object&>(r);
 }
 
-class UserManagment : virtual public ::Ice::Object
+class UserManagement : virtual public ::Ice::Object
 {
 public:
 
-    typedef UserManagmentPrx ProxyType;
-    typedef UserManagmentPtr PointerType;
+    typedef UserManagementPrx ProxyType;
+    typedef UserManagementPtr PointerType;
     
     virtual ::Ice::ObjectPtr ice_clone() const;
 
@@ -1341,12 +1341,12 @@ public:
 #endif
 };
 
-inline bool operator==(const UserManagment& l, const UserManagment& r)
+inline bool operator==(const UserManagement& l, const UserManagement& r)
 {
     return static_cast<const ::Ice::Object&>(l) == static_cast<const ::Ice::Object&>(r);
 }
 
-inline bool operator<(const UserManagment& l, const UserManagment& r)
+inline bool operator<(const UserManagement& l, const UserManagement& r)
 {
     return static_cast<const ::Ice::Object&>(l) < static_cast<const ::Ice::Object&>(r);
 }
@@ -1821,7 +1821,7 @@ newCallback_GuiDataHub_WriteData(T* instance, void (T::*cb)(::Ice::Int, const CT
 }
 
 template<class T>
-class CallbackNC_UserManagment_CreateUser : public Callback_UserManagment_CreateUser_Base, public ::IceInternal::TwowayCallbackNC<T>
+class CallbackNC_UserManagement_CreateUser : public Callback_UserManagement_CreateUser_Base, public ::IceInternal::TwowayCallbackNC<T>
 {
 public:
 
@@ -1831,14 +1831,14 @@ public:
     typedef void (T::*Sent)(bool);
     typedef void (T::*Response)(::Ice::Int);
 
-    CallbackNC_UserManagment_CreateUser(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+    CallbackNC_UserManagement_CreateUser(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
     {
     }
 
     virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
     {
-        ::MCS::UserManagmentPrx __proxy = ::MCS::UserManagmentPrx::uncheckedCast(__result->getProxy());
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
         ::Ice::Int __ret;
         try
         {
@@ -1866,20 +1866,20 @@ public:
     Response response;
 };
 
-template<class T> Callback_UserManagment_CreateUserPtr
-newCallback_UserManagment_CreateUser(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+template<class T> Callback_UserManagement_CreateUserPtr
+newCallback_UserManagement_CreateUser(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
-    return new CallbackNC_UserManagment_CreateUser<T>(instance, cb, excb, sentcb);
+    return new CallbackNC_UserManagement_CreateUser<T>(instance, cb, excb, sentcb);
 }
 
-template<class T> Callback_UserManagment_CreateUserPtr
-newCallback_UserManagment_CreateUser(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+template<class T> Callback_UserManagement_CreateUserPtr
+newCallback_UserManagement_CreateUser(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
-    return new CallbackNC_UserManagment_CreateUser<T>(instance, cb, excb, sentcb);
+    return new CallbackNC_UserManagement_CreateUser<T>(instance, cb, excb, sentcb);
 }
 
 template<class T, typename CT>
-class Callback_UserManagment_CreateUser : public Callback_UserManagment_CreateUser_Base, public ::IceInternal::TwowayCallback<T, CT>
+class Callback_UserManagement_CreateUser : public Callback_UserManagement_CreateUser_Base, public ::IceInternal::TwowayCallback<T, CT>
 {
 public:
 
@@ -1889,14 +1889,14 @@ public:
     typedef void (T::*Sent)(bool , const CT&);
     typedef void (T::*Response)(::Ice::Int, const CT&);
 
-    Callback_UserManagment_CreateUser(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+    Callback_UserManagement_CreateUser(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
     {
     }
 
     virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
     {
-        ::MCS::UserManagmentPrx __proxy = ::MCS::UserManagmentPrx::uncheckedCast(__result->getProxy());
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
         ::Ice::Int __ret;
         try
         {
@@ -1924,20 +1924,20 @@ public:
     Response response;
 };
 
-template<class T, typename CT> Callback_UserManagment_CreateUserPtr
-newCallback_UserManagment_CreateUser(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+template<class T, typename CT> Callback_UserManagement_CreateUserPtr
+newCallback_UserManagement_CreateUser(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
-    return new Callback_UserManagment_CreateUser<T, CT>(instance, cb, excb, sentcb);
+    return new Callback_UserManagement_CreateUser<T, CT>(instance, cb, excb, sentcb);
 }
 
-template<class T, typename CT> Callback_UserManagment_CreateUserPtr
-newCallback_UserManagment_CreateUser(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+template<class T, typename CT> Callback_UserManagement_CreateUserPtr
+newCallback_UserManagement_CreateUser(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
-    return new Callback_UserManagment_CreateUser<T, CT>(instance, cb, excb, sentcb);
+    return new Callback_UserManagement_CreateUser<T, CT>(instance, cb, excb, sentcb);
 }
 
 template<class T>
-class CallbackNC_UserManagment_SetUserPW : public Callback_UserManagment_SetUserPW_Base, public ::IceInternal::TwowayCallbackNC<T>
+class CallbackNC_UserManagement_SetUserPW : public Callback_UserManagement_SetUserPW_Base, public ::IceInternal::TwowayCallbackNC<T>
 {
 public:
 
@@ -1947,14 +1947,14 @@ public:
     typedef void (T::*Sent)(bool);
     typedef void (T::*Response)(::Ice::Int);
 
-    CallbackNC_UserManagment_SetUserPW(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+    CallbackNC_UserManagement_SetUserPW(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
     {
     }
 
     virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
     {
-        ::MCS::UserManagmentPrx __proxy = ::MCS::UserManagmentPrx::uncheckedCast(__result->getProxy());
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
         ::Ice::Int __ret;
         try
         {
@@ -1982,20 +1982,20 @@ public:
     Response response;
 };
 
-template<class T> Callback_UserManagment_SetUserPWPtr
-newCallback_UserManagment_SetUserPW(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+template<class T> Callback_UserManagement_SetUserPWPtr
+newCallback_UserManagement_SetUserPW(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
-    return new CallbackNC_UserManagment_SetUserPW<T>(instance, cb, excb, sentcb);
+    return new CallbackNC_UserManagement_SetUserPW<T>(instance, cb, excb, sentcb);
 }
 
-template<class T> Callback_UserManagment_SetUserPWPtr
-newCallback_UserManagment_SetUserPW(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+template<class T> Callback_UserManagement_SetUserPWPtr
+newCallback_UserManagement_SetUserPW(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
-    return new CallbackNC_UserManagment_SetUserPW<T>(instance, cb, excb, sentcb);
+    return new CallbackNC_UserManagement_SetUserPW<T>(instance, cb, excb, sentcb);
 }
 
 template<class T, typename CT>
-class Callback_UserManagment_SetUserPW : public Callback_UserManagment_SetUserPW_Base, public ::IceInternal::TwowayCallback<T, CT>
+class Callback_UserManagement_SetUserPW : public Callback_UserManagement_SetUserPW_Base, public ::IceInternal::TwowayCallback<T, CT>
 {
 public:
 
@@ -2005,14 +2005,14 @@ public:
     typedef void (T::*Sent)(bool , const CT&);
     typedef void (T::*Response)(::Ice::Int, const CT&);
 
-    Callback_UserManagment_SetUserPW(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+    Callback_UserManagement_SetUserPW(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
     {
     }
 
     virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
     {
-        ::MCS::UserManagmentPrx __proxy = ::MCS::UserManagmentPrx::uncheckedCast(__result->getProxy());
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
         ::Ice::Int __ret;
         try
         {
@@ -2040,20 +2040,20 @@ public:
     Response response;
 };
 
-template<class T, typename CT> Callback_UserManagment_SetUserPWPtr
-newCallback_UserManagment_SetUserPW(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+template<class T, typename CT> Callback_UserManagement_SetUserPWPtr
+newCallback_UserManagement_SetUserPW(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
-    return new Callback_UserManagment_SetUserPW<T, CT>(instance, cb, excb, sentcb);
+    return new Callback_UserManagement_SetUserPW<T, CT>(instance, cb, excb, sentcb);
 }
 
-template<class T, typename CT> Callback_UserManagment_SetUserPWPtr
-newCallback_UserManagment_SetUserPW(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+template<class T, typename CT> Callback_UserManagement_SetUserPWPtr
+newCallback_UserManagement_SetUserPW(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
-    return new Callback_UserManagment_SetUserPW<T, CT>(instance, cb, excb, sentcb);
+    return new Callback_UserManagement_SetUserPW<T, CT>(instance, cb, excb, sentcb);
 }
 
 template<class T>
-class CallbackNC_UserManagment_SetUserRithg : public Callback_UserManagment_SetUserRithg_Base, public ::IceInternal::TwowayCallbackNC<T>
+class CallbackNC_UserManagement_SetUserRithg : public Callback_UserManagement_SetUserRithg_Base, public ::IceInternal::TwowayCallbackNC<T>
 {
 public:
 
@@ -2063,14 +2063,14 @@ public:
     typedef void (T::*Sent)(bool);
     typedef void (T::*Response)(::Ice::Int);
 
-    CallbackNC_UserManagment_SetUserRithg(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+    CallbackNC_UserManagement_SetUserRithg(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
     {
     }
 
     virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
     {
-        ::MCS::UserManagmentPrx __proxy = ::MCS::UserManagmentPrx::uncheckedCast(__result->getProxy());
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
         ::Ice::Int __ret;
         try
         {
@@ -2098,20 +2098,20 @@ public:
     Response response;
 };
 
-template<class T> Callback_UserManagment_SetUserRithgPtr
-newCallback_UserManagment_SetUserRithg(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+template<class T> Callback_UserManagement_SetUserRithgPtr
+newCallback_UserManagement_SetUserRithg(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
-    return new CallbackNC_UserManagment_SetUserRithg<T>(instance, cb, excb, sentcb);
+    return new CallbackNC_UserManagement_SetUserRithg<T>(instance, cb, excb, sentcb);
 }
 
-template<class T> Callback_UserManagment_SetUserRithgPtr
-newCallback_UserManagment_SetUserRithg(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+template<class T> Callback_UserManagement_SetUserRithgPtr
+newCallback_UserManagement_SetUserRithg(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
-    return new CallbackNC_UserManagment_SetUserRithg<T>(instance, cb, excb, sentcb);
+    return new CallbackNC_UserManagement_SetUserRithg<T>(instance, cb, excb, sentcb);
 }
 
 template<class T, typename CT>
-class Callback_UserManagment_SetUserRithg : public Callback_UserManagment_SetUserRithg_Base, public ::IceInternal::TwowayCallback<T, CT>
+class Callback_UserManagement_SetUserRithg : public Callback_UserManagement_SetUserRithg_Base, public ::IceInternal::TwowayCallback<T, CT>
 {
 public:
 
@@ -2121,14 +2121,14 @@ public:
     typedef void (T::*Sent)(bool , const CT&);
     typedef void (T::*Response)(::Ice::Int, const CT&);
 
-    Callback_UserManagment_SetUserRithg(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+    Callback_UserManagement_SetUserRithg(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
     {
     }
 
     virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
     {
-        ::MCS::UserManagmentPrx __proxy = ::MCS::UserManagmentPrx::uncheckedCast(__result->getProxy());
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
         ::Ice::Int __ret;
         try
         {
@@ -2156,20 +2156,20 @@ public:
     Response response;
 };
 
-template<class T, typename CT> Callback_UserManagment_SetUserRithgPtr
-newCallback_UserManagment_SetUserRithg(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+template<class T, typename CT> Callback_UserManagement_SetUserRithgPtr
+newCallback_UserManagement_SetUserRithg(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
-    return new Callback_UserManagment_SetUserRithg<T, CT>(instance, cb, excb, sentcb);
+    return new Callback_UserManagement_SetUserRithg<T, CT>(instance, cb, excb, sentcb);
 }
 
-template<class T, typename CT> Callback_UserManagment_SetUserRithgPtr
-newCallback_UserManagment_SetUserRithg(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+template<class T, typename CT> Callback_UserManagement_SetUserRithgPtr
+newCallback_UserManagement_SetUserRithg(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
-    return new Callback_UserManagment_SetUserRithg<T, CT>(instance, cb, excb, sentcb);
+    return new Callback_UserManagement_SetUserRithg<T, CT>(instance, cb, excb, sentcb);
 }
 
 template<class T>
-class CallbackNC_UserManagment_DeleteUser : public Callback_UserManagment_DeleteUser_Base, public ::IceInternal::TwowayCallbackNC<T>
+class CallbackNC_UserManagement_DeleteUser : public Callback_UserManagement_DeleteUser_Base, public ::IceInternal::TwowayCallbackNC<T>
 {
 public:
 
@@ -2179,14 +2179,14 @@ public:
     typedef void (T::*Sent)(bool);
     typedef void (T::*Response)(::Ice::Int);
 
-    CallbackNC_UserManagment_DeleteUser(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+    CallbackNC_UserManagement_DeleteUser(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
     {
     }
 
     virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
     {
-        ::MCS::UserManagmentPrx __proxy = ::MCS::UserManagmentPrx::uncheckedCast(__result->getProxy());
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
         ::Ice::Int __ret;
         try
         {
@@ -2214,20 +2214,20 @@ public:
     Response response;
 };
 
-template<class T> Callback_UserManagment_DeleteUserPtr
-newCallback_UserManagment_DeleteUser(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+template<class T> Callback_UserManagement_DeleteUserPtr
+newCallback_UserManagement_DeleteUser(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
-    return new CallbackNC_UserManagment_DeleteUser<T>(instance, cb, excb, sentcb);
+    return new CallbackNC_UserManagement_DeleteUser<T>(instance, cb, excb, sentcb);
 }
 
-template<class T> Callback_UserManagment_DeleteUserPtr
-newCallback_UserManagment_DeleteUser(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+template<class T> Callback_UserManagement_DeleteUserPtr
+newCallback_UserManagement_DeleteUser(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
-    return new CallbackNC_UserManagment_DeleteUser<T>(instance, cb, excb, sentcb);
+    return new CallbackNC_UserManagement_DeleteUser<T>(instance, cb, excb, sentcb);
 }
 
 template<class T, typename CT>
-class Callback_UserManagment_DeleteUser : public Callback_UserManagment_DeleteUser_Base, public ::IceInternal::TwowayCallback<T, CT>
+class Callback_UserManagement_DeleteUser : public Callback_UserManagement_DeleteUser_Base, public ::IceInternal::TwowayCallback<T, CT>
 {
 public:
 
@@ -2237,14 +2237,14 @@ public:
     typedef void (T::*Sent)(bool , const CT&);
     typedef void (T::*Response)(::Ice::Int, const CT&);
 
-    Callback_UserManagment_DeleteUser(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+    Callback_UserManagement_DeleteUser(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
     {
     }
 
     virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
     {
-        ::MCS::UserManagmentPrx __proxy = ::MCS::UserManagmentPrx::uncheckedCast(__result->getProxy());
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
         ::Ice::Int __ret;
         try
         {
@@ -2272,20 +2272,20 @@ public:
     Response response;
 };
 
-template<class T, typename CT> Callback_UserManagment_DeleteUserPtr
-newCallback_UserManagment_DeleteUser(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+template<class T, typename CT> Callback_UserManagement_DeleteUserPtr
+newCallback_UserManagement_DeleteUser(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
-    return new Callback_UserManagment_DeleteUser<T, CT>(instance, cb, excb, sentcb);
+    return new Callback_UserManagement_DeleteUser<T, CT>(instance, cb, excb, sentcb);
 }
 
-template<class T, typename CT> Callback_UserManagment_DeleteUserPtr
-newCallback_UserManagment_DeleteUser(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+template<class T, typename CT> Callback_UserManagement_DeleteUserPtr
+newCallback_UserManagement_DeleteUser(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
-    return new Callback_UserManagment_DeleteUser<T, CT>(instance, cb, excb, sentcb);
+    return new Callback_UserManagement_DeleteUser<T, CT>(instance, cb, excb, sentcb);
 }
 
 template<class T>
-class CallbackNC_UserManagment_GetUserCount : public Callback_UserManagment_GetUserCount_Base, public ::IceInternal::TwowayCallbackNC<T>
+class CallbackNC_UserManagement_GetUserCount : public Callback_UserManagement_GetUserCount_Base, public ::IceInternal::TwowayCallbackNC<T>
 {
 public:
 
@@ -2295,14 +2295,14 @@ public:
     typedef void (T::*Sent)(bool);
     typedef void (T::*Response)(::Ice::Int);
 
-    CallbackNC_UserManagment_GetUserCount(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+    CallbackNC_UserManagement_GetUserCount(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
     {
     }
 
     virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
     {
-        ::MCS::UserManagmentPrx __proxy = ::MCS::UserManagmentPrx::uncheckedCast(__result->getProxy());
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
         ::Ice::Int __ret;
         try
         {
@@ -2330,20 +2330,20 @@ public:
     Response response;
 };
 
-template<class T> Callback_UserManagment_GetUserCountPtr
-newCallback_UserManagment_GetUserCount(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+template<class T> Callback_UserManagement_GetUserCountPtr
+newCallback_UserManagement_GetUserCount(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
-    return new CallbackNC_UserManagment_GetUserCount<T>(instance, cb, excb, sentcb);
+    return new CallbackNC_UserManagement_GetUserCount<T>(instance, cb, excb, sentcb);
 }
 
-template<class T> Callback_UserManagment_GetUserCountPtr
-newCallback_UserManagment_GetUserCount(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+template<class T> Callback_UserManagement_GetUserCountPtr
+newCallback_UserManagement_GetUserCount(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
-    return new CallbackNC_UserManagment_GetUserCount<T>(instance, cb, excb, sentcb);
+    return new CallbackNC_UserManagement_GetUserCount<T>(instance, cb, excb, sentcb);
 }
 
 template<class T, typename CT>
-class Callback_UserManagment_GetUserCount : public Callback_UserManagment_GetUserCount_Base, public ::IceInternal::TwowayCallback<T, CT>
+class Callback_UserManagement_GetUserCount : public Callback_UserManagement_GetUserCount_Base, public ::IceInternal::TwowayCallback<T, CT>
 {
 public:
 
@@ -2353,14 +2353,14 @@ public:
     typedef void (T::*Sent)(bool , const CT&);
     typedef void (T::*Response)(::Ice::Int, const CT&);
 
-    Callback_UserManagment_GetUserCount(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+    Callback_UserManagement_GetUserCount(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
     {
     }
 
     virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
     {
-        ::MCS::UserManagmentPrx __proxy = ::MCS::UserManagmentPrx::uncheckedCast(__result->getProxy());
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
         ::Ice::Int __ret;
         try
         {
@@ -2388,20 +2388,20 @@ public:
     Response response;
 };
 
-template<class T, typename CT> Callback_UserManagment_GetUserCountPtr
-newCallback_UserManagment_GetUserCount(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+template<class T, typename CT> Callback_UserManagement_GetUserCountPtr
+newCallback_UserManagement_GetUserCount(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
-    return new Callback_UserManagment_GetUserCount<T, CT>(instance, cb, excb, sentcb);
+    return new Callback_UserManagement_GetUserCount<T, CT>(instance, cb, excb, sentcb);
 }
 
-template<class T, typename CT> Callback_UserManagment_GetUserCountPtr
-newCallback_UserManagment_GetUserCount(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+template<class T, typename CT> Callback_UserManagement_GetUserCountPtr
+newCallback_UserManagement_GetUserCount(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
-    return new Callback_UserManagment_GetUserCount<T, CT>(instance, cb, excb, sentcb);
+    return new Callback_UserManagement_GetUserCount<T, CT>(instance, cb, excb, sentcb);
 }
 
 template<class T>
-class CallbackNC_UserManagment_GetUserList : public Callback_UserManagment_GetUserList_Base, public ::IceInternal::TwowayCallbackNC<T>
+class CallbackNC_UserManagement_GetUserList : public Callback_UserManagement_GetUserList_Base, public ::IceInternal::TwowayCallbackNC<T>
 {
 public:
 
@@ -2411,14 +2411,14 @@ public:
     typedef void (T::*Sent)(bool);
     typedef void (T::*Response)(const ::MCS::UserList&);
 
-    CallbackNC_UserManagment_GetUserList(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+    CallbackNC_UserManagement_GetUserList(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
     {
     }
 
     virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
     {
-        ::MCS::UserManagmentPrx __proxy = ::MCS::UserManagmentPrx::uncheckedCast(__result->getProxy());
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
         ::MCS::UserList __ret;
         try
         {
@@ -2446,20 +2446,20 @@ public:
     Response response;
 };
 
-template<class T> Callback_UserManagment_GetUserListPtr
-newCallback_UserManagment_GetUserList(const IceUtil::Handle<T>& instance, void (T::*cb)(const ::MCS::UserList&), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+template<class T> Callback_UserManagement_GetUserListPtr
+newCallback_UserManagement_GetUserList(const IceUtil::Handle<T>& instance, void (T::*cb)(const ::MCS::UserList&), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
-    return new CallbackNC_UserManagment_GetUserList<T>(instance, cb, excb, sentcb);
+    return new CallbackNC_UserManagement_GetUserList<T>(instance, cb, excb, sentcb);
 }
 
-template<class T> Callback_UserManagment_GetUserListPtr
-newCallback_UserManagment_GetUserList(T* instance, void (T::*cb)(const ::MCS::UserList&), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+template<class T> Callback_UserManagement_GetUserListPtr
+newCallback_UserManagement_GetUserList(T* instance, void (T::*cb)(const ::MCS::UserList&), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
-    return new CallbackNC_UserManagment_GetUserList<T>(instance, cb, excb, sentcb);
+    return new CallbackNC_UserManagement_GetUserList<T>(instance, cb, excb, sentcb);
 }
 
 template<class T, typename CT>
-class Callback_UserManagment_GetUserList : public Callback_UserManagment_GetUserList_Base, public ::IceInternal::TwowayCallback<T, CT>
+class Callback_UserManagement_GetUserList : public Callback_UserManagement_GetUserList_Base, public ::IceInternal::TwowayCallback<T, CT>
 {
 public:
 
@@ -2469,14 +2469,14 @@ public:
     typedef void (T::*Sent)(bool , const CT&);
     typedef void (T::*Response)(const ::MCS::UserList&, const CT&);
 
-    Callback_UserManagment_GetUserList(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+    Callback_UserManagement_GetUserList(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
     {
     }
 
     virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
     {
-        ::MCS::UserManagmentPrx __proxy = ::MCS::UserManagmentPrx::uncheckedCast(__result->getProxy());
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
         ::MCS::UserList __ret;
         try
         {
@@ -2504,16 +2504,16 @@ public:
     Response response;
 };
 
-template<class T, typename CT> Callback_UserManagment_GetUserListPtr
-newCallback_UserManagment_GetUserList(const IceUtil::Handle<T>& instance, void (T::*cb)(const ::MCS::UserList&, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+template<class T, typename CT> Callback_UserManagement_GetUserListPtr
+newCallback_UserManagement_GetUserList(const IceUtil::Handle<T>& instance, void (T::*cb)(const ::MCS::UserList&, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
-    return new Callback_UserManagment_GetUserList<T, CT>(instance, cb, excb, sentcb);
+    return new Callback_UserManagement_GetUserList<T, CT>(instance, cb, excb, sentcb);
 }
 
-template<class T, typename CT> Callback_UserManagment_GetUserListPtr
-newCallback_UserManagment_GetUserList(T* instance, void (T::*cb)(const ::MCS::UserList&, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+template<class T, typename CT> Callback_UserManagement_GetUserListPtr
+newCallback_UserManagement_GetUserList(T* instance, void (T::*cb)(const ::MCS::UserList&, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
-    return new Callback_UserManagment_GetUserList<T, CT>(instance, cb, excb, sentcb);
+    return new Callback_UserManagement_GetUserList<T, CT>(instance, cb, excb, sentcb);
 }
 
 }
