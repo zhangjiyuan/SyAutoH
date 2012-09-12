@@ -40,7 +40,9 @@ namespace RailView
                                 foreach (XmlNode ctwoxn in cTwoNodeList)
                                 {
                                     XmlElement ctwoxe=(XmlElement)ctwoxn;
-                                    if (ctwoxe.Name == "Speed")
+                                    if (ctwoxe.Name == "GraphType")
+                                        strTemp.graphType = int.Parse(ctwoxe.InnerText);
+                                    else if (ctwoxe.Name == "Speed")
                                         strTemp.speed = float.Parse(ctwoxe.InnerText);
                                     else if (ctwoxe.Name == "Lenght")
                                         strTemp.lenght = int.Parse(ctwoxe.InnerText);
@@ -74,7 +76,9 @@ namespace RailView
                                 foreach(XmlNode ctwoxn in cTwoNodeList)
                                 {
                                     XmlElement ctwoxe=(XmlElement)ctwoxn;
-                                    if (ctwoxe.Name == "speed")
+                                    if (ctwoxe.Name == "GraphType")
+                                        curTemp.graphType = int.Parse(ctwoxe.InnerText);
+                                    else if (ctwoxe.Name == "speed")
                                         curTemp.speed = float.Parse(ctwoxe.InnerText);
                                     else if (ctwoxe.Name == "StartAngle")
                                         curTemp.startAngle = int.Parse(ctwoxe.InnerText);
@@ -127,7 +131,9 @@ namespace RailView
                                 foreach (XmlNode ctwoxn in cTwoNodeList)
                                 {
                                     XmlElement ctwoxe = (XmlElement)ctwoxn;
-                                    if (ctwoxe.Name == "Speed")
+                                    if (ctwoxe.Name == "GraphType")
+                                        croTemp.graphType = int.Parse(ctwoxe.InnerText);
+                                    else if (ctwoxe.Name == "Speed")
                                         croTemp.speed = float.Parse(ctwoxe.InnerText);
                                     else if (ctwoxe.Name == "FirstPart")
                                         croTemp.firstPart = int.Parse(ctwoxe.InnerText);
@@ -186,11 +192,12 @@ namespace RailView
 
     public abstract class RailEle
     {
+        public int graphType = 0;
+        public float speed = 0;
     }
 
     public class StraightEle : RailEle
-    {
-        public float speed = 0;
+    {      
         public int lenght = 0;
         public int rotateAngle = 0;
         public List<Point> pointList = new List<Point>();
@@ -198,7 +205,6 @@ namespace RailView
 
     public class CurvedEle : RailEle
     {
-        public float speed = 0;
         public int startAngle = 0;
         public int rotateAngle = 0;
         public int radiu = 0;
@@ -209,7 +215,6 @@ namespace RailView
 
     public class CrossEle : RailEle
     {
-        public float speed = 0;
         public int firstPart = 0;
         public int secPart = 0;
         public int thPart = 0;
