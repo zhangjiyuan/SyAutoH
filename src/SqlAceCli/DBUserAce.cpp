@@ -36,17 +36,31 @@ int DBUserAce::CreateUser(const ::std::string& sName,
 	CoInitialize(NULL);
 	HRESULT hr;
 	CMcsUserCommander dbUser;
-	hr = dbUser.OpenAll();
+
+	hr = dbUser.OpenDataSource();
 	if (FAILED(hr))
 	{
 		return 2;
 	}
-	while(dbUser.MoveNext() != DB_S_ENDOFROWSET)
+	CString strFind = L"Select Name from mcsuser where Name = '#@#'";
+	strFind.Replace(L"#@#", strName);
+	hr = dbUser.Open(dbUser.m_session, strFind);
+	if (FAILED(hr))
 	{
-		CString line;
-		line.Format(L"ID: %d | Name: %s | PW: %s | Right: %d \r\n", dbUser.m_id,
-			dbUser.m_Name, dbUser.m_Password, dbUser.m_UserRight);
-		_tprintf(line);
+		return 2;
+	}
+	if (dbUser.MoveNext() != DB_S_ENDOFROWSET )
+	{
+		dbUser.CloseAll();
+		return 3;
+	}
+	dbUser.CloseAll();
+
+
+	hr = dbUser.OpenAll();
+	if (FAILED(hr))
+	{
+		return 2;
 	}
 
 	wcscpy_s(dbUser.m_Name, strName);
