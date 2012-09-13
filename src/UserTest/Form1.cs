@@ -30,5 +30,19 @@ namespace UserTest
         {
             userMge.ConnectServer();
         }
+
+        private void bnNewUser_Click(object sender, EventArgs e)
+        {
+            int nRet = userMge.CreateUser(this.textBoxUser.Text,
+                this.maskedTextBoxPW.Text, 3);
+            if (0 == nRet)
+            {
+                MessageBox.Show("Success create user.");
+            }
+            else
+            {
+                MessageBox.Show("Failed to create user.");
+            }
+        }
     }
 }

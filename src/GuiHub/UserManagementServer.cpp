@@ -16,5 +16,6 @@ UserManagementServer::~UserManagementServer(void)
 void UserManagementServer::GetProxy()
 {
 	UserManagementI* pManager = new UserManagementI();
+	pManager->Init();
 	m_objPtr = pManager;
 }

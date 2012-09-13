@@ -12,6 +12,10 @@
 
 #pragma once
 #include <windows.h>
+#include <string>
+#include <list>
+
+using namespace std;
 
 class SqlServerNCLI;
 // 此类是从 SqlAceCli.dll 导出的
@@ -31,9 +35,22 @@ public:
 	int FindFoupLocation(WCHAR* sFoupID, int& nOHV, int& nStocker);
 };
 
+typedef list<string> strList;
 class SQLACECLI_API DBUserAce
 {
 public:
 	DBUserAce(void);
 	~DBUserAce(void);
+
+public:
+	//int OpenDB();
+	//int CloseDB();
+	int Login(const ::std::string& sName, const ::std::string& sHash);
+	int Logout(int);
+	int CreateUser(const ::std::string& sName, const ::std::string& sPassWord, int nRight);
+	int DeleteUser(int, int);
+	int SetUserPW(int, const ::std::string&, int);
+	int SetUserRight(int, int, int);
+	int GetUserCount();
+	strList GetUserList(int, int);
 };

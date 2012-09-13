@@ -71,5 +71,99 @@ namespace GuiAccess
            
             return nRet;
         }
+
+        public int Logout(int nUser)
+        {
+            int nRet = 0;
+            try
+            {
+                nRet = remote.Logout(nUser);
+            }
+            catch (System.Exception /*ex*/)
+            {
+            	
+            }
+            return nRet;
+        }
+
+        public int CreateUser(string user, string pass, int session)
+        {
+            int nRet = 0;
+            try
+            {
+                nRet = remote.CreateUser(user, pass, session);
+            }
+            catch (System.Exception /*ex*/)
+            {
+
+            }
+            return nRet;
+        }
+
+        public int DeleteUser(int nUID, int session)
+        {
+            int nRet = 0;
+            try
+            {
+                nRet = remote.DeleteUser(nUID, session);
+            }
+            catch (System.Exception /*ex*/)
+            {
+
+            }
+            return nRet;
+        }
+
+        public MCS.User[] GetUserList(int nBegin, int nCount)
+        {
+            try
+            {
+                return remote.GetUserList(nBegin, nCount);
+            }
+            catch (System.Exception /*ex*/)
+            {
+
+            }
+            return null;
+        }
+        public int GetUserCount()
+        {
+            int nRet = 0;
+            try
+            {
+                nRet = remote.GetUserCount();
+            }
+            catch (System.Exception /*ex*/)
+            {
+
+            }
+            return nRet;
+        }
+        public int SetUserPW(int nUID, string pass, int session)
+        {
+            int nRet = 0;
+            try
+            {
+                nRet = remote.SetUserPW(nUID, pass, session);
+            }
+            catch (System.Exception /*ex*/)
+            {
+
+            }
+            return nRet;
+        }
+        int SetUserRight(int nUID, int nRight, int session)
+        {
+            int nRet = 0;
+            try
+            {
+                nRet = remote.SetUserRight(nUID, nRight, session);
+            }
+            catch (System.Exception /*ex*/)
+            {
+
+            }
+            return nRet;
+        }
     }
 }

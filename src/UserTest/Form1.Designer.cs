@@ -35,6 +35,7 @@
             this.bnLogin = new System.Windows.Forms.Button();
             this.bnLogout = new System.Windows.Forms.Button();
             this.labelHashUser = new System.Windows.Forms.Label();
+            this.bnNewUser = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxUser
@@ -98,11 +99,22 @@
             this.labelHashUser.TabIndex = 6;
             this.labelHashUser.Text = "Hash Info";
             // 
+            // bnNewUser
+            // 
+            this.bnNewUser.Location = new System.Drawing.Point(59, 56);
+            this.bnNewUser.Name = "bnNewUser";
+            this.bnNewUser.Size = new System.Drawing.Size(75, 23);
+            this.bnNewUser.TabIndex = 7;
+            this.bnNewUser.Text = "Create";
+            this.bnNewUser.UseVisualStyleBackColor = true;
+            this.bnNewUser.Click += new System.EventHandler(this.bnNewUser_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(679, 344);
+            this.Controls.Add(this.bnNewUser);
             this.Controls.Add(this.labelHashUser);
             this.Controls.Add(this.bnLogout);
             this.Controls.Add(this.bnLogin);
@@ -127,6 +139,7 @@
         private System.Windows.Forms.Button bnLogin;
         private System.Windows.Forms.Button bnLogout;
         private System.Windows.Forms.Label labelHashUser;
+        private System.Windows.Forms.Button bnNewUser;
     }
 }
 
