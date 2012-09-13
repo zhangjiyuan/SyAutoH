@@ -16,8 +16,6 @@ module MCS
 
 interface GuiDataHub
 {
-    idempotent int Login(string user, string pass);
-    idempotent int Logout(int session);
     idempotent string ReadData(string Tag, int session);
     idempotent int WriteData(string Tag, string Val, int session);
 };
@@ -32,9 +30,11 @@ struct User
 sequence<User> UserList;
 interface UserManagement
 {
+  idempotent int Login(string user, string pass);
+  idempotent int Logout(int session);
 	idempotent int CreateUser(string user, string pass, int session);
 	idempotent int SetUserPW(int nUID, string pass, int session);
-	idempotent int SetUserRithg(int nUID, int nRight, int session);
+	idempotent int SetUserRight(int nUID, int nRight, int session);
 	idempotent int DeleteUser(int nUID, int session);
 	idempotent int GetUserCount();
 	idempotent UserList GetUserList(int nBegin, int nCount);

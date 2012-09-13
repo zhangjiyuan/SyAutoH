@@ -2,6 +2,7 @@
 #include "MaterialController.h"
 #include "../MesLink/MesLink.h"
 #include "../SqlAceCli/SqlAceCli.h"
+#include "../GuiHub/GuiHub.h"
 #include <iostream>
 #include <string>
 
@@ -52,6 +53,7 @@ MaterialController::MaterialController(void)
 {
 	m_pMesLink = NULL;
 	m_pSqlAce = NULL;
+	m_pGuiHub =NULL;
 }
 
 
@@ -69,6 +71,12 @@ MaterialController::~MaterialController(void)
 	{
 		delete m_pSqlAce;
 		m_pSqlAce = NULL;
+	}
+
+	if (NULL != m_pGuiHub)
+	{
+		delete m_pGuiHub;
+		m_pGuiHub = NULL;
 	}
 
 	delete receiver;
@@ -90,14 +98,16 @@ int MaterialController::Init(void)
 		source = new CSource();
 		receiver = new CReceiver();
 		receiver->m_pSqlcli = m_pSqlAce;
-		receiver->MyHanderS(L"45", 0);
+		//receiver->MyHanderS(L"45", 0);
 
 		m_pMesLink->Init(source);
-
-		//CReceiver receiver;
-		//CSource source;
-
 		receiver->hookEvent(source);
+	}
+
+	if (NULL == m_pGuiHub)
+	{
+		m_pGuiHub = new CGuiHub();
+		m_pGuiHub->StartUserManagement();
 	}
 	return 0;
 }

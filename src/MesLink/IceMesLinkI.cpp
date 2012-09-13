@@ -5,6 +5,7 @@ using namespace std;
 #include "MesLink.h"
 IceMesLinkI::IceMesLinkI(void)
 {
+	cout<< "MesLink Server is Ready." << endl;
 }
 
 

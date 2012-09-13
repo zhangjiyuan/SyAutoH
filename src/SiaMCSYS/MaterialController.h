@@ -4,6 +4,7 @@ class CMesLink;
 class CSource;
 class CReceiver;
 class CSqlAceCli;
+class CGuiHub;
 class MaterialController
 {
 public:
@@ -15,6 +16,7 @@ private:
 	CMesLink* m_pMesLink;
 	CSqlAceCli* m_pSqlAce;
 	CReceiver *receiver;
+	CGuiHub* m_pGuiHub;
 	CSource *source;
 };
 

@@ -196,17 +196,17 @@ void __readUserList(::IceInternal::BasicStream*, UserList&);
 namespace MCS
 {
 
-class Callback_GuiDataHub_Login_Base : virtual public ::IceInternal::CallbackBase { };
-typedef ::IceUtil::Handle< Callback_GuiDataHub_Login_Base> Callback_GuiDataHub_LoginPtr;
-
-class Callback_GuiDataHub_Logout_Base : virtual public ::IceInternal::CallbackBase { };
-typedef ::IceUtil::Handle< Callback_GuiDataHub_Logout_Base> Callback_GuiDataHub_LogoutPtr;
-
 class Callback_GuiDataHub_ReadData_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_GuiDataHub_ReadData_Base> Callback_GuiDataHub_ReadDataPtr;
 
 class Callback_GuiDataHub_WriteData_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_GuiDataHub_WriteData_Base> Callback_GuiDataHub_WriteDataPtr;
+
+class Callback_UserManagement_Login_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_UserManagement_Login_Base> Callback_UserManagement_LoginPtr;
+
+class Callback_UserManagement_Logout_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_UserManagement_Logout_Base> Callback_UserManagement_LogoutPtr;
 
 class Callback_UserManagement_CreateUser_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_UserManagement_CreateUser_Base> Callback_UserManagement_CreateUserPtr;
@@ -214,8 +214,8 @@ typedef ::IceUtil::Handle< Callback_UserManagement_CreateUser_Base> Callback_Use
 class Callback_UserManagement_SetUserPW_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_UserManagement_SetUserPW_Base> Callback_UserManagement_SetUserPWPtr;
 
-class Callback_UserManagement_SetUserRithg_Base : virtual public ::IceInternal::CallbackBase { };
-typedef ::IceUtil::Handle< Callback_UserManagement_SetUserRithg_Base> Callback_UserManagement_SetUserRithgPtr;
+class Callback_UserManagement_SetUserRight_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_UserManagement_SetUserRight_Base> Callback_UserManagement_SetUserRightPtr;
 
 class Callback_UserManagement_DeleteUser_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_UserManagement_DeleteUser_Base> Callback_UserManagement_DeleteUserPtr;
@@ -236,102 +236,6 @@ namespace MCS
 
 class GuiDataHub : virtual public ::IceProxy::Ice::Object
 {
-public:
-
-    ::Ice::Int Login(const ::std::string& user, const ::std::string& pass)
-    {
-        return Login(user, pass, 0);
-    }
-    ::Ice::Int Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context& __ctx)
-    {
-        return Login(user, pass, &__ctx);
-    }
-
-    ::Ice::AsyncResultPtr begin_Login(const ::std::string& user, const ::std::string& pass)
-    {
-        return begin_Login(user, pass, 0, ::IceInternal::__dummyCallback, 0);
-    }
-
-    ::Ice::AsyncResultPtr begin_Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context& __ctx)
-    {
-        return begin_Login(user, pass, &__ctx, ::IceInternal::__dummyCallback, 0);
-    }
-
-    ::Ice::AsyncResultPtr begin_Login(const ::std::string& user, const ::std::string& pass, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
-    {
-        return begin_Login(user, pass, 0, __del, __cookie);
-    }
-
-    ::Ice::AsyncResultPtr begin_Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
-    {
-        return begin_Login(user, pass, &__ctx, __del, __cookie);
-    }
-
-    ::Ice::AsyncResultPtr begin_Login(const ::std::string& user, const ::std::string& pass, const ::MCS::Callback_GuiDataHub_LoginPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
-    {
-        return begin_Login(user, pass, 0, __del, __cookie);
-    }
-
-    ::Ice::AsyncResultPtr begin_Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataHub_LoginPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
-    {
-        return begin_Login(user, pass, &__ctx, __del, __cookie);
-    }
-
-    ::Ice::Int end_Login(const ::Ice::AsyncResultPtr&);
-    
-private:
-
-    ::Ice::Int Login(const ::std::string&, const ::std::string&, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_Login(const ::std::string&, const ::std::string&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
-    
-public:
-
-    ::Ice::Int Logout(::Ice::Int session)
-    {
-        return Logout(session, 0);
-    }
-    ::Ice::Int Logout(::Ice::Int session, const ::Ice::Context& __ctx)
-    {
-        return Logout(session, &__ctx);
-    }
-
-    ::Ice::AsyncResultPtr begin_Logout(::Ice::Int session)
-    {
-        return begin_Logout(session, 0, ::IceInternal::__dummyCallback, 0);
-    }
-
-    ::Ice::AsyncResultPtr begin_Logout(::Ice::Int session, const ::Ice::Context& __ctx)
-    {
-        return begin_Logout(session, &__ctx, ::IceInternal::__dummyCallback, 0);
-    }
-
-    ::Ice::AsyncResultPtr begin_Logout(::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
-    {
-        return begin_Logout(session, 0, __del, __cookie);
-    }
-
-    ::Ice::AsyncResultPtr begin_Logout(::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
-    {
-        return begin_Logout(session, &__ctx, __del, __cookie);
-    }
-
-    ::Ice::AsyncResultPtr begin_Logout(::Ice::Int session, const ::MCS::Callback_GuiDataHub_LogoutPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
-    {
-        return begin_Logout(session, 0, __del, __cookie);
-    }
-
-    ::Ice::AsyncResultPtr begin_Logout(::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataHub_LogoutPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
-    {
-        return begin_Logout(session, &__ctx, __del, __cookie);
-    }
-
-    ::Ice::Int end_Logout(const ::Ice::AsyncResultPtr&);
-    
-private:
-
-    ::Ice::Int Logout(::Ice::Int, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_Logout(::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
-    
 public:
 
     ::std::string ReadData(const ::std::string& Tag, ::Ice::Int session)
@@ -633,6 +537,102 @@ class UserManagement : virtual public ::IceProxy::Ice::Object
 {
 public:
 
+    ::Ice::Int Login(const ::std::string& user, const ::std::string& pass)
+    {
+        return Login(user, pass, 0);
+    }
+    ::Ice::Int Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context& __ctx)
+    {
+        return Login(user, pass, &__ctx);
+    }
+
+    ::Ice::AsyncResultPtr begin_Login(const ::std::string& user, const ::std::string& pass)
+    {
+        return begin_Login(user, pass, 0, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context& __ctx)
+    {
+        return begin_Login(user, pass, &__ctx, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_Login(const ::std::string& user, const ::std::string& pass, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_Login(user, pass, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_Login(user, pass, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_Login(const ::std::string& user, const ::std::string& pass, const ::MCS::Callback_UserManagement_LoginPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_Login(user, pass, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_LoginPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_Login(user, pass, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::Int end_Login(const ::Ice::AsyncResultPtr&);
+    
+private:
+
+    ::Ice::Int Login(const ::std::string&, const ::std::string&, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_Login(const ::std::string&, const ::std::string&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    
+public:
+
+    ::Ice::Int Logout(::Ice::Int session)
+    {
+        return Logout(session, 0);
+    }
+    ::Ice::Int Logout(::Ice::Int session, const ::Ice::Context& __ctx)
+    {
+        return Logout(session, &__ctx);
+    }
+
+    ::Ice::AsyncResultPtr begin_Logout(::Ice::Int session)
+    {
+        return begin_Logout(session, 0, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_Logout(::Ice::Int session, const ::Ice::Context& __ctx)
+    {
+        return begin_Logout(session, &__ctx, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_Logout(::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_Logout(session, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_Logout(::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_Logout(session, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_Logout(::Ice::Int session, const ::MCS::Callback_UserManagement_LogoutPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_Logout(session, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_Logout(::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_LogoutPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_Logout(session, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::Int end_Logout(const ::Ice::AsyncResultPtr&);
+    
+private:
+
+    ::Ice::Int Logout(::Ice::Int, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_Logout(::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    
+public:
+
     ::Ice::Int CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session)
     {
         return CreateUser(user, pass, session, 0);
@@ -729,51 +729,51 @@ private:
     
 public:
 
-    ::Ice::Int SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session)
+    ::Ice::Int SetUserRight(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session)
     {
-        return SetUserRithg(nUID, nRight, session, 0);
+        return SetUserRight(nUID, nRight, session, 0);
     }
-    ::Ice::Int SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context& __ctx)
+    ::Ice::Int SetUserRight(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context& __ctx)
     {
-        return SetUserRithg(nUID, nRight, session, &__ctx);
-    }
-
-    ::Ice::AsyncResultPtr begin_SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session)
-    {
-        return begin_SetUserRithg(nUID, nRight, session, 0, ::IceInternal::__dummyCallback, 0);
+        return SetUserRight(nUID, nRight, session, &__ctx);
     }
 
-    ::Ice::AsyncResultPtr begin_SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context& __ctx)
+    ::Ice::AsyncResultPtr begin_SetUserRight(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session)
     {
-        return begin_SetUserRithg(nUID, nRight, session, &__ctx, ::IceInternal::__dummyCallback, 0);
+        return begin_SetUserRight(nUID, nRight, session, 0, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_SetUserRight(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context& __ctx)
     {
-        return begin_SetUserRithg(nUID, nRight, session, 0, __del, __cookie);
+        return begin_SetUserRight(nUID, nRight, session, &__ctx, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_SetUserRight(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_SetUserRithg(nUID, nRight, session, &__ctx, __del, __cookie);
+        return begin_SetUserRight(nUID, nRight, session, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::MCS::Callback_UserManagement_SetUserRithgPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_SetUserRight(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_SetUserRithg(nUID, nRight, session, 0, __del, __cookie);
+        return begin_SetUserRight(nUID, nRight, session, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_SetUserRithg(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_SetUserRithgPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_SetUserRight(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::MCS::Callback_UserManagement_SetUserRightPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_SetUserRithg(nUID, nRight, session, &__ctx, __del, __cookie);
+        return begin_SetUserRight(nUID, nRight, session, 0, __del, __cookie);
     }
 
-    ::Ice::Int end_SetUserRithg(const ::Ice::AsyncResultPtr&);
+    ::Ice::AsyncResultPtr begin_SetUserRight(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_SetUserRightPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetUserRight(nUID, nRight, session, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::Int end_SetUserRight(const ::Ice::AsyncResultPtr&);
     
 private:
 
-    ::Ice::Int SetUserRithg(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_SetUserRithg(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    ::Ice::Int SetUserRight(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_SetUserRight(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
 
@@ -1134,10 +1134,6 @@ class GuiDataHub : virtual public ::IceDelegate::Ice::Object
 {
 public:
 
-    virtual ::Ice::Int Login(const ::std::string&, const ::std::string&, const ::Ice::Context*) = 0;
-
-    virtual ::Ice::Int Logout(::Ice::Int, const ::Ice::Context*) = 0;
-
     virtual ::std::string ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
 
     virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
@@ -1147,11 +1143,15 @@ class UserManagement : virtual public ::IceDelegate::Ice::Object
 {
 public:
 
+    virtual ::Ice::Int Login(const ::std::string&, const ::std::string&, const ::Ice::Context*) = 0;
+
+    virtual ::Ice::Int Logout(::Ice::Int, const ::Ice::Context*) = 0;
+
     virtual ::Ice::Int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
 
     virtual ::Ice::Int SetUserPW(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
 
-    virtual ::Ice::Int SetUserRithg(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*) = 0;
+    virtual ::Ice::Int SetUserRight(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*) = 0;
 
     virtual ::Ice::Int DeleteUser(::Ice::Int, ::Ice::Int, const ::Ice::Context*) = 0;
 
@@ -1175,10 +1175,6 @@ class GuiDataHub : virtual public ::IceDelegate::MCS::GuiDataHub,
 {
 public:
 
-    virtual ::Ice::Int Login(const ::std::string&, const ::std::string&, const ::Ice::Context*);
-
-    virtual ::Ice::Int Logout(::Ice::Int, const ::Ice::Context*);
-
     virtual ::std::string ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
@@ -1189,11 +1185,15 @@ class UserManagement : virtual public ::IceDelegate::MCS::UserManagement,
 {
 public:
 
+    virtual ::Ice::Int Login(const ::std::string&, const ::std::string&, const ::Ice::Context*);
+
+    virtual ::Ice::Int Logout(::Ice::Int, const ::Ice::Context*);
+
     virtual ::Ice::Int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::Ice::Int SetUserPW(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
-    virtual ::Ice::Int SetUserRithg(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    virtual ::Ice::Int SetUserRight(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::Ice::Int DeleteUser(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 
@@ -1217,10 +1217,6 @@ class GuiDataHub : virtual public ::IceDelegate::MCS::GuiDataHub,
 {
 public:
 
-    virtual ::Ice::Int Login(const ::std::string&, const ::std::string&, const ::Ice::Context*);
-
-    virtual ::Ice::Int Logout(::Ice::Int, const ::Ice::Context*);
-
     virtual ::std::string ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
@@ -1231,11 +1227,15 @@ class UserManagement : virtual public ::IceDelegate::MCS::UserManagement,
 {
 public:
 
+    virtual ::Ice::Int Login(const ::std::string&, const ::std::string&, const ::Ice::Context*);
+
+    virtual ::Ice::Int Logout(::Ice::Int, const ::Ice::Context*);
+
     virtual ::Ice::Int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::Ice::Int SetUserPW(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
-    virtual ::Ice::Int SetUserRithg(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    virtual ::Ice::Int SetUserRight(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::Ice::Int DeleteUser(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 
@@ -1264,12 +1264,6 @@ public:
     virtual ::std::vector< ::std::string> ice_ids(const ::Ice::Current& = ::Ice::Current()) const;
     virtual const ::std::string& ice_id(const ::Ice::Current& = ::Ice::Current()) const;
     static const ::std::string& ice_staticId();
-
-    virtual ::Ice::Int Login(const ::std::string&, const ::std::string&, const ::Ice::Current& = ::Ice::Current()) = 0;
-    ::Ice::DispatchStatus ___Login(::IceInternal::Incoming&, const ::Ice::Current&);
-
-    virtual ::Ice::Int Logout(::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
-    ::Ice::DispatchStatus ___Logout(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual ::std::string ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___ReadData(::IceInternal::Incoming&, const ::Ice::Current&);
@@ -1312,14 +1306,20 @@ public:
     virtual const ::std::string& ice_id(const ::Ice::Current& = ::Ice::Current()) const;
     static const ::std::string& ice_staticId();
 
+    virtual ::Ice::Int Login(const ::std::string&, const ::std::string&, const ::Ice::Current& = ::Ice::Current()) = 0;
+    ::Ice::DispatchStatus ___Login(::IceInternal::Incoming&, const ::Ice::Current&);
+
+    virtual ::Ice::Int Logout(::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
+    ::Ice::DispatchStatus ___Logout(::IceInternal::Incoming&, const ::Ice::Current&);
+
     virtual ::Ice::Int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___CreateUser(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual ::Ice::Int SetUserPW(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___SetUserPW(::IceInternal::Incoming&, const ::Ice::Current&);
 
-    virtual ::Ice::Int SetUserRithg(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
-    ::Ice::DispatchStatus ___SetUserRithg(::IceInternal::Incoming&, const ::Ice::Current&);
+    virtual ::Ice::Int SetUserRight(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
+    ::Ice::DispatchStatus ___SetUserRight(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual ::Ice::Int DeleteUser(::Ice::Int, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___DeleteUser(::IceInternal::Incoming&, const ::Ice::Current&);
@@ -1355,238 +1355,6 @@ inline bool operator<(const UserManagement& l, const UserManagement& r)
 
 namespace MCS
 {
-
-template<class T>
-class CallbackNC_GuiDataHub_Login : public Callback_GuiDataHub_Login_Base, public ::IceInternal::TwowayCallbackNC<T>
-{
-public:
-
-    typedef IceUtil::Handle<T> TPtr;
-
-    typedef void (T::*Exception)(const ::Ice::Exception&);
-    typedef void (T::*Sent)(bool);
-    typedef void (T::*Response)(::Ice::Int);
-
-    CallbackNC_GuiDataHub_Login(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
-        : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
-    {
-    }
-
-    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
-    {
-        ::MCS::GuiDataHubPrx __proxy = ::MCS::GuiDataHubPrx::uncheckedCast(__result->getProxy());
-        ::Ice::Int __ret;
-        try
-        {
-            __ret = __proxy->end_Login(__result);
-        }
-        catch(::Ice::Exception& ex)
-        {
-#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
-            __exception(__result, ex);
-#else
-            ::IceInternal::CallbackNC<T>::__exception(__result, ex);
-#endif
-            return;
-        }
-        if(response)
-        {
-#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
-            (callback.get()->*response)(__ret);
-#else
-            (::IceInternal::CallbackNC<T>::callback.get()->*response)(__ret);
-#endif
-        }
-    }
-
-    Response response;
-};
-
-template<class T> Callback_GuiDataHub_LoginPtr
-newCallback_GuiDataHub_Login(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
-{
-    return new CallbackNC_GuiDataHub_Login<T>(instance, cb, excb, sentcb);
-}
-
-template<class T> Callback_GuiDataHub_LoginPtr
-newCallback_GuiDataHub_Login(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
-{
-    return new CallbackNC_GuiDataHub_Login<T>(instance, cb, excb, sentcb);
-}
-
-template<class T, typename CT>
-class Callback_GuiDataHub_Login : public Callback_GuiDataHub_Login_Base, public ::IceInternal::TwowayCallback<T, CT>
-{
-public:
-
-    typedef IceUtil::Handle<T> TPtr;
-
-    typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
-    typedef void (T::*Sent)(bool , const CT&);
-    typedef void (T::*Response)(::Ice::Int, const CT&);
-
-    Callback_GuiDataHub_Login(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
-        : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
-    {
-    }
-
-    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
-    {
-        ::MCS::GuiDataHubPrx __proxy = ::MCS::GuiDataHubPrx::uncheckedCast(__result->getProxy());
-        ::Ice::Int __ret;
-        try
-        {
-            __ret = __proxy->end_Login(__result);
-        }
-        catch(::Ice::Exception& ex)
-        {
-#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
-            __exception(__result, ex);
-#else
-            ::IceInternal::Callback<T, CT>::__exception(__result, ex);
-#endif
-            return;
-        }
-        if(response)
-        {
-#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
-            (callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
-#else
-            (::IceInternal::Callback<T, CT>::callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
-#endif
-        }
-    }
-
-    Response response;
-};
-
-template<class T, typename CT> Callback_GuiDataHub_LoginPtr
-newCallback_GuiDataHub_Login(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
-{
-    return new Callback_GuiDataHub_Login<T, CT>(instance, cb, excb, sentcb);
-}
-
-template<class T, typename CT> Callback_GuiDataHub_LoginPtr
-newCallback_GuiDataHub_Login(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
-{
-    return new Callback_GuiDataHub_Login<T, CT>(instance, cb, excb, sentcb);
-}
-
-template<class T>
-class CallbackNC_GuiDataHub_Logout : public Callback_GuiDataHub_Logout_Base, public ::IceInternal::TwowayCallbackNC<T>
-{
-public:
-
-    typedef IceUtil::Handle<T> TPtr;
-
-    typedef void (T::*Exception)(const ::Ice::Exception&);
-    typedef void (T::*Sent)(bool);
-    typedef void (T::*Response)(::Ice::Int);
-
-    CallbackNC_GuiDataHub_Logout(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
-        : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
-    {
-    }
-
-    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
-    {
-        ::MCS::GuiDataHubPrx __proxy = ::MCS::GuiDataHubPrx::uncheckedCast(__result->getProxy());
-        ::Ice::Int __ret;
-        try
-        {
-            __ret = __proxy->end_Logout(__result);
-        }
-        catch(::Ice::Exception& ex)
-        {
-#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
-            __exception(__result, ex);
-#else
-            ::IceInternal::CallbackNC<T>::__exception(__result, ex);
-#endif
-            return;
-        }
-        if(response)
-        {
-#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
-            (callback.get()->*response)(__ret);
-#else
-            (::IceInternal::CallbackNC<T>::callback.get()->*response)(__ret);
-#endif
-        }
-    }
-
-    Response response;
-};
-
-template<class T> Callback_GuiDataHub_LogoutPtr
-newCallback_GuiDataHub_Logout(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
-{
-    return new CallbackNC_GuiDataHub_Logout<T>(instance, cb, excb, sentcb);
-}
-
-template<class T> Callback_GuiDataHub_LogoutPtr
-newCallback_GuiDataHub_Logout(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
-{
-    return new CallbackNC_GuiDataHub_Logout<T>(instance, cb, excb, sentcb);
-}
-
-template<class T, typename CT>
-class Callback_GuiDataHub_Logout : public Callback_GuiDataHub_Logout_Base, public ::IceInternal::TwowayCallback<T, CT>
-{
-public:
-
-    typedef IceUtil::Handle<T> TPtr;
-
-    typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
-    typedef void (T::*Sent)(bool , const CT&);
-    typedef void (T::*Response)(::Ice::Int, const CT&);
-
-    Callback_GuiDataHub_Logout(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
-        : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
-    {
-    }
-
-    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
-    {
-        ::MCS::GuiDataHubPrx __proxy = ::MCS::GuiDataHubPrx::uncheckedCast(__result->getProxy());
-        ::Ice::Int __ret;
-        try
-        {
-            __ret = __proxy->end_Logout(__result);
-        }
-        catch(::Ice::Exception& ex)
-        {
-#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
-            __exception(__result, ex);
-#else
-            ::IceInternal::Callback<T, CT>::__exception(__result, ex);
-#endif
-            return;
-        }
-        if(response)
-        {
-#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
-            (callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
-#else
-            (::IceInternal::Callback<T, CT>::callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
-#endif
-        }
-    }
-
-    Response response;
-};
-
-template<class T, typename CT> Callback_GuiDataHub_LogoutPtr
-newCallback_GuiDataHub_Logout(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
-{
-    return new Callback_GuiDataHub_Logout<T, CT>(instance, cb, excb, sentcb);
-}
-
-template<class T, typename CT> Callback_GuiDataHub_LogoutPtr
-newCallback_GuiDataHub_Logout(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
-{
-    return new Callback_GuiDataHub_Logout<T, CT>(instance, cb, excb, sentcb);
-}
 
 template<class T>
 class CallbackNC_GuiDataHub_ReadData : public Callback_GuiDataHub_ReadData_Base, public ::IceInternal::TwowayCallbackNC<T>
@@ -1818,6 +1586,238 @@ template<class T, typename CT> Callback_GuiDataHub_WriteDataPtr
 newCallback_GuiDataHub_WriteData(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
     return new Callback_GuiDataHub_WriteData<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T>
+class CallbackNC_UserManagement_Login : public Callback_UserManagement_Login_Base, public ::IceInternal::TwowayCallbackNC<T>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception&);
+    typedef void (T::*Sent)(bool);
+    typedef void (T::*Response)(::Ice::Int);
+
+    CallbackNC_UserManagement_Login(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
+    {
+    }
+
+    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
+    {
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
+        ::Ice::Int __ret;
+        try
+        {
+            __ret = __proxy->end_Login(__result);
+        }
+        catch(::Ice::Exception& ex)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            __exception(__result, ex);
+#else
+            ::IceInternal::CallbackNC<T>::__exception(__result, ex);
+#endif
+            return;
+        }
+        if(response)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            (callback.get()->*response)(__ret);
+#else
+            (::IceInternal::CallbackNC<T>::callback.get()->*response)(__ret);
+#endif
+        }
+    }
+
+    Response response;
+};
+
+template<class T> Callback_UserManagement_LoginPtr
+newCallback_UserManagement_Login(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_UserManagement_Login<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_UserManagement_LoginPtr
+newCallback_UserManagement_Login(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_UserManagement_Login<T>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT>
+class Callback_UserManagement_Login : public Callback_UserManagement_Login_Base, public ::IceInternal::TwowayCallback<T, CT>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
+    typedef void (T::*Sent)(bool , const CT&);
+    typedef void (T::*Response)(::Ice::Int, const CT&);
+
+    Callback_UserManagement_Login(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
+    {
+    }
+
+    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
+    {
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
+        ::Ice::Int __ret;
+        try
+        {
+            __ret = __proxy->end_Login(__result);
+        }
+        catch(::Ice::Exception& ex)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            __exception(__result, ex);
+#else
+            ::IceInternal::Callback<T, CT>::__exception(__result, ex);
+#endif
+            return;
+        }
+        if(response)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            (callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
+#else
+            (::IceInternal::Callback<T, CT>::callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
+#endif
+        }
+    }
+
+    Response response;
+};
+
+template<class T, typename CT> Callback_UserManagement_LoginPtr
+newCallback_UserManagement_Login(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_UserManagement_Login<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_UserManagement_LoginPtr
+newCallback_UserManagement_Login(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_UserManagement_Login<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T>
+class CallbackNC_UserManagement_Logout : public Callback_UserManagement_Logout_Base, public ::IceInternal::TwowayCallbackNC<T>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception&);
+    typedef void (T::*Sent)(bool);
+    typedef void (T::*Response)(::Ice::Int);
+
+    CallbackNC_UserManagement_Logout(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
+    {
+    }
+
+    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
+    {
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
+        ::Ice::Int __ret;
+        try
+        {
+            __ret = __proxy->end_Logout(__result);
+        }
+        catch(::Ice::Exception& ex)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            __exception(__result, ex);
+#else
+            ::IceInternal::CallbackNC<T>::__exception(__result, ex);
+#endif
+            return;
+        }
+        if(response)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            (callback.get()->*response)(__ret);
+#else
+            (::IceInternal::CallbackNC<T>::callback.get()->*response)(__ret);
+#endif
+        }
+    }
+
+    Response response;
+};
+
+template<class T> Callback_UserManagement_LogoutPtr
+newCallback_UserManagement_Logout(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_UserManagement_Logout<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_UserManagement_LogoutPtr
+newCallback_UserManagement_Logout(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_UserManagement_Logout<T>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT>
+class Callback_UserManagement_Logout : public Callback_UserManagement_Logout_Base, public ::IceInternal::TwowayCallback<T, CT>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
+    typedef void (T::*Sent)(bool , const CT&);
+    typedef void (T::*Response)(::Ice::Int, const CT&);
+
+    Callback_UserManagement_Logout(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
+    {
+    }
+
+    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
+    {
+        ::MCS::UserManagementPrx __proxy = ::MCS::UserManagementPrx::uncheckedCast(__result->getProxy());
+        ::Ice::Int __ret;
+        try
+        {
+            __ret = __proxy->end_Logout(__result);
+        }
+        catch(::Ice::Exception& ex)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            __exception(__result, ex);
+#else
+            ::IceInternal::Callback<T, CT>::__exception(__result, ex);
+#endif
+            return;
+        }
+        if(response)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            (callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
+#else
+            (::IceInternal::Callback<T, CT>::callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
+#endif
+        }
+    }
+
+    Response response;
+};
+
+template<class T, typename CT> Callback_UserManagement_LogoutPtr
+newCallback_UserManagement_Logout(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_UserManagement_Logout<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_UserManagement_LogoutPtr
+newCallback_UserManagement_Logout(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_UserManagement_Logout<T, CT>(instance, cb, excb, sentcb);
 }
 
 template<class T>
@@ -2053,7 +2053,7 @@ newCallback_UserManagement_SetUserPW(T* instance, void (T::*cb)(::Ice::Int, cons
 }
 
 template<class T>
-class CallbackNC_UserManagement_SetUserRithg : public Callback_UserManagement_SetUserRithg_Base, public ::IceInternal::TwowayCallbackNC<T>
+class CallbackNC_UserManagement_SetUserRight : public Callback_UserManagement_SetUserRight_Base, public ::IceInternal::TwowayCallbackNC<T>
 {
 public:
 
@@ -2063,7 +2063,7 @@ public:
     typedef void (T::*Sent)(bool);
     typedef void (T::*Response)(::Ice::Int);
 
-    CallbackNC_UserManagement_SetUserRithg(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+    CallbackNC_UserManagement_SetUserRight(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
     {
     }
@@ -2074,7 +2074,7 @@ public:
         ::Ice::Int __ret;
         try
         {
-            __ret = __proxy->end_SetUserRithg(__result);
+            __ret = __proxy->end_SetUserRight(__result);
         }
         catch(::Ice::Exception& ex)
         {
@@ -2098,20 +2098,20 @@ public:
     Response response;
 };
 
-template<class T> Callback_UserManagement_SetUserRithgPtr
-newCallback_UserManagement_SetUserRithg(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+template<class T> Callback_UserManagement_SetUserRightPtr
+newCallback_UserManagement_SetUserRight(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
-    return new CallbackNC_UserManagement_SetUserRithg<T>(instance, cb, excb, sentcb);
+    return new CallbackNC_UserManagement_SetUserRight<T>(instance, cb, excb, sentcb);
 }
 
-template<class T> Callback_UserManagement_SetUserRithgPtr
-newCallback_UserManagement_SetUserRithg(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+template<class T> Callback_UserManagement_SetUserRightPtr
+newCallback_UserManagement_SetUserRight(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
 {
-    return new CallbackNC_UserManagement_SetUserRithg<T>(instance, cb, excb, sentcb);
+    return new CallbackNC_UserManagement_SetUserRight<T>(instance, cb, excb, sentcb);
 }
 
 template<class T, typename CT>
-class Callback_UserManagement_SetUserRithg : public Callback_UserManagement_SetUserRithg_Base, public ::IceInternal::TwowayCallback<T, CT>
+class Callback_UserManagement_SetUserRight : public Callback_UserManagement_SetUserRight_Base, public ::IceInternal::TwowayCallback<T, CT>
 {
 public:
 
@@ -2121,7 +2121,7 @@ public:
     typedef void (T::*Sent)(bool , const CT&);
     typedef void (T::*Response)(::Ice::Int, const CT&);
 
-    Callback_UserManagement_SetUserRithg(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+    Callback_UserManagement_SetUserRight(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
         : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
     {
     }
@@ -2132,7 +2132,7 @@ public:
         ::Ice::Int __ret;
         try
         {
-            __ret = __proxy->end_SetUserRithg(__result);
+            __ret = __proxy->end_SetUserRight(__result);
         }
         catch(::Ice::Exception& ex)
         {
@@ -2156,16 +2156,16 @@ public:
     Response response;
 };
 
-template<class T, typename CT> Callback_UserManagement_SetUserRithgPtr
-newCallback_UserManagement_SetUserRithg(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+template<class T, typename CT> Callback_UserManagement_SetUserRightPtr
+newCallback_UserManagement_SetUserRight(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
-    return new Callback_UserManagement_SetUserRithg<T, CT>(instance, cb, excb, sentcb);
+    return new Callback_UserManagement_SetUserRight<T, CT>(instance, cb, excb, sentcb);
 }
 
-template<class T, typename CT> Callback_UserManagement_SetUserRithgPtr
-newCallback_UserManagement_SetUserRithg(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+template<class T, typename CT> Callback_UserManagement_SetUserRightPtr
+newCallback_UserManagement_SetUserRight(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
-    return new Callback_UserManagement_SetUserRithg<T, CT>(instance, cb, excb, sentcb);
+    return new Callback_UserManagement_SetUserRight<T, CT>(instance, cb, excb, sentcb);
 }
 
 template<class T>

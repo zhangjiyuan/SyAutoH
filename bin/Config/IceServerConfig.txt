@@ -4,6 +4,7 @@
 #
 ##############################################
 MESLink.Endpoints=tcp -p 21200
+UserAce.Endpoints=tcp -p 21210
 
 #
 # Setting for HistoryServer

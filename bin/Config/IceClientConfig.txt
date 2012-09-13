@@ -4,6 +4,7 @@
 #
 ########################################################
 MESLink.Proxy=MESLink:tcp -p 21200
+UserAce.Proxy=UserAce:tcp -p 21210
 
 #
 # Setting for HistoryClient
