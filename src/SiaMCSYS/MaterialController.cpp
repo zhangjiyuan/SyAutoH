@@ -12,7 +12,7 @@ using namespace std;
 class CReceiver 
 {
 public:
-	CSqlAceCli* m_pSqlcli;
+	DBFoup* m_pFoupDB;
 
 	void MyHandler1(int nValue) 
 	{
@@ -29,8 +29,21 @@ public:
 		wprintf_s(L"MyHandlerS was called with value %s %d.\n", strMsg, nV);
 		int nOHT = 0;
 		int nStocker = 0;
-		m_pSqlcli->FindFoupLocation(strMsg, nOHT, nStocker);
-		cout<< "Find Foup:" << nOHT << " Stocker:" << nStocker << endl;
+		int nFoup = m_pFoupDB->FindFoup(strMsg);
+		wstring wstrMsg;
+		wstrMsg = strMsg;
+		if (nFoup > 0)
+		{
+			int nLocal = 0;
+			int nType = 0;
+			m_pFoupDB->GetFoupLocation(nFoup, nLocal, nType);
+			wprintf_s(L"Find Foup: %s at Location: %d Type: %d.\n", 
+				strMsg, nLocal, nType);
+		}
+		else
+		{
+			wprintf_s(L"Can not Fine Foup %s.\n", strMsg);
+		}
 
 	}
 
@@ -52,7 +65,7 @@ public:
 MaterialController::MaterialController(void)
 {
 	m_pMesLink = NULL;
-	m_pSqlAce = NULL;
+	m_pFoupDB = NULL;
 	m_pGuiHub =NULL;
 }
 
@@ -67,10 +80,10 @@ MaterialController::~MaterialController(void)
 		receiver->unhookEvent(source);
 	}
 
-	if (NULL != m_pSqlAce)
+	if (NULL != m_pFoupDB)
 	{
-		delete m_pSqlAce;
-		m_pSqlAce = NULL;
+		delete m_pFoupDB;
+		m_pFoupDB = NULL;
 	}
 
 	if (NULL != m_pGuiHub)
@@ -86,9 +99,9 @@ MaterialController::~MaterialController(void)
 
 int MaterialController::Init(void)
 {
-	if (NULL == m_pSqlAce)
+	if (NULL == m_pFoupDB)
 	{
-		m_pSqlAce = new CSqlAceCli();
+		m_pFoupDB = new DBFoup();
 		//m_pSqlAce->Connect(L"SDNY-PC\\AMHS", L"MCS");
 	}
 
@@ -97,7 +110,7 @@ int MaterialController::Init(void)
 		m_pMesLink = new CMesLink();
 		source = new CSource();
 		receiver = new CReceiver();
-		receiver->m_pSqlcli = m_pSqlAce;
+		receiver->m_pFoupDB = m_pFoupDB;
 		//receiver->MyHanderS(L"45", 0);
 
 		m_pMesLink->Init(source);

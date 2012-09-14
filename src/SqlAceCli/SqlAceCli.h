@@ -17,24 +17,6 @@
 
 using namespace std;
 
-class SqlServerNCLI;
-// 此类是从 SqlAceCli.dll 导出的
-class SQLACECLI_API CSqlAceCli {
-public:
-	CSqlAceCli(void);
-	~CSqlAceCli();
-
-private:
-	SqlServerNCLI* m_pSqlClient;
-
-public:
-	int Connect(WCHAR* wServer, WCHAR* wDBName);
-	int ExecuteSQL(WCHAR* wSqlCmd);
-	int PutOutRecordSet(void);
-	int Clean(void);
-	int FindFoupLocation(WCHAR* sFoupID, int& nOHV, int& nStocker);
-};
-
 typedef list<string> strList;
 class SQLACECLI_API DBUserAce
 {
@@ -43,8 +25,6 @@ public:
 	~DBUserAce(void);
 
 public:
-	//int OpenDB();
-	//int CloseDB();
 	int Login(const ::std::string& sName, const ::std::string& sHash);
 	int Logout(int);
 	int CreateUser(const ::std::string& sName, const ::std::string& sPassWord, int nRight);
@@ -53,4 +33,16 @@ public:
 	int SetUserRight(int, int, int);
 	int GetUserCount();
 	strList GetUserList(int, int);
+};
+
+class SQLACECLI_API DBFoup
+{
+public:
+	DBFoup(void);
+	~DBFoup(void);
+public:
+	int AddFoup(WCHAR* sFoupID, WCHAR* sLot, int nLocal, int nType);
+	int FindFoup(WCHAR* sFoupID);
+	int SetFoupLocation(int nFoup, int nLocal, int nType);
+	int GetFoupLocation(int nFoup, int &nLocal, int &nType);
 };

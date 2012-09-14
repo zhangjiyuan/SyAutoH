@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "SqlAceCli.h"
-#include "McsUserCommander.h"
+#include "TMcsUser.h"
 #include "../CypAce/CypAce.h"
 
 DBUserAce::DBUserAce(void)
@@ -35,11 +35,12 @@ int DBUserAce::CreateUser(const ::std::string& sName,
 
 	CoInitialize(NULL);
 	HRESULT hr;
-	CMcsUserCommander dbUser;
+	CMcsUserTable dbUser;
 
 	hr = dbUser.OpenDataSource();
 	if (FAILED(hr))
 	{
+		CoUninitialize();
 		return 2;
 	}
 	CString strFind = L"Select Name from mcsuser where Name = '#@#'";
@@ -47,11 +48,13 @@ int DBUserAce::CreateUser(const ::std::string& sName,
 	hr = dbUser.Open(dbUser.m_session, strFind);
 	if (FAILED(hr))
 	{
+		CoUninitialize();
 		return 2;
 	}
 	if (dbUser.MoveNext() != DB_S_ENDOFROWSET )
 	{
 		dbUser.CloseAll();
+		CoUninitialize();
 		return 3;
 	}
 	dbUser.CloseAll();
@@ -60,6 +63,7 @@ int DBUserAce::CreateUser(const ::std::string& sName,
 	hr = dbUser.OpenAll();
 	if (FAILED(hr))
 	{
+		CoUninitialize();
 		return 2;
 	}
 
