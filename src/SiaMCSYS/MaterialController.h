@@ -5,7 +5,7 @@ class CSource;
 class CReceiver;
 class DBFoup;
 class CGuiHub;
-class MaterialController
+class MaterialController 
 {
 public:
 	MaterialController(void);
