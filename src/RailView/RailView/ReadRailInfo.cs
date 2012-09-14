@@ -12,8 +12,8 @@ namespace RailView
 {
     public class ReadRailInfo
     {
-        public List<RailEle> eleList = new List<RailEle>();
-        public void OpenFile()
+        public List<RailEle> railInfoEleList = new List<RailEle>();
+        public List<RailEle> OpenFile()
         {
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load("1.xml");
@@ -68,7 +68,7 @@ namespace RailView
                                         }
                                     }
                                 }
-                                eleList.Add(strTemp);
+                                railInfoEleList.Add(strTemp);
                                 break;
                             case "CurvedRailEle":
                                 CurvedEle curTemp = new CurvedEle();
@@ -123,7 +123,7 @@ namespace RailView
                                         }
                                     }
                                 }
-                                eleList.Add(curTemp);
+                                railInfoEleList.Add(curTemp);
                                 break;
                             case "CrossEle":
                                 CrossEle croTemp = new CrossEle();
@@ -179,7 +179,7 @@ namespace RailView
                                         }
                                     }
                                 }
-                                eleList.Add(croTemp);
+                                railInfoEleList.Add(croTemp);
                                 break;
                             default:
                                 break;
@@ -187,6 +187,7 @@ namespace RailView
                     }
                 }
             }
+            return railInfoEleList;
         }
     }
 
