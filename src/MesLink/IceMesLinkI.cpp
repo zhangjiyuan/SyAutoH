@@ -1,11 +1,13 @@
 #include "StdAfx.h"
 #include "IceMesLinkI.h"
-#include <iostream>
-using namespace std;
 #include "MesLink.h"
+#include "IceUtil/Unicode.h"
+
+using namespace std;
+
 IceMesLinkI::IceMesLinkI(void)
 {
-	cout<< "MesLink Server is Ready." << endl;
+	wprintf_s(L"MesLink Server is Ready.\n");
 }
 
 
@@ -13,19 +15,27 @@ IceMesLinkI::~IceMesLinkI(void)
 {
 }
 
-int IceMesLinkI::PickFoup(::Ice::Int nFoup, ::Ice::Int nDev, const ::Ice::Current& )
+LocFoup IceMesLinkI::GetFoup(const ::std::string& sFoupName, const ::Ice::Current& )
 {
-	cout<<"MesLink get command: <PickFoup> Param: " << nFoup << " " << nDev << endl; 
-	__raise m_pSource->MyEvent(nFoup);
+	LocFoup locationFoup;
+	wstring wsName;
+	wsName = IceUtil::stringToWstring(sFoupName);
+	wprintf_s(L"GetFoup %s \n", wsName.c_str());
+	return locationFoup;
+}
+int IceMesLinkI::PlaceFoup(const ::std::string& sFoupName, 
+	int nDevID, int nType, const ::Ice::Current&)
+{
+	wstring wsName;
+	wsName = IceUtil::stringToWstring(sFoupName);
+	__raise m_pSource->MESPlaceFoup(wsName.c_str(), nDevID, nType);
 	return 0;
 }
-
-int IceMesLinkI::PlaceFoup(::Ice::Int nFoup, ::Ice::Int nDev, const ::Ice::Current& )
+int IceMesLinkI::PickFoup(const ::std::string& sFoupName, 
+	int nDevID, int nType, const ::Ice::Current&)
 {
-	cout<<"MesLink get command: <PlaceFoup> Param: " << nFoup << " " << nDev << endl; 
-	wstring ws;
-	WCHAR wBuf[50] = {0};
-	wsprintf(wBuf, L"%d", nFoup);
-	__raise m_pSource->MyEventS(wBuf, nDev);
+	wstring wsName;
+	wsName = IceUtil::stringToWstring(sFoupName);
+	__raise m_pSource->MESPickFoup(wsName.c_str(), nDevID, nType);
 	return 0;
 }

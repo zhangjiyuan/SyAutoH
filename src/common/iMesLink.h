@@ -91,11 +91,100 @@ void __patch__MESLinkPtr(void*, ::Ice::ObjectPtr&);
 namespace MCS
 {
 
+struct LocFoup
+{
+    ::Ice::Int nDevID;
+    ::Ice::Int nLocType;
+    ::std::string sStatus;
+
+    bool operator==(const LocFoup& __rhs) const
+    {
+        if(this == &__rhs)
+        {
+            return true;
+        }
+        if(nDevID != __rhs.nDevID)
+        {
+            return false;
+        }
+        if(nLocType != __rhs.nLocType)
+        {
+            return false;
+        }
+        if(sStatus != __rhs.sStatus)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    bool operator<(const LocFoup& __rhs) const
+    {
+        if(this == &__rhs)
+        {
+            return false;
+        }
+        if(nDevID < __rhs.nDevID)
+        {
+            return true;
+        }
+        else if(__rhs.nDevID < nDevID)
+        {
+            return false;
+        }
+        if(nLocType < __rhs.nLocType)
+        {
+            return true;
+        }
+        else if(__rhs.nLocType < nLocType)
+        {
+            return false;
+        }
+        if(sStatus < __rhs.sStatus)
+        {
+            return true;
+        }
+        else if(__rhs.sStatus < sStatus)
+        {
+            return false;
+        }
+        return false;
+    }
+
+    bool operator!=(const LocFoup& __rhs) const
+    {
+        return !operator==(__rhs);
+    }
+    bool operator<=(const LocFoup& __rhs) const
+    {
+        return operator<(__rhs) || operator==(__rhs);
+    }
+    bool operator>(const LocFoup& __rhs) const
+    {
+        return !operator<(__rhs) && !operator==(__rhs);
+    }
+    bool operator>=(const LocFoup& __rhs) const
+    {
+        return !operator<(__rhs);
+    }
+
+    void __write(::IceInternal::BasicStream*) const;
+    void __read(::IceInternal::BasicStream*);
+};
+
+}
+
+namespace MCS
+{
+
 class Callback_MESLink_PlaceFoup_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_MESLink_PlaceFoup_Base> Callback_MESLink_PlaceFoupPtr;
 
 class Callback_MESLink_PickFoup_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_MESLink_PickFoup_Base> Callback_MESLink_PickFoupPtr;
+
+class Callback_MESLink_GetFoup_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_MESLink_GetFoup_Base> Callback_MESLink_GetFoupPtr;
 
 }
 
@@ -109,99 +198,147 @@ class MESLink : virtual public ::IceProxy::Ice::Object
 {
 public:
 
-    ::Ice::Int PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID)
+    ::Ice::Int PlaceFoup(const ::std::string& FoupID, ::Ice::Int DevID, ::Ice::Int nLocType)
     {
-        return PlaceFoup(FoupID, DevID, 0);
+        return PlaceFoup(FoupID, DevID, nLocType, 0);
     }
-    ::Ice::Int PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const ::Ice::Context& __ctx)
+    ::Ice::Int PlaceFoup(const ::std::string& FoupID, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context& __ctx)
     {
-        return PlaceFoup(FoupID, DevID, &__ctx);
-    }
-
-    ::Ice::AsyncResultPtr begin_PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID)
-    {
-        return begin_PlaceFoup(FoupID, DevID, 0, ::IceInternal::__dummyCallback, 0);
+        return PlaceFoup(FoupID, DevID, nLocType, &__ctx);
     }
 
-    ::Ice::AsyncResultPtr begin_PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const ::Ice::Context& __ctx)
+    ::Ice::AsyncResultPtr begin_PlaceFoup(const ::std::string& FoupID, ::Ice::Int DevID, ::Ice::Int nLocType)
     {
-        return begin_PlaceFoup(FoupID, DevID, &__ctx, ::IceInternal::__dummyCallback, 0);
+        return begin_PlaceFoup(FoupID, DevID, nLocType, 0, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_PlaceFoup(const ::std::string& FoupID, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context& __ctx)
     {
-        return begin_PlaceFoup(FoupID, DevID, 0, __del, __cookie);
+        return begin_PlaceFoup(FoupID, DevID, nLocType, &__ctx, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_PlaceFoup(const ::std::string& FoupID, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_PlaceFoup(FoupID, DevID, &__ctx, __del, __cookie);
+        return begin_PlaceFoup(FoupID, DevID, nLocType, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const ::MCS::Callback_MESLink_PlaceFoupPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_PlaceFoup(const ::std::string& FoupID, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_PlaceFoup(FoupID, DevID, 0, __del, __cookie);
+        return begin_PlaceFoup(FoupID, DevID, nLocType, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const ::Ice::Context& __ctx, const ::MCS::Callback_MESLink_PlaceFoupPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_PlaceFoup(const ::std::string& FoupID, ::Ice::Int DevID, ::Ice::Int nLocType, const ::MCS::Callback_MESLink_PlaceFoupPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_PlaceFoup(FoupID, DevID, &__ctx, __del, __cookie);
+        return begin_PlaceFoup(FoupID, DevID, nLocType, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_PlaceFoup(const ::std::string& FoupID, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context& __ctx, const ::MCS::Callback_MESLink_PlaceFoupPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_PlaceFoup(FoupID, DevID, nLocType, &__ctx, __del, __cookie);
     }
 
     ::Ice::Int end_PlaceFoup(const ::Ice::AsyncResultPtr&);
     
 private:
 
-    ::Ice::Int PlaceFoup(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_PlaceFoup(::Ice::Int, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    ::Ice::Int PlaceFoup(const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_PlaceFoup(const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
 
-    ::Ice::Int PickFoup(::Ice::Int FoupId, ::Ice::Int DevID)
+    ::Ice::Int PickFoup(const ::std::string& FoupId, ::Ice::Int DevID, ::Ice::Int nLocType)
     {
-        return PickFoup(FoupId, DevID, 0);
+        return PickFoup(FoupId, DevID, nLocType, 0);
     }
-    ::Ice::Int PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const ::Ice::Context& __ctx)
+    ::Ice::Int PickFoup(const ::std::string& FoupId, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context& __ctx)
     {
-        return PickFoup(FoupId, DevID, &__ctx);
-    }
-
-    ::Ice::AsyncResultPtr begin_PickFoup(::Ice::Int FoupId, ::Ice::Int DevID)
-    {
-        return begin_PickFoup(FoupId, DevID, 0, ::IceInternal::__dummyCallback, 0);
+        return PickFoup(FoupId, DevID, nLocType, &__ctx);
     }
 
-    ::Ice::AsyncResultPtr begin_PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const ::Ice::Context& __ctx)
+    ::Ice::AsyncResultPtr begin_PickFoup(const ::std::string& FoupId, ::Ice::Int DevID, ::Ice::Int nLocType)
     {
-        return begin_PickFoup(FoupId, DevID, &__ctx, ::IceInternal::__dummyCallback, 0);
+        return begin_PickFoup(FoupId, DevID, nLocType, 0, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_PickFoup(const ::std::string& FoupId, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context& __ctx)
     {
-        return begin_PickFoup(FoupId, DevID, 0, __del, __cookie);
+        return begin_PickFoup(FoupId, DevID, nLocType, &__ctx, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_PickFoup(const ::std::string& FoupId, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_PickFoup(FoupId, DevID, &__ctx, __del, __cookie);
+        return begin_PickFoup(FoupId, DevID, nLocType, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const ::MCS::Callback_MESLink_PickFoupPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_PickFoup(const ::std::string& FoupId, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_PickFoup(FoupId, DevID, 0, __del, __cookie);
+        return begin_PickFoup(FoupId, DevID, nLocType, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const ::Ice::Context& __ctx, const ::MCS::Callback_MESLink_PickFoupPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_PickFoup(const ::std::string& FoupId, ::Ice::Int DevID, ::Ice::Int nLocType, const ::MCS::Callback_MESLink_PickFoupPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_PickFoup(FoupId, DevID, &__ctx, __del, __cookie);
+        return begin_PickFoup(FoupId, DevID, nLocType, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_PickFoup(const ::std::string& FoupId, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context& __ctx, const ::MCS::Callback_MESLink_PickFoupPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_PickFoup(FoupId, DevID, nLocType, &__ctx, __del, __cookie);
     }
 
     ::Ice::Int end_PickFoup(const ::Ice::AsyncResultPtr&);
     
 private:
 
-    ::Ice::Int PickFoup(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_PickFoup(::Ice::Int, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    ::Ice::Int PickFoup(const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_PickFoup(const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    
+public:
+
+    ::MCS::LocFoup GetFoup(const ::std::string& FoupId)
+    {
+        return GetFoup(FoupId, 0);
+    }
+    ::MCS::LocFoup GetFoup(const ::std::string& FoupId, const ::Ice::Context& __ctx)
+    {
+        return GetFoup(FoupId, &__ctx);
+    }
+
+    ::Ice::AsyncResultPtr begin_GetFoup(const ::std::string& FoupId)
+    {
+        return begin_GetFoup(FoupId, 0, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_GetFoup(const ::std::string& FoupId, const ::Ice::Context& __ctx)
+    {
+        return begin_GetFoup(FoupId, &__ctx, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_GetFoup(const ::std::string& FoupId, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_GetFoup(FoupId, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_GetFoup(const ::std::string& FoupId, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_GetFoup(FoupId, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_GetFoup(const ::std::string& FoupId, const ::MCS::Callback_MESLink_GetFoupPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_GetFoup(FoupId, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_GetFoup(const ::std::string& FoupId, const ::Ice::Context& __ctx, const ::MCS::Callback_MESLink_GetFoupPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_GetFoup(FoupId, &__ctx, __del, __cookie);
+    }
+
+    ::MCS::LocFoup end_GetFoup(const ::Ice::AsyncResultPtr&);
+    
+private:
+
+    ::MCS::LocFoup GetFoup(const ::std::string&, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_GetFoup(const ::std::string&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
     
@@ -418,9 +555,11 @@ class MESLink : virtual public ::IceDelegate::Ice::Object
 {
 public:
 
-    virtual ::Ice::Int PlaceFoup(::Ice::Int, ::Ice::Int, const ::Ice::Context*) = 0;
+    virtual ::Ice::Int PlaceFoup(const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*) = 0;
 
-    virtual ::Ice::Int PickFoup(::Ice::Int, ::Ice::Int, const ::Ice::Context*) = 0;
+    virtual ::Ice::Int PickFoup(const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*) = 0;
+
+    virtual ::MCS::LocFoup GetFoup(const ::std::string&, const ::Ice::Context*) = 0;
 };
 
 }
@@ -438,9 +577,11 @@ class MESLink : virtual public ::IceDelegate::MCS::MESLink,
 {
 public:
 
-    virtual ::Ice::Int PlaceFoup(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    virtual ::Ice::Int PlaceFoup(const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 
-    virtual ::Ice::Int PickFoup(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    virtual ::Ice::Int PickFoup(const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+
+    virtual ::MCS::LocFoup GetFoup(const ::std::string&, const ::Ice::Context*);
 };
 
 }
@@ -458,9 +599,11 @@ class MESLink : virtual public ::IceDelegate::MCS::MESLink,
 {
 public:
 
-    virtual ::Ice::Int PlaceFoup(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    virtual ::Ice::Int PlaceFoup(const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 
-    virtual ::Ice::Int PickFoup(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    virtual ::Ice::Int PickFoup(const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+
+    virtual ::MCS::LocFoup GetFoup(const ::std::string&, const ::Ice::Context*);
 };
 
 }
@@ -484,11 +627,14 @@ public:
     virtual const ::std::string& ice_id(const ::Ice::Current& = ::Ice::Current()) const;
     static const ::std::string& ice_staticId();
 
-    virtual ::Ice::Int PlaceFoup(::Ice::Int, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
+    virtual ::Ice::Int PlaceFoup(const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___PlaceFoup(::IceInternal::Incoming&, const ::Ice::Current&);
 
-    virtual ::Ice::Int PickFoup(::Ice::Int, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
+    virtual ::Ice::Int PickFoup(const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___PickFoup(::IceInternal::Incoming&, const ::Ice::Current&);
+
+    virtual ::MCS::LocFoup GetFoup(const ::std::string&, const ::Ice::Current& = ::Ice::Current()) = 0;
+    ::Ice::DispatchStatus ___GetFoup(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual ::Ice::DispatchStatus __dispatch(::IceInternal::Incoming&, const ::Ice::Current&);
 
@@ -746,6 +892,122 @@ template<class T, typename CT> Callback_MESLink_PickFoupPtr
 newCallback_MESLink_PickFoup(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
     return new Callback_MESLink_PickFoup<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T>
+class CallbackNC_MESLink_GetFoup : public Callback_MESLink_GetFoup_Base, public ::IceInternal::TwowayCallbackNC<T>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception&);
+    typedef void (T::*Sent)(bool);
+    typedef void (T::*Response)(const ::MCS::LocFoup&);
+
+    CallbackNC_MESLink_GetFoup(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
+    {
+    }
+
+    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
+    {
+        ::MCS::MESLinkPrx __proxy = ::MCS::MESLinkPrx::uncheckedCast(__result->getProxy());
+        ::MCS::LocFoup __ret;
+        try
+        {
+            __ret = __proxy->end_GetFoup(__result);
+        }
+        catch(::Ice::Exception& ex)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            __exception(__result, ex);
+#else
+            ::IceInternal::CallbackNC<T>::__exception(__result, ex);
+#endif
+            return;
+        }
+        if(response)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            (callback.get()->*response)(__ret);
+#else
+            (::IceInternal::CallbackNC<T>::callback.get()->*response)(__ret);
+#endif
+        }
+    }
+
+    Response response;
+};
+
+template<class T> Callback_MESLink_GetFoupPtr
+newCallback_MESLink_GetFoup(const IceUtil::Handle<T>& instance, void (T::*cb)(const ::MCS::LocFoup&), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_MESLink_GetFoup<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_MESLink_GetFoupPtr
+newCallback_MESLink_GetFoup(T* instance, void (T::*cb)(const ::MCS::LocFoup&), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_MESLink_GetFoup<T>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT>
+class Callback_MESLink_GetFoup : public Callback_MESLink_GetFoup_Base, public ::IceInternal::TwowayCallback<T, CT>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
+    typedef void (T::*Sent)(bool , const CT&);
+    typedef void (T::*Response)(const ::MCS::LocFoup&, const CT&);
+
+    Callback_MESLink_GetFoup(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
+    {
+    }
+
+    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
+    {
+        ::MCS::MESLinkPrx __proxy = ::MCS::MESLinkPrx::uncheckedCast(__result->getProxy());
+        ::MCS::LocFoup __ret;
+        try
+        {
+            __ret = __proxy->end_GetFoup(__result);
+        }
+        catch(::Ice::Exception& ex)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            __exception(__result, ex);
+#else
+            ::IceInternal::Callback<T, CT>::__exception(__result, ex);
+#endif
+            return;
+        }
+        if(response)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            (callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
+#else
+            (::IceInternal::Callback<T, CT>::callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
+#endif
+        }
+    }
+
+    Response response;
+};
+
+template<class T, typename CT> Callback_MESLink_GetFoupPtr
+newCallback_MESLink_GetFoup(const IceUtil::Handle<T>& instance, void (T::*cb)(const ::MCS::LocFoup&, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_MESLink_GetFoup<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_MESLink_GetFoupPtr
+newCallback_MESLink_GetFoup(T* instance, void (T::*cb)(const ::MCS::LocFoup&, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_MESLink_GetFoup<T, CT>(instance, cb, excb, sentcb);
 }
 
 }

@@ -6,19 +6,18 @@
 #include <iostream>
 using namespace std;
 
-#include "MaterialController.h"
-#include "MetaMoveCtrlServer.h"
+#include "MMoveCtrlServer.h"
 #include "AtomicBoolean.h"
 #include <signal.h>
 
-initialiseSingleton(MetaMoveCtrlServer);
+initialiseSingleton(MMoveCtrlServer);
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	
-	new MetaMoveCtrlServer;
-	MetaMoveCtrlServer::getSingleton().Run(argc, argv);
-	delete MetaMoveCtrlServer::getSingletonPtr();
+	new MMoveCtrlServer;
+	MMoveCtrlServer::getSingleton().Run(argc, argv);
+	delete MMoveCtrlServer::getSingletonPtr();
 
 	return 0;
 }

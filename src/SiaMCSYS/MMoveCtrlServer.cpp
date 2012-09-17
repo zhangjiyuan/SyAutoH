@@ -1,13 +1,17 @@
 #include "StdAfx.h"
-#include "MetaMoveCtrlServer.h"
+#include "MMoveCtrlServer.h"
 #include <signal.h>
 #include "MaterialController.h"
 #include "AtomicBoolean.h"
 #include <iostream>
 
+#include "../MesLink/MesLink.h"
+#include "../SqlAceCli/SqlAceCli.h"
+#include "../GuiHub/GuiHub.h"
+
 using namespace std;
 
-AtomicBoolean mrunning(true);
+AtomicBoolean g_Running(true);
 
 /*** Signal Handler ***/
 void _OnSignal(int s)
@@ -20,19 +24,30 @@ void _OnSignal(int s)
 #ifdef _WIN32
 	case SIGBREAK:
 #endif
-		mrunning.SetVal(false);
+		g_Running.SetVal(false);
 		break;
 	}
 
 	signal(s, _OnSignal);
 }
 
-void MetaMoveCtrlServer::Stop()
+void MMoveCtrlServer::Stop()
 {
+
 }
 
-void MetaMoveCtrlServer::Run(int argc, _TCHAR** argv)
+void MMoveCtrlServer::Run(int argc, _TCHAR** argv)
 {
+	// init
+	MaterialController MC;
+	MC.PrintfInfo();
+
+	if (0 != MC.Init())
+	{
+		cout<< "MCS Init failed." << endl;
+		return;
+	}
+
 	//if(authsockcreated && intersockcreated)
 	{
 		// hook signals
@@ -61,18 +76,11 @@ void MetaMoveCtrlServer::Run(int argc, _TCHAR** argv)
 		//		uint32 loop_counter = 0;
 		//ThreadPool.Gobble();
 		//sLog.outString("Success! Ready for connections");
-
-		cout<< "Material Control System V1.0.0.1 \n\n\n" << endl;
-		MaterialController MC;
-		if (0 != MC.Init())
-		{
-			cout<< "MCS Init failed." << endl;
-			return;
-		}
+		
 
 		MC.Run();
 
-		while(mrunning.GetVal())
+		while(g_Running.GetVal())
 		{
 			//if(!(++loop_counter % 20))	 // 20 seconds
 			//	CheckForDeadSockets();

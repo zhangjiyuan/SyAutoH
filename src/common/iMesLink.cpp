@@ -41,6 +41,8 @@ static const ::std::string __MCS__MESLink__PlaceFoup_name = "PlaceFoup";
 
 static const ::std::string __MCS__MESLink__PickFoup_name = "PickFoup";
 
+static const ::std::string __MCS__MESLink__GetFoup_name = "GetFoup";
+
 ::Ice::Object* IceInternal::upCast(::MCS::MESLink* p) { return p; }
 ::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::MCS::MESLink* p) { return p; }
 
@@ -60,8 +62,24 @@ MCS::__read(::IceInternal::BasicStream* __is, ::MCS::MESLinkPrx& v)
     }
 }
 
+void
+MCS::LocFoup::__write(::IceInternal::BasicStream* __os) const
+{
+    __os->write(nDevID);
+    __os->write(nLocType);
+    __os->write(sStatus);
+}
+
+void
+MCS::LocFoup::__read(::IceInternal::BasicStream* __is)
+{
+    __is->read(nDevID);
+    __is->read(nLocType);
+    __is->read(sStatus);
+}
+
 ::Ice::Int
-IceProxy::MCS::MESLink::PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const ::Ice::Context* __ctx)
+IceProxy::MCS::MESLink::PlaceFoup(const ::std::string& FoupID, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -72,7 +90,7 @@ IceProxy::MCS::MESLink::PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const ::I
             __checkTwowayOnly(__MCS__MESLink__PlaceFoup_name);
             __delBase = __getDelegate(false);
             ::IceDelegate::MCS::MESLink* __del = dynamic_cast< ::IceDelegate::MCS::MESLink*>(__delBase.get());
-            return __del->PlaceFoup(FoupID, DevID, __ctx);
+            return __del->PlaceFoup(FoupID, DevID, nLocType, __ctx);
         }
         catch(const ::IceInternal::LocalExceptionWrapper& __ex)
         {
@@ -86,7 +104,7 @@ IceProxy::MCS::MESLink::PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const ::I
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::MESLink::begin_PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::MESLink::begin_PlaceFoup(const ::std::string& FoupID, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
     __checkAsyncTwowayOnly(__MCS__MESLink__PlaceFoup_name);
     ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__MESLink__PlaceFoup_name, __del, __cookie);
@@ -96,6 +114,7 @@ IceProxy::MCS::MESLink::begin_PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, con
         ::IceInternal::BasicStream* __os = __result->__getOs();
         __os->write(FoupID);
         __os->write(DevID);
+        __os->write(nLocType);
         __os->endWriteEncaps();
         __result->__send(true);
     }
@@ -130,7 +149,7 @@ IceProxy::MCS::MESLink::end_PlaceFoup(const ::Ice::AsyncResultPtr& __result)
 }
 
 ::Ice::Int
-IceProxy::MCS::MESLink::PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const ::Ice::Context* __ctx)
+IceProxy::MCS::MESLink::PickFoup(const ::std::string& FoupId, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -141,7 +160,7 @@ IceProxy::MCS::MESLink::PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const ::Ic
             __checkTwowayOnly(__MCS__MESLink__PickFoup_name);
             __delBase = __getDelegate(false);
             ::IceDelegate::MCS::MESLink* __del = dynamic_cast< ::IceDelegate::MCS::MESLink*>(__delBase.get());
-            return __del->PickFoup(FoupId, DevID, __ctx);
+            return __del->PickFoup(FoupId, DevID, nLocType, __ctx);
         }
         catch(const ::IceInternal::LocalExceptionWrapper& __ex)
         {
@@ -155,7 +174,7 @@ IceProxy::MCS::MESLink::PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const ::Ic
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::MESLink::begin_PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::MESLink::begin_PickFoup(const ::std::string& FoupId, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
     __checkAsyncTwowayOnly(__MCS__MESLink__PickFoup_name);
     ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__MESLink__PickFoup_name, __del, __cookie);
@@ -165,6 +184,7 @@ IceProxy::MCS::MESLink::begin_PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, cons
         ::IceInternal::BasicStream* __os = __result->__getOs();
         __os->write(FoupId);
         __os->write(DevID);
+        __os->write(nLocType);
         __os->endWriteEncaps();
         __result->__send(true);
     }
@@ -198,6 +218,74 @@ IceProxy::MCS::MESLink::end_PickFoup(const ::Ice::AsyncResultPtr& __result)
     return __ret;
 }
 
+::MCS::LocFoup
+IceProxy::MCS::MESLink::GetFoup(const ::std::string& FoupId, const ::Ice::Context* __ctx)
+{
+    int __cnt = 0;
+    while(true)
+    {
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
+        {
+            __checkTwowayOnly(__MCS__MESLink__GetFoup_name);
+            __delBase = __getDelegate(false);
+            ::IceDelegate::MCS::MESLink* __del = dynamic_cast< ::IceDelegate::MCS::MESLink*>(__delBase.get());
+            return __del->GetFoup(FoupId, __ctx);
+        }
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
+    }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MCS::MESLink::begin_GetFoup(const ::std::string& FoupId, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+{
+    __checkAsyncTwowayOnly(__MCS__MESLink__GetFoup_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__MESLink__GetFoup_name, __del, __cookie);
+    try
+    {
+        __result->__prepare(__MCS__MESLink__GetFoup_name, ::Ice::Idempotent, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(FoupId);
+        __os->endWriteEncaps();
+        __result->__send(true);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __result->__exceptionAsync(__ex);
+    }
+    return __result;
+}
+
+::MCS::LocFoup
+IceProxy::MCS::MESLink::end_GetFoup(const ::Ice::AsyncResultPtr& __result)
+{
+    ::Ice::AsyncResult::__check(__result, this, __MCS__MESLink__GetFoup_name);
+    ::MCS::LocFoup __ret;
+    if(!__result->__wait())
+    {
+        try
+        {
+            __result->__throwUserException();
+        }
+        catch(const ::Ice::UserException& __ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
+        }
+    }
+    ::IceInternal::BasicStream* __is = __result->__getIs();
+    __is->startReadEncaps();
+    __ret.__read(__is);
+    __is->endReadEncaps();
+    return __ret;
+}
+
 const ::std::string&
 IceProxy::MCS::MESLink::ice_staticId()
 {
@@ -223,7 +311,7 @@ IceProxy::MCS::MESLink::__newInstance() const
 }
 
 ::Ice::Int
-IceDelegateM::MCS::MESLink::PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const ::Ice::Context* __context)
+IceDelegateM::MCS::MESLink::PlaceFoup(const ::std::string& FoupID, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context* __context)
 {
     ::IceInternal::Outgoing __og(__handler.get(), __MCS__MESLink__PlaceFoup_name, ::Ice::Idempotent, __context);
     try
@@ -231,6 +319,7 @@ IceDelegateM::MCS::MESLink::PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const
         ::IceInternal::BasicStream* __os = __og.os();
         __os->write(FoupID);
         __os->write(DevID);
+        __os->write(nLocType);
     }
     catch(const ::Ice::LocalException& __ex)
     {
@@ -265,7 +354,7 @@ IceDelegateM::MCS::MESLink::PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const
 }
 
 ::Ice::Int
-IceDelegateM::MCS::MESLink::PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const ::Ice::Context* __context)
+IceDelegateM::MCS::MESLink::PickFoup(const ::std::string& FoupId, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context* __context)
 {
     ::IceInternal::Outgoing __og(__handler.get(), __MCS__MESLink__PickFoup_name, ::Ice::Idempotent, __context);
     try
@@ -273,6 +362,7 @@ IceDelegateM::MCS::MESLink::PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const 
         ::IceInternal::BasicStream* __os = __og.os();
         __os->write(FoupId);
         __os->write(DevID);
+        __os->write(nLocType);
     }
     catch(const ::Ice::LocalException& __ex)
     {
@@ -306,18 +396,60 @@ IceDelegateM::MCS::MESLink::PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const 
     }
 }
 
+::MCS::LocFoup
+IceDelegateM::MCS::MESLink::GetFoup(const ::std::string& FoupId, const ::Ice::Context* __context)
+{
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__MESLink__GetFoup_name, ::Ice::Idempotent, __context);
+    try
+    {
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(FoupId);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __og.abort(__ex);
+    }
+    bool __ok = __og.invoke();
+    ::MCS::LocFoup __ret;
+    try
+    {
+        if(!__ok)
+        {
+            try
+            {
+                __og.throwUserException();
+            }
+            catch(const ::Ice::UserException& __ex)
+            {
+                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                throw __uue;
+            }
+        }
+        ::IceInternal::BasicStream* __is = __og.is();
+        __is->startReadEncaps();
+        __ret.__read(__is);
+        __is->endReadEncaps();
+        return __ret;
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+    }
+}
+
 ::Ice::Int
-IceDelegateD::MCS::MESLink::PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const ::Ice::Context* __context)
+IceDelegateD::MCS::MESLink::PlaceFoup(const ::std::string& FoupID, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
     public:
 
-        _DirectI(::Ice::Int& __result, ::Ice::Int FoupID, ::Ice::Int DevID, const ::Ice::Current& __current) : 
+        _DirectI(::Ice::Int& __result, const ::std::string& FoupID, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Current& __current) : 
             ::IceInternal::Direct(__current),
             _result(__result),
             _m_FoupID(FoupID),
-            _m_DevID(DevID)
+            _m_DevID(DevID),
+            _m_nLocType(nLocType)
         {
         }
         
@@ -329,15 +461,16 @@ IceDelegateD::MCS::MESLink::PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const
             {
                 throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
             }
-            _result = servant->PlaceFoup(_m_FoupID, _m_DevID, _current);
+            _result = servant->PlaceFoup(_m_FoupID, _m_DevID, _m_nLocType, _current);
             return ::Ice::DispatchOK;
         }
         
     private:
         
         ::Ice::Int& _result;
-        ::Ice::Int _m_FoupID;
+        const ::std::string& _m_FoupID;
         ::Ice::Int _m_DevID;
+        ::Ice::Int _m_nLocType;
     };
     
     ::Ice::Current __current;
@@ -345,7 +478,7 @@ IceDelegateD::MCS::MESLink::PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const
     ::Ice::Int __result;
     try
     {
-        _DirectI __direct(__result, FoupID, DevID, __current);
+        _DirectI __direct(__result, FoupID, DevID, nLocType, __current);
         try
         {
             __direct.servant()->__collocDispatch(__direct);
@@ -377,17 +510,18 @@ IceDelegateD::MCS::MESLink::PlaceFoup(::Ice::Int FoupID, ::Ice::Int DevID, const
 }
 
 ::Ice::Int
-IceDelegateD::MCS::MESLink::PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const ::Ice::Context* __context)
+IceDelegateD::MCS::MESLink::PickFoup(const ::std::string& FoupId, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
     public:
 
-        _DirectI(::Ice::Int& __result, ::Ice::Int FoupId, ::Ice::Int DevID, const ::Ice::Current& __current) : 
+        _DirectI(::Ice::Int& __result, const ::std::string& FoupId, ::Ice::Int DevID, ::Ice::Int nLocType, const ::Ice::Current& __current) : 
             ::IceInternal::Direct(__current),
             _result(__result),
             _m_FoupId(FoupId),
-            _m_DevID(DevID)
+            _m_DevID(DevID),
+            _m_nLocType(nLocType)
         {
         }
         
@@ -399,15 +533,16 @@ IceDelegateD::MCS::MESLink::PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const 
             {
                 throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
             }
-            _result = servant->PickFoup(_m_FoupId, _m_DevID, _current);
+            _result = servant->PickFoup(_m_FoupId, _m_DevID, _m_nLocType, _current);
             return ::Ice::DispatchOK;
         }
         
     private:
         
         ::Ice::Int& _result;
-        ::Ice::Int _m_FoupId;
+        const ::std::string& _m_FoupId;
         ::Ice::Int _m_DevID;
+        ::Ice::Int _m_nLocType;
     };
     
     ::Ice::Current __current;
@@ -415,7 +550,75 @@ IceDelegateD::MCS::MESLink::PickFoup(::Ice::Int FoupId, ::Ice::Int DevID, const 
     ::Ice::Int __result;
     try
     {
-        _DirectI __direct(__result, FoupId, DevID, __current);
+        _DirectI __direct(__result, FoupId, DevID, nLocType, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
+    return __result;
+}
+
+::MCS::LocFoup
+IceDelegateD::MCS::MESLink::GetFoup(const ::std::string& FoupId, const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(::MCS::LocFoup& __result, const ::std::string& FoupId, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _result(__result),
+            _m_FoupId(FoupId)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::MCS::MESLink* servant = dynamic_cast< ::MCS::MESLink*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            _result = servant->GetFoup(_m_FoupId, _current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        ::MCS::LocFoup& _result;
+        const ::std::string& _m_FoupId;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __MCS__MESLink__GetFoup_name, ::Ice::Idempotent, __context);
+    ::MCS::LocFoup __result;
+    try
+    {
+        _DirectI __direct(__result, FoupId, __current);
         try
         {
             __direct.servant()->__collocDispatch(__direct);
@@ -489,13 +692,15 @@ MCS::MESLink::___PlaceFoup(::IceInternal::Incoming& __inS, const ::Ice::Current&
     __checkMode(::Ice::Idempotent, __current.mode);
     ::IceInternal::BasicStream* __is = __inS.is();
     __is->startReadEncaps();
-    ::Ice::Int FoupID;
+    ::std::string FoupID;
     ::Ice::Int DevID;
+    ::Ice::Int nLocType;
     __is->read(FoupID);
     __is->read(DevID);
+    __is->read(nLocType);
     __is->endReadEncaps();
     ::IceInternal::BasicStream* __os = __inS.os();
-    ::Ice::Int __ret = PlaceFoup(FoupID, DevID, __current);
+    ::Ice::Int __ret = PlaceFoup(FoupID, DevID, nLocType, __current);
     __os->write(__ret);
     return ::Ice::DispatchOK;
 }
@@ -506,19 +711,37 @@ MCS::MESLink::___PickFoup(::IceInternal::Incoming& __inS, const ::Ice::Current& 
     __checkMode(::Ice::Idempotent, __current.mode);
     ::IceInternal::BasicStream* __is = __inS.is();
     __is->startReadEncaps();
-    ::Ice::Int FoupId;
+    ::std::string FoupId;
     ::Ice::Int DevID;
+    ::Ice::Int nLocType;
     __is->read(FoupId);
     __is->read(DevID);
+    __is->read(nLocType);
     __is->endReadEncaps();
     ::IceInternal::BasicStream* __os = __inS.os();
-    ::Ice::Int __ret = PickFoup(FoupId, DevID, __current);
+    ::Ice::Int __ret = PickFoup(FoupId, DevID, nLocType, __current);
     __os->write(__ret);
+    return ::Ice::DispatchOK;
+}
+
+::Ice::DispatchStatus
+MCS::MESLink::___GetFoup(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Idempotent, __current.mode);
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::std::string FoupId;
+    __is->read(FoupId);
+    __is->endReadEncaps();
+    ::IceInternal::BasicStream* __os = __inS.os();
+    ::MCS::LocFoup __ret = GetFoup(FoupId, __current);
+    __ret.__write(__os);
     return ::Ice::DispatchOK;
 }
 
 static ::std::string __MCS__MESLink_all[] =
 {
+    "GetFoup",
     "PickFoup",
     "PlaceFoup",
     "ice_id",
@@ -530,7 +753,7 @@ static ::std::string __MCS__MESLink_all[] =
 ::Ice::DispatchStatus
 MCS::MESLink::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& current)
 {
-    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__MESLink_all, __MCS__MESLink_all + 6, current.operation);
+    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__MESLink_all, __MCS__MESLink_all + 7, current.operation);
     if(r.first == r.second)
     {
         throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
@@ -540,25 +763,29 @@ MCS::MESLink::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& curr
     {
         case 0:
         {
-            return ___PickFoup(in, current);
+            return ___GetFoup(in, current);
         }
         case 1:
         {
-            return ___PlaceFoup(in, current);
+            return ___PickFoup(in, current);
         }
         case 2:
         {
-            return ___ice_id(in, current);
+            return ___PlaceFoup(in, current);
         }
         case 3:
         {
-            return ___ice_ids(in, current);
+            return ___ice_id(in, current);
         }
         case 4:
         {
-            return ___ice_isA(in, current);
+            return ___ice_ids(in, current);
         }
         case 5:
+        {
+            return ___ice_isA(in, current);
+        }
+        case 6:
         {
             return ___ice_ping(in, current);
         }

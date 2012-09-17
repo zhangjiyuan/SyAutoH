@@ -80,14 +80,14 @@
   <ItemGroup>
     <ClInclude Include="AtomicBoolean.h" />
     <ClInclude Include="MaterialController.h" />
-    <ClInclude Include="MetaMoveCtrlServer.h" />
+    <ClInclude Include="MMoveCtrlServer.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MaterialController.cpp" />
-    <ClCompile Include="MetaMoveCtrlServer.cpp" />
+    <ClCompile Include="MMoveCtrlServer.cpp" />
     <ClCompile Include="SiaMCSYS.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -10,6 +10,8 @@
 #define GUIHUB_API __declspec(dllimport)
 #endif
 
+#pragma once
+
 class UserManagementServer;
 // 此类是从 GuiHub.dll 导出的
 class GUIHUB_API CGuiHub {

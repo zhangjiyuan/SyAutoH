@@ -1,6 +1,6 @@
 #pragma once
 
-//#include "Errors.h"
+#include "Errors.h"
 
 /// Should be placed in the appropriate .cpp file somewhere
 #define initialiseSingleton( type ) \
@@ -22,7 +22,7 @@ template < class type > class Singleton
 		Singleton()
 		{
 			/// If you hit this assert, this singleton already exists -- you can't create another one!
-			//ASSERT(this->mSingleton == 0);
+			assert(this->mSingleton == 0);
 			this->mSingleton = static_cast<type*>(this);
 		}
 		/// Destructor
@@ -31,7 +31,7 @@ template < class type > class Singleton
 			this->mSingleton = 0;
 		}
 
-		inline static type & getSingleton() { /*ASSERT(mSingleton);*/ return *mSingleton; }
+		inline static type & getSingleton() { assert(mSingleton); return *mSingleton; }
 		inline static type* getSingletonPtr() { return mSingleton; }
 
 	protected:

@@ -11,7 +11,7 @@ DBFoup::~DBFoup(void)
 {
 }
 
-int DBFoup::AddFoup(WCHAR* sFoupID, WCHAR* sLot, int nLocal, int nType)
+int DBFoup::AddFoup(const WCHAR* sFoupID, const WCHAR* sLot, int nLocal, int nType)
 {
 	CoInitialize(NULL);
 	HRESULT hr;
@@ -83,7 +83,7 @@ int DBFoup::AddFoup(WCHAR* sFoupID, WCHAR* sLot, int nLocal, int nType)
 
 	return nRet;
 }
-int DBFoup::FindFoup(WCHAR* sFoupID)
+int DBFoup::FindFoup(const WCHAR* sFoupID)
 {
 	CoInitialize(NULL);
 	HRESULT hr;

@@ -1,8 +1,8 @@
 #pragma once
 #include "Singleton.h"
 
-class MetaMoveCtrlServer;
-class MetaMoveCtrlServer : public Singleton< MetaMoveCtrlServer >
+class MMoveCtrlServer;
+class MMoveCtrlServer : public Singleton< MMoveCtrlServer >
 {
 public:
 	void Run(int argc, _TCHAR** argv);

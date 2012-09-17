@@ -41,8 +41,8 @@ public:
 	DBFoup(void);
 	~DBFoup(void);
 public:
-	int AddFoup(WCHAR* sFoupID, WCHAR* sLot, int nLocal, int nType);
-	int FindFoup(WCHAR* sFoupID);
+	int AddFoup(const WCHAR* sFoupID, const WCHAR* sLot, int nLocal, int nType);
+	int FindFoup(const WCHAR* sFoupID);
 	int SetFoupLocation(int nFoup, int nLocal, int nType);
 	int GetFoupLocation(int nFoup, int &nLocal, int &nType);
 };

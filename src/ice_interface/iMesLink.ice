@@ -14,10 +14,18 @@
 module MCS
 {
 
+struct LocFoup
+{
+	int nDevID;
+	int nLocType;
+	string sStatus;
+};
+
 interface MESLink
 {
-    idempotent int PlaceFoup(int FoupID, int DevID);
-    idempotent int PickFoup(int FoupId, int DevID);
+    idempotent int PlaceFoup(string FoupID, int DevID, int nLocType);
+    idempotent int PickFoup(string FoupId, int DevID, int nLocType);
+    idempotent LocFoup GetFoup(string FoupId);
 };
 
 };

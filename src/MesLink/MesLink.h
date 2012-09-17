@@ -24,8 +24,8 @@ public:
 class CSource 
 {
 public:
-	__event void MyEvent(int nValue);
-	__event void MyEventS(TCHAR* sValue, int nV);
+	__event void MESPickFoup(const WCHAR* sFoupName, int nDevID, int nDevType);
+	__event void MESPlaceFoup(const WCHAR* sFoupName, int nDevID, int nDevType);
 };
 
 class MesLinkServer;

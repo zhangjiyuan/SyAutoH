@@ -45,7 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="IceNet.cs" />
     <Compile Include="iGuiHub.cs" />
+    <Compile Include="iMesLink.cs" />
+    <Compile Include="MESLink.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserCli.cs" />
