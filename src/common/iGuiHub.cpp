@@ -37,16 +37,31 @@
 #   endif
 #endif
 
-static const ::std::string __MCS__GuiDataHub__Login_name = "Login";
-
-static const ::std::string __MCS__GuiDataHub__Logout_name = "Logout";
-
 static const ::std::string __MCS__GuiDataHub__ReadData_name = "ReadData";
 
 static const ::std::string __MCS__GuiDataHub__WriteData_name = "WriteData";
 
+static const ::std::string __MCS__UserManagement__Login_name = "Login";
+
+static const ::std::string __MCS__UserManagement__Logout_name = "Logout";
+
+static const ::std::string __MCS__UserManagement__CreateUser_name = "CreateUser";
+
+static const ::std::string __MCS__UserManagement__SetUserPW_name = "SetUserPW";
+
+static const ::std::string __MCS__UserManagement__SetUserRight_name = "SetUserRight";
+
+static const ::std::string __MCS__UserManagement__DeleteUser_name = "DeleteUser";
+
+static const ::std::string __MCS__UserManagement__GetUserCount_name = "GetUserCount";
+
+static const ::std::string __MCS__UserManagement__GetUserList_name = "GetUserList";
+
 ::Ice::Object* IceInternal::upCast(::MCS::GuiDataHub* p) { return p; }
 ::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::MCS::GuiDataHub* p) { return p; }
+
+::Ice::Object* IceInternal::upCast(::MCS::UserManagement* p) { return p; }
+::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::MCS::UserManagement* p) { return p; }
 
 void
 MCS::__read(::IceInternal::BasicStream* __is, ::MCS::GuiDataHubPrx& v)
@@ -64,141 +79,59 @@ MCS::__read(::IceInternal::BasicStream* __is, ::MCS::GuiDataHubPrx& v)
     }
 }
 
-::Ice::Int
-IceProxy::MCS::GuiDataHub::Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context* __ctx)
+void
+MCS::__read(::IceInternal::BasicStream* __is, ::MCS::UserManagementPrx& v)
 {
-    int __cnt = 0;
-    while(true)
+    ::Ice::ObjectPrx proxy;
+    __is->read(proxy);
+    if(!proxy)
     {
-        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
-        try
-        {
-            __checkTwowayOnly(__MCS__GuiDataHub__Login_name);
-            __delBase = __getDelegate(false);
-            ::IceDelegate::MCS::GuiDataHub* __del = dynamic_cast< ::IceDelegate::MCS::GuiDataHub*>(__delBase.get());
-            return __del->Login(user, pass, __ctx);
-        }
-        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
-        {
-            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
-        }
-        catch(const ::Ice::LocalException& __ex)
-        {
-            __handleException(__delBase, __ex, true, __cnt);
-        }
+        v = 0;
+    }
+    else
+    {
+        v = new ::IceProxy::MCS::UserManagement;
+        v->__copyFrom(proxy);
     }
 }
 
-::Ice::AsyncResultPtr
-IceProxy::MCS::GuiDataHub::begin_Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+void
+MCS::User::__write(::IceInternal::BasicStream* __os) const
 {
-    __checkAsyncTwowayOnly(__MCS__GuiDataHub__Login_name);
-    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataHub__Login_name, __del, __cookie);
-    try
-    {
-        __result->__prepare(__MCS__GuiDataHub__Login_name, ::Ice::Idempotent, __ctx);
-        ::IceInternal::BasicStream* __os = __result->__getOs();
-        __os->write(user);
-        __os->write(pass);
-        __os->endWriteEncaps();
-        __result->__send(true);
-    }
-    catch(const ::Ice::LocalException& __ex)
-    {
-        __result->__exceptionAsync(__ex);
-    }
-    return __result;
+    __os->write(nID);
+    __os->write(sName);
+    __os->write(nRight);
 }
 
-::Ice::Int
-IceProxy::MCS::GuiDataHub::end_Login(const ::Ice::AsyncResultPtr& __result)
+void
+MCS::User::__read(::IceInternal::BasicStream* __is)
 {
-    ::Ice::AsyncResult::__check(__result, this, __MCS__GuiDataHub__Login_name);
-    ::Ice::Int __ret;
-    if(!__result->__wait())
-    {
-        try
-        {
-            __result->__throwUserException();
-        }
-        catch(const ::Ice::UserException& __ex)
-        {
-            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
-        }
-    }
-    ::IceInternal::BasicStream* __is = __result->__getIs();
-    __is->startReadEncaps();
-    __is->read(__ret);
-    __is->endReadEncaps();
-    return __ret;
+    __is->read(nID);
+    __is->read(sName);
+    __is->read(nRight);
 }
 
-::Ice::Int
-IceProxy::MCS::GuiDataHub::Logout(::Ice::Int session, const ::Ice::Context* __ctx)
+void
+MCS::__writeUserList(::IceInternal::BasicStream* __os, const ::MCS::User* begin, const ::MCS::User* end)
 {
-    int __cnt = 0;
-    while(true)
+    ::Ice::Int size = static_cast< ::Ice::Int>(end - begin);
+    __os->writeSize(size);
+    for(int i = 0; i < size; ++i)
     {
-        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
-        try
-        {
-            __checkTwowayOnly(__MCS__GuiDataHub__Logout_name);
-            __delBase = __getDelegate(false);
-            ::IceDelegate::MCS::GuiDataHub* __del = dynamic_cast< ::IceDelegate::MCS::GuiDataHub*>(__delBase.get());
-            return __del->Logout(session, __ctx);
-        }
-        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
-        {
-            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
-        }
-        catch(const ::Ice::LocalException& __ex)
-        {
-            __handleException(__delBase, __ex, true, __cnt);
-        }
+        begin[i].__write(__os);
     }
 }
 
-::Ice::AsyncResultPtr
-IceProxy::MCS::GuiDataHub::begin_Logout(::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+void
+MCS::__readUserList(::IceInternal::BasicStream* __is, ::MCS::UserList& v)
 {
-    __checkAsyncTwowayOnly(__MCS__GuiDataHub__Logout_name);
-    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataHub__Logout_name, __del, __cookie);
-    try
+    ::Ice::Int sz;
+    __is->readAndCheckSeqSize(9, sz);
+    v.resize(sz);
+    for(int i = 0; i < sz; ++i)
     {
-        __result->__prepare(__MCS__GuiDataHub__Logout_name, ::Ice::Idempotent, __ctx);
-        ::IceInternal::BasicStream* __os = __result->__getOs();
-        __os->write(session);
-        __os->endWriteEncaps();
-        __result->__send(true);
+        v[i].__read(__is);
     }
-    catch(const ::Ice::LocalException& __ex)
-    {
-        __result->__exceptionAsync(__ex);
-    }
-    return __result;
-}
-
-::Ice::Int
-IceProxy::MCS::GuiDataHub::end_Logout(const ::Ice::AsyncResultPtr& __result)
-{
-    ::Ice::AsyncResult::__check(__result, this, __MCS__GuiDataHub__Logout_name);
-    ::Ice::Int __ret;
-    if(!__result->__wait())
-    {
-        try
-        {
-            __result->__throwUserException();
-        }
-        catch(const ::Ice::UserException& __ex)
-        {
-            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
-        }
-    }
-    ::IceInternal::BasicStream* __is = __result->__getIs();
-    __is->startReadEncaps();
-    __is->read(__ret);
-    __is->endReadEncaps();
-    return __ret;
 }
 
 ::std::string
@@ -365,86 +298,579 @@ IceProxy::MCS::GuiDataHub::__newInstance() const
 }
 
 ::Ice::Int
-IceDelegateM::MCS::GuiDataHub::Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context* __context)
+IceProxy::MCS::UserManagement::Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context* __ctx)
 {
-    ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataHub__Login_name, ::Ice::Idempotent, __context);
-    try
+    int __cnt = 0;
+    while(true)
     {
-        ::IceInternal::BasicStream* __os = __og.os();
-        __os->write(user);
-        __os->write(pass);
-    }
-    catch(const ::Ice::LocalException& __ex)
-    {
-        __og.abort(__ex);
-    }
-    bool __ok = __og.invoke();
-    ::Ice::Int __ret;
-    try
-    {
-        if(!__ok)
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
         {
-            try
-            {
-                __og.throwUserException();
-            }
-            catch(const ::Ice::UserException& __ex)
-            {
-                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
-                throw __uue;
-            }
+            __checkTwowayOnly(__MCS__UserManagement__Login_name);
+            __delBase = __getDelegate(false);
+            ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
+            return __del->Login(user, pass, __ctx);
         }
-        ::IceInternal::BasicStream* __is = __og.is();
-        __is->startReadEncaps();
-        __is->read(__ret);
-        __is->endReadEncaps();
-        return __ret;
-    }
-    catch(const ::Ice::LocalException& __ex)
-    {
-        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
     }
 }
 
-::Ice::Int
-IceDelegateM::MCS::GuiDataHub::Logout(::Ice::Int session, const ::Ice::Context* __context)
+::Ice::AsyncResultPtr
+IceProxy::MCS::UserManagement::begin_Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
-    ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataHub__Logout_name, ::Ice::Idempotent, __context);
+    __checkAsyncTwowayOnly(__MCS__UserManagement__Login_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__Login_name, __del, __cookie);
     try
     {
-        ::IceInternal::BasicStream* __os = __og.os();
-        __os->write(session);
+        __result->__prepare(__MCS__UserManagement__Login_name, ::Ice::Idempotent, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(user);
+        __os->write(pass);
+        __os->endWriteEncaps();
+        __result->__send(true);
     }
     catch(const ::Ice::LocalException& __ex)
     {
-        __og.abort(__ex);
+        __result->__exceptionAsync(__ex);
     }
-    bool __ok = __og.invoke();
+    return __result;
+}
+
+::Ice::Int
+IceProxy::MCS::UserManagement::end_Login(const ::Ice::AsyncResultPtr& __result)
+{
+    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagement__Login_name);
     ::Ice::Int __ret;
+    if(!__result->__wait())
+    {
+        try
+        {
+            __result->__throwUserException();
+        }
+        catch(const ::Ice::UserException& __ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
+        }
+    }
+    ::IceInternal::BasicStream* __is = __result->__getIs();
+    __is->startReadEncaps();
+    __is->read(__ret);
+    __is->endReadEncaps();
+    return __ret;
+}
+
+::Ice::Int
+IceProxy::MCS::UserManagement::Logout(::Ice::Int session, const ::Ice::Context* __ctx)
+{
+    int __cnt = 0;
+    while(true)
+    {
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
+        {
+            __checkTwowayOnly(__MCS__UserManagement__Logout_name);
+            __delBase = __getDelegate(false);
+            ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
+            return __del->Logout(session, __ctx);
+        }
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
+    }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MCS::UserManagement::begin_Logout(::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+{
+    __checkAsyncTwowayOnly(__MCS__UserManagement__Logout_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__Logout_name, __del, __cookie);
     try
     {
-        if(!__ok)
-        {
-            try
-            {
-                __og.throwUserException();
-            }
-            catch(const ::Ice::UserException& __ex)
-            {
-                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
-                throw __uue;
-            }
-        }
-        ::IceInternal::BasicStream* __is = __og.is();
-        __is->startReadEncaps();
-        __is->read(__ret);
-        __is->endReadEncaps();
-        return __ret;
+        __result->__prepare(__MCS__UserManagement__Logout_name, ::Ice::Idempotent, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(session);
+        __os->endWriteEncaps();
+        __result->__send(true);
     }
     catch(const ::Ice::LocalException& __ex)
     {
-        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+        __result->__exceptionAsync(__ex);
     }
+    return __result;
+}
+
+::Ice::Int
+IceProxy::MCS::UserManagement::end_Logout(const ::Ice::AsyncResultPtr& __result)
+{
+    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagement__Logout_name);
+    ::Ice::Int __ret;
+    if(!__result->__wait())
+    {
+        try
+        {
+            __result->__throwUserException();
+        }
+        catch(const ::Ice::UserException& __ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
+        }
+    }
+    ::IceInternal::BasicStream* __is = __result->__getIs();
+    __is->startReadEncaps();
+    __is->read(__ret);
+    __is->endReadEncaps();
+    return __ret;
+}
+
+::Ice::Int
+IceProxy::MCS::UserManagement::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __ctx)
+{
+    int __cnt = 0;
+    while(true)
+    {
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
+        {
+            __checkTwowayOnly(__MCS__UserManagement__CreateUser_name);
+            __delBase = __getDelegate(false);
+            ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
+            return __del->CreateUser(user, pass, session, __ctx);
+        }
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
+    }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MCS::UserManagement::begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+{
+    __checkAsyncTwowayOnly(__MCS__UserManagement__CreateUser_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__CreateUser_name, __del, __cookie);
+    try
+    {
+        __result->__prepare(__MCS__UserManagement__CreateUser_name, ::Ice::Idempotent, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(user);
+        __os->write(pass);
+        __os->write(session);
+        __os->endWriteEncaps();
+        __result->__send(true);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __result->__exceptionAsync(__ex);
+    }
+    return __result;
+}
+
+::Ice::Int
+IceProxy::MCS::UserManagement::end_CreateUser(const ::Ice::AsyncResultPtr& __result)
+{
+    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagement__CreateUser_name);
+    ::Ice::Int __ret;
+    if(!__result->__wait())
+    {
+        try
+        {
+            __result->__throwUserException();
+        }
+        catch(const ::Ice::UserException& __ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
+        }
+    }
+    ::IceInternal::BasicStream* __is = __result->__getIs();
+    __is->startReadEncaps();
+    __is->read(__ret);
+    __is->endReadEncaps();
+    return __ret;
+}
+
+::Ice::Int
+IceProxy::MCS::UserManagement::SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __ctx)
+{
+    int __cnt = 0;
+    while(true)
+    {
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
+        {
+            __checkTwowayOnly(__MCS__UserManagement__SetUserPW_name);
+            __delBase = __getDelegate(false);
+            ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
+            return __del->SetUserPW(nUID, pass, session, __ctx);
+        }
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
+    }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MCS::UserManagement::begin_SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+{
+    __checkAsyncTwowayOnly(__MCS__UserManagement__SetUserPW_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__SetUserPW_name, __del, __cookie);
+    try
+    {
+        __result->__prepare(__MCS__UserManagement__SetUserPW_name, ::Ice::Idempotent, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(nUID);
+        __os->write(pass);
+        __os->write(session);
+        __os->endWriteEncaps();
+        __result->__send(true);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __result->__exceptionAsync(__ex);
+    }
+    return __result;
+}
+
+::Ice::Int
+IceProxy::MCS::UserManagement::end_SetUserPW(const ::Ice::AsyncResultPtr& __result)
+{
+    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagement__SetUserPW_name);
+    ::Ice::Int __ret;
+    if(!__result->__wait())
+    {
+        try
+        {
+            __result->__throwUserException();
+        }
+        catch(const ::Ice::UserException& __ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
+        }
+    }
+    ::IceInternal::BasicStream* __is = __result->__getIs();
+    __is->startReadEncaps();
+    __is->read(__ret);
+    __is->endReadEncaps();
+    return __ret;
+}
+
+::Ice::Int
+IceProxy::MCS::UserManagement::SetUserRight(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __ctx)
+{
+    int __cnt = 0;
+    while(true)
+    {
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
+        {
+            __checkTwowayOnly(__MCS__UserManagement__SetUserRight_name);
+            __delBase = __getDelegate(false);
+            ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
+            return __del->SetUserRight(nUID, nRight, session, __ctx);
+        }
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
+    }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MCS::UserManagement::begin_SetUserRight(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+{
+    __checkAsyncTwowayOnly(__MCS__UserManagement__SetUserRight_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__SetUserRight_name, __del, __cookie);
+    try
+    {
+        __result->__prepare(__MCS__UserManagement__SetUserRight_name, ::Ice::Idempotent, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(nUID);
+        __os->write(nRight);
+        __os->write(session);
+        __os->endWriteEncaps();
+        __result->__send(true);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __result->__exceptionAsync(__ex);
+    }
+    return __result;
+}
+
+::Ice::Int
+IceProxy::MCS::UserManagement::end_SetUserRight(const ::Ice::AsyncResultPtr& __result)
+{
+    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagement__SetUserRight_name);
+    ::Ice::Int __ret;
+    if(!__result->__wait())
+    {
+        try
+        {
+            __result->__throwUserException();
+        }
+        catch(const ::Ice::UserException& __ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
+        }
+    }
+    ::IceInternal::BasicStream* __is = __result->__getIs();
+    __is->startReadEncaps();
+    __is->read(__ret);
+    __is->endReadEncaps();
+    return __ret;
+}
+
+::Ice::Int
+IceProxy::MCS::UserManagement::DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::Ice::Context* __ctx)
+{
+    int __cnt = 0;
+    while(true)
+    {
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
+        {
+            __checkTwowayOnly(__MCS__UserManagement__DeleteUser_name);
+            __delBase = __getDelegate(false);
+            ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
+            return __del->DeleteUser(nUID, session, __ctx);
+        }
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
+    }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MCS::UserManagement::begin_DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+{
+    __checkAsyncTwowayOnly(__MCS__UserManagement__DeleteUser_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__DeleteUser_name, __del, __cookie);
+    try
+    {
+        __result->__prepare(__MCS__UserManagement__DeleteUser_name, ::Ice::Idempotent, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(nUID);
+        __os->write(session);
+        __os->endWriteEncaps();
+        __result->__send(true);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __result->__exceptionAsync(__ex);
+    }
+    return __result;
+}
+
+::Ice::Int
+IceProxy::MCS::UserManagement::end_DeleteUser(const ::Ice::AsyncResultPtr& __result)
+{
+    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagement__DeleteUser_name);
+    ::Ice::Int __ret;
+    if(!__result->__wait())
+    {
+        try
+        {
+            __result->__throwUserException();
+        }
+        catch(const ::Ice::UserException& __ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
+        }
+    }
+    ::IceInternal::BasicStream* __is = __result->__getIs();
+    __is->startReadEncaps();
+    __is->read(__ret);
+    __is->endReadEncaps();
+    return __ret;
+}
+
+::Ice::Int
+IceProxy::MCS::UserManagement::GetUserCount(const ::Ice::Context* __ctx)
+{
+    int __cnt = 0;
+    while(true)
+    {
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
+        {
+            __checkTwowayOnly(__MCS__UserManagement__GetUserCount_name);
+            __delBase = __getDelegate(false);
+            ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
+            return __del->GetUserCount(__ctx);
+        }
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
+    }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MCS::UserManagement::begin_GetUserCount(const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+{
+    __checkAsyncTwowayOnly(__MCS__UserManagement__GetUserCount_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__GetUserCount_name, __del, __cookie);
+    try
+    {
+        __result->__prepare(__MCS__UserManagement__GetUserCount_name, ::Ice::Idempotent, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->endWriteEncaps();
+        __result->__send(true);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __result->__exceptionAsync(__ex);
+    }
+    return __result;
+}
+
+::Ice::Int
+IceProxy::MCS::UserManagement::end_GetUserCount(const ::Ice::AsyncResultPtr& __result)
+{
+    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagement__GetUserCount_name);
+    ::Ice::Int __ret;
+    if(!__result->__wait())
+    {
+        try
+        {
+            __result->__throwUserException();
+        }
+        catch(const ::Ice::UserException& __ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
+        }
+    }
+    ::IceInternal::BasicStream* __is = __result->__getIs();
+    __is->startReadEncaps();
+    __is->read(__ret);
+    __is->endReadEncaps();
+    return __ret;
+}
+
+::MCS::UserList
+IceProxy::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __ctx)
+{
+    int __cnt = 0;
+    while(true)
+    {
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
+        {
+            __checkTwowayOnly(__MCS__UserManagement__GetUserList_name);
+            __delBase = __getDelegate(false);
+            ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
+            return __del->GetUserList(nBegin, nCount, __ctx);
+        }
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
+    }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MCS::UserManagement::begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+{
+    __checkAsyncTwowayOnly(__MCS__UserManagement__GetUserList_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__GetUserList_name, __del, __cookie);
+    try
+    {
+        __result->__prepare(__MCS__UserManagement__GetUserList_name, ::Ice::Idempotent, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(nBegin);
+        __os->write(nCount);
+        __os->endWriteEncaps();
+        __result->__send(true);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __result->__exceptionAsync(__ex);
+    }
+    return __result;
+}
+
+::MCS::UserList
+IceProxy::MCS::UserManagement::end_GetUserList(const ::Ice::AsyncResultPtr& __result)
+{
+    ::Ice::AsyncResult::__check(__result, this, __MCS__UserManagement__GetUserList_name);
+    ::MCS::UserList __ret;
+    if(!__result->__wait())
+    {
+        try
+        {
+            __result->__throwUserException();
+        }
+        catch(const ::Ice::UserException& __ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
+        }
+    }
+    ::IceInternal::BasicStream* __is = __result->__getIs();
+    __is->startReadEncaps();
+    ::MCS::__readUserList(__is, __ret);
+    __is->endReadEncaps();
+    return __ret;
+}
+
+const ::std::string&
+IceProxy::MCS::UserManagement::ice_staticId()
+{
+    return ::MCS::UserManagement::ice_staticId();
+}
+
+::IceInternal::Handle< ::IceDelegateM::Ice::Object>
+IceProxy::MCS::UserManagement::__createDelegateM()
+{
+    return ::IceInternal::Handle< ::IceDelegateM::Ice::Object>(new ::IceDelegateM::MCS::UserManagement);
+}
+
+::IceInternal::Handle< ::IceDelegateD::Ice::Object>
+IceProxy::MCS::UserManagement::__createDelegateD()
+{
+    return ::IceInternal::Handle< ::IceDelegateD::Ice::Object>(new ::IceDelegateD::MCS::UserManagement);
+}
+
+::IceProxy::Ice::Object*
+IceProxy::MCS::UserManagement::__newInstance() const
+{
+    return new UserManagement;
 }
 
 ::std::string
@@ -533,141 +959,331 @@ IceDelegateM::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::
 }
 
 ::Ice::Int
-IceDelegateD::MCS::GuiDataHub::Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context* __context)
+IceDelegateM::MCS::UserManagement::Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context* __context)
 {
-    class _DirectI : public ::IceInternal::Direct
-    {
-    public:
-
-        _DirectI(::Ice::Int& __result, const ::std::string& user, const ::std::string& pass, const ::Ice::Current& __current) : 
-            ::IceInternal::Direct(__current),
-            _result(__result),
-            _m_user(user),
-            _m_pass(pass)
-        {
-        }
-        
-        virtual ::Ice::DispatchStatus
-        run(::Ice::Object* object)
-        {
-            ::MCS::GuiDataHub* servant = dynamic_cast< ::MCS::GuiDataHub*>(object);
-            if(!servant)
-            {
-                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
-            }
-            _result = servant->Login(_m_user, _m_pass, _current);
-            return ::Ice::DispatchOK;
-        }
-        
-    private:
-        
-        ::Ice::Int& _result;
-        const ::std::string& _m_user;
-        const ::std::string& _m_pass;
-    };
-    
-    ::Ice::Current __current;
-    __initCurrent(__current, __MCS__GuiDataHub__Login_name, ::Ice::Idempotent, __context);
-    ::Ice::Int __result;
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__Login_name, ::Ice::Idempotent, __context);
     try
     {
-        _DirectI __direct(__result, user, pass, __current);
-        try
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(user);
+        __os->write(pass);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __og.abort(__ex);
+    }
+    bool __ok = __og.invoke();
+    ::Ice::Int __ret;
+    try
+    {
+        if(!__ok)
         {
-            __direct.servant()->__collocDispatch(__direct);
+            try
+            {
+                __og.throwUserException();
+            }
+            catch(const ::Ice::UserException& __ex)
+            {
+                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                throw __uue;
+            }
         }
-        catch(...)
-        {
-            __direct.destroy();
-            throw;
-        }
-        __direct.destroy();
+        ::IceInternal::BasicStream* __is = __og.is();
+        __is->startReadEncaps();
+        __is->read(__ret);
+        __is->endReadEncaps();
+        return __ret;
     }
-    catch(const ::Ice::SystemException&)
+    catch(const ::Ice::LocalException& __ex)
     {
-        throw;
+        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
     }
-    catch(const ::IceInternal::LocalExceptionWrapper&)
-    {
-        throw;
-    }
-    catch(const ::std::exception& __ex)
-    {
-        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
-    }
-    catch(...)
-    {
-        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
-    }
-    return __result;
 }
 
 ::Ice::Int
-IceDelegateD::MCS::GuiDataHub::Logout(::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateM::MCS::UserManagement::Logout(::Ice::Int session, const ::Ice::Context* __context)
 {
-    class _DirectI : public ::IceInternal::Direct
-    {
-    public:
-
-        _DirectI(::Ice::Int& __result, ::Ice::Int session, const ::Ice::Current& __current) : 
-            ::IceInternal::Direct(__current),
-            _result(__result),
-            _m_session(session)
-        {
-        }
-        
-        virtual ::Ice::DispatchStatus
-        run(::Ice::Object* object)
-        {
-            ::MCS::GuiDataHub* servant = dynamic_cast< ::MCS::GuiDataHub*>(object);
-            if(!servant)
-            {
-                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
-            }
-            _result = servant->Logout(_m_session, _current);
-            return ::Ice::DispatchOK;
-        }
-        
-    private:
-        
-        ::Ice::Int& _result;
-        ::Ice::Int _m_session;
-    };
-    
-    ::Ice::Current __current;
-    __initCurrent(__current, __MCS__GuiDataHub__Logout_name, ::Ice::Idempotent, __context);
-    ::Ice::Int __result;
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__Logout_name, ::Ice::Idempotent, __context);
     try
     {
-        _DirectI __direct(__result, session, __current);
-        try
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(session);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __og.abort(__ex);
+    }
+    bool __ok = __og.invoke();
+    ::Ice::Int __ret;
+    try
+    {
+        if(!__ok)
         {
-            __direct.servant()->__collocDispatch(__direct);
+            try
+            {
+                __og.throwUserException();
+            }
+            catch(const ::Ice::UserException& __ex)
+            {
+                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                throw __uue;
+            }
         }
-        catch(...)
+        ::IceInternal::BasicStream* __is = __og.is();
+        __is->startReadEncaps();
+        __is->read(__ret);
+        __is->endReadEncaps();
+        return __ret;
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+    }
+}
+
+::Ice::Int
+IceDelegateM::MCS::UserManagement::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __context)
+{
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__CreateUser_name, ::Ice::Idempotent, __context);
+    try
+    {
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(user);
+        __os->write(pass);
+        __os->write(session);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __og.abort(__ex);
+    }
+    bool __ok = __og.invoke();
+    ::Ice::Int __ret;
+    try
+    {
+        if(!__ok)
         {
-            __direct.destroy();
-            throw;
+            try
+            {
+                __og.throwUserException();
+            }
+            catch(const ::Ice::UserException& __ex)
+            {
+                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                throw __uue;
+            }
         }
-        __direct.destroy();
+        ::IceInternal::BasicStream* __is = __og.is();
+        __is->startReadEncaps();
+        __is->read(__ret);
+        __is->endReadEncaps();
+        return __ret;
     }
-    catch(const ::Ice::SystemException&)
+    catch(const ::Ice::LocalException& __ex)
     {
-        throw;
+        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
     }
-    catch(const ::IceInternal::LocalExceptionWrapper&)
+}
+
+::Ice::Int
+IceDelegateM::MCS::UserManagement::SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __context)
+{
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__SetUserPW_name, ::Ice::Idempotent, __context);
+    try
     {
-        throw;
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(nUID);
+        __os->write(pass);
+        __os->write(session);
     }
-    catch(const ::std::exception& __ex)
+    catch(const ::Ice::LocalException& __ex)
     {
-        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+        __og.abort(__ex);
     }
-    catch(...)
+    bool __ok = __og.invoke();
+    ::Ice::Int __ret;
+    try
     {
-        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+        if(!__ok)
+        {
+            try
+            {
+                __og.throwUserException();
+            }
+            catch(const ::Ice::UserException& __ex)
+            {
+                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                throw __uue;
+            }
+        }
+        ::IceInternal::BasicStream* __is = __og.is();
+        __is->startReadEncaps();
+        __is->read(__ret);
+        __is->endReadEncaps();
+        return __ret;
     }
-    return __result;
+    catch(const ::Ice::LocalException& __ex)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+    }
+}
+
+::Ice::Int
+IceDelegateM::MCS::UserManagement::SetUserRight(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __context)
+{
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__SetUserRight_name, ::Ice::Idempotent, __context);
+    try
+    {
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(nUID);
+        __os->write(nRight);
+        __os->write(session);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __og.abort(__ex);
+    }
+    bool __ok = __og.invoke();
+    ::Ice::Int __ret;
+    try
+    {
+        if(!__ok)
+        {
+            try
+            {
+                __og.throwUserException();
+            }
+            catch(const ::Ice::UserException& __ex)
+            {
+                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                throw __uue;
+            }
+        }
+        ::IceInternal::BasicStream* __is = __og.is();
+        __is->startReadEncaps();
+        __is->read(__ret);
+        __is->endReadEncaps();
+        return __ret;
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+    }
+}
+
+::Ice::Int
+IceDelegateM::MCS::UserManagement::DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::Ice::Context* __context)
+{
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__DeleteUser_name, ::Ice::Idempotent, __context);
+    try
+    {
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(nUID);
+        __os->write(session);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __og.abort(__ex);
+    }
+    bool __ok = __og.invoke();
+    ::Ice::Int __ret;
+    try
+    {
+        if(!__ok)
+        {
+            try
+            {
+                __og.throwUserException();
+            }
+            catch(const ::Ice::UserException& __ex)
+            {
+                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                throw __uue;
+            }
+        }
+        ::IceInternal::BasicStream* __is = __og.is();
+        __is->startReadEncaps();
+        __is->read(__ret);
+        __is->endReadEncaps();
+        return __ret;
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+    }
+}
+
+::Ice::Int
+IceDelegateM::MCS::UserManagement::GetUserCount(const ::Ice::Context* __context)
+{
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__GetUserCount_name, ::Ice::Idempotent, __context);
+    bool __ok = __og.invoke();
+    ::Ice::Int __ret;
+    try
+    {
+        if(!__ok)
+        {
+            try
+            {
+                __og.throwUserException();
+            }
+            catch(const ::Ice::UserException& __ex)
+            {
+                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                throw __uue;
+            }
+        }
+        ::IceInternal::BasicStream* __is = __og.is();
+        __is->startReadEncaps();
+        __is->read(__ret);
+        __is->endReadEncaps();
+        return __ret;
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+    }
+}
+
+::MCS::UserList
+IceDelegateM::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __context)
+{
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__GetUserList_name, ::Ice::Idempotent, __context);
+    try
+    {
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(nBegin);
+        __os->write(nCount);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __og.abort(__ex);
+    }
+    bool __ok = __og.invoke();
+    ::MCS::UserList __ret;
+    try
+    {
+        if(!__ok)
+        {
+            try
+            {
+                __og.throwUserException();
+            }
+            catch(const ::Ice::UserException& __ex)
+            {
+                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                throw __uue;
+            }
+        }
+        ::IceInternal::BasicStream* __is = __og.is();
+        __is->startReadEncaps();
+        ::MCS::__readUserList(__is, __ret);
+        __is->endReadEncaps();
+        return __ret;
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+    }
 }
 
 ::std::string
@@ -812,6 +1428,566 @@ IceDelegateD::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::
     return __result;
 }
 
+::Ice::Int
+IceDelegateD::MCS::UserManagement::Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(::Ice::Int& __result, const ::std::string& user, const ::std::string& pass, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _result(__result),
+            _m_user(user),
+            _m_pass(pass)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::MCS::UserManagement* servant = dynamic_cast< ::MCS::UserManagement*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            _result = servant->Login(_m_user, _m_pass, _current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        ::Ice::Int& _result;
+        const ::std::string& _m_user;
+        const ::std::string& _m_pass;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __MCS__UserManagement__Login_name, ::Ice::Idempotent, __context);
+    ::Ice::Int __result;
+    try
+    {
+        _DirectI __direct(__result, user, pass, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
+    return __result;
+}
+
+::Ice::Int
+IceDelegateD::MCS::UserManagement::Logout(::Ice::Int session, const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(::Ice::Int& __result, ::Ice::Int session, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _result(__result),
+            _m_session(session)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::MCS::UserManagement* servant = dynamic_cast< ::MCS::UserManagement*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            _result = servant->Logout(_m_session, _current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        ::Ice::Int& _result;
+        ::Ice::Int _m_session;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __MCS__UserManagement__Logout_name, ::Ice::Idempotent, __context);
+    ::Ice::Int __result;
+    try
+    {
+        _DirectI __direct(__result, session, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
+    return __result;
+}
+
+::Ice::Int
+IceDelegateD::MCS::UserManagement::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(::Ice::Int& __result, const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _result(__result),
+            _m_user(user),
+            _m_pass(pass),
+            _m_session(session)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::MCS::UserManagement* servant = dynamic_cast< ::MCS::UserManagement*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            _result = servant->CreateUser(_m_user, _m_pass, _m_session, _current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        ::Ice::Int& _result;
+        const ::std::string& _m_user;
+        const ::std::string& _m_pass;
+        ::Ice::Int _m_session;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __MCS__UserManagement__CreateUser_name, ::Ice::Idempotent, __context);
+    ::Ice::Int __result;
+    try
+    {
+        _DirectI __direct(__result, user, pass, session, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
+    return __result;
+}
+
+::Ice::Int
+IceDelegateD::MCS::UserManagement::SetUserPW(::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(::Ice::Int& __result, ::Ice::Int nUID, const ::std::string& pass, ::Ice::Int session, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _result(__result),
+            _m_nUID(nUID),
+            _m_pass(pass),
+            _m_session(session)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::MCS::UserManagement* servant = dynamic_cast< ::MCS::UserManagement*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            _result = servant->SetUserPW(_m_nUID, _m_pass, _m_session, _current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        ::Ice::Int& _result;
+        ::Ice::Int _m_nUID;
+        const ::std::string& _m_pass;
+        ::Ice::Int _m_session;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __MCS__UserManagement__SetUserPW_name, ::Ice::Idempotent, __context);
+    ::Ice::Int __result;
+    try
+    {
+        _DirectI __direct(__result, nUID, pass, session, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
+    return __result;
+}
+
+::Ice::Int
+IceDelegateD::MCS::UserManagement::SetUserRight(::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(::Ice::Int& __result, ::Ice::Int nUID, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _result(__result),
+            _m_nUID(nUID),
+            _m_nRight(nRight),
+            _m_session(session)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::MCS::UserManagement* servant = dynamic_cast< ::MCS::UserManagement*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            _result = servant->SetUserRight(_m_nUID, _m_nRight, _m_session, _current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        ::Ice::Int& _result;
+        ::Ice::Int _m_nUID;
+        ::Ice::Int _m_nRight;
+        ::Ice::Int _m_session;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __MCS__UserManagement__SetUserRight_name, ::Ice::Idempotent, __context);
+    ::Ice::Int __result;
+    try
+    {
+        _DirectI __direct(__result, nUID, nRight, session, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
+    return __result;
+}
+
+::Ice::Int
+IceDelegateD::MCS::UserManagement::DeleteUser(::Ice::Int nUID, ::Ice::Int session, const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(::Ice::Int& __result, ::Ice::Int nUID, ::Ice::Int session, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _result(__result),
+            _m_nUID(nUID),
+            _m_session(session)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::MCS::UserManagement* servant = dynamic_cast< ::MCS::UserManagement*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            _result = servant->DeleteUser(_m_nUID, _m_session, _current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        ::Ice::Int& _result;
+        ::Ice::Int _m_nUID;
+        ::Ice::Int _m_session;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __MCS__UserManagement__DeleteUser_name, ::Ice::Idempotent, __context);
+    ::Ice::Int __result;
+    try
+    {
+        _DirectI __direct(__result, nUID, session, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
+    return __result;
+}
+
+::Ice::Int
+IceDelegateD::MCS::UserManagement::GetUserCount(const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(::Ice::Int& __result, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _result(__result)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::MCS::UserManagement* servant = dynamic_cast< ::MCS::UserManagement*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            _result = servant->GetUserCount(_current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        ::Ice::Int& _result;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __MCS__UserManagement__GetUserCount_name, ::Ice::Idempotent, __context);
+    ::Ice::Int __result;
+    try
+    {
+        _DirectI __direct(__result, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
+    return __result;
+}
+
+::MCS::UserList
+IceDelegateD::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(::MCS::UserList& __result, ::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _result(__result),
+            _m_nBegin(nBegin),
+            _m_nCount(nCount)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::MCS::UserManagement* servant = dynamic_cast< ::MCS::UserManagement*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            _result = servant->GetUserList(_m_nBegin, _m_nCount, _current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        ::MCS::UserList& _result;
+        ::Ice::Int _m_nBegin;
+        ::Ice::Int _m_nCount;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __MCS__UserManagement__GetUserList_name, ::Ice::Idempotent, __context);
+    ::MCS::UserList __result;
+    try
+    {
+        _DirectI __direct(__result, nBegin, nCount, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
+    return __result;
+}
+
 ::Ice::ObjectPtr
 MCS::GuiDataHub::ice_clone() const
 {
@@ -847,38 +2023,6 @@ const ::std::string&
 MCS::GuiDataHub::ice_staticId()
 {
     return __MCS__GuiDataHub_ids[1];
-}
-
-::Ice::DispatchStatus
-MCS::GuiDataHub::___Login(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
-{
-    __checkMode(::Ice::Idempotent, __current.mode);
-    ::IceInternal::BasicStream* __is = __inS.is();
-    __is->startReadEncaps();
-    ::std::string user;
-    ::std::string pass;
-    __is->read(user);
-    __is->read(pass);
-    __is->endReadEncaps();
-    ::IceInternal::BasicStream* __os = __inS.os();
-    ::Ice::Int __ret = Login(user, pass, __current);
-    __os->write(__ret);
-    return ::Ice::DispatchOK;
-}
-
-::Ice::DispatchStatus
-MCS::GuiDataHub::___Logout(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
-{
-    __checkMode(::Ice::Idempotent, __current.mode);
-    ::IceInternal::BasicStream* __is = __inS.is();
-    __is->startReadEncaps();
-    ::Ice::Int session;
-    __is->read(session);
-    __is->endReadEncaps();
-    ::IceInternal::BasicStream* __os = __inS.os();
-    ::Ice::Int __ret = Logout(session, __current);
-    __os->write(__ret);
-    return ::Ice::DispatchOK;
 }
 
 ::Ice::DispatchStatus
@@ -919,8 +2063,6 @@ MCS::GuiDataHub::___WriteData(::IceInternal::Incoming& __inS, const ::Ice::Curre
 
 static ::std::string __MCS__GuiDataHub_all[] =
 {
-    "Login",
-    "Logout",
     "ReadData",
     "WriteData",
     "ice_id",
@@ -932,7 +2074,7 @@ static ::std::string __MCS__GuiDataHub_all[] =
 ::Ice::DispatchStatus
 MCS::GuiDataHub::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& current)
 {
-    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__GuiDataHub_all, __MCS__GuiDataHub_all + 8, current.operation);
+    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__GuiDataHub_all, __MCS__GuiDataHub_all + 6, current.operation);
     if(r.first == r.second)
     {
         throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
@@ -942,33 +2084,25 @@ MCS::GuiDataHub::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& c
     {
         case 0:
         {
-            return ___Login(in, current);
+            return ___ReadData(in, current);
         }
         case 1:
         {
-            return ___Logout(in, current);
+            return ___WriteData(in, current);
         }
         case 2:
         {
-            return ___ReadData(in, current);
+            return ___ice_id(in, current);
         }
         case 3:
         {
-            return ___WriteData(in, current);
+            return ___ice_ids(in, current);
         }
         case 4:
         {
-            return ___ice_id(in, current);
-        }
-        case 5:
-        {
-            return ___ice_ids(in, current);
-        }
-        case 6:
-        {
             return ___ice_isA(in, current);
         }
-        case 7:
+        case 5:
         {
             return ___ice_ping(in, current);
         }
@@ -1036,5 +2170,325 @@ MCS::__patch__GuiDataHubPtr(void* __addr, ::Ice::ObjectPtr& v)
     if(v && !*p)
     {
         IceInternal::Ex::throwUOE(::MCS::GuiDataHub::ice_staticId(), v->ice_id());
+    }
+}
+
+::Ice::ObjectPtr
+MCS::UserManagement::ice_clone() const
+{
+    throw ::Ice::CloneNotImplementedException(__FILE__, __LINE__);
+    return 0; // to avoid a warning with some compilers
+}
+
+static const ::std::string __MCS__UserManagement_ids[2] =
+{
+    "::Ice::Object",
+    "::MCS::UserManagement"
+};
+
+bool
+MCS::UserManagement::ice_isA(const ::std::string& _s, const ::Ice::Current&) const
+{
+    return ::std::binary_search(__MCS__UserManagement_ids, __MCS__UserManagement_ids + 2, _s);
+}
+
+::std::vector< ::std::string>
+MCS::UserManagement::ice_ids(const ::Ice::Current&) const
+{
+    return ::std::vector< ::std::string>(&__MCS__UserManagement_ids[0], &__MCS__UserManagement_ids[2]);
+}
+
+const ::std::string&
+MCS::UserManagement::ice_id(const ::Ice::Current&) const
+{
+    return __MCS__UserManagement_ids[1];
+}
+
+const ::std::string&
+MCS::UserManagement::ice_staticId()
+{
+    return __MCS__UserManagement_ids[1];
+}
+
+::Ice::DispatchStatus
+MCS::UserManagement::___Login(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Idempotent, __current.mode);
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::std::string user;
+    ::std::string pass;
+    __is->read(user);
+    __is->read(pass);
+    __is->endReadEncaps();
+    ::IceInternal::BasicStream* __os = __inS.os();
+    ::Ice::Int __ret = Login(user, pass, __current);
+    __os->write(__ret);
+    return ::Ice::DispatchOK;
+}
+
+::Ice::DispatchStatus
+MCS::UserManagement::___Logout(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Idempotent, __current.mode);
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::Ice::Int session;
+    __is->read(session);
+    __is->endReadEncaps();
+    ::IceInternal::BasicStream* __os = __inS.os();
+    ::Ice::Int __ret = Logout(session, __current);
+    __os->write(__ret);
+    return ::Ice::DispatchOK;
+}
+
+::Ice::DispatchStatus
+MCS::UserManagement::___CreateUser(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Idempotent, __current.mode);
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::std::string user;
+    ::std::string pass;
+    ::Ice::Int session;
+    __is->read(user);
+    __is->read(pass);
+    __is->read(session);
+    __is->endReadEncaps();
+    ::IceInternal::BasicStream* __os = __inS.os();
+    ::Ice::Int __ret = CreateUser(user, pass, session, __current);
+    __os->write(__ret);
+    return ::Ice::DispatchOK;
+}
+
+::Ice::DispatchStatus
+MCS::UserManagement::___SetUserPW(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Idempotent, __current.mode);
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::Ice::Int nUID;
+    ::std::string pass;
+    ::Ice::Int session;
+    __is->read(nUID);
+    __is->read(pass);
+    __is->read(session);
+    __is->endReadEncaps();
+    ::IceInternal::BasicStream* __os = __inS.os();
+    ::Ice::Int __ret = SetUserPW(nUID, pass, session, __current);
+    __os->write(__ret);
+    return ::Ice::DispatchOK;
+}
+
+::Ice::DispatchStatus
+MCS::UserManagement::___SetUserRight(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Idempotent, __current.mode);
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::Ice::Int nUID;
+    ::Ice::Int nRight;
+    ::Ice::Int session;
+    __is->read(nUID);
+    __is->read(nRight);
+    __is->read(session);
+    __is->endReadEncaps();
+    ::IceInternal::BasicStream* __os = __inS.os();
+    ::Ice::Int __ret = SetUserRight(nUID, nRight, session, __current);
+    __os->write(__ret);
+    return ::Ice::DispatchOK;
+}
+
+::Ice::DispatchStatus
+MCS::UserManagement::___DeleteUser(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Idempotent, __current.mode);
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::Ice::Int nUID;
+    ::Ice::Int session;
+    __is->read(nUID);
+    __is->read(session);
+    __is->endReadEncaps();
+    ::IceInternal::BasicStream* __os = __inS.os();
+    ::Ice::Int __ret = DeleteUser(nUID, session, __current);
+    __os->write(__ret);
+    return ::Ice::DispatchOK;
+}
+
+::Ice::DispatchStatus
+MCS::UserManagement::___GetUserCount(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Idempotent, __current.mode);
+    __inS.is()->skipEmptyEncaps();
+    ::IceInternal::BasicStream* __os = __inS.os();
+    ::Ice::Int __ret = GetUserCount(__current);
+    __os->write(__ret);
+    return ::Ice::DispatchOK;
+}
+
+::Ice::DispatchStatus
+MCS::UserManagement::___GetUserList(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Idempotent, __current.mode);
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::Ice::Int nBegin;
+    ::Ice::Int nCount;
+    __is->read(nBegin);
+    __is->read(nCount);
+    __is->endReadEncaps();
+    ::IceInternal::BasicStream* __os = __inS.os();
+    ::MCS::UserList __ret = GetUserList(nBegin, nCount, __current);
+    if(__ret.size() == 0)
+    {
+        __os->writeSize(0);
+    }
+    else
+    {
+        ::MCS::__writeUserList(__os, &__ret[0], &__ret[0] + __ret.size());
+    }
+    return ::Ice::DispatchOK;
+}
+
+static ::std::string __MCS__UserManagement_all[] =
+{
+    "CreateUser",
+    "DeleteUser",
+    "GetUserCount",
+    "GetUserList",
+    "Login",
+    "Logout",
+    "SetUserPW",
+    "SetUserRight",
+    "ice_id",
+    "ice_ids",
+    "ice_isA",
+    "ice_ping"
+};
+
+::Ice::DispatchStatus
+MCS::UserManagement::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& current)
+{
+    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__UserManagement_all, __MCS__UserManagement_all + 12, current.operation);
+    if(r.first == r.second)
+    {
+        throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
+    }
+
+    switch(r.first - __MCS__UserManagement_all)
+    {
+        case 0:
+        {
+            return ___CreateUser(in, current);
+        }
+        case 1:
+        {
+            return ___DeleteUser(in, current);
+        }
+        case 2:
+        {
+            return ___GetUserCount(in, current);
+        }
+        case 3:
+        {
+            return ___GetUserList(in, current);
+        }
+        case 4:
+        {
+            return ___Login(in, current);
+        }
+        case 5:
+        {
+            return ___Logout(in, current);
+        }
+        case 6:
+        {
+            return ___SetUserPW(in, current);
+        }
+        case 7:
+        {
+            return ___SetUserRight(in, current);
+        }
+        case 8:
+        {
+            return ___ice_id(in, current);
+        }
+        case 9:
+        {
+            return ___ice_ids(in, current);
+        }
+        case 10:
+        {
+            return ___ice_isA(in, current);
+        }
+        case 11:
+        {
+            return ___ice_ping(in, current);
+        }
+    }
+
+    assert(false);
+    throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
+}
+
+void
+MCS::UserManagement::__write(::IceInternal::BasicStream* __os) const
+{
+    __os->writeTypeId(ice_staticId());
+    __os->startWriteSlice();
+    __os->endWriteSlice();
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+    Object::__write(__os);
+#else
+    ::Ice::Object::__write(__os);
+#endif
+}
+
+void
+MCS::UserManagement::__read(::IceInternal::BasicStream* __is, bool __rid)
+{
+    if(__rid)
+    {
+        ::std::string myId;
+        __is->readTypeId(myId);
+    }
+    __is->startReadSlice();
+    __is->endReadSlice();
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+    Object::__read(__is, true);
+#else
+    ::Ice::Object::__read(__is, true);
+#endif
+}
+
+// COMPILERFIX: Stream API is not supported with VC++ 6
+#if !defined(_MSC_VER) || (_MSC_VER >= 1300)
+void
+MCS::UserManagement::__write(const ::Ice::OutputStreamPtr&) const
+{
+    Ice::MarshalException ex(__FILE__, __LINE__);
+    ex.reason = "type MCS::UserManagement was not generated with stream support";
+    throw ex;
+}
+
+void
+MCS::UserManagement::__read(const ::Ice::InputStreamPtr&, bool)
+{
+    Ice::MarshalException ex(__FILE__, __LINE__);
+    ex.reason = "type MCS::UserManagement was not generated with stream support";
+    throw ex;
+}
+#endif
+
+void 
+MCS::__patch__UserManagementPtr(void* __addr, ::Ice::ObjectPtr& v)
+{
+    ::MCS::UserManagementPtr* p = static_cast< ::MCS::UserManagementPtr*>(__addr);
+    assert(p);
+    *p = ::MCS::UserManagementPtr::dynamicCast(v);
+    if(v && !*p)
+    {
+        IceInternal::Ex::throwUOE(::MCS::UserManagement::ice_staticId(), v->ice_id());
     }
 }

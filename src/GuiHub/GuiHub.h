@@ -10,13 +10,16 @@
 #define GUIHUB_API __declspec(dllimport)
 #endif
 
+class UserManagementServer;
 // 此类是从 GuiHub.dll 导出的
 class GUIHUB_API CGuiHub {
 public:
 	CGuiHub(void);
-	// TODO: 在此添加您的方法。
+	~CGuiHub();
+private:
+	UserManagementServer* m_pUserMgt;
+
+public:
+
+	int StartUserManagement(void);
 };
-
-extern GUIHUB_API int nGuiHub;
-
-GUIHUB_API int fnGuiHub(void);

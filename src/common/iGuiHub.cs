@@ -40,21 +40,201 @@ namespace MCS
     public partial interface GuiDataHub : Ice.Object, GuiDataHubOperations_, GuiDataHubOperationsNC_
     {
     }
+
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1710")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1715")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1716")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1720")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1722")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1724")]
+    public partial class User : _System.ICloneable
+    {
+        #region Slice data members
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public int nID;
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public string sName;
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public int nRight;
+
+        #endregion
+
+        #region Constructors
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public User()
+        {
+        }
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public User(int nID, string sName, int nRight)
+        {
+            this.nID = nID;
+            this.sName = sName;
+            this.nRight = nRight;
+        }
+
+        #endregion
+
+        #region ICloneable members
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
+        #endregion
+
+        #region Object members
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public override int GetHashCode()
+        {
+            int h__ = 0;
+            h__ = 5 * h__ + nID.GetHashCode();
+            if(sName != null)
+            {
+                h__ = 5 * h__ + sName.GetHashCode();
+            }
+            h__ = 5 * h__ + nRight.GetHashCode();
+            return h__;
+        }
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public override bool Equals(object other__)
+        {
+            if(object.ReferenceEquals(this, other__))
+            {
+                return true;
+            }
+            if(other__ == null)
+            {
+                return false;
+            }
+            if(GetType() != other__.GetType())
+            {
+                return false;
+            }
+            User o__ = (User)other__;
+            if(!nID.Equals(o__.nID))
+            {
+                return false;
+            }
+            if(sName == null)
+            {
+                if(o__.sName != null)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if(!sName.Equals(o__.sName))
+                {
+                    return false;
+                }
+            }
+            if(!nRight.Equals(o__.nRight))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        #endregion
+
+        #region Comparison members
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public static bool operator==(User lhs__, User rhs__)
+        {
+            return Equals(lhs__, rhs__);
+        }
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public static bool operator!=(User lhs__, User rhs__)
+        {
+            return !Equals(lhs__, rhs__);
+        }
+
+        #endregion
+
+        #region Marshalling support
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public void write__(IceInternal.BasicStream os__)
+        {
+            os__.writeInt(nID);
+            os__.writeString(sName);
+            os__.writeInt(nRight);
+        }
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public void read__(IceInternal.BasicStream is__)
+        {
+            nID = is__.readInt();
+            sName = is__.readString();
+            nRight = is__.readInt();
+        }
+
+        #endregion
+    }
+
+    [_System.Runtime.InteropServices.ComVisible(false)]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1710")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1715")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1716")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1720")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1722")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1724")]
+    public partial interface UserManagement : Ice.Object, UserManagementOperations_, UserManagementOperationsNC_
+    {
+    }
 }
 
 namespace MCS
 {
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-    public delegate void Callback_GuiDataHub_Login(int ret__);
-
-    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-    public delegate void Callback_GuiDataHub_Logout(int ret__);
-
-    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public delegate void Callback_GuiDataHub_ReadData(string ret__);
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public delegate void Callback_GuiDataHub_WriteData(int ret__);
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public delegate void Callback_UserManagement_Login(int ret__);
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public delegate void Callback_UserManagement_Logout(int ret__);
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public delegate void Callback_UserManagement_CreateUser(int ret__);
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public delegate void Callback_UserManagement_SetUserPW(int ret__);
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public delegate void Callback_UserManagement_SetUserRight(int ret__);
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public delegate void Callback_UserManagement_DeleteUser(int ret__);
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public delegate void Callback_UserManagement_GetUserCount(int ret__);
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public delegate void Callback_UserManagement_GetUserList(MCS.User[] ret__);
 }
 
 namespace MCS
@@ -62,28 +242,6 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubPrx : Ice.ObjectPrx
     {
-        int Login(string user, string pass);
-        int Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> context__);
-
-        Ice.AsyncResult<MCS.Callback_GuiDataHub_Login> begin_Login(string user, string pass);
-        Ice.AsyncResult<MCS.Callback_GuiDataHub_Login> begin_Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> ctx__);
-
-        Ice.AsyncResult begin_Login(string user, string pass, Ice.AsyncCallback cb__, object cookie__);
-        Ice.AsyncResult begin_Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
-
-        int end_Login(Ice.AsyncResult r__);
-
-        int Logout(int session);
-        int Logout(int session, _System.Collections.Generic.Dictionary<string, string> context__);
-
-        Ice.AsyncResult<MCS.Callback_GuiDataHub_Logout> begin_Logout(int session);
-        Ice.AsyncResult<MCS.Callback_GuiDataHub_Logout> begin_Logout(int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
-
-        Ice.AsyncResult begin_Logout(int session, Ice.AsyncCallback cb__, object cookie__);
-        Ice.AsyncResult begin_Logout(int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
-
-        int end_Logout(Ice.AsyncResult r__);
-
         string ReadData(string Tag, int session);
         string ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
@@ -106,6 +264,98 @@ namespace MCS
 
         int end_WriteData(Ice.AsyncResult r__);
     }
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public interface UserManagementPrx : Ice.ObjectPrx
+    {
+        int Login(string user, string pass);
+        int Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        Ice.AsyncResult<MCS.Callback_UserManagement_Login> begin_Login(string user, string pass);
+        Ice.AsyncResult<MCS.Callback_UserManagement_Login> begin_Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> ctx__);
+
+        Ice.AsyncResult begin_Login(string user, string pass, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+
+        int end_Login(Ice.AsyncResult r__);
+
+        int Logout(int session);
+        int Logout(int session, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        Ice.AsyncResult<MCS.Callback_UserManagement_Logout> begin_Logout(int session);
+        Ice.AsyncResult<MCS.Callback_UserManagement_Logout> begin_Logout(int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
+
+        Ice.AsyncResult begin_Logout(int session, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_Logout(int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+
+        int end_Logout(Ice.AsyncResult r__);
+
+        int CreateUser(string user, string pass, int session);
+        int CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int session);
+        Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
+
+        Ice.AsyncResult begin_CreateUser(string user, string pass, int session, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+
+        int end_CreateUser(Ice.AsyncResult r__);
+
+        int SetUserPW(int nUID, string pass, int session);
+        int SetUserPW(int nUID, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        Ice.AsyncResult<MCS.Callback_UserManagement_SetUserPW> begin_SetUserPW(int nUID, string pass, int session);
+        Ice.AsyncResult<MCS.Callback_UserManagement_SetUserPW> begin_SetUserPW(int nUID, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
+
+        Ice.AsyncResult begin_SetUserPW(int nUID, string pass, int session, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_SetUserPW(int nUID, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+
+        int end_SetUserPW(Ice.AsyncResult r__);
+
+        int SetUserRight(int nUID, int nRight, int session);
+        int SetUserRight(int nUID, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        Ice.AsyncResult<MCS.Callback_UserManagement_SetUserRight> begin_SetUserRight(int nUID, int nRight, int session);
+        Ice.AsyncResult<MCS.Callback_UserManagement_SetUserRight> begin_SetUserRight(int nUID, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
+
+        Ice.AsyncResult begin_SetUserRight(int nUID, int nRight, int session, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_SetUserRight(int nUID, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+
+        int end_SetUserRight(Ice.AsyncResult r__);
+
+        int DeleteUser(int nUID, int session);
+        int DeleteUser(int nUID, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        Ice.AsyncResult<MCS.Callback_UserManagement_DeleteUser> begin_DeleteUser(int nUID, int session);
+        Ice.AsyncResult<MCS.Callback_UserManagement_DeleteUser> begin_DeleteUser(int nUID, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
+
+        Ice.AsyncResult begin_DeleteUser(int nUID, int session, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_DeleteUser(int nUID, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+
+        int end_DeleteUser(Ice.AsyncResult r__);
+
+        int GetUserCount();
+        int GetUserCount(_System.Collections.Generic.Dictionary<string, string> context__);
+
+        Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount();
+        Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount(_System.Collections.Generic.Dictionary<string, string> ctx__);
+
+        Ice.AsyncResult begin_GetUserCount(Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_GetUserCount(_System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+
+        int end_GetUserCount(Ice.AsyncResult r__);
+
+        MCS.User[] GetUserList(int nBegin, int nCount);
+        MCS.User[] GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount);
+        Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> ctx__);
+
+        Ice.AsyncResult begin_GetUserList(int nBegin, int nCount, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+
+        MCS.User[] end_GetUserList(Ice.AsyncResult r__);
+    }
 }
 
 namespace MCS
@@ -113,10 +363,6 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubOperations_
     {
-        int Login(string user, string pass, Ice.Current current__);
-
-        int Logout(int session, Ice.Current current__);
-
         string ReadData(string Tag, int session, Ice.Current current__);
 
         int WriteData(string Tag, string Val, int session, Ice.Current current__);
@@ -125,13 +371,49 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubOperationsNC_
     {
+        string ReadData(string Tag, int session);
+
+        int WriteData(string Tag, string Val, int session);
+    }
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public interface UserManagementOperations_
+    {
+        int Login(string user, string pass, Ice.Current current__);
+
+        int Logout(int session, Ice.Current current__);
+
+        int CreateUser(string user, string pass, int session, Ice.Current current__);
+
+        int SetUserPW(int nUID, string pass, int session, Ice.Current current__);
+
+        int SetUserRight(int nUID, int nRight, int session, Ice.Current current__);
+
+        int DeleteUser(int nUID, int session, Ice.Current current__);
+
+        int GetUserCount(Ice.Current current__);
+
+        MCS.User[] GetUserList(int nBegin, int nCount, Ice.Current current__);
+    }
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public interface UserManagementOperationsNC_
+    {
         int Login(string user, string pass);
 
         int Logout(int session);
 
-        string ReadData(string Tag, int session);
+        int CreateUser(string user, string pass, int session);
 
-        int WriteData(string Tag, string Val, int session);
+        int SetUserPW(int nUID, string pass, int session);
+
+        int SetUserRight(int nUID, int nRight, int session);
+
+        int DeleteUser(int nUID, int session);
+
+        int GetUserCount();
+
+        MCS.User[] GetUserList(int nBegin, int nCount);
     }
 }
 
@@ -142,82 +424,6 @@ namespace MCS
     public sealed class GuiDataHubPrxHelper : Ice.ObjectPrxHelperBase, GuiDataHubPrx
     {
         #region Synchronous operations
-
-        public int Login(string user, string pass)
-        {
-            return Login(user, pass, null, false);
-        }
-
-        public int Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> context__)
-        {
-            return Login(user, pass, context__, true);
-        }
-
-        private int Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
-        {
-            if(explicitContext__ && context__ == null)
-            {
-                context__ = emptyContext_;
-            }
-            int cnt__ = 0;
-            while(true)
-            {
-                Ice.ObjectDel_ delBase__ = null;
-                try
-                {
-                    checkTwowayOnly__("Login");
-                    delBase__ = getDelegate__(false);
-                    GuiDataHubDel_ del__ = (GuiDataHubDel_)delBase__;
-                    return del__.Login(user, pass, context__);
-                }
-                catch(IceInternal.LocalExceptionWrapper ex__)
-                {
-                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
-                }
-                catch(Ice.LocalException ex__)
-                {
-                    handleException__(delBase__, ex__, true, ref cnt__);
-                }
-            }
-        }
-
-        public int Logout(int session)
-        {
-            return Logout(session, null, false);
-        }
-
-        public int Logout(int session, _System.Collections.Generic.Dictionary<string, string> context__)
-        {
-            return Logout(session, context__, true);
-        }
-
-        private int Logout(int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
-        {
-            if(explicitContext__ && context__ == null)
-            {
-                context__ = emptyContext_;
-            }
-            int cnt__ = 0;
-            while(true)
-            {
-                Ice.ObjectDel_ delBase__ = null;
-                try
-                {
-                    checkTwowayOnly__("Logout");
-                    delBase__ = getDelegate__(false);
-                    GuiDataHubDel_ del__ = (GuiDataHubDel_)delBase__;
-                    return del__.Logout(session, context__);
-                }
-                catch(IceInternal.LocalExceptionWrapper ex__)
-                {
-                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
-                }
-                catch(Ice.LocalException ex__)
-                {
-                    handleException__(delBase__, ex__, true, ref cnt__);
-                }
-            }
-        }
 
         public string ReadData(string Tag, int session)
         {
@@ -298,185 +504,6 @@ namespace MCS
         #endregion
 
         #region Asynchronous operations
-
-        public Ice.AsyncResult<MCS.Callback_GuiDataHub_Login> begin_Login(string user, string pass)
-        {
-            return begin_Login(user, pass, null, false, null, null);
-        }
-
-        public Ice.AsyncResult<MCS.Callback_GuiDataHub_Login> begin_Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> ctx__)
-        {
-            return begin_Login(user, pass, ctx__, true, null, null);
-        }
-
-        public Ice.AsyncResult begin_Login(string user, string pass, Ice.AsyncCallback cb__, object cookie__)
-        {
-            return begin_Login(user, pass, null, false, cb__, cookie__);
-        }
-
-        public Ice.AsyncResult begin_Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
-        {
-            return begin_Login(user, pass, ctx__, true, cb__, cookie__);
-        }
-
-        private const string __Login_name = "Login";
-
-        public int end_Login(Ice.AsyncResult r__)
-        {
-            IceInternal.OutgoingAsync outAsync__ = (IceInternal.OutgoingAsync)r__;
-            IceInternal.OutgoingAsync.check__(outAsync__, this, __Login_name);
-            if(!outAsync__.wait__())
-            {
-                try
-                {
-                    outAsync__.throwUserException__();
-                }
-                catch(Ice.UserException ex__)
-                {
-                    throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
-                }
-            }
-            int ret__;
-            IceInternal.BasicStream is__ = outAsync__.istr__;
-            is__.startReadEncaps();
-            ret__ = is__.readInt();
-            is__.endReadEncaps();
-            return ret__;
-        }
-
-        private Ice.AsyncResult<MCS.Callback_GuiDataHub_Login> begin_Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
-        {
-            checkAsyncTwowayOnly__(__Login_name);
-            IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_Login> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_Login>(this, __Login_name, Login_completed__, cookie__);
-            if(cb__ != null)
-            {
-                result__.whenCompletedWithAsyncCallback(cb__);
-            }
-            try
-            {
-                result__.prepare__(__Login_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
-                IceInternal.BasicStream os__ = result__.ostr__;
-                os__.writeString(user);
-                os__.writeString(pass);
-                os__.endWriteEncaps();
-                result__.send__(true);
-            }
-            catch(Ice.LocalException ex__)
-            {
-                result__.exceptionAsync__(ex__);
-            }
-            return result__;
-        }
-
-        private void Login_completed__(Ice.AsyncResult r__, MCS.Callback_GuiDataHub_Login cb__, Ice.ExceptionCallback excb__)
-        {
-            int ret__;
-            try
-            {
-                ret__ = end_Login(r__);
-            }
-            catch(Ice.Exception ex__)
-            {
-                if(excb__ != null)
-                {
-                    excb__(ex__);
-                }
-                return;
-            }
-            if(cb__ != null)
-            {
-                cb__(ret__);
-            }
-        }
-
-        public Ice.AsyncResult<MCS.Callback_GuiDataHub_Logout> begin_Logout(int session)
-        {
-            return begin_Logout(session, null, false, null, null);
-        }
-
-        public Ice.AsyncResult<MCS.Callback_GuiDataHub_Logout> begin_Logout(int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
-        {
-            return begin_Logout(session, ctx__, true, null, null);
-        }
-
-        public Ice.AsyncResult begin_Logout(int session, Ice.AsyncCallback cb__, object cookie__)
-        {
-            return begin_Logout(session, null, false, cb__, cookie__);
-        }
-
-        public Ice.AsyncResult begin_Logout(int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
-        {
-            return begin_Logout(session, ctx__, true, cb__, cookie__);
-        }
-
-        private const string __Logout_name = "Logout";
-
-        public int end_Logout(Ice.AsyncResult r__)
-        {
-            IceInternal.OutgoingAsync outAsync__ = (IceInternal.OutgoingAsync)r__;
-            IceInternal.OutgoingAsync.check__(outAsync__, this, __Logout_name);
-            if(!outAsync__.wait__())
-            {
-                try
-                {
-                    outAsync__.throwUserException__();
-                }
-                catch(Ice.UserException ex__)
-                {
-                    throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
-                }
-            }
-            int ret__;
-            IceInternal.BasicStream is__ = outAsync__.istr__;
-            is__.startReadEncaps();
-            ret__ = is__.readInt();
-            is__.endReadEncaps();
-            return ret__;
-        }
-
-        private Ice.AsyncResult<MCS.Callback_GuiDataHub_Logout> begin_Logout(int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
-        {
-            checkAsyncTwowayOnly__(__Logout_name);
-            IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_Logout> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_Logout>(this, __Logout_name, Logout_completed__, cookie__);
-            if(cb__ != null)
-            {
-                result__.whenCompletedWithAsyncCallback(cb__);
-            }
-            try
-            {
-                result__.prepare__(__Logout_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
-                IceInternal.BasicStream os__ = result__.ostr__;
-                os__.writeInt(session);
-                os__.endWriteEncaps();
-                result__.send__(true);
-            }
-            catch(Ice.LocalException ex__)
-            {
-                result__.exceptionAsync__(ex__);
-            }
-            return result__;
-        }
-
-        private void Logout_completed__(Ice.AsyncResult r__, MCS.Callback_GuiDataHub_Logout cb__, Ice.ExceptionCallback excb__)
-        {
-            int ret__;
-            try
-            {
-                ret__ = end_Logout(r__);
-            }
-            catch(Ice.Exception ex__)
-            {
-                if(excb__ != null)
-                {
-                    excb__(ex__);
-                }
-                return;
-            }
-            if(cb__ != null)
-            {
-                cb__(ret__);
-            }
-        }
 
         public Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData> begin_ReadData(string Tag, int session)
         {
@@ -811,6 +838,1236 @@ namespace MCS
 
         #endregion
     }
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public sealed class UserListHelper
+    {
+        public static void write(IceInternal.BasicStream os__, MCS.User[] v__)
+        {
+            if(v__ == null)
+            {
+                os__.writeSize(0);
+            }
+            else
+            {
+                os__.writeSize(v__.Length);
+                for(int ix__ = 0; ix__ < v__.Length; ++ix__)
+                {
+                    (v__[ix__] == null ? new MCS.User() : v__[ix__]).write__(os__);
+                }
+            }
+        }
+
+        public static MCS.User[] read(IceInternal.BasicStream is__)
+        {
+            MCS.User[] v__;
+            {
+                int szx__ = is__.readAndCheckSeqSize(9);
+                v__ = new MCS.User[szx__];
+                for(int ix__ = 0; ix__ < szx__; ++ix__)
+                {
+                    v__[ix__] = new MCS.User();
+                    v__[ix__].read__(is__);
+                }
+            }
+            return v__;
+        }
+    }
+
+    [_System.Runtime.InteropServices.ComVisible(false)]
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public sealed class UserManagementPrxHelper : Ice.ObjectPrxHelperBase, UserManagementPrx
+    {
+        #region Synchronous operations
+
+        public int CreateUser(string user, string pass, int session)
+        {
+            return CreateUser(user, pass, session, null, false);
+        }
+
+        public int CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            return CreateUser(user, pass, session, context__, true);
+        }
+
+        private int CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        {
+            if(explicitContext__ && context__ == null)
+            {
+                context__ = emptyContext_;
+            }
+            int cnt__ = 0;
+            while(true)
+            {
+                Ice.ObjectDel_ delBase__ = null;
+                try
+                {
+                    checkTwowayOnly__("CreateUser");
+                    delBase__ = getDelegate__(false);
+                    UserManagementDel_ del__ = (UserManagementDel_)delBase__;
+                    return del__.CreateUser(user, pass, session, context__);
+                }
+                catch(IceInternal.LocalExceptionWrapper ex__)
+                {
+                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    handleException__(delBase__, ex__, true, ref cnt__);
+                }
+            }
+        }
+
+        public int DeleteUser(int nUID, int session)
+        {
+            return DeleteUser(nUID, session, null, false);
+        }
+
+        public int DeleteUser(int nUID, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            return DeleteUser(nUID, session, context__, true);
+        }
+
+        private int DeleteUser(int nUID, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        {
+            if(explicitContext__ && context__ == null)
+            {
+                context__ = emptyContext_;
+            }
+            int cnt__ = 0;
+            while(true)
+            {
+                Ice.ObjectDel_ delBase__ = null;
+                try
+                {
+                    checkTwowayOnly__("DeleteUser");
+                    delBase__ = getDelegate__(false);
+                    UserManagementDel_ del__ = (UserManagementDel_)delBase__;
+                    return del__.DeleteUser(nUID, session, context__);
+                }
+                catch(IceInternal.LocalExceptionWrapper ex__)
+                {
+                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    handleException__(delBase__, ex__, true, ref cnt__);
+                }
+            }
+        }
+
+        public int GetUserCount()
+        {
+            return GetUserCount(null, false);
+        }
+
+        public int GetUserCount(_System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            return GetUserCount(context__, true);
+        }
+
+        private int GetUserCount(_System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        {
+            if(explicitContext__ && context__ == null)
+            {
+                context__ = emptyContext_;
+            }
+            int cnt__ = 0;
+            while(true)
+            {
+                Ice.ObjectDel_ delBase__ = null;
+                try
+                {
+                    checkTwowayOnly__("GetUserCount");
+                    delBase__ = getDelegate__(false);
+                    UserManagementDel_ del__ = (UserManagementDel_)delBase__;
+                    return del__.GetUserCount(context__);
+                }
+                catch(IceInternal.LocalExceptionWrapper ex__)
+                {
+                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    handleException__(delBase__, ex__, true, ref cnt__);
+                }
+            }
+        }
+
+        public MCS.User[] GetUserList(int nBegin, int nCount)
+        {
+            return GetUserList(nBegin, nCount, null, false);
+        }
+
+        public MCS.User[] GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            return GetUserList(nBegin, nCount, context__, true);
+        }
+
+        private MCS.User[] GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        {
+            if(explicitContext__ && context__ == null)
+            {
+                context__ = emptyContext_;
+            }
+            int cnt__ = 0;
+            while(true)
+            {
+                Ice.ObjectDel_ delBase__ = null;
+                try
+                {
+                    checkTwowayOnly__("GetUserList");
+                    delBase__ = getDelegate__(false);
+                    UserManagementDel_ del__ = (UserManagementDel_)delBase__;
+                    return del__.GetUserList(nBegin, nCount, context__);
+                }
+                catch(IceInternal.LocalExceptionWrapper ex__)
+                {
+                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    handleException__(delBase__, ex__, true, ref cnt__);
+                }
+            }
+        }
+
+        public int Login(string user, string pass)
+        {
+            return Login(user, pass, null, false);
+        }
+
+        public int Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            return Login(user, pass, context__, true);
+        }
+
+        private int Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        {
+            if(explicitContext__ && context__ == null)
+            {
+                context__ = emptyContext_;
+            }
+            int cnt__ = 0;
+            while(true)
+            {
+                Ice.ObjectDel_ delBase__ = null;
+                try
+                {
+                    checkTwowayOnly__("Login");
+                    delBase__ = getDelegate__(false);
+                    UserManagementDel_ del__ = (UserManagementDel_)delBase__;
+                    return del__.Login(user, pass, context__);
+                }
+                catch(IceInternal.LocalExceptionWrapper ex__)
+                {
+                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    handleException__(delBase__, ex__, true, ref cnt__);
+                }
+            }
+        }
+
+        public int Logout(int session)
+        {
+            return Logout(session, null, false);
+        }
+
+        public int Logout(int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            return Logout(session, context__, true);
+        }
+
+        private int Logout(int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        {
+            if(explicitContext__ && context__ == null)
+            {
+                context__ = emptyContext_;
+            }
+            int cnt__ = 0;
+            while(true)
+            {
+                Ice.ObjectDel_ delBase__ = null;
+                try
+                {
+                    checkTwowayOnly__("Logout");
+                    delBase__ = getDelegate__(false);
+                    UserManagementDel_ del__ = (UserManagementDel_)delBase__;
+                    return del__.Logout(session, context__);
+                }
+                catch(IceInternal.LocalExceptionWrapper ex__)
+                {
+                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    handleException__(delBase__, ex__, true, ref cnt__);
+                }
+            }
+        }
+
+        public int SetUserPW(int nUID, string pass, int session)
+        {
+            return SetUserPW(nUID, pass, session, null, false);
+        }
+
+        public int SetUserPW(int nUID, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            return SetUserPW(nUID, pass, session, context__, true);
+        }
+
+        private int SetUserPW(int nUID, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        {
+            if(explicitContext__ && context__ == null)
+            {
+                context__ = emptyContext_;
+            }
+            int cnt__ = 0;
+            while(true)
+            {
+                Ice.ObjectDel_ delBase__ = null;
+                try
+                {
+                    checkTwowayOnly__("SetUserPW");
+                    delBase__ = getDelegate__(false);
+                    UserManagementDel_ del__ = (UserManagementDel_)delBase__;
+                    return del__.SetUserPW(nUID, pass, session, context__);
+                }
+                catch(IceInternal.LocalExceptionWrapper ex__)
+                {
+                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    handleException__(delBase__, ex__, true, ref cnt__);
+                }
+            }
+        }
+
+        public int SetUserRight(int nUID, int nRight, int session)
+        {
+            return SetUserRight(nUID, nRight, session, null, false);
+        }
+
+        public int SetUserRight(int nUID, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            return SetUserRight(nUID, nRight, session, context__, true);
+        }
+
+        private int SetUserRight(int nUID, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        {
+            if(explicitContext__ && context__ == null)
+            {
+                context__ = emptyContext_;
+            }
+            int cnt__ = 0;
+            while(true)
+            {
+                Ice.ObjectDel_ delBase__ = null;
+                try
+                {
+                    checkTwowayOnly__("SetUserRight");
+                    delBase__ = getDelegate__(false);
+                    UserManagementDel_ del__ = (UserManagementDel_)delBase__;
+                    return del__.SetUserRight(nUID, nRight, session, context__);
+                }
+                catch(IceInternal.LocalExceptionWrapper ex__)
+                {
+                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    handleException__(delBase__, ex__, true, ref cnt__);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Asynchronous operations
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int session)
+        {
+            return begin_CreateUser(user, pass, session, null, false, null, null);
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        {
+            return begin_CreateUser(user, pass, session, ctx__, true, null, null);
+        }
+
+        public Ice.AsyncResult begin_CreateUser(string user, string pass, int session, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_CreateUser(user, pass, session, null, false, cb__, cookie__);
+        }
+
+        public Ice.AsyncResult begin_CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_CreateUser(user, pass, session, ctx__, true, cb__, cookie__);
+        }
+
+        private const string __CreateUser_name = "CreateUser";
+
+        public int end_CreateUser(Ice.AsyncResult r__)
+        {
+            IceInternal.OutgoingAsync outAsync__ = (IceInternal.OutgoingAsync)r__;
+            IceInternal.OutgoingAsync.check__(outAsync__, this, __CreateUser_name);
+            if(!outAsync__.wait__())
+            {
+                try
+                {
+                    outAsync__.throwUserException__();
+                }
+                catch(Ice.UserException ex__)
+                {
+                    throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                }
+            }
+            int ret__;
+            IceInternal.BasicStream is__ = outAsync__.istr__;
+            is__.startReadEncaps();
+            ret__ = is__.readInt();
+            is__.endReadEncaps();
+            return ret__;
+        }
+
+        private Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            checkAsyncTwowayOnly__(__CreateUser_name);
+            IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_CreateUser> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_CreateUser>(this, __CreateUser_name, CreateUser_completed__, cookie__);
+            if(cb__ != null)
+            {
+                result__.whenCompletedWithAsyncCallback(cb__);
+            }
+            try
+            {
+                result__.prepare__(__CreateUser_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
+                IceInternal.BasicStream os__ = result__.ostr__;
+                os__.writeString(user);
+                os__.writeString(pass);
+                os__.writeInt(session);
+                os__.endWriteEncaps();
+                result__.send__(true);
+            }
+            catch(Ice.LocalException ex__)
+            {
+                result__.exceptionAsync__(ex__);
+            }
+            return result__;
+        }
+
+        private void CreateUser_completed__(Ice.AsyncResult r__, MCS.Callback_UserManagement_CreateUser cb__, Ice.ExceptionCallback excb__)
+        {
+            int ret__;
+            try
+            {
+                ret__ = end_CreateUser(r__);
+            }
+            catch(Ice.Exception ex__)
+            {
+                if(excb__ != null)
+                {
+                    excb__(ex__);
+                }
+                return;
+            }
+            if(cb__ != null)
+            {
+                cb__(ret__);
+            }
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_DeleteUser> begin_DeleteUser(int nUID, int session)
+        {
+            return begin_DeleteUser(nUID, session, null, false, null, null);
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_DeleteUser> begin_DeleteUser(int nUID, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        {
+            return begin_DeleteUser(nUID, session, ctx__, true, null, null);
+        }
+
+        public Ice.AsyncResult begin_DeleteUser(int nUID, int session, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_DeleteUser(nUID, session, null, false, cb__, cookie__);
+        }
+
+        public Ice.AsyncResult begin_DeleteUser(int nUID, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_DeleteUser(nUID, session, ctx__, true, cb__, cookie__);
+        }
+
+        private const string __DeleteUser_name = "DeleteUser";
+
+        public int end_DeleteUser(Ice.AsyncResult r__)
+        {
+            IceInternal.OutgoingAsync outAsync__ = (IceInternal.OutgoingAsync)r__;
+            IceInternal.OutgoingAsync.check__(outAsync__, this, __DeleteUser_name);
+            if(!outAsync__.wait__())
+            {
+                try
+                {
+                    outAsync__.throwUserException__();
+                }
+                catch(Ice.UserException ex__)
+                {
+                    throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                }
+            }
+            int ret__;
+            IceInternal.BasicStream is__ = outAsync__.istr__;
+            is__.startReadEncaps();
+            ret__ = is__.readInt();
+            is__.endReadEncaps();
+            return ret__;
+        }
+
+        private Ice.AsyncResult<MCS.Callback_UserManagement_DeleteUser> begin_DeleteUser(int nUID, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            checkAsyncTwowayOnly__(__DeleteUser_name);
+            IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_DeleteUser> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_DeleteUser>(this, __DeleteUser_name, DeleteUser_completed__, cookie__);
+            if(cb__ != null)
+            {
+                result__.whenCompletedWithAsyncCallback(cb__);
+            }
+            try
+            {
+                result__.prepare__(__DeleteUser_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
+                IceInternal.BasicStream os__ = result__.ostr__;
+                os__.writeInt(nUID);
+                os__.writeInt(session);
+                os__.endWriteEncaps();
+                result__.send__(true);
+            }
+            catch(Ice.LocalException ex__)
+            {
+                result__.exceptionAsync__(ex__);
+            }
+            return result__;
+        }
+
+        private void DeleteUser_completed__(Ice.AsyncResult r__, MCS.Callback_UserManagement_DeleteUser cb__, Ice.ExceptionCallback excb__)
+        {
+            int ret__;
+            try
+            {
+                ret__ = end_DeleteUser(r__);
+            }
+            catch(Ice.Exception ex__)
+            {
+                if(excb__ != null)
+                {
+                    excb__(ex__);
+                }
+                return;
+            }
+            if(cb__ != null)
+            {
+                cb__(ret__);
+            }
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount()
+        {
+            return begin_GetUserCount(null, false, null, null);
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount(_System.Collections.Generic.Dictionary<string, string> ctx__)
+        {
+            return begin_GetUserCount(ctx__, true, null, null);
+        }
+
+        public Ice.AsyncResult begin_GetUserCount(Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_GetUserCount(null, false, cb__, cookie__);
+        }
+
+        public Ice.AsyncResult begin_GetUserCount(_System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_GetUserCount(ctx__, true, cb__, cookie__);
+        }
+
+        private const string __GetUserCount_name = "GetUserCount";
+
+        public int end_GetUserCount(Ice.AsyncResult r__)
+        {
+            IceInternal.OutgoingAsync outAsync__ = (IceInternal.OutgoingAsync)r__;
+            IceInternal.OutgoingAsync.check__(outAsync__, this, __GetUserCount_name);
+            if(!outAsync__.wait__())
+            {
+                try
+                {
+                    outAsync__.throwUserException__();
+                }
+                catch(Ice.UserException ex__)
+                {
+                    throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                }
+            }
+            int ret__;
+            IceInternal.BasicStream is__ = outAsync__.istr__;
+            is__.startReadEncaps();
+            ret__ = is__.readInt();
+            is__.endReadEncaps();
+            return ret__;
+        }
+
+        private Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount(_System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            checkAsyncTwowayOnly__(__GetUserCount_name);
+            IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_GetUserCount> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_GetUserCount>(this, __GetUserCount_name, GetUserCount_completed__, cookie__);
+            if(cb__ != null)
+            {
+                result__.whenCompletedWithAsyncCallback(cb__);
+            }
+            try
+            {
+                result__.prepare__(__GetUserCount_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
+                IceInternal.BasicStream os__ = result__.ostr__;
+                os__.endWriteEncaps();
+                result__.send__(true);
+            }
+            catch(Ice.LocalException ex__)
+            {
+                result__.exceptionAsync__(ex__);
+            }
+            return result__;
+        }
+
+        private void GetUserCount_completed__(Ice.AsyncResult r__, MCS.Callback_UserManagement_GetUserCount cb__, Ice.ExceptionCallback excb__)
+        {
+            int ret__;
+            try
+            {
+                ret__ = end_GetUserCount(r__);
+            }
+            catch(Ice.Exception ex__)
+            {
+                if(excb__ != null)
+                {
+                    excb__(ex__);
+                }
+                return;
+            }
+            if(cb__ != null)
+            {
+                cb__(ret__);
+            }
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount)
+        {
+            return begin_GetUserList(nBegin, nCount, null, false, null, null);
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        {
+            return begin_GetUserList(nBegin, nCount, ctx__, true, null, null);
+        }
+
+        public Ice.AsyncResult begin_GetUserList(int nBegin, int nCount, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_GetUserList(nBegin, nCount, null, false, cb__, cookie__);
+        }
+
+        public Ice.AsyncResult begin_GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_GetUserList(nBegin, nCount, ctx__, true, cb__, cookie__);
+        }
+
+        private const string __GetUserList_name = "GetUserList";
+
+        public MCS.User[] end_GetUserList(Ice.AsyncResult r__)
+        {
+            IceInternal.OutgoingAsync outAsync__ = (IceInternal.OutgoingAsync)r__;
+            IceInternal.OutgoingAsync.check__(outAsync__, this, __GetUserList_name);
+            if(!outAsync__.wait__())
+            {
+                try
+                {
+                    outAsync__.throwUserException__();
+                }
+                catch(Ice.UserException ex__)
+                {
+                    throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                }
+            }
+            MCS.User[] ret__;
+            IceInternal.BasicStream is__ = outAsync__.istr__;
+            is__.startReadEncaps();
+            {
+                int szx__ = is__.readAndCheckSeqSize(9);
+                ret__ = new MCS.User[szx__];
+                for(int ix__ = 0; ix__ < szx__; ++ix__)
+                {
+                    ret__[ix__] = new MCS.User();
+                    ret__[ix__].read__(is__);
+                }
+            }
+            is__.endReadEncaps();
+            return ret__;
+        }
+
+        private Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            checkAsyncTwowayOnly__(__GetUserList_name);
+            IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_GetUserList> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_GetUserList>(this, __GetUserList_name, GetUserList_completed__, cookie__);
+            if(cb__ != null)
+            {
+                result__.whenCompletedWithAsyncCallback(cb__);
+            }
+            try
+            {
+                result__.prepare__(__GetUserList_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
+                IceInternal.BasicStream os__ = result__.ostr__;
+                os__.writeInt(nBegin);
+                os__.writeInt(nCount);
+                os__.endWriteEncaps();
+                result__.send__(true);
+            }
+            catch(Ice.LocalException ex__)
+            {
+                result__.exceptionAsync__(ex__);
+            }
+            return result__;
+        }
+
+        private void GetUserList_completed__(Ice.AsyncResult r__, MCS.Callback_UserManagement_GetUserList cb__, Ice.ExceptionCallback excb__)
+        {
+            MCS.User[] ret__;
+            try
+            {
+                ret__ = end_GetUserList(r__);
+            }
+            catch(Ice.Exception ex__)
+            {
+                if(excb__ != null)
+                {
+                    excb__(ex__);
+                }
+                return;
+            }
+            if(cb__ != null)
+            {
+                cb__(ret__);
+            }
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_Login> begin_Login(string user, string pass)
+        {
+            return begin_Login(user, pass, null, false, null, null);
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_Login> begin_Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        {
+            return begin_Login(user, pass, ctx__, true, null, null);
+        }
+
+        public Ice.AsyncResult begin_Login(string user, string pass, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_Login(user, pass, null, false, cb__, cookie__);
+        }
+
+        public Ice.AsyncResult begin_Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_Login(user, pass, ctx__, true, cb__, cookie__);
+        }
+
+        private const string __Login_name = "Login";
+
+        public int end_Login(Ice.AsyncResult r__)
+        {
+            IceInternal.OutgoingAsync outAsync__ = (IceInternal.OutgoingAsync)r__;
+            IceInternal.OutgoingAsync.check__(outAsync__, this, __Login_name);
+            if(!outAsync__.wait__())
+            {
+                try
+                {
+                    outAsync__.throwUserException__();
+                }
+                catch(Ice.UserException ex__)
+                {
+                    throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                }
+            }
+            int ret__;
+            IceInternal.BasicStream is__ = outAsync__.istr__;
+            is__.startReadEncaps();
+            ret__ = is__.readInt();
+            is__.endReadEncaps();
+            return ret__;
+        }
+
+        private Ice.AsyncResult<MCS.Callback_UserManagement_Login> begin_Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            checkAsyncTwowayOnly__(__Login_name);
+            IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_Login> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_Login>(this, __Login_name, Login_completed__, cookie__);
+            if(cb__ != null)
+            {
+                result__.whenCompletedWithAsyncCallback(cb__);
+            }
+            try
+            {
+                result__.prepare__(__Login_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
+                IceInternal.BasicStream os__ = result__.ostr__;
+                os__.writeString(user);
+                os__.writeString(pass);
+                os__.endWriteEncaps();
+                result__.send__(true);
+            }
+            catch(Ice.LocalException ex__)
+            {
+                result__.exceptionAsync__(ex__);
+            }
+            return result__;
+        }
+
+        private void Login_completed__(Ice.AsyncResult r__, MCS.Callback_UserManagement_Login cb__, Ice.ExceptionCallback excb__)
+        {
+            int ret__;
+            try
+            {
+                ret__ = end_Login(r__);
+            }
+            catch(Ice.Exception ex__)
+            {
+                if(excb__ != null)
+                {
+                    excb__(ex__);
+                }
+                return;
+            }
+            if(cb__ != null)
+            {
+                cb__(ret__);
+            }
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_Logout> begin_Logout(int session)
+        {
+            return begin_Logout(session, null, false, null, null);
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_Logout> begin_Logout(int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        {
+            return begin_Logout(session, ctx__, true, null, null);
+        }
+
+        public Ice.AsyncResult begin_Logout(int session, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_Logout(session, null, false, cb__, cookie__);
+        }
+
+        public Ice.AsyncResult begin_Logout(int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_Logout(session, ctx__, true, cb__, cookie__);
+        }
+
+        private const string __Logout_name = "Logout";
+
+        public int end_Logout(Ice.AsyncResult r__)
+        {
+            IceInternal.OutgoingAsync outAsync__ = (IceInternal.OutgoingAsync)r__;
+            IceInternal.OutgoingAsync.check__(outAsync__, this, __Logout_name);
+            if(!outAsync__.wait__())
+            {
+                try
+                {
+                    outAsync__.throwUserException__();
+                }
+                catch(Ice.UserException ex__)
+                {
+                    throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                }
+            }
+            int ret__;
+            IceInternal.BasicStream is__ = outAsync__.istr__;
+            is__.startReadEncaps();
+            ret__ = is__.readInt();
+            is__.endReadEncaps();
+            return ret__;
+        }
+
+        private Ice.AsyncResult<MCS.Callback_UserManagement_Logout> begin_Logout(int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            checkAsyncTwowayOnly__(__Logout_name);
+            IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_Logout> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_Logout>(this, __Logout_name, Logout_completed__, cookie__);
+            if(cb__ != null)
+            {
+                result__.whenCompletedWithAsyncCallback(cb__);
+            }
+            try
+            {
+                result__.prepare__(__Logout_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
+                IceInternal.BasicStream os__ = result__.ostr__;
+                os__.writeInt(session);
+                os__.endWriteEncaps();
+                result__.send__(true);
+            }
+            catch(Ice.LocalException ex__)
+            {
+                result__.exceptionAsync__(ex__);
+            }
+            return result__;
+        }
+
+        private void Logout_completed__(Ice.AsyncResult r__, MCS.Callback_UserManagement_Logout cb__, Ice.ExceptionCallback excb__)
+        {
+            int ret__;
+            try
+            {
+                ret__ = end_Logout(r__);
+            }
+            catch(Ice.Exception ex__)
+            {
+                if(excb__ != null)
+                {
+                    excb__(ex__);
+                }
+                return;
+            }
+            if(cb__ != null)
+            {
+                cb__(ret__);
+            }
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_SetUserPW> begin_SetUserPW(int nUID, string pass, int session)
+        {
+            return begin_SetUserPW(nUID, pass, session, null, false, null, null);
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_SetUserPW> begin_SetUserPW(int nUID, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        {
+            return begin_SetUserPW(nUID, pass, session, ctx__, true, null, null);
+        }
+
+        public Ice.AsyncResult begin_SetUserPW(int nUID, string pass, int session, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_SetUserPW(nUID, pass, session, null, false, cb__, cookie__);
+        }
+
+        public Ice.AsyncResult begin_SetUserPW(int nUID, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_SetUserPW(nUID, pass, session, ctx__, true, cb__, cookie__);
+        }
+
+        private const string __SetUserPW_name = "SetUserPW";
+
+        public int end_SetUserPW(Ice.AsyncResult r__)
+        {
+            IceInternal.OutgoingAsync outAsync__ = (IceInternal.OutgoingAsync)r__;
+            IceInternal.OutgoingAsync.check__(outAsync__, this, __SetUserPW_name);
+            if(!outAsync__.wait__())
+            {
+                try
+                {
+                    outAsync__.throwUserException__();
+                }
+                catch(Ice.UserException ex__)
+                {
+                    throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                }
+            }
+            int ret__;
+            IceInternal.BasicStream is__ = outAsync__.istr__;
+            is__.startReadEncaps();
+            ret__ = is__.readInt();
+            is__.endReadEncaps();
+            return ret__;
+        }
+
+        private Ice.AsyncResult<MCS.Callback_UserManagement_SetUserPW> begin_SetUserPW(int nUID, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            checkAsyncTwowayOnly__(__SetUserPW_name);
+            IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_SetUserPW> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_SetUserPW>(this, __SetUserPW_name, SetUserPW_completed__, cookie__);
+            if(cb__ != null)
+            {
+                result__.whenCompletedWithAsyncCallback(cb__);
+            }
+            try
+            {
+                result__.prepare__(__SetUserPW_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
+                IceInternal.BasicStream os__ = result__.ostr__;
+                os__.writeInt(nUID);
+                os__.writeString(pass);
+                os__.writeInt(session);
+                os__.endWriteEncaps();
+                result__.send__(true);
+            }
+            catch(Ice.LocalException ex__)
+            {
+                result__.exceptionAsync__(ex__);
+            }
+            return result__;
+        }
+
+        private void SetUserPW_completed__(Ice.AsyncResult r__, MCS.Callback_UserManagement_SetUserPW cb__, Ice.ExceptionCallback excb__)
+        {
+            int ret__;
+            try
+            {
+                ret__ = end_SetUserPW(r__);
+            }
+            catch(Ice.Exception ex__)
+            {
+                if(excb__ != null)
+                {
+                    excb__(ex__);
+                }
+                return;
+            }
+            if(cb__ != null)
+            {
+                cb__(ret__);
+            }
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_SetUserRight> begin_SetUserRight(int nUID, int nRight, int session)
+        {
+            return begin_SetUserRight(nUID, nRight, session, null, false, null, null);
+        }
+
+        public Ice.AsyncResult<MCS.Callback_UserManagement_SetUserRight> begin_SetUserRight(int nUID, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        {
+            return begin_SetUserRight(nUID, nRight, session, ctx__, true, null, null);
+        }
+
+        public Ice.AsyncResult begin_SetUserRight(int nUID, int nRight, int session, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_SetUserRight(nUID, nRight, session, null, false, cb__, cookie__);
+        }
+
+        public Ice.AsyncResult begin_SetUserRight(int nUID, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_SetUserRight(nUID, nRight, session, ctx__, true, cb__, cookie__);
+        }
+
+        private const string __SetUserRight_name = "SetUserRight";
+
+        public int end_SetUserRight(Ice.AsyncResult r__)
+        {
+            IceInternal.OutgoingAsync outAsync__ = (IceInternal.OutgoingAsync)r__;
+            IceInternal.OutgoingAsync.check__(outAsync__, this, __SetUserRight_name);
+            if(!outAsync__.wait__())
+            {
+                try
+                {
+                    outAsync__.throwUserException__();
+                }
+                catch(Ice.UserException ex__)
+                {
+                    throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                }
+            }
+            int ret__;
+            IceInternal.BasicStream is__ = outAsync__.istr__;
+            is__.startReadEncaps();
+            ret__ = is__.readInt();
+            is__.endReadEncaps();
+            return ret__;
+        }
+
+        private Ice.AsyncResult<MCS.Callback_UserManagement_SetUserRight> begin_SetUserRight(int nUID, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            checkAsyncTwowayOnly__(__SetUserRight_name);
+            IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_SetUserRight> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_SetUserRight>(this, __SetUserRight_name, SetUserRight_completed__, cookie__);
+            if(cb__ != null)
+            {
+                result__.whenCompletedWithAsyncCallback(cb__);
+            }
+            try
+            {
+                result__.prepare__(__SetUserRight_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
+                IceInternal.BasicStream os__ = result__.ostr__;
+                os__.writeInt(nUID);
+                os__.writeInt(nRight);
+                os__.writeInt(session);
+                os__.endWriteEncaps();
+                result__.send__(true);
+            }
+            catch(Ice.LocalException ex__)
+            {
+                result__.exceptionAsync__(ex__);
+            }
+            return result__;
+        }
+
+        private void SetUserRight_completed__(Ice.AsyncResult r__, MCS.Callback_UserManagement_SetUserRight cb__, Ice.ExceptionCallback excb__)
+        {
+            int ret__;
+            try
+            {
+                ret__ = end_SetUserRight(r__);
+            }
+            catch(Ice.Exception ex__)
+            {
+                if(excb__ != null)
+                {
+                    excb__(ex__);
+                }
+                return;
+            }
+            if(cb__ != null)
+            {
+                cb__(ret__);
+            }
+        }
+
+        #endregion
+
+        #region Checked and unchecked cast operations
+
+        public static UserManagementPrx checkedCast(Ice.ObjectPrx b)
+        {
+            if(b == null)
+            {
+                return null;
+            }
+            UserManagementPrx r = b as UserManagementPrx;
+            if((r == null) && b.ice_isA(ice_staticId()))
+            {
+                UserManagementPrxHelper h = new UserManagementPrxHelper();
+                h.copyFrom__(b);
+                r = h;
+            }
+            return r;
+        }
+
+        public static UserManagementPrx checkedCast(Ice.ObjectPrx b, _System.Collections.Generic.Dictionary<string, string> ctx)
+        {
+            if(b == null)
+            {
+                return null;
+            }
+            UserManagementPrx r = b as UserManagementPrx;
+            if((r == null) && b.ice_isA(ice_staticId(), ctx))
+            {
+                UserManagementPrxHelper h = new UserManagementPrxHelper();
+                h.copyFrom__(b);
+                r = h;
+            }
+            return r;
+        }
+
+        public static UserManagementPrx checkedCast(Ice.ObjectPrx b, string f)
+        {
+            if(b == null)
+            {
+                return null;
+            }
+            Ice.ObjectPrx bb = b.ice_facet(f);
+            try
+            {
+                if(bb.ice_isA(ice_staticId()))
+                {
+                    UserManagementPrxHelper h = new UserManagementPrxHelper();
+                    h.copyFrom__(bb);
+                    return h;
+                }
+            }
+            catch(Ice.FacetNotExistException)
+            {
+            }
+            return null;
+        }
+
+        public static UserManagementPrx checkedCast(Ice.ObjectPrx b, string f, _System.Collections.Generic.Dictionary<string, string> ctx)
+        {
+            if(b == null)
+            {
+                return null;
+            }
+            Ice.ObjectPrx bb = b.ice_facet(f);
+            try
+            {
+                if(bb.ice_isA(ice_staticId(), ctx))
+                {
+                    UserManagementPrxHelper h = new UserManagementPrxHelper();
+                    h.copyFrom__(bb);
+                    return h;
+                }
+            }
+            catch(Ice.FacetNotExistException)
+            {
+            }
+            return null;
+        }
+
+        public static UserManagementPrx uncheckedCast(Ice.ObjectPrx b)
+        {
+            if(b == null)
+            {
+                return null;
+            }
+            UserManagementPrx r = b as UserManagementPrx;
+            if(r == null)
+            {
+                UserManagementPrxHelper h = new UserManagementPrxHelper();
+                h.copyFrom__(b);
+                r = h;
+            }
+            return r;
+        }
+
+        public static UserManagementPrx uncheckedCast(Ice.ObjectPrx b, string f)
+        {
+            if(b == null)
+            {
+                return null;
+            }
+            Ice.ObjectPrx bb = b.ice_facet(f);
+            UserManagementPrxHelper h = new UserManagementPrxHelper();
+            h.copyFrom__(bb);
+            return h;
+        }
+
+        public static readonly string[] ids__ =
+        {
+            "::Ice::Object",
+            "::MCS::UserManagement"
+        };
+
+        public static string ice_staticId()
+        {
+            return ids__[1];
+        }
+
+        #endregion
+
+        #region Marshaling support
+
+        protected override Ice.ObjectDelM_ createDelegateM__()
+        {
+            return new UserManagementDelM_();
+        }
+
+        protected override Ice.ObjectDelD_ createDelegateD__()
+        {
+            return new UserManagementDelD_();
+        }
+
+        public static void write__(IceInternal.BasicStream os__, UserManagementPrx v__)
+        {
+            os__.writeProxy(v__);
+        }
+
+        public static UserManagementPrx read__(IceInternal.BasicStream is__)
+        {
+            Ice.ObjectPrx proxy = is__.readProxy();
+            if(proxy != null)
+            {
+                UserManagementPrxHelper result = new UserManagementPrxHelper();
+                result.copyFrom__(proxy);
+                return result;
+            }
+            return null;
+        }
+
+        #endregion
+    }
 }
 
 namespace MCS
@@ -818,13 +2075,29 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubDel_ : Ice.ObjectDel_
     {
+        string ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        int WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+    }
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public interface UserManagementDel_ : Ice.ObjectDel_
+    {
         int Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> context__);
 
         int Logout(int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        string ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+        int CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        int WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+        int SetUserPW(int nUID, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        int SetUserRight(int nUID, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        int DeleteUser(int nUID, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        int GetUserCount(_System.Collections.Generic.Dictionary<string, string> context__);
+
+        MCS.User[] GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> context__);
     }
 }
 
@@ -834,99 +2107,6 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public sealed class GuiDataHubDelM_ : Ice.ObjectDelM_, GuiDataHubDel_
     {
-        public int Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> context__)
-        {
-            IceInternal.Outgoing og__ = handler__.getOutgoing("Login", Ice.OperationMode.Idempotent, context__);
-            try
-            {
-                try
-                {
-                    IceInternal.BasicStream os__ = og__.ostr();
-                    os__.writeString(user);
-                    os__.writeString(pass);
-                }
-                catch(Ice.LocalException ex__)
-                {
-                    og__.abort(ex__);
-                }
-                bool ok__ = og__.invoke();
-                try
-                {
-                    if(!ok__)
-                    {
-                        try
-                        {
-                            og__.throwUserException();
-                        }
-                        catch(Ice.UserException ex__)
-                        {
-                            throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
-                        }
-                    }
-                    IceInternal.BasicStream is__ = og__.istr();
-                    is__.startReadEncaps();
-                    int ret__;
-                    ret__ = is__.readInt();
-                    is__.endReadEncaps();
-                    return ret__;
-                }
-                catch(Ice.LocalException ex__)
-                {
-                    throw new IceInternal.LocalExceptionWrapper(ex__, false);
-                }
-            }
-            finally
-            {
-                handler__.reclaimOutgoing(og__);
-            }
-        }
-
-        public int Logout(int session, _System.Collections.Generic.Dictionary<string, string> context__)
-        {
-            IceInternal.Outgoing og__ = handler__.getOutgoing("Logout", Ice.OperationMode.Idempotent, context__);
-            try
-            {
-                try
-                {
-                    IceInternal.BasicStream os__ = og__.ostr();
-                    os__.writeInt(session);
-                }
-                catch(Ice.LocalException ex__)
-                {
-                    og__.abort(ex__);
-                }
-                bool ok__ = og__.invoke();
-                try
-                {
-                    if(!ok__)
-                    {
-                        try
-                        {
-                            og__.throwUserException();
-                        }
-                        catch(Ice.UserException ex__)
-                        {
-                            throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
-                        }
-                    }
-                    IceInternal.BasicStream is__ = og__.istr();
-                    is__.startReadEncaps();
-                    int ret__;
-                    ret__ = is__.readInt();
-                    is__.endReadEncaps();
-                    return ret__;
-                }
-                catch(Ice.LocalException ex__)
-                {
-                    throw new IceInternal.LocalExceptionWrapper(ex__, false);
-                }
-            }
-            finally
-            {
-                handler__.reclaimOutgoing(og__);
-            }
-        }
-
         public string ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             IceInternal.Outgoing og__ = handler__.getOutgoing("ReadData", Ice.OperationMode.Idempotent, context__);
@@ -1022,6 +2202,387 @@ namespace MCS
             }
         }
     }
+
+    [_System.Runtime.InteropServices.ComVisible(false)]
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public sealed class UserManagementDelM_ : Ice.ObjectDelM_, UserManagementDel_
+    {
+        public int CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            IceInternal.Outgoing og__ = handler__.getOutgoing("CreateUser", Ice.OperationMode.Idempotent, context__);
+            try
+            {
+                try
+                {
+                    IceInternal.BasicStream os__ = og__.ostr();
+                    os__.writeString(user);
+                    os__.writeString(pass);
+                    os__.writeInt(session);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    og__.abort(ex__);
+                }
+                bool ok__ = og__.invoke();
+                try
+                {
+                    if(!ok__)
+                    {
+                        try
+                        {
+                            og__.throwUserException();
+                        }
+                        catch(Ice.UserException ex__)
+                        {
+                            throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                        }
+                    }
+                    IceInternal.BasicStream is__ = og__.istr();
+                    is__.startReadEncaps();
+                    int ret__;
+                    ret__ = is__.readInt();
+                    is__.endReadEncaps();
+                    return ret__;
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    throw new IceInternal.LocalExceptionWrapper(ex__, false);
+                }
+            }
+            finally
+            {
+                handler__.reclaimOutgoing(og__);
+            }
+        }
+
+        public int DeleteUser(int nUID, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            IceInternal.Outgoing og__ = handler__.getOutgoing("DeleteUser", Ice.OperationMode.Idempotent, context__);
+            try
+            {
+                try
+                {
+                    IceInternal.BasicStream os__ = og__.ostr();
+                    os__.writeInt(nUID);
+                    os__.writeInt(session);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    og__.abort(ex__);
+                }
+                bool ok__ = og__.invoke();
+                try
+                {
+                    if(!ok__)
+                    {
+                        try
+                        {
+                            og__.throwUserException();
+                        }
+                        catch(Ice.UserException ex__)
+                        {
+                            throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                        }
+                    }
+                    IceInternal.BasicStream is__ = og__.istr();
+                    is__.startReadEncaps();
+                    int ret__;
+                    ret__ = is__.readInt();
+                    is__.endReadEncaps();
+                    return ret__;
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    throw new IceInternal.LocalExceptionWrapper(ex__, false);
+                }
+            }
+            finally
+            {
+                handler__.reclaimOutgoing(og__);
+            }
+        }
+
+        public int GetUserCount(_System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            IceInternal.Outgoing og__ = handler__.getOutgoing("GetUserCount", Ice.OperationMode.Idempotent, context__);
+            try
+            {
+                bool ok__ = og__.invoke();
+                try
+                {
+                    if(!ok__)
+                    {
+                        try
+                        {
+                            og__.throwUserException();
+                        }
+                        catch(Ice.UserException ex__)
+                        {
+                            throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                        }
+                    }
+                    IceInternal.BasicStream is__ = og__.istr();
+                    is__.startReadEncaps();
+                    int ret__;
+                    ret__ = is__.readInt();
+                    is__.endReadEncaps();
+                    return ret__;
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    throw new IceInternal.LocalExceptionWrapper(ex__, false);
+                }
+            }
+            finally
+            {
+                handler__.reclaimOutgoing(og__);
+            }
+        }
+
+        public MCS.User[] GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            IceInternal.Outgoing og__ = handler__.getOutgoing("GetUserList", Ice.OperationMode.Idempotent, context__);
+            try
+            {
+                try
+                {
+                    IceInternal.BasicStream os__ = og__.ostr();
+                    os__.writeInt(nBegin);
+                    os__.writeInt(nCount);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    og__.abort(ex__);
+                }
+                bool ok__ = og__.invoke();
+                try
+                {
+                    if(!ok__)
+                    {
+                        try
+                        {
+                            og__.throwUserException();
+                        }
+                        catch(Ice.UserException ex__)
+                        {
+                            throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                        }
+                    }
+                    IceInternal.BasicStream is__ = og__.istr();
+                    is__.startReadEncaps();
+                    MCS.User[] ret__;
+                    {
+                        int szx__ = is__.readAndCheckSeqSize(9);
+                        ret__ = new MCS.User[szx__];
+                        for(int ix__ = 0; ix__ < szx__; ++ix__)
+                        {
+                            ret__[ix__] = new MCS.User();
+                            ret__[ix__].read__(is__);
+                        }
+                    }
+                    is__.endReadEncaps();
+                    return ret__;
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    throw new IceInternal.LocalExceptionWrapper(ex__, false);
+                }
+            }
+            finally
+            {
+                handler__.reclaimOutgoing(og__);
+            }
+        }
+
+        public int Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            IceInternal.Outgoing og__ = handler__.getOutgoing("Login", Ice.OperationMode.Idempotent, context__);
+            try
+            {
+                try
+                {
+                    IceInternal.BasicStream os__ = og__.ostr();
+                    os__.writeString(user);
+                    os__.writeString(pass);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    og__.abort(ex__);
+                }
+                bool ok__ = og__.invoke();
+                try
+                {
+                    if(!ok__)
+                    {
+                        try
+                        {
+                            og__.throwUserException();
+                        }
+                        catch(Ice.UserException ex__)
+                        {
+                            throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                        }
+                    }
+                    IceInternal.BasicStream is__ = og__.istr();
+                    is__.startReadEncaps();
+                    int ret__;
+                    ret__ = is__.readInt();
+                    is__.endReadEncaps();
+                    return ret__;
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    throw new IceInternal.LocalExceptionWrapper(ex__, false);
+                }
+            }
+            finally
+            {
+                handler__.reclaimOutgoing(og__);
+            }
+        }
+
+        public int Logout(int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            IceInternal.Outgoing og__ = handler__.getOutgoing("Logout", Ice.OperationMode.Idempotent, context__);
+            try
+            {
+                try
+                {
+                    IceInternal.BasicStream os__ = og__.ostr();
+                    os__.writeInt(session);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    og__.abort(ex__);
+                }
+                bool ok__ = og__.invoke();
+                try
+                {
+                    if(!ok__)
+                    {
+                        try
+                        {
+                            og__.throwUserException();
+                        }
+                        catch(Ice.UserException ex__)
+                        {
+                            throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                        }
+                    }
+                    IceInternal.BasicStream is__ = og__.istr();
+                    is__.startReadEncaps();
+                    int ret__;
+                    ret__ = is__.readInt();
+                    is__.endReadEncaps();
+                    return ret__;
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    throw new IceInternal.LocalExceptionWrapper(ex__, false);
+                }
+            }
+            finally
+            {
+                handler__.reclaimOutgoing(og__);
+            }
+        }
+
+        public int SetUserPW(int nUID, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            IceInternal.Outgoing og__ = handler__.getOutgoing("SetUserPW", Ice.OperationMode.Idempotent, context__);
+            try
+            {
+                try
+                {
+                    IceInternal.BasicStream os__ = og__.ostr();
+                    os__.writeInt(nUID);
+                    os__.writeString(pass);
+                    os__.writeInt(session);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    og__.abort(ex__);
+                }
+                bool ok__ = og__.invoke();
+                try
+                {
+                    if(!ok__)
+                    {
+                        try
+                        {
+                            og__.throwUserException();
+                        }
+                        catch(Ice.UserException ex__)
+                        {
+                            throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                        }
+                    }
+                    IceInternal.BasicStream is__ = og__.istr();
+                    is__.startReadEncaps();
+                    int ret__;
+                    ret__ = is__.readInt();
+                    is__.endReadEncaps();
+                    return ret__;
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    throw new IceInternal.LocalExceptionWrapper(ex__, false);
+                }
+            }
+            finally
+            {
+                handler__.reclaimOutgoing(og__);
+            }
+        }
+
+        public int SetUserRight(int nUID, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            IceInternal.Outgoing og__ = handler__.getOutgoing("SetUserRight", Ice.OperationMode.Idempotent, context__);
+            try
+            {
+                try
+                {
+                    IceInternal.BasicStream os__ = og__.ostr();
+                    os__.writeInt(nUID);
+                    os__.writeInt(nRight);
+                    os__.writeInt(session);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    og__.abort(ex__);
+                }
+                bool ok__ = og__.invoke();
+                try
+                {
+                    if(!ok__)
+                    {
+                        try
+                        {
+                            og__.throwUserException();
+                        }
+                        catch(Ice.UserException ex__)
+                        {
+                            throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                        }
+                    }
+                    IceInternal.BasicStream is__ = og__.istr();
+                    is__.startReadEncaps();
+                    int ret__;
+                    ret__ = is__.readInt();
+                    is__.endReadEncaps();
+                    return ret__;
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    throw new IceInternal.LocalExceptionWrapper(ex__, false);
+                }
+            }
+            finally
+            {
+                handler__.reclaimOutgoing(og__);
+            }
+        }
+    }
 }
 
 namespace MCS
@@ -1030,96 +2591,6 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public sealed class GuiDataHubDelD_ : Ice.ObjectDelD_, GuiDataHubDel_
     {
-        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
-        public int Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> context__)
-        {
-            Ice.Current current__ = new Ice.Current();
-            initCurrent__(ref current__, "Login", Ice.OperationMode.Idempotent, context__);
-            int result__ = 0;
-            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
-            {
-                GuiDataHub servant__ = null;
-                try
-                {
-                    servant__ = (GuiDataHub)obj__;
-                }
-                catch(_System.InvalidCastException)
-                {
-                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
-                }
-                result__ = servant__.Login(user, pass, current__);
-                return Ice.DispatchStatus.DispatchOK;
-            };
-            IceInternal.Direct direct__ = null;
-            try
-            {
-                direct__ = new IceInternal.Direct(current__, run__);
-                try
-                {
-                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
-                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
-                }
-                finally
-                {
-                    direct__.destroy();
-                }
-            }
-            catch(Ice.SystemException)
-            {
-                throw;
-            }
-            catch(_System.Exception ex__)
-            {
-                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
-            }
-            return result__;
-        }
-
-        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
-        public int Logout(int session, _System.Collections.Generic.Dictionary<string, string> context__)
-        {
-            Ice.Current current__ = new Ice.Current();
-            initCurrent__(ref current__, "Logout", Ice.OperationMode.Idempotent, context__);
-            int result__ = 0;
-            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
-            {
-                GuiDataHub servant__ = null;
-                try
-                {
-                    servant__ = (GuiDataHub)obj__;
-                }
-                catch(_System.InvalidCastException)
-                {
-                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
-                }
-                result__ = servant__.Logout(session, current__);
-                return Ice.DispatchStatus.DispatchOK;
-            };
-            IceInternal.Direct direct__ = null;
-            try
-            {
-                direct__ = new IceInternal.Direct(current__, run__);
-                try
-                {
-                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
-                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
-                }
-                finally
-                {
-                    direct__.destroy();
-                }
-            }
-            catch(Ice.SystemException)
-            {
-                throw;
-            }
-            catch(_System.Exception ex__)
-            {
-                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
-            }
-            return result__;
-        }
-
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
         public string ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
@@ -1210,6 +2681,371 @@ namespace MCS
             return result__;
         }
     }
+
+    [_System.Runtime.InteropServices.ComVisible(false)]
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public sealed class UserManagementDelD_ : Ice.ObjectDelD_, UserManagementDel_
+    {
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
+        public int CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            Ice.Current current__ = new Ice.Current();
+            initCurrent__(ref current__, "CreateUser", Ice.OperationMode.Idempotent, context__);
+            int result__ = 0;
+            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
+            {
+                UserManagement servant__ = null;
+                try
+                {
+                    servant__ = (UserManagement)obj__;
+                }
+                catch(_System.InvalidCastException)
+                {
+                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+                }
+                result__ = servant__.CreateUser(user, pass, session, current__);
+                return Ice.DispatchStatus.DispatchOK;
+            };
+            IceInternal.Direct direct__ = null;
+            try
+            {
+                direct__ = new IceInternal.Direct(current__, run__);
+                try
+                {
+                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
+                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
+                }
+                finally
+                {
+                    direct__.destroy();
+                }
+            }
+            catch(Ice.SystemException)
+            {
+                throw;
+            }
+            catch(_System.Exception ex__)
+            {
+                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
+            }
+            return result__;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
+        public int DeleteUser(int nUID, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            Ice.Current current__ = new Ice.Current();
+            initCurrent__(ref current__, "DeleteUser", Ice.OperationMode.Idempotent, context__);
+            int result__ = 0;
+            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
+            {
+                UserManagement servant__ = null;
+                try
+                {
+                    servant__ = (UserManagement)obj__;
+                }
+                catch(_System.InvalidCastException)
+                {
+                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+                }
+                result__ = servant__.DeleteUser(nUID, session, current__);
+                return Ice.DispatchStatus.DispatchOK;
+            };
+            IceInternal.Direct direct__ = null;
+            try
+            {
+                direct__ = new IceInternal.Direct(current__, run__);
+                try
+                {
+                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
+                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
+                }
+                finally
+                {
+                    direct__.destroy();
+                }
+            }
+            catch(Ice.SystemException)
+            {
+                throw;
+            }
+            catch(_System.Exception ex__)
+            {
+                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
+            }
+            return result__;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
+        public int GetUserCount(_System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            Ice.Current current__ = new Ice.Current();
+            initCurrent__(ref current__, "GetUserCount", Ice.OperationMode.Idempotent, context__);
+            int result__ = 0;
+            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
+            {
+                UserManagement servant__ = null;
+                try
+                {
+                    servant__ = (UserManagement)obj__;
+                }
+                catch(_System.InvalidCastException)
+                {
+                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+                }
+                result__ = servant__.GetUserCount(current__);
+                return Ice.DispatchStatus.DispatchOK;
+            };
+            IceInternal.Direct direct__ = null;
+            try
+            {
+                direct__ = new IceInternal.Direct(current__, run__);
+                try
+                {
+                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
+                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
+                }
+                finally
+                {
+                    direct__.destroy();
+                }
+            }
+            catch(Ice.SystemException)
+            {
+                throw;
+            }
+            catch(_System.Exception ex__)
+            {
+                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
+            }
+            return result__;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
+        public MCS.User[] GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            Ice.Current current__ = new Ice.Current();
+            initCurrent__(ref current__, "GetUserList", Ice.OperationMode.Idempotent, context__);
+            MCS.User[] result__ = null;
+            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
+            {
+                UserManagement servant__ = null;
+                try
+                {
+                    servant__ = (UserManagement)obj__;
+                }
+                catch(_System.InvalidCastException)
+                {
+                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+                }
+                result__ = servant__.GetUserList(nBegin, nCount, current__);
+                return Ice.DispatchStatus.DispatchOK;
+            };
+            IceInternal.Direct direct__ = null;
+            try
+            {
+                direct__ = new IceInternal.Direct(current__, run__);
+                try
+                {
+                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
+                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
+                }
+                finally
+                {
+                    direct__.destroy();
+                }
+            }
+            catch(Ice.SystemException)
+            {
+                throw;
+            }
+            catch(_System.Exception ex__)
+            {
+                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
+            }
+            return result__;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
+        public int Login(string user, string pass, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            Ice.Current current__ = new Ice.Current();
+            initCurrent__(ref current__, "Login", Ice.OperationMode.Idempotent, context__);
+            int result__ = 0;
+            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
+            {
+                UserManagement servant__ = null;
+                try
+                {
+                    servant__ = (UserManagement)obj__;
+                }
+                catch(_System.InvalidCastException)
+                {
+                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+                }
+                result__ = servant__.Login(user, pass, current__);
+                return Ice.DispatchStatus.DispatchOK;
+            };
+            IceInternal.Direct direct__ = null;
+            try
+            {
+                direct__ = new IceInternal.Direct(current__, run__);
+                try
+                {
+                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
+                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
+                }
+                finally
+                {
+                    direct__.destroy();
+                }
+            }
+            catch(Ice.SystemException)
+            {
+                throw;
+            }
+            catch(_System.Exception ex__)
+            {
+                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
+            }
+            return result__;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
+        public int Logout(int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            Ice.Current current__ = new Ice.Current();
+            initCurrent__(ref current__, "Logout", Ice.OperationMode.Idempotent, context__);
+            int result__ = 0;
+            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
+            {
+                UserManagement servant__ = null;
+                try
+                {
+                    servant__ = (UserManagement)obj__;
+                }
+                catch(_System.InvalidCastException)
+                {
+                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+                }
+                result__ = servant__.Logout(session, current__);
+                return Ice.DispatchStatus.DispatchOK;
+            };
+            IceInternal.Direct direct__ = null;
+            try
+            {
+                direct__ = new IceInternal.Direct(current__, run__);
+                try
+                {
+                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
+                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
+                }
+                finally
+                {
+                    direct__.destroy();
+                }
+            }
+            catch(Ice.SystemException)
+            {
+                throw;
+            }
+            catch(_System.Exception ex__)
+            {
+                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
+            }
+            return result__;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
+        public int SetUserPW(int nUID, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            Ice.Current current__ = new Ice.Current();
+            initCurrent__(ref current__, "SetUserPW", Ice.OperationMode.Idempotent, context__);
+            int result__ = 0;
+            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
+            {
+                UserManagement servant__ = null;
+                try
+                {
+                    servant__ = (UserManagement)obj__;
+                }
+                catch(_System.InvalidCastException)
+                {
+                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+                }
+                result__ = servant__.SetUserPW(nUID, pass, session, current__);
+                return Ice.DispatchStatus.DispatchOK;
+            };
+            IceInternal.Direct direct__ = null;
+            try
+            {
+                direct__ = new IceInternal.Direct(current__, run__);
+                try
+                {
+                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
+                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
+                }
+                finally
+                {
+                    direct__.destroy();
+                }
+            }
+            catch(Ice.SystemException)
+            {
+                throw;
+            }
+            catch(_System.Exception ex__)
+            {
+                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
+            }
+            return result__;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
+        public int SetUserRight(int nUID, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            Ice.Current current__ = new Ice.Current();
+            initCurrent__(ref current__, "SetUserRight", Ice.OperationMode.Idempotent, context__);
+            int result__ = 0;
+            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
+            {
+                UserManagement servant__ = null;
+                try
+                {
+                    servant__ = (UserManagement)obj__;
+                }
+                catch(_System.InvalidCastException)
+                {
+                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+                }
+                result__ = servant__.SetUserRight(nUID, nRight, session, current__);
+                return Ice.DispatchStatus.DispatchOK;
+            };
+            IceInternal.Direct direct__ = null;
+            try
+            {
+                direct__ = new IceInternal.Direct(current__, run__);
+                try
+                {
+                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
+                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
+                }
+                finally
+                {
+                    direct__.destroy();
+                }
+            }
+            catch(Ice.SystemException)
+            {
+                throw;
+            }
+            catch(_System.Exception ex__)
+            {
+                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
+            }
+            return result__;
+        }
+    }
 }
 
 namespace MCS
@@ -1219,20 +3055,6 @@ namespace MCS
     public abstract class GuiDataHubDisp_ : Ice.ObjectImpl, GuiDataHub
     {
         #region Slice operations
-
-        public int Login(string user, string pass)
-        {
-            return Login(user, pass, Ice.ObjectImpl.defaultCurrent);
-        }
-
-        public abstract int Login(string user, string pass, Ice.Current current__);
-
-        public int Logout(int session)
-        {
-            return Logout(session, Ice.ObjectImpl.defaultCurrent);
-        }
-
-        public abstract int Logout(int session, Ice.Current current__);
 
         public string ReadData(string Tag, int session)
         {
@@ -1298,38 +3120,6 @@ namespace MCS
         #region Operation dispatch
 
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-        public static Ice.DispatchStatus Login___(GuiDataHub obj__, IceInternal.Incoming inS__, Ice.Current current__)
-        {
-            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
-            IceInternal.BasicStream is__ = inS__.istr();
-            is__.startReadEncaps();
-            string user;
-            user = is__.readString();
-            string pass;
-            pass = is__.readString();
-            is__.endReadEncaps();
-            IceInternal.BasicStream os__ = inS__.ostr();
-            int ret__ = obj__.Login(user, pass, current__);
-            os__.writeInt(ret__);
-            return Ice.DispatchStatus.DispatchOK;
-        }
-
-        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-        public static Ice.DispatchStatus Logout___(GuiDataHub obj__, IceInternal.Incoming inS__, Ice.Current current__)
-        {
-            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
-            IceInternal.BasicStream is__ = inS__.istr();
-            is__.startReadEncaps();
-            int session;
-            session = is__.readInt();
-            is__.endReadEncaps();
-            IceInternal.BasicStream os__ = inS__.ostr();
-            int ret__ = obj__.Logout(session, current__);
-            os__.writeInt(ret__);
-            return Ice.DispatchStatus.DispatchOK;
-        }
-
-        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
         public static Ice.DispatchStatus ReadData___(GuiDataHub obj__, IceInternal.Incoming inS__, Ice.Current current__)
         {
             checkMode__(Ice.OperationMode.Idempotent, current__.mode);
@@ -1367,8 +3157,6 @@ namespace MCS
 
         private static string[] all__ =
         {
-            "Login",
-            "Logout",
             "ReadData",
             "WriteData",
             "ice_id",
@@ -1389,33 +3177,25 @@ namespace MCS
             {
                 case 0:
                 {
-                    return Login___(this, inS__, current__);
+                    return ReadData___(this, inS__, current__);
                 }
                 case 1:
                 {
-                    return Logout___(this, inS__, current__);
+                    return WriteData___(this, inS__, current__);
                 }
                 case 2:
                 {
-                    return ReadData___(this, inS__, current__);
+                    return ice_id___(this, inS__, current__);
                 }
                 case 3:
                 {
-                    return WriteData___(this, inS__, current__);
+                    return ice_ids___(this, inS__, current__);
                 }
                 case 4:
                 {
-                    return ice_id___(this, inS__, current__);
-                }
-                case 5:
-                {
-                    return ice_ids___(this, inS__, current__);
-                }
-                case 6:
-                {
                     return ice_isA___(this, inS__, current__);
                 }
-                case 7:
+                case 5:
                 {
                     return ice_ping___(this, inS__, current__);
                 }
@@ -1459,6 +3239,382 @@ namespace MCS
         {
             Ice.MarshalException ex = new Ice.MarshalException();
             ex.reason = "type MCS::GuiDataHub was not generated with stream support";
+            throw ex;
+        }
+
+        #endregion
+    }
+
+    [_System.Runtime.InteropServices.ComVisible(false)]
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public abstract class UserManagementDisp_ : Ice.ObjectImpl, UserManagement
+    {
+        #region Slice operations
+
+        public int Login(string user, string pass)
+        {
+            return Login(user, pass, Ice.ObjectImpl.defaultCurrent);
+        }
+
+        public abstract int Login(string user, string pass, Ice.Current current__);
+
+        public int Logout(int session)
+        {
+            return Logout(session, Ice.ObjectImpl.defaultCurrent);
+        }
+
+        public abstract int Logout(int session, Ice.Current current__);
+
+        public int CreateUser(string user, string pass, int session)
+        {
+            return CreateUser(user, pass, session, Ice.ObjectImpl.defaultCurrent);
+        }
+
+        public abstract int CreateUser(string user, string pass, int session, Ice.Current current__);
+
+        public int SetUserPW(int nUID, string pass, int session)
+        {
+            return SetUserPW(nUID, pass, session, Ice.ObjectImpl.defaultCurrent);
+        }
+
+        public abstract int SetUserPW(int nUID, string pass, int session, Ice.Current current__);
+
+        public int SetUserRight(int nUID, int nRight, int session)
+        {
+            return SetUserRight(nUID, nRight, session, Ice.ObjectImpl.defaultCurrent);
+        }
+
+        public abstract int SetUserRight(int nUID, int nRight, int session, Ice.Current current__);
+
+        public int DeleteUser(int nUID, int session)
+        {
+            return DeleteUser(nUID, session, Ice.ObjectImpl.defaultCurrent);
+        }
+
+        public abstract int DeleteUser(int nUID, int session, Ice.Current current__);
+
+        public int GetUserCount()
+        {
+            return GetUserCount(Ice.ObjectImpl.defaultCurrent);
+        }
+
+        public abstract int GetUserCount(Ice.Current current__);
+
+        public MCS.User[] GetUserList(int nBegin, int nCount)
+        {
+            return GetUserList(nBegin, nCount, Ice.ObjectImpl.defaultCurrent);
+        }
+
+        public abstract MCS.User[] GetUserList(int nBegin, int nCount, Ice.Current current__);
+
+        #endregion
+
+        #region Slice type-related members
+
+        public static new readonly string[] ids__ = 
+        {
+            "::Ice::Object",
+            "::MCS::UserManagement"
+        };
+
+        public override bool ice_isA(string s)
+        {
+            return _System.Array.BinarySearch(ids__, s, IceUtilInternal.StringUtil.OrdinalStringComparer) >= 0;
+        }
+
+        public override bool ice_isA(string s, Ice.Current current__)
+        {
+            return _System.Array.BinarySearch(ids__, s, IceUtilInternal.StringUtil.OrdinalStringComparer) >= 0;
+        }
+
+        public override string[] ice_ids()
+        {
+            return ids__;
+        }
+
+        public override string[] ice_ids(Ice.Current current__)
+        {
+            return ids__;
+        }
+
+        public override string ice_id()
+        {
+            return ids__[1];
+        }
+
+        public override string ice_id(Ice.Current current__)
+        {
+            return ids__[1];
+        }
+
+        public static new string ice_staticId()
+        {
+            return ids__[1];
+        }
+
+        #endregion
+
+        #region Operation dispatch
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+        public static Ice.DispatchStatus Login___(UserManagement obj__, IceInternal.Incoming inS__, Ice.Current current__)
+        {
+            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
+            IceInternal.BasicStream is__ = inS__.istr();
+            is__.startReadEncaps();
+            string user;
+            user = is__.readString();
+            string pass;
+            pass = is__.readString();
+            is__.endReadEncaps();
+            IceInternal.BasicStream os__ = inS__.ostr();
+            int ret__ = obj__.Login(user, pass, current__);
+            os__.writeInt(ret__);
+            return Ice.DispatchStatus.DispatchOK;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+        public static Ice.DispatchStatus Logout___(UserManagement obj__, IceInternal.Incoming inS__, Ice.Current current__)
+        {
+            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
+            IceInternal.BasicStream is__ = inS__.istr();
+            is__.startReadEncaps();
+            int session;
+            session = is__.readInt();
+            is__.endReadEncaps();
+            IceInternal.BasicStream os__ = inS__.ostr();
+            int ret__ = obj__.Logout(session, current__);
+            os__.writeInt(ret__);
+            return Ice.DispatchStatus.DispatchOK;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+        public static Ice.DispatchStatus CreateUser___(UserManagement obj__, IceInternal.Incoming inS__, Ice.Current current__)
+        {
+            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
+            IceInternal.BasicStream is__ = inS__.istr();
+            is__.startReadEncaps();
+            string user;
+            user = is__.readString();
+            string pass;
+            pass = is__.readString();
+            int session;
+            session = is__.readInt();
+            is__.endReadEncaps();
+            IceInternal.BasicStream os__ = inS__.ostr();
+            int ret__ = obj__.CreateUser(user, pass, session, current__);
+            os__.writeInt(ret__);
+            return Ice.DispatchStatus.DispatchOK;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+        public static Ice.DispatchStatus SetUserPW___(UserManagement obj__, IceInternal.Incoming inS__, Ice.Current current__)
+        {
+            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
+            IceInternal.BasicStream is__ = inS__.istr();
+            is__.startReadEncaps();
+            int nUID;
+            nUID = is__.readInt();
+            string pass;
+            pass = is__.readString();
+            int session;
+            session = is__.readInt();
+            is__.endReadEncaps();
+            IceInternal.BasicStream os__ = inS__.ostr();
+            int ret__ = obj__.SetUserPW(nUID, pass, session, current__);
+            os__.writeInt(ret__);
+            return Ice.DispatchStatus.DispatchOK;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+        public static Ice.DispatchStatus SetUserRight___(UserManagement obj__, IceInternal.Incoming inS__, Ice.Current current__)
+        {
+            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
+            IceInternal.BasicStream is__ = inS__.istr();
+            is__.startReadEncaps();
+            int nUID;
+            nUID = is__.readInt();
+            int nRight;
+            nRight = is__.readInt();
+            int session;
+            session = is__.readInt();
+            is__.endReadEncaps();
+            IceInternal.BasicStream os__ = inS__.ostr();
+            int ret__ = obj__.SetUserRight(nUID, nRight, session, current__);
+            os__.writeInt(ret__);
+            return Ice.DispatchStatus.DispatchOK;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+        public static Ice.DispatchStatus DeleteUser___(UserManagement obj__, IceInternal.Incoming inS__, Ice.Current current__)
+        {
+            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
+            IceInternal.BasicStream is__ = inS__.istr();
+            is__.startReadEncaps();
+            int nUID;
+            nUID = is__.readInt();
+            int session;
+            session = is__.readInt();
+            is__.endReadEncaps();
+            IceInternal.BasicStream os__ = inS__.ostr();
+            int ret__ = obj__.DeleteUser(nUID, session, current__);
+            os__.writeInt(ret__);
+            return Ice.DispatchStatus.DispatchOK;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+        public static Ice.DispatchStatus GetUserCount___(UserManagement obj__, IceInternal.Incoming inS__, Ice.Current current__)
+        {
+            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
+            inS__.istr().skipEmptyEncaps();
+            IceInternal.BasicStream os__ = inS__.ostr();
+            int ret__ = obj__.GetUserCount(current__);
+            os__.writeInt(ret__);
+            return Ice.DispatchStatus.DispatchOK;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+        public static Ice.DispatchStatus GetUserList___(UserManagement obj__, IceInternal.Incoming inS__, Ice.Current current__)
+        {
+            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
+            IceInternal.BasicStream is__ = inS__.istr();
+            is__.startReadEncaps();
+            int nBegin;
+            nBegin = is__.readInt();
+            int nCount;
+            nCount = is__.readInt();
+            is__.endReadEncaps();
+            IceInternal.BasicStream os__ = inS__.ostr();
+            MCS.User[] ret__ = obj__.GetUserList(nBegin, nCount, current__);
+            if(ret__ == null)
+            {
+                os__.writeSize(0);
+            }
+            else
+            {
+                os__.writeSize(ret__.Length);
+                for(int ix__ = 0; ix__ < ret__.Length; ++ix__)
+                {
+                    (ret__[ix__] == null ? new MCS.User() : ret__[ix__]).write__(os__);
+                }
+            }
+            return Ice.DispatchStatus.DispatchOK;
+        }
+
+        private static string[] all__ =
+        {
+            "CreateUser",
+            "DeleteUser",
+            "GetUserCount",
+            "GetUserList",
+            "Login",
+            "Logout",
+            "SetUserPW",
+            "SetUserRight",
+            "ice_id",
+            "ice_ids",
+            "ice_isA",
+            "ice_ping"
+        };
+
+        public override Ice.DispatchStatus dispatch__(IceInternal.Incoming inS__, Ice.Current current__)
+        {
+            int pos = _System.Array.BinarySearch(all__, current__.operation, IceUtilInternal.StringUtil.OrdinalStringComparer);
+            if(pos < 0)
+            {
+                throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+            }
+
+            switch(pos)
+            {
+                case 0:
+                {
+                    return CreateUser___(this, inS__, current__);
+                }
+                case 1:
+                {
+                    return DeleteUser___(this, inS__, current__);
+                }
+                case 2:
+                {
+                    return GetUserCount___(this, inS__, current__);
+                }
+                case 3:
+                {
+                    return GetUserList___(this, inS__, current__);
+                }
+                case 4:
+                {
+                    return Login___(this, inS__, current__);
+                }
+                case 5:
+                {
+                    return Logout___(this, inS__, current__);
+                }
+                case 6:
+                {
+                    return SetUserPW___(this, inS__, current__);
+                }
+                case 7:
+                {
+                    return SetUserRight___(this, inS__, current__);
+                }
+                case 8:
+                {
+                    return ice_id___(this, inS__, current__);
+                }
+                case 9:
+                {
+                    return ice_ids___(this, inS__, current__);
+                }
+                case 10:
+                {
+                    return ice_isA___(this, inS__, current__);
+                }
+                case 11:
+                {
+                    return ice_ping___(this, inS__, current__);
+                }
+            }
+
+            _System.Diagnostics.Debug.Assert(false);
+            throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+        }
+
+        #endregion
+
+        #region Marshaling support
+
+        public override void write__(IceInternal.BasicStream os__)
+        {
+            os__.writeTypeId(ice_staticId());
+            os__.startWriteSlice();
+            os__.endWriteSlice();
+            base.write__(os__);
+        }
+
+        public override void read__(IceInternal.BasicStream is__, bool rid__)
+        {
+            if(rid__)
+            {
+                /* string myId = */ is__.readTypeId();
+            }
+            is__.startReadSlice();
+            is__.endReadSlice();
+            base.read__(is__, true);
+        }
+
+        public override void write__(Ice.OutputStream outS__)
+        {
+            Ice.MarshalException ex = new Ice.MarshalException();
+            ex.reason = "type MCS::UserManagement was not generated with stream support";
+            throw ex;
+        }
+
+        public override void read__(Ice.InputStream inS__, bool rid__)
+        {
+            Ice.MarshalException ex = new Ice.MarshalException();
+            ex.reason = "type MCS::UserManagement was not generated with stream support";
             throw ex;
         }
 

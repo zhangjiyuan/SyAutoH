@@ -12,21 +12,37 @@
 
 #pragma once
 #include <windows.h>
+#include <string>
+#include <list>
 
-class SqlServerNCLI;
-// 此类是从 SqlAceCli.dll 导出的
-class SQLACECLI_API CSqlAceCli {
+using namespace std;
+
+typedef list<string> strList;
+class SQLACECLI_API DBUserAce
+{
 public:
-	CSqlAceCli(void);
-	~CSqlAceCli();
-
-private:
-	SqlServerNCLI* m_pSqlClient;
+	DBUserAce(void);
+	~DBUserAce(void);
 
 public:
-	int Connect(WCHAR* wServer, WCHAR* wDBName);
-	int ExecuteSQL(WCHAR* wSqlCmd);
-	int PutOutRecordSet(void);
-	int Clean(void);
-	int FindFoupLocation(WCHAR* sFoupID, int& nOHV, int& nStocker);
+	int Login(const ::std::string& sName, const ::std::string& sHash);
+	int Logout(int);
+	int CreateUser(const ::std::string& sName, const ::std::string& sPassWord, int nRight);
+	int DeleteUser(int, int);
+	int SetUserPW(int, const ::std::string&, int);
+	int SetUserRight(int, int, int);
+	int GetUserCount();
+	strList GetUserList(int, int);
+};
+
+class SQLACECLI_API DBFoup
+{
+public:
+	DBFoup(void);
+	~DBFoup(void);
+public:
+	int AddFoup(WCHAR* sFoupID, WCHAR* sLot, int nLocal, int nType);
+	int FindFoup(WCHAR* sFoupID);
+	int SetFoupLocation(int nFoup, int nLocal, int nType);
+	int GetFoupLocation(int nFoup, int &nLocal, int &nType);
 };

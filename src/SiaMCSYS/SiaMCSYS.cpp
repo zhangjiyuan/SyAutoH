@@ -7,28 +7,18 @@
 using namespace std;
 
 #include "MaterialController.h"
+#include "MetaMoveCtrlServer.h"
+#include "AtomicBoolean.h"
+#include <signal.h>
+
+initialiseSingleton(MetaMoveCtrlServer);
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	cout<< "Material Control System V1.0.0.1" << endl;
-	MaterialController MC;
-	if (0 != MC.Init())
-	{
-		cout<< "MCS Init failed." << endl;
-		return 0;
-	}
+	
+	new MetaMoveCtrlServer;
+	MetaMoveCtrlServer::getSingleton().Run(argc, argv);
+	delete MetaMoveCtrlServer::getSingletonPtr();
 
-	MC.Run();
-
-	string str;
-	while(cin>>str)
-	{
-		cout<< str<<endl;
-		if (str.compare("quit") == 0)
-		{
-			return 0;
-		}
-	}
 	return 0;
 }
-

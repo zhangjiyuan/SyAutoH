@@ -42,6 +42,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>../include;$(IncludePath)</IncludePath>
     <LibraryPath>../lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)\..\bin\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -56,8 +57,9 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sqlncli10.lib;msdasc.lib</AdditionalDependencies>
+      <AdditionalDependencies>sqlncli10.lib;msdasc.lib;CypAce.lib</AdditionalDependencies>
       <ImportLibrary>../lib/$(TargetName).lib</ImportLibrary>
+      <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -81,17 +83,17 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DBFoup.h" />
-    <ClInclude Include="McsUserCommander.h" />
+    <ClInclude Include="TMcsUser.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SqlAceCli.h" />
-    <ClInclude Include="SqlServerNCLI.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TFoup.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DBFoup.cpp" />
+    <ClCompile Include="DBUserAce.cpp" />
     <ClCompile Include="SqlAceCli.cpp" />
-    <ClCompile Include="SqlServerNCLI.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

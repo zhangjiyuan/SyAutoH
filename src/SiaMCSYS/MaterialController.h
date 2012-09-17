@@ -3,8 +3,9 @@
 class CMesLink;
 class CSource;
 class CReceiver;
-class CSqlAceCli;
-class MaterialController
+class DBFoup;
+class CGuiHub;
+class MaterialController 
 {
 public:
 	MaterialController(void);
@@ -13,8 +14,9 @@ public:
 	void Run(void);
 private:
 	CMesLink* m_pMesLink;
-	CSqlAceCli* m_pSqlAce;
+	DBFoup* m_pFoupDB;
 	CReceiver *receiver;
+	CGuiHub* m_pGuiHub;
 	CSource *source;
 };
 
