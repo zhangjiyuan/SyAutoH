@@ -30,7 +30,7 @@ namespace BaseRailElement
 
         private int sweepAngle = 90;
         [Browsable(false)]
-        private int SweepAngle
+        public int SweepAngle
         {
             get { return sweepAngle; }
             set { sweepAngle = value; }
@@ -38,7 +38,7 @@ namespace BaseRailElement
 
         private int rotateAngle = 90;
         [Browsable(false)]
-        public int RotateAngle
+        private int RotateAngle
         {
             get { return rotateAngle; }
             set { rotateAngle = value; }

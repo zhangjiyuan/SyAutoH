@@ -32,4 +32,8 @@
 *.exp
 *.filters
 Debug
+<<<<<<< HEAD
+/src/obj
+=======
 Release
+>>>>>>> fabf89b0b67a87b25f0e672ce6068f6ac0504de7
