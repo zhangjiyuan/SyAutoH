@@ -16,7 +16,7 @@ namespace RailView
         public List<RailEle> OpenFile()
         {
             XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load("1.xml");
+            xmlDoc.Load("5.xml");
             XmlNode root = xmlDoc.SelectSingleNode("DrawDoc");
             XmlNodeList rootNodeList = xmlDoc.SelectSingleNode("DrawDoc").ChildNodes;
             foreach (XmlNode rxn in rootNodeList)
@@ -82,7 +82,7 @@ namespace RailView
                                         curTemp.speed = float.Parse(ctwoxe.InnerText);
                                     else if (ctwoxe.Name == "StartAngle")
                                         curTemp.startAngle = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "RotateAngle")
+                                    else if (ctwoxe.Name == "SweepAngle")
                                         curTemp.rotateAngle = int.Parse(ctwoxe.InnerText);
                                     else if (ctwoxe.Name == "Radiu")
                                         curTemp.radiu = int.Parse(ctwoxe.InnerText);
