@@ -266,6 +266,85 @@ int DBUserAce::GetUserCount()
 	return nCount;
 }
 
+UserData DBUserAce::GetUserDatabyName(const ::std::string& sName)
+{
+	UserData user;
+	user.nID = 0;
+
+	
+
+	CoInitialize(NULL);
+	HRESULT hr;
+	CMcsUserTable dbUser;
+
+	hr = dbUser.OpenDataSource();
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return user;
+	}
+
+	CString strName;
+	strName = sName.c_str();
+	CString strSQL;
+	strSQL.Format(L"Select * from mcsuser where (Name = '%s')", 
+		strName);
+	hr = dbUser.Open(dbUser.m_session, strSQL);
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return user;
+	}
+	if (dbUser.MoveFirst() != DB_S_ENDOFROWSET)
+	{
+		user.nID = dbUser.m_id;
+		user.strName = dbUser.m_Name;
+		user.nRight = dbUser.m_UserRight;
+	}
+
+	dbUser.CloseAll();
+	CoUninitialize();
+
+	return user;
+}
+UserData DBUserAce::GetUserDatabyID(int nUserID)
+{
+	UserData user;
+	user.nID = 0;
+
+	CoInitialize(NULL);
+	HRESULT hr;
+	CMcsUserTable dbUser;
+
+	hr = dbUser.OpenDataSource();
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return user;
+	}
+
+	CString strSQL;
+	strSQL.Format(L"Select * from mcsuser where (ID = %d)", 
+		nUserID);
+	hr = dbUser.Open(dbUser.m_session, strSQL);
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return user;
+	}
+	if (dbUser.MoveFirst() != DB_S_ENDOFROWSET)
+	{
+		user.nID = dbUser.m_id;
+		user.strName = dbUser.m_Name;
+		user.nRight = dbUser.m_UserRight;
+	}
+
+	dbUser.CloseAll();
+	CoUninitialize();
+
+	return user;
+}
+
 UserDataList DBUserAce::GetUserList(int nStartID, int nCount)
 {
 	UserDataList list;

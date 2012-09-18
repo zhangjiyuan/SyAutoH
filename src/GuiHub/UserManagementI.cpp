@@ -2,16 +2,29 @@
 #include "UserManagementI.h"
 #include "../SqlAceCli/SqlAceCli.h"
 #include "IceUtil/Unicode.h"
+#include "Ice/Connection.h"
+#include "iGuiHub.h"
 
 UserManagementI::UserManagementI(void)
 {
 	cout<<"User Management Server is Ready." << endl;
 	m_pUserDB = NULL;
+	m_pSession = NULL;
 }
 
 
 UserManagementI::~UserManagementI(void)
 {
+	if (NULL != m_pUserDB)
+	{
+		delete m_pUserDB;
+		m_pUserDB = NULL;
+	}
+	if (NULL != m_pSession)
+	{
+		delete m_pSession;
+		m_pSession = NULL;
+	}
 }
 
 int UserManagementI::Init()
@@ -20,23 +33,40 @@ int UserManagementI::Init()
 	{
 		m_pUserDB = new DBUserAce();
 	}
+	if (NULL == m_pSession)
+	{
+		m_pSession = new DBSession();
+	}
+
 	return 0;
 }
 
-int UserManagementI::Login(const ::std::string& sUser, const ::std::string& sHash, const ::Ice::Current& /* = ::Ice::Current */)
+int UserManagementI::Login(const ::std::string& sUser, const ::std::string& sHash, const ::Ice::Current& c/* = ::Ice::Current */)
 {
-	
+	int nLinkSession = 0;
+	string strCon = "";
+	if(c.con)
+	{
+		strCon =  c.con->toString();
+	}
+
+	cout<< strCon <<endl;
+
 	int nRet = m_pUserDB->Login(sUser, sHash);
 	if (0 == nRet)
 	{
 		cout<< "Login Sucess:  -> User: " << sUser << " Hash: " << sHash << endl;
+		UserData user;
+		user = m_pUserDB->GetUserDatabyName(sUser);
+		nLinkSession = m_pSession->GetLoginSession(user.nID, user.nRight, strCon, false);
 	}
 	else
 	{
 		cout<< "Login Failed:  -> User: " << sUser << endl;
+		nLinkSession = 0;
 	}
 
-	return 0;
+	return nLinkSession;
 }
 int UserManagementI::Logout(::Ice::Int nSession, const ::Ice::Current& /* = ::Ice::Current */)
 {

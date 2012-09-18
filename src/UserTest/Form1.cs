@@ -20,12 +20,16 @@ namespace UserTest
             new string[] { "NoRight", "Viewer", "Guest", "Operator", "Admin", "SuperAdmin"};
         private UserCli userMge = new UserCli();
         private MESLink mesLink = new MESLink();
+        private int m_nSession = 0;
+
         private void bnLogin_Click(object sender, EventArgs e)
         {
             string strHash = UserHash.HashUserInfo(this.textBoxUser.Text,
                 this.maskedTextBoxPW.Text);
-            this.labelHashUser.Text = strHash;
-            userMge.Login(this.textBoxUser.Text, strHash);
+           
+            m_nSession = userMge.Login(this.textBoxUser.Text, strHash); 
+            
+            this.labelHashUser.Text = strHash + " s: " + m_nSession.ToString();
         }
 
         private void Form1_Load(object sender, EventArgs e)

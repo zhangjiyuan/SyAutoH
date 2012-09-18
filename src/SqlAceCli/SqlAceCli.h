@@ -40,6 +40,8 @@ public:
 	int SetUserRight(int, int);
 	int GetUserCount();
 	UserDataList GetUserList(int, int);
+	UserData GetUserDatabyName(const ::std::string& sName);
+	UserData GetUserDatabyID(int nUserID);
 };
 
 class SQLACECLI_API DBFoup
@@ -52,4 +54,15 @@ public:
 	int FindFoup(const WCHAR* sFoupID);
 	int SetFoupLocation(int nFoup, int nLocal, int nType);
 	int GetFoupLocation(int nFoup, int &nLocal, int &nType);
+};
+
+class SQLACECLI_API DBSession
+{
+public:
+	DBSession(void);
+	~DBSession(void);
+public:
+
+	int GetLoginSession(int nUserID, int nRight, 
+		const string& strConnection, bool bLastLimit);
 };

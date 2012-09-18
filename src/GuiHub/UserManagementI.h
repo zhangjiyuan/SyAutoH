@@ -3,13 +3,15 @@
 using namespace MCS;
 
 class DBUserAce;
+class DBSession;
 class UserManagementI : public UserManagement
 {
 public:
 	UserManagementI(void);
 	virtual ~UserManagementI(void);
 private:
-	DBUserAce* m_pUserDB;
+	DBUserAce*	m_pUserDB;
+	DBSession*	m_pSession;
 public:
 	int Init();
 	virtual int Login(const ::std::string&, const ::std::string&, const ::Ice::Current& /* = ::Ice::Current */);

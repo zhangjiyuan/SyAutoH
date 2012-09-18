@@ -19,7 +19,6 @@ namespace GuiAccess
         {
             remote = UserManagementPrxHelper.uncheckedCast(m_objectPrx);
         }
-     
 
         public int Login(string sName, string sHash)
         {
