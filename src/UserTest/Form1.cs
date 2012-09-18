@@ -127,7 +127,24 @@ namespace UserTest
 
         private void buttonUserPW_Click(object sender, EventArgs e)
         {
+            string strPW = this.textBoxNewPassword.Text;
+            string strPW2 = this.textBoxPWagain.Text;
+            if (strPW.CompareTo(strPW2) != 0)
+            {
+                MessageBox.Show("Passwords not same.");
+                return;
+            }
 
+            int nSelected = this.listViewUserList.SelectedItems.Count;
+            if (nSelected > 0)
+            {
+                int nUserRight = this.comboBoxUserRight.SelectedIndex;
+                foreach (ListViewItem item in this.listViewUserList.SelectedItems)
+                {
+                    int nID = (int)item.Tag;
+                    userMge.SetUserPW(nID, strPW, 0);
+                }
+            }
         }
 
         private void buttonUserRight_Click(object sender, EventArgs e)

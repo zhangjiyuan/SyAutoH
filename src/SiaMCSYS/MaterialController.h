@@ -24,6 +24,10 @@ public:
 			m_pFoupDB->GetFoupLocation(nFoup, nLocal, nType);
 			wprintf_s(L"Find Foup: %s at Location: %d Type: %d.\n", 
 				sName, nLocal, nType);
+
+			m_pFoupDB->SetFoupLocation(nFoup, nLocal, nType);
+			wprintf_s(L"Find Foup: %s at Location: %d Type: %d.\n", 
+				sName, nLocal, nType);
 		}
 		else
 		{

@@ -143,7 +143,7 @@ int DBFoup::SetFoupLocation(int nFoup, int nLocal, int nType)
 	{
 		tableFoup.m_Local = nLocal;
 		tableFoup.m_Type = nType;
-		tableFoup.SetData();
+		hr = tableFoup.SetData();
 		tableFoup.UpdateAll();
 	}
 	tableFoup.CloseAll();
