@@ -32,7 +32,7 @@ interface UserManagement
 {
   idempotent int Login(string user, string pass);
   idempotent int Logout(int session);
-	idempotent int CreateUser(string user, string pass, int session);
+	idempotent int CreateUser(string user, string pass, int nRight, int session);
 	idempotent int SetUserPW(int nUID, string pass, int session);
 	idempotent int SetUserRight(int nUID, int nRight, int session);
 	idempotent int DeleteUser(int nUID, int session);

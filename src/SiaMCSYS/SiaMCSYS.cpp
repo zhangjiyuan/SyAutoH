@@ -14,7 +14,6 @@ initialiseSingleton(MMoveCtrlServer);
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	
 	new MMoveCtrlServer;
 	MMoveCtrlServer::getSingleton().Run(argc, argv);
 	delete MMoveCtrlServer::getSingletonPtr();

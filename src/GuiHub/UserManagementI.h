@@ -14,7 +14,7 @@ public:
 	int Init();
 	virtual int Login(const ::std::string&, const ::std::string&, const ::Ice::Current& /* = ::Ice::Current */);
 	virtual int Logout(::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
-	virtual int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
+	virtual int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
 	virtual int DeleteUser(::Ice::Int, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
 	virtual int SetUserPW(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Current&);
 	virtual int SetUserRight(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);

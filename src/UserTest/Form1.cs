@@ -16,7 +16,8 @@ namespace UserTest
         {
             InitializeComponent();
         }
-
+        private string[] RightCollection = 
+            new string[] { "NoRight", "Viewer", "Guest", "Operator", "Admin", "SuperAdmin"};
         private UserCli userMge = new UserCli();
         private MESLink mesLink = new MESLink();
         private void bnLogin_Click(object sender, EventArgs e)
@@ -31,15 +32,38 @@ namespace UserTest
         {
             userMge.ConnectServer();
             mesLink.ConnectServer();
+            this.comboBoxUserRight.Items.Clear();
+            foreach (string strRight in RightCollection)
+            {
+                this.comboBoxUserRight.Items.Add(strRight);
+            }
+            this.comboBoxUserRight.SelectedIndex = 0;
         }
 
         private void bnNewUser_Click(object sender, EventArgs e)
         {
-            int nRet = userMge.CreateUser(this.textBoxUser.Text,
-                this.maskedTextBoxPW.Text, 3);
+            string strName = this.textBoxNewUser.Text;
+            if (strName.Length <= 0)
+            {
+                MessageBox.Show("Name must not null.");
+                return;
+            }
+            string strPW = this.textBoxNewPassword.Text;
+            string strPW2 = this.textBoxPWagain.Text;
+            if (strPW.CompareTo(strPW2) != 0)
+            {
+                MessageBox.Show("Passwords not same.");
+                return;
+            }
+            int nUserRight = this.comboBoxUserRight.SelectedIndex;
+
+            int nRet = userMge.CreateUser(strName,
+                strPW, nUserRight, 0);
+
             if (0 == nRet)
             {
                 MessageBox.Show("Success create user.");
+                RefreshUserList();
             }
             else
             {
@@ -72,6 +96,67 @@ namespace UserTest
             string strFoupName = this.textBoxFoupName.Text;
             mesLink.GetFoupLocation(strFoupName, out nLocal, out nType);
             
+        }
+
+        private void buttonUserGet_Click(object sender, EventArgs e)
+        {
+            RefreshUserList();
+        }
+
+        private void RefreshUserList()
+        {
+            int nCount = userMge.GetUserCount();
+            if (nCount > 20)
+            {
+                nCount = 20;
+            }
+            MCS.User[] userNames = userMge.GetUserList(0, nCount);
+            if (userNames != null)
+            {
+                this.listViewUserList.Items.Clear();
+                foreach (MCS.User aUser in userNames)
+                {
+                    ListViewItem item = this.listViewUserList.Items.Add(aUser.nID.ToString());
+                    item.Tag = aUser.nID;
+                    item.SubItems.Add(aUser.sName);
+                    string strRight = RightCollection[aUser.nRight];
+                    item.SubItems.Add(strRight);
+                }
+            }
+        }
+
+        private void buttonUserPW_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonUserRight_Click(object sender, EventArgs e)
+        {
+            int nSelected = this.listViewUserList.SelectedItems.Count;
+            if (nSelected > 0)
+            {
+                int nUserRight = this.comboBoxUserRight.SelectedIndex;
+                foreach (ListViewItem item in this.listViewUserList.SelectedItems)
+                {
+                    int nID = (int)item.Tag;
+                    userMge.SetUserRight(nID, nUserRight, 0);
+                }
+                RefreshUserList();
+            }
+        }
+
+        private void buttonUserDelete_Click(object sender, EventArgs e)
+        {
+            int nSelected = this.listViewUserList.SelectedItems.Count;
+            if (nSelected > 0)
+            {
+                foreach (ListViewItem item in this.listViewUserList.SelectedItems)
+                {
+                    int nID = (int)item.Tag;
+                    userMge.DeleteUser(nID, 0);
+                }
+                RefreshUserList();
+            }
         }
     }
 }

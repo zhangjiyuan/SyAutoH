@@ -16,7 +16,44 @@ DBUserAce::~DBUserAce(void)
 
 int DBUserAce::Login(const ::std::string& sName, const ::std::string& sHash)
 {
-	return 0;
+	int nRet = -1;
+	CString strName;
+	CString strHash;
+	strName = sName.c_str();
+	strHash = sHash.c_str();
+
+	CoInitialize(NULL);
+	HRESULT hr;
+	CMcsUserTable dbUser;
+
+	hr = dbUser.OpenDataSource();
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return -1;
+	}
+
+	CString strSQL;
+	strSQL.Format(L"Select * from mcsuser where (Name = '%s') AND (Password = '%s')", 
+		strName, strHash);
+	hr = dbUser.Open(dbUser.m_session, strSQL);
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return -1;
+	}
+	if (dbUser.MoveFirst() != DB_S_ENDOFROWSET)
+	{
+		nRet = 0;
+	}
+	else
+	{
+		nRet = 1;
+	}
+
+	dbUser.CloseAll();
+	CoUninitialize();
+	return nRet;
 }
 int DBUserAce::Logout(int)
 {
@@ -71,7 +108,7 @@ int DBUserAce::CreateUser(const ::std::string& sName,
 	dbUser.m_dwNameLength = strName.GetLength()*2;
 	wcscpy_s(dbUser.m_Password, strUserHash);
 	dbUser.m_dwPasswordLength = strUserHash.GetLength()*2;
-	dbUser.m_UserRight = 3;
+	dbUser.m_UserRight = nRight;
 	dbUser.m_dwidStatus = DBSTATUS_S_IGNORE;
 	dbUser.m_dwNameStatus = DBSTATUS_S_OK;
 	dbUser.m_dwPasswordStatus = DBSTATUS_S_OK;
@@ -91,24 +128,161 @@ int DBUserAce::CreateUser(const ::std::string& sName,
 
 	return nRet;
 }
-int DBUserAce::DeleteUser(int, int)
+int DBUserAce::DeleteUser(int nID)
 {
+	CoInitialize(NULL);
+	HRESULT hr;
+	CMcsUserTable dbUser;
+
+	hr = dbUser.OpenDataSource();
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return -1;
+	}
+
+	CString strSQL;
+	strSQL.Format(L"Select * from mcsuser where (id = %d)", nID);
+	hr = dbUser.Open(dbUser.m_session, strSQL);
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return -1;
+	}
+	if (dbUser.MoveNext() != DB_S_ENDOFROWSET)
+	{
+		hr = dbUser.Delete();
+	}
+
+	dbUser.UpdateAll();
+	dbUser.CloseAll();
+	CoUninitialize();
 	return 0;
 }
-int DBUserAce::SetUserPW(int, const ::std::string&, int)
+int DBUserAce::SetUserPW(int nID, const ::std::string& sPassWord)
 {
+	CoInitialize(NULL);
+	HRESULT hr;
+	CMcsUserTable dbUser;
+
+	hr = dbUser.OpenDataSource();
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return -1;
+	}
+
+	CString strSQL;
+	strSQL.Format(L"Select * from mcsuser where (id = %d)", nID);
+	hr = dbUser.Open(dbUser.m_session, strSQL);
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return -1;
+	}
+	if (dbUser.MoveFirst() != DB_S_ENDOFROWSET)
+	{
+		CString strPassWord;
+		CString strName = dbUser.m_Name;
+		strPassWord = sPassWord.c_str();
+		CString strUserHash = CypHashUserInfo(strName, strPassWord);
+		wcscpy_s(dbUser.m_Password, strUserHash);
+		dbUser.UpdateAll();
+	}
+
+	dbUser.CloseAll();
+	CoUninitialize();
 	return 0;
 }
-int DBUserAce::SetUserRight(int, int, int)
+int DBUserAce::SetUserRight(int nID, int nRight)
 {
+	CoInitialize(NULL);
+	HRESULT hr;
+	CMcsUserTable dbUser;
+
+	hr = dbUser.OpenDataSource();
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return -1;
+	}
+
+	CString strSQL;
+	strSQL.Format(L"Select * from mcsuser where (id = %d)", nID);
+	hr = dbUser.Open(dbUser.m_session, strSQL);
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return -1;
+	}
+	if (dbUser.MoveFirst() != DB_S_ENDOFROWSET)
+	{
+		dbUser.m_UserRight = nRight;
+		hr = dbUser.SetData();
+		hr = dbUser.UpdateAll();
+	}
+
+	dbUser.CloseAll();
+	CoUninitialize();
+
 	return 0;
 }
 int DBUserAce::GetUserCount()
 {
-	return 0;
+	CoInitialize(NULL);
+	HRESULT hr;
+	CMcsUserTable dbUser;
+
+	hr = dbUser.OpenAll();
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return 2;
+	}
+	int nCount = 0;
+	while (dbUser.MoveNext() != DB_S_ENDOFROWSET )
+	{
+		nCount++;
+	}
+
+	dbUser.CloseAll();
+	CoUninitialize();
+
+	return nCount;
 }
-strList DBUserAce::GetUserList(int, int)
+UserDataList DBUserAce::GetUserList(int nStartID, int nCount)
 {
-	strList list;
+	UserDataList list;
+	CoInitialize(NULL);
+	HRESULT hr;
+	CMcsUserTable dbUser;
+
+	hr = dbUser.OpenDataSource();
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return list;
+	}
+	
+	CString strSQL;
+	strSQL.Format(L"Select TOP(%d) * from mcsuser where (id > %d)", nCount, nStartID );
+	hr = dbUser.Open(dbUser.m_session, strSQL);
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return list;
+	}
+
+	while (dbUser.MoveNext() != DB_S_ENDOFROWSET )
+	{
+		UserData anUser;
+		anUser.nID = dbUser.m_id;
+		anUser.strName = dbUser.m_Name;
+		anUser.nRight = dbUser.m_UserRight;
+		list.push_back(anUser);
+	}
+	dbUser.CloseAll();
+	CoUninitialize();
+
 	return list;
 }

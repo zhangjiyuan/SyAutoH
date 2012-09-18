@@ -633,51 +633,51 @@ private:
     
 public:
 
-    ::Ice::Int CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session)
+    ::Ice::Int CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int nRight, ::Ice::Int session)
     {
-        return CreateUser(user, pass, session, 0);
+        return CreateUser(user, pass, nRight, session, 0);
     }
-    ::Ice::Int CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context& __ctx)
+    ::Ice::Int CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context& __ctx)
     {
-        return CreateUser(user, pass, session, &__ctx);
-    }
-
-    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session)
-    {
-        return begin_CreateUser(user, pass, session, 0, ::IceInternal::__dummyCallback, 0);
+        return CreateUser(user, pass, nRight, session, &__ctx);
     }
 
-    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context& __ctx)
+    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int nRight, ::Ice::Int session)
     {
-        return begin_CreateUser(user, pass, session, &__ctx, ::IceInternal::__dummyCallback, 0);
+        return begin_CreateUser(user, pass, nRight, session, 0, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context& __ctx)
     {
-        return begin_CreateUser(user, pass, session, 0, __del, __cookie);
+        return begin_CreateUser(user, pass, nRight, session, &__ctx, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_CreateUser(user, pass, session, &__ctx, __del, __cookie);
+        return begin_CreateUser(user, pass, nRight, session, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::MCS::Callback_UserManagement_CreateUserPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_CreateUser(user, pass, session, 0, __del, __cookie);
+        return begin_CreateUser(user, pass, nRight, session, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_CreateUserPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int nRight, ::Ice::Int session, const ::MCS::Callback_UserManagement_CreateUserPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_CreateUser(user, pass, session, &__ctx, __del, __cookie);
+        return begin_CreateUser(user, pass, nRight, session, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_CreateUserPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_CreateUser(user, pass, nRight, session, &__ctx, __del, __cookie);
     }
 
     ::Ice::Int end_CreateUser(const ::Ice::AsyncResultPtr&);
     
 private:
 
-    ::Ice::Int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    ::Ice::Int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
 
@@ -1147,7 +1147,7 @@ public:
 
     virtual ::Ice::Int Logout(::Ice::Int, const ::Ice::Context*) = 0;
 
-    virtual ::Ice::Int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
+    virtual ::Ice::Int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*) = 0;
 
     virtual ::Ice::Int SetUserPW(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
 
@@ -1189,7 +1189,7 @@ public:
 
     virtual ::Ice::Int Logout(::Ice::Int, const ::Ice::Context*);
 
-    virtual ::Ice::Int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
+    virtual ::Ice::Int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::Ice::Int SetUserPW(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
@@ -1231,7 +1231,7 @@ public:
 
     virtual ::Ice::Int Logout(::Ice::Int, const ::Ice::Context*);
 
-    virtual ::Ice::Int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
+    virtual ::Ice::Int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::Ice::Int SetUserPW(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
@@ -1312,7 +1312,7 @@ public:
     virtual ::Ice::Int Logout(::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___Logout(::IceInternal::Incoming&, const ::Ice::Current&);
 
-    virtual ::Ice::Int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
+    virtual ::Ice::Int CreateUser(const ::std::string&, const ::std::string&, ::Ice::Int, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___CreateUser(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual ::Ice::Int SetUserPW(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;

@@ -290,14 +290,14 @@ namespace MCS
 
         int end_Logout(Ice.AsyncResult r__);
 
-        int CreateUser(string user, string pass, int session);
-        int CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+        int CreateUser(string user, string pass, int nRight, int session);
+        int CreateUser(string user, string pass, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int session);
-        Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
+        Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int nRight, int session);
+        Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
 
-        Ice.AsyncResult begin_CreateUser(string user, string pass, int session, Ice.AsyncCallback cb__, object cookie__);
-        Ice.AsyncResult begin_CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_CreateUser(string user, string pass, int nRight, int session, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_CreateUser(string user, string pass, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
 
         int end_CreateUser(Ice.AsyncResult r__);
 
@@ -383,7 +383,7 @@ namespace MCS
 
         int Logout(int session, Ice.Current current__);
 
-        int CreateUser(string user, string pass, int session, Ice.Current current__);
+        int CreateUser(string user, string pass, int nRight, int session, Ice.Current current__);
 
         int SetUserPW(int nUID, string pass, int session, Ice.Current current__);
 
@@ -403,7 +403,7 @@ namespace MCS
 
         int Logout(int session);
 
-        int CreateUser(string user, string pass, int session);
+        int CreateUser(string user, string pass, int nRight, int session);
 
         int SetUserPW(int nUID, string pass, int session);
 
@@ -880,17 +880,17 @@ namespace MCS
     {
         #region Synchronous operations
 
-        public int CreateUser(string user, string pass, int session)
+        public int CreateUser(string user, string pass, int nRight, int session)
         {
-            return CreateUser(user, pass, session, null, false);
+            return CreateUser(user, pass, nRight, session, null, false);
         }
 
-        public int CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        public int CreateUser(string user, string pass, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
-            return CreateUser(user, pass, session, context__, true);
+            return CreateUser(user, pass, nRight, session, context__, true);
         }
 
-        private int CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        private int CreateUser(string user, string pass, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
         {
             if(explicitContext__ && context__ == null)
             {
@@ -905,7 +905,7 @@ namespace MCS
                     checkTwowayOnly__("CreateUser");
                     delBase__ = getDelegate__(false);
                     UserManagementDel_ del__ = (UserManagementDel_)delBase__;
-                    return del__.CreateUser(user, pass, session, context__);
+                    return del__.CreateUser(user, pass, nRight, session, context__);
                 }
                 catch(IceInternal.LocalExceptionWrapper ex__)
                 {
@@ -1188,24 +1188,24 @@ namespace MCS
 
         #region Asynchronous operations
 
-        public Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int session)
+        public Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int nRight, int session)
         {
-            return begin_CreateUser(user, pass, session, null, false, null, null);
+            return begin_CreateUser(user, pass, nRight, session, null, false, null, null);
         }
 
-        public Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        public Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
         {
-            return begin_CreateUser(user, pass, session, ctx__, true, null, null);
+            return begin_CreateUser(user, pass, nRight, session, ctx__, true, null, null);
         }
 
-        public Ice.AsyncResult begin_CreateUser(string user, string pass, int session, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_CreateUser(string user, string pass, int nRight, int session, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_CreateUser(user, pass, session, null, false, cb__, cookie__);
+            return begin_CreateUser(user, pass, nRight, session, null, false, cb__, cookie__);
         }
 
-        public Ice.AsyncResult begin_CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_CreateUser(string user, string pass, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_CreateUser(user, pass, session, ctx__, true, cb__, cookie__);
+            return begin_CreateUser(user, pass, nRight, session, ctx__, true, cb__, cookie__);
         }
 
         private const string __CreateUser_name = "CreateUser";
@@ -1233,7 +1233,7 @@ namespace MCS
             return ret__;
         }
 
-        private Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        private Ice.AsyncResult<MCS.Callback_UserManagement_CreateUser> begin_CreateUser(string user, string pass, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
         {
             checkAsyncTwowayOnly__(__CreateUser_name);
             IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_CreateUser> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_CreateUser>(this, __CreateUser_name, CreateUser_completed__, cookie__);
@@ -1247,6 +1247,7 @@ namespace MCS
                 IceInternal.BasicStream os__ = result__.ostr__;
                 os__.writeString(user);
                 os__.writeString(pass);
+                os__.writeInt(nRight);
                 os__.writeInt(session);
                 os__.endWriteEncaps();
                 result__.send__(true);
@@ -2087,7 +2088,7 @@ namespace MCS
 
         int Logout(int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        int CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+        int CreateUser(string user, string pass, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
         int SetUserPW(int nUID, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
@@ -2207,7 +2208,7 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public sealed class UserManagementDelM_ : Ice.ObjectDelM_, UserManagementDel_
     {
-        public int CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        public int CreateUser(string user, string pass, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             IceInternal.Outgoing og__ = handler__.getOutgoing("CreateUser", Ice.OperationMode.Idempotent, context__);
             try
@@ -2217,6 +2218,7 @@ namespace MCS
                     IceInternal.BasicStream os__ = og__.ostr();
                     os__.writeString(user);
                     os__.writeString(pass);
+                    os__.writeInt(nRight);
                     os__.writeInt(session);
                 }
                 catch(Ice.LocalException ex__)
@@ -2687,7 +2689,7 @@ namespace MCS
     public sealed class UserManagementDelD_ : Ice.ObjectDelD_, UserManagementDel_
     {
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
-        public int CreateUser(string user, string pass, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        public int CreateUser(string user, string pass, int nRight, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             Ice.Current current__ = new Ice.Current();
             initCurrent__(ref current__, "CreateUser", Ice.OperationMode.Idempotent, context__);
@@ -2703,7 +2705,7 @@ namespace MCS
                 {
                     throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
                 }
-                result__ = servant__.CreateUser(user, pass, session, current__);
+                result__ = servant__.CreateUser(user, pass, nRight, session, current__);
                 return Ice.DispatchStatus.DispatchOK;
             };
             IceInternal.Direct direct__ = null;
@@ -3265,12 +3267,12 @@ namespace MCS
 
         public abstract int Logout(int session, Ice.Current current__);
 
-        public int CreateUser(string user, string pass, int session)
+        public int CreateUser(string user, string pass, int nRight, int session)
         {
-            return CreateUser(user, pass, session, Ice.ObjectImpl.defaultCurrent);
+            return CreateUser(user, pass, nRight, session, Ice.ObjectImpl.defaultCurrent);
         }
 
-        public abstract int CreateUser(string user, string pass, int session, Ice.Current current__);
+        public abstract int CreateUser(string user, string pass, int nRight, int session, Ice.Current current__);
 
         public int SetUserPW(int nUID, string pass, int session)
         {
@@ -3398,11 +3400,13 @@ namespace MCS
             user = is__.readString();
             string pass;
             pass = is__.readString();
+            int nRight;
+            nRight = is__.readInt();
             int session;
             session = is__.readInt();
             is__.endReadEncaps();
             IceInternal.BasicStream os__ = inS__.ostr();
-            int ret__ = obj__.CreateUser(user, pass, session, current__);
+            int ret__ = obj__.CreateUser(user, pass, nRight, session, current__);
             os__.writeInt(ret__);
             return Ice.DispatchStatus.DispatchOK;
         }

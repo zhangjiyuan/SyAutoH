@@ -23,7 +23,7 @@ namespace GuiAccess
 
         public int Login(string sName, string sHash)
         {
-            int nRet = 0;
+            int nRet = -1;
             try
             { 
                 nRet = remote.Login(sName, sHash);
@@ -38,7 +38,7 @@ namespace GuiAccess
 
         public int Logout(int nUser)
         {
-            int nRet = 0;
+            int nRet = -1;
             try
             {
                 nRet = remote.Logout(nUser);
@@ -50,23 +50,23 @@ namespace GuiAccess
             return nRet;
         }
 
-        public int CreateUser(string user, string pass, int session)
+        public int CreateUser(string user, string pass, int nRight, int session)
         {
-            int nRet = 0;
+            int nRet = -1;
             try
             {
-                nRet = remote.CreateUser(user, pass, session);
+                nRet = remote.CreateUser(user, pass, nRight, session);
             }
             catch (System.Exception /*ex*/)
             {
-
+                nRet = -1;
             }
             return nRet;
         }
 
         public int DeleteUser(int nUID, int session)
         {
-            int nRet = 0;
+            int nRet = -1;
             try
             {
                 nRet = remote.DeleteUser(nUID, session);
@@ -92,7 +92,7 @@ namespace GuiAccess
         }
         public int GetUserCount()
         {
-            int nRet = 0;
+            int nRet = -1;
             try
             {
                 nRet = remote.GetUserCount();
@@ -105,7 +105,7 @@ namespace GuiAccess
         }
         public int SetUserPW(int nUID, string pass, int session)
         {
-            int nRet = 0;
+            int nRet = -1;
             try
             {
                 nRet = remote.SetUserPW(nUID, pass, session);
@@ -116,9 +116,9 @@ namespace GuiAccess
             }
             return nRet;
         }
-        int SetUserRight(int nUID, int nRight, int session)
+        public int SetUserRight(int nUID, int nRight, int session)
         {
-            int nRet = 0;
+            int nRet = -1;
             try
             {
                 nRet = remote.SetUserRight(nUID, nRight, session);

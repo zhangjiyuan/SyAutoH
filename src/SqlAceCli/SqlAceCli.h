@@ -16,8 +16,14 @@
 #include <list>
 
 using namespace std;
+typedef struct  
+{
+	int nID;
+	wstring strName;
+	int nRight;
+} UserData;
 
-typedef list<string> strList;
+typedef list<UserData> UserDataList;
 class SQLACECLI_API DBUserAce
 {
 public:
@@ -27,12 +33,13 @@ public:
 public:
 	int Login(const ::std::string& sName, const ::std::string& sHash);
 	int Logout(int);
-	int CreateUser(const ::std::string& sName, const ::std::string& sPassWord, int nRight);
-	int DeleteUser(int, int);
-	int SetUserPW(int, const ::std::string&, int);
-	int SetUserRight(int, int, int);
+	int CreateUser(const ::std::string& sName, 
+		const ::std::string& sPassWord, int nRight);
+	int DeleteUser(int);
+	int SetUserPW(int, const ::std::string&);
+	int SetUserRight(int, int);
 	int GetUserCount();
-	strList GetUserList(int, int);
+	UserDataList GetUserList(int, int);
 };
 
 class SQLACECLI_API DBFoup

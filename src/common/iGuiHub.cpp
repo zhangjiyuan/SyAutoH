@@ -435,7 +435,7 @@ IceProxy::MCS::UserManagement::end_Logout(const ::Ice::AsyncResultPtr& __result)
 }
 
 ::Ice::Int
-IceProxy::MCS::UserManagement::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __ctx)
+IceProxy::MCS::UserManagement::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -446,7 +446,7 @@ IceProxy::MCS::UserManagement::CreateUser(const ::std::string& user, const ::std
             __checkTwowayOnly(__MCS__UserManagement__CreateUser_name);
             __delBase = __getDelegate(false);
             ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
-            return __del->CreateUser(user, pass, session, __ctx);
+            return __del->CreateUser(user, pass, nRight, session, __ctx);
         }
         catch(const ::IceInternal::LocalExceptionWrapper& __ex)
         {
@@ -460,7 +460,7 @@ IceProxy::MCS::UserManagement::CreateUser(const ::std::string& user, const ::std
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::UserManagement::begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::UserManagement::begin_CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
     __checkAsyncTwowayOnly(__MCS__UserManagement__CreateUser_name);
     ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__CreateUser_name, __del, __cookie);
@@ -470,6 +470,7 @@ IceProxy::MCS::UserManagement::begin_CreateUser(const ::std::string& user, const
         ::IceInternal::BasicStream* __os = __result->__getOs();
         __os->write(user);
         __os->write(pass);
+        __os->write(nRight);
         __os->write(session);
         __os->endWriteEncaps();
         __result->__send(true);
@@ -1042,7 +1043,7 @@ IceDelegateM::MCS::UserManagement::Logout(::Ice::Int session, const ::Ice::Conte
 }
 
 ::Ice::Int
-IceDelegateM::MCS::UserManagement::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateM::MCS::UserManagement::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __context)
 {
     ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__CreateUser_name, ::Ice::Idempotent, __context);
     try
@@ -1050,6 +1051,7 @@ IceDelegateM::MCS::UserManagement::CreateUser(const ::std::string& user, const :
         ::IceInternal::BasicStream* __os = __og.os();
         __os->write(user);
         __os->write(pass);
+        __os->write(nRight);
         __os->write(session);
     }
     catch(const ::Ice::LocalException& __ex)
@@ -1567,17 +1569,18 @@ IceDelegateD::MCS::UserManagement::Logout(::Ice::Int session, const ::Ice::Conte
 }
 
 ::Ice::Int
-IceDelegateD::MCS::UserManagement::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateD::MCS::UserManagement::CreateUser(const ::std::string& user, const ::std::string& pass, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
     public:
 
-        _DirectI(::Ice::Int& __result, const ::std::string& user, const ::std::string& pass, ::Ice::Int session, const ::Ice::Current& __current) : 
+        _DirectI(::Ice::Int& __result, const ::std::string& user, const ::std::string& pass, ::Ice::Int nRight, ::Ice::Int session, const ::Ice::Current& __current) : 
             ::IceInternal::Direct(__current),
             _result(__result),
             _m_user(user),
             _m_pass(pass),
+            _m_nRight(nRight),
             _m_session(session)
         {
         }
@@ -1590,7 +1593,7 @@ IceDelegateD::MCS::UserManagement::CreateUser(const ::std::string& user, const :
             {
                 throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
             }
-            _result = servant->CreateUser(_m_user, _m_pass, _m_session, _current);
+            _result = servant->CreateUser(_m_user, _m_pass, _m_nRight, _m_session, _current);
             return ::Ice::DispatchOK;
         }
         
@@ -1599,6 +1602,7 @@ IceDelegateD::MCS::UserManagement::CreateUser(const ::std::string& user, const :
         ::Ice::Int& _result;
         const ::std::string& _m_user;
         const ::std::string& _m_pass;
+        ::Ice::Int _m_nRight;
         ::Ice::Int _m_session;
     };
     
@@ -1607,7 +1611,7 @@ IceDelegateD::MCS::UserManagement::CreateUser(const ::std::string& user, const :
     ::Ice::Int __result;
     try
     {
-        _DirectI __direct(__result, user, pass, session, __current);
+        _DirectI __direct(__result, user, pass, nRight, session, __current);
         try
         {
             __direct.servant()->__collocDispatch(__direct);
@@ -2250,13 +2254,15 @@ MCS::UserManagement::___CreateUser(::IceInternal::Incoming& __inS, const ::Ice::
     __is->startReadEncaps();
     ::std::string user;
     ::std::string pass;
+    ::Ice::Int nRight;
     ::Ice::Int session;
     __is->read(user);
     __is->read(pass);
+    __is->read(nRight);
     __is->read(session);
     __is->endReadEncaps();
     ::IceInternal::BasicStream* __os = __inS.os();
-    ::Ice::Int __ret = CreateUser(user, pass, session, __current);
+    ::Ice::Int __ret = CreateUser(user, pass, nRight, session, __current);
     __os->write(__ret);
     return ::Ice::DispatchOK;
 }
