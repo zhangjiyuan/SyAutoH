@@ -50,15 +50,15 @@ int UserManagementI::Login(const ::std::string& sUser, const ::std::string& sHas
 		strCon =  c.con->toString();
 	}
 
-	cout<< strCon <<endl;
+	//cout<< strCon <<endl;
 
 	int nRet = m_pUserDB->Login(sUser, sHash);
 	if (0 == nRet)
 	{
-		cout<< "Login Sucess:  -> User: " << sUser << " Hash: " << sHash << endl;
 		UserData user;
 		user = m_pUserDB->GetUserDatabyName(sUser);
 		nLinkSession = m_pSession->GetLoginSession(user.nID, user.nRight, strCon, false);
+		cout<< "Login Sucess:  -> User: " << sUser << " session: " << nLinkSession << endl;
 	}
 	else
 	{
