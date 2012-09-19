@@ -62,7 +62,7 @@ namespace UserTest
             int nUserRight = this.comboBoxUserRight.SelectedIndex;
 
             int nRet = userMge.CreateUser(strName,
-                strPW, nUserRight, 0);
+                strPW, nUserRight, m_nSession);
 
             if (0 == nRet)
             {
@@ -109,12 +109,12 @@ namespace UserTest
 
         private void RefreshUserList()
         {
-            int nCount = userMge.GetUserCount();
+            int nCount = userMge.GetUserCount(m_nSession);
             if (nCount > 20)
             {
                 nCount = 20;
             }
-            MCS.User[] userNames = userMge.GetUserList(0, nCount);
+            MCS.User[] userNames = userMge.GetUserList(0, nCount, m_nSession);
             if (userNames != null)
             {
                 this.listViewUserList.Items.Clear();
@@ -146,7 +146,7 @@ namespace UserTest
                 foreach (ListViewItem item in this.listViewUserList.SelectedItems)
                 {
                     int nID = (int)item.Tag;
-                    userMge.SetUserPW(nID, strPW, 0);
+                    userMge.SetUserPW(nID, strPW, m_nSession);
                 }
             }
         }
@@ -160,7 +160,12 @@ namespace UserTest
                 foreach (ListViewItem item in this.listViewUserList.SelectedItems)
                 {
                     int nID = (int)item.Tag;
-                    userMge.SetUserRight(nID, nUserRight, 0);
+                    int nRet = userMge.SetUserRight(nID, nUserRight, m_nSession);
+                    if (nRet == -5)
+                    {
+                        MessageBox.Show("Right limited, can not execuate command.");
+                        return;
+                    }
                 }
                 RefreshUserList();
             }
@@ -174,9 +179,18 @@ namespace UserTest
                 foreach (ListViewItem item in this.listViewUserList.SelectedItems)
                 {
                     int nID = (int)item.Tag;
-                    userMge.DeleteUser(nID, 0);
+                    userMge.DeleteUser(nID, m_nSession);
                 }
                 RefreshUserList();
+            }
+        }
+
+        private void bnLogout_Click(object sender, EventArgs e)
+        {
+            if (m_nSession > 0)
+            {
+                userMge.Logout(m_nSession);
+                m_nSession = 0;
             }
         }
     }

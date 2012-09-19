@@ -2,6 +2,7 @@
 #include "SqlAceCli.h"
 #include "TMcsUser.h"
 #include "../CypAce/CypAce.h"
+#include "DBConst.h"
 
 DBUserAce::DBUserAce(void)
 {
@@ -16,7 +17,7 @@ DBUserAce::~DBUserAce(void)
 
 int DBUserAce::Login(const ::std::string& sName, const ::std::string& sHash)
 {
-	int nRet = -1;
+	int nLoginStatus = DBO_LOGIN_FAILED;
 	CString strName;
 	CString strHash;
 	strName = sName.c_str();
@@ -30,7 +31,7 @@ int DBUserAce::Login(const ::std::string& sName, const ::std::string& sHash)
 	if (FAILED(hr))
 	{
 		CoUninitialize();
-		return -1;
+		return nLoginStatus;
 	}
 
 	CString strSQL;
@@ -40,20 +41,20 @@ int DBUserAce::Login(const ::std::string& sName, const ::std::string& sHash)
 	if (FAILED(hr))
 	{
 		CoUninitialize();
-		return -1;
+		return nLoginStatus;
 	}
 	if (dbUser.MoveFirst() != DB_S_ENDOFROWSET)
 	{
-		nRet = 0;
+		nLoginStatus = DBO_SUCCESS;
 	}
 	else
 	{
-		nRet = 1;
+		nLoginStatus = DBO_LOGIN_FAILED;
 	}
 
 	dbUser.CloseAll();
 	CoUninitialize();
-	return nRet;
+	return nLoginStatus;
 }
 int DBUserAce::Logout(int)
 {
@@ -117,10 +118,6 @@ int DBUserAce::CreateUser(const ::std::string& sName,
 	if (FAILED(hr))
 	{
 		nRet = 1;
-	}
-	else
-	{
-		dbUser.UpdateAll();
 	}
 	
 	dbUser.CloseAll();
@@ -197,7 +194,6 @@ int DBUserAce::SetUserPW(int nID, const ::std::string& sPassWord)
 		CString strUserHash = CypHashUserInfo(strName, strPassWord);
 		wcscpy_s(dbUser.m_Password, strUserHash);
 		hr = dbUser.SetData();
-		dbUser.UpdateAll();
 	}
 
 	dbUser.CloseAll();
@@ -233,7 +229,6 @@ int DBUserAce::SetUserRight(int nID, int nRight)
 		dbUser.m_UserRight = nRight;
 		dbUser.m_dwidStatus = DBSTATUS_S_IGNORE;
 		hr = dbUser.SetData();
-		hr = dbUser.UpdateAll();
 	}
 
 	dbUser.CloseAll();
@@ -270,8 +265,6 @@ UserData DBUserAce::GetUserDatabyName(const ::std::string& sName)
 {
 	UserData user;
 	user.nID = 0;
-
-	
 
 	CoInitialize(NULL);
 	HRESULT hr;

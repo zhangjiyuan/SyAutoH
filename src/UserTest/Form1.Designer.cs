@@ -124,6 +124,7 @@
             this.bnLogout.TabIndex = 5;
             this.bnLogout.Text = "Logout";
             this.bnLogout.UseVisualStyleBackColor = true;
+            this.bnLogout.Click += new System.EventHandler(this.bnLogout_Click);
             // 
             // labelHashUser
             // 
