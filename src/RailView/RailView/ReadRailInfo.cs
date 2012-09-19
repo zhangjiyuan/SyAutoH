@@ -46,18 +46,20 @@ namespace RailView
                                         strTemp.speed = float.Parse(ctwoxe.InnerText);
                                     else if (ctwoxe.Name == "Lenght")
                                         strTemp.lenght = int.Parse(ctwoxe.InnerText);
+                                    else if (ctwoxe.Name == "RotateAngle")
+                                        strTemp.rotateAngle = int.Parse(ctwoxe.InnerText);
                                     else if (ctwoxe.Name == "SaveList")
                                     {
                                         cThNodeList = ctwoxe.ChildNodes;
                                         foreach (XmlNode cthxn in cThNodeList)
                                         {
-                                            XmlElement cthxe=(XmlElement)cthxn;
+                                            XmlElement cthxe = (XmlElement)cthxn;
                                             if (cthxe.Name == "Point")
-                                            {                                               
+                                            {
                                                 cFNodeList = cthxe.ChildNodes;
-                                                foreach(XmlNode cfxn in cFNodeList)
+                                                foreach (XmlNode cfxn in cFNodeList)
                                                 {
-                                                    XmlElement cfxe=(XmlElement)cfxn;
+                                                    XmlElement cfxe = (XmlElement)cfxn;
                                                     if (cfxe.Name == "X")
                                                         pt.X = int.Parse(cfxe.InnerText);
                                                     else if (cfxe.Name == "Y")
@@ -83,7 +85,7 @@ namespace RailView
                                     else if (ctwoxe.Name == "StartAngle")
                                         curTemp.startAngle = int.Parse(ctwoxe.InnerText);
                                     else if (ctwoxe.Name == "SweepAngle")
-                                        curTemp.rotateAngle = int.Parse(ctwoxe.InnerText);
+                                        curTemp.sweepAngle = int.Parse(ctwoxe.InnerText);
                                     else if (ctwoxe.Name == "Radiu")
                                         curTemp.radiu = int.Parse(ctwoxe.InnerText);
                                     else if (ctwoxe.Name == "Center")
@@ -195,6 +197,8 @@ namespace RailView
     {
         public int graphType = 0;
         public float speed = 0;
+        public Point startPoint = Point.Empty;
+        public Point endPoint = Point.Empty;
     }
 
     public class StraightEle : RailEle
@@ -207,7 +211,7 @@ namespace RailView
     public class CurvedEle : RailEle
     {
         public int startAngle = 0;
-        public int rotateAngle = 0;
+        public int sweepAngle = 0;
         public int radiu = 0;
         public Point center = Point.Empty;
         public Point firstDot = Point.Empty;
