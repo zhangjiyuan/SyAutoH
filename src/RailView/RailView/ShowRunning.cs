@@ -18,11 +18,7 @@ namespace RailView
             railEleList.AddRange(railInfo.OpenFile());
             List<RailEle> listTemp = codingRailCoor.InitEleList(railEleList);
             railEleList.Clear();
-            railEleList.AddRange(listTemp);
-            listTemp.Clear();
-            listTemp = codingRailCoor.ArrangeEleList(railEleList);
-            railEleList.Clear();
-            railEleList.AddRange(listTemp);
+            railEleList.AddRange(codingRailCoor.ArrangeEleList(listTemp));
         }
 
         public void DrawRailInfo(Graphics canvas)
@@ -97,7 +93,7 @@ namespace RailView
                         rc.Location = new Point(curTemp.center.X - curTemp.radiu, curTemp.center.Y - curTemp.radiu);
                         rc.Size = new Size(curTemp.radiu * 2, curTemp.radiu * 2);
                         GraphicsPath gp = new GraphicsPath();
-                        gp.AddArc(rc, curTemp.startAngle, curTemp.rotateAngle);
+                        gp.AddArc(rc, curTemp.startAngle, curTemp.sweepAngle);
                         canvas.DrawPath(pen, gp);
                         gp.Dispose();
                         break;
@@ -121,7 +117,8 @@ namespace RailView
         }
 
         public void DrawRunningInfo(Graphics canvas)
-        { 
+        {
+            Point carrierCoor = codingRailCoor.computeCoordinates(railEleList, 1, 1);
         }
     }
 }
