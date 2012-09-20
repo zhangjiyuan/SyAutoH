@@ -28,16 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxUser = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.maskedTextBoxPW = new System.Windows.Forms.MaskedTextBox();
-            this.bnLogin = new System.Windows.Forms.Button();
-            this.bnLogout = new System.Windows.Forms.Button();
-            this.labelHashUser = new System.Windows.Forms.Label();
             this.bnNewUser = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPageUser = new System.Windows.Forms.TabPage();
             this.buttonUserGet = new System.Windows.Forms.Button();
             this.buttonUserPW = new System.Windows.Forms.Button();
             this.buttonUserRight = new System.Windows.Forms.Button();
@@ -48,14 +41,13 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxPWagain = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxNewPassword = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxNewUser = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageMES = new System.Windows.Forms.TabPage();
             this.buttonPlaceFoup = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxLocType = new System.Windows.Forms.TextBox();
@@ -67,123 +59,74 @@
             this.textBoxFoupID = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxFoupName = new System.Windows.Forms.TextBox();
+            this.tabPageLogin = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxUser = new System.Windows.Forms.TextBox();
+            this.labelHashUser = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.maskedTextBoxPW = new System.Windows.Forms.MaskedTextBox();
+            this.bnLogout = new System.Windows.Forms.Button();
+            this.bnLogin = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPageUser.SuspendLayout();
+            this.tabPageMES.SuspendLayout();
+            this.tabPageLogin.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // textBoxUser
-            // 
-            this.textBoxUser.Location = new System.Drawing.Point(79, 20);
-            this.textBoxUser.Name = "textBoxUser";
-            this.textBoxUser.Size = new System.Drawing.Size(124, 21);
-            this.textBoxUser.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 12);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "User:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(219, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 12);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Password:";
-            // 
-            // maskedTextBoxPW
-            // 
-            this.maskedTextBoxPW.Location = new System.Drawing.Point(284, 23);
-            this.maskedTextBoxPW.Name = "maskedTextBoxPW";
-            this.maskedTextBoxPW.PasswordChar = '*';
-            this.maskedTextBoxPW.Size = new System.Drawing.Size(124, 21);
-            this.maskedTextBoxPW.TabIndex = 3;
-            // 
-            // bnLogin
-            // 
-            this.bnLogin.Location = new System.Drawing.Point(414, 21);
-            this.bnLogin.Name = "bnLogin";
-            this.bnLogin.Size = new System.Drawing.Size(75, 23);
-            this.bnLogin.TabIndex = 4;
-            this.bnLogin.Text = "Login";
-            this.bnLogin.UseVisualStyleBackColor = true;
-            this.bnLogin.Click += new System.EventHandler(this.bnLogin_Click);
-            // 
-            // bnLogout
-            // 
-            this.bnLogout.Location = new System.Drawing.Point(495, 20);
-            this.bnLogout.Name = "bnLogout";
-            this.bnLogout.Size = new System.Drawing.Size(75, 23);
-            this.bnLogout.TabIndex = 5;
-            this.bnLogout.Text = "Logout";
-            this.bnLogout.UseVisualStyleBackColor = true;
-            this.bnLogout.Click += new System.EventHandler(this.bnLogout_Click);
-            // 
-            // labelHashUser
-            // 
-            this.labelHashUser.AutoSize = true;
-            this.labelHashUser.Location = new System.Drawing.Point(77, 54);
-            this.labelHashUser.Name = "labelHashUser";
-            this.labelHashUser.Size = new System.Drawing.Size(59, 12);
-            this.labelHashUser.TabIndex = 6;
-            this.labelHashUser.Text = "Hash Info";
             // 
             // bnNewUser
             // 
-            this.bnNewUser.Location = new System.Drawing.Point(361, 249);
+            this.bnNewUser.Location = new System.Drawing.Point(303, 27);
             this.bnNewUser.Name = "bnNewUser";
             this.bnNewUser.Size = new System.Drawing.Size(124, 23);
             this.bnNewUser.TabIndex = 7;
-            this.bnNewUser.Text = "Create";
+            this.bnNewUser.Text = "New User";
             this.bnNewUser.UseVisualStyleBackColor = true;
             this.bnNewUser.Click += new System.EventHandler(this.bnNewUser_Click);
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPageLogin);
+            this.tabControl1.Controls.Add(this.tabPageUser);
+            this.tabControl1.Controls.Add(this.tabPageMES);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(710, 581);
+            this.tabControl1.Size = new System.Drawing.Size(519, 454);
             this.tabControl1.TabIndex = 8;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
-            // tabPage1
+            // tabPageUser
             // 
-            this.tabPage1.Controls.Add(this.buttonUserGet);
-            this.tabPage1.Controls.Add(this.buttonUserPW);
-            this.tabPage1.Controls.Add(this.buttonUserRight);
-            this.tabPage1.Controls.Add(this.buttonUserDelete);
-            this.tabPage1.Controls.Add(this.label10);
-            this.tabPage1.Controls.Add(this.comboBoxUserRight);
-            this.tabPage1.Controls.Add(this.listViewUserList);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Controls.Add(this.textBoxPWagain);
-            this.tabPage1.Controls.Add(this.label9);
-            this.tabPage1.Controls.Add(this.textBoxNewPassword);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.textBoxNewUser);
-            this.tabPage1.Controls.Add(this.bnNewUser);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(702, 555);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "User Management";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageUser.Controls.Add(this.label11);
+            this.tabPageUser.Controls.Add(this.buttonUserGet);
+            this.tabPageUser.Controls.Add(this.buttonUserPW);
+            this.tabPageUser.Controls.Add(this.buttonUserRight);
+            this.tabPageUser.Controls.Add(this.buttonUserDelete);
+            this.tabPageUser.Controls.Add(this.label10);
+            this.tabPageUser.Controls.Add(this.comboBoxUserRight);
+            this.tabPageUser.Controls.Add(this.listViewUserList);
+            this.tabPageUser.Controls.Add(this.textBoxPWagain);
+            this.tabPageUser.Controls.Add(this.label9);
+            this.tabPageUser.Controls.Add(this.textBoxNewPassword);
+            this.tabPageUser.Controls.Add(this.label3);
+            this.tabPageUser.Controls.Add(this.label4);
+            this.tabPageUser.Controls.Add(this.textBoxNewUser);
+            this.tabPageUser.Controls.Add(this.bnNewUser);
+            this.tabPageUser.Location = new System.Drawing.Point(4, 22);
+            this.tabPageUser.Name = "tabPageUser";
+            this.tabPageUser.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageUser.Size = new System.Drawing.Size(511, 428);
+            this.tabPageUser.TabIndex = 0;
+            this.tabPageUser.Text = "User Management";
+            this.tabPageUser.UseVisualStyleBackColor = true;
             // 
             // buttonUserGet
             // 
-            this.buttonUserGet.Location = new System.Drawing.Point(361, 383);
+            this.buttonUserGet.Location = new System.Drawing.Point(303, 184);
             this.buttonUserGet.Name = "buttonUserGet";
             this.buttonUserGet.Size = new System.Drawing.Size(124, 23);
             this.buttonUserGet.TabIndex = 21;
@@ -193,7 +136,7 @@
             // 
             // buttonUserPW
             // 
-            this.buttonUserPW.Location = new System.Drawing.Point(361, 336);
+            this.buttonUserPW.Location = new System.Drawing.Point(303, 143);
             this.buttonUserPW.Name = "buttonUserPW";
             this.buttonUserPW.Size = new System.Drawing.Size(124, 23);
             this.buttonUserPW.TabIndex = 20;
@@ -203,7 +146,7 @@
             // 
             // buttonUserRight
             // 
-            this.buttonUserRight.Location = new System.Drawing.Point(361, 307);
+            this.buttonUserRight.Location = new System.Drawing.Point(303, 104);
             this.buttonUserRight.Name = "buttonUserRight";
             this.buttonUserRight.Size = new System.Drawing.Size(124, 23);
             this.buttonUserRight.TabIndex = 19;
@@ -213,7 +156,7 @@
             // 
             // buttonUserDelete
             // 
-            this.buttonUserDelete.Location = new System.Drawing.Point(361, 278);
+            this.buttonUserDelete.Location = new System.Drawing.Point(303, 65);
             this.buttonUserDelete.Name = "buttonUserDelete";
             this.buttonUserDelete.Size = new System.Drawing.Size(124, 23);
             this.buttonUserDelete.TabIndex = 18;
@@ -224,7 +167,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(299, 211);
+            this.label10.Location = new System.Drawing.Point(273, 375);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(41, 12);
             this.label10.TabIndex = 17;
@@ -240,7 +183,7 @@
             "Operator",
             "Admin",
             "SAdmin"});
-            this.comboBoxUserRight.Location = new System.Drawing.Point(361, 208);
+            this.comboBoxUserRight.Location = new System.Drawing.Point(335, 372);
             this.comboBoxUserRight.Name = "comboBoxUserRight";
             this.comboBoxUserRight.Size = new System.Drawing.Size(121, 20);
             this.comboBoxUserRight.TabIndex = 16;
@@ -254,9 +197,9 @@
             this.listViewUserList.FullRowSelect = true;
             this.listViewUserList.GridLines = true;
             this.listViewUserList.HideSelection = false;
-            this.listViewUserList.Location = new System.Drawing.Point(26, 124);
+            this.listViewUserList.Location = new System.Drawing.Point(8, 27);
             this.listViewUserList.Name = "listViewUserList";
-            this.listViewUserList.Size = new System.Drawing.Size(243, 362);
+            this.listViewUserList.Size = new System.Drawing.Size(243, 393);
             this.listViewUserList.TabIndex = 15;
             this.listViewUserList.UseCompatibleStateImageBehavior = false;
             this.listViewUserList.View = System.Windows.Forms.View.Details;
@@ -273,25 +216,9 @@
             // 
             this.columnHeader3.Text = "Right";
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBoxUser);
-            this.groupBox1.Controls.Add(this.labelHashUser);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.maskedTextBoxPW);
-            this.groupBox1.Controls.Add(this.bnLogout);
-            this.groupBox1.Controls.Add(this.bnLogin);
-            this.groupBox1.Location = new System.Drawing.Point(10, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(684, 80);
-            this.groupBox1.TabIndex = 14;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Login / Logout";
-            // 
             // textBoxPWagain
             // 
-            this.textBoxPWagain.Location = new System.Drawing.Point(361, 181);
+            this.textBoxPWagain.Location = new System.Drawing.Point(335, 345);
             this.textBoxPWagain.Name = "textBoxPWagain";
             this.textBoxPWagain.PasswordChar = '*';
             this.textBoxPWagain.Size = new System.Drawing.Size(124, 21);
@@ -300,7 +227,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(299, 184);
+            this.label9.Location = new System.Drawing.Point(273, 348);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(59, 12);
             this.label9.TabIndex = 12;
@@ -308,7 +235,7 @@
             // 
             // textBoxNewPassword
             // 
-            this.textBoxNewPassword.Location = new System.Drawing.Point(361, 154);
+            this.textBoxNewPassword.Location = new System.Drawing.Point(335, 318);
             this.textBoxNewPassword.Name = "textBoxNewPassword";
             this.textBoxNewPassword.PasswordChar = '*';
             this.textBoxNewPassword.Size = new System.Drawing.Size(124, 21);
@@ -317,7 +244,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(299, 157);
+            this.label3.Location = new System.Drawing.Point(273, 321);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 12);
             this.label3.TabIndex = 10;
@@ -326,7 +253,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(299, 130);
+            this.label4.Location = new System.Drawing.Point(273, 294);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 12);
             this.label4.TabIndex = 9;
@@ -334,31 +261,31 @@
             // 
             // textBoxNewUser
             // 
-            this.textBoxNewUser.Location = new System.Drawing.Point(361, 127);
+            this.textBoxNewUser.Location = new System.Drawing.Point(335, 291);
             this.textBoxNewUser.Name = "textBoxNewUser";
             this.textBoxNewUser.Size = new System.Drawing.Size(124, 21);
             this.textBoxNewUser.TabIndex = 8;
             // 
-            // tabPage2
+            // tabPageMES
             // 
-            this.tabPage2.Controls.Add(this.buttonPlaceFoup);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.textBoxLocType);
-            this.tabPage2.Controls.Add(this.textBoxLocation);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.buttonPickFoup);
-            this.tabPage2.Controls.Add(this.buttonGetFoupID);
-            this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.textBoxFoupID);
-            this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.textBoxFoupName);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(702, 555);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "MES Simulator";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPageMES.Controls.Add(this.buttonPlaceFoup);
+            this.tabPageMES.Controls.Add(this.label8);
+            this.tabPageMES.Controls.Add(this.textBoxLocType);
+            this.tabPageMES.Controls.Add(this.textBoxLocation);
+            this.tabPageMES.Controls.Add(this.label7);
+            this.tabPageMES.Controls.Add(this.buttonPickFoup);
+            this.tabPageMES.Controls.Add(this.buttonGetFoupID);
+            this.tabPageMES.Controls.Add(this.label6);
+            this.tabPageMES.Controls.Add(this.textBoxFoupID);
+            this.tabPageMES.Controls.Add(this.label5);
+            this.tabPageMES.Controls.Add(this.textBoxFoupName);
+            this.tabPageMES.Location = new System.Drawing.Point(4, 22);
+            this.tabPageMES.Name = "tabPageMES";
+            this.tabPageMES.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMES.Size = new System.Drawing.Size(511, 428);
+            this.tabPageMES.TabIndex = 1;
+            this.tabPageMES.Text = "MES Simulator";
+            this.tabPageMES.UseVisualStyleBackColor = true;
             // 
             // buttonPlaceFoup
             // 
@@ -454,42 +381,133 @@
             this.textBoxFoupName.Size = new System.Drawing.Size(100, 21);
             this.textBoxFoupName.TabIndex = 0;
             // 
+            // tabPageLogin
+            // 
+            this.tabPageLogin.Controls.Add(this.groupBox1);
+            this.tabPageLogin.Location = new System.Drawing.Point(4, 22);
+            this.tabPageLogin.Name = "tabPageLogin";
+            this.tabPageLogin.Size = new System.Drawing.Size(511, 428);
+            this.tabPageLogin.TabIndex = 2;
+            this.tabPageLogin.Text = "Login";
+            this.tabPageLogin.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.textBoxUser);
+            this.groupBox1.Controls.Add(this.labelHashUser);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.maskedTextBoxPW);
+            this.groupBox1.Controls.Add(this.bnLogout);
+            this.groupBox1.Controls.Add(this.bnLogin);
+            this.groupBox1.Location = new System.Drawing.Point(76, 56);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(339, 140);
+            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Login / Logout";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(14, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 12);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "User:";
+            // 
+            // textBoxUser
+            // 
+            this.textBoxUser.Location = new System.Drawing.Point(79, 20);
+            this.textBoxUser.Name = "textBoxUser";
+            this.textBoxUser.Size = new System.Drawing.Size(124, 21);
+            this.textBoxUser.TabIndex = 0;
+            // 
+            // labelHashUser
+            // 
+            this.labelHashUser.AutoSize = true;
+            this.labelHashUser.Location = new System.Drawing.Point(77, 99);
+            this.labelHashUser.Name = "labelHashUser";
+            this.labelHashUser.Size = new System.Drawing.Size(59, 12);
+            this.labelHashUser.TabIndex = 6;
+            this.labelHashUser.Text = "Hash Info";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(14, 56);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 12);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Password:";
+            // 
+            // maskedTextBoxPW
+            // 
+            this.maskedTextBoxPW.Location = new System.Drawing.Point(79, 53);
+            this.maskedTextBoxPW.Name = "maskedTextBoxPW";
+            this.maskedTextBoxPW.PasswordChar = '*';
+            this.maskedTextBoxPW.Size = new System.Drawing.Size(124, 21);
+            this.maskedTextBoxPW.TabIndex = 3;
+            // 
+            // bnLogout
+            // 
+            this.bnLogout.Location = new System.Drawing.Point(231, 56);
+            this.bnLogout.Name = "bnLogout";
+            this.bnLogout.Size = new System.Drawing.Size(75, 23);
+            this.bnLogout.TabIndex = 5;
+            this.bnLogout.Text = "Logout";
+            this.bnLogout.UseVisualStyleBackColor = true;
+            this.bnLogout.Click += new System.EventHandler(this.bnLogout_Click);
+            // 
+            // bnLogin
+            // 
+            this.bnLogin.Location = new System.Drawing.Point(231, 20);
+            this.bnLogin.Name = "bnLogin";
+            this.bnLogin.Size = new System.Drawing.Size(75, 23);
+            this.bnLogin.TabIndex = 4;
+            this.bnLogin.Text = "Login";
+            this.bnLogin.UseVisualStyleBackColor = true;
+            this.bnLogin.Click += new System.EventHandler(this.bnLogin_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 9);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(65, 12);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "User List:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(710, 581);
+            this.ClientSize = new System.Drawing.Size(519, 454);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabPageUser.ResumeLayout(false);
+            this.tabPageUser.PerformLayout();
+            this.tabPageMES.ResumeLayout(false);
+            this.tabPageMES.PerformLayout();
+            this.tabPageLogin.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxUser;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxPW;
-        private System.Windows.Forms.Button bnLogin;
-        private System.Windows.Forms.Button bnLogout;
-        private System.Windows.Forms.Label labelHashUser;
         private System.Windows.Forms.Button bnNewUser;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPageUser;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxNewUser;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPageMES;
         private System.Windows.Forms.TextBox textBoxNewPassword;
         private System.Windows.Forms.Button buttonPlaceFoup;
         private System.Windows.Forms.Label label8;
@@ -504,7 +522,6 @@
         private System.Windows.Forms.TextBox textBoxFoupName;
         private System.Windows.Forms.TextBox textBoxPWagain;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button buttonUserGet;
         private System.Windows.Forms.Button buttonUserPW;
         private System.Windows.Forms.Button buttonUserRight;
@@ -515,6 +532,16 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.TabPage tabPageLogin;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxUser;
+        private System.Windows.Forms.Label labelHashUser;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxPW;
+        private System.Windows.Forms.Button bnLogout;
+        private System.Windows.Forms.Button bnLogin;
+        private System.Windows.Forms.Label label11;
     }
 }
 

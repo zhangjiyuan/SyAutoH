@@ -46,6 +46,9 @@ namespace UserTest
 
         private void bnNewUser_Click(object sender, EventArgs e)
         {
+            FormNewUser newUser = new FormNewUser();
+            newUser.ShowDialog();
+
             string strName = this.textBoxNewUser.Text;
             if (strName.Length <= 0)
             {
@@ -192,6 +195,11 @@ namespace UserTest
                 userMge.Logout(m_nSession);
                 m_nSession = 0;
             }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

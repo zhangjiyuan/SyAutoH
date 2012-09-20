@@ -4,6 +4,7 @@
 #include "IceUtil/Unicode.h"
 #include "Ice/Connection.h"
 #include "iGuiHub.h"
+#include "DBConst.h"
 
 UserManagementI::UserManagementI(void)
 {
@@ -88,7 +89,7 @@ int UserManagementI::DeleteUser(::Ice::Int nUID, ::Ice::Int nSession, const ::Ic
 	nRole = m_pSession->GetRealRight(nSession);
 	if (nRole < 4)
 	{
-		return -5;
+		return DBO_NORIGHT;
 	}
 	int nRet = 0;
 	nRet = m_pUserDB->DeleteUser(nUID);
@@ -108,7 +109,7 @@ int UserManagementI::SetUserRight(::Ice::Int nUID,
 	nRole = m_pSession->GetRealRight(nSession);
 	if (nRole < 4)
 	{
-		return -5;
+		return DBO_NORIGHT;
 	}
 	int nRet = 0;
 	nRet = m_pUserDB->SetUserRight(nUID, nRight);
