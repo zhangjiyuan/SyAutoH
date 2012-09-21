@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+//using System.Timers;                //test using,finally delete
 
 namespace RailView
 {
@@ -13,12 +14,19 @@ namespace RailView
         CodingRailCoordinates codingRailCoor = new CodingRailCoordinates();
         List<RailEle> railEleList = new List<RailEle>();
 
+        TestCoordination tempTest = new TestCoordination();     //test using,finally delete
+        int section = -1;                                       //test using,finally delete
+        int offset = -1;                                        //test using,finally delete
+
         public void InitShowRunning()
         {
             railEleList.AddRange(railInfo.OpenFile());
             List<RailEle> listTemp = codingRailCoor.InitEleList(railEleList);
             railEleList.Clear();
             railEleList.AddRange(codingRailCoor.ArrangeEleList(listTemp));
+
+            tempTest.Show();        //test using,finally delete
+            tempTest.ReadSectionNum(railEleList);       //test using,finally delete
         }
 
         public void DrawRailInfo(Graphics canvas)
@@ -118,7 +126,17 @@ namespace RailView
 
         public void DrawRunningInfo(Graphics canvas)
         {
-            Point carrierCoor = codingRailCoor.computeCoordinates(railEleList, 1, 1);
+            section = tempTest.sectionOfText;
+            offset = tempTest.offsetOfText;
+            if (section != -1 && offset != -1)
+            {
+                Pen pen = new Pen(Color.Red, 1);
+                Point carrierCoor = codingRailCoor.computeCoordinates(railEleList, section, offset);
+                Point carrierCoor1 = carrierCoor;
+                carrierCoor1.Offset(2, 0);
+                canvas.DrawLine(pen, carrierCoor, carrierCoor1);
+                pen.Dispose();
+            }
         }
     }
 }

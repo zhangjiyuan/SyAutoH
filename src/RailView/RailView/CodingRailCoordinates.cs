@@ -194,14 +194,14 @@ namespace RailView
                 case 1:
                     strTemp = (StraightEle)tempList[section];
                     returnPt = strTemp.startPoint;
-                    if (strTemp.rotateAngle == 0)
+                    if ((strTemp.rotateAngle + 180) % 180 == 0)
                     {
                         if (strTemp.startPoint.X < strTemp.endPoint.X)
                             returnPt.X = strTemp.startPoint.X + offsetTemp;
                         else if (strTemp.startPoint.X > strTemp.endPoint.X)
                             returnPt.X = strTemp.startPoint.X - offsetTemp;
                     }
-                    else if (strTemp.rotateAngle == 90)
+                    else
                     {
                         if (strTemp.startPoint.Y < strTemp.endPoint.Y)
                             returnPt.Y = strTemp.startPoint.Y + offsetTemp;
@@ -211,11 +211,11 @@ namespace RailView
                     break;
                 case 2:
                     curTemp = (CurvedEle)tempList[section];
-                    int angleTemp = 0;
+                    double angleTemp = 0;
                     if (curTemp.firstDot == curTemp.startPoint)
-                        angleTemp = curTemp.startAngle + offsetTemp;                  
+                        angleTemp = (curTemp.startAngle + offsetTemp)*3.14/180;                  
                     else if (curTemp.secDot == curTemp.startPoint)
-                        angleTemp = curTemp.startAngle + curTemp.sweepAngle - offsetTemp;
+                        angleTemp = (curTemp.startAngle + curTemp.sweepAngle - offsetTemp)*3.14/180;
                     returnPt.X = (int)(curTemp.center.X + curTemp.radiu * Math.Cos(angleTemp));
                     returnPt.Y = (int)(curTemp.center.Y + curTemp.radiu * Math.Sin(angleTemp));
                     break;
