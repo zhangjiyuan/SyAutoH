@@ -19,7 +19,7 @@ namespace RailView
             InitializeComponent();
             ComponentLocChanged();
             showRunningHandle.InitShowRunning();
-            TestRailDrawCoor();
+            TestRailDrawCoor();   //test using, finally delete
 //            this.Invalidate();
         }
 
@@ -64,7 +64,7 @@ namespace RailView
             //test using, finally delete
             System.Timers.Timer timer = new System.Timers.Timer();
             timer.Elapsed += new ElapsedEventHandler(StartTimer);
-            timer.Interval = 1000;
+            timer.Interval = 3000;
             timer.AutoReset = true;
             timer.Enabled = true;
         }

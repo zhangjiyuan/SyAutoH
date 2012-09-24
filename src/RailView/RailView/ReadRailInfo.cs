@@ -46,8 +46,8 @@ namespace RailView
                                         strTemp.speed = float.Parse(ctwoxe.InnerText);
                                     else if (ctwoxe.Name == "Lenght")
                                         strTemp.lenght = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "RotateAngle")
-                                        strTemp.rotateAngle = int.Parse(ctwoxe.InnerText);
+                                    else if (ctwoxe.Name == "StartAngle")
+                                        strTemp.startAngle = int.Parse(ctwoxe.InnerText);
                                     else if (ctwoxe.Name == "SaveList")
                                     {
                                         cThNodeList = ctwoxe.ChildNodes;
@@ -204,7 +204,7 @@ namespace RailView
     public class StraightEle : RailEle
     {      
         public int lenght = 0;
-        public int rotateAngle = 0;
+        public int startAngle = 0;
         public List<Point> pointList = new List<Point>();
     }
 

@@ -64,7 +64,7 @@ namespace RailView
 
         private void offsetText_TextChanged(object sender, EventArgs e)
         {
-            string str = offsetText.Text;
+           string str = offsetText.Text;
             if (str != "")
             {
                 int offset = int.Parse(str);

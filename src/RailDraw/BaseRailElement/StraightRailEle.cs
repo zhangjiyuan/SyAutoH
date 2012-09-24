@@ -33,13 +33,15 @@ namespace BaseRailElement
             set { realLenght = value; }
         }
 
-        private int rotateAngle = 90;
+        private int startAngle = 0;
         [Browsable(false)]
-        public int RotateAngle
+        public int StartAngle
         {
-            get { return rotateAngle; }
-            set { rotateAngle = value; }
+            get { return startAngle; }
+            set { startAngle = value; }
         }
+
+        private int rotateAngle = 90;
 
         [XmlIgnore]
         [Browsable(false)]
@@ -166,6 +168,7 @@ namespace BaseRailElement
                 pt.Y = PointList[0].Y;
             }
             rotateAngle = -90;
+            startAngle -= rotateAngle;
             objectStaightOp.Rotate(pt, rotateAngle);
             PtlToSavel();
         }
@@ -185,6 +188,7 @@ namespace BaseRailElement
                 pt.Y = PointList[0].Y;
             }
             rotateAngle = 90;
+            startAngle += rotateAngle;
             objectStaightOp.Rotate(pt, rotateAngle);
             PtlToSavel();
         }

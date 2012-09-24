@@ -42,17 +42,17 @@ namespace RailView
 
             for (int k = 0; k < j; k++)
             {
-                if (k == 0||k==6)
+                if (k == 0||k==6||k==12)
                     pen = pen1;
-                else if (k == 1||k==7||k==12)
+                else if (k == 1||k==7||k==13)
                     pen = pen2;
-                else if (k == 2||k==8||k==13)
+                else if (k == 2||k==8||k==14)
                     pen = pen3;
-                else if (k == 3||k==9||k==14)
+                else if (k == 3||k==9||k==15)
                     pen = pen4;
-                else if (k == 4||k==10||k==15)
+                else if (k == 4||k==10||k==16)
                     pen = pen5;
-                else if (k == 5||k==11||k==16)
+                else if (k == 5||k==11)
                     pen = pen6;
                 RailEle obj = railEleList[k];
                 switch (obj.graphType)
@@ -67,7 +67,7 @@ namespace RailView
                         rc.Location = new Point(curTemp.center.X - curTemp.radiu, curTemp.center.Y - curTemp.radiu);
                         rc.Size = new Size(curTemp.radiu * 2, curTemp.radiu * 2);
                         GraphicsPath gp = new GraphicsPath();
-                        gp.AddArc(rc, curTemp.startAngle, curTemp.rotateAngle);
+                        gp.AddArc(rc, curTemp.startAngle, curTemp.sweepAngle);
                         canvas.DrawPath(pen, gp);
                         gp.Dispose();
                         break;
