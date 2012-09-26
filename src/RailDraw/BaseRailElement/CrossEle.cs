@@ -359,6 +359,15 @@ namespace BaseRailElement
             cl.rotateAngle = rotateAngle;
             cl.directionOfCross = directionOfCross;
             cl.DrawMultiFactor = DrawMultiFactor;
+            cl.firstPart = firstPart;
+            cl.secPart = secPart;
+            cl.thPart = thPart;
+            cl.fourPart = fourPart;
+            cl.ShowFirstPart = showFirstPart;
+            cl.ShowSecPart = showSecPart;
+            cl.ShowThPart = showThPart;
+            cl.ShowFourPart = showFourPart;
+            cl.mirror = mirror;
             return cl;
         }
 

@@ -15,6 +15,7 @@ namespace BaseRailElement
     [XmlInclude(typeof(StraightRailEle))]
     [XmlInclude(typeof(CurvedRailEle))]
     [XmlInclude(typeof(CrossEle))]
+    [XmlInclude(typeof(RailLabal))]
 
     public class DrawDoc:BaseRailEle
     {
@@ -31,6 +32,7 @@ namespace BaseRailElement
         XmlArrayItem(Type = typeof(StraightRailEle)),
         XmlArrayItem(Type = typeof(CurvedRailEle)),
         XmlArrayItem(Type = typeof(CrossEle)),
+        XmlArrayItem(Type = typeof(RailLabal)),
         ]
 
         [XmlIgnore]

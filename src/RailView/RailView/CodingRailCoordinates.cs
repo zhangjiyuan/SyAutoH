@@ -76,7 +76,7 @@ namespace RailView
             Point endPt = Point.Empty;
             bool isSearchedNextEle = false;
             startPt = GetPointOfInitFun(tempList, 0);
-            for (int i = 0; i < numOfList-1; i++)
+            for (int i = 0; i < numOfList; i++)
             {
                 switch (tempList[i].graphType)
                 {
@@ -170,11 +170,11 @@ namespace RailView
                         break;
                     }                  
                 }
-                if (!isSearchedNextEle)
+                if (!isSearchedNextEle && !(remailEleList.Count==0))
                 {
                     tempList.RemoveRange(i + 1, numOfList - i - 1);
                     tempList.AddRange(InitEleList(remailEleList));
-                    GetPointOfInitFun(tempList, i + 1);
+                    startPt= GetPointOfInitFun(tempList, i + 1);
                     remailEleList.Remove(tempList[i+1]);
                 }
                 isSearchedNextEle = false;
@@ -194,14 +194,14 @@ namespace RailView
                 case 1:
                     strTemp = (StraightEle)tempList[section];
                     returnPt = strTemp.startPoint;
-                    if (strTemp.rotateAngle == 0)
+                    if (Math.Abs(strTemp.pointList[0].Y-strTemp.pointList[1].Y)<3)
                     {
                         if (strTemp.startPoint.X < strTemp.endPoint.X)
                             returnPt.X = strTemp.startPoint.X + offsetTemp;
                         else if (strTemp.startPoint.X > strTemp.endPoint.X)
                             returnPt.X = strTemp.startPoint.X - offsetTemp;
                     }
-                    else if (strTemp.rotateAngle == 90)
+                    else
                     {
                         if (strTemp.startPoint.Y < strTemp.endPoint.Y)
                             returnPt.Y = strTemp.startPoint.Y + offsetTemp;
@@ -211,11 +211,11 @@ namespace RailView
                     break;
                 case 2:
                     curTemp = (CurvedEle)tempList[section];
-                    int angleTemp = 0;
+                    double angleTemp = 0;
                     if (curTemp.firstDot == curTemp.startPoint)
-                        angleTemp = curTemp.startAngle + offsetTemp;                  
+                        angleTemp = (curTemp.startAngle + offsetTemp)*3.14/180;                  
                     else if (curTemp.secDot == curTemp.startPoint)
-                        angleTemp = curTemp.startAngle + curTemp.sweepAngle - offsetTemp;
+                        angleTemp = (curTemp.startAngle + curTemp.sweepAngle - offsetTemp)*3.14/180;
                     returnPt.X = (int)(curTemp.center.X + curTemp.radiu * Math.Cos(angleTemp));
                     returnPt.Y = (int)(curTemp.center.Y + curTemp.radiu * Math.Sin(angleTemp));
                     break;

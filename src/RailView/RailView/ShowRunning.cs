@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+//using System.Timers;                //test using,finally delete
 
 namespace RailView
 {
@@ -13,12 +14,19 @@ namespace RailView
         CodingRailCoordinates codingRailCoor = new CodingRailCoordinates();
         List<RailEle> railEleList = new List<RailEle>();
 
+        TestCoordination tempTest = new TestCoordination();     //test using,finally delete
+        int section = -1;                                       //test using,finally delete
+        int offset = -1;                                        //test using,finally delete
+
         public void InitShowRunning()
         {
             railEleList.AddRange(railInfo.OpenFile());
             List<RailEle> listTemp = codingRailCoor.InitEleList(railEleList);
             railEleList.Clear();
             railEleList.AddRange(codingRailCoor.ArrangeEleList(listTemp));
+
+            tempTest.Show();        //test using,finally delete
+            tempTest.ReadSectionNum(railEleList);       //test using,finally delete
         }
 
         public void DrawRailInfo(Graphics canvas)
@@ -34,17 +42,17 @@ namespace RailView
 
             for (int k = 0; k < j; k++)
             {
-                if (k == 0||k==6)
+                if (k == 0||k==6||k==12)
                     pen = pen1;
-                else if (k == 1||k==7||k==12)
+                else if (k == 1||k==7||k==13)
                     pen = pen2;
-                else if (k == 2||k==8||k==13)
+                else if (k == 2||k==8||k==14)
                     pen = pen3;
-                else if (k == 3||k==9||k==14)
+                else if (k == 3||k==9||k==15)
                     pen = pen4;
-                else if (k == 4||k==10||k==15)
+                else if (k == 4||k==10||k==16)
                     pen = pen5;
-                else if (k == 5||k==11||k==16)
+                else if (k == 5||k==11)
                     pen = pen6;
                 RailEle obj = railEleList[k];
                 switch (obj.graphType)
@@ -59,7 +67,7 @@ namespace RailView
                         rc.Location = new Point(curTemp.center.X - curTemp.radiu, curTemp.center.Y - curTemp.radiu);
                         rc.Size = new Size(curTemp.radiu * 2, curTemp.radiu * 2);
                         GraphicsPath gp = new GraphicsPath();
-                        gp.AddArc(rc, curTemp.startAngle, curTemp.rotateAngle);
+                        gp.AddArc(rc, curTemp.startAngle, curTemp.sweepAngle);
                         canvas.DrawPath(pen, gp);
                         gp.Dispose();
                         break;
@@ -118,7 +126,17 @@ namespace RailView
 
         public void DrawRunningInfo(Graphics canvas)
         {
-            Point carrierCoor = codingRailCoor.computeCoordinates(railEleList, 1, 1);
+            section = tempTest.sectionOfText;
+            offset = tempTest.offsetOfText;
+            if (section != -1 && offset != -1)
+            {
+                Pen pen = new Pen(Color.Red, 1);
+                Point carrierCoor = codingRailCoor.computeCoordinates(railEleList, section, offset);
+                Point carrierCoor1 = carrierCoor;
+                carrierCoor1.Offset(2, 0);
+                canvas.DrawLine(pen, carrierCoor, carrierCoor1);
+                pen.Dispose();
+            }
         }
     }
 }

@@ -47,7 +47,7 @@ namespace BaseRailElement
             }
             for (int i = 0; i < 4; i++)
             {
-                Rectangle rc = new Rectangle(points[i].X - 3, points[i].Y - 3, 6, 6);
+                Rectangle rc = new Rectangle(points[i].X - 2, points[i].Y - 2, 4, 4);
                 canvas.DrawRectangle(pen, rc);
                 canvas.FillRectangle(bsh, rc);
             }

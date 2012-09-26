@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Timers;
 
 namespace RailView
 {
@@ -17,8 +18,9 @@ namespace RailView
         {
             InitializeComponent();
             ComponentLocChanged();
-            showRunningHandle.InitShowRunning();            
-            this.Invalidate();
+            showRunningHandle.InitShowRunning();
+            TestRailDrawCoor();   //test using, finally delete
+//            this.Invalidate();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -53,7 +55,24 @@ namespace RailView
         {
             Graphics g = e.Graphics;
             showRunningHandle.DrawRailInfo(g);
+            showRunningHandle.DrawRunningInfo(g);
             base.OnPaint(e);
-        }       
+        }
+
+        public void TestRailDrawCoor()
+        {
+            //test using, finally delete
+            System.Timers.Timer timer = new System.Timers.Timer();
+            timer.Elapsed += new ElapsedEventHandler(StartTimer);
+            timer.Interval = 3000;
+            timer.AutoReset = true;
+            timer.Enabled = true;
+        }
+
+        public void StartTimer(object source, System.Timers.ElapsedEventArgs e)
+        {
+            //test using, finally delete
+            this.showPic.Invalidate();
+        }
     }   
 }
