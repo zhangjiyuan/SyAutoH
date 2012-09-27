@@ -31,8 +31,6 @@ namespace UserTest
         {
             this.textBoxUserName.Text = strUser;
             this.comboBoxUserRight.SelectedIndex = nRight;
-            string strRight = this.comboBoxUserRight.SelectedItem.ToString();
-            this.textBoxOldRight.Text = strRight;
         }
     }
 }

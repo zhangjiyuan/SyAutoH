@@ -10,9 +10,9 @@ using GuiAccess;
 
 namespace UserTest
 {
-    public partial class Form1 : Form
+    public partial class FormUserManagement : Form
     {
-        public Form1()
+        public FormUserManagement()
         {
             InitializeComponent();
         }

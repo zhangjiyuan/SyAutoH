@@ -68,6 +68,7 @@
             // 
             // textBoxOldPW
             // 
+            this.textBoxOldPW.Enabled = false;
             this.textBoxOldPW.Location = new System.Drawing.Point(78, 45);
             this.textBoxOldPW.Name = "textBoxOldPW";
             this.textBoxOldPW.PasswordChar = '*';
