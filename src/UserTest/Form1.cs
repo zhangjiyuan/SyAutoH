@@ -21,6 +21,8 @@ namespace UserTest
         private UserCli userMge = new UserCli();
         private MESLink mesLink = new MESLink();
         private int m_nSession = 0;
+        private string strUserLogin = "";
+        //private int nUserLoginRight = 0;
 
         private void bnLogin_Click(object sender, EventArgs e)
         {
@@ -29,7 +31,19 @@ namespace UserTest
            
             m_nSession = userMge.Login(this.textBoxUser.Text, strHash); 
             
-            this.labelHashUser.Text = strHash + " s: " + m_nSession.ToString();
+            //this.labelHashUser.Text = strHash + " s: " + m_nSession.ToString();
+            if (m_nSession > 0)
+            {
+                this.tabControl1.SelectedIndex = 1;
+                strUserLogin = this.textBoxUser.Text;
+                this.textBoxLoginUser.Text = strUserLogin;
+                this.comboBoxUserRight.SelectedIndex = 4;
+            }
+            else
+            {
+                MessageBox.Show("Login failed, please check your user name and password.");
+            }
+          
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -42,40 +56,35 @@ namespace UserTest
                 this.comboBoxUserRight.Items.Add(strRight);
             }
             this.comboBoxUserRight.SelectedIndex = 0;
+
+            this.tabControl1.TabPages.RemoveAt(2);
         }
 
         private void bnNewUser_Click(object sender, EventArgs e)
         {
             FormNewUser newUser = new FormNewUser();
-            newUser.ShowDialog();
+            DialogResult dlgResult = newUser.ShowDialog();
+            if (dlgResult ==  DialogResult.OK)
+            {
+                string strName = newUser.StrName;
+                string strPW = newUser.StrPassword;
+                int nUserRight = newUser.NRight;
 
-            string strName = this.textBoxNewUser.Text;
-            if (strName.Length <= 0)
-            {
-                MessageBox.Show("Name must not null.");
-                return;
-            }
-            string strPW = this.textBoxNewPassword.Text;
-            string strPW2 = this.textBoxPWagain.Text;
-            if (strPW.CompareTo(strPW2) != 0)
-            {
-                MessageBox.Show("Passwords not same.");
-                return;
-            }
-            int nUserRight = this.comboBoxUserRight.SelectedIndex;
+                int nRet = userMge.CreateUser(strName,
+                    strPW, nUserRight, m_nSession);
 
-            int nRet = userMge.CreateUser(strName,
-                strPW, nUserRight, m_nSession);
+                if (0 == nRet)
+                {
+                    MessageBox.Show("Success create user.");
+                    RefreshUserList();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to create user.");
+                }
+            }
 
-            if (0 == nRet)
-            {
-                MessageBox.Show("Success create user.");
-                RefreshUserList();
-            }
-            else
-            {
-                MessageBox.Show("Failed to create user.");
-            }
+            
         }
 
         private void buttonPickFoup_Click(object sender, EventArgs e)
@@ -134,14 +143,6 @@ namespace UserTest
 
         private void buttonUserPW_Click(object sender, EventArgs e)
         {
-            string strPW = this.textBoxNewPassword.Text;
-            string strPW2 = this.textBoxPWagain.Text;
-            if (strPW.CompareTo(strPW2) != 0)
-            {
-                MessageBox.Show("Passwords not same.");
-                return;
-            }
-
             int nSelected = this.listViewUserList.SelectedItems.Count;
             if (nSelected > 0)
             {
@@ -149,8 +150,22 @@ namespace UserTest
                 foreach (ListViewItem item in this.listViewUserList.SelectedItems)
                 {
                     int nID = (int)item.Tag;
-                    userMge.SetUserPW(nID, strPW, m_nSession);
+                    string user = item.SubItems[1].Text;
+                   
+                    FormUserPassword userPW = new FormUserPassword();
+                    userPW.SetData(user);
+                    DialogResult dlgResult = userPW.ShowDialog();
+                    if (DialogResult.OK == dlgResult)
+                    { 
+                        userMge.SetUserPW(nID, userPW.NewPassword, m_nSession);
+                        RefreshUserList();
+                        return;
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Please select a user.");
             }
         }
 
@@ -159,19 +174,35 @@ namespace UserTest
             int nSelected = this.listViewUserList.SelectedItems.Count;
             if (nSelected > 0)
             {
-                int nUserRight = this.comboBoxUserRight.SelectedIndex;
                 foreach (ListViewItem item in this.listViewUserList.SelectedItems)
                 {
                     int nID = (int)item.Tag;
-                    int nRet = userMge.SetUserRight(nID, nUserRight, m_nSession);
-                    if (nRet == -5)
+                    string user = item.SubItems[1].Text;
+                    FormUserRight userRight = new FormUserRight();
+                    userRight.SetData(user, 3);
+
+                    DialogResult dlgResult = userRight.ShowDialog();
+                    if (DialogResult.OK == dlgResult)
                     {
-                        MessageBox.Show("Right limited, can not execuate command.");
-                        return;
+                        int nUserRight = userRight.UserRight;
+                        int nRet = userMge.SetUserRight(nID, nUserRight, m_nSession);
+                        if (nRet == -5)
+                        {
+                            MessageBox.Show("Right limited, can not execuate command.");
+                            return;
+                        }
                     }
+
+                  
                 }
                 RefreshUserList();
             }
+            else
+            {
+                MessageBox.Show("Please select a user.");
+            }
+
+
         }
 
         private void buttonUserDelete_Click(object sender, EventArgs e)
@@ -199,7 +230,17 @@ namespace UserTest
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            int nSesected = this.tabControl1.SelectedIndex;
+            if (m_nSession <= 0)
+            {
+                this.tabControl1.SelectedIndex = 0;
+                return;
+            }
+
+            if (this.tabControl1.SelectedIndex == 1)
+            {
+                RefreshUserList();
+            }
         }
     }
 }

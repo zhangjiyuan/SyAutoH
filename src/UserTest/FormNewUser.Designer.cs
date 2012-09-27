@@ -54,11 +54,12 @@
             this.comboBoxUserRight.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxUserRight.FormattingEnabled = true;
             this.comboBoxUserRight.Items.AddRange(new object[] {
+            "NoRight",
             "Viewer",
             "Guest",
             "Operator",
             "Admin",
-            "SAdmin"});
+            "SuperAdmin"});
             this.comboBoxUserRight.Location = new System.Drawing.Point(75, 93);
             this.comboBoxUserRight.Name = "comboBoxUserRight";
             this.comboBoxUserRight.Size = new System.Drawing.Size(166, 20);
@@ -159,7 +160,7 @@
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FormNewUser";
+            this.Text = "New User";
             this.ResumeLayout(false);
             this.PerformLayout();
 
