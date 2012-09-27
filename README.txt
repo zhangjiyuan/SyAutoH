@@ -1,9 +1,14 @@
 SyAutoH
+
 =======
+
 
 develop tool:
 
-visual studio 2010 sp1
+
+visual studio 2010 
+sp1
 sqlserver 2008 express
+
 ice3.4.2
-test
+boost 1.51.0
