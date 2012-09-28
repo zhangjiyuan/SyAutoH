@@ -334,25 +334,25 @@ namespace MCS
 
         int end_DeleteUser(Ice.AsyncResult r__);
 
-        int GetUserCount();
-        int GetUserCount(_System.Collections.Generic.Dictionary<string, string> context__);
+        int GetUserCount(int session);
+        int GetUserCount(int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount();
-        Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount(_System.Collections.Generic.Dictionary<string, string> ctx__);
+        Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount(int session);
+        Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount(int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
 
-        Ice.AsyncResult begin_GetUserCount(Ice.AsyncCallback cb__, object cookie__);
-        Ice.AsyncResult begin_GetUserCount(_System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_GetUserCount(int session, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_GetUserCount(int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
 
         int end_GetUserCount(Ice.AsyncResult r__);
 
-        MCS.User[] GetUserList(int nBegin, int nCount);
-        MCS.User[] GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> context__);
+        MCS.User[] GetUserList(int nBegin, int nCount, int session);
+        MCS.User[] GetUserList(int nBegin, int nCount, int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount);
-        Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> ctx__);
+        Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount, int session);
+        Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
 
-        Ice.AsyncResult begin_GetUserList(int nBegin, int nCount, Ice.AsyncCallback cb__, object cookie__);
-        Ice.AsyncResult begin_GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_GetUserList(int nBegin, int nCount, int session, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_GetUserList(int nBegin, int nCount, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
 
         MCS.User[] end_GetUserList(Ice.AsyncResult r__);
     }
@@ -391,9 +391,9 @@ namespace MCS
 
         int DeleteUser(int nUID, int session, Ice.Current current__);
 
-        int GetUserCount(Ice.Current current__);
+        int GetUserCount(int session, Ice.Current current__);
 
-        MCS.User[] GetUserList(int nBegin, int nCount, Ice.Current current__);
+        MCS.User[] GetUserList(int nBegin, int nCount, int session, Ice.Current current__);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -411,9 +411,9 @@ namespace MCS
 
         int DeleteUser(int nUID, int session);
 
-        int GetUserCount();
+        int GetUserCount(int session);
 
-        MCS.User[] GetUserList(int nBegin, int nCount);
+        MCS.User[] GetUserList(int nBegin, int nCount, int session);
     }
 }
 
@@ -956,17 +956,17 @@ namespace MCS
             }
         }
 
-        public int GetUserCount()
+        public int GetUserCount(int session)
         {
-            return GetUserCount(null, false);
+            return GetUserCount(session, null, false);
         }
 
-        public int GetUserCount(_System.Collections.Generic.Dictionary<string, string> context__)
+        public int GetUserCount(int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
-            return GetUserCount(context__, true);
+            return GetUserCount(session, context__, true);
         }
 
-        private int GetUserCount(_System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        private int GetUserCount(int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
         {
             if(explicitContext__ && context__ == null)
             {
@@ -981,7 +981,7 @@ namespace MCS
                     checkTwowayOnly__("GetUserCount");
                     delBase__ = getDelegate__(false);
                     UserManagementDel_ del__ = (UserManagementDel_)delBase__;
-                    return del__.GetUserCount(context__);
+                    return del__.GetUserCount(session, context__);
                 }
                 catch(IceInternal.LocalExceptionWrapper ex__)
                 {
@@ -994,17 +994,17 @@ namespace MCS
             }
         }
 
-        public MCS.User[] GetUserList(int nBegin, int nCount)
+        public MCS.User[] GetUserList(int nBegin, int nCount, int session)
         {
-            return GetUserList(nBegin, nCount, null, false);
+            return GetUserList(nBegin, nCount, session, null, false);
         }
 
-        public MCS.User[] GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> context__)
+        public MCS.User[] GetUserList(int nBegin, int nCount, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
-            return GetUserList(nBegin, nCount, context__, true);
+            return GetUserList(nBegin, nCount, session, context__, true);
         }
 
-        private MCS.User[] GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        private MCS.User[] GetUserList(int nBegin, int nCount, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
         {
             if(explicitContext__ && context__ == null)
             {
@@ -1019,7 +1019,7 @@ namespace MCS
                     checkTwowayOnly__("GetUserList");
                     delBase__ = getDelegate__(false);
                     UserManagementDel_ del__ = (UserManagementDel_)delBase__;
-                    return del__.GetUserList(nBegin, nCount, context__);
+                    return del__.GetUserList(nBegin, nCount, session, context__);
                 }
                 catch(IceInternal.LocalExceptionWrapper ex__)
                 {
@@ -1370,24 +1370,24 @@ namespace MCS
             }
         }
 
-        public Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount()
+        public Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount(int session)
         {
-            return begin_GetUserCount(null, false, null, null);
+            return begin_GetUserCount(session, null, false, null, null);
         }
 
-        public Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount(_System.Collections.Generic.Dictionary<string, string> ctx__)
+        public Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount(int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
         {
-            return begin_GetUserCount(ctx__, true, null, null);
+            return begin_GetUserCount(session, ctx__, true, null, null);
         }
 
-        public Ice.AsyncResult begin_GetUserCount(Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_GetUserCount(int session, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_GetUserCount(null, false, cb__, cookie__);
+            return begin_GetUserCount(session, null, false, cb__, cookie__);
         }
 
-        public Ice.AsyncResult begin_GetUserCount(_System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_GetUserCount(int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_GetUserCount(ctx__, true, cb__, cookie__);
+            return begin_GetUserCount(session, ctx__, true, cb__, cookie__);
         }
 
         private const string __GetUserCount_name = "GetUserCount";
@@ -1415,7 +1415,7 @@ namespace MCS
             return ret__;
         }
 
-        private Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount(_System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        private Ice.AsyncResult<MCS.Callback_UserManagement_GetUserCount> begin_GetUserCount(int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
         {
             checkAsyncTwowayOnly__(__GetUserCount_name);
             IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_GetUserCount> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_GetUserCount>(this, __GetUserCount_name, GetUserCount_completed__, cookie__);
@@ -1427,6 +1427,7 @@ namespace MCS
             {
                 result__.prepare__(__GetUserCount_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
                 IceInternal.BasicStream os__ = result__.ostr__;
+                os__.writeInt(session);
                 os__.endWriteEncaps();
                 result__.send__(true);
             }
@@ -1458,24 +1459,24 @@ namespace MCS
             }
         }
 
-        public Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount)
+        public Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount, int session)
         {
-            return begin_GetUserList(nBegin, nCount, null, false, null, null);
+            return begin_GetUserList(nBegin, nCount, session, null, false, null, null);
         }
 
-        public Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        public Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
         {
-            return begin_GetUserList(nBegin, nCount, ctx__, true, null, null);
+            return begin_GetUserList(nBegin, nCount, session, ctx__, true, null, null);
         }
 
-        public Ice.AsyncResult begin_GetUserList(int nBegin, int nCount, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_GetUserList(int nBegin, int nCount, int session, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_GetUserList(nBegin, nCount, null, false, cb__, cookie__);
+            return begin_GetUserList(nBegin, nCount, session, null, false, cb__, cookie__);
         }
 
-        public Ice.AsyncResult begin_GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_GetUserList(int nBegin, int nCount, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_GetUserList(nBegin, nCount, ctx__, true, cb__, cookie__);
+            return begin_GetUserList(nBegin, nCount, session, ctx__, true, cb__, cookie__);
         }
 
         private const string __GetUserList_name = "GetUserList";
@@ -1511,7 +1512,7 @@ namespace MCS
             return ret__;
         }
 
-        private Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        private Ice.AsyncResult<MCS.Callback_UserManagement_GetUserList> begin_GetUserList(int nBegin, int nCount, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
         {
             checkAsyncTwowayOnly__(__GetUserList_name);
             IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_GetUserList> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_UserManagement_GetUserList>(this, __GetUserList_name, GetUserList_completed__, cookie__);
@@ -1525,6 +1526,7 @@ namespace MCS
                 IceInternal.BasicStream os__ = result__.ostr__;
                 os__.writeInt(nBegin);
                 os__.writeInt(nCount);
+                os__.writeInt(session);
                 os__.endWriteEncaps();
                 result__.send__(true);
             }
@@ -2096,9 +2098,9 @@ namespace MCS
 
         int DeleteUser(int nUID, int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        int GetUserCount(_System.Collections.Generic.Dictionary<string, string> context__);
+        int GetUserCount(int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        MCS.User[] GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> context__);
+        MCS.User[] GetUserList(int nBegin, int nCount, int session, _System.Collections.Generic.Dictionary<string, string> context__);
     }
 }
 
@@ -2304,11 +2306,20 @@ namespace MCS
             }
         }
 
-        public int GetUserCount(_System.Collections.Generic.Dictionary<string, string> context__)
+        public int GetUserCount(int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             IceInternal.Outgoing og__ = handler__.getOutgoing("GetUserCount", Ice.OperationMode.Idempotent, context__);
             try
             {
+                try
+                {
+                    IceInternal.BasicStream os__ = og__.ostr();
+                    os__.writeInt(session);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    og__.abort(ex__);
+                }
                 bool ok__ = og__.invoke();
                 try
                 {
@@ -2341,7 +2352,7 @@ namespace MCS
             }
         }
 
-        public MCS.User[] GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> context__)
+        public MCS.User[] GetUserList(int nBegin, int nCount, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             IceInternal.Outgoing og__ = handler__.getOutgoing("GetUserList", Ice.OperationMode.Idempotent, context__);
             try
@@ -2351,6 +2362,7 @@ namespace MCS
                     IceInternal.BasicStream os__ = og__.ostr();
                     os__.writeInt(nBegin);
                     os__.writeInt(nCount);
+                    os__.writeInt(session);
                 }
                 catch(Ice.LocalException ex__)
                 {
@@ -2779,7 +2791,7 @@ namespace MCS
         }
 
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
-        public int GetUserCount(_System.Collections.Generic.Dictionary<string, string> context__)
+        public int GetUserCount(int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             Ice.Current current__ = new Ice.Current();
             initCurrent__(ref current__, "GetUserCount", Ice.OperationMode.Idempotent, context__);
@@ -2795,7 +2807,7 @@ namespace MCS
                 {
                     throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
                 }
-                result__ = servant__.GetUserCount(current__);
+                result__ = servant__.GetUserCount(session, current__);
                 return Ice.DispatchStatus.DispatchOK;
             };
             IceInternal.Direct direct__ = null;
@@ -2824,7 +2836,7 @@ namespace MCS
         }
 
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
-        public MCS.User[] GetUserList(int nBegin, int nCount, _System.Collections.Generic.Dictionary<string, string> context__)
+        public MCS.User[] GetUserList(int nBegin, int nCount, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             Ice.Current current__ = new Ice.Current();
             initCurrent__(ref current__, "GetUserList", Ice.OperationMode.Idempotent, context__);
@@ -2840,7 +2852,7 @@ namespace MCS
                 {
                     throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
                 }
-                result__ = servant__.GetUserList(nBegin, nCount, current__);
+                result__ = servant__.GetUserList(nBegin, nCount, session, current__);
                 return Ice.DispatchStatus.DispatchOK;
             };
             IceInternal.Direct direct__ = null;
@@ -3295,19 +3307,19 @@ namespace MCS
 
         public abstract int DeleteUser(int nUID, int session, Ice.Current current__);
 
-        public int GetUserCount()
+        public int GetUserCount(int session)
         {
-            return GetUserCount(Ice.ObjectImpl.defaultCurrent);
+            return GetUserCount(session, Ice.ObjectImpl.defaultCurrent);
         }
 
-        public abstract int GetUserCount(Ice.Current current__);
+        public abstract int GetUserCount(int session, Ice.Current current__);
 
-        public MCS.User[] GetUserList(int nBegin, int nCount)
+        public MCS.User[] GetUserList(int nBegin, int nCount, int session)
         {
-            return GetUserList(nBegin, nCount, Ice.ObjectImpl.defaultCurrent);
+            return GetUserList(nBegin, nCount, session, Ice.ObjectImpl.defaultCurrent);
         }
 
-        public abstract MCS.User[] GetUserList(int nBegin, int nCount, Ice.Current current__);
+        public abstract MCS.User[] GetUserList(int nBegin, int nCount, int session, Ice.Current current__);
 
         #endregion
 
@@ -3470,9 +3482,13 @@ namespace MCS
         public static Ice.DispatchStatus GetUserCount___(UserManagement obj__, IceInternal.Incoming inS__, Ice.Current current__)
         {
             checkMode__(Ice.OperationMode.Idempotent, current__.mode);
-            inS__.istr().skipEmptyEncaps();
+            IceInternal.BasicStream is__ = inS__.istr();
+            is__.startReadEncaps();
+            int session;
+            session = is__.readInt();
+            is__.endReadEncaps();
             IceInternal.BasicStream os__ = inS__.ostr();
-            int ret__ = obj__.GetUserCount(current__);
+            int ret__ = obj__.GetUserCount(session, current__);
             os__.writeInt(ret__);
             return Ice.DispatchStatus.DispatchOK;
         }
@@ -3487,9 +3503,11 @@ namespace MCS
             nBegin = is__.readInt();
             int nCount;
             nCount = is__.readInt();
+            int session;
+            session = is__.readInt();
             is__.endReadEncaps();
             IceInternal.BasicStream os__ = inS__.ostr();
-            MCS.User[] ret__ = obj__.GetUserList(nBegin, nCount, current__);
+            MCS.User[] ret__ = obj__.GetUserList(nBegin, nCount, session, current__);
             if(ret__ == null)
             {
                 os__.writeSize(0);

@@ -825,99 +825,99 @@ private:
     
 public:
 
-    ::Ice::Int GetUserCount()
+    ::Ice::Int GetUserCount(::Ice::Int session)
     {
-        return GetUserCount(0);
+        return GetUserCount(session, 0);
     }
-    ::Ice::Int GetUserCount(const ::Ice::Context& __ctx)
+    ::Ice::Int GetUserCount(::Ice::Int session, const ::Ice::Context& __ctx)
     {
-        return GetUserCount(&__ctx);
-    }
-
-    ::Ice::AsyncResultPtr begin_GetUserCount()
-    {
-        return begin_GetUserCount(0, ::IceInternal::__dummyCallback, 0);
+        return GetUserCount(session, &__ctx);
     }
 
-    ::Ice::AsyncResultPtr begin_GetUserCount(const ::Ice::Context& __ctx)
+    ::Ice::AsyncResultPtr begin_GetUserCount(::Ice::Int session)
     {
-        return begin_GetUserCount(&__ctx, ::IceInternal::__dummyCallback, 0);
+        return begin_GetUserCount(session, 0, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_GetUserCount(const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_GetUserCount(::Ice::Int session, const ::Ice::Context& __ctx)
     {
-        return begin_GetUserCount(0, __del, __cookie);
+        return begin_GetUserCount(session, &__ctx, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_GetUserCount(const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_GetUserCount(::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_GetUserCount(&__ctx, __del, __cookie);
+        return begin_GetUserCount(session, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_GetUserCount(const ::MCS::Callback_UserManagement_GetUserCountPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_GetUserCount(::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_GetUserCount(0, __del, __cookie);
+        return begin_GetUserCount(session, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_GetUserCount(const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_GetUserCountPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_GetUserCount(::Ice::Int session, const ::MCS::Callback_UserManagement_GetUserCountPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_GetUserCount(&__ctx, __del, __cookie);
+        return begin_GetUserCount(session, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_GetUserCount(::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_GetUserCountPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_GetUserCount(session, &__ctx, __del, __cookie);
     }
 
     ::Ice::Int end_GetUserCount(const ::Ice::AsyncResultPtr&);
     
 private:
 
-    ::Ice::Int GetUserCount(const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_GetUserCount(const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    ::Ice::Int GetUserCount(::Ice::Int, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_GetUserCount(::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
 
-    ::MCS::UserList GetUserList(::Ice::Int nBegin, ::Ice::Int nCount)
+    ::MCS::UserList GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, ::Ice::Int session)
     {
-        return GetUserList(nBegin, nCount, 0);
+        return GetUserList(nBegin, nCount, session, 0);
     }
-    ::MCS::UserList GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context& __ctx)
+    ::MCS::UserList GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, ::Ice::Int session, const ::Ice::Context& __ctx)
     {
-        return GetUserList(nBegin, nCount, &__ctx);
-    }
-
-    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount)
-    {
-        return begin_GetUserList(nBegin, nCount, 0, ::IceInternal::__dummyCallback, 0);
+        return GetUserList(nBegin, nCount, session, &__ctx);
     }
 
-    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context& __ctx)
+    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, ::Ice::Int session)
     {
-        return begin_GetUserList(nBegin, nCount, &__ctx, ::IceInternal::__dummyCallback, 0);
+        return begin_GetUserList(nBegin, nCount, session, 0, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, ::Ice::Int session, const ::Ice::Context& __ctx)
     {
-        return begin_GetUserList(nBegin, nCount, 0, __del, __cookie);
+        return begin_GetUserList(nBegin, nCount, session, &__ctx, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_GetUserList(nBegin, nCount, &__ctx, __del, __cookie);
+        return begin_GetUserList(nBegin, nCount, session, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::MCS::Callback_UserManagement_GetUserListPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_GetUserList(nBegin, nCount, 0, __del, __cookie);
+        return begin_GetUserList(nBegin, nCount, session, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_GetUserListPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, ::Ice::Int session, const ::MCS::Callback_UserManagement_GetUserListPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_GetUserList(nBegin, nCount, &__ctx, __del, __cookie);
+        return begin_GetUserList(nBegin, nCount, session, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_UserManagement_GetUserListPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_GetUserList(nBegin, nCount, session, &__ctx, __del, __cookie);
     }
 
     ::MCS::UserList end_GetUserList(const ::Ice::AsyncResultPtr&);
     
 private:
 
-    ::MCS::UserList GetUserList(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    ::MCS::UserList GetUserList(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_GetUserList(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
     
@@ -1155,9 +1155,9 @@ public:
 
     virtual ::Ice::Int DeleteUser(::Ice::Int, ::Ice::Int, const ::Ice::Context*) = 0;
 
-    virtual ::Ice::Int GetUserCount(const ::Ice::Context*) = 0;
+    virtual ::Ice::Int GetUserCount(::Ice::Int, const ::Ice::Context*) = 0;
 
-    virtual ::MCS::UserList GetUserList(::Ice::Int, ::Ice::Int, const ::Ice::Context*) = 0;
+    virtual ::MCS::UserList GetUserList(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*) = 0;
 };
 
 }
@@ -1197,9 +1197,9 @@ public:
 
     virtual ::Ice::Int DeleteUser(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 
-    virtual ::Ice::Int GetUserCount(const ::Ice::Context*);
+    virtual ::Ice::Int GetUserCount(::Ice::Int, const ::Ice::Context*);
 
-    virtual ::MCS::UserList GetUserList(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    virtual ::MCS::UserList GetUserList(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 };
 
 }
@@ -1239,9 +1239,9 @@ public:
 
     virtual ::Ice::Int DeleteUser(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 
-    virtual ::Ice::Int GetUserCount(const ::Ice::Context*);
+    virtual ::Ice::Int GetUserCount(::Ice::Int, const ::Ice::Context*);
 
-    virtual ::MCS::UserList GetUserList(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    virtual ::MCS::UserList GetUserList(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 };
 
 }
@@ -1324,10 +1324,10 @@ public:
     virtual ::Ice::Int DeleteUser(::Ice::Int, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___DeleteUser(::IceInternal::Incoming&, const ::Ice::Current&);
 
-    virtual ::Ice::Int GetUserCount(const ::Ice::Current& = ::Ice::Current()) = 0;
+    virtual ::Ice::Int GetUserCount(::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___GetUserCount(::IceInternal::Incoming&, const ::Ice::Current&);
 
-    virtual ::MCS::UserList GetUserList(::Ice::Int, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
+    virtual ::MCS::UserList GetUserList(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___GetUserList(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual ::Ice::DispatchStatus __dispatch(::IceInternal::Incoming&, const ::Ice::Current&);

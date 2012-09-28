@@ -2,7 +2,6 @@
 
 #pragma once
 
-// 代码生成在 2012年8月31日, 14:40
 
 class CMcsUserTableAccessor
 {

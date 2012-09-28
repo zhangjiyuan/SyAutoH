@@ -35,12 +35,12 @@ namespace GuiAccess
             return nRet;
         }
 
-        public int Logout(int nUser)
+        public int Logout(int nSession)
         {
             int nRet = -1;
             try
             {
-                nRet = remote.Logout(nUser);
+                nRet = remote.Logout(nSession);
             }
             catch (System.Exception /*ex*/)
             {
@@ -77,11 +77,11 @@ namespace GuiAccess
             return nRet;
         }
 
-        public MCS.User[] GetUserList(int nBegin, int nCount)
+        public MCS.User[] GetUserList(int nBegin, int nCount, int nSession)
         {
             try
             {
-                return remote.GetUserList(nBegin, nCount);
+                return remote.GetUserList(nBegin, nCount, nSession);
             }
             catch (System.Exception /*ex*/)
             {
@@ -89,12 +89,12 @@ namespace GuiAccess
             }
             return null;
         }
-        public int GetUserCount()
+        public int GetUserCount(int nSession)
         {
             int nRet = -1;
             try
             {
-                nRet = remote.GetUserCount();
+                nRet = remote.GetUserCount(nSession);
             }
             catch (System.Exception /*ex*/)
             {

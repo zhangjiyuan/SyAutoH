@@ -20,7 +20,7 @@ public:
 	virtual int DeleteUser(::Ice::Int, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
 	virtual int SetUserPW(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Current&);
 	virtual int SetUserRight(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
-	virtual int GetUserCount(const ::Ice::Current&);
-	virtual ::MCS::UserList GetUserList(::Ice::Int, ::Ice::Int, const ::Ice::Current&);
+	virtual int GetUserCount(::Ice::Int, const ::Ice::Current&);
+	virtual ::MCS::UserList GetUserList(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Current&);
 };
 

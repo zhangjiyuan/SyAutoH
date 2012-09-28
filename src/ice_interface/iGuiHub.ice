@@ -36,8 +36,8 @@ interface UserManagement
 	idempotent int SetUserPW(int nUID, string pass, int session);
 	idempotent int SetUserRight(int nUID, int nRight, int session);
 	idempotent int DeleteUser(int nUID, int session);
-	idempotent int GetUserCount();
-	idempotent UserList GetUserList(int nBegin, int nCount);
+	idempotent int GetUserCount(int session);
+	idempotent UserList GetUserList(int nBegin, int nCount, int session);
 };
 
 };

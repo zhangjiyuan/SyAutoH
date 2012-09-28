@@ -4,6 +4,7 @@
 #include "IceUtil/Unicode.h"
 #include "Ice/Connection.h"
 #include "iGuiHub.h"
+#include "DBConst.h"
 
 UserManagementI::UserManagementI(void)
 {
@@ -70,6 +71,8 @@ int UserManagementI::Login(const ::std::string& sUser, const ::std::string& sHas
 }
 int UserManagementI::Logout(::Ice::Int nSession, const ::Ice::Current& /* = ::Ice::Current */)
 {
+	m_pSession->LoginOut(nSession);
+
 	return 0;
 }
 
@@ -82,6 +85,12 @@ int UserManagementI::CreateUser(const ::std::string& sName,
 }
 int UserManagementI::DeleteUser(::Ice::Int nUID, ::Ice::Int nSession, const ::Ice::Current& /* = ::Ice::Current */)
 {
+	int nRole = 0;
+	nRole = m_pSession->GetRealRight(nSession);
+	if (nRole < 4)
+	{
+		return DBO_NORIGHT;
+	}
 	int nRet = 0;
 	nRet = m_pUserDB->DeleteUser(nUID);
 	return nRet;
@@ -96,17 +105,24 @@ int UserManagementI::SetUserPW(::Ice::Int nUID,
 int UserManagementI::SetUserRight(::Ice::Int nUID, 
 	::Ice::Int nRight, ::Ice::Int nSession, const ::Ice::Current& /* = ::Ice::Current */)
 {
+	int nRole = 0;
+	nRole = m_pSession->GetRealRight(nSession);
+	if (nRole < 4)
+	{
+		return DBO_NORIGHT;
+	}
 	int nRet = 0;
 	nRet = m_pUserDB->SetUserRight(nUID, nRight);
 	return nRet;
 }
-int UserManagementI::GetUserCount(const ::Ice::Current&)
+int UserManagementI::GetUserCount(::Ice::Int nSession, const ::Ice::Current&)
 {
 	int nCount = 0;
 	nCount = m_pUserDB->GetUserCount();
 	return nCount;
 }
-UserList UserManagementI::GetUserList(::Ice::Int nStart, ::Ice::Int nCount, const ::Ice::Current&)
+UserList UserManagementI::GetUserList(::Ice::Int nStart, ::Ice::Int nCount, 
+	::Ice::Int nSession, const ::Ice::Current&)
 {
 	UserList list;
 	UserDataList uList;

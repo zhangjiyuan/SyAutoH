@@ -14,8 +14,10 @@
 #include <windows.h>
 #include <string>
 #include <list>
+#include <map>
 
 using namespace std;
+
 typedef struct  
 {
 	int nID;
@@ -56,13 +58,19 @@ public:
 	int GetFoupLocation(int nFoup, int &nLocal, int &nType);
 };
 
+typedef map<int, int> Map_Int;
 class SQLACECLI_API DBSession
 {
 public:
 	DBSession(void);
 	~DBSession(void);
 public:
-
+private:
+	Map_Int* m_pmapRole;
+public:
+	int LoginOut(int nSession);
 	int GetLoginSession(int nUserID, int nRight, 
 		const string& strConnection, bool bLastLimit);
+	int GetRealRight(int nSession);
+	int SetRealRight(int nSession, int nRealRight);
 };

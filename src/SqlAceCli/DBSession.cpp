@@ -4,13 +4,18 @@
 
 DBSession::DBSession(void)
 {
+	m_pmapRole = new Map_Int();
 }
 
 
 DBSession::~DBSession(void)
 {
+	if (NULL != m_pmapRole)
+	{
+		delete m_pmapRole;
+		m_pmapRole = NULL;
+	}
 }
-
 
 int DBSession::GetLoginSession(int nUserID, int nRight, 
 	const string& strConnection, bool bLastLimit)
@@ -39,6 +44,7 @@ int DBSession::GetLoginSession(int nUserID, int nRight,
 	t.GetAsDBTIMESTAMP( ts ); // retrieves the time in t into the ts structure
 
 	linkSession.m_AccessTime = ts;
+	linkSession.m_UserStatus = 1;
 
 	linkSession.m_dwSessionIDStatus = DBSTATUS_S_IGNORE;
 	linkSession.m_dwUserIDStatus = DBSTATUS_S_OK;
@@ -46,6 +52,7 @@ int DBSession::GetLoginSession(int nUserID, int nRight,
 	linkSession.m_dwRealRightStatus = DBSTATUS_S_OK;
 	linkSession.m_dwConnectInfoStatus = DBSTATUS_S_OK;
 	linkSession.m_dwAccessTimeStatus = DBSTATUS_S_OK;
+	linkSession.m_dwUserStatusStatus = DBSTATUS_S_OK;
 	hr = linkSession.Insert();
 	if (FAILED(hr))
 	{
@@ -62,4 +69,129 @@ int DBSession::GetLoginSession(int nUserID, int nRight,
 	CoUninitialize();
 
 	return nSession;
+}
+
+int DBSession::LoginOut(int nSession)
+{
+	int nRetrun = -1;
+	CoInitialize(NULL);
+	HRESULT hr;
+	CLinkSessionTable linkSession;
+	hr = linkSession.OpenDataSource();
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return nRetrun;
+	}
+	CDBPropSet propset(DBPROPSET_ROWSET);
+	linkSession.GetRowsetProperties(&propset);
+
+	CString strSQL;
+	strSQL.Format(L"Select * from dbo.LinkSession where (SessionID = %d)", 
+		nSession);
+	hr = linkSession.Open(linkSession.m_session, strSQL, &propset);
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return nRetrun;
+	}
+
+	if (linkSession.MoveFirst() != DB_S_ENDOFROWSET)
+	{
+		linkSession.m_dwSessionIDStatus = DBSTATUS_S_IGNORE;
+		linkSession.m_UserStatus = 2;
+		hr = linkSession.SetData();
+		if (!FAILED(hr))
+		{
+			m_pmapRole->erase(nSession);
+		}
+	}
+	linkSession.CloseAll();
+	CoUninitialize();
+
+	return nRetrun;
+}
+
+int DBSession::SetRealRight(int nSession, int nRealRight)
+{
+	int nRetrun = -1;
+	CoInitialize(NULL);
+	HRESULT hr;
+	CLinkSessionTable linkSession;
+	hr = linkSession.OpenDataSource();
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return nRetrun;
+	}
+	CDBPropSet propset(DBPROPSET_ROWSET);
+	linkSession.GetRowsetProperties(&propset);
+
+	CString strSQL;
+	strSQL.Format(L"Select * from dbo.LinkSession where (SessionID = %d)", 
+		nSession);
+	hr = linkSession.Open(linkSession.m_session, strSQL, &propset);
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return nRetrun;
+	}
+
+	if (linkSession.MoveFirst() != DB_S_ENDOFROWSET)
+	{
+		linkSession.m_dwSessionIDStatus = DBSTATUS_S_IGNORE;
+		linkSession.m_RealRight = nRealRight;
+		hr = linkSession.SetData();
+		if (!FAILED(hr))
+		{
+			(*m_pmapRole)[nSession] = nRealRight;
+		}
+	}
+	linkSession.CloseAll();
+	CoUninitialize();
+
+	return nRetrun;
+}
+
+int DBSession::GetRealRight(int nSession)
+{
+	int nRight = -1;
+	Map_Int::iterator it = m_pmapRole->find(nSession);
+	if (it != m_pmapRole->end())
+	{
+		nRight = it->second;
+		return nRight;
+	}
+	else
+	{
+		CoInitialize(NULL);
+		HRESULT hr;
+		CLinkSessionTable linkSession;
+		hr = linkSession.OpenDataSource();
+		if (FAILED(hr))
+		{
+			CoUninitialize();
+			return nRight;
+		}
+
+		CString strSQL;
+		strSQL.Format(L"Select * from dbo.LinkSession where (SessionID = %d)", 
+			nSession);
+		hr = linkSession.Open(linkSession.m_session, strSQL);
+		if (FAILED(hr))
+		{
+			CoUninitialize();
+			return nRight;
+		}
+	
+		if (linkSession.MoveFirst() != DB_S_ENDOFROWSET)
+		{
+			nRight = linkSession.m_RealRight;
+		}
+		linkSession.CloseAll();
+		CoUninitialize();
+		(*m_pmapRole)[nSession] = nRight;
+	}
+
+	return nRight;
 }

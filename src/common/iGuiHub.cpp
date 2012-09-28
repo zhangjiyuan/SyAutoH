@@ -715,7 +715,7 @@ IceProxy::MCS::UserManagement::end_DeleteUser(const ::Ice::AsyncResultPtr& __res
 }
 
 ::Ice::Int
-IceProxy::MCS::UserManagement::GetUserCount(const ::Ice::Context* __ctx)
+IceProxy::MCS::UserManagement::GetUserCount(::Ice::Int session, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -726,7 +726,7 @@ IceProxy::MCS::UserManagement::GetUserCount(const ::Ice::Context* __ctx)
             __checkTwowayOnly(__MCS__UserManagement__GetUserCount_name);
             __delBase = __getDelegate(false);
             ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
-            return __del->GetUserCount(__ctx);
+            return __del->GetUserCount(session, __ctx);
         }
         catch(const ::IceInternal::LocalExceptionWrapper& __ex)
         {
@@ -740,7 +740,7 @@ IceProxy::MCS::UserManagement::GetUserCount(const ::Ice::Context* __ctx)
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::UserManagement::begin_GetUserCount(const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::UserManagement::begin_GetUserCount(::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
     __checkAsyncTwowayOnly(__MCS__UserManagement__GetUserCount_name);
     ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__GetUserCount_name, __del, __cookie);
@@ -748,6 +748,7 @@ IceProxy::MCS::UserManagement::begin_GetUserCount(const ::Ice::Context* __ctx, c
     {
         __result->__prepare(__MCS__UserManagement__GetUserCount_name, ::Ice::Idempotent, __ctx);
         ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(session);
         __os->endWriteEncaps();
         __result->__send(true);
     }
@@ -782,7 +783,7 @@ IceProxy::MCS::UserManagement::end_GetUserCount(const ::Ice::AsyncResultPtr& __r
 }
 
 ::MCS::UserList
-IceProxy::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __ctx)
+IceProxy::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, ::Ice::Int session, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -793,7 +794,7 @@ IceProxy::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount,
             __checkTwowayOnly(__MCS__UserManagement__GetUserList_name);
             __delBase = __getDelegate(false);
             ::IceDelegate::MCS::UserManagement* __del = dynamic_cast< ::IceDelegate::MCS::UserManagement*>(__delBase.get());
-            return __del->GetUserList(nBegin, nCount, __ctx);
+            return __del->GetUserList(nBegin, nCount, session, __ctx);
         }
         catch(const ::IceInternal::LocalExceptionWrapper& __ex)
         {
@@ -807,7 +808,7 @@ IceProxy::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount,
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::UserManagement::begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::UserManagement::begin_GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
     __checkAsyncTwowayOnly(__MCS__UserManagement__GetUserList_name);
     ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__UserManagement__GetUserList_name, __del, __cookie);
@@ -817,6 +818,7 @@ IceProxy::MCS::UserManagement::begin_GetUserList(::Ice::Int nBegin, ::Ice::Int n
         ::IceInternal::BasicStream* __os = __result->__getOs();
         __os->write(nBegin);
         __os->write(nCount);
+        __os->write(session);
         __os->endWriteEncaps();
         __result->__send(true);
     }
@@ -1215,9 +1217,18 @@ IceDelegateM::MCS::UserManagement::DeleteUser(::Ice::Int nUID, ::Ice::Int sessio
 }
 
 ::Ice::Int
-IceDelegateM::MCS::UserManagement::GetUserCount(const ::Ice::Context* __context)
+IceDelegateM::MCS::UserManagement::GetUserCount(::Ice::Int session, const ::Ice::Context* __context)
 {
     ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__GetUserCount_name, ::Ice::Idempotent, __context);
+    try
+    {
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(session);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __og.abort(__ex);
+    }
     bool __ok = __og.invoke();
     ::Ice::Int __ret;
     try
@@ -1247,7 +1258,7 @@ IceDelegateM::MCS::UserManagement::GetUserCount(const ::Ice::Context* __context)
 }
 
 ::MCS::UserList
-IceDelegateM::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __context)
+IceDelegateM::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, ::Ice::Int session, const ::Ice::Context* __context)
 {
     ::IceInternal::Outgoing __og(__handler.get(), __MCS__UserManagement__GetUserList_name, ::Ice::Idempotent, __context);
     try
@@ -1255,6 +1266,7 @@ IceDelegateM::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCo
         ::IceInternal::BasicStream* __os = __og.os();
         __os->write(nBegin);
         __os->write(nCount);
+        __os->write(session);
     }
     catch(const ::Ice::LocalException& __ex)
     {
@@ -1857,15 +1869,16 @@ IceDelegateD::MCS::UserManagement::DeleteUser(::Ice::Int nUID, ::Ice::Int sessio
 }
 
 ::Ice::Int
-IceDelegateD::MCS::UserManagement::GetUserCount(const ::Ice::Context* __context)
+IceDelegateD::MCS::UserManagement::GetUserCount(::Ice::Int session, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
     public:
 
-        _DirectI(::Ice::Int& __result, const ::Ice::Current& __current) : 
+        _DirectI(::Ice::Int& __result, ::Ice::Int session, const ::Ice::Current& __current) : 
             ::IceInternal::Direct(__current),
-            _result(__result)
+            _result(__result),
+            _m_session(session)
         {
         }
         
@@ -1877,13 +1890,14 @@ IceDelegateD::MCS::UserManagement::GetUserCount(const ::Ice::Context* __context)
             {
                 throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
             }
-            _result = servant->GetUserCount(_current);
+            _result = servant->GetUserCount(_m_session, _current);
             return ::Ice::DispatchOK;
         }
         
     private:
         
         ::Ice::Int& _result;
+        ::Ice::Int _m_session;
     };
     
     ::Ice::Current __current;
@@ -1891,7 +1905,7 @@ IceDelegateD::MCS::UserManagement::GetUserCount(const ::Ice::Context* __context)
     ::Ice::Int __result;
     try
     {
-        _DirectI __direct(__result, __current);
+        _DirectI __direct(__result, session, __current);
         try
         {
             __direct.servant()->__collocDispatch(__direct);
@@ -1923,17 +1937,18 @@ IceDelegateD::MCS::UserManagement::GetUserCount(const ::Ice::Context* __context)
 }
 
 ::MCS::UserList
-IceDelegateD::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Context* __context)
+IceDelegateD::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCount, ::Ice::Int session, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
     public:
 
-        _DirectI(::MCS::UserList& __result, ::Ice::Int nBegin, ::Ice::Int nCount, const ::Ice::Current& __current) : 
+        _DirectI(::MCS::UserList& __result, ::Ice::Int nBegin, ::Ice::Int nCount, ::Ice::Int session, const ::Ice::Current& __current) : 
             ::IceInternal::Direct(__current),
             _result(__result),
             _m_nBegin(nBegin),
-            _m_nCount(nCount)
+            _m_nCount(nCount),
+            _m_session(session)
         {
         }
         
@@ -1945,7 +1960,7 @@ IceDelegateD::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCo
             {
                 throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
             }
-            _result = servant->GetUserList(_m_nBegin, _m_nCount, _current);
+            _result = servant->GetUserList(_m_nBegin, _m_nCount, _m_session, _current);
             return ::Ice::DispatchOK;
         }
         
@@ -1954,6 +1969,7 @@ IceDelegateD::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCo
         ::MCS::UserList& _result;
         ::Ice::Int _m_nBegin;
         ::Ice::Int _m_nCount;
+        ::Ice::Int _m_session;
     };
     
     ::Ice::Current __current;
@@ -1961,7 +1977,7 @@ IceDelegateD::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCo
     ::MCS::UserList __result;
     try
     {
-        _DirectI __direct(__result, nBegin, nCount, __current);
+        _DirectI __direct(__result, nBegin, nCount, session, __current);
         try
         {
             __direct.servant()->__collocDispatch(__direct);
@@ -2326,9 +2342,13 @@ MCS::UserManagement::___DeleteUser(::IceInternal::Incoming& __inS, const ::Ice::
 MCS::UserManagement::___GetUserCount(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
 {
     __checkMode(::Ice::Idempotent, __current.mode);
-    __inS.is()->skipEmptyEncaps();
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::Ice::Int session;
+    __is->read(session);
+    __is->endReadEncaps();
     ::IceInternal::BasicStream* __os = __inS.os();
-    ::Ice::Int __ret = GetUserCount(__current);
+    ::Ice::Int __ret = GetUserCount(session, __current);
     __os->write(__ret);
     return ::Ice::DispatchOK;
 }
@@ -2341,11 +2361,13 @@ MCS::UserManagement::___GetUserList(::IceInternal::Incoming& __inS, const ::Ice:
     __is->startReadEncaps();
     ::Ice::Int nBegin;
     ::Ice::Int nCount;
+    ::Ice::Int session;
     __is->read(nBegin);
     __is->read(nCount);
+    __is->read(session);
     __is->endReadEncaps();
     ::IceInternal::BasicStream* __os = __inS.os();
-    ::MCS::UserList __ret = GetUserList(nBegin, nCount, __current);
+    ::MCS::UserList __ret = GetUserList(nBegin, nCount, session, __current);
     if(__ret.size() == 0)
     {
         __os->writeSize(0);

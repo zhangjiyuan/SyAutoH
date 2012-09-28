@@ -1,8 +1,8 @@
-// TLinkSession.h : CLinkSessionTable 的声明
+// TLinkSession2.h : CLinkSessionTable2 的声明
 
 #pragma once
 
-// 代码生成在 2012年9月18日, 16:25
+// 代码生成在 2012年9月19日, 15:47
 
 class CLinkSessionTableAccessor
 {
@@ -13,6 +13,7 @@ public:
 	LONG m_OrginRight;
 	DBTIMESTAMP m_AccessTime;
 	TCHAR m_ConnectInfo[201];
+	LONG m_UserStatus;
 
 	// 以下向导生成的数据成员包含
 	//列映射中相应字段的状态值。
@@ -29,6 +30,7 @@ public:
 	DBSTATUS m_dwOrginRightStatus;
 	DBSTATUS m_dwAccessTimeStatus;
 	DBSTATUS m_dwConnectInfoStatus;
+	DBSTATUS m_dwUserStatusStatus;
 
 	// 以下向导生成的数据成员包含
 	//列映射中相应字段的长度值。
@@ -41,6 +43,7 @@ public:
 	DBLENGTH m_dwOrginRightLength;
 	DBLENGTH m_dwAccessTimeLength;
 	DBLENGTH m_dwConnectInfoLength;
+	DBLENGTH m_dwUserStatusLength;
 
 
 	void GetRowsetProperties(CDBPropSet* pPropSet)
@@ -60,7 +63,7 @@ public:
 // 信息。请在查看完此连接字符串并找到所有与安全
 // 有关的问题后移除 #error。可能需要将此密码存
 // 储为其他格式或使用其他的用户身份验证。
-		hr = _db.OpenFromInitializationString(L"Provider=SQLNCLI10.1;Integrated Security=SSPI;Persist Security Info=False;User ID=\"\";Initial Catalog=MCS;Data Source=SDNY-PC\\AMHS;Use Procedure for Prepare=1;Auto Translate=True;Packet Size=4096;Workstation ID=SDNY-PC;Initial File Name=\"\";Use Encryption for Data=False;Tag with column collation when possible=False;MARS Connection=False;DataTypeCompatibility=0;Trust Server Certificate=False");
+		hr = _db.OpenFromInitializationString(L"Provider=SQLNCLI10.1;Integrated Security=SSPI;Persist Security Info=False;User ID=\"\";Initial Catalog=MCS;Data Source=(local)\\AMHS;Use Procedure for Prepare=1;Auto Translate=True;Packet Size=4096;Workstation ID=SDNY-PC;Initial File Name=\"\";Use Encryption for Data=False;Tag with column collation when possible=False;MARS Connection=False;DataTypeCompatibility=0;Trust Server Certificate=False");
 		if (FAILED(hr))
 		{
 #ifdef _DEBUG
@@ -90,7 +93,8 @@ public:
 		RealRight, \
 		OrginRight, \
 		AccessTime, \
-		ConnectInfo \
+		ConnectInfo, \
+		UserStatus \
 		FROM dbo.LinkSession")
 
 
@@ -104,6 +108,7 @@ public:
 		COLUMN_ENTRY_LENGTH_STATUS(4, m_OrginRight, m_dwOrginRightLength, m_dwOrginRightStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(5, m_AccessTime, m_dwAccessTimeLength, m_dwAccessTimeStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(6, m_ConnectInfo, m_dwConnectInfoLength, m_dwConnectInfoStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(7, m_UserStatus, m_dwUserStatusLength, m_dwUserStatusStatus)
 	END_COLUMN_MAP()
 };
 
