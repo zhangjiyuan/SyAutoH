@@ -14,7 +14,7 @@ namespace BaseRailElement
         {
             SelectEle, SelectHandle, SelectNone
         }
-        private SelectObject _SelectObject = SelectObject.SelectNone;
+        private SelectObject selectObject = SelectObject.SelectNone;
 
         private int _hit = -1;
         
@@ -24,11 +24,11 @@ namespace BaseRailElement
             int hit = document.HitTest(point, false);
             _hit = hit;
             if (hit > 0)
-                _SelectObject = SelectObject.SelectHandle;
+                selectObject = SelectObject.SelectHandle;
             else if (hit == 0)
-                _SelectObject = SelectObject.SelectEle;
+                selectObject = SelectObject.SelectEle;
             else
-                _SelectObject = SelectObject.SelectNone;
+                selectObject = SelectObject.SelectNone;
             document.changeChooseSign(true, point);
         }
 
@@ -40,69 +40,82 @@ namespace BaseRailElement
 
         public override void OnMouseMove(Point point)
         {
+            int dx = point.X - lastPoint.X;
+            int dy = point.Y - lastPoint.Y;
             int n = document.SelectedDrawObjectList.Count;
-            switch (_SelectObject)
+            int tempDrawMultiFactor = 1;
+            switch (selectObject)
             {
                 case SelectObject.SelectHandle:
-                    if (document.SelectedDrawObjectList[0].GraphType == 1)
+                    tempDrawMultiFactor = document.SelectedDrawObjectList[0].DrawMultiFactor;
+                    if ((dx != 0 && dx / tempDrawMultiFactor != 0) || (dy != 0 && dy / tempDrawMultiFactor != 0))
                     {
-                        if (n == 1)
+                        if (document.SelectedDrawObjectList[0].GraphType == 1)
                         {
-                            document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
+                            if (n == 1)
+                            {
+                                document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
+                            }
                         }
-                    }
-                    else if (document.SelectedDrawObjectList[0].GraphType == 2)
-                    {
-                        if (n == 1)
+                        else if (document.SelectedDrawObjectList[0].GraphType == 2)
                         {
-                            document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
+                            if (n == 1)
+                            {
+                                document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
+                            }
                         }
-                    }
-                    else if (document.SelectedDrawObjectList[0].GraphType == 3)
-                    {
-                        if (n == 1)
+                        else if (document.SelectedDrawObjectList[0].GraphType == 3)
                         {
-                            document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
+                            if (n == 1)
+                            {
+                                document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
+                            }
                         }
-                    }
-                    else if (document.SelectedDrawObjectList[0].GraphType == 4)
-                    {
-                        if (n == 1)
+                        else if (document.SelectedDrawObjectList[0].GraphType == 4)
                         {
-                            document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
+                            if (n == 1)
+                            {
+                                document.SelectedDrawObjectList[0].MoveHandle(_hit, lastPoint, point);
+                            }
                         }
+                        lastPoint.Offset(dx / tempDrawMultiFactor * tempDrawMultiFactor, dy / tempDrawMultiFactor * tempDrawMultiFactor);
                     }
                     break;
                 case SelectObject.SelectEle:
                     for (int i = 0; i < n; i++)
                     {
-                        if (document.SelectedDrawObjectList[i].GraphType == 1)
+                        tempDrawMultiFactor = document.SelectedDrawObjectList[i].DrawMultiFactor;
+                        if ((dx != 0 && dx / tempDrawMultiFactor != 0) || (dy != 0 && dy / tempDrawMultiFactor != 0))
                         {
-                            StraightRailEle de = (StraightRailEle)document.SelectedDrawObjectList[i];
-                            document.SelectedDrawObjectList[i].Move(lastPoint, point);
+                            if (document.SelectedDrawObjectList[i].GraphType == 1)
+                            {
+                                StraightRailEle de = (StraightRailEle)document.SelectedDrawObjectList[i];
+                                document.SelectedDrawObjectList[i].Move(lastPoint, point);
+                            }
+                            else if (document.SelectedDrawObjectList[i].GraphType == 2)
+                            {
+                                CurvedRailEle de = (CurvedRailEle)document.SelectedDrawObjectList[i];
+                                document.SelectedDrawObjectList[i].Move(lastPoint, point);
+                            }
+                            else if (document.SelectedDrawObjectList[i].GraphType == 3)
+                            {
+                                CrossEle de = (CrossEle)document.SelectedDrawObjectList[i];
+                                document.SelectedDrawObjectList[i].Move(lastPoint, point);
+                            }
+                            else if (document.SelectedDrawObjectList[i].GraphType == 4)
+                            {
+                                RailLabal de = (RailLabal)document.SelectedDrawObjectList[i];
+                                document.SelectedDrawObjectList[i].Move(lastPoint, point);
+                            }
                         }
-                        else if (document.SelectedDrawObjectList[i].GraphType == 2)
-                        {
-                            CurvedRailEle de = (CurvedRailEle)document.SelectedDrawObjectList[i];
-                            document.SelectedDrawObjectList[i].Move(lastPoint, point);
-                        }
-                        else if (document.SelectedDrawObjectList[i].GraphType == 3)
-                        {
-                            CrossEle de = (CrossEle)document.SelectedDrawObjectList[i];
-                            document.SelectedDrawObjectList[i].Move(lastPoint, point);
-                        }
-                        else if (document.SelectedDrawObjectList[i].GraphType == 4)
-                        {
-                            RailLabal de = (RailLabal)document.SelectedDrawObjectList[i];
-                            document.SelectedDrawObjectList[i].Move(lastPoint, point);
-                        }
+                        lastPoint.Offset(dx / tempDrawMultiFactor * tempDrawMultiFactor, dy / tempDrawMultiFactor * tempDrawMultiFactor);
                     }
                     break;
                 case SelectObject.SelectNone:
                     document.changeChooseSign(true, point);
+                    base.OnMouseMove(point);
                     break;
             }
-            base.OnMouseMove(point);
         }
 
         public override Point DrapDrawRegion(Point point)

@@ -69,9 +69,8 @@ namespace BaseRailElement
         {
             if (locationLock)
                 return;
-            int x = end.X - start.X;
-            int y = end.Y - start.Y;
-
+            int x = (end.X - start.X) / drawMultiFactor;
+            int y = (end.Y - start.Y) / drawMultiFactor;
             Translate(x, y);
         }
 
@@ -79,9 +78,8 @@ namespace BaseRailElement
         {
             if (sizeLock)
                 return;
-            int dx = end.X - start.X;
-            int dy = end.Y - start.Y;
-
+            int dx = (end.X - start.X) / drawMultiFactor;
+            int dy = (end.Y - start.Y) / drawMultiFactor;
             Scale(handle, dx, dy);
         }
 

@@ -15,7 +15,7 @@ using System.Reflection;
 
 namespace RailDraw
 {
-    public partial class Form1 : Form
+    public partial class RailDraw : Form
     {
         BaseRailElement.DrawDoc doc1 = new BaseRailElement.DrawDoc();
         BaseRailElement.ObjectBaseEvents objectEvent = new BaseRailElement.ObjectBaseEvents();      
@@ -29,7 +29,7 @@ namespace RailDraw
         private int multiFactor = 1;
         private string sProjectPath = "";
 
-        public Form1()
+        public RailDraw()
         {
             InitializeComponent();
             MyInit();
@@ -192,7 +192,7 @@ namespace RailDraw
             Point pt = e.Location;
             if (mouseIsDown && !drapIsDown)
             {
-                objectEvent.OnMouseMove(pt);
+                objectEvent.OnMouseMove(pt);                    
                 this.DrawRegion.Invalidate();
             }
         }
@@ -201,9 +201,7 @@ namespace RailDraw
         {
             Point pt = e.Location;
             if (mouseIsDown)
-            {
                 mouseIsDown = false;
-            }
             if (drapIsDown)
             {
                 Point pt_offset = objectEvent.DrapDrawRegion(pt);
@@ -564,6 +562,7 @@ namespace RailDraw
             FileStream fs;
             switch (str)
             {
+                    
                 case "drap":
                     cursorbuffer = RailDraw.Properties.Resources.drap;
                     fs = new FileStream("temp_cur.dat", FileMode.Create);

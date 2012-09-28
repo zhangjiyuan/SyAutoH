@@ -9,14 +9,22 @@ namespace BaseRailElement
 {
     public class ObjectCurvedOp
     {
-        public void DrawTracker(Graphics canvas, Point center, int radiu, CurvedRailEle.DirectonCurved _direction)
+        private int drawMultiFactor = 1;
+        public int DrawMultiFactor
+        {
+            set { drawMultiFactor = value; }
+        }
+
+        public void DrawTracker(Graphics canvas, Point centerDot, int radiuArc, CurvedRailEle.DirectonCurved direction)
         {
             if (canvas == null)
                 throw new Exception("Graphics对象Canvas不能为空");
-            Pen pen = new Pen(Color.White, 2);
-            SolidBrush bsh = new SolidBrush(Color.Black);
+            Point center = new Point(centerDot.X * drawMultiFactor, centerDot.Y * drawMultiFactor);
+            int radiu = radiuArc * drawMultiFactor;
             Point[] points = new Point[4];
-            switch (_direction)
+            Pen pen = new Pen(Color.White, 2);
+            SolidBrush bsh = new SolidBrush(Color.Black);        
+            switch (direction)
             {
                 case CurvedRailEle.DirectonCurved.first:
                     points[0] = center;
@@ -58,10 +66,12 @@ namespace BaseRailElement
         public int HitTest(
             Point point,
             bool isSelected,
-            Point center, 
-            int radiu,
+            Point centerArc, 
+            int radiuArc,
             CurvedRailEle.DirectonCurved direction)
         {
+            Point center = new Point(centerArc.X * drawMultiFactor, centerArc.Y * drawMultiFactor);
+            int radiu = radiuArc * drawMultiFactor;
             if (isSelected)
             {
                 int handleHit = HandleHitTest(point, center, radiu, direction);
@@ -159,6 +169,8 @@ namespace BaseRailElement
             int radiu,
             CurvedRailEle.DirectonCurved direction)
         {
+//            Point center = new Point(centerArc.X * drawMultiFactor, centerArc.Y * drawMultiFactor);
+//            int radiu = radiuArc * drawMultiFactor;
             Point[] points = new Point[4];
             switch (direction)
             {
