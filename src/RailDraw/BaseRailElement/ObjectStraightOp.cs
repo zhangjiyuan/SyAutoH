@@ -9,6 +9,12 @@ namespace BaseRailElement
 {
     public class ObjectStraightOp
     {
+        private int drawMultiFactor = 1;
+        public int DrawMultiFactor
+        {
+            set { drawMultiFactor = value; }
+        }
+
         private List<Point> pointList = new List<Point>();
         public List<Point> PointList
         {
@@ -16,26 +22,20 @@ namespace BaseRailElement
             set { pointList = value; }
         }
 
-        private List<Point> saveList = new List<Point>();
-        public List<Point> SaveList
-        {
-            get { return saveList; }
-            set { saveList = value; }
-        }
-
         public void DrawTracker(Graphics canvas)
         {
             if (canvas == null)
                 throw new Exception("Graphics对象Canvas不能为空");
             int n = pointList.Count;
-            Point[] points = new Point[n];
-            pointList.CopyTo(points);
+            Point[] pts = new Point[n];
+            pointList.CopyTo(pts);
             Pen pen = new Pen(Color.White);
             pen.Width = 2;
             SolidBrush bsh = new SolidBrush(Color.Black);
             for (int i = 0; i < n; i++)
             {
-                Point pt = points[i];
+                Point pt = pts[i];
+                pt.Offset(pt.X * (drawMultiFactor - 1), pt.Y * (drawMultiFactor - 1));
                 Rectangle rc = new Rectangle(pt.X - 2, pt.Y - 2, 4, 4);
                 canvas.DrawRectangle(pen, rc);
                 canvas.FillRectangle(bsh, rc);
@@ -88,11 +88,12 @@ namespace BaseRailElement
         public int HandleHitTest(Point point)
         {
             int n = pointList.Count;
-            Point[] points = new Point[n];
-            pointList.CopyTo(points);
+            Point[] pts = new Point[n];
+            pointList.CopyTo(pts);
             for (int i = 0; i < n; i++)
             {
-                Point pt = points[i];
+                pts[i].Offset(pts[i].X * (drawMultiFactor - 1), pts[i].Y * (drawMultiFactor - 1));
+                Point pt = pts[i];
                 Rectangle rc = new Rectangle(pt.X - 3, pt.Y - 3, 6, 6);
                 if (rc.Contains(point)) 
                     return i + 1;
@@ -208,43 +209,22 @@ namespace BaseRailElement
         {
             int n = pointList.Count;
             int minX, minY, maxX, maxY;
-            maxX = minX = PointList[0].X; maxY = minY = pointList[0].Y;
+            maxX = minX = PointList[0].X * drawMultiFactor;
+            maxY = minY = pointList[0].Y * drawMultiFactor;
             for (int i = 1; i < n; i++)
             {
-                if (pointList[i].X < minX)
-                    minX = pointList[i].X;
-                else if (pointList[i].X > maxX)
-                    maxX = pointList[i].X;
-                if (pointList[i].Y < minY)
-                    minY = pointList[i].Y;
-                else if (pointList[i].Y > maxY)
-                    maxY = pointList[i].Y;
+                if (pointList[i].X * drawMultiFactor < minX)
+                    minX = pointList[i].X * drawMultiFactor;
+                else if (pointList[i].X * drawMultiFactor > maxX)
+                    maxX = pointList[i].X * drawMultiFactor;
+                if (pointList[i].Y * drawMultiFactor < minY)
+                    minY = pointList[i].Y * drawMultiFactor;
+                else if (pointList[i].Y * drawMultiFactor > maxY)
+                    maxY = pointList[i].Y * drawMultiFactor;
             }
             Rectangle rc = new Rectangle(minX, minY, maxX - minX, maxY - minY);
             rc.Inflate(5, 5);
             return rc;
-        }
-
-        public Region GetRedrawRegion()
-        {
-            int n = pointList.Count;
-            int minX, minY, maxX, maxY;
-            maxX = minX = pointList[0].X; maxY = minY = pointList[0].Y;
-            for (int i = 1; i < n; i++)
-            {
-                if (pointList[i].X < minX)
-                    minX = pointList[i].X;
-                else if (pointList[i].X > maxX)
-                    maxX = pointList[i].X;
-                if (pointList[i].Y < minY)
-                    minY = pointList[i].Y;
-                else if (pointList[i].Y > maxY)
-                    maxY = pointList[i].Y;
-            }
-            Rectangle rc = new Rectangle(minX, minY, maxX - minX, maxY - minY);
-            rc.Inflate(10, 10);
-            Region region = new Region(rc);
-            return region;
         }
 
         public bool ChosedInRegion(Rectangle rect)
