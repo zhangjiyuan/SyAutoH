@@ -294,7 +294,7 @@ namespace BaseRailElement
             PointList.CopyTo(pts);
             for (int i = 0; i < 8; i++)
             {
-                pts[i].Offset(20 * DrawMultiFactor, 20 * DrawMultiFactor);
+                pts[i].Offset(20, 20);
             }
             cl.PointList.AddRange(pts);
             cl.lenghtOfStrai = lenghtOfStrai;
@@ -302,10 +302,11 @@ namespace BaseRailElement
             cl.rotateAngle = rotateAngle;
             cl.directionOfCross = directionOfCross;
             cl.DrawMultiFactor = DrawMultiFactor;
-            cl.firstPart = firstPart;
-            cl.secPart = secPart;
-            cl.thPart = thPart;
-            cl.fourPart = fourPart;
+            cl.objectCrossOp.DrawMultiFactor = DrawMultiFactor;
+            cl.FirstPart = firstPart;
+            cl.SecPart = secPart;
+            cl.ThPart = thPart;
+            cl.FourPart = fourPart;
             cl.mirror = mirror;
             return cl;
         }

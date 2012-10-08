@@ -21,7 +21,7 @@ namespace RailView
         public void InitShowRunning()
         {
             railEleList.AddRange(railInfo.OpenFile());
-            List<RailEle> listTemp = codingRailCoor.InitEleList(railEleList);
+            List<RailEle> listTemp = codingRailCoor.ChooseStartPartInList(railEleList);
             railEleList.Clear();
             railEleList.AddRange(codingRailCoor.ArrangeEleList(listTemp));
 
@@ -32,7 +32,7 @@ namespace RailView
         public void DrawRailInfo(Graphics canvas)
         {
             Pen pen = new Pen(Color.Black, 1);
-/*            Pen pen1 = new Pen(Color.Red, 1);
+            Pen pen1 = new Pen(Color.Red, 1);
             Pen pen2 = new Pen(Color.Green, 1);
             Pen pen3 = new Pen(Color.Blue, 1);
             Pen pen4 = new Pen(Color.Yellow, 1);
@@ -86,8 +86,8 @@ namespace RailView
                         break;
                 }
             }
-*/ 
-            foreach (RailEle obj in railEleList)
+ 
+/*            foreach (RailEle obj in railEleList)
             {
                 switch (obj.graphType)
                 {
@@ -120,7 +120,7 @@ namespace RailView
                         break;
                 }
             }
-
+*/
             pen.Dispose();
         }
 
@@ -131,7 +131,7 @@ namespace RailView
             if (section != -1 && offset != -1)
             {
                 Pen pen = new Pen(Color.Red, 1);
-                Point carrierCoor = codingRailCoor.computeCoordinates(railEleList, section, offset);
+                Point carrierCoor = codingRailCoor.ComputeCoordinates(railEleList, section, offset);
                 Point carrierCoor1 = carrierCoor;
                 carrierCoor1.Offset(2, 0);
                 canvas.DrawLine(pen, carrierCoor, carrierCoor1);

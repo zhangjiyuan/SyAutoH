@@ -48,7 +48,7 @@ namespace RailView
                                         strTemp.lenght = int.Parse(ctwoxe.InnerText);
                                     else if (ctwoxe.Name == "StartAngle")
                                         strTemp.startAngle = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "SaveList")
+                                    else if (ctwoxe.Name == "PointList")
                                     {
                                         cThNodeList = ctwoxe.ChildNodes;
                                         foreach (XmlNode cthxn in cThNodeList)
@@ -159,7 +159,7 @@ namespace RailView
                                                 croTemp.fourPart.Y = int.Parse(cthxe.InnerText);
                                         }
                                     }
-                                    else if (ctwoxe.Name == "SaveList")
+                                    else if (ctwoxe.Name == "PointList")
                                     {
                                         cThNodeList = ctwoxe.ChildNodes;
                                         foreach (XmlNode cthxn in cThNodeList)
