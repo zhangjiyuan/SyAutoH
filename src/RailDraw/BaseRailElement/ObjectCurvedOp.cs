@@ -169,8 +169,6 @@ namespace BaseRailElement
             int radiu,
             CurvedRailEle.DirectonCurved direction)
         {
-//            Point center = new Point(centerArc.X * drawMultiFactor, centerArc.Y * drawMultiFactor);
-//            int radiu = radiuArc * drawMultiFactor;
             Point[] points = new Point[4];
             switch (direction)
             {
