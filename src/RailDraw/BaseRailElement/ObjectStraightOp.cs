@@ -229,14 +229,20 @@ namespace BaseRailElement
 
         public bool ChosedInRegion(Rectangle rect)
         {
-            int containedNum=0;
-            int n=pointList.Count;
+            int containedNum = 0;
+            int n = pointList.Count;
+            Point[] pts = new Point[n];
             for (int i = 0; i < n; i++)
             {
-                if(rect.Contains(pointList[i]))
+                pts[i] = pointList[i];
+                pts[i].Offset(pts[i].X * drawMultiFactor - pts[i].X, pts[i].Y * drawMultiFactor - pts[i].Y);
+            }
+            for (int i = 0; i < n; i++)
+            {
+                if (rect.Contains(pts[i]))
                     containedNum++;
             }
-            if(containedNum==n)
+            if (containedNum == n)
                 return true;
             return false;
         }

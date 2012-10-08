@@ -9,6 +9,12 @@ namespace BaseRailElement
 {
     public class ObjectCrossOp
     {
+        private int drawMultiFactor = 1;
+        public int DrawMultiFactor
+        {
+            set { drawMultiFactor = value; }
+        }
+
         private List<Point> pointList = new List<Point>();
         public List<Point> PointList
         {
@@ -42,13 +48,6 @@ namespace BaseRailElement
             set { fourPart = value; }
         }
 
-        private List<Point> saveList = new List<Point>();
-        public List<Point> SaveList
-        {
-            get { return saveList; }
-            set { saveList = value; }
-        }
-
         public void DrawTracker(Graphics canvas, CrossEle.DirectionCross direction)
         {
             if (canvas == null)
@@ -59,7 +58,14 @@ namespace BaseRailElement
             pts[0] = pointList[0];
             pts[1] = pointList[3];
             pts[2] = pointList[5];
-            pts[3] = pointList[7];           
+            pts[3] = pointList[7];
+            if (drawMultiFactor != 1)
+            {
+                for (int i = 0; i < pts.Length;i++ )
+                {
+                    pts[i].Offset(pts[i].X * drawMultiFactor - pts[i].X, pts[i].Y * drawMultiFactor - pts[i].Y);
+                }
+            }
             for (int i = 0; i < 4; i++)
             {
                 Rectangle rc = new Rectangle(pts[i].X - 2, pts[i].Y - 2, 4, 4);
@@ -98,6 +104,17 @@ namespace BaseRailElement
             }
             pts[1] = pointList[3];           
             pts[3] = pointList[7];
+            if (drawMultiFactor != 1)
+            {
+                Point tempPt = Point.Empty;
+                int n = pts.Length;
+                for (int i = 0; i < n; i++)
+                {
+                    tempPt = pts[i];
+                    tempPt.Offset(tempPt.X * drawMultiFactor - tempPt.X, tempPt.Y * drawMultiFactor - tempPt.Y);
+                    pts[i] = tempPt;
+                }
+            }
             switch (direction)
             {
                 case CrossEle.DirectionCross.first:
@@ -131,9 +148,11 @@ namespace BaseRailElement
             pts[1] = pointList[3];
             pts[2] = pointList[5];
             pts[3] = pointList[7];
+            Point tempPt = Point.Empty;
             for (int i = 0; i < 4; i++)
             {
                 Point pt = pts[i];
+                pt.Offset(pt.X * drawMultiFactor - pt.X, pt.Y * drawMultiFactor - pt.Y);
                 Rectangle rc = new Rectangle(pt.X - 3, pt.Y - 3, 6, 6);
                 if (rc.Contains(point))
                     return i + 1;
@@ -179,9 +198,9 @@ namespace BaseRailElement
                                 pointList.Clear();
                                 pointList.AddRange(ptsList);
                                 if (ptsList[0].X < ptsList[1].X)
-                                    SecPart += dx;
+                                    secPart += dx;
                                 else
-                                    SecPart -= dx;
+                                    secPart -= dx;
                             }                          
                         }
                         break;
@@ -315,9 +334,15 @@ namespace BaseRailElement
         {
             int containedNum = 0;
             int n = pointList.Count;
+            Point[] pts = new Point[n];
             for (int i = 0; i < n; i++)
             {
-                if (rect.Contains(pointList[i]))
+                pts[i] = pointList[i];
+                pts[i].Offset(pts[i].X * drawMultiFactor - pts[i].X, pts[i].Y * drawMultiFactor - pts[i].Y);
+            }
+            for (int i = 0; i < n; i++)
+            {
+                if (rect.Contains(pts[i]))
                     containedNum++;
             }
             if (containedNum == n)

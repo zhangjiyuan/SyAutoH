@@ -82,10 +82,10 @@ namespace BaseRailElement
                     }
                     break;
                 case SelectObject.SelectEle:
-                    for (int i = 0; i < n; i++)
+                    tempDrawMultiFactor = document.SelectedDrawObjectList[0].DrawMultiFactor;
+                    if ((dx != 0 && dx / tempDrawMultiFactor != 0) || (dy != 0 && dy / tempDrawMultiFactor != 0))
                     {
-                        tempDrawMultiFactor = document.SelectedDrawObjectList[i].DrawMultiFactor;
-                        if ((dx != 0 && dx / tempDrawMultiFactor != 0) || (dy != 0 && dy / tempDrawMultiFactor != 0))
+                        for (int i = 0; i < n; i++)
                         {
                             if (document.SelectedDrawObjectList[i].GraphType == 1)
                             {

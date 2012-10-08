@@ -13,12 +13,7 @@ namespace BaseRailElement
 {
     public class CurvedRailEle : BaseRailEle
     {
-        private ObjectCurvedOp objectCurved = new ObjectCurvedOp();
-
-        private int showRadius = 50;
-        private Point showCenterDot = Point.Empty;
-        private Point showFirstDot = Point.Empty;
-        private Point showSecondDot = Point.Empty;
+        private ObjectCurvedOp objectCurvedOp = new ObjectCurvedOp();
 
         private int startAngle = 0;
         [Browsable(false)]
@@ -62,18 +57,22 @@ namespace BaseRailElement
             set { oldRadiu = radiu; radiu = value; }
         }
 
+        private Point oldFirstDot = Point.Empty;
+
         private Point firstDot = Point.Empty;
         public Point FirstDot
         {
             get { return firstDot; }
-            set { firstDot = value; }
+            set { oldFirstDot = firstDot; firstDot = value; }
         }
+
+        private Point oldSecDot = Point.Empty;
 
         private Point secDot = Point.Empty;
         public Point SecDot
         {
             get { return secDot; }
-            set { secDot = value; }
+            set { oldSecDot = secDot; secDot = value; }
         }
 
         public enum DirectonCurved
@@ -93,7 +92,7 @@ namespace BaseRailElement
         public CurvedRailEle CreatEle(Point centerDot, Size size, int multiFactor)
         {
             DrawMultiFactor = multiFactor;
-            objectCurved.DrawMultiFactor = DrawMultiFactor;
+            objectCurvedOp.DrawMultiFactor = DrawMultiFactor;
             Point pt = centerDot;
             pt.Offset(centerDot.X / DrawMultiFactor - centerDot.X, centerDot.Y / DrawMultiFactor - centerDot.Y);
             center = pt;
@@ -102,7 +101,6 @@ namespace BaseRailElement
             Point pt_sec = new Point(center.X, center.Y + radiu);
             firstDot = pt_first;
             secDot = pt_sec;
-//            PtlToSavel();
             return this;
         }
 
@@ -128,12 +126,12 @@ namespace BaseRailElement
 
         public override void DrawTracker(Graphics canvas)
         {
-            objectCurved.DrawTracker(canvas, center, radiu, directionCurved);
+            objectCurvedOp.DrawTracker(canvas, center, radiu, directionCurved);
         }
 
         public override int HitTest(Point point, bool isSelected)
         {
-            return objectCurved.HitTest(point, isSelected, center, radiu, directionCurved);
+            return objectCurvedOp.HitTest(point, isSelected, center, radiu, directionCurved);
         }
 
         protected override void Translate(int offsetX, int offsetY)
@@ -147,14 +145,13 @@ namespace BaseRailElement
             pt = secDot;
             pt.Offset(offsetX, offsetY);
             secDot = pt;
-//            PtlToSavel();
         }
 
         protected override void Scale(int handle, int dx, int dy)
         {
             Point pt_first = firstDot;
             Point pt_sec = secDot;
-            Rectangle rc = objectCurved.Scale(handle, dx, dy, center, radiu, directionCurved);
+            Rectangle rc = objectCurvedOp.Scale(handle, dx, dy, center, radiu, directionCurved);
             Center = rc.Location;
             Radiu = rc.Width;
             switch (directionCurved)
@@ -188,7 +185,6 @@ namespace BaseRailElement
             }
             firstDot = pt_first;
             secDot = pt_sec;
-//            PtlToSavel();
         }
 
         public override void RotateCounterClw()
@@ -301,60 +297,22 @@ namespace BaseRailElement
             cl.sweepAngle = sweepAngle;
             cl.DrawMultiFactor = DrawMultiFactor;
             cl.directionCurved = directionCurved;
-            cl.objectCurved.DrawMultiFactor = DrawMultiFactor;
+            cl.objectCurvedOp.DrawMultiFactor = DrawMultiFactor;
             return cl;
         }
 
         public override void DrawEnlargeOrShrink(float multiFactor)
         {
-/*            Point[] pts = new Point[3];
-            pts[0] = center;
-            pts[1] = firstDot;
-            pts[2] = secDot;
-            if (multiFactor > 1)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    pts[i].X = pts[i].X * DrawMultiFactor;
-                    pts[i].Y = pts[i].Y * DrawMultiFactor;
-                }
-            }
-            showCenterDot = pts[0];
-            showFirstDot = pts[1];
-            showSecondDot = pts[2];
-            showRadius = Math.Abs(pts[0].X - pts[1].X) + Math.Abs(pts[0].Y - pts[1].Y);
- */
-            objectCurved.DrawMultiFactor = DrawMultiFactor;
+            objectCurvedOp.DrawMultiFactor = Convert.ToInt16(multiFactor);
             base.DrawEnlargeOrShrink(DrawMultiFactor);
-        }
-
-        private void PtlToSavel()
-        {
-            Point[] pts = new Point[3];
-            pts[0] = showCenterDot;
-            pts[1] = showFirstDot;
-            pts[2] = showSecondDot;
-            if (DrawMultiFactor > 1)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    pts[i].X = pts[i].X / DrawMultiFactor;
-                    pts[i].Y = pts[i].Y / DrawMultiFactor;
-                }           
-            }
-            Center = pts[0];
-            firstDot = pts[1];
-            secDot =pts[2];
-            Radiu = Math.Abs(pts[0].X - pts[1].X) + Math.Abs(pts[0].Y - pts[1].Y);
         }
 
         public override void ChangePropertyValue()
         {
             Point[] pts = new Point[3];
+            int dx = 0, dy = 0;
             if (oldRadiu != radiu)
-            {         
-//                Rectangle rc = new Rectangle(
-//                    showCenterDot.X - showRadius, showCenterDot.Y - showRadius, 2 * showRadius, 2 * showRadius);
+            {
                 switch (directionCurved)
                 {
                     case DirectonCurved.first:
@@ -385,37 +343,49 @@ namespace BaseRailElement
                         break;
                 }
                 firstDot = pts[0];
-                secdDot = pts[1];               
+                secDot = pts[1];
+                oldRadiu = radiu;
             }
             else if (oldCenter.X != center.X
                 || oldCenter.Y != center.Y)
-            {
-                int dx = 0, dy = 0;
+            {           
                 dx = center.X - oldCenter.X;
                 dy = center.Y - oldCenter.Y;
                 firstDot.Offset(dx, dy);
                 secDot.Offset(dx, dy);
-/*                dx *= DrawMultiFactor;
-                dy *= DrawMultiFactor;
-                pts[0] = showFirstDot;
-                pts[1] = showSecondDot;
-                pts[2] = showCenterDot;
-                for (int i = 0; i < 3; i++)
-                {
-                    pts[i].Offset(dx, dy);
-                }
-                showFirstDot = pts[0];
-                showSecondDot = pts[1];
-                showCenterDot = pts[2];
- */
+                oldCenter = center;
             }
-//            PtlToSavel();
+            else if (oldFirstDot.X != firstDot.X
+                || oldFirstDot.Y != firstDot.Y)
+            {
+                dx = firstDot.X - oldFirstDot.X;
+                dy = firstDot.Y - oldFirstDot.Y;
+                center.Offset(dx, dy);
+                secDot.Offset(dx, dy);
+                oldFirstDot = firstDot;
+            }
+            else if (oldSecDot.X != secDot.X
+                || oldSecDot.Y != secDot.Y)
+            {
+                dx = secDot.X - oldSecDot.X;
+                dy = secDot.Y - oldSecDot.Y;
+                center.Offset(dx, dy);
+                firstDot.Offset(dx, dy);
+                oldSecDot = secDot;
+            }
             base.ChangePropertyValue();
         }
 
         public override bool ChosedInRegion(Rectangle rect)
         {
-            if (rect.Contains(showCenterDot) && rect.Contains(showFirstDot) && rect.Contains(showSecondDot))
+            Point[] pts = new Point[3];
+            pts[0].X = center.X * DrawMultiFactor;
+            pts[0].Y = center.Y * DrawMultiFactor;
+            pts[1].X = firstDot.X * DrawMultiFactor;
+            pts[1].Y = firstDot.Y * DrawMultiFactor;
+            pts[2].X = secDot.X * DrawMultiFactor;
+            pts[2].Y = secDot.Y * DrawMultiFactor;
+            if (rect.Contains(pts[0]) && rect.Contains(pts[1]) && rect.Contains(pts[2]))
                 return true;
             else
                 return false;
