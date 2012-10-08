@@ -11,51 +11,51 @@ namespace RailView
     {
         public List<RailEle> codingEleList=new List<RailEle>();
 
-        public List<RailEle> InitEleList(List<RailEle> railEleList)
+        public List<RailEle> ChooseStartPartInList(List<RailEle> railEleList)
         {
             int n = railEleList.Count;
             codingEleList.Clear();
             codingEleList.AddRange(railEleList);
-            List<RailEle> eleTempList = new List<RailEle>();
-            eleTempList.Add(railEleList[0]);
+            List<RailEle> saveSameEleList = new List<RailEle>();
+            saveSameEleList.Add(railEleList[0]);
             Point startPoint = Point.Empty;
             Point comparePoint = Point.Empty;
             StraightEle strTemp = new StraightEle();
             CurvedEle curTemp = new CurvedEle();
             CrossEle croTemp = new CrossEle();
             //set first element startpoint
-            startPoint = GetPointOfInitFun(railEleList, 0);
+            startPoint = ChooseStartDotForArrange(railEleList, 0);
             //compare x
             for (int i = 1; i < n; i++)
             {
-                comparePoint = GetPointOfInitFun(railEleList, i);
-                if (comparePoint.X < startPoint.X && (startPoint.X - comparePoint.X) > 2)
+                comparePoint = ChooseStartDotForArrange(railEleList, i);
+                if (comparePoint.X > startPoint.X && (comparePoint.X - startPoint.X) > 2)
                 {
                     startPoint = comparePoint;
                     codingEleList.RemoveAt(i);
                     codingEleList.Insert(0, railEleList[i]);
-                    eleTempList.Clear();
-                    eleTempList.Add(railEleList[i]);
+                    saveSameEleList.Clear();
+                    saveSameEleList.Add(railEleList[i]);
                 }
                 else if (comparePoint.X == startPoint.X)
                 {
-                    eleTempList.Insert(0, railEleList[i]);
+                    saveSameEleList.Insert(0, railEleList[i]);
                     codingEleList.RemoveAt(i);
                     codingEleList.Insert(0, railEleList[i]);
                 }
             }
             //compare y
-            n=eleTempList.Count;
+            n = saveSameEleList.Count;
             //find the top element
-            startPoint = GetPointOfInitFun(eleTempList, 0);
+            startPoint = ChooseStartDotForArrange(saveSameEleList, 0);
             for (int i = 1; i < n; i++)
             {
-                comparePoint = GetPointOfInitFun(eleTempList, i);
+                comparePoint = ChooseStartDotForArrange(saveSameEleList, i);
                 if (comparePoint.Y < startPoint.Y && (startPoint.Y - comparePoint.Y) > 2)
                 {
                     startPoint = comparePoint;
                     codingEleList.RemoveAt(i);
-                    codingEleList.Insert(0, eleTempList[i]);
+                    codingEleList.Insert(0, saveSameEleList[i]);
                 }
             }
             return codingEleList;
@@ -64,10 +64,10 @@ namespace RailView
         public List<RailEle> ArrangeEleList(List<RailEle> railEleList)
         {
             List<RailEle> tempList = new List<RailEle>();
-            List<RailEle> remailEleList = new List<RailEle>();
+            List<RailEle> remainEleList = new List<RailEle>();
             tempList.AddRange(railEleList);
-            remailEleList.AddRange(railEleList);
-            remailEleList.RemoveAt(0);
+            remainEleList.AddRange(railEleList);
+            remainEleList.RemoveAt(0);
             int numOfList = railEleList.Count;
             StraightEle strTemp = new StraightEle();
             CurvedEle curTemp = new CurvedEle();
@@ -75,7 +75,7 @@ namespace RailView
             Point startPt = Point.Empty;
             Point endPt = Point.Empty;
             bool isSearchedNextEle = false;
-            startPt = GetPointOfInitFun(tempList, 0);
+            startPt = ChooseStartDotForCoding(tempList, 0);
             for (int i = 0; i < numOfList; i++)
             {
                 switch (tempList[i].graphType)
@@ -164,25 +164,25 @@ namespace RailView
                     }
                     if (isSearchedNextEle)
                     {
-                        remailEleList.Remove(tempList[j]);
+                        remainEleList.Remove(tempList[j]);
                         tempList.Insert(i + 1, tempList[j]);
                         tempList.RemoveAt(j + 1);
                         break;
                     }                  
                 }
-                if (!isSearchedNextEle && !(remailEleList.Count==0))
+                if (!isSearchedNextEle && !(remainEleList.Count == 0))
                 {
                     tempList.RemoveRange(i + 1, numOfList - i - 1);
-                    tempList.AddRange(InitEleList(remailEleList));
-                    startPt= GetPointOfInitFun(tempList, i + 1);
-                    remailEleList.Remove(tempList[i+1]);
+                    tempList.AddRange(ChooseStartPartInList(remainEleList));
+                    startPt = ChooseStartDotForCoding(tempList, i + 1);
+                    remainEleList.Remove(tempList[i + 1]);
                 }
                 isSearchedNextEle = false;
             }
             return tempList;
         }
 
-        public Point computeCoordinates(List<RailEle> tempList,int section,int offset)
+        public Point ComputeCoordinates(List<RailEle> tempList,int section,int offset)
         {
             Point returnPt=Point.Empty;
             int offsetTemp = offset;
@@ -479,7 +479,46 @@ namespace RailView
             return returnPt;
         }
 
-        private Point GetPointOfInitFun(List<RailEle> tempList, int i)
+        private Point ChooseStartDotForArrange(List<RailEle> tempList, int i)
+        {
+            Point pt = Point.Empty;
+            StraightEle strTemp = new StraightEle();
+            CurvedEle curTemp = new CurvedEle();
+            CrossEle croTemp = new CrossEle();
+            switch (tempList[i].graphType)
+            {
+                case 1:
+                    strTemp = (StraightEle)tempList[i];
+                    if (strTemp.pointList[0].X > strTemp.pointList[1].X ||
+                        strTemp.pointList[0].Y < strTemp.pointList[1].Y)
+                        pt = strTemp.pointList[0];
+                    else if (strTemp.pointList[0].X < strTemp.pointList[1].X ||
+                        strTemp.pointList[0].Y > strTemp.pointList[1].Y)
+                        pt = strTemp.pointList[1];
+                    break;
+                case 2:
+                    curTemp = (CurvedEle)tempList[i];
+                    if (curTemp.secDot.X < curTemp.firstDot.X)
+                        pt = curTemp.firstDot;
+                    else if (curTemp.secDot.X > curTemp.firstDot.X)
+                        pt = curTemp.secDot;
+                    break;
+                case 3:
+                    croTemp = (CrossEle)tempList[i];
+                    if (croTemp.pointList[0].X > croTemp.pointList[5].X ||
+                        croTemp.pointList[0].Y < croTemp.pointList[5].Y)
+                        pt = croTemp.pointList[0];
+                    else if (croTemp.pointList[0].X < croTemp.pointList[5].X ||
+                        croTemp.pointList[0].Y > croTemp.pointList[5].Y)
+                        pt = croTemp.pointList[5];
+                    break;
+                default:
+                    break;
+            }
+            return pt;
+        }
+
+        private Point ChooseStartDotForCoding(List<RailEle> tempList, int i)
         {
             Point pt = Point.Empty;
             StraightEle strTemp = new StraightEle();
@@ -498,10 +537,7 @@ namespace RailView
                     break;
                 case 2:
                     curTemp = (CurvedEle)tempList[i];
-                    if (curTemp.secDot.X > curTemp.firstDot.X)
-                        pt = curTemp.firstDot;
-                    else if (curTemp.secDot.X < curTemp.firstDot.X)
-                        pt = curTemp.secDot;
+                    pt = curTemp.firstDot;
                     break;
                 case 3:
                     croTemp = (CrossEle)tempList[i];

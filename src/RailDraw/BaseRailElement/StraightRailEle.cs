@@ -34,7 +34,6 @@ namespace BaseRailElement
 
         private int rotateAngle = 90;
 
-        [XmlIgnore]
         [Browsable(false)]
         public List<Point> PointList
         {
