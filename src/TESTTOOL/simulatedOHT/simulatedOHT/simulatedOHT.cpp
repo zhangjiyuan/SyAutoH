@@ -18,15 +18,18 @@ unsigned char *message_send;
 size_t len;
 
 string host = "127.0.0.1";
-int wsport = 9999;
-
+int wsport = 9999;	
+boost::asio::io_service iosev; 
+boost::asio::ip::tcp::socket oht_client(iosev);
+ boost::system::error_code ec; 
 int accept()
 {
-	boost::asio::io_service iosev; 
-    boost::asio::ip::tcp::socket socket(iosev); 
+
+    //boost::asio::ip::tcp::socket socket(iosev); 
+	//gSocket = socket;
     boost::asio::ip::tcp::endpoint ep(boost::asio::ip::address_v4::from_string(host), wsport); 
-    boost::system::error_code ec; 
-    socket.connect(ep,ec); 
+   
+    oht_client.connect(ep,ec); 
     if(ec) 
     { 
         std::cout << boost::system::system_error(ec).what() << std::endl; 
@@ -35,23 +38,39 @@ int accept()
 	//memset(buf_send,1,1024);
 	//socket.write_some(boost::asio::buffer(buf_accept));
 	memset(buf_send,0,1024);
-	len = socket.read_some(boost::asio::buffer(buf_accept), ec); 
+	len = oht_client.read_some(boost::asio::buffer(buf_accept), ec); 
 	return 0;
 }
 int send_Message(unsigned char *buf)
 {
 	memcpy(buf_send,buf,1024);
-	boost::asio::io_service iosev; 
-    boost::asio::ip::tcp::socket socket(iosev); 
-    boost::asio::ip::tcp::endpoint ep(boost::asio::ip::address_v4::from_string(host), wsport); 
-    boost::system::error_code ec; 
-    socket.connect(ep,ec); 
-    if(ec) 
-    { 
-        std::cout << boost::system::system_error(ec).what() << std::endl; 
-        return -1; 
-    } 
-	socket.write_some(boost::asio::buffer(buf_send),ec);
+	//boost::asio::io_service iosev; 
+    //boost::asio::ip::tcp::socket socket(iosev); 
+    //boost::asio::ip::tcp::endpoint ep(boost::asio::ip::address_v4::from_string(host), wsport); 
+   // boost::system::error_code ec; 
+	/* socket.connect(ep,ec); 
+
+	if(ec) 
+	{ 
+	std::cout << boost::system::system_error(ec).what() << std::endl; 
+	return -1; 
+	}*/ 
+	//boost::asio::ip::tcp::endpoint ep(boost::asio::ip::address_v4::from_string(host), wsport); 
+
+	//oht_client.connect(ep,ec); 
+	if(ec) 
+	{ 
+		std::cout << boost::system::system_error(ec).what() << std::endl; 
+		return -1; 
+	}
+
+	size_t sWr = oht_client.write_some(boost::asio::buffer(buf_send),ec);
+	if(ec) 
+	{ 
+		std::cout << boost::system::system_error(ec).what() << std::endl; 
+		return -1; 
+	} 
+
 	return 0;
 }
 //void read_Message(DataFun data,unsigned short bufLen)
@@ -90,7 +109,7 @@ void analytic_Command(int command)
 			}
 
 			break;
-		case(0x8002):
+		case(0x0802):
 			anCommand.Command8002(message_accept,mesLength);
 			if(isNeedReply)
 			{
@@ -148,6 +167,12 @@ int _tmain(int argc, _TCHAR* argv[])
 			analytic_Command(commandNum);
 		}
 	   
+	}
+
+	for (int i=0; i<10; i++)
+	{
+		analytic_Command(0x0802);
+		Sleep(1000);
 	}
 
 	getchar();

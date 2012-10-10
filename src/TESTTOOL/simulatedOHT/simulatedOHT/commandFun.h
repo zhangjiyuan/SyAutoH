@@ -16,7 +16,7 @@ public:
 	unsigned char* Command8013( );
     unsigned char* Command8014( );
 	unsigned char* Command8015( );
-	unsigned char* Command8016( );
+	unsigned char* Command0816( );
 	unsigned char* Command8017( );
 	unsigned char* Command8018( );
     unsigned char* Command8019( );

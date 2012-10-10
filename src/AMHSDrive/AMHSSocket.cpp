@@ -3,7 +3,6 @@
 #include "AMHSSocket.h"
 
 #pragma pack(push, 1)
-
 struct AMHSPktHeader
 {
 	uint8 comm;
@@ -50,6 +49,10 @@ void AMHSSocket::OnConnect()
 
 	wp.hexlike();
 	SendPacket(&wp);
+
+	string sIP = this->GetRemoteIP();
+	uint32 uPort = this->GetRemotePort();
+	printf("OnConnect ---> IP: %s Port: %d\n", sIP.c_str(), uPort);
 }
 
 void AMHSSocket::OnDisconnect()
@@ -81,7 +84,7 @@ void AMHSSocket::OnRead()
 		if(mRemaining == 0)
 		{
 			int len = readBuffer.GetSize();
-			if(readBuffer.GetSize() < 13)
+			if(readBuffer.GetSize() < 14)
 			{
 				// No header in the packet, let's wait.
 				return;
@@ -120,10 +123,23 @@ void AMHSSocket::OnRead()
 			// Copy from packet buffer into our actual buffer.
 			///Read(mRemaining, (uint8*)Packet->contents());
 			readBuffer.Read((uint8*)Packet->contents(), mRemaining);
+			string sIP = this->GetRemoteIP();
+			uint32 uPort = this->GetRemotePort();
+			printf("OnRead ---> IP: %s Port: %d\n", sIP.c_str(), uPort);
 		}
 
 		//sWorldLog.LogPacket(mSize, static_cast<uint16>(mOpcode), mSize ? Packet->contents() : NULL, 0, (mSession ? mSession->GetAccountId() : 0));
 		mRemaining = mSize = mOpcode = 0;
+
+		if (Packet->size() > 0)
+		{
+			
+			string sIP = this->GetRemoteIP();
+			uint32 uPort = this->GetRemotePort();
+			printf("OnRead ---> IP: %s Port: %d\n", sIP.c_str(), uPort);
+			Packet->hexlike();
+		}
+
 
 		//// Check for packets that we handle
 		//switch(Packet->GetOpcode())

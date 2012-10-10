@@ -29,7 +29,6 @@ public:
 
 	void  OutPacket(uint16 opcode, size_t len, const void* data);
 	OUTPACKET_RESULT  _OutPacket(uint16 opcode, size_t len, const void* data);
-
 	
 	void OnConnect();
 	void OnDisconnect();

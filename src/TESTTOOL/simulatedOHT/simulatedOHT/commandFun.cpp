@@ -174,7 +174,7 @@ unsigned char* CommandFuns::Command8015()
 	memcpy(m_mesBuf,buffer_send,buf_length);
 	return m_mesBuf;
 }
-unsigned char* CommandFuns::Command8016()
+unsigned char* CommandFuns::Command0816()
 {
 	unsigned char OHTID = 1;
 	unsigned short positionNum = 25;
@@ -187,7 +187,7 @@ unsigned char* CommandFuns::Command8016()
 	isReply_send = 1;
 	needReply_send = 0;
 	unite(isReply_send,needReply_send);
-	commandNum = 0x8016;
+	commandNum = 0x0816;
 	unsigned short bagNum = 1;
 	unsigned char lastBag = 1;
 	DataFun data_send(toChar,commandNum,bagNum,lastBag,message_send,message_length);
