@@ -28,22 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.sectionText = new System.Windows.Forms.TextBox();
             this.offsetText = new System.Windows.Forms.TextBox();
-            this.sectionRange = new System.Windows.Forms.Label();
             this.offsetRange = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "section";
             // 
             // label2
             // 
@@ -54,14 +42,6 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "offset";
             // 
-            // sectionText
-            // 
-            this.sectionText.Location = new System.Drawing.Point(89, 29);
-            this.sectionText.Name = "sectionText";
-            this.sectionText.Size = new System.Drawing.Size(79, 21);
-            this.sectionText.TabIndex = 2;
-            this.sectionText.TextChanged += new System.EventHandler(this.sectionText_TextChanged);
-            // 
             // offsetText
             // 
             this.offsetText.Location = new System.Drawing.Point(89, 58);
@@ -69,15 +49,6 @@
             this.offsetText.Size = new System.Drawing.Size(79, 21);
             this.offsetText.TabIndex = 3;
             this.offsetText.TextChanged += new System.EventHandler(this.offsetText_TextChanged);
-            // 
-            // sectionRange
-            // 
-            this.sectionRange.AutoSize = true;
-            this.sectionRange.Location = new System.Drawing.Point(189, 32);
-            this.sectionRange.Name = "sectionRange";
-            this.sectionRange.Size = new System.Drawing.Size(47, 12);
-            this.sectionRange.TabIndex = 4;
-            this.sectionRange.Text = "section";
             // 
             // offsetRange
             // 
@@ -94,11 +65,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(314, 127);
             this.Controls.Add(this.offsetRange);
-            this.Controls.Add(this.sectionRange);
             this.Controls.Add(this.offsetText);
-            this.Controls.Add(this.sectionText);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Name = "TestCoordination";
             this.Text = "TestCoordination";
             this.ResumeLayout(false);
@@ -108,11 +76,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox sectionText;
         private System.Windows.Forms.TextBox offsetText;
-        private System.Windows.Forms.Label sectionRange;
         private System.Windows.Forms.Label offsetRange;
     }
 }
