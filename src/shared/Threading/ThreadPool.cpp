@@ -140,6 +140,12 @@ void CThreadPool::ShowStats()
 	//Log.Debug("ThreadPool", "Requested-To-Freed Ratio: %.3f%% (%u/%u)", float(float(_threadsRequestedSinceLastCheck + 1) / float(_threadsExitedSinceLastCheck + 1) * 100.0f), _threadsRequestedSinceLastCheck, _threadsExitedSinceLastCheck);
 	//Log.Debug("ThreadPool", "Eaten Count: %d (negative is bad!)", _threadsEaten);
 	//Log.Debug("ThreadPool", "============================================");
+	printf_s("============ ThreadPool Status ============= \n");
+	printf_s("Active Threads: %u \n", m_activeThreads.size());
+	printf_s("Suspended Threads: %u \n", m_freeThreads.size());
+	printf_s("Requested-To-Freed Ratio: %.3f%% (%u/%u) \n", float(float(_threadsRequestedSinceLastCheck + 1) / float(_threadsExitedSinceLastCheck + 1) * 100.0f), _threadsRequestedSinceLastCheck, _threadsExitedSinceLastCheck);
+	printf_s("Eaten Count: %d (negative is bad!) \n", _threadsEaten);
+	printf_s( "============================================\n");
 	_mutex.Release();
 }
 

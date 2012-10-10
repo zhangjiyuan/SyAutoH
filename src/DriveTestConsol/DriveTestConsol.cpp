@@ -7,10 +7,12 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 	CAMHSDrive amhsDev;
+	amhsDev.Init();
 	amhsDev.SetOHTLocation( 200);
 
 
 	getchar();
+	amhsDev.Clean();
 
 	return 0;
 }

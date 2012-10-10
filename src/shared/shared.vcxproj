@@ -79,6 +79,7 @@
     <ClInclude Include="..\include\Common.h" />
     <ClInclude Include="ByteBuffer.h" />
     <ClInclude Include="CircularBuffer.h" />
+    <ClInclude Include="FastQueue.h" />
     <ClInclude Include="ListenSocketWin32.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="Singleton.h" />

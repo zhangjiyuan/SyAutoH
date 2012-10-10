@@ -17,11 +17,14 @@ unsigned short mesLength;                     //消息体长度
 unsigned char *message_send;
 size_t len;
 
+string host = "127.0.0.1";
+int wsport = 9999;
+
 int accept()
 {
 	boost::asio::io_service iosev; 
     boost::asio::ip::tcp::socket socket(iosev); 
-    boost::asio::ip::tcp::endpoint ep(boost::asio::ip::address_v4::from_string("127.0.0.1"), 1000); 
+    boost::asio::ip::tcp::endpoint ep(boost::asio::ip::address_v4::from_string(host), wsport); 
     boost::system::error_code ec; 
     socket.connect(ep,ec); 
     if(ec) 
@@ -29,6 +32,8 @@ int accept()
         std::cout << boost::system::system_error(ec).what() << std::endl; 
         return -1; 
     } 
+	//memset(buf_send,1,1024);
+	//socket.write_some(boost::asio::buffer(buf_accept));
 	memset(buf_send,0,1024);
 	len = socket.read_some(boost::asio::buffer(buf_accept), ec); 
 	return 0;
@@ -38,7 +43,7 @@ int send_Message(unsigned char *buf)
 	memcpy(buf_send,buf,1024);
 	boost::asio::io_service iosev; 
     boost::asio::ip::tcp::socket socket(iosev); 
-    boost::asio::ip::tcp::endpoint ep(boost::asio::ip::address_v4::from_string("127.0.0.1"), 1000); 
+    boost::asio::ip::tcp::endpoint ep(boost::asio::ip::address_v4::from_string(host), wsport); 
     boost::system::error_code ec; 
     socket.connect(ep,ec); 
     if(ec) 
@@ -126,19 +131,25 @@ int _tmain(int argc, _TCHAR* argv[])
 {
     memset(buf_accept,0,1024);
 	accept();
-	if(len)
+	//while(1)
 	{
-	    unsigned short bufLen = sizeof(buf_accept);
-	    DataFun data(buf_accept,bufLen);
-	    data.Sign(data.m_pMesBuf->signBit);
-	    replyMes = (char)data.toBite[0];
-	    isNeedReply = (char)data.toBite[1];
-	    //commandNum = data.m_pMesBuf->commandNum;
-		commandNum = data.m_pMesBuf->commandNum;
-	    message_accept = new char[data.m_pMesBuf->dataLen];
-	    message_accept = data.m_pMesBuf->data;
-	    mesLength = data.m_pMesBuf->dataLen;
-	    analytic_Command(commandNum);
+		if (len)
+		{
+			unsigned short bufLen = sizeof(buf_accept);
+			DataFun data(buf_accept,bufLen);
+			data.Sign(data.m_pMesBuf->signBit);
+			replyMes = (char)data.toBite[0];
+			isNeedReply = (char)data.toBite[1];
+			//commandNum = data.m_pMesBuf->commandNum;
+			commandNum = data.m_pMesBuf->commandNum;
+			message_accept = new char[data.m_pMesBuf->dataLen];
+			message_accept = data.m_pMesBuf->data;
+			mesLength = data.m_pMesBuf->dataLen;
+			analytic_Command(commandNum);
+
+			analytic_Command(0x8001);
+		}
+	   
 	}
 	return 0;
 }

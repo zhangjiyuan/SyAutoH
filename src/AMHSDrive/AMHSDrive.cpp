@@ -7,20 +7,51 @@
 #include "AMHSDrive.h"
 
 #include "AMHSPacket.h"
-
+#include "AMHSSocket.h"
 
 
 // 这是已导出类的构造函数。
 // 有关类定义的信息，请参阅 AMHSDrive.h
 CAMHSDrive::CAMHSDrive()
 {
+	
+}
 
-	return;
+CAMHSDrive::~CAMHSDrive()
+{
+
 }
 
 int CAMHSDrive::Init()
 {
 	new SocketMgr;
+	new SocketGarbageCollector;
+	sSocketMgr.SpawnWorkerThreads();
+	string host = "127.0.0.1";
+	int wsport = 9999;
+	// Create listener
+	ListenSocket<AMHSSocket> * ls = new ListenSocket<AMHSSocket>(host.c_str(), wsport);
+	bool listnersockcreate = ls->IsOpen();
+	if(listnersockcreate)
+		ThreadPool.ExecuteTask(ls);
+
+	ThreadPool.ShowStats();
+
+	return 0;
+}
+
+int CAMHSDrive::Run()
+{
+	return 0;
+}
+
+int CAMHSDrive::Clean()
+{
+	sSocketMgr.ShutdownThreads();
+	delete SocketMgr::getSingletonPtr();
+	delete SocketGarbageCollector::getSingletonPtr();
+
+	//ThreadPool.Shutdown();
 	return 0;
 }
 
