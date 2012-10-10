@@ -2,7 +2,7 @@
 #include "MMoveCtrlServer.h"
 #include <signal.h>
 #include "MaterialController.h"
-#include "AtomicBoolean.h"
+#include "Common.h"
 #include <iostream>
 
 #include "../MesLink/MesLink.h"
@@ -11,7 +11,7 @@
 
 using namespace std;
 
-AtomicBoolean g_Running(true);
+syamhs::Threading::AtomicBoolean g_Running(true);
 
 /*** Signal Handler ***/
 void _OnSignal(int s)
@@ -93,8 +93,8 @@ void MMoveCtrlServer::Run(int argc, _TCHAR** argv)
 			//	sInfoCore.TimeoutSockets();
 			//	sSocketGarbageCollector.Update();
 			//	CheckForDeadSockets();			  // Flood Protection
-			//	UNIXTIME = time(NULL);
-			//	g_localTime = *localtime(&UNIXTIME);
+			//UNIXTIME = time(NULL);
+			//g_localTime = *localtime(&UNIXTIME);
 			//}
 
 			//PatchMgr::getSingleton().UpdateJobs();

@@ -1,5 +1,5 @@
 #pragma once
-#include "Singleton.h"
+#include "../shared/Singleton.h"
 
 class MMoveCtrlServer;
 class MMoveCtrlServer : public Singleton< MMoveCtrlServer >

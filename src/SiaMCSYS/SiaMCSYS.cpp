@@ -7,7 +7,7 @@
 using namespace std;
 
 #include "MMoveCtrlServer.h"
-#include "AtomicBoolean.h"
+#include "Common.h"
 #include <signal.h>
 
 initialiseSingleton(MMoveCtrlServer);

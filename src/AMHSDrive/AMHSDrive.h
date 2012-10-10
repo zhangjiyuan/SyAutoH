@@ -15,8 +15,6 @@ class AMHSDRIVE_API CAMHSDrive {
 public:
 	CAMHSDrive(void);
 	// TODO: 在此添加您的方法。
+	int Init();
+	int SetOHTLocation(int nPoint);
 };
-
-extern AMHSDRIVE_API int nAMHSDrive;
-
-AMHSDRIVE_API int fnAMHSDrive(void);
