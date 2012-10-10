@@ -81,7 +81,7 @@ void analytic_Command(int command)
 	CommandFuns anCommand;
 	switch(command)
 	{
-		case(0x8001):
+		case(0x0801):
 			anCommand.Command8001(message_accept,mesLength);
 			if(isNeedReply)
 			{
@@ -136,7 +136,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		if (len)
 		{
 			unsigned short bufLen = sizeof(buf_accept);
-			DataFun data(buf_accept,bufLen);
+			DataFun data(buf_accept, len);
 			data.Sign(data.m_pMesBuf->signBit);
 			replyMes = (char)data.toBite[0];
 			isNeedReply = (char)data.toBite[1];
@@ -146,11 +146,12 @@ int _tmain(int argc, _TCHAR* argv[])
 			message_accept = data.m_pMesBuf->data;
 			mesLength = data.m_pMesBuf->dataLen;
 			analytic_Command(commandNum);
-
-			analytic_Command(0x8001);
 		}
 	   
 	}
+
+	getchar();
+
 	return 0;
 }
 

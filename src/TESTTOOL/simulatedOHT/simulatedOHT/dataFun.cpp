@@ -3,6 +3,7 @@
 
 DataFun::DataFun(unsigned char *buf,unsigned long len)
 {
+	int nLen = sizeof(Message);
 	m_bufLen = len;
 	m_pMesBuf = (LPMessage) new char[m_bufLen];
 	if (buf && len > 0)

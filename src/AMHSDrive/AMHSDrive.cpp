@@ -55,16 +55,21 @@ int CAMHSDrive::Clean()
 	return 0;
 }
 
+int CAMHSDrive::SetOHTBackMessage(int nOHT, int ms)
+{
+	return 0;
+}
+
 int CAMHSDrive::SetOHTLocation(int nPoint)
 {
-	AMHSPacket oht(0x0817, 512);
+	/*AMHSPacket oht(0x0817, 512);
 
 	oht << (uint8)253;
 	oht << (uint16)65535;
 
 	oht.hexlike();
 
-	
+
 
 	uint32 dwCode;
 	uint8 nOht;
@@ -74,7 +79,8 @@ int CAMHSDrive::SetOHTLocation(int nPoint)
 	oht >> nPt;
 
 	oht.Initialize(45);
-	oht.hexlike();
+	oht.hexlike();*/
+	
 
 	return 0;
 }

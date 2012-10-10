@@ -3,16 +3,15 @@
 #include "AMHSSocket.h"
 
 #pragma pack(push, 1)
-struct ClientPktHeader
-{
-	uint16 size;
-	uint32 cmd;
-};
 
-struct ServerPktHeader
+struct AMHSPktHeader
 {
+	uint8 comm;
+	uint32 cmd;
 	uint16 size;
-	uint16 cmd;
+	uint16 index;
+	uint8  bLast;
+	uint8 reversed[4];
 };
 #pragma pack(pop)
 
@@ -44,17 +43,13 @@ void AMHSSocket::OnConnect()
 	//sWorld.mAcceptedConnections++;
 	//_latency = getMSTime();
 
-	AMHSPacket wp(12, 24);
+	AMHSPacket wp(0x0801, 2);
 
-	wp << uint32(1);
-	wp << uint32(235);
-	wp << uint32(0xC0FFEEEE);
-	wp << uint32(0x00BABE00);
-	wp << uint32(0xDF1697E5);
-	wp << uint32(0x1234ABCD);
+	wp << uint8(254);
+	wp << uint8(0);
+
 	wp.hexlike();
 	SendPacket(&wp);
-
 }
 
 void AMHSSocket::OnDisconnect()
@@ -85,22 +80,26 @@ void AMHSSocket::OnRead()
 		// Check for the header if we don't have any bytes to wait for.
 		if(mRemaining == 0)
 		{
-			if(readBuffer.GetSize() < 6)
+			int len = readBuffer.GetSize();
+			if(readBuffer.GetSize() < 13)
 			{
 				// No header in the packet, let's wait.
 				return;
 			}
 
 			// Copy from packet buffer into header local var
-			ClientPktHeader Header;
-			readBuffer.Read((uint8*)&Header, 6);
+			AMHSPktHeader Header;
+			readBuffer.Read((uint8*)&Header, sizeof(AMHSPktHeader));
 
-			// Decrypt the header
-			//_crypt.DecryptRecv((uint8*)&Header, sizeof(ClientPktHeader));
-
-			mRemaining = mSize = ntohs(Header.size) - 4;
+			//mRemaining = mSize = ntohs(Header.size) - 4;
+			mRemaining = mSize = Header.size;
 			mOpcode = Header.cmd;
 		}
+
+		/*if (mSize <= 0)
+		{
+		return;
+		}*/
 
 		AMHSPacket* Packet;
 
@@ -147,6 +146,8 @@ void AMHSSocket::OnRead()
 		//	}
 		//	break;
 		//}
+
+		delete Packet;
 	}
 }
 
@@ -192,17 +193,18 @@ OUTPACKET_RESULT AMHSSocket::_OutPacket(uint16 opcode, size_t len, const void* d
 	// Packet logger :)
 	//sWorldLog.LogPacket((uint32)len, opcode, (const uint8*)data, 1, (mSession ? mSession->GetAccountId() : 0));
 
-	// Encrypt the packet
 	// First, create the header.
-	ServerPktHeader Header;
+	AMHSPktHeader Header;
+	int n = sizeof(AMHSPktHeader);
+	memset(&Header, 0, sizeof(AMHSPktHeader));
+	
 
 	Header.cmd = opcode;
-	Header.size = ntohs((uint16)len + 2);
-
-	//_crypt.EncryptSend((uint8*)&Header, sizeof(ServerPktHeader));
+	//Header.size = ntohs((uint16)len + 2);
+	Header.size = len;
 
 	// Pass the header to our send buffer
-	rv = BurstSend((const uint8*)&Header, 4);
+	rv = BurstSend((const uint8*)&Header, sizeof(AMHSPktHeader));
 
 	// Pass the rest of the packet to our send buffer (if there is any)
 	if(len > 0 && rv)

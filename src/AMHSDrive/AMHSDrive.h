@@ -21,4 +21,5 @@ public:
 	int Run();
 	int Clean();
 	int SetOHTLocation(int nPoint);
+	int SetOHTBackMessage(int nOHT, int ms);
 };
