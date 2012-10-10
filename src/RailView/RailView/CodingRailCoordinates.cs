@@ -11,190 +11,198 @@ namespace RailView
     {
         public List<RailEle> codingEleList=new List<RailEle>();
 
-        public List<RailEle> ChooseStartPartInList(List<RailEle> railEleList)
-        {
-            int n = railEleList.Count;
-            codingEleList.Clear();
-            codingEleList.AddRange(railEleList);
-            List<RailEle> saveSameEleList = new List<RailEle>();
-            saveSameEleList.Add(railEleList[0]);
-            Point startPoint = Point.Empty;
-            Point comparePoint = Point.Empty;
-            StraightEle strTemp = new StraightEle();
-            CurvedEle curTemp = new CurvedEle();
-            CrossEle croTemp = new CrossEle();
-            //set first element startpoint
-            startPoint = ChooseStartDotForArrange(railEleList, 0);
-            //compare x
-            for (int i = 1; i < n; i++)
-            {
-                comparePoint = ChooseStartDotForArrange(railEleList, i);
-                if (comparePoint.X > startPoint.X && (comparePoint.X - startPoint.X) > 2)
-                {
-                    startPoint = comparePoint;
-                    codingEleList.RemoveAt(i);
-                    codingEleList.Insert(0, railEleList[i]);
-                    saveSameEleList.Clear();
-                    saveSameEleList.Add(railEleList[i]);
-                }
-                else if (comparePoint.X == startPoint.X)
-                {
-                    saveSameEleList.Insert(0, railEleList[i]);
-                    codingEleList.RemoveAt(i);
-                    codingEleList.Insert(0, railEleList[i]);
-                }
-            }
-            //compare y
-            n = saveSameEleList.Count;
-            //find the top element
-            startPoint = ChooseStartDotForArrange(saveSameEleList, 0);
-            for (int i = 1; i < n; i++)
-            {
-                comparePoint = ChooseStartDotForArrange(saveSameEleList, i);
-                if (comparePoint.Y < startPoint.Y && (startPoint.Y - comparePoint.Y) > 2)
-                {
-                    startPoint = comparePoint;
-                    codingEleList.RemoveAt(i);
-                    codingEleList.Insert(0, saveSameEleList[i]);
-                }
-            }
-            return codingEleList;
-        }
-
-        public List<RailEle> ArrangeEleList(List<RailEle> railEleList)
+        public List<RailEle> InitEleList(List<RailEle> paraList)
         {
             List<RailEle> tempList = new List<RailEle>();
-            List<RailEle> remainEleList = new List<RailEle>();
-            tempList.AddRange(railEleList);
-            remainEleList.AddRange(railEleList);
-            remainEleList.RemoveAt(0);
-            int numOfList = railEleList.Count;
-            StraightEle strTemp = new StraightEle();
-            CurvedEle curTemp = new CurvedEle();
-            CrossEle croTemp = new CrossEle();
-            Point startPt = Point.Empty;
-            Point endPt = Point.Empty;
-            bool isSearchedNextEle = false;
-            startPt = ChooseStartDotForCoding(tempList, 0);
-            for (int i = 0; i < numOfList; i++)
+            Int16 num = Convert.ToInt16(paraList.Count);
+            for (Int16 i = 0; i < num; i++)
             {
-                switch (tempList[i].graphType)
+                for (Int16 j = 0; j < num; j++)
                 {
-                    case 1:
-                        strTemp = (StraightEle)tempList[i];
-                        if (startPt == strTemp.pointList[0])
-                            endPt = strTemp.pointList[1];
-                        else
-                            endPt = strTemp.pointList[0];
-                        tempList[i].startPoint = startPt;
-                        tempList[i].endPoint = endPt;
-                        break;
-                    case 2:
-                        curTemp = (CurvedEle)tempList[i];
-                        if (startPt == curTemp.firstDot)
-                            endPt = curTemp.secDot;
-                        else
-                            endPt = curTemp.firstDot;
-                        tempList[i].startPoint = startPt;
-                        tempList[i].endPoint = endPt;
-                        break;
-                    case 3:
-                        croTemp = (CrossEle)tempList[i];
-                        if (startPt == croTemp.pointList[0])
-                            endPt = croTemp.pointList[5];
-                        else
-                            endPt = croTemp.pointList[0];
-                        tempList[i].startPoint = startPt;
-                        tempList[i].endPoint = endPt;
-                        break;
-                    default:
-                        break;
+                    if (paraList[j].segmentNumber == Convert.ToInt16(i + 1))
+                        tempList.Add(paraList[j]);
                 }
-                for (int j = i+1; j < numOfList;j++ )
-                {
-                    switch (tempList[j].graphType)
-                    {
-                        case 1:
-                            strTemp = (StraightEle)tempList[j];
-                            if ((int)Math.Sqrt((strTemp.pointList[0].X - endPt.X) * (strTemp.pointList[0].X - endPt.X) +
-                                (strTemp.pointList[0].Y - endPt.Y) * (strTemp.pointList[0].Y - endPt.Y)) < 2)
-                            {
-                                startPt = strTemp.pointList[0];
-                                isSearchedNextEle = true;
-                            }
-                            else if ((int)Math.Sqrt((strTemp.pointList[1].X - endPt.X) * (strTemp.pointList[1].X - endPt.X) +
-                                (strTemp.pointList[1].Y - endPt.Y) * (strTemp.pointList[1].Y - endPt.Y)) < 2)
-                            {
-                                startPt = strTemp.pointList[1];
-                                isSearchedNextEle = true;
-                            }
-                            break;
-                        case 2:
-                            curTemp = (CurvedEle)tempList[j];
-                            if ((int)Math.Sqrt((curTemp.firstDot.X - endPt.X) * (curTemp.firstDot.X - endPt.X) +
-                                (curTemp.firstDot.Y - endPt.Y) * (curTemp.firstDot.Y - endPt.Y)) < 2)
-                            {
-                                startPt = curTemp.firstDot;
-                                isSearchedNextEle = true;
-                            }
-                            else if ((int)Math.Sqrt((curTemp.secDot.X - endPt.X) * (curTemp.secDot.X - endPt.X) +
-                                (curTemp.secDot.Y - endPt.Y) * (curTemp.secDot.Y - endPt.Y)) < 2)
-                            {
-                                startPt = curTemp.secDot;
-                                isSearchedNextEle = true;
-                            }
-                            break;
-                        case 3:
-                            croTemp = (CrossEle)tempList[j];
-                            if ((int)Math.Sqrt((croTemp.pointList[0].X - endPt.X) * (croTemp.pointList[0].X - endPt.X) +
-                                (croTemp.pointList[0].Y - endPt.Y) * (croTemp.pointList[0].Y - endPt.Y)) < 2)
-                            {
-                                startPt = croTemp.pointList[0];
-                                isSearchedNextEle = true;
-                            }
-                            else if ((int)Math.Sqrt((croTemp.pointList[5].X - endPt.X) * (croTemp.pointList[5].X - endPt.X) +
-                                (croTemp.pointList[5].Y - endPt.Y) * (croTemp.pointList[5].Y - endPt.Y)) < 2)
-                            {
-                                startPt = croTemp.pointList[5];
-                                isSearchedNextEle = true;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    if (isSearchedNextEle)
-                    {
-                        remainEleList.Remove(tempList[j]);
-                        tempList.Insert(i + 1, tempList[j]);
-                        tempList.RemoveAt(j + 1);
-                        break;
-                    }                  
-                }
-                if (!isSearchedNextEle && !(remainEleList.Count == 0))
-                {
-                    tempList.RemoveRange(i + 1, numOfList - i - 1);
-                    tempList.AddRange(ChooseStartPartInList(remainEleList));
-                    startPt = ChooseStartDotForCoding(tempList, i + 1);
-                    remainEleList.Remove(tempList[i + 1]);
-                }
-                isSearchedNextEle = false;
             }
             return tempList;
         }
 
-        public Point ComputeCoordinates(List<RailEle> tempList,int section,int offset)
+        public void ChooseStartDot(List<RailEle> paraList)
         {
-            Point returnPt=Point.Empty;
-            int offsetTemp = offset;
+            Int16 num=Convert.ToInt16(paraList.Count);
+            ChooseStartDotForStartPart(paraList, 0);
+            for (Int16 i = 1; i < num; i++)
+            {
+                if (!SearchForNeighborDot(paraList, paraList[i - 1].endPoint, i) && i != (num - 1))
+                {
+                    ChooseStartDotForStartPart(paraList, i);
+                }
+            }
+        }
+
+        public void ComputeOffset(ushort value)
+        { 
+        }
+
+        public Int16 ComputeSegmentNumber(ushort value, List<RailEle> paraList)
+        {
+            Int16 temp = Convert.ToInt16(value);
+            Int16 segNum = 0;
+            for (Int16 i = 0; i < paraList.Count; i++)
+            {
+                if (temp < paraList[i].tagNumber)
+                {
+                    segNum = Convert.ToInt16(i);
+                    i = Convert.ToInt16(paraList.Count-1);
+                }
+                temp -= paraList[i].tagNumber;
+            }
+            return segNum;
+        }
+
+        public Int16 ComputeSegmentOffset(ushort value, List<RailEle> tempList, Int16 segNum)
+        {
+            Int16 temp = Convert.ToInt16(value);
+            for (Int16 i = 0; i < segNum;i++ )
+            {
+                temp -= tempList[i].tagNumber;
+            }
+            return temp;
+        }
+
+        private void ChooseStartDotForStartPart(List<RailEle> paraList, Int16 i)
+        {
             StraightEle strTemp = new StraightEle();
             CurvedEle curTemp = new CurvedEle();
             CrossEle croTemp = new CrossEle();
+            switch (paraList[i].graphType)
+            {
+                case 1:
+                    strTemp = (StraightEle)paraList[i];
+                    paraList[i].startPoint = strTemp.pointList[0];
+                    paraList[i].endPoint = strTemp.pointList[1];
+                    break;
+                case 2:
+                    curTemp = (CurvedEle)paraList[i];
+                    paraList[i].startPoint = curTemp.firstDot;
+                    paraList[i].endPoint = curTemp.secDot;
+                    break;
+                case 3:
+                    croTemp = (CrossEle)paraList[i];
+                    paraList[i].startPoint = croTemp.pointList[0];
+                    paraList[i].endPoint = croTemp.pointList[5];
+                    break;
+                default:
+                    break;
+            }
+            if (!SearchForNeighborDot(paraList, paraList[i].endPoint, Convert.ToInt16(i + 1)))
+            {
+                switch (paraList[i].graphType)
+                {
+                    case 1:
+                        strTemp = (StraightEle)paraList[i];
+                        paraList[i].startPoint = strTemp.pointList[1];
+                        paraList[i].endPoint = strTemp.pointList[0];
+                        break;
+                    case 2:
+                        curTemp = (CurvedEle)paraList[i];
+                        paraList[i].startPoint = curTemp.secDot;
+                        paraList[i].endPoint = curTemp.firstDot;
+                        break;
+                    case 3:
+                        croTemp = (CrossEle)paraList[i];
+                        paraList[i].startPoint = croTemp.pointList[5];
+                        paraList[i].endPoint = croTemp.pointList[0];
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private bool SearchForNeighborDot(List<RailEle> tempList, Point pt, Int16 j)
+        {
+            StraightEle strTemp = new StraightEle();
+            CurvedEle curTemp = new CurvedEle();
+            CrossEle croTemp = new CrossEle();
+            Point startPt = Point.Empty;
+            Point endPt = pt;
+            switch (tempList[j].graphType)
+            {
+                case 1:
+                    strTemp = (StraightEle)tempList[j];
+                    if ((Int16)Math.Sqrt((strTemp.pointList[0].X - pt.X) * (strTemp.pointList[0].X - pt.X) +
+                        (strTemp.pointList[0].Y - pt.Y) * (strTemp.pointList[0].Y - pt.Y)) < 2)
+                    {
+                        tempList[j].startPoint = strTemp.pointList[0];
+                        tempList[j].endPoint = strTemp.pointList[1];
+                        return true;
+                    }
+                    else if ((Int16)Math.Sqrt((strTemp.pointList[1].X - pt.X) * (strTemp.pointList[1].X - pt.X) +
+                        (strTemp.pointList[1].Y - pt.Y) * (strTemp.pointList[1].Y - pt.Y)) < 2)
+                    {
+                        tempList[j].startPoint = strTemp.pointList[1];
+                        tempList[j].endPoint = strTemp.pointList[0];
+                        return true;
+                    }
+                    break;
+                case 2:
+                    curTemp = (CurvedEle)tempList[j];
+                    if ((Int16)Math.Sqrt((curTemp.firstDot.X - endPt.X) * (curTemp.firstDot.X - endPt.X) +
+                        (curTemp.firstDot.Y - pt.Y) * (curTemp.firstDot.Y - pt.Y)) < 2)
+                    {
+                        tempList[j].startPoint = curTemp.firstDot;
+                        tempList[j].endPoint = curTemp.secDot;
+                        return true;
+                    }
+                    else if ((Int16)Math.Sqrt((curTemp.secDot.X - endPt.X) * (curTemp.secDot.X - endPt.X) +
+                        (curTemp.secDot.Y - pt.Y) * (curTemp.secDot.Y - pt.Y)) < 2)
+                    {
+                        tempList[j].startPoint = curTemp.secDot;
+                        tempList[j].endPoint = curTemp.firstDot;
+                        return true;
+                    }
+                    break;
+                case 3:
+                    croTemp = (CrossEle)tempList[j];
+                    if ((Int16)Math.Sqrt((croTemp.pointList[0].X - pt.X) * (croTemp.pointList[0].X - pt.X) +
+                        (croTemp.pointList[0].Y - pt.Y) * (croTemp.pointList[0].Y - pt.Y)) < 2)
+                    {
+                        tempList[j].startPoint = croTemp.pointList[0];
+                        tempList[j].endPoint = croTemp.pointList[5];
+                        return true;
+                    }
+                    else if ((Int16)Math.Sqrt((croTemp.pointList[5].X - pt.X) * (croTemp.pointList[5].X - pt.X) +
+                        (croTemp.pointList[5].Y - pt.Y) * (croTemp.pointList[5].Y - pt.Y)) < 2)
+                    {
+                        tempList[j].startPoint = croTemp.pointList[5];
+                        tempList[j].endPoint = croTemp.pointList[0];
+                        return true;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return false;
+        }
+
+        public Point ComputeCoordinates(List<RailEle> tempList, ushort offset)
+        {
+            Point returnPt = Point.Empty;
+            Int32 offsetTemp = 0;
+            Int16 section = 0;
+            StraightEle strTemp = new StraightEle();
+            CurvedEle curTemp = new CurvedEle();
+            CrossEle croTemp = new CrossEle();
+            ComputeOffset(offset);
+            section = ComputeSegmentNumber(offset, tempList);
+            offsetTemp = ComputeSegmentOffset(offset, tempList, section);
             switch (tempList[section].graphType)
             {
                 case 1:
                     strTemp = (StraightEle)tempList[section];
+                    offsetTemp =offsetTemp * strTemp.lenght / strTemp.tagNumber;
                     returnPt = strTemp.startPoint;
-                    if (Math.Abs(strTemp.pointList[0].Y-strTemp.pointList[1].Y)<3)
+                    if (Math.Abs(strTemp.pointList[0].Y - strTemp.pointList[1].Y) < 3)
                     {
                         if (strTemp.startPoint.X < strTemp.endPoint.X)
                             returnPt.X = strTemp.startPoint.X + offsetTemp;
@@ -211,16 +219,19 @@ namespace RailView
                     break;
                 case 2:
                     curTemp = (CurvedEle)tempList[section];
+                    offsetTemp = offsetTemp * 90 / curTemp.tagNumber;
                     double angleTemp = 0;
                     if (curTemp.firstDot == curTemp.startPoint)
-                        angleTemp = (curTemp.startAngle + offsetTemp)*3.14/180;                  
+                        angleTemp = (curTemp.startAngle + offsetTemp) * 3.14 / 180;
                     else if (curTemp.secDot == curTemp.startPoint)
-                        angleTemp = (curTemp.startAngle + curTemp.sweepAngle - offsetTemp)*3.14/180;
+                        angleTemp = (curTemp.startAngle + curTemp.sweepAngle - offsetTemp) * 3.14 / 180;
                     returnPt.X = (int)(curTemp.center.X + curTemp.radiu * Math.Cos(angleTemp));
                     returnPt.Y = (int)(curTemp.center.Y + curTemp.radiu * Math.Sin(angleTemp));
                     break;
                 case 3:
                     croTemp = (CrossEle)tempList[section];
+                    offsetTemp = offsetTemp * (croTemp.firstPart + croTemp.secPart + croTemp.thPart + 
+                        (int)Math.Sqrt(croTemp.fourPart.X * croTemp.fourPart.X + croTemp.fourPart.Y * croTemp.fourPart.Y)) / croTemp.tagNumber;
                     returnPt = croTemp.startPoint;
                     if (croTemp.startAngle == 0 || croTemp.startAngle == 180)
                     {
@@ -228,18 +239,18 @@ namespace RailView
                         {
                             if (croTemp.pointList[0].X < croTemp.pointList[5].X)
                             {
-                                if (offsetTemp < croTemp.firstPart)
+                                if (offsetTemp <= croTemp.firstPart)
                                     returnPt.X = croTemp.startPoint.X + offsetTemp;
-                                else if (offsetTemp > croTemp.firstPart && offsetTemp < (croTemp.firstPart + croTemp.secPart))
+                                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.firstPart + croTemp.secPart))
                                 {
                                     returnPt.X = croTemp.startPoint.X + offsetTemp;
                                     returnPt.Y = croTemp.pointList[2].Y;
                                 }
                                 else if (offsetTemp > (croTemp.firstPart + croTemp.secPart) &&
-                                    offsetTemp < (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
+                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
                                     returnPt.X = croTemp.startPoint.X + offsetTemp;
                                 else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp < (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
+                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
                                 {
                                     offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart);
                                     returnPt = croTemp.pointList[6];
@@ -257,18 +268,18 @@ namespace RailView
                             }
                             else if (croTemp.pointList[0].X > croTemp.pointList[5].X)
                             {
-                                if (offsetTemp < croTemp.thPart)
+                                if (offsetTemp <= croTemp.thPart)
                                     returnPt.X = croTemp.startPoint.X + offsetTemp;
-                                else if (offsetTemp > croTemp.thPart && offsetTemp < (croTemp.thPart + croTemp.secPart))
+                                else if (offsetTemp > croTemp.thPart && offsetTemp <= (croTemp.thPart + croTemp.secPart))
                                 {
                                     returnPt.X = croTemp.startPoint.X + offsetTemp;
                                     returnPt.Y = croTemp.pointList[2].Y;
                                 }
                                 else if (offsetTemp > (croTemp.thPart + croTemp.secPart)
-                                    && offsetTemp < (croTemp.thPart + croTemp.secPart + croTemp.firstPart))
+                                    && offsetTemp <= (croTemp.thPart + croTemp.secPart + croTemp.firstPart))
                                     returnPt.X = croTemp.startPoint.X + offsetTemp;
                                 else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp < (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
+                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
                                 {
                                     offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart);
                                     returnPt = croTemp.pointList[6];
@@ -289,18 +300,18 @@ namespace RailView
                         {
                             if (croTemp.pointList[0].X < croTemp.pointList[5].X)
                             {
-                                if (offsetTemp < croTemp.thPart)
+                                if (offsetTemp <= croTemp.thPart)
                                     returnPt.X = croTemp.startPoint.X - offsetTemp;
-                                else if (offsetTemp > croTemp.firstPart && offsetTemp < (croTemp.thPart + croTemp.secPart))
+                                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.thPart + croTemp.secPart))
                                 {
                                     returnPt.X = croTemp.startPoint.X - offsetTemp;
                                     returnPt.Y = croTemp.pointList[2].Y;
                                 }
                                 else if (offsetTemp > (croTemp.thPart + croTemp.secPart) &&
-                                    offsetTemp < (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
+                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
                                     returnPt.X = croTemp.startPoint.X - offsetTemp;
                                 else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp < (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
+                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
                                 {
                                     offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart);
                                     returnPt = croTemp.pointList[6];
@@ -318,18 +329,18 @@ namespace RailView
                             }
                             else if (croTemp.pointList[0].X > croTemp.pointList[5].X)
                             {
-                                if (offsetTemp < croTemp.firstPart)
+                                if (offsetTemp <= croTemp.firstPart)
                                     returnPt.X = croTemp.startPoint.X - offsetTemp;
-                                else if (offsetTemp > croTemp.thPart && offsetTemp < (croTemp.firstPart + croTemp.secPart))
+                                else if (offsetTemp > croTemp.thPart && offsetTemp <= (croTemp.firstPart + croTemp.secPart))
                                 {
                                     returnPt.X = croTemp.startPoint.X - offsetTemp;
                                     returnPt.Y = croTemp.pointList[2].Y;
                                 }
                                 else if (offsetTemp > (croTemp.firstPart + croTemp.secPart)
-                                    && offsetTemp < (croTemp.thPart + croTemp.secPart + croTemp.firstPart))
+                                    && offsetTemp <= (croTemp.thPart + croTemp.secPart + croTemp.firstPart))
                                     returnPt.X = croTemp.startPoint.X - offsetTemp;
                                 else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp < (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
+                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
                                 {
                                     offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart);
                                     returnPt = croTemp.pointList[6];
@@ -353,18 +364,18 @@ namespace RailView
                         {
                             if (croTemp.pointList[0].Y < croTemp.pointList[5].Y)
                             {
-                                if (offsetTemp < croTemp.firstPart)
+                                if (offsetTemp <= croTemp.firstPart)
                                     returnPt.Y = croTemp.startPoint.Y + offsetTemp;
-                                else if (offsetTemp > croTemp.firstPart && offsetTemp < (croTemp.firstPart + croTemp.secPart))
+                                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.firstPart + croTemp.secPart))
                                 {
                                     returnPt.X = croTemp.pointList[2].X;
                                     returnPt.Y = croTemp.startPoint.Y + offsetTemp;
                                 }
                                 else if (offsetTemp > (croTemp.firstPart + croTemp.secPart) &&
-                                    offsetTemp < (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
+                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
                                     returnPt.Y = croTemp.startPoint.Y + offsetTemp;
                                 else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp < (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
+                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
                                 {
                                     offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y);
                                     returnPt = croTemp.pointList[6];
@@ -382,18 +393,18 @@ namespace RailView
                             }
                             else if (croTemp.pointList[0].Y > croTemp.pointList[5].Y)
                             {
-                                if (offsetTemp < croTemp.thPart)
+                                if (offsetTemp <= croTemp.thPart)
                                     returnPt.Y = croTemp.startPoint.Y + offsetTemp;
-                                else if (offsetTemp > croTemp.firstPart && offsetTemp < (croTemp.thPart + croTemp.secPart))
+                                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.thPart + croTemp.secPart))
                                 {
                                     returnPt.X = croTemp.pointList[2].X;
                                     returnPt.Y = croTemp.startPoint.Y + offsetTemp;
                                 }
                                 else if (offsetTemp > (croTemp.thPart + croTemp.secPart) &&
-                                    offsetTemp < (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
+                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
                                     returnPt.Y = croTemp.startPoint.Y + offsetTemp;
                                 else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp < (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
+                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
                                 {
                                     offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y);
                                     returnPt = croTemp.pointList[6];
@@ -414,18 +425,18 @@ namespace RailView
                         {
                             if (croTemp.pointList[0].Y > croTemp.pointList[5].Y)
                             {
-                                if (offsetTemp < croTemp.firstPart)
+                                if (offsetTemp <= croTemp.firstPart)
                                     returnPt.Y = croTemp.startPoint.Y - offsetTemp;
-                                else if (offsetTemp > croTemp.firstPart && offsetTemp < (croTemp.firstPart + croTemp.secPart))
+                                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.firstPart + croTemp.secPart))
                                 {
                                     returnPt.X = croTemp.pointList[2].X;
                                     returnPt.Y = croTemp.startPoint.Y - offsetTemp;
                                 }
                                 else if (offsetTemp > (croTemp.firstPart + croTemp.secPart) &&
-                                    offsetTemp < (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
+                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
                                     returnPt.Y = croTemp.startPoint.Y - offsetTemp;
                                 else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp < (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
+                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
                                 {
                                     offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y);
                                     returnPt = croTemp.pointList[6];
@@ -443,18 +454,18 @@ namespace RailView
                             }
                             else if (croTemp.pointList[0].Y < croTemp.pointList[5].Y)
                             {
-                                if (offsetTemp < croTemp.thPart)
+                                if (offsetTemp <= croTemp.thPart)
                                     returnPt.Y = croTemp.startPoint.Y - offsetTemp;
-                                else if (offsetTemp > croTemp.firstPart && offsetTemp < (croTemp.thPart + croTemp.secPart))
+                                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.thPart + croTemp.secPart))
                                 {
                                     returnPt.X = croTemp.pointList[2].X;
                                     returnPt.Y = croTemp.startPoint.Y - offsetTemp;
                                 }
                                 else if (offsetTemp > (croTemp.thPart + croTemp.secPart) &&
-                                    offsetTemp < (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
+                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
                                     returnPt.Y = croTemp.startPoint.Y + offsetTemp;
                                 else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp < (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
+                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
                                 {
                                     offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y);
                                     returnPt = croTemp.pointList[6];
@@ -477,81 +488,6 @@ namespace RailView
                     break;
             }
             return returnPt;
-        }
-
-        private Point ChooseStartDotForArrange(List<RailEle> tempList, int i)
-        {
-            Point pt = Point.Empty;
-            StraightEle strTemp = new StraightEle();
-            CurvedEle curTemp = new CurvedEle();
-            CrossEle croTemp = new CrossEle();
-            switch (tempList[i].graphType)
-            {
-                case 1:
-                    strTemp = (StraightEle)tempList[i];
-                    if (strTemp.pointList[0].X > strTemp.pointList[1].X ||
-                        strTemp.pointList[0].Y < strTemp.pointList[1].Y)
-                        pt = strTemp.pointList[0];
-                    else if (strTemp.pointList[0].X < strTemp.pointList[1].X ||
-                        strTemp.pointList[0].Y > strTemp.pointList[1].Y)
-                        pt = strTemp.pointList[1];
-                    break;
-                case 2:
-                    curTemp = (CurvedEle)tempList[i];
-                    if (curTemp.secDot.X < curTemp.firstDot.X)
-                        pt = curTemp.firstDot;
-                    else if (curTemp.secDot.X > curTemp.firstDot.X)
-                        pt = curTemp.secDot;
-                    break;
-                case 3:
-                    croTemp = (CrossEle)tempList[i];
-                    if (croTemp.pointList[0].X > croTemp.pointList[5].X ||
-                        croTemp.pointList[0].Y < croTemp.pointList[5].Y)
-                        pt = croTemp.pointList[0];
-                    else if (croTemp.pointList[0].X < croTemp.pointList[5].X ||
-                        croTemp.pointList[0].Y > croTemp.pointList[5].Y)
-                        pt = croTemp.pointList[5];
-                    break;
-                default:
-                    break;
-            }
-            return pt;
-        }
-
-        private Point ChooseStartDotForCoding(List<RailEle> tempList, int i)
-        {
-            Point pt = Point.Empty;
-            StraightEle strTemp = new StraightEle();
-            CurvedEle curTemp = new CurvedEle();
-            CrossEle croTemp = new CrossEle();
-            switch (tempList[i].graphType)
-            {
-                case 1:
-                    strTemp = (StraightEle)tempList[i];
-                    if (strTemp.pointList[0].X < strTemp.pointList[1].X ||
-                        strTemp.pointList[0].Y < strTemp.pointList[1].Y)
-                        pt = strTemp.pointList[0];
-                    else if (strTemp.pointList[0].X > strTemp.pointList[1].X ||
-                        strTemp.pointList[0].Y > strTemp.pointList[1].Y)
-                        pt = strTemp.pointList[1];
-                    break;
-                case 2:
-                    curTemp = (CurvedEle)tempList[i];
-                    pt = curTemp.firstDot;
-                    break;
-                case 3:
-                    croTemp = (CrossEle)tempList[i];
-                    if (croTemp.pointList[0].X < croTemp.pointList[5].X ||
-                        croTemp.pointList[0].Y < croTemp.pointList[5].Y)
-                        pt = croTemp.pointList[0];
-                    else if (croTemp.pointList[0].X > croTemp.pointList[5].X ||
-                        croTemp.pointList[0].Y > croTemp.pointList[5].Y)
-                        pt = croTemp.pointList[5];
-                    break;
-                default:
-                    break;
-            }
-            return pt;
         }
     }
 }

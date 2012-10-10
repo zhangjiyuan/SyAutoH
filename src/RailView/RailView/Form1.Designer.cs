@@ -76,7 +76,7 @@ namespace RailView
             // 
             // showPic
             // 
-            this.showPic.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.showPic.BackColor = System.Drawing.SystemColors.Window;
             this.showPic.Location = new System.Drawing.Point(0, 0);
             this.showPic.Name = "showPic";
             this.showPic.Size = new System.Drawing.Size(600, 400);
@@ -109,7 +109,7 @@ namespace RailView
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(661, 74);
+            this.tabPage2.Size = new System.Drawing.Size(592, 74);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
