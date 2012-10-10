@@ -96,11 +96,14 @@ namespace BaseRailElement
             Point pt = centerDot;
             pt.Offset(centerDot.X / DrawMultiFactor - centerDot.X, centerDot.Y / DrawMultiFactor - centerDot.Y);
             center = pt;
+            oldCenter = pt;
             directionCurved = DirectonCurved.first;
             Point pt_first = new Point(center.X + radiu, center.Y);
             Point pt_sec = new Point(center.X, center.Y + radiu);
             firstDot = pt_first;
+            oldFirstDot = pt_first;
             secDot = pt_sec;
+            oldSecDot = pt_sec;
             return this;
         }
 
@@ -138,13 +141,16 @@ namespace BaseRailElement
         {
             Point pt = center;
             pt.Offset(offsetX, offsetY);
-            Center = pt;
+            center = pt;
+            oldCenter = pt;
             pt = firstDot;
             pt.Offset(offsetX, offsetY);
             firstDot = pt;
+            oldFirstDot = pt;
             pt = secDot;
             pt.Offset(offsetX, offsetY);
-            secDot = pt;
+            SecDot = pt;
+            oldSecDot = pt;
         }
 
         protected override void Scale(int handle, int dx, int dy)
@@ -152,8 +158,10 @@ namespace BaseRailElement
             Point pt_first = firstDot;
             Point pt_sec = secDot;
             Rectangle rc = objectCurvedOp.Scale(handle, dx, dy, center, radiu, directionCurved);
-            Center = rc.Location;
-            Radiu = rc.Width;
+            center = rc.Location;
+            oldCenter = center;
+            radiu = rc.Width;
+            oldRadiu = radiu;
             switch (directionCurved)
             {
                 case DirectonCurved.first:
@@ -184,7 +192,9 @@ namespace BaseRailElement
                     break;
             }
             firstDot = pt_first;
+            oldFirstDot = firstDot;
             secDot = pt_sec;
+            oldSecDot = secDot;
         }
 
         public override void RotateCounterClw()
@@ -229,8 +239,11 @@ namespace BaseRailElement
             matrix.RotateAt(rotateAngle, pt_center);
             matrix.TransformPoints(pts);
             center =pts[0];
+            oldCenter = pts[0];
             firstDot = pts[1];
+            oldFirstDot = pts[1];
             secDot = pts[2];
+            oldSecDot = pts[2];
         }
 
         public override void RotateClw()
@@ -275,8 +288,11 @@ namespace BaseRailElement
             matrix.RotateAt(rotateAngle, pt_center);
             matrix.TransformPoints(pts);
             center = pts[0];
+            oldCenter = pts[0];
             firstDot = pts[1];
+            oldFirstDot = pts[1];
             secDot = pts[2];
+            oldSecDot = pts[2];
         }
 
         public object Clone()
@@ -285,14 +301,18 @@ namespace BaseRailElement
             Point pt = new Point();
             pt = center;
             pt.Offset(20, 20);
-            cl.Center = pt;
+            cl.center = pt;
+            cl.oldCenter = pt;
             pt = firstDot;
             pt.Offset(20, 20);
             cl.firstDot = pt;
+            cl.oldFirstDot = pt;
             pt = secDot;
             pt.Offset(20, 20);
             cl.secDot = pt;
-            cl.Radiu = Radiu;
+            cl.oldSecDot = pt;
+            cl.radiu = radiu;
+            cl.oldRadiu = radiu;
             cl.startAngle = startAngle;
             cl.sweepAngle = sweepAngle;
             cl.DrawMultiFactor = DrawMultiFactor;
@@ -343,7 +363,9 @@ namespace BaseRailElement
                         break;
                 }
                 firstDot = pts[0];
+                oldFirstDot = pts[0];
                 secDot = pts[1];
+                oldSecDot = pts[1];
                 oldRadiu = radiu;
             }
             else if (oldCenter.X != center.X
@@ -352,7 +374,9 @@ namespace BaseRailElement
                 dx = center.X - oldCenter.X;
                 dy = center.Y - oldCenter.Y;
                 firstDot.Offset(dx, dy);
+                oldFirstDot = firstDot;
                 secDot.Offset(dx, dy);
+                oldSecDot = secDot;
                 oldCenter = center;
             }
             else if (oldFirstDot.X != firstDot.X
@@ -361,7 +385,9 @@ namespace BaseRailElement
                 dx = firstDot.X - oldFirstDot.X;
                 dy = firstDot.Y - oldFirstDot.Y;
                 center.Offset(dx, dy);
+                oldCenter = center;
                 secDot.Offset(dx, dy);
+                oldSecDot = secDot;
                 oldFirstDot = firstDot;
             }
             else if (oldSecDot.X != secDot.X
@@ -370,7 +396,9 @@ namespace BaseRailElement
                 dx = secDot.X - oldSecDot.X;
                 dy = secDot.Y - oldSecDot.Y;
                 center.Offset(dx, dy);
+                oldCenter = center;
                 firstDot.Offset(dx, dy);
+                oldFirstDot = firstDot;
                 oldSecDot = secDot;
             }
             base.ChangePropertyValue();

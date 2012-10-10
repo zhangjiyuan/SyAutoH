@@ -55,6 +55,22 @@ namespace BaseRailElement
             get { return speed; }
             set { speed = value; }
         }
+
+        private Int16 segmentNumber = 0;
+        [Description("段号"),Category("轨道段信息")]
+        public Int16 SegmentNumber
+        {
+            get { return segmentNumber; }
+            set { segmentNumber = value; }
+        }
+
+        private Int16 tagNumber = 0;
+        [Description("条形码数量"),Category("轨道段信息")]
+        public Int16 TagNumber
+        {
+            get { return tagNumber; }
+            set { tagNumber = value; }
+        }
       
         private int drawMultiFactor = 1;
         [XmlIgnore]
