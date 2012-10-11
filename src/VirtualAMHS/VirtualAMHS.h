@@ -10,15 +10,20 @@
 #define VIRUALAMHS_API __declspec(dllimport)
 #endif
 
+#pragma once
+
+class VirtualOHT;
+
+#include <map>
+typedef std::map<int, VirtualOHT*> MAP_OHT;
 // 此类是从 VirualAMHS.dll 导出的
-class amhs_client;
+
 class VIRUALAMHS_API CVirtualAMHS {
 public:
 	CVirtualAMHS(void);
 	~CVirtualAMHS();
 	// TODO: 在此添加您的方法。
 	int AddOHT(int nIndex);
-
 private:
-	amhs_client* pclient;
+	MAP_OHT* m_mapOHT;
 };

@@ -61,6 +61,35 @@ private:
 		{
 			//std::cout.write(read_msg_.body(), read_msg_.body_length());
 			//std::cout << "\n";
+			int mOpcode = read_msg_.command();
+			int mSize = read_msg_.body_length();
+			AMHSPacket* Packet;
+			Packet = new AMHSPacket(static_cast<uint16>(mOpcode), mSize);
+			Packet->resize(mSize);
+
+			memcpy((void*)Packet->contents(), read_msg_.body(), mSize);
+			switch(mOpcode)
+			{
+			case OHT_MCS_ACK_AUTH:
+				{
+					uint8 ohtID = 0;
+					uint8 ohtAuthRes = 0;
+					*Packet >> ohtID;
+					*Packet >> ohtAuthRes;
+					printf("OHT %d Auth %d\n", ohtID, ohtAuthRes);
+					delete Packet;
+				}
+				break;
+			default:
+				{
+					delete Packet;
+				}
+				break;
+			}
+
+
+
+
 			boost::asio::async_read(socket_,
 				boost::asio::buffer(read_msg_.data(), amhs_message::header_length),
 				boost::bind(&amhs_client::handle_read_header, this,

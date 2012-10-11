@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "AMHSPacket.h"
 #include "AMHSSocket.h"
-
+#include "OptCodes.h"
 //#pragma pack(push, 1)
 //struct AMHSPktHeader
 //{
@@ -139,29 +139,40 @@ void AMHSSocket::OnRead()
 		}
 
 
-		//// Check for packets that we handle
-		//switch(Packet->GetOpcode())
-		//{
-		//case CMSG_PING:
-		//	{
-		//		_HandlePing(Packet);
-		//		delete Packet;
-		//	}
-		//	break;
-		//case CMSG_AUTH_SESSION:
-		//	{
-		//		_HandleAuthSession(Packet);
-		//	}
-		//	break;
-		//default:
-		//	{
-		//		if(mSession) mSession->QueuePacket(Packet);
-		//		else delete Packet;
-		//	}
-		//	break;
-		//}
+		// Check for packets that we handle
+		switch(Packet->GetOpcode())
+		{
+		case OHT_AUTH:
+			{
+				uint8		ohtID = 0;
+				uint16		ohtPosition = 0;
+				uint8		ohtHand = 0;
+				*Packet >> ohtID;
+				*Packet >> ohtPosition;
+				*Packet >> ohtHand;
+				printf("OHT Auth  ---> id: %d, pos: %d, hand: %d\n", ohtID, ohtPosition, ohtHand);
+				delete Packet;
 
-		delete Packet;
+				AMHSPacket ack(OHT_MCS_ACK_AUTH, 2);
+				ack << uint8(ohtID);
+				ack << uint8(1); // success
+				SendPacket(&ack);
+			}
+			break;
+		case STK_AUTH:
+			{
+
+				delete Packet;
+			}
+			break;
+		default:
+			{
+				//if(mSession) mSession->QueuePacket(Packet);
+				//else delete Packet;
+				delete Packet;
+			}
+			break;
+		}
 	}
 }
 

@@ -3,43 +3,47 @@
 
 #include "stdafx.h"
 #include "VirtualAMHS.h"
-#include "amhs_client.h"
+#include "VirtualOHT.h"
 
 // 这是已导出类的构造函数。
 // 有关类定义的信息，请参阅 VirualAMHS.h
-boost::asio::io_service io_service;
-boost::thread t;
+
+
 CVirtualAMHS::CVirtualAMHS()
 {
-	tcp::resolver resolver(io_service);
-	tcp::resolver::query query("127.0.0.1", "9999");
-	tcp::resolver::iterator iterator = resolver.resolve(query);
-
-	pclient = new amhs_client(io_service, iterator);
-	
-	t = boost::thread(boost::bind(&boost::asio::io_service::run, &io_service));
+	m_mapOHT = new MAP_OHT();
 	return;
 }
 
 CVirtualAMHS::~CVirtualAMHS()
 {
-	pclient->close();
-	t.join();
+	MAP_OHT::iterator it;
+	it = m_mapOHT->begin();
+	while(it != m_mapOHT->end())
+	{
+		delete it->second;
+		++it;
+	}
+	delete m_mapOHT;
 }
 
 int CVirtualAMHS::AddOHT(int nIndex)
 {
-	amhs_message msg;
-	AMHSPacket authPacket(0x0816, 4);
-	authPacket<< uint8(nIndex);		// oht id
-	authPacket<< uint16(1001);		// oht location
-	authPacket<< uint8(1);				// oht hand status;
-
-	msg.body_length(authPacket.size());
-	msg.command(authPacket.GetOpcode());
-	memcpy(msg.body(), authPacket.contents(), msg.body_length());
-	msg.encode_header();
-	pclient->write(msg);
+	MAP_OHT::iterator it;
+	it = m_mapOHT->find(nIndex);
+	if (it != m_mapOHT->end())
+	{
+		VirtualOHT* oht = it->second;
+		oht->Auth(nIndex, 2001, 0);
+	}
+	else
+	{
+		VirtualOHT* oht = new VirtualOHT();
+		oht->Init("127.0.0.1", 9999);
+		oht->Auth(nIndex, 1001, 1);
+		(*m_mapOHT)[nIndex] = oht;
+	}
+	
 
 	return 0;
 }

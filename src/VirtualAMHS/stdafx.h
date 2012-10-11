@@ -26,3 +26,5 @@
 #include "Common.h"
 #include "AMHSPacket.h"
 #include "amhs_message.hpp"
+#include "OptCodes.h"
+#include "amhs_client.h"
