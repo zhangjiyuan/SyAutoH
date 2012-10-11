@@ -66,6 +66,8 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BN_AddOHT, &CVAMHSTestDlg::OnBnClickedBnAddoht)
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 
@@ -101,6 +103,7 @@ BOOL CVAMHSTestDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+	pVirualAMHSDevice = new CVirualAMHS();
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -154,3 +157,36 @@ HCURSOR CVAMHSTestDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CVAMHSTestDlg::OnBnClickedBnAddoht()
+{
+	int nOHT_ID = GetDlgItemInt(IDC_EDIT_OHTID);
+	if (nOHT_ID > 0 && nOHT_ID < 254)
+	{
+		int nAdd = pVirualAMHSDevice->AddOHT(nOHT_ID);
+		if (0 == nAdd)
+		{
+			CString str;
+			str.Format(_T("成功添加OHT %d"), nOHT_ID);
+			MessageBox(str);
+		}
+	}
+	else
+	{
+		MessageBox(_T("不合理的OHT ID值, 应在1至253之间."));
+	}
+}
+
+
+void CVAMHSTestDlg::OnDestroy()
+{
+	CDialogEx::OnDestroy();
+
+	// TODO: 在此处添加消息处理程序代码
+	if (pVirualAMHSDevice != NULL)
+	{
+		delete pVirualAMHSDevice;
+		pVirualAMHSDevice = NULL;
+	}
+}

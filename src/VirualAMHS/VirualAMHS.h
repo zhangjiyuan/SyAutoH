@@ -11,9 +11,14 @@
 #endif
 
 // 此类是从 VirualAMHS.dll 导出的
+class amhs_client;
 class VIRUALAMHS_API CVirualAMHS {
 public:
 	CVirualAMHS(void);
+	~CVirualAMHS();
 	// TODO: 在此添加您的方法。
 	int AddOHT(int nIndex);
+
+private:
+	amhs_client* pclient;
 };

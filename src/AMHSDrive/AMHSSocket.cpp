@@ -2,17 +2,17 @@
 #include "AMHSPacket.h"
 #include "AMHSSocket.h"
 
-#pragma pack(push, 1)
-struct AMHSPktHeader
-{
-	uint8 comm;
-	uint32 cmd;
-	uint16 size;
-	uint16 index;
-	uint8  bLast;
-	uint8 reversed[4];
-};
-#pragma pack(pop)
+//#pragma pack(push, 1)
+//struct AMHSPktHeader
+//{
+//	uint8 comm;
+//	uint32 cmd;
+//	uint16 size;
+//	uint16 index;
+//	uint8  bLast;
+//	uint8 reversed[4];
+//};
+//#pragma pack(pop)
 
 AMHSSocket::AMHSSocket(SOCKET fd)
 	:
@@ -42,13 +42,13 @@ void AMHSSocket::OnConnect()
 	//sWorld.mAcceptedConnections++;
 	//_latency = getMSTime();
 
-	AMHSPacket wp(0x0801, 2);
+	/*AMHSPacket wp(0x0801, 2);
 
 	wp << uint8(254);
 	wp << uint8(0);
 
 	wp.hexlike();
-	SendPacket(&wp);
+	SendPacket(&wp);*/
 
 	string sIP = this->GetRemoteIP();
 	uint32 uPort = this->GetRemotePort();
@@ -123,9 +123,6 @@ void AMHSSocket::OnRead()
 			// Copy from packet buffer into our actual buffer.
 			///Read(mRemaining, (uint8*)Packet->contents());
 			readBuffer.Read((uint8*)Packet->contents(), mRemaining);
-			string sIP = this->GetRemoteIP();
-			uint32 uPort = this->GetRemotePort();
-			printf("OnRead ---> IP: %s Port: %d\n", sIP.c_str(), uPort);
 		}
 
 		//sWorldLog.LogPacket(mSize, static_cast<uint16>(mOpcode), mSize ? Packet->contents() : NULL, 0, (mSession ? mSession->GetAccountId() : 0));

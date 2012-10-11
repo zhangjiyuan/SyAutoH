@@ -14,3 +14,15 @@
 
 
 // TODO: 在此处引用程序需要的其他头文件
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <deque>
+#include <iostream>
+#include <boost/bind.hpp>
+#include <boost/asio.hpp>
+#include <boost/thread/thread.hpp>
+
+#include "Common.h"
+#include "AMHSPacket.h"
+#include "amhs_message.hpp"

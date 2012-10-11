@@ -1,6 +1,18 @@
 #pragma once
 
-#include "../shared/ByteBuffer.h"
+#include "ByteBuffer.h"
+
+#pragma pack(push, 1)
+struct AMHSPktHeader
+{
+	uint8 comm;
+	uint32 cmd;
+	uint16 size;
+	uint16 index;
+	uint8  bLast;
+	uint8 reversed[4];
+};
+#pragma pack(pop)
 
 class AMHSPacket : public ByteBuffer
 {
