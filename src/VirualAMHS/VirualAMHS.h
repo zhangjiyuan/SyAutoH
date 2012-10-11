@@ -15,8 +15,5 @@ class VIRUALAMHS_API CVirualAMHS {
 public:
 	CVirualAMHS(void);
 	// TODO: 在此添加您的方法。
+	int AddOHT(int nIndex);
 };
-
-extern VIRUALAMHS_API int nVirualAMHS;
-
-VIRUALAMHS_API int fnVirualAMHS(void);

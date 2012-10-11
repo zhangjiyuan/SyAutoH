@@ -6,10 +6,13 @@
 #include "VAMHSTest.h"
 #include "VAMHSTestDlg.h"
 #include "afxdialogex.h"
+#include "../VirualAMHS/VirualAMHS.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+
+CVirualAMHS* pVirualAMHSDevice = NULL;
 
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
