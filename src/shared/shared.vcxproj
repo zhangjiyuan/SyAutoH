@@ -83,6 +83,7 @@
     <ClInclude Include="FastQueue.h" />
     <ClInclude Include="ListenSocketWin32.h" />
     <ClInclude Include="Network.h" />
+    <ClInclude Include="OptCodes.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Socket.h" />
     <ClInclude Include="SocketDefines.h" />

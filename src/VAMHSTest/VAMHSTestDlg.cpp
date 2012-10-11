@@ -50,7 +50,6 @@ END_MESSAGE_MAP()
 
 
 
-
 CVAMHSTestDlg::CVAMHSTestDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CVAMHSTestDlg::IDD, pParent)
 {
@@ -103,6 +102,10 @@ BOOL CVAMHSTestDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+	AllocConsole();                     // 打开控制台资源
+	FILE* file;
+	freopen_s( &file, "CONOUT$", "w+t", stdout);// 申请写
+
 	pVirualAMHSDevice = new CVirtualAMHS();
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
@@ -169,7 +172,8 @@ void CVAMHSTestDlg::OnBnClickedBnAddoht()
 		{
 			CString str;
 			str.Format(_T("成功添加OHT %d"), nOHT_ID);
-			MessageBox(str);
+			//MessageBox(str);
+			wprintf(str);
 		}
 	}
 	else
@@ -189,4 +193,5 @@ void CVAMHSTestDlg::OnDestroy()
 		delete pVirualAMHSDevice;
 		pVirualAMHSDevice = NULL;
 	}
+	FreeConsole();                      // 释放控制台资源
 }

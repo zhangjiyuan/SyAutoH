@@ -84,6 +84,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="VirtualAMHS.h" />
+    <ClInclude Include="VirtualOHT.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="amhs_client.cpp" />
@@ -100,6 +101,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="VirtualAMHS.cpp" />
+    <ClCompile Include="VirtualOHT.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
