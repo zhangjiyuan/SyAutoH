@@ -6,13 +6,13 @@
 #include "VAMHSTest.h"
 #include "VAMHSTestDlg.h"
 #include "afxdialogex.h"
-#include "../VirualAMHS/VirualAMHS.h"
+#include "../VirtualAMHS/VirtualAMHS.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
-CVirualAMHS* pVirualAMHSDevice = NULL;
+CVirtualAMHS* pVirualAMHSDevice = NULL;
 
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
@@ -103,7 +103,7 @@ BOOL CVAMHSTestDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
-	pVirualAMHSDevice = new CVirualAMHS();
+	pVirualAMHSDevice = new CVirtualAMHS();
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }

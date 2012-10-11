@@ -134,6 +134,7 @@ void AMHSSocket::OnRead()
 			string sIP = this->GetRemoteIP();
 			uint32 uPort = this->GetRemotePort();
 			printf("OnRead ---> IP: %s Port: %d\n", sIP.c_str(), uPort);
+			printf("Command: 0x%0000X ", Packet->GetOpcode());
 			Packet->hexlike();
 		}
 

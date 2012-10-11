@@ -2,14 +2,14 @@
 //
 
 #include "stdafx.h"
-#include "VirualAMHS.h"
+#include "VirtualAMHS.h"
 #include "amhs_client.h"
 
 // 这是已导出类的构造函数。
 // 有关类定义的信息，请参阅 VirualAMHS.h
 boost::asio::io_service io_service;
 boost::thread t;
-CVirualAMHS::CVirualAMHS()
+CVirtualAMHS::CVirtualAMHS()
 {
 	tcp::resolver resolver(io_service);
 	tcp::resolver::query query("127.0.0.1", "9999");
@@ -21,13 +21,13 @@ CVirualAMHS::CVirualAMHS()
 	return;
 }
 
-CVirualAMHS::~CVirualAMHS()
+CVirtualAMHS::~CVirtualAMHS()
 {
 	pclient->close();
 	t.join();
 }
 
-int CVirualAMHS::AddOHT(int nIndex)
+int CVirtualAMHS::AddOHT(int nIndex)
 {
 	amhs_message msg;
 	AMHSPacket authPacket(0x0816, 4);
