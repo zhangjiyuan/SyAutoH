@@ -3,6 +3,7 @@
 #include "../MesLink/MesLink.h"
 #include "../SqlAceCli/SqlAceCli.h"
 #include "../GuiHub/GuiHub.h"
+#include "../AMHSDrive/AMHSDrive.h"
 
 [event_receiver(native)]
 class CReceiver 
@@ -85,6 +86,7 @@ private:
 	CReceiver m_MesReciver;
 	CGuiHub m_GuiHub;
 	CSource m_MesSource;
+	CAMHSDrive m_amhsDrive;
 public:
 	void PrintfInfo(void);
 };

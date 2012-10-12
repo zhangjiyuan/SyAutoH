@@ -10,8 +10,8 @@ public:
 	int Close(void);
 	int SendPacket(AMHSPacket& packet);
 	
-	int ID() const { return m_nID; }
-	void ID(int val) { m_nID = val; }
+	int getID() const { return m_nID; }
+	void getID(int val) { m_nID = val; }
 
 private:
 	amhs_client* pclient;

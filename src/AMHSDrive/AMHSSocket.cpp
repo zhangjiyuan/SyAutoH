@@ -162,7 +162,9 @@ void AMHSSocket::OnRead()
 
 				__time64_t ltime;
 				_time64( &ltime );
-				printf( "The time is %s\n", _ctime64( &ltime ) ); // C4996
+				char bufTime[256] = "";
+				_ctime64_s(bufTime, &ltime);
+				printf( "The time is %s\n", bufTime ); // C4996
 
 			}
 			break;

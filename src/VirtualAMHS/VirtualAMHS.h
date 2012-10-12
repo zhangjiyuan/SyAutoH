@@ -15,9 +15,24 @@
 class VirtualOHT;
 class VirtualStocker;
 #include <map>
+#include <list>
 typedef std::map<int, VirtualOHT*> MAP_OHT;
 typedef std::map<int, VirtualStocker*> MAP_STK;
-// 此类是从 VirualAMHS.dll 导出的
+
+typedef struct
+{
+	int nID;
+	int nPosition;
+	int nHandStatus;
+} ItemOHT;
+typedef std::list<ItemOHT> LIST_OHT;
+
+typedef struct
+{
+	TCHAR FoupID[256];
+	int nProcessStatus;
+} ItemFoup;
+typedef std::list<ItemFoup> LIST_FOUP;
 
 class VIRUALAMHS_API CVirtualAMHS {
 public:
@@ -28,11 +43,12 @@ public:
 	int AddStocker(int nIndex, const char* sIP);
 
 	// for Stocker
+	LIST_FOUP GetFoupsStatus(int nStocker);
 	int ManualInputFoup(int nStocker, const TCHAR* sFoupID);
 	int ManualOutputFoup(int nStocker, const TCHAR* sFoupID);
 
 	// for OHT
-
+	LIST_OHT GetOHTStatus();
 private:
 	MAP_OHT* m_mapOHT;
 	MAP_STK*	 m_mapSTK;

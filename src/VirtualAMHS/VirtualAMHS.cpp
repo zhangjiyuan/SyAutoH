@@ -50,7 +50,7 @@ int CVirtualAMHS::AddStocker(int nIndex, const char* sIP)
 	else
 	{
 		VirtualStocker* stocker = new VirtualStocker();
-		stocker->ID(nIndex);
+		stocker->getID(nIndex);
 		stocker->Connect("127.0.0.1", 9999);
 		stocker->Auth( sIP);
 		(*m_mapSTK)[nIndex] = stocker;
@@ -70,7 +70,7 @@ int CVirtualAMHS::AddOHT(int nIndex)
 	else
 	{
 		VirtualOHT* oht = new VirtualOHT();
-		oht->ID(nIndex);
+		oht->getID(nIndex);
 
 		oht->Connect("127.0.0.1", 9999);
 		oht->Auth(1001, 1);
@@ -78,5 +78,49 @@ int CVirtualAMHS::AddOHT(int nIndex)
 	}
 	
 
+	return 0;
+}
+
+LIST_FOUP CVirtualAMHS::GetFoupsStatus(int nStocker)
+{
+	LIST_FOUP list;
+	return list;
+}
+
+LIST_OHT CVirtualAMHS::GetOHTStatus()
+{
+	LIST_OHT list;
+	return list;
+}
+
+int CVirtualAMHS::ManualInputFoup(int nStocker, const TCHAR* sFoupID)
+{
+	MAP_STK::iterator it;
+	it = m_mapSTK->find(nStocker);
+	if (it != m_mapSTK->end())
+	{
+		VirtualStocker* stocker = it->second;
+		stocker->ManualInputFoup(sFoupID);
+	}
+	else
+	{
+		return -1;
+	}
+	return 0;
+}
+
+int CVirtualAMHS::ManualOutputFoup(int nStocker, const TCHAR* sFoupID)
+{
+	MAP_STK::iterator it;
+	it = m_mapSTK->find(nStocker);
+	if (it != m_mapSTK->end())
+	{
+		VirtualStocker* stocker = it->second;
+		stocker->ManualOutputFoup(sFoupID);
+	}
+	else
+	{
+		return -1;
+	}
 	return 0;
 }

@@ -10,6 +10,7 @@
 #define AMHSDRIVE_API __declspec(dllimport)
 #endif
 
+#pragma  once
 // 此类是从 AMHSDrive.dll 导出的
 class AMHSDRIVE_API CAMHSDrive {
 public:

@@ -13,7 +13,7 @@
 #endif
 
 CVirtualAMHS* pVirualAMHSDevice = NULL;
-
+const int StockerID = 24;
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -202,7 +202,7 @@ void CVAMHSTestDlg::OnDestroy()
 
 void CVAMHSTestDlg::OnBnClickedBnAddstk()
 {
-	pVirualAMHSDevice->AddStocker(24, "192.168.55.10");
+	pVirualAMHSDevice->AddStocker(StockerID, "192.168.55.10");
 }
 
 
@@ -210,6 +210,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 {
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
+	pVirualAMHSDevice->ManualInputFoup(StockerID, strFoup);
 }
 
 
@@ -217,5 +218,6 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 {
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
+	pVirualAMHSDevice->ManualOutputFoup(StockerID, strFoup);
 
 }
