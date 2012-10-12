@@ -1,16 +1,11 @@
 #pragma once
-class VirtualOHT
+#include "VirtualAMHSDevice.h"
+class VirtualOHT : public VirtualAMHSDevice
 {
 public:
 	VirtualOHT(void);
-	~VirtualOHT(void);
-	int Init(string strIP, int nPort);
-	int Clean(void);
+	virtual ~VirtualOHT(void);
+	
 	int Auth(int nID, int nPos, int nHand);
-
-private:
-		amhs_client* pclient;
-		boost::asio::io_service io_service;
-		boost::thread t;
 };
 
