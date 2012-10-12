@@ -72,11 +72,26 @@ private:
 			{
 			case OHT_MCS_ACK_AUTH:
 				{
-					uint8 ohtID = 0;
-					uint8 ohtAuthRes = 0;
-					*Packet >> ohtID;
-					*Packet >> ohtAuthRes;
-					printf("OHT %d Auth %d\n", ohtID, ohtAuthRes);
+					uint8 nID = 0;
+					uint8 nAuthRes = 0;
+					*Packet >> nID;
+					*Packet >> nAuthRes;
+					printf("OHT %d Auth %d\n", nID, nAuthRes);
+					delete Packet;
+				}
+				break;
+			case STK_MCS_ACK_AUTH:
+				{
+					uint8 nID = 0;
+					uint8 nAuthRes = 0;
+					uint64 uTime = 0;
+					*Packet >> nID;
+					*Packet >> nAuthRes;
+					*Packet >> uTime;
+					__time64_t tTime;
+					memcpy(&tTime, &uTime, 8);
+
+					printf("Stocker %d Auth %d SysTime: %s\n", nID, nAuthRes, _ctime64( &tTime ));
 					delete Packet;
 				}
 				break;

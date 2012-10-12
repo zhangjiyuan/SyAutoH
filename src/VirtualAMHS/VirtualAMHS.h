@@ -13,9 +13,10 @@
 #pragma once
 
 class VirtualOHT;
-
+class VirtualStocker;
 #include <map>
 typedef std::map<int, VirtualOHT*> MAP_OHT;
+typedef std::map<int, VirtualStocker*> MAP_STK;
 // 此类是从 VirualAMHS.dll 导出的
 
 class VIRUALAMHS_API CVirtualAMHS {
@@ -24,6 +25,15 @@ public:
 	~CVirtualAMHS();
 	// TODO: 在此添加您的方法。
 	int AddOHT(int nIndex);
+	int AddStocker(int nIndex, const char* sIP);
+
+	// for Stocker
+	int ManualInputFoup(int nStocker, const TCHAR* sFoupID);
+	int ManualOutputFoup(int nStocker, const TCHAR* sFoupID);
+
+	// for OHT
+
 private:
 	MAP_OHT* m_mapOHT;
+	MAP_STK*	 m_mapSTK;
 };

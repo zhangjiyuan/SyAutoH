@@ -6,6 +6,7 @@ public:
 	VirtualOHT(void);
 	virtual ~VirtualOHT(void);
 	
-	int Auth(int nID, int nPos, int nHand);
+public:
+	int Auth( int nPos, int nHand);
 };
 

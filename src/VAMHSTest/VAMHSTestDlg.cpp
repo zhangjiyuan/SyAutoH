@@ -67,6 +67,9 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BN_AddOHT, &CVAMHSTestDlg::OnBnClickedBnAddoht)
 	ON_WM_DESTROY()
+	ON_BN_CLICKED(IDC_BN_AddSTK, &CVAMHSTestDlg::OnBnClickedBnAddstk)
+	ON_BN_CLICKED(IDC_BN_STK_IN, &CVAMHSTestDlg::OnBnClickedBnStkIn)
+	ON_BN_CLICKED(IDC_BN_STK_OUT, &CVAMHSTestDlg::OnBnClickedBnStkOut)
 END_MESSAGE_MAP()
 
 
@@ -194,4 +197,25 @@ void CVAMHSTestDlg::OnDestroy()
 		pVirualAMHSDevice = NULL;
 	}
 	FreeConsole();                      // 释放控制台资源
+}
+
+
+void CVAMHSTestDlg::OnBnClickedBnAddstk()
+{
+	pVirualAMHSDevice->AddStocker(24, "192.168.55.10");
+}
+
+
+void CVAMHSTestDlg::OnBnClickedBnStkIn()
+{
+	CString strFoup;
+	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
+}
+
+
+void CVAMHSTestDlg::OnBnClickedBnStkOut()
+{
+	CString strFoup;
+	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
+
 }

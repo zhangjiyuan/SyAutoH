@@ -8,7 +8,9 @@ public:
 
 	amhs_message()
 		: body_length_(0),
-		cmd_(0)
+		cmd_(0),
+		isNeedRespond_(false),
+		isRespond_(false)
 	{
 	}
 
@@ -52,12 +54,21 @@ public:
 	uint32 command() const { return cmd_; }
 	void command(uint32 val) { cmd_ = val; }
 
+	bool IsNeedRespond() const { return isNeedRespond_; }
+	void IsNeedRespond(bool val) { isNeedRespond_ = val; }
+
+	bool IsRespond() const { return isRespond_; }
+	void IsRespond(bool val) { isRespond_ = val; }
+
 	bool decode_header()
 	{
 		AMHSPktHeader PktHeader;
 		memcpy(&PktHeader, data_, header_length);
 		cmd_ = PktHeader.cmd;
 		body_length_ = PktHeader.size;
+		uint8 comm = PktHeader.comm;
+		isRespond_ = (comm & 0x80 ? true : false);
+		isNeedRespond_ = (comm & 0x40 ? true : false);
 		if (body_length_ > max_body_length)
 		{
 			body_length_ = 0;
@@ -72,6 +83,24 @@ public:
 		memset(&PktHeader, 0, header_length);
 		PktHeader.cmd = cmd_;
 		PktHeader.size = body_length_;
+		uint8 comm = 0;
+		if (isNeedRespond_)
+		{
+			comm |= 0x40;
+		}
+
+		if (isRespond_)
+		{
+			comm |= 0x80;
+		}
+		PktHeader.comm = comm;
+
+		if (body_length_ < 512)
+		{
+			PktHeader.bLast = 1;
+			PktHeader.index = 1;
+		}
+
 		memcpy(data_, &PktHeader, header_length);
 	}
 
@@ -79,5 +108,6 @@ private:
 	uint8 data_[header_length + max_body_length];
 	size_t body_length_;
 	uint32 cmd_;
-
+	bool isNeedRespond_;
+	bool isRespond_;
 };

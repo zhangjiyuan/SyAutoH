@@ -32,4 +32,7 @@ protected:
 public:
 	afx_msg void OnBnClickedBnAddoht();
 	afx_msg void OnDestroy();
+	afx_msg void OnBnClickedBnAddstk();
+	afx_msg void OnBnClickedBnStkIn();
+	afx_msg void OnBnClickedBnStkOut();
 };

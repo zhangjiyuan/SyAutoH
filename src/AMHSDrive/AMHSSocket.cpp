@@ -2,6 +2,8 @@
 #include "AMHSPacket.h"
 #include "AMHSSocket.h"
 #include "OptCodes.h"
+#include <time.h>
+
 //#pragma pack(push, 1)
 //struct AMHSPktHeader
 //{
@@ -157,12 +159,34 @@ void AMHSSocket::OnRead()
 				ack << uint8(ohtID);
 				ack << uint8(1); // success
 				SendPacket(&ack);
+
+				__time64_t ltime;
+				_time64( &ltime );
+				printf( "The time is %s\n", _ctime64( &ltime ) ); // C4996
+
 			}
 			break;
 		case STK_AUTH:
 			{
-
+				uint8 stockerID = 0;
+				uint32 uIP = 0;
+				*Packet >> stockerID;
+				*Packet >> uIP;
+				struct in_addr addr1;
+				
+				memcpy(&addr1, &uIP, 4);
+				char* sIP = inet_ntoa(addr1);
+				printf("STOCKER Auth ---> id: %d, ip: %s\n", stockerID, sIP);
 				delete Packet;
+
+				AMHSPacket ack(STK_MCS_ACK_AUTH, 10);
+				ack << uint8(stockerID);
+				ack << uint8(1);
+				__time64_t ltime;
+				_time64( &ltime );
+				ack << uint64(ltime);
+
+				SendPacket(&ack);
 			}
 			break;
 		default:

@@ -3,16 +3,24 @@
 
 
 VirtualAMHSDevice::VirtualAMHSDevice(void)
+	: pclient(NULL),
+	m_nID(0)
 {
+	
 }
 
 
 VirtualAMHSDevice::~VirtualAMHSDevice(void)
 {
+	Close();
 }
 
-int VirtualAMHSDevice::Init(string strIP, int nPort)
+int VirtualAMHSDevice::Connect(string strIP, int nPort)
 {
+	if (NULL != pclient)
+	{
+		return -1;
+	}
 	char buf[10] = "";
 	_itoa_s(nPort, buf, 10);
 	tcp::resolver resolver(io_service);
@@ -27,11 +35,12 @@ int VirtualAMHSDevice::Init(string strIP, int nPort)
 }
 
 
-int VirtualAMHSDevice::Clean(void)
+int VirtualAMHSDevice::Close(void)
 {
 	pclient->close();
 	t.join();
 	delete pclient;
+	pclient = NULL;
 
 	return 0;
 }
@@ -42,9 +51,9 @@ int VirtualAMHSDevice::SendPacket(AMHSPacket& packet)
 	
 	msg.body_length(packet.size());
 	msg.command(packet.GetOpcode());
+	msg.IsNeedRespond(true);
 	memcpy(msg.body(), packet.contents(), msg.body_length());
 	msg.encode_header();
-	pclient->write(msg);
 	pclient->write(msg);
 
 	return 0;

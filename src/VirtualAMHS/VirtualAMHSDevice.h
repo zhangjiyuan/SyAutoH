@@ -6,13 +6,19 @@ public:
 	virtual ~VirtualAMHSDevice(void);
 
 public:
-	int Init(string strIP, int nPort);
-	int Clean(void);
+	int Connect(string strIP, int nPort);
+	int Close(void);
 	int SendPacket(AMHSPacket& packet);
+	
+	int ID() const { return m_nID; }
+	void ID(int val) { m_nID = val; }
 
 private:
 	amhs_client* pclient;
 	boost::asio::io_service io_service;
 	boost::thread t;
+
+	int m_nID;
+	
 };
 
