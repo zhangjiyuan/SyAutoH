@@ -78,7 +78,7 @@ void MMoveCtrlServer::Run(int argc, _TCHAR** argv)
 		//sLog.outString("Success! Ready for connections");
 		
 
-		MC.Run();
+		
 
 		while(g_Running.GetVal())
 		{
@@ -100,6 +100,7 @@ void MMoveCtrlServer::Run(int argc, _TCHAR** argv)
 			//PatchMgr::getSingleton().UpdateJobs();
 
 			//wprintf_s(L"MCS Running.\n");
+			MC.Check();
 
 			Sleep(1000);
 		}

@@ -78,7 +78,7 @@ public:
 
 public:
 	int Init(void);
-	void Run(void);
+	void Check(void);
 
 private:
 	CMesLink m_MesLink;

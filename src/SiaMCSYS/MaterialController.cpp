@@ -37,9 +37,10 @@ int MaterialController::Init(void)
 }
 
 
-void MaterialController::Run(void)
+void MaterialController::Check(void)
 {
-	
+	//m_amhsDrive.Run();
+	m_amhsDrive.SetOHTBackMessage(24, 200);
 }
 
 

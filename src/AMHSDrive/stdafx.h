@@ -15,5 +15,9 @@
 #include "Common.h"
 #include "../shared/Network.h"
 #include "../shared/FastQueue.h"
+#include "AMHSPacket.h"
 
+#include <boost/bind.hpp>
+#include <boost/asio.hpp>
+#include <boost/thread/thread.hpp>
 // TODO: 在此处引用程序需要的其他头文件

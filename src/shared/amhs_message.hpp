@@ -1,5 +1,6 @@
 #pragma once
 
+#include "OptCodes.h"
 class amhs_message
 {
 public:

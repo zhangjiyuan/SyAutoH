@@ -100,7 +100,7 @@ void HandleWriteComplete(Socket* s, uint32 len)
 
 void HandleShutdown(Socket* s, uint32 len)
 {
-
+	s->Disconnect();
 }
 
 void SocketMgr::CloseAll()
@@ -137,6 +137,7 @@ void SocketMgr::ShutdownThreads()
 void SocketMgr::ShowStatus()
 {
 	//sLog.outString("sockets count = %u", socket_count.GetVal());
+	printf("sockets count = %u \n", socket_count.GetVal());
 }
 
 #endif

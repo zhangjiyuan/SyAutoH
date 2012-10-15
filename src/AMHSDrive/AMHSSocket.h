@@ -4,7 +4,7 @@
 #define AMHSSOCKET_RECVBUF_SIZE 16384
 
 class AMHSPacket;
-class SocketHandler;
+//class SocketHandler;
 
 enum OUTPACKET_RESULT
 {

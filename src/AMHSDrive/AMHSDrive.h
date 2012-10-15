@@ -19,7 +19,7 @@ public:
 
 	// TODO: 在此添加您的方法。
 	int Init();
-	int Run();
+	int Check();
 	int Clean();
 	int SetOHTLocation(int nPoint);
 	int SetOHTBackMessage(int nOHT, int ms);

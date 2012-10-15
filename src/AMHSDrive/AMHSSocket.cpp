@@ -76,6 +76,7 @@ void AMHSSocket::OnDisconnect()
 	//	sWorld.RemoveQueuedSocket(this);	// Remove from queued sockets.
 	//	mQueued = false;
 	//}
+	printf("Socket Disconnect\n");
 }
 
 void AMHSSocket::OnRead()

@@ -40,6 +40,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\..\bin\$(Configuration)\</OutDir>
+    <IncludePath>E:\AddLib\boost1510\include\boost-1_51;$(IncludePath)</IncludePath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <LibraryPath>E:\AddLib\boost1510\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -82,12 +85,15 @@
   <ItemGroup>
     <ClInclude Include="AMHSDrive.h" />
     <ClInclude Include="AMHSSocket.h" />
+    <ClInclude Include="AMHS_Server.h" />
+    <ClInclude Include="amhs_server.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AMHSDrive.cpp" />
     <ClCompile Include="AMHSSocket.cpp" />
+    <ClCompile Include="AMHS_Server.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
