@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "../shared/Singleton.h"
 #include "amhs_server.hpp"
 class AMHS_Server;
@@ -14,6 +13,11 @@ public:
 	void SetOHTBaceMesageTime(int nID, int ms)
 	{
 		pServer->setOhtMessageBackTime(nID, ms);
+	}
+
+	int GetConnectedCount()
+	{
+		return pServer->GetConnectCount();
 	}
 
 private:

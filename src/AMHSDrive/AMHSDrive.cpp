@@ -59,6 +59,9 @@ int CAMHSDrive::Check()
 	sSocketMgr.ShowStatus();
 	Sleep(1000);
 	}*/
+	int nCount = sAmhsServer.GetConnectedCount();
+	printf("amhs dev connected: %d\n", nCount);
+
 	return 0;
 }
 

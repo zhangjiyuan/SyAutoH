@@ -25,6 +25,9 @@ class amhs_participant
 public:
 	virtual ~amhs_participant() {}
 	virtual void deliver(const amhs_message& msg) = 0;
+public:
+	int nID_;
+	int nDevType_;
 };
 
 typedef boost::shared_ptr<amhs_participant> chat_participant_ptr;
@@ -46,6 +49,19 @@ public:
 		participants_.erase(participant);
 	}
 
+	void SendPacket(chat_participant_ptr participants, AMHSPacket &ack)
+	{
+		amhs_message msg;
+
+		msg.body_length(ack.size());
+		msg.command(ack.GetOpcode());
+		msg.IsNeedRespond(true);
+		memcpy(msg.body(), ack.contents(), msg.body_length());
+		msg.encode_header();
+
+		participants->deliver(msg);
+	}
+
 	void deliver_all(const amhs_message& msg)
 	{
 		//recent_msgs_.push_back(msg);
@@ -54,6 +70,11 @@ public:
 
 		std::for_each(participants_.begin(), participants_.end(),
 			boost::bind(&amhs_participant::deliver, _1, boost::ref(msg)));
+	}
+
+	int GetCount()
+	{
+		return participants_.size();
 	}
 
 private:
@@ -168,22 +189,13 @@ public:
 					ack << uint8(ohtID);
 					ack << uint8(1); // success
 					//SendPacket(&ack);
+					room_.SendPacket(shared_from_this(), ack);
 
 					__time64_t ltime;
 					_time64( &ltime );
 					char bufTime[256] = "";
 					_ctime64_s(bufTime, &ltime);
 					printf( "The time is %s\n", bufTime ); // C4996
-
-					amhs_message msg;
-
-					msg.body_length(ack.size());
-					msg.command(ack.GetOpcode());
-					msg.IsNeedRespond(true);
-					memcpy(msg.body(), ack.contents(), msg.body_length());
-					msg.encode_header();
-
-					deliver(msg);
 				}
 				break;
 			case STK_AUTH:
@@ -209,15 +221,7 @@ public:
 					ack << uint64(ltime);
 
 					//SendPacket(&ack);
-					amhs_message msg;
-
-					msg.body_length(ack.size());
-					msg.command(ack.GetOpcode());
-					msg.IsNeedRespond(true);
-					memcpy(msg.body(), ack.contents(), msg.body_length());
-					msg.encode_header();
-
-					deliver(msg);
+					room_.SendPacket(shared_from_this(), ack);
 				}
 				break;
 			default:
@@ -264,8 +268,6 @@ private:
 	amhs_room& room_;
 	amhs_message read_msg_;
 	amhs_message_queue write_msgs_;
-	int nID_;
-	int nDevType_;
 };
 
 typedef boost::shared_ptr<amhs_session> amhs_session_ptr;
@@ -300,6 +302,11 @@ public:
 		}
 
 		start_accept();
+	}
+
+	int GetConnectCount()
+	{
+		return room_.GetCount();
 	}
 
 	void setOhtMessageBackTime(int nID, int ms)
