@@ -185,7 +185,7 @@ namespace RailView
             return false;
         }
 
-        public Point ComputeCoordinates(List<RailEle> tempList, ushort offset)
+        public Point ComputeCoordinates(List<RailEle> tempList, ushort locationValue)
         {
             Point returnPt = Point.Empty;
             Int32 offsetTemp = 0;
@@ -193,9 +193,9 @@ namespace RailView
             StraightEle strTemp = new StraightEle();
             CurvedEle curTemp = new CurvedEle();
             CrossEle croTemp = new CrossEle();
-            ComputeOffset(offset);
-            section = ComputeSegmentNumber(offset, tempList);
-            offsetTemp = ComputeSegmentOffset(offset, tempList, section);
+            ComputeOffset(locationValue);
+            section = ComputeSegmentNumber(locationValue, tempList);
+            offsetTemp = ComputeSegmentOffset(locationValue, tempList, section);
             switch (tempList[section].graphType)
             {
                 case 1:
