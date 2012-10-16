@@ -8,6 +8,7 @@
 
 // 这是已导出类的构造函数。
 // 有关类定义的信息，请参阅 VirualAMHS.h
+const int OHT_START_POS = 1000;
 
 
 CVirtualAMHS::CVirtualAMHS()
@@ -65,7 +66,7 @@ int CVirtualAMHS::AddOHT(int nIndex)
 	if (it != m_mapOHT->end())
 	{
 		VirtualOHT* oht = it->second;
-		oht->Auth(2001, 0);
+		oht->Auth(OHT_START_POS, 0);
 	}
 	else
 	{
@@ -73,7 +74,7 @@ int CVirtualAMHS::AddOHT(int nIndex)
 		oht->getID(nIndex);
 
 		oht->Connect("127.0.0.1", 9999);
-		oht->Auth(1001, 1);
+		oht->Auth(OHT_START_POS, 0);
 		(*m_mapOHT)[nIndex] = oht;
 	}
 	

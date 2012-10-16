@@ -21,8 +21,20 @@ public:
 	virtual ~VirtualStocker(void);
 
 public:
+	virtual void HandleCommand(AMHSPacket& packet);
+
+public:
 	int Auth( const char* sIP);
 	int ManualInputFoup( const TCHAR* sFoupID);
 	int ManualOutputFoup( const TCHAR* sFoupID);
+
+private:
+	void Handle_Auth(AMHSPacket& packet);
+
+private:
+	typedef void (VirtualStocker::*CommandHander)(AMHSPacket& packet);
+	typedef std::map<int, CommandHander> OPT_MAP;
+	CommandHander pCmd;
+	OPT_MAP m_optHanders;
 };
 

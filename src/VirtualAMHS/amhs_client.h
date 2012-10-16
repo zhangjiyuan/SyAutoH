@@ -3,9 +3,12 @@
 using boost::asio::ip::tcp;
 
 typedef std::deque<amhs_message> amhs_message_queue;
-
+typedef void(*ProcessCommand)(void*, AMHSPacket* packet);
 class amhs_client
 {
+public:
+	ProcessCommand m_pHandleCommand;
+	void* m_pVirtualDevice;
 public:
 	amhs_client(boost::asio::io_service& io_service,
 		tcp::resolver::iterator endpoint_iterator)
@@ -15,6 +18,7 @@ public:
 		boost::asio::async_connect(socket_, endpoint_iterator,
 			boost::bind(&amhs_client::handle_connect, this,
 			boost::asio::placeholders::error));
+		m_pHandleCommand = NULL;
 	}
 
 	void write(const amhs_message& msg)
@@ -68,49 +72,50 @@ private:
 			Packet->resize(mSize);
 
 			memcpy((void*)Packet->contents(), read_msg_.body(), mSize);
-			switch(mOpcode)
+			if (m_pHandleCommand != NULL)
+			{
+				m_pHandleCommand(m_pVirtualDevice, Packet);
+			}
+			delete Packet;
+
+			/*switch(mOpcode)
 			{
 			case OHT_MCS_STATUS_BACK_TIME:
-				{
-					uint8 nID = 0;
-					uint8 nTime = 0;
-					*Packet >> nID;
-					*Packet >> nTime;
-					printf("OHT Status Back Time:  %d Time %d\n", nID, nTime);
-					delete Packet;
-				}
-				break;
-			case OHT_MCS_ACK_AUTH:
-				{
-					uint8 nID = 0;
-					uint8 nAuthRes = 0;
-					*Packet >> nID;
-					*Packet >> nAuthRes;
-					printf("OHT %d Auth %d\n", nID, nAuthRes);
-					delete Packet;
-				}
-				break;
-			case STK_MCS_ACK_AUTH:
-				{
-					uint8 nID = 0;
-					uint8 nAuthRes = 0;
-					uint64 uTime = 0;
-					*Packet >> nID;
-					*Packet >> nAuthRes;
-					*Packet >> uTime;
-					__time64_t tTime;
-					memcpy(&tTime, &uTime, 8);
-
-					printf("Stocker %d Auth %d SysTime: %s\n", nID, nAuthRes, _ctime64( &tTime ));
-					delete Packet;
-				}
-				break;
-			default:
-				{
-					delete Packet;
-				}
-				break;
+			{
+			uint8 nID = 0;
+			uint8 nTime = 0;
+			*Packet >> nID;
+			*Packet >> nTime;
+			printf("OHT Status Back Time:  %d Time %d\n", nID, nTime);
+			delete Packet;
 			}
+			break;
+			case OHT_MCS_ACK_AUTH:
+			{
+
+			}
+			break;
+			case STK_MCS_ACK_AUTH:
+			{
+			uint8 nID = 0;
+			uint8 nAuthRes = 0;
+			uint64 uTime = 0;
+			*Packet >> nID;
+			*Packet >> nAuthRes;
+			*Packet >> uTime;
+			__time64_t tTime;
+			memcpy(&tTime, &uTime, 8);
+
+			printf("Stocker %d Auth %d SysTime: %s\n", nID, nAuthRes, _ctime64( &tTime ));
+			delete Packet;
+			}
+			break;
+			default:
+			{
+			delete Packet;
+			}
+			break;
+			}*/
 
 
 
