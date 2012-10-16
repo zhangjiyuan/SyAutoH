@@ -489,5 +489,9 @@ namespace RailView
             }
             return returnPt;
         }
+
+        public void ComputeVehicleDirection(List<RailEle> tempList)
+        {
+        }
     }
 }

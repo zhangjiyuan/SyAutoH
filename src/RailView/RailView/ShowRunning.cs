@@ -15,18 +15,22 @@ namespace RailView
         List<RailEle> railEleList = new List<RailEle>();
 
         TestCoordination tempTest = new TestCoordination();     //test using,finally delete
-        Int16 offset = -1;                                        //test using,finally delete
+        Int16 offset = -1;                                      //test using,finally delete
+        Vehicle vehicleOne = new Vehicle();                     //using for test
 
         public void InitShowRunning()
         {
             railEleList.AddRange(railInfo.OpenFile());
-            List<RailEle> listTemp = codingRailCoor.InitEleList(railEleList);
-            railEleList.Clear();
-            railEleList.AddRange(listTemp);
-            codingRailCoor.ChooseStartDot(railEleList);
+            if (railEleList.Count != 0)
+            {
+                List<RailEle> listTemp = codingRailCoor.InitEleList(railEleList);
+                railEleList.Clear();
+                railEleList.AddRange(listTemp);
+                codingRailCoor.ChooseStartDot(railEleList);
 
-            tempTest.Show();                                //test using,finally delete
-//            tempTest.ReadSectionNum(railEleList);           //test using,finally delete
+                tempTest.Show();                                //test using,finally delete
+                //            tempTest.ReadSectionNum(railEleList);           //test using,finally delete
+            }
         }
 
         public void DrawRailInfo(Graphics canvas)
@@ -130,9 +134,10 @@ namespace RailView
             {
                 Pen pen = new Pen(Color.Red, 1);
                 Point carrierCoor = codingRailCoor.ComputeCoordinates(railEleList, Convert.ToUInt16(offset));
-                Point carrierCoor1 = carrierCoor;
-                carrierCoor1.Offset(2, 0);
-                canvas.DrawLine(pen, carrierCoor, carrierCoor1);
+                //Point carrierCoor1 = carrierCoor;                       //test using,finally delete
+                //carrierCoor1.Offset(2, 0);                              //test using,finally delete
+                //canvas.DrawLine(pen, carrierCoor, carrierCoor1);        //test using,finally delete
+//                vehicleOne.ShowInScreen(canvas, carrierCoor);
                 pen.Dispose();
             }
         }
