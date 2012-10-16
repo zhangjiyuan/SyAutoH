@@ -6,7 +6,7 @@
 #include "../AMHSDrive/AMHSDrive.h"
 
 [event_receiver(native)]
-class CReceiver 
+class MesMsgReceiver 
 {
 public:
 	DBFoup* m_pFoupDB;
@@ -57,16 +57,16 @@ public:
 		}
 	}
 
-	void hookEvent(CSource* pSource) 
+	void hookEvent(MesMsgSource* pSource) 
 	{
-		__hook(&CSource::MESPickFoup, pSource, &CReceiver::MESHanderPick);
-		__hook(&CSource::MESPlaceFoup, pSource, &CReceiver::MESHanderPlace);
+		__hook(&MesMsgSource::MESPickFoup, pSource, &MesMsgReceiver::MESHanderPick);
+		__hook(&MesMsgSource::MESPlaceFoup, pSource, &MesMsgReceiver::MESHanderPlace);
 	}
 
-	void unhookEvent(CSource* pSource) 
+	void unhookEvent(MesMsgSource* pSource) 
 	{
-		__unhook(&CSource::MESPickFoup, pSource, &CReceiver::MESHanderPick);
-		__unhook(&CSource::MESPlaceFoup, pSource, &CReceiver::MESHanderPlace);
+		__unhook(&MesMsgSource::MESPickFoup, pSource, &MesMsgReceiver::MESHanderPick);
+		__unhook(&MesMsgSource::MESPlaceFoup, pSource, &MesMsgReceiver::MESHanderPlace);
 	}
 };
 
@@ -83,9 +83,9 @@ public:
 private:
 	CMesLink m_MesLink;
 	DBFoup m_FoupDB;
-	CReceiver m_MesReciver;
+	MesMsgReceiver m_MesReciver;
 	CGuiHub m_GuiHub;
-	CSource m_MesSource;
+	MesMsgSource m_MesSource;
 	CAMHSDrive m_amhsDrive;
 public:
 	void PrintfInfo(void);

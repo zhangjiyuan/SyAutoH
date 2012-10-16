@@ -21,7 +21,7 @@ CMesLink::~CMesLink()
 	}
 }
 
-int CMesLink::Init(CSource* pSrc)
+int CMesLink::Init(MesMsgSource* pSrc)
 {
 	if (NULL == m_pMesServer)
 	{

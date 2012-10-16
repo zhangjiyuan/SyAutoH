@@ -2,7 +2,7 @@
 
 #include "IceBase.h"
 
-class CSource;
+class MesMsgSource;
 class MesLinkServer : public CIceServerBase
 {
 public:
@@ -13,10 +13,10 @@ public:
 	virtual void GetProxy();
 
 private:
-	CSource* m_pSource;
+	MesMsgSource* m_pSource;
 	
 public:
-	void Source(CSource* val) { m_pSource = val; }
+	void Source(MesMsgSource* val) { m_pSource = val; }
 
 };
 

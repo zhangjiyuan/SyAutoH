@@ -1,7 +1,7 @@
 #pragma once
 #include "iMesLink.h"
 using namespace MCS;
-class CSource;
+class MesMsgSource;
 class IceMesLinkI : public MESLink
 {
 public:
@@ -14,9 +14,9 @@ public:
 	virtual int PickFoup(const ::std::string&, int, int, const ::Ice::Current&);
 
 private:
-	CSource* m_pSource;
+	MesMsgSource* m_pSource;
 
 public:
-	void SetSource(CSource* source){ m_pSource = source; };
+	void SetSource(MesMsgSource* source){ m_pSource = source; };
 };
 

@@ -21,7 +21,7 @@ public:
 };
 
 [event_source(native)]
-class CSource 
+class MesMsgSource 
 {
 public:
 	__event void MESPickFoup(const WCHAR* sFoupName, int nDevID, int nDevType);
@@ -38,7 +38,7 @@ private:
 	MesLinkServer* m_pMesServer;
 
 public:
-	int Init(CSource* src);
+	int Init(MesMsgSource* src);
 	int GetMesData(CMesData& data);
 };
 
