@@ -16,7 +16,15 @@ namespace RailView
         public List<RailEle> OpenFile()
         {
             XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load("5.xml");
+            try
+            {
+                xmlDoc.Load("..//config//rails.xml");
+            }
+            catch 
+            {
+                MessageBox.Show("文件不存在，请打开组态软件进行配置");
+                return railInfoEleList;
+            }
             XmlNode root = xmlDoc.SelectSingleNode("DrawDoc");
             XmlNodeList rootNodeList = xmlDoc.SelectSingleNode("DrawDoc").ChildNodes;
             foreach (XmlNode rxn in rootNodeList)
