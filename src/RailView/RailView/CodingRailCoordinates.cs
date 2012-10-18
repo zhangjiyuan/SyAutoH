@@ -9,7 +9,7 @@ namespace RailView
 {
     public class CodingRailCoordinates
     {
-        public List<RailEle> codingEleList=new List<RailEle>();
+//        public List<RailEle> codingEleList=new List<RailEle>();
 
         public List<RailEle> InitEleList(List<RailEle> paraList)
         {

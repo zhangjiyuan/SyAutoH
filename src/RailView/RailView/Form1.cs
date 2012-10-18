@@ -13,7 +13,7 @@ namespace RailView
     public partial class Form1 : Form
     {
         ShowRunning showRunningHandle = new ShowRunning();
-        CodingRailCoordinates codingHandle = new CodingRailCoordinates();
+//        CodingRailCoordinates codingHandle = new CodingRailCoordinates();
         public Form1()
         {
             InitializeComponent();
