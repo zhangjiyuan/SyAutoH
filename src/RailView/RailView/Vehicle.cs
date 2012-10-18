@@ -13,9 +13,8 @@ namespace RailView
         private Int16 vehicleID;
         private bool vehicleState;
         private bool vehicleAlarm;
-        private ushort vehicleLocation;
-        private VehicleDirection vehicleDirection = VehicleDirection.Null;
-        private Point vehicleOldCoordinate=Point.Empty;
+        private Point vehicleOldPoint=Point.Empty;
+        private Point vehicleTempPoint = Point.Empty;
 
         public Int16 VehicleID
         {
@@ -34,70 +33,73 @@ namespace RailView
             get { return vehicleAlarm; }
             set { vehicleAlarm = value; }
         }
-        public ushort VehicleLocation
-        {
-            get { return vehicleLocation; }
-            set { vehicleLocation = value; }
-        }
 
-        private enum VehicleDirection
-        { 
-            Up, Down, Lift, Right, Null
-        }
-
-        public Vehicle()
+        public Vehicle(Int16 ID)
         {
+            vehicleID = ID;
+            //vehicleOldPoint = initPoint;
+            //vehicleTempPoint = initPoint;
         }
 
         public bool ShowInScreen(Graphics canvas, Point location)
         {
             Pen pen = new Pen(Color.Red);
             SolidBrush bsh = new SolidBrush(Color.Red);
-            Point oldLocation = vehicleOldCoordinate;
+            ChangeVehiclePoint(location);
             Point[] tranglePts = new Point[3];
             tranglePts[0] = location;
-            switch (vehicleDirection)
-            { 
-                case VehicleDirection.Up:
-                    tranglePts[0].Offset(0, -3);
-                    tranglePts[1].X = tranglePts[0].X - 3;
-                    tranglePts[1].Y = tranglePts[0].Y + 6;
-                    tranglePts[2].X = tranglePts[0].X + 3;
-                    tranglePts[2].Y = tranglePts[0].Y + 6;
-                    break;
-                case VehicleDirection.Down:
-                    tranglePts[0].Offset(0, 3);
-                    tranglePts[1].X = tranglePts[0].X - 3;
-                    tranglePts[1].Y = tranglePts[0].Y - 6;
-                    tranglePts[2].X = tranglePts[0].X + 3;
-                    tranglePts[2].Y = tranglePts[0].Y - 6;
-                    break;
-                case VehicleDirection.Lift:
-                    tranglePts[0].Offset(-3, 0);
-                    tranglePts[1].X = tranglePts[0].X + 6;
-                    tranglePts[1].Y = tranglePts[0].Y - 3;
-                    tranglePts[2].X = tranglePts[0].X + 6;
-                    tranglePts[2].Y = tranglePts[0].Y + 3;
-                    break;
-                case VehicleDirection.Right:
-                    tranglePts[0].Offset(3, 0);
-                    tranglePts[1].X = tranglePts[0].X - 6;
-                    tranglePts[1].Y = tranglePts[0].Y - 3;
-                    tranglePts[2].X = tranglePts[0].X - 6;
-                    tranglePts[2].Y = tranglePts[0].Y + 3;
-                    break;
-                default:
-                    break;
-            }
+            ComputeVehicleShape(location, tranglePts);
             GraphicsPath path = new GraphicsPath();
             path.AddLines(tranglePts);
             canvas.DrawPath(pen, path);
             canvas.FillPath(bsh, path);
             pen.Dispose();
             bsh.Dispose();
-            vehicleOldCoordinate = location;
-            Debug.WriteLine(string.Format("trangelePts {0},{1},{2}", tranglePts[0], tranglePts[1], tranglePts[2]));
+//            Debug.WriteLine(string.Format("trangelePts {0},{1},{2}", tranglePts[0], tranglePts[1], tranglePts[2]));
             return false;
+        }
+
+        private void ChangeVehiclePoint(Point pt)
+        {
+            if (pt != vehicleTempPoint)
+            {
+                vehicleOldPoint = vehicleTempPoint;
+                vehicleTempPoint = pt;
+            }
+        }
+
+        private void ComputeVehicleShape(Point pt, Point[] pts)
+        {
+            Point[] tempPts = new Point[3];
+            int dx = pt.X - vehicleOldPoint.X;
+            int dy = pt.Y - vehicleOldPoint.Y;
+            Int16 dxSign = 0;
+            Int16 dysign = 0;
+            if (dx != 0)
+            {
+                dxSign = Convert.ToInt16(dx / Math.Abs(dx));
+            }
+            if (dy != 0)
+            {
+                dysign = Convert.ToInt16(dy / Math.Abs(dy));
+            }
+            tempPts[0].Offset(pts[0].X + dxSign * 3, pts[0].Y + dysign * 3);
+            tempPts[1].Offset(pts[0].X - dxSign * 3, pts[0].Y - dysign * 3);
+            tempPts[2].Offset(pts[0].X - dxSign * 3, pts[0].Y - dysign * 3);
+            if (tempPts[0].X != tempPts[1].X)
+            {
+                double angle = Math.Atan((tempPts[0].Y - tempPts[1].Y) * 1.0 / (tempPts[0].X - tempPts[1].X));
+                tempPts[1].Offset(-Convert.ToInt32(3 * Math.Sin(angle)), Convert.ToInt32(3 * Math.Cos(angle)));
+                tempPts[2].Offset(Convert.ToInt32(3 * Math.Sin(angle)), -Convert.ToInt32(3 * Math.Cos(angle)));
+            }
+            else
+            {
+                tempPts[1].Offset(3, 0);
+                tempPts[2].Offset(-3, 0);
+            }
+            pts[0].Offset(tempPts[0].X - pts[0].X, tempPts[0].Y - pts[0].Y);
+            pts[1].Offset(tempPts[1].X - pts[1].X, tempPts[1].Y - pts[1].Y);
+            pts[2].Offset(tempPts[2].X - pts[2].X, tempPts[2].Y - pts[2].Y);
         }
     }
 }
