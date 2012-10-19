@@ -124,8 +124,8 @@ LIST_OHT CVirtualAMHS::OHT_GetStatus()
 		{
 			item.nOnline = 1;
 		}
-		item.nHandStatus = vOht->nHand;
-		item.nPosition = vOht->nPos;
+		item.nHandStatus = vOht->m_nHand;
+		item.nPosition = vOht->m_nPos;
 		list.push_back(item);
 	}
 	

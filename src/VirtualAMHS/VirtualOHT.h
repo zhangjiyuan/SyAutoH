@@ -8,10 +8,12 @@ public:
 	
 public:
 	int Auth( int nPos, int nHand);
+	int UpdatePos(uint16 nPos);
 	virtual void HandleCommand(AMHSPacket& packet);
 
 private:
-	void Handle_Auth(AMHSPacket& packet);
+	void Handle_Auth(AMHSPacket& );
+	void Handle_SetPosTime(AMHSPacket& );
 	
 private:
 	typedef void (VirtualOHT::*CommandHander)(AMHSPacket& packet);
@@ -19,7 +21,14 @@ private:
 	OPT_MAP m_optHanders;
 
 public:
-	int nHand;
-	int nPos;
+	int m_nHand;
+	int m_nPos;
+	int m_nPosUpdateTime;
+	int m_nStatusUpdateTime;
+	int m_nPosTimerID;
+	void CreatePosTimer(void);
+	void DestoryPosTimer(void);
+	static void CALLBACK PosTimerHandler(UINT id, UINT msg, DWORD dwUser, DWORD dw1, DWORD dw2);
+	void OnPosTimer(void);
 };
 
