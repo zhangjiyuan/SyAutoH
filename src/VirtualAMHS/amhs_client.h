@@ -42,6 +42,10 @@ private:
 				boost::bind(&amhs_client::handle_read_header, this,
 				boost::asio::placeholders::error));
 		}
+		else
+		{
+			std::cout<< "Cannot connected to server. " << error <<std::endl;
+		}
 	}
 
 	void handle_read_header(const boost::system::error_code& error)

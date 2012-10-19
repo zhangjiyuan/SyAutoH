@@ -5,6 +5,7 @@
 #include "VirtualAMHS.h"
 #include "VirtualOHT.h"
 #include "VirtualStocker.h"
+#include "../shared/Threading/Mutex.h"
 
 // 这是已导出类的构造函数。
 // 有关类定义的信息，请参阅 VirualAMHS.h
@@ -15,12 +16,14 @@ CVirtualAMHS::CVirtualAMHS()
 {
 	m_mapOHT = new MAP_VOHT();
 	m_mapSTK = new MAP_VSTK();
+	m_pOhtLock = new Mutex();
 	return;
 }
 
 CVirtualAMHS::~CVirtualAMHS()
 {
 	MAP_VOHT::iterator it;
+	m_pOhtLock->Acquire();
 	it = m_mapOHT->begin();
 	while(it != m_mapOHT->end())
 	{
@@ -28,6 +31,8 @@ CVirtualAMHS::~CVirtualAMHS()
 		++it;
 	}
 	delete m_mapOHT;
+	m_mapOHT = NULL;
+	m_pOhtLock->Release();
 
 	MAP_VSTK::iterator it_stk;
 	it_stk = m_mapSTK->begin();
@@ -37,64 +42,98 @@ CVirtualAMHS::~CVirtualAMHS()
 		++it_stk;
 	}
 	delete m_mapSTK;
+
+	delete m_pOhtLock;
 }
 
-int CVirtualAMHS::AddStocker(int nIndex, const char* sIP)
+int CVirtualAMHS::Stocker_Auth(int nIndex, const char* sIP)
 {
 	MAP_VSTK::iterator it;
 	it = m_mapSTK->find(nIndex);
 	if (it != m_mapSTK->end())
 	{
 		VirtualStocker* stocker = it->second;
-		stocker->Auth( sIP);
+		if (stocker->Online() == false)
+		{
+			delete stocker;
+			m_mapSTK->erase(it);
+		}
+		else
+		{
+			printf("Stocker %d already online. \n", stocker->DeviceID());
+			return 0;
+		}
 	}
-	else
-	{
-		VirtualStocker* stocker = new VirtualStocker();
-		stocker->DeviceID(nIndex);
-		stocker->Connect("127.0.0.1", 9999);
-		stocker->Auth( sIP);
-		(*m_mapSTK)[nIndex] = stocker;
-	}
+
+	VirtualStocker* stocker = new VirtualStocker();
+	stocker->DeviceID(nIndex);
+	stocker->Connect("127.0.0.1", 9999);
+	stocker->Auth( sIP);
+	(*m_mapSTK)[nIndex] = stocker;
+
 	return 0;
 }
 
-int CVirtualAMHS::AddOHT(int nIndex, int nPos, int nHand)
+int CVirtualAMHS::OHT_Auth(int nIndex, int nPos, int nHand)
 {
 	MAP_VOHT::iterator it;
 	it = m_mapOHT->find(nIndex);
 	if (it != m_mapOHT->end())
 	{
 		VirtualOHT* oht = it->second;
-		oht->Auth(nPos, nHand);
+		if (oht->Online() == false)
+		{
+			delete oht;
+			m_mapOHT->erase(it);
+		}
+		else
+		{
+			printf("OHT %d already online. \n", oht->DeviceID());
+			return 0;
+		}
 	}
-	else
-	{
-		VirtualOHT* oht = new VirtualOHT();
-		oht->DeviceID(nIndex);
 
-		oht->Connect("127.0.0.1", 9999);
-		oht->Auth(nPos, nHand);
-		(*m_mapOHT)[nIndex] = oht;
-	}
-	
+	m_pOhtLock->Acquire();
+	VirtualOHT* oht = new VirtualOHT();
+	oht->DeviceID(nIndex);
+	oht->Connect("127.0.0.1", 9999);
+	oht->Auth(nPos, nHand);
+	(*m_mapOHT)[nIndex] = oht;
+	m_pOhtLock->Release();
 
 	return 0;
 }
 
-LIST_FOUP CVirtualAMHS::GetFoupsStatus(int nStocker)
+LIST_FOUP CVirtualAMHS::Stocker_GetFoupsStatus(int nStocker)
 {
 	LIST_FOUP list;
 	return list;
 }
 
-LIST_OHT CVirtualAMHS::GetOHTStatus()
+LIST_OHT CVirtualAMHS::OHT_GetStatus()
 {
 	LIST_OHT list;
+	m_pOhtLock->Acquire();
+	for (MAP_VOHT::iterator it = m_mapOHT->begin(); 
+		it != m_mapOHT->end(); ++it)
+	{
+		VirtualOHT *vOht = it->second;
+		ItemOHT item;
+		item.nID = vOht->DeviceID();
+		if (vOht->Online() == true)
+		{
+			item.nOnline = 1;
+		}
+		item.nHandStatus = vOht->nHand;
+		item.nPosition = vOht->nPos;
+		list.push_back(item);
+	}
+	
+	m_pOhtLock->Release();
 	return list;
 }
 
-int CVirtualAMHS::ManualInputFoup(int nStocker, const TCHAR* sFoupID)
+int CVirtualAMHS::Stocker_ManualInputFoup(int nStocker, const TCHAR* sFoupID)
 {
 	MAP_VSTK::iterator it;
 	it = m_mapSTK->find(nStocker);
@@ -105,12 +144,14 @@ int CVirtualAMHS::ManualInputFoup(int nStocker, const TCHAR* sFoupID)
 	}
 	else
 	{
+		printf("Stocker %d is offline \n", nStocker);
 		return -1;
 	}
+
 	return 0;
 }
 
-int CVirtualAMHS::ManualOutputFoup(int nStocker, const TCHAR* sFoupID)
+int CVirtualAMHS::Stocker_ManualOutputFoup(int nStocker, const TCHAR* sFoupID)
 {
 	MAP_VSTK::iterator it;
 	it = m_mapSTK->find(nStocker);
@@ -121,6 +162,7 @@ int CVirtualAMHS::ManualOutputFoup(int nStocker, const TCHAR* sFoupID)
 	}
 	else
 	{
+		printf("Stocker %d is offline \n", nStocker);
 		return -1;
 	}
 	return 0;

@@ -40,8 +40,6 @@ public:
 	void join(chat_participant_ptr participant)
 	{
 		participants_.insert(participant);
-		//std::for_each(recent_msgs_.begin(), recent_msgs_.end(),
-			//boost::bind(&chat_participant::deliver, participant, _1));
 	}
 
 	void leave(chat_participant_ptr participant)

@@ -39,15 +39,27 @@ int VirtualStocker::Auth( const char* sIP)
 int VirtualStocker::ManualInputFoup(const TCHAR* sFoupID)
 {
 	int nFoupID = _wtoi(sFoupID);
-	AMHSPacket Packet(STK_FOUP_EVENT, 8);
-	Packet << uint8(DeviceID());
-	Packet << uint8(0); // input
-	Packet << uint8(0);
-	Packet << uint16(23); // lot
-	Packet << uint16(nFoupID); // foup
-	Packet << uint8(5); // manual input 1
+	MAP_VFOUP::iterator it;
+	it = m_mapFoups.find(nFoupID);
+	if (it == m_mapFoups.end())
+	{
+		VirtualFoup foup;
+		foup.nID = nFoupID;
+		foup.nStatus = 0;
+		m_mapFoups.insert(std::make_pair(nFoupID, foup));
 
-	SendPacket(Packet);
+		AMHSPacket Packet(STK_FOUP_EVENT, 8);
+		Packet << uint8(DeviceID());
+		Packet << uint8(0); // input
+		Packet << uint8(0); // slot ID
+		Packet << uint16(0); // lot ID
+		Packet << uint16(nFoupID); // foup ID
+		Packet << uint8(5); // manual input 1
+
+		SendPacket(Packet);
+	}
+
+	
 
 	return 0;
 }
@@ -76,6 +88,8 @@ void VirtualStocker::Handle_Auth(AMHSPacket& packet)
 	packet >> nID;
 	packet >> nAuthRes;
 	packet >> uTime;
+
+	m_isOnline = nAuthRes > 0 ? true : false;
 	__time64_t tTime;
 	memcpy(&tTime, &uTime, 8);
 	char timebuf[256] = "";

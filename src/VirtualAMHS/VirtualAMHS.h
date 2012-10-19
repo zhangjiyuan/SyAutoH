@@ -12,6 +12,7 @@
 
 #pragma once
 
+class  Mutex;
 class VirtualOHT;
 class VirtualStocker;
 #include <map>
@@ -24,6 +25,7 @@ typedef struct
 	int nID;
 	int nPosition;
 	int nHandStatus;
+	int nOnline;
 } ItemOHT;
 typedef std::list<ItemOHT> LIST_OHT;
 typedef std::map<int, ItemOHT*> MAP_ItemOHT;
@@ -39,18 +41,21 @@ class VIRUALAMHS_API CVirtualAMHS {
 public:
 	CVirtualAMHS(void);
 	~CVirtualAMHS();
-	// TODO: 在此添加您的方法。
-	int AddOHT(int nIndex, int nPos = 0, int nHand = 0);
-	int AddStocker(int nIndex, const char* sIP);
+
+	// device auth
+	int OHT_Auth(int nIndex, int nPos = 0, int nHand = 0);
+	int Stocker_Auth(int nIndex, const char* sIP);
 
 	// for Stocker
-	LIST_FOUP GetFoupsStatus(int nStocker);
-	int ManualInputFoup(int nStocker, const TCHAR* sFoupID);
-	int ManualOutputFoup(int nStocker, const TCHAR* sFoupID);
+	LIST_FOUP Stocker_GetFoupsStatus(int nStocker);
+	int Stocker_ManualInputFoup(int nStocker, const TCHAR* sFoupID);
+	int Stocker_ManualOutputFoup(int nStocker, const TCHAR* sFoupID);
 
 	// for OHT
-	LIST_OHT GetOHTStatus();
+	LIST_OHT OHT_GetStatus();
+
 private:
 	MAP_VOHT* m_mapOHT;
+	Mutex*			m_pOhtLock;
 	MAP_VSTK*	 m_mapSTK;
 };

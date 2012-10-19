@@ -12,18 +12,18 @@ public:
 public:
 	void SetOHTBaceMesageTime(int nID, int ms)
 	{
-		pServer->setOhtMessageBackTime(nID, ms);
+		m_pServer->setOhtMessageBackTime(nID, ms);
 	}
 
 	int GetConnectedCount()
 	{
-		return pServer->GetConnectCount();
+		return m_pServer->GetConnectCount();
 	}
 
 private:
-	boost::asio::io_service io_service;
-	boost::thread t;
-	amhs_server_ptr pServer;
+	boost::asio::io_service m_io_service;
+	boost::thread m_thread;
+	amhs_server_ptr m_pServer;
 };
 
 #define sAmhsServer AMHS_Server::getSingleton()

@@ -23,15 +23,15 @@ int AMHS_Server::Start(int nPort)
 	//pclient = new amhs_client(io_service, iterator);
 	
 	tcp::endpoint endpoint(tcp::v4(), nPort);
-	amhs_dev_server* DevServer = new amhs_dev_server(io_service, endpoint);
-	pServer = amhs_server_ptr(DevServer);
-	t = boost::thread(boost::bind(&boost::asio::io_service::run, &io_service));
+	amhs_dev_server* DevServer = new amhs_dev_server(m_io_service, endpoint);
+	m_pServer = amhs_server_ptr(DevServer);
+	m_thread = boost::thread(boost::bind(&boost::asio::io_service::run, &m_io_service));
 
 	return 0;
 }
 
 int AMHS_Server::Close()
 {
-	t.join();
+	m_thread.join();
 	return 0;
 }

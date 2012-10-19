@@ -4,15 +4,17 @@
 class VirtualFoup
 {
 public:
-	TCHAR FoupID[256];
+	int nID;
 	int nStatus;
 
 	VirtualFoup()
-		: nStatus(0)
+		: nStatus(0),
+		nID(0)
 	{
-		memset(FoupID, 0, 256);
+
 	}
 };
+typedef std::map<int, VirtualFoup> MAP_VFOUP;
 
 class VirtualStocker : public VirtualAMHSDevice
 {
@@ -34,7 +36,7 @@ private:
 private:
 	typedef void (VirtualStocker::*CommandHander)(AMHSPacket& packet);
 	typedef std::map<int, CommandHander> OPT_MAP;
-	CommandHander pCmd;
 	OPT_MAP m_optHanders;
+	MAP_VFOUP m_mapFoups;
 };
 

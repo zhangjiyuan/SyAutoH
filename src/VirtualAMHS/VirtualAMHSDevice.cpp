@@ -4,7 +4,8 @@
 
 VirtualAMHSDevice::VirtualAMHSDevice(void)
 	: m_pClient(NULL),
-	m_nID(0)
+	m_nID(0),
+	m_isOnline(false)
 {
 
 }
@@ -58,8 +59,6 @@ int VirtualAMHSDevice::Connect(string strIP, int nPort)
 
 int VirtualAMHSDevice::Close(void)
 {
-
-	m_io_service.stop();
 	m_pClient->close();
 	m_thread.join();
 	delete m_pClient;

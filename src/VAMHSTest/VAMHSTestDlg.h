@@ -4,7 +4,7 @@
 
 #pragma once
 #include "afxcmn.h"
-
+#include "../VirtualAMHS/VirtualAMHS.h"
 
 // CVAMHSTestDlg ¶Ô»°¿ò
 class CVAMHSTestDlg : public CDialogEx
@@ -43,4 +43,6 @@ public:
 	CListCtrl m_listCtrlFOUP;
 	void InitListCtrlOHT(void);
 	void InitListCtrlFOUP(void);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	void SetOHTListItemData(ItemOHT* pOHT, int nListIndex);
 };

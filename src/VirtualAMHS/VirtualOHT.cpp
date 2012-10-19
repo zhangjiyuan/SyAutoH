@@ -3,6 +3,8 @@
 
 
 VirtualOHT::VirtualOHT(void)
+	: nPos(0),
+	nHand(0)
 {
 	//m_optHanders.insert(make_pair(OHT_MCS_ACK_AUTH, &VirtualOHT::Handle_Auth));
 	m_optHanders[OHT_MCS_ACK_AUTH] = (CommandHander)&VirtualOHT::Handle_Auth;
@@ -43,7 +45,7 @@ void VirtualOHT::Handle_Auth(AMHSPacket& packet)
 	uint8 nAuthRes = 0;
 	packet >> nID;
 	packet >> nAuthRes;
-	isOnline = nAuthRes > 0 ? true : false;
+	m_isOnline = nAuthRes > 0 ? true : false;
 	
 	printf("OHT %d Auth %d\n", nID, nAuthRes);
 }

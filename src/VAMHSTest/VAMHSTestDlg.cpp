@@ -76,6 +76,7 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BN_OHT_Add, &CVAMHSTestDlg::OnBnClickedBnOhtAdd)
 	ON_BN_CLICKED(IDC_BN_SetHand, &CVAMHSTestDlg::OnBnClickedBnSethand)
 	ON_BN_CLICKED(IDC_BN_SetPos, &CVAMHSTestDlg::OnBnClickedBnSetpos)
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 
@@ -116,8 +117,8 @@ BOOL CVAMHSTestDlg::OnInitDialog()
 	AllocConsole();                     // 打开控制台资源
 	FILE* file;
 	freopen_s( &file, "CONOUT$", "w+t", stdout);// 申请写
-
 	pVirualAMHSDevice = new CVirtualAMHS();
+	SetTimer(100, 500, NULL);
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -177,7 +178,7 @@ void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 {
 	int nItem = m_listCtrlOHT.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
 	int nOHT_ID = m_listCtrlOHT.GetItemData(nItem);
-	int nAdd = pVirualAMHSDevice->AddOHT(nOHT_ID);
+	int nAdd = pVirualAMHSDevice->OHT_Auth(nOHT_ID);
 }
 
 
@@ -206,7 +207,7 @@ void CVAMHSTestDlg::OnDestroy()
 
 void CVAMHSTestDlg::OnBnClickedBnAddstk()
 {
-	pVirualAMHSDevice->AddStocker(StockerID, "192.168.55.10");
+	pVirualAMHSDevice->Stocker_Auth(StockerID, "192.168.55.10");
 }
 
 
@@ -214,7 +215,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 {
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
-	pVirualAMHSDevice->ManualInputFoup(StockerID, strFoup);
+	pVirualAMHSDevice->Stocker_ManualInputFoup(StockerID, strFoup);
 }
 
 
@@ -222,7 +223,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 {
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
-	pVirualAMHSDevice->ManualOutputFoup(StockerID, strFoup);
+	pVirualAMHSDevice->Stocker_ManualOutputFoup(StockerID, strFoup);
 
 }
 
@@ -248,16 +249,8 @@ void CVAMHSTestDlg::OnBnClickedBnOhtAdd()
 			pOht->nHandStatus = 0;
 
 			CString str;
-			str.Format(_T("%d"), nOHT_ID);
 			m_listCtrlOHT.InsertItem(0, str);
-			str.Format(_T("%d"), pOht->nPosition);
-			m_listCtrlOHT.SetItemText(0, 1, str);
-			str.Format(_T("%d"), pOht->nHandStatus);
-			m_listCtrlOHT.SetItemText(0, 2, str);
-			//str.Format(_T("%d"), pOht->nHandStatus);
-			m_listCtrlOHT.SetItemText(0, 3, _T("Idle"));
-			m_listCtrlOHT.SetItemText(0, 4, _T("Off"));
-			m_listCtrlOHT.SetItemData(0, nOHT_ID);
+			SetOHTListItemData(pOht, 0);
 		}
 	}
 	else
@@ -305,4 +298,63 @@ void CVAMHSTestDlg::InitListCtrlFOUP(void)
 	m_listCtrlFOUP.InsertColumn(1, _T("Location"), LVCFMT_CENTER, 80);
 	m_listCtrlFOUP.InsertColumn(2, _T("Status"), LVCFMT_CENTER, 50);
 
+}
+
+
+void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
+{
+	LIST_OHT ohts = pVirualAMHSDevice->OHT_GetStatus();
+	LIST_FOUP foups = pVirualAMHSDevice->Stocker_GetFoupsStatus(StockerID);
+
+	LIST_OHT::iterator itOht = ohts.begin();
+	while(itOht != ohts.end())
+	{
+		MAP_ItemOHT::iterator itMap = g_mapOHTs.find(itOht->nID);
+		if (itMap != g_mapOHTs.end())
+		{
+			itMap->second->nHandStatus = itOht->nHandStatus;
+			itMap->second->nPosition = itOht->nPosition;
+			itMap->second->nOnline = itOht->nOnline;
+		}
+		++itOht;
+	}
+
+	int nCount = m_listCtrlOHT.GetItemCount();
+	for (int i=0; i<nCount; i++)
+	{
+		int nOht = m_listCtrlOHT.GetItemData(i);
+		MAP_ItemOHT::iterator it = g_mapOHTs.find(nOht);
+		if (it != g_mapOHTs.end())
+		{
+			ItemOHT* pOht = it->second;
+			SetOHTListItemData(pOht, i);
+		}
+	}
+
+
+
+	CDialogEx::OnTimer(nIDEvent);
+}
+
+
+void CVAMHSTestDlg::SetOHTListItemData(ItemOHT* pOHT, int nListIndex)
+{
+	CString str;
+	str.Format(_T("%d"), pOHT->nID);
+	m_listCtrlOHT.SetItemText(nListIndex, 0, str);
+	str.Format(_T("%d"), pOHT->nPosition);
+	m_listCtrlOHT.SetItemText(nListIndex, 1, str);
+	str.Format(_T("%d"), pOHT->nHandStatus);
+	m_listCtrlOHT.SetItemText(nListIndex, 2, str);
+	m_listCtrlOHT.SetItemText(nListIndex, 3, _T("Idle"));
+	if (pOHT->nOnline > 0)
+	{
+		str = _T("On");
+	}
+	else
+	{
+		str = _T("Off");
+	}
+	m_listCtrlOHT.SetItemText(nListIndex, 4, str);
+	m_listCtrlOHT.SetItemData(nListIndex, pOHT->nID);
 }
