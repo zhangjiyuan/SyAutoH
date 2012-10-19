@@ -13,6 +13,7 @@
 #endif
 
 CVirtualAMHS* pVirualAMHSDevice = NULL;
+MAP_ItemOHT g_mapOHTs;
 const int StockerID = 24;
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
@@ -59,17 +60,22 @@ CVAMHSTestDlg::CVAMHSTestDlg(CWnd* pParent /*=NULL*/)
 void CVAMHSTestDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_LIST_OHT, m_listCtrlOHT);
+	DDX_Control(pDX, IDC_LIST_FOUP, m_listCtrlFOUP);
 }
 
 BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	ON_BN_CLICKED(IDC_BN_AddOHT, &CVAMHSTestDlg::OnBnClickedBnAddoht)
+	ON_BN_CLICKED(IDC_BN_AddOHT, &CVAMHSTestDlg::OnBnClickedBnOHTonline)
 	ON_WM_DESTROY()
 	ON_BN_CLICKED(IDC_BN_AddSTK, &CVAMHSTestDlg::OnBnClickedBnAddstk)
 	ON_BN_CLICKED(IDC_BN_STK_IN, &CVAMHSTestDlg::OnBnClickedBnStkIn)
 	ON_BN_CLICKED(IDC_BN_STK_OUT, &CVAMHSTestDlg::OnBnClickedBnStkOut)
+	ON_BN_CLICKED(IDC_BN_OHT_Add, &CVAMHSTestDlg::OnBnClickedBnOhtAdd)
+	ON_BN_CLICKED(IDC_BN_SetHand, &CVAMHSTestDlg::OnBnClickedBnSethand)
+	ON_BN_CLICKED(IDC_BN_SetPos, &CVAMHSTestDlg::OnBnClickedBnSetpos)
 END_MESSAGE_MAP()
 
 
@@ -105,6 +111,8 @@ BOOL CVAMHSTestDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+	InitListCtrlOHT();
+	InitListCtrlFOUP();
 	AllocConsole();                     // 打开控制台资源
 	FILE* file;
 	freopen_s( &file, "CONOUT$", "w+t", stdout);// 申请写
@@ -165,24 +173,11 @@ HCURSOR CVAMHSTestDlg::OnQueryDragIcon()
 
 
 
-void CVAMHSTestDlg::OnBnClickedBnAddoht()
+void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 {
-	int nOHT_ID = GetDlgItemInt(IDC_EDIT_OHTID);
-	if (nOHT_ID > 0 && nOHT_ID < 254)
-	{
-		int nAdd = pVirualAMHSDevice->AddOHT(nOHT_ID);
-		if (0 == nAdd)
-		{
-			CString str;
-			str.Format(_T("成功添加OHT %d"), nOHT_ID);
-			//MessageBox(str);
-			wprintf(str);
-		}
-	}
-	else
-	{
-		MessageBox(_T("不合理的OHT ID值, 应在1至253之间."));
-	}
+	int nItem = m_listCtrlOHT.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
+	int nOHT_ID = m_listCtrlOHT.GetItemData(nItem);
+	int nAdd = pVirualAMHSDevice->AddOHT(nOHT_ID);
 }
 
 
@@ -197,6 +192,15 @@ void CVAMHSTestDlg::OnDestroy()
 		pVirualAMHSDevice = NULL;
 	}
 	FreeConsole();                      // 释放控制台资源
+
+	MAP_ItemOHT::iterator it;
+	it = g_mapOHTs.begin();
+	while(it != g_mapOHTs.end())
+	{
+		delete it->second;
+		++it;
+	}
+	g_mapOHTs.clear();
 }
 
 
@@ -219,5 +223,86 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
 	pVirualAMHSDevice->ManualOutputFoup(StockerID, strFoup);
+
+}
+
+
+void CVAMHSTestDlg::OnBnClickedBnOhtAdd()
+{
+	int nOHT_ID = GetDlgItemInt(IDC_EDIT_OHTID);
+	if (nOHT_ID >= 0 && nOHT_ID < 254)
+	{
+		MAP_ItemOHT::iterator it = g_mapOHTs.find(nOHT_ID);
+		MAP_ItemOHT::iterator itEnd = g_mapOHTs.end();
+		if (it != g_mapOHTs.end())
+		{
+			MessageBox(_T("OHT己存在!"));
+		}
+		else
+		{
+			// add
+			ItemOHT* pOht = new ItemOHT;
+			g_mapOHTs.insert(std::make_pair(nOHT_ID, pOht));
+			pOht->nID = nOHT_ID;
+			pOht->nPosition = 0;
+			pOht->nHandStatus = 0;
+
+			CString str;
+			str.Format(_T("%d"), nOHT_ID);
+			m_listCtrlOHT.InsertItem(0, str);
+			str.Format(_T("%d"), pOht->nPosition);
+			m_listCtrlOHT.SetItemText(0, 1, str);
+			str.Format(_T("%d"), pOht->nHandStatus);
+			m_listCtrlOHT.SetItemText(0, 2, str);
+			//str.Format(_T("%d"), pOht->nHandStatus);
+			m_listCtrlOHT.SetItemText(0, 3, _T("Idle"));
+			m_listCtrlOHT.SetItemText(0, 4, _T("Off"));
+			m_listCtrlOHT.SetItemData(0, nOHT_ID);
+		}
+	}
+	else
+	{
+		MessageBox(_T("不合理的OHT ID值, 应在0至253之间."));
+	}
+}
+
+
+void CVAMHSTestDlg::OnBnClickedBnSethand()
+{
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+
+void CVAMHSTestDlg::OnBnClickedBnSetpos()
+{
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+
+void CVAMHSTestDlg::InitListCtrlOHT(void)
+{
+	DWORD dwStyle;
+	dwStyle = m_listCtrlOHT.GetStyle();  //取得样式
+	dwStyle =    LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT ;   //添加样式
+	m_listCtrlOHT.SetExtendedStyle(dwStyle);     //重新设置
+
+	m_listCtrlOHT.InsertColumn(0, _T("ID"), LVCFMT_CENTER, 30);
+	m_listCtrlOHT.InsertColumn(1, _T("POS"), LVCFMT_CENTER, 80);
+	m_listCtrlOHT.InsertColumn(2, _T("HAND"), LVCFMT_CENTER, 50);
+	m_listCtrlOHT.InsertColumn(3, _T("Status"), LVCFMT_CENTER, 50);
+	m_listCtrlOHT.InsertColumn(4, _T("Online"), LVCFMT_CENTER, 50);
+}
+
+
+void CVAMHSTestDlg::InitListCtrlFOUP(void)
+{
+	DWORD dwStyle;
+	dwStyle = m_listCtrlFOUP.GetStyle();  //取得样式
+	dwStyle =    LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT ;   //添加样式
+	m_listCtrlFOUP.SetExtendedStyle(dwStyle);     //重新设置
+
+	m_listCtrlFOUP.InsertColumn(0, _T("ID"), LVCFMT_CENTER, 100);
+	m_listCtrlFOUP.InsertColumn(1, _T("Location"), LVCFMT_CENTER, 80);
+	m_listCtrlFOUP.InsertColumn(2, _T("Status"), LVCFMT_CENTER, 50);
 
 }

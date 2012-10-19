@@ -26,7 +26,7 @@ void VirtualStocker::HandleCommand(AMHSPacket& packet)
 int VirtualStocker::Auth( const char* sIP)
 {
 	AMHSPacket authPacket(STK_AUTH, 4);
-	authPacket<< uint8(getID());		// stokcer id
+	authPacket<< uint8(DeviceID());		// stokcer id
 	uint32 uIP = 0;
 	uIP = inet_addr(sIP);
 	authPacket << uIP;
@@ -40,7 +40,7 @@ int VirtualStocker::ManualInputFoup(const TCHAR* sFoupID)
 {
 	int nFoupID = _wtoi(sFoupID);
 	AMHSPacket Packet(STK_FOUP_EVENT, 8);
-	Packet << uint8(getID());
+	Packet << uint8(DeviceID());
 	Packet << uint8(0); // input
 	Packet << uint8(0);
 	Packet << uint16(23); // lot
@@ -56,7 +56,7 @@ int VirtualStocker::ManualOutputFoup(const TCHAR* sFoupID)
 {
 	int nFoupID = _wtoi(sFoupID);
 	AMHSPacket Packet(STK_FOUP_EVENT, 8);
-	Packet << uint8(getID());
+	Packet << uint8(DeviceID());
 	Packet << uint8(1); // output
 	Packet << uint8(0);
 	Packet << uint16(23); // lot

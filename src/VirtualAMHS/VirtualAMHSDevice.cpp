@@ -3,10 +3,10 @@
 
 
 VirtualAMHSDevice::VirtualAMHSDevice(void)
-	: pclient(NULL),
+	: m_pClient(NULL),
 	m_nID(0)
 {
-	
+
 }
 
 
@@ -33,21 +33,24 @@ void VirtualAMHSDevice::PassCommand(void* pDevice, AMHSPacket& packet)
 
 int VirtualAMHSDevice::Connect(string strIP, int nPort)
 {
-	if (NULL != pclient)
+	if (NULL != m_pClient)
 	{
 		return -1;
 	}
+	m_sIP = strIP;
+	m_nPort = nPort;
+
 	char buf[10] = "";
 	_itoa_s(nPort, buf, 10);
-	tcp::resolver resolver(io_service);
+	tcp::resolver resolver(m_io_service);
 	tcp::resolver::query query(strIP, buf);
 	tcp::resolver::iterator iterator = resolver.resolve(query);
 
-	pclient = new amhs_client(io_service, iterator);
-	pclient->m_pHandleCommand = (ProcessCommand)&VirtualAMHSDevice::PassCommand;
-	pclient->m_pVirtualDevice = this;
+	m_pClient = new amhs_client(m_io_service, iterator);
+	m_pClient->m_pHandleCommand = (ProcessCommand)&VirtualAMHSDevice::PassCommand;
+	m_pClient->m_pVirtualDevice = this;
 
-	t = boost::thread(boost::bind(&boost::asio::io_service::run, &io_service));
+	m_thread = boost::thread(boost::bind(&boost::asio::io_service::run, &m_io_service));
 
 	return 0;
 }
@@ -55,16 +58,24 @@ int VirtualAMHSDevice::Connect(string strIP, int nPort)
 
 int VirtualAMHSDevice::Close(void)
 {
-	pclient->close();
-	t.join();
-	delete pclient;
-	pclient = NULL;
+
+	m_io_service.stop();
+	m_pClient->close();
+	m_thread.join();
+	delete m_pClient;
+	m_pClient = NULL;
 
 	return 0;
 }
 
 int VirtualAMHSDevice::SendPacket(AMHSPacket& packet)
 {
+	/*bool bConnect = false;
+	if (false == bConnect)
+	{
+	Close();
+	Connect(m_sIP, m_nPort);
+	}*/
 	amhs_message msg;
 	
 	msg.body_length(packet.size());
@@ -72,7 +83,7 @@ int VirtualAMHSDevice::SendPacket(AMHSPacket& packet)
 	msg.IsNeedRespond(true);
 	memcpy(msg.body(), packet.contents(), msg.body_length());
 	msg.encode_header();
-	pclient->write(msg);
+	m_pClient->write(msg);
 
 	return 0;
 }

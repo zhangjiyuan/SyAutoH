@@ -40,8 +40,8 @@ int MaterialController::Init(void)
 void MaterialController::Check(void)
 {
 	//m_amhsDrive.Run();
-	m_amhsDrive.SetOHTBackMessage(24, 200);
-	m_amhsDrive.Check();
+	//m_amhsDrive.SetOHTBackMessage(24, 200);
+	//m_amhsDrive.Check();
 }
 
 

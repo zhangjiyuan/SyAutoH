@@ -13,14 +13,14 @@ const int OHT_START_POS = 1000;
 
 CVirtualAMHS::CVirtualAMHS()
 {
-	m_mapOHT = new MAP_OHT();
-	m_mapSTK = new MAP_STK();
+	m_mapOHT = new MAP_VOHT();
+	m_mapSTK = new MAP_VSTK();
 	return;
 }
 
 CVirtualAMHS::~CVirtualAMHS()
 {
-	MAP_OHT::iterator it;
+	MAP_VOHT::iterator it;
 	it = m_mapOHT->begin();
 	while(it != m_mapOHT->end())
 	{
@@ -29,7 +29,7 @@ CVirtualAMHS::~CVirtualAMHS()
 	}
 	delete m_mapOHT;
 
-	MAP_STK::iterator it_stk;
+	MAP_VSTK::iterator it_stk;
 	it_stk = m_mapSTK->begin();
 	while(it_stk != m_mapSTK->end())
 	{
@@ -41,7 +41,7 @@ CVirtualAMHS::~CVirtualAMHS()
 
 int CVirtualAMHS::AddStocker(int nIndex, const char* sIP)
 {
-	MAP_STK::iterator it;
+	MAP_VSTK::iterator it;
 	it = m_mapSTK->find(nIndex);
 	if (it != m_mapSTK->end())
 	{
@@ -51,7 +51,7 @@ int CVirtualAMHS::AddStocker(int nIndex, const char* sIP)
 	else
 	{
 		VirtualStocker* stocker = new VirtualStocker();
-		stocker->getID(nIndex);
+		stocker->DeviceID(nIndex);
 		stocker->Connect("127.0.0.1", 9999);
 		stocker->Auth( sIP);
 		(*m_mapSTK)[nIndex] = stocker;
@@ -59,22 +59,22 @@ int CVirtualAMHS::AddStocker(int nIndex, const char* sIP)
 	return 0;
 }
 
-int CVirtualAMHS::AddOHT(int nIndex)
+int CVirtualAMHS::AddOHT(int nIndex, int nPos, int nHand)
 {
-	MAP_OHT::iterator it;
+	MAP_VOHT::iterator it;
 	it = m_mapOHT->find(nIndex);
 	if (it != m_mapOHT->end())
 	{
 		VirtualOHT* oht = it->second;
-		oht->Auth(OHT_START_POS, 0);
+		oht->Auth(nPos, nHand);
 	}
 	else
 	{
 		VirtualOHT* oht = new VirtualOHT();
-		oht->getID(nIndex);
+		oht->DeviceID(nIndex);
 
 		oht->Connect("127.0.0.1", 9999);
-		oht->Auth(OHT_START_POS, 0);
+		oht->Auth(nPos, nHand);
 		(*m_mapOHT)[nIndex] = oht;
 	}
 	
@@ -96,7 +96,7 @@ LIST_OHT CVirtualAMHS::GetOHTStatus()
 
 int CVirtualAMHS::ManualInputFoup(int nStocker, const TCHAR* sFoupID)
 {
-	MAP_STK::iterator it;
+	MAP_VSTK::iterator it;
 	it = m_mapSTK->find(nStocker);
 	if (it != m_mapSTK->end())
 	{
@@ -112,7 +112,7 @@ int CVirtualAMHS::ManualInputFoup(int nStocker, const TCHAR* sFoupID)
 
 int CVirtualAMHS::ManualOutputFoup(int nStocker, const TCHAR* sFoupID)
 {
-	MAP_STK::iterator it;
+	MAP_VSTK::iterator it;
 	it = m_mapSTK->find(nStocker);
 	if (it != m_mapSTK->end())
 	{

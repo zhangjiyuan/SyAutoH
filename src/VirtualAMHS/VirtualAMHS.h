@@ -16,8 +16,8 @@ class VirtualOHT;
 class VirtualStocker;
 #include <map>
 #include <list>
-typedef std::map<int, VirtualOHT*> MAP_OHT;
-typedef std::map<int, VirtualStocker*> MAP_STK;
+typedef std::map<int, VirtualOHT*> MAP_VOHT;
+typedef std::map<int, VirtualStocker*> MAP_VSTK;
 
 typedef struct
 {
@@ -26,6 +26,7 @@ typedef struct
 	int nHandStatus;
 } ItemOHT;
 typedef std::list<ItemOHT> LIST_OHT;
+typedef std::map<int, ItemOHT*> MAP_ItemOHT;
 
 typedef struct
 {
@@ -39,7 +40,7 @@ public:
 	CVirtualAMHS(void);
 	~CVirtualAMHS();
 	// TODO: 在此添加您的方法。
-	int AddOHT(int nIndex);
+	int AddOHT(int nIndex, int nPos = 0, int nHand = 0);
 	int AddStocker(int nIndex, const char* sIP);
 
 	// for Stocker
@@ -50,6 +51,6 @@ public:
 	// for OHT
 	LIST_OHT GetOHTStatus();
 private:
-	MAP_OHT* m_mapOHT;
-	MAP_STK*	 m_mapSTK;
+	MAP_VOHT* m_mapOHT;
+	MAP_VSTK*	 m_mapSTK;
 };

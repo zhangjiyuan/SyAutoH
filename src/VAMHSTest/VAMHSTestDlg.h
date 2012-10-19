@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include "afxcmn.h"
 
 
 // CVAMHSTestDlg ¶Ô»°¿ò
@@ -30,9 +31,16 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedBnAddoht();
+	afx_msg void OnBnClickedBnOHTonline();
 	afx_msg void OnDestroy();
 	afx_msg void OnBnClickedBnAddstk();
 	afx_msg void OnBnClickedBnStkIn();
 	afx_msg void OnBnClickedBnStkOut();
+	afx_msg void OnBnClickedBnOhtAdd();
+	afx_msg void OnBnClickedBnSethand();
+	afx_msg void OnBnClickedBnSetpos();
+	CListCtrl m_listCtrlOHT;
+	CListCtrl m_listCtrlFOUP;
+	void InitListCtrlOHT(void);
+	void InitListCtrlFOUP(void);
 };
