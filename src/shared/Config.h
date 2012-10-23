@@ -1,5 +1,6 @@
 #if !defined (CONFIG_H)
 #define CONFIG_H
+#define SERVER_COMMON_H
 #include "Common.h"
 
 #ifndef EOL

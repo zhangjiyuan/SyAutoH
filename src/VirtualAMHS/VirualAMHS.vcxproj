@@ -40,8 +40,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\AddLib\boost1510\include\boost-1_51;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\AddLib\boost1510\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\boost_1_51_0;E:\AddLib\boost1510\include\boost-1_51;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\boost_1_51_0\lib;E:\AddLib\boost1510\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\..\bin\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -1,6 +1,6 @@
 #ifndef SERVER_LOG_H
 #define SERVER_LOG_H
-
+#define SERVER_COMMON_H
 #include "Common.h"
 #include "Singleton.h"
 //#include "Mutex.h"
