@@ -81,8 +81,11 @@
     <ClInclude Include="amhs_message.hpp" />
     <ClInclude Include="ByteBuffer.h" />
     <ClInclude Include="CircularBuffer.h" />
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="ConfigEnv.h" />
     <ClInclude Include="FastQueue.h" />
     <ClInclude Include="ListenSocketWin32.h" />
+    <ClInclude Include="Log.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="OptCodes.h" />
     <ClInclude Include="Singleton.h" />
@@ -108,6 +111,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CircularBuffer.cpp" />
+    <ClCompile Include="Config.cpp" />
+    <ClCompile Include="Log.cpp" />
     <ClCompile Include="Socket.cpp" />
     <ClCompile Include="SocketMgrWin32.cpp" />
     <ClCompile Include="SocketOpsWin32.cpp" />
