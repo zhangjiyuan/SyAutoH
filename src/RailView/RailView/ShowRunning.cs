@@ -13,6 +13,7 @@ namespace RailView
         ReadRailInfo railInfo = new ReadRailInfo();
         CodingRailCoordinates codingRailCoor = new CodingRailCoordinates();
         List<RailEle> railEleList = new List<RailEle>();
+        List<RailEle> railDrawEleLIst = new List<RailEle>();
         List<Vehicle> vehicleList = new List<Vehicle>();
 
         TestCoordination tempTest = new TestCoordination();     //test using,finally delete
@@ -24,10 +25,10 @@ namespace RailView
             railEleList.AddRange(railInfo.OpenFile());
             if (railEleList.Count != 0)
             {
-                List<RailEle> listTemp = codingRailCoor.InitEleList(railEleList);
-                railEleList.Clear();
-                railEleList.AddRange(listTemp);
-                codingRailCoor.ChooseStartDot(railEleList);
+                railDrawEleLIst = codingRailCoor.InitEleList(railEleList);
+//                railEleList.Clear();
+//                railEleList.AddRange(listTemp);
+//                codingRailCoor.ChooseStartDot(railEleList);
                 vehicleList.Add(vehicleOne);                    //test using,finally delete
                 tempTest.Show();                                //test using,finally delete
                 //            tempTest.ReadSectionNum(railEleList);           //test using,finally delete
@@ -134,7 +135,7 @@ namespace RailView
             if (offset != -1)
             {
                 Pen pen = new Pen(Color.Red, 1);
-                Point carrierCoor = codingRailCoor.ComputeCoordinates(railEleList, Convert.ToUInt16(offset));
+                Point carrierCoor = codingRailCoor.ComputeCoordinates(railDrawEleLIst, Convert.ToUInt16(offset));
                 //Point carrierCoor1 = carrierCoor;                       //test using,finally delete
                 //carrierCoor1.Offset(2, 0);                              //test using,finally delete
                 //canvas.DrawLine(pen, carrierCoor, carrierCoor1);        //test using,finally delete

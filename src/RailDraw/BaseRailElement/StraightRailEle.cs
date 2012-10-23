@@ -10,34 +10,62 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
+
 namespace BaseRailElement
 {
     public class StraightRailEle : BaseRailEle
     {
         private ObjectStraightOp objectStaightOp = new ObjectStraightOp();
         private Pen pen = new Pen(Color.Black, 1);
-
         private int lenght = 100;
+        private int startAngle = 0;
+        private int rotateAngle = 90;
+        private string startDot = "first dot";
+
+        [Category("其他")]
         public int Lenght
         {
             get { return lenght; }
             set { lenght = value; }
-        }
-
-        private int startAngle = 0;
+        }      
         [Browsable(false)]
         public int StartAngle
         {
             get { return startAngle; }
             set { startAngle = value; }
         }
-
-        private int rotateAngle = 90;
-
         [Browsable(false)]
         public List<Point> PointList
         {
             get { return objectStaightOp.PointList; }
+        }
+        [ReadOnly(true), Category("端点坐标")]
+        public Point FirstDot
+        {
+            get { return PointList[0]; }
+        }
+        [ReadOnly(true), Category("端点坐标")]
+        public Point SecDot
+        {
+            get { return PointList[1]; }
+        }
+        public class StartDotConverter : TypeConverter
+        {
+            public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+            {
+                return true;
+            }
+
+            public override TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+            {
+                return new StandardValuesCollection(new string[] {"first dot","sec dot"});
+            }
+        }
+        [TypeConverter(typeof(StartDotConverter)), Category("轨道段信息"), Description("二维码起始端")]
+        public string StartDot
+        {
+            get { return startDot; }
+            set { startDot = value; }
         }
 
         public StraightRailEle() { GraphType = 1; }

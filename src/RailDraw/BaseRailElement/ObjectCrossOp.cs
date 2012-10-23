@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Diagnostics;
 
 namespace BaseRailElement
 {
@@ -162,6 +163,7 @@ namespace BaseRailElement
 
         public int scale(int handle, int dx, int dy, bool isMirror)
         {
+            Debug.WriteLine(string.Format("object orign first is {0},sec is {1},th is {2}", firstPart, secPart, thPart));
             Point[] ptsList = new Point[8];
             Point[] ptsHandle = new Point[4];
             pointList.CopyTo(ptsList);
@@ -327,6 +329,7 @@ namespace BaseRailElement
                         break;
                 }
             }
+            Debug.WriteLine(string.Format("object first is {0},sec is {1},th is {2}", firstPart, secPart, thPart));
             return 0;
         }
 

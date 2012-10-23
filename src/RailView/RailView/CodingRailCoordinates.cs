@@ -9,35 +9,71 @@ namespace RailView
 {
     public class CodingRailCoordinates
     {
-//        public List<RailEle> codingEleList=new List<RailEle>();
-
         public List<RailEle> InitEleList(List<RailEle> paraList)
         {
+            List<RailEle> tempList = GetStrEle(paraList);
+            List<RailEle> tempList1 = ArrangeStrEle(tempList);
+            return tempList1;
+        }
+
+        private List<RailEle> GetStrEle(List<RailEle> paraList)
+        {
             List<RailEle> tempList = new List<RailEle>();
+            StraightEle strTemp = new StraightEle();
             Int16 num = Convert.ToInt16(paraList.Count);
             for (Int16 i = 0; i < num; i++)
             {
-                for (Int16 j = 0; j < num; j++)
+                if (paraList[i].graphType == 1)
                 {
-                    if (paraList[j].segmentNumber == Convert.ToInt16(i + 1))
-                        tempList.Add(paraList[j]);
+                    strTemp = (StraightEle)paraList[i];
+                    if (strTemp.startDot == "first dot")
+                    {
+                        paraList[i].startPoint = strTemp.pointList[0];
+                        paraList[i].endPoint = strTemp.pointList[1];
+                    }
+                    else if (strTemp.startDot == "sec dot")
+                    {
+                        paraList[i].startPoint = strTemp.pointList[1];
+                        paraList[i].endPoint = strTemp.pointList[0];
+                    }
+                    tempList.Add(paraList[i]);
                 }
             }
             return tempList;
         }
 
-        public void ChooseStartDot(List<RailEle> paraList)
+        private List<RailEle> ArrangeStrEle(List<RailEle> paraList)
         {
-            Int16 num=Convert.ToInt16(paraList.Count);
-            ChooseStartDotForStartPart(paraList, 0);
-            for (Int16 i = 1; i < num; i++)
+             List<RailEle> tempList = new List<RailEle>();
+            StraightEle strTemp = new StraightEle();
+            Int16 num = Convert.ToInt16(paraList.Count);
+            for (Int16 i = 0; i < num; i++)
             {
-                if (!SearchForNeighborDot(paraList, paraList[i - 1].endPoint, i) && i != (num - 1))
+                for (Int16 j = 0; j < num; j++)
                 {
-                    ChooseStartDotForStartPart(paraList, i);
+                    strTemp=(StraightEle)paraList[j];
+                    if(strTemp.segmentNumber==(i+1))
+                    {
+                        tempList.Add(paraList[j]);
+                        break;
+                    }
                 }
             }
+            return tempList;
         }
+
+        //public void ChooseStartDot(List<RailEle> paraList)
+        //{
+        //    Int16 num = Convert.ToInt16(paraList.Count);
+        //    ChooseStartDotForStartPart(paraList, 0);
+        //    for (Int16 i = 1; i < num; i++)
+        //    {
+        //        if (!SearchForNeighborDot(paraList, paraList[i - 1].endPoint, i) && i != (num - 1))
+        //        {
+        //            ChooseStartDotForStartPart(paraList, i);
+        //        }
+        //    }
+        //}
 
         public void ComputeOffset(ushort value)
         { 
@@ -49,7 +85,7 @@ namespace RailView
             Int16 segNum = 0;
             for (Int16 i = 0; i < paraList.Count; i++)
             {
-                if (temp < paraList[i].tagNumber)
+                if (paraList[i].segmentNumber!=0 && temp < paraList[i].tagNumber)
                 {
                     segNum = Convert.ToInt16(i);
                     i = Convert.ToInt16(paraList.Count-1);
@@ -67,122 +103,6 @@ namespace RailView
                 temp -= tempList[i].tagNumber;
             }
             return temp;
-        }
-
-        private void ChooseStartDotForStartPart(List<RailEle> paraList, Int16 i)
-        {
-            StraightEle strTemp = new StraightEle();
-            CurvedEle curTemp = new CurvedEle();
-            CrossEle croTemp = new CrossEle();
-            switch (paraList[i].graphType)
-            {
-                case 1:
-                    strTemp = (StraightEle)paraList[i];
-                    paraList[i].startPoint = strTemp.pointList[0];
-                    paraList[i].endPoint = strTemp.pointList[1];
-                    break;
-                case 2:
-                    curTemp = (CurvedEle)paraList[i];
-                    paraList[i].startPoint = curTemp.firstDot;
-                    paraList[i].endPoint = curTemp.secDot;
-                    break;
-                case 3:
-                    croTemp = (CrossEle)paraList[i];
-                    paraList[i].startPoint = croTemp.pointList[0];
-                    paraList[i].endPoint = croTemp.pointList[5];
-                    break;
-                default:
-                    break;
-            }
-            if (!SearchForNeighborDot(paraList, paraList[i].endPoint, Convert.ToInt16(i + 1)))
-            {
-                switch (paraList[i].graphType)
-                {
-                    case 1:
-                        strTemp = (StraightEle)paraList[i];
-                        paraList[i].startPoint = strTemp.pointList[1];
-                        paraList[i].endPoint = strTemp.pointList[0];
-                        break;
-                    case 2:
-                        curTemp = (CurvedEle)paraList[i];
-                        paraList[i].startPoint = curTemp.secDot;
-                        paraList[i].endPoint = curTemp.firstDot;
-                        break;
-                    case 3:
-                        croTemp = (CrossEle)paraList[i];
-                        paraList[i].startPoint = croTemp.pointList[5];
-                        paraList[i].endPoint = croTemp.pointList[0];
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        private bool SearchForNeighborDot(List<RailEle> tempList, Point pt, Int16 j)
-        {
-            StraightEle strTemp = new StraightEle();
-            CurvedEle curTemp = new CurvedEle();
-            CrossEle croTemp = new CrossEle();
-            Point startPt = Point.Empty;
-            Point endPt = pt;
-            switch (tempList[j].graphType)
-            {
-                case 1:
-                    strTemp = (StraightEle)tempList[j];
-                    if ((Int16)Math.Sqrt((strTemp.pointList[0].X - pt.X) * (strTemp.pointList[0].X - pt.X) +
-                        (strTemp.pointList[0].Y - pt.Y) * (strTemp.pointList[0].Y - pt.Y)) < 2)
-                    {
-                        tempList[j].startPoint = strTemp.pointList[0];
-                        tempList[j].endPoint = strTemp.pointList[1];
-                        return true;
-                    }
-                    else if ((Int16)Math.Sqrt((strTemp.pointList[1].X - pt.X) * (strTemp.pointList[1].X - pt.X) +
-                        (strTemp.pointList[1].Y - pt.Y) * (strTemp.pointList[1].Y - pt.Y)) < 2)
-                    {
-                        tempList[j].startPoint = strTemp.pointList[1];
-                        tempList[j].endPoint = strTemp.pointList[0];
-                        return true;
-                    }
-                    break;
-                case 2:
-                    curTemp = (CurvedEle)tempList[j];
-                    if ((Int16)Math.Sqrt((curTemp.firstDot.X - endPt.X) * (curTemp.firstDot.X - endPt.X) +
-                        (curTemp.firstDot.Y - pt.Y) * (curTemp.firstDot.Y - pt.Y)) < 2)
-                    {
-                        tempList[j].startPoint = curTemp.firstDot;
-                        tempList[j].endPoint = curTemp.secDot;
-                        return true;
-                    }
-                    else if ((Int16)Math.Sqrt((curTemp.secDot.X - endPt.X) * (curTemp.secDot.X - endPt.X) +
-                        (curTemp.secDot.Y - pt.Y) * (curTemp.secDot.Y - pt.Y)) < 2)
-                    {
-                        tempList[j].startPoint = curTemp.secDot;
-                        tempList[j].endPoint = curTemp.firstDot;
-                        return true;
-                    }
-                    break;
-                case 3:
-                    croTemp = (CrossEle)tempList[j];
-                    if ((Int16)Math.Sqrt((croTemp.pointList[0].X - pt.X) * (croTemp.pointList[0].X - pt.X) +
-                        (croTemp.pointList[0].Y - pt.Y) * (croTemp.pointList[0].Y - pt.Y)) < 2)
-                    {
-                        tempList[j].startPoint = croTemp.pointList[0];
-                        tempList[j].endPoint = croTemp.pointList[5];
-                        return true;
-                    }
-                    else if ((Int16)Math.Sqrt((croTemp.pointList[5].X - pt.X) * (croTemp.pointList[5].X - pt.X) +
-                        (croTemp.pointList[5].Y - pt.Y) * (croTemp.pointList[5].Y - pt.Y)) < 2)
-                    {
-                        tempList[j].startPoint = croTemp.pointList[5];
-                        tempList[j].endPoint = croTemp.pointList[0];
-                        return true;
-                    }
-                    break;
-                default:
-                    break;
-            }
-            return false;
         }
 
         public Point ComputeCoordinates(List<RailEle> tempList, ushort locationValue)
@@ -217,281 +137,393 @@ namespace RailView
                             returnPt.Y = strTemp.startPoint.Y - offsetTemp;
                     }
                     break;
-                case 2:
-                    curTemp = (CurvedEle)tempList[section];
-                    offsetTemp = offsetTemp * 90 / curTemp.tagNumber;
-                    double angleTemp = 0;
-                    if (curTemp.firstDot == curTemp.startPoint)
-                        angleTemp = (curTemp.startAngle + offsetTemp) * 3.14 / 180;
-                    else if (curTemp.secDot == curTemp.startPoint)
-                        angleTemp = (curTemp.startAngle + curTemp.sweepAngle - offsetTemp) * 3.14 / 180;
-                    returnPt.X = (int)(curTemp.center.X + curTemp.radiu * Math.Cos(angleTemp));
-                    returnPt.Y = (int)(curTemp.center.Y + curTemp.radiu * Math.Sin(angleTemp));
-                    break;
-                case 3:
-                    croTemp = (CrossEle)tempList[section];
-                    offsetTemp = offsetTemp * (croTemp.firstPart + croTemp.secPart + croTemp.thPart + 
-                        (int)Math.Sqrt(croTemp.fourPart.X * croTemp.fourPart.X + croTemp.fourPart.Y * croTemp.fourPart.Y)) / croTemp.tagNumber;
-                    returnPt = croTemp.startPoint;
-                    if (croTemp.startAngle == 0 || croTemp.startAngle == 180)
-                    {
-                        if (croTemp.startPoint.X < croTemp.endPoint.X)
-                        {
-                            if (croTemp.pointList[0].X < croTemp.pointList[5].X)
-                            {
-                                if (offsetTemp <= croTemp.firstPart)
-                                    returnPt.X = croTemp.startPoint.X + offsetTemp;
-                                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.firstPart + croTemp.secPart))
-                                {
-                                    returnPt.X = croTemp.startPoint.X + offsetTemp;
-                                    returnPt.Y = croTemp.pointList[2].Y;
-                                }
-                                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart) &&
-                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
-                                    returnPt.X = croTemp.startPoint.X + offsetTemp;
-                                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
-                                {
-                                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart);
-                                    returnPt = croTemp.pointList[6];
-                                    if (croTemp.pointList[6].Y > croTemp.pointList[7].Y)
-                                    {
-                                        returnPt.X += offsetTemp;
-                                        returnPt.Y -= offsetTemp;
-                                    }
-                                    else if (croTemp.pointList[6].Y < croTemp.pointList[7].Y)
-                                    {
-                                        returnPt.X += offsetTemp;
-                                        returnPt.Y += offsetTemp;
-                                    }
-                                }
-                            }
-                            else if (croTemp.pointList[0].X > croTemp.pointList[5].X)
-                            {
-                                if (offsetTemp <= croTemp.thPart)
-                                    returnPt.X = croTemp.startPoint.X + offsetTemp;
-                                else if (offsetTemp > croTemp.thPart && offsetTemp <= (croTemp.thPart + croTemp.secPart))
-                                {
-                                    returnPt.X = croTemp.startPoint.X + offsetTemp;
-                                    returnPt.Y = croTemp.pointList[2].Y;
-                                }
-                                else if (offsetTemp > (croTemp.thPart + croTemp.secPart)
-                                    && offsetTemp <= (croTemp.thPart + croTemp.secPart + croTemp.firstPart))
-                                    returnPt.X = croTemp.startPoint.X + offsetTemp;
-                                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
-                                {
-                                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart);
-                                    returnPt = croTemp.pointList[6];
-                                    if (croTemp.pointList[6].Y > croTemp.pointList[7].Y)
-                                    {
-                                        returnPt.X -= offsetTemp;
-                                        returnPt.Y -= offsetTemp;
-                                    }
-                                    else if (croTemp.pointList[6].Y < croTemp.pointList[7].Y)
-                                    {
-                                        returnPt.X -= offsetTemp;
-                                        returnPt.Y += offsetTemp;
-                                    }
-                                }
-                            }
-                        }
-                        else if (croTemp.startPoint.X > croTemp.endPoint.X)
-                        {
-                            if (croTemp.pointList[0].X < croTemp.pointList[5].X)
-                            {
-                                if (offsetTemp <= croTemp.thPart)
-                                    returnPt.X = croTemp.startPoint.X - offsetTemp;
-                                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.thPart + croTemp.secPart))
-                                {
-                                    returnPt.X = croTemp.startPoint.X - offsetTemp;
-                                    returnPt.Y = croTemp.pointList[2].Y;
-                                }
-                                else if (offsetTemp > (croTemp.thPart + croTemp.secPart) &&
-                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
-                                    returnPt.X = croTemp.startPoint.X - offsetTemp;
-                                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
-                                {
-                                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart);
-                                    returnPt = croTemp.pointList[6];
-                                    if (croTemp.pointList[6].Y > croTemp.pointList[7].Y)
-                                    {
-                                        returnPt.X += offsetTemp;
-                                        returnPt.Y -= offsetTemp;
-                                    }
-                                    else if (croTemp.pointList[6].Y < croTemp.pointList[7].Y)
-                                    {
-                                        returnPt.X += offsetTemp;
-                                        returnPt.Y += offsetTemp;
-                                    }
-                                }
-                            }
-                            else if (croTemp.pointList[0].X > croTemp.pointList[5].X)
-                            {
-                                if (offsetTemp <= croTemp.firstPart)
-                                    returnPt.X = croTemp.startPoint.X - offsetTemp;
-                                else if (offsetTemp > croTemp.thPart && offsetTemp <= (croTemp.firstPart + croTemp.secPart))
-                                {
-                                    returnPt.X = croTemp.startPoint.X - offsetTemp;
-                                    returnPt.Y = croTemp.pointList[2].Y;
-                                }
-                                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart)
-                                    && offsetTemp <= (croTemp.thPart + croTemp.secPart + croTemp.firstPart))
-                                    returnPt.X = croTemp.startPoint.X - offsetTemp;
-                                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
-                                {
-                                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart);
-                                    returnPt = croTemp.pointList[6];
-                                    if (croTemp.pointList[6].Y > croTemp.pointList[7].Y)
-                                    {
-                                        returnPt.X -= offsetTemp;
-                                        returnPt.Y -= offsetTemp;
-                                    }
-                                    else if (croTemp.pointList[6].Y < croTemp.pointList[7].Y)
-                                    {
-                                        returnPt.X -= offsetTemp;
-                                        returnPt.Y += offsetTemp;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else if (croTemp.startAngle == 90 || croTemp.startAngle == 270 || croTemp.startAngle == -90)
-                    {
-                        if (croTemp.startPoint.Y < croTemp.startPoint.Y)
-                        {
-                            if (croTemp.pointList[0].Y < croTemp.pointList[5].Y)
-                            {
-                                if (offsetTemp <= croTemp.firstPart)
-                                    returnPt.Y = croTemp.startPoint.Y + offsetTemp;
-                                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.firstPart + croTemp.secPart))
-                                {
-                                    returnPt.X = croTemp.pointList[2].X;
-                                    returnPt.Y = croTemp.startPoint.Y + offsetTemp;
-                                }
-                                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart) &&
-                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
-                                    returnPt.Y = croTemp.startPoint.Y + offsetTemp;
-                                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
-                                {
-                                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y);
-                                    returnPt = croTemp.pointList[6];
-                                    if (croTemp.pointList[6].X > croTemp.pointList[7].X)
-                                    {
-                                        returnPt.X -= offsetTemp;
-                                        returnPt.Y += offsetTemp;
-                                    }
-                                    else if (croTemp.pointList[6].X < croTemp.pointList[7].X)
-                                    {
-                                        returnPt.X += offsetTemp;
-                                        returnPt.Y += offsetTemp;
-                                    }
-                                }
-                            }
-                            else if (croTemp.pointList[0].Y > croTemp.pointList[5].Y)
-                            {
-                                if (offsetTemp <= croTemp.thPart)
-                                    returnPt.Y = croTemp.startPoint.Y + offsetTemp;
-                                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.thPart + croTemp.secPart))
-                                {
-                                    returnPt.X = croTemp.pointList[2].X;
-                                    returnPt.Y = croTemp.startPoint.Y + offsetTemp;
-                                }
-                                else if (offsetTemp > (croTemp.thPart + croTemp.secPart) &&
-                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
-                                    returnPt.Y = croTemp.startPoint.Y + offsetTemp;
-                                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
-                                {
-                                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y);
-                                    returnPt = croTemp.pointList[6];
-                                    if (croTemp.pointList[6].X > croTemp.pointList[7].X)
-                                    {
-                                        returnPt.X -= offsetTemp;
-                                        returnPt.Y -= offsetTemp;
-                                    }
-                                    else if (croTemp.pointList[6].X < croTemp.pointList[7].X)
-                                    {
-                                        returnPt.X += offsetTemp;
-                                        returnPt.Y -= offsetTemp;
-                                    }
-                                }
-                            }
-                        }
-                        else if (croTemp.startPoint.Y > croTemp.startPoint.Y)
-                        {
-                            if (croTemp.pointList[0].Y > croTemp.pointList[5].Y)
-                            {
-                                if (offsetTemp <= croTemp.firstPart)
-                                    returnPt.Y = croTemp.startPoint.Y - offsetTemp;
-                                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.firstPart + croTemp.secPart))
-                                {
-                                    returnPt.X = croTemp.pointList[2].X;
-                                    returnPt.Y = croTemp.startPoint.Y - offsetTemp;
-                                }
-                                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart) &&
-                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
-                                    returnPt.Y = croTemp.startPoint.Y - offsetTemp;
-                                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
-                                {
-                                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y);
-                                    returnPt = croTemp.pointList[6];
-                                    if (croTemp.pointList[6].X > croTemp.pointList[7].X)
-                                    {
-                                        returnPt.X -= offsetTemp;
-                                        returnPt.Y -= offsetTemp;
-                                    }
-                                    else if (croTemp.pointList[6].X < croTemp.pointList[7].X)
-                                    {
-                                        returnPt.X += offsetTemp;
-                                        returnPt.Y -= offsetTemp;
-                                    }
-                                }
-                            }
-                            else if (croTemp.pointList[0].Y < croTemp.pointList[5].Y)
-                            {
-                                if (offsetTemp <= croTemp.thPart)
-                                    returnPt.Y = croTemp.startPoint.Y - offsetTemp;
-                                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.thPart + croTemp.secPart))
-                                {
-                                    returnPt.X = croTemp.pointList[2].X;
-                                    returnPt.Y = croTemp.startPoint.Y - offsetTemp;
-                                }
-                                else if (offsetTemp > (croTemp.thPart + croTemp.secPart) &&
-                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
-                                    returnPt.Y = croTemp.startPoint.Y + offsetTemp;
-                                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
-                                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
-                                {
-                                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y);
-                                    returnPt = croTemp.pointList[6];
-                                    if (croTemp.pointList[6].X > croTemp.pointList[7].X)
-                                    {
-                                        returnPt.X -= offsetTemp;
-                                        returnPt.Y += offsetTemp;
-                                    }
-                                    else if (croTemp.pointList[6].X < croTemp.pointList[7].X)
-                                    {
-                                        returnPt.X += offsetTemp;
-                                        returnPt.Y += offsetTemp;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    break;
+                //case 2:
+                //    curTemp = (CurvedEle)tempList[section];
+                //    offsetTemp = offsetTemp * 90 / curTemp.tagNumber;
+                //    double angleTemp = 0;
+                //    if (curTemp.firstDot == curTemp.startPoint)
+                //        angleTemp = (curTemp.startAngle + offsetTemp) * 3.14 / 180;
+                //    else if (curTemp.secDot == curTemp.startPoint)
+                //        angleTemp = (curTemp.startAngle + curTemp.sweepAngle - offsetTemp) * 3.14 / 180;
+                //    returnPt.X = (int)(curTemp.center.X + curTemp.radiu * Math.Cos(angleTemp));
+                //    returnPt.Y = (int)(curTemp.center.Y + curTemp.radiu * Math.Sin(angleTemp));
+                //    break;
+                //case 3:
+                //    croTemp = (CrossEle)tempList[section];
+                //    offsetTemp = offsetTemp * (croTemp.firstPart + croTemp.secPart + croTemp.thPart + 
+                //        (int)Math.Sqrt(croTemp.fourPart.X * croTemp.fourPart.X + croTemp.fourPart.Y * croTemp.fourPart.Y)) / croTemp.tagNumber;
+                //    returnPt = croTemp.startPoint;
+                //    if (croTemp.startAngle == 0 || croTemp.startAngle == 180)
+                //    {
+                //        if (croTemp.startPoint.X < croTemp.endPoint.X)
+                //        {
+                //            if (croTemp.pointList[0].X < croTemp.pointList[5].X)
+                //            {
+                //                if (offsetTemp <= croTemp.firstPart)
+                //                    returnPt.X = croTemp.startPoint.X + offsetTemp;
+                //                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.firstPart + croTemp.secPart))
+                //                {
+                //                    returnPt.X = croTemp.startPoint.X + offsetTemp;
+                //                    returnPt.Y = croTemp.pointList[2].Y;
+                //                }
+                //                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart) &&
+                //                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
+                //                    returnPt.X = croTemp.startPoint.X + offsetTemp;
+                //                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
+                //                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
+                //                {
+                //                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart);
+                //                    returnPt = croTemp.pointList[6];
+                //                    if (croTemp.pointList[6].Y > croTemp.pointList[7].Y)
+                //                    {
+                //                        returnPt.X += offsetTemp;
+                //                        returnPt.Y -= offsetTemp;
+                //                    }
+                //                    else if (croTemp.pointList[6].Y < croTemp.pointList[7].Y)
+                //                    {
+                //                        returnPt.X += offsetTemp;
+                //                        returnPt.Y += offsetTemp;
+                //                    }
+                //                }
+                //            }
+                //            else if (croTemp.pointList[0].X > croTemp.pointList[5].X)
+                //            {
+                //                if (offsetTemp <= croTemp.thPart)
+                //                    returnPt.X = croTemp.startPoint.X + offsetTemp;
+                //                else if (offsetTemp > croTemp.thPart && offsetTemp <= (croTemp.thPart + croTemp.secPart))
+                //                {
+                //                    returnPt.X = croTemp.startPoint.X + offsetTemp;
+                //                    returnPt.Y = croTemp.pointList[2].Y;
+                //                }
+                //                else if (offsetTemp > (croTemp.thPart + croTemp.secPart)
+                //                    && offsetTemp <= (croTemp.thPart + croTemp.secPart + croTemp.firstPart))
+                //                    returnPt.X = croTemp.startPoint.X + offsetTemp;
+                //                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
+                //                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
+                //                {
+                //                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart);
+                //                    returnPt = croTemp.pointList[6];
+                //                    if (croTemp.pointList[6].Y > croTemp.pointList[7].Y)
+                //                    {
+                //                        returnPt.X -= offsetTemp;
+                //                        returnPt.Y -= offsetTemp;
+                //                    }
+                //                    else if (croTemp.pointList[6].Y < croTemp.pointList[7].Y)
+                //                    {
+                //                        returnPt.X -= offsetTemp;
+                //                        returnPt.Y += offsetTemp;
+                //                    }
+                //                }
+                //            }
+                //        }
+                //        else if (croTemp.startPoint.X > croTemp.endPoint.X)
+                //        {
+                //            if (croTemp.pointList[0].X < croTemp.pointList[5].X)
+                //            {
+                //                if (offsetTemp <= croTemp.thPart)
+                //                    returnPt.X = croTemp.startPoint.X - offsetTemp;
+                //                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.thPart + croTemp.secPart))
+                //                {
+                //                    returnPt.X = croTemp.startPoint.X - offsetTemp;
+                //                    returnPt.Y = croTemp.pointList[2].Y;
+                //                }
+                //                else if (offsetTemp > (croTemp.thPart + croTemp.secPart) &&
+                //                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
+                //                    returnPt.X = croTemp.startPoint.X - offsetTemp;
+                //                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
+                //                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
+                //                {
+                //                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart);
+                //                    returnPt = croTemp.pointList[6];
+                //                    if (croTemp.pointList[6].Y > croTemp.pointList[7].Y)
+                //                    {
+                //                        returnPt.X += offsetTemp;
+                //                        returnPt.Y -= offsetTemp;
+                //                    }
+                //                    else if (croTemp.pointList[6].Y < croTemp.pointList[7].Y)
+                //                    {
+                //                        returnPt.X += offsetTemp;
+                //                        returnPt.Y += offsetTemp;
+                //                    }
+                //                }
+                //            }
+                //            else if (croTemp.pointList[0].X > croTemp.pointList[5].X)
+                //            {
+                //                if (offsetTemp <= croTemp.firstPart)
+                //                    returnPt.X = croTemp.startPoint.X - offsetTemp;
+                //                else if (offsetTemp > croTemp.thPart && offsetTemp <= (croTemp.firstPart + croTemp.secPart))
+                //                {
+                //                    returnPt.X = croTemp.startPoint.X - offsetTemp;
+                //                    returnPt.Y = croTemp.pointList[2].Y;
+                //                }
+                //                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart)
+                //                    && offsetTemp <= (croTemp.thPart + croTemp.secPart + croTemp.firstPart))
+                //                    returnPt.X = croTemp.startPoint.X - offsetTemp;
+                //                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
+                //                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.X))
+                //                {
+                //                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart);
+                //                    returnPt = croTemp.pointList[6];
+                //                    if (croTemp.pointList[6].Y > croTemp.pointList[7].Y)
+                //                    {
+                //                        returnPt.X -= offsetTemp;
+                //                        returnPt.Y -= offsetTemp;
+                //                    }
+                //                    else if (croTemp.pointList[6].Y < croTemp.pointList[7].Y)
+                //                    {
+                //                        returnPt.X -= offsetTemp;
+                //                        returnPt.Y += offsetTemp;
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //    else if (croTemp.startAngle == 90 || croTemp.startAngle == 270 || croTemp.startAngle == -90)
+                //    {
+                //        if (croTemp.startPoint.Y < croTemp.startPoint.Y)
+                //        {
+                //            if (croTemp.pointList[0].Y < croTemp.pointList[5].Y)
+                //            {
+                //                if (offsetTemp <= croTemp.firstPart)
+                //                    returnPt.Y = croTemp.startPoint.Y + offsetTemp;
+                //                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.firstPart + croTemp.secPart))
+                //                {
+                //                    returnPt.X = croTemp.pointList[2].X;
+                //                    returnPt.Y = croTemp.startPoint.Y + offsetTemp;
+                //                }
+                //                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart) &&
+                //                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
+                //                    returnPt.Y = croTemp.startPoint.Y + offsetTemp;
+                //                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
+                //                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
+                //                {
+                //                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y);
+                //                    returnPt = croTemp.pointList[6];
+                //                    if (croTemp.pointList[6].X > croTemp.pointList[7].X)
+                //                    {
+                //                        returnPt.X -= offsetTemp;
+                //                        returnPt.Y += offsetTemp;
+                //                    }
+                //                    else if (croTemp.pointList[6].X < croTemp.pointList[7].X)
+                //                    {
+                //                        returnPt.X += offsetTemp;
+                //                        returnPt.Y += offsetTemp;
+                //                    }
+                //                }
+                //            }
+                //            else if (croTemp.pointList[0].Y > croTemp.pointList[5].Y)
+                //            {
+                //                if (offsetTemp <= croTemp.thPart)
+                //                    returnPt.Y = croTemp.startPoint.Y + offsetTemp;
+                //                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.thPart + croTemp.secPart))
+                //                {
+                //                    returnPt.X = croTemp.pointList[2].X;
+                //                    returnPt.Y = croTemp.startPoint.Y + offsetTemp;
+                //                }
+                //                else if (offsetTemp > (croTemp.thPart + croTemp.secPart) &&
+                //                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
+                //                    returnPt.Y = croTemp.startPoint.Y + offsetTemp;
+                //                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
+                //                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
+                //                {
+                //                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y);
+                //                    returnPt = croTemp.pointList[6];
+                //                    if (croTemp.pointList[6].X > croTemp.pointList[7].X)
+                //                    {
+                //                        returnPt.X -= offsetTemp;
+                //                        returnPt.Y -= offsetTemp;
+                //                    }
+                //                    else if (croTemp.pointList[6].X < croTemp.pointList[7].X)
+                //                    {
+                //                        returnPt.X += offsetTemp;
+                //                        returnPt.Y -= offsetTemp;
+                //                    }
+                //                }
+                //            }
+                //        }
+                //        else if (croTemp.startPoint.Y > croTemp.startPoint.Y)
+                //        {
+                //            if (croTemp.pointList[0].Y > croTemp.pointList[5].Y)
+                //            {
+                //                if (offsetTemp <= croTemp.firstPart)
+                //                    returnPt.Y = croTemp.startPoint.Y - offsetTemp;
+                //                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.firstPart + croTemp.secPart))
+                //                {
+                //                    returnPt.X = croTemp.pointList[2].X;
+                //                    returnPt.Y = croTemp.startPoint.Y - offsetTemp;
+                //                }
+                //                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart) &&
+                //                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
+                //                    returnPt.Y = croTemp.startPoint.Y - offsetTemp;
+                //                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
+                //                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
+                //                {
+                //                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y);
+                //                    returnPt = croTemp.pointList[6];
+                //                    if (croTemp.pointList[6].X > croTemp.pointList[7].X)
+                //                    {
+                //                        returnPt.X -= offsetTemp;
+                //                        returnPt.Y -= offsetTemp;
+                //                    }
+                //                    else if (croTemp.pointList[6].X < croTemp.pointList[7].X)
+                //                    {
+                //                        returnPt.X += offsetTemp;
+                //                        returnPt.Y -= offsetTemp;
+                //                    }
+                //                }
+                //            }
+                //            else if (croTemp.pointList[0].Y < croTemp.pointList[5].Y)
+                //            {
+                //                if (offsetTemp <= croTemp.thPart)
+                //                    returnPt.Y = croTemp.startPoint.Y - offsetTemp;
+                //                else if (offsetTemp > croTemp.firstPart && offsetTemp <= (croTemp.thPart + croTemp.secPart))
+                //                {
+                //                    returnPt.X = croTemp.pointList[2].X;
+                //                    returnPt.Y = croTemp.startPoint.Y - offsetTemp;
+                //                }
+                //                else if (offsetTemp > (croTemp.thPart + croTemp.secPart) &&
+                //                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart))
+                //                    returnPt.Y = croTemp.startPoint.Y + offsetTemp;
+                //                else if (offsetTemp > (croTemp.firstPart + croTemp.secPart + croTemp.thPart) &&
+                //                    offsetTemp <= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y))
+                //                {
+                //                    offsetTemp -= (croTemp.firstPart + croTemp.secPart + croTemp.thPart + croTemp.fourPart.Y);
+                //                    returnPt = croTemp.pointList[6];
+                //                    if (croTemp.pointList[6].X > croTemp.pointList[7].X)
+                //                    {
+                //                        returnPt.X -= offsetTemp;
+                //                        returnPt.Y += offsetTemp;
+                //                    }
+                //                    else if (croTemp.pointList[6].X < croTemp.pointList[7].X)
+                //                    {
+                //                        returnPt.X += offsetTemp;
+                //                        returnPt.Y += offsetTemp;
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //    break;
                 default:
                     break;
             }
             return returnPt;
         }
 
-        public void ComputeVehicleDirection(List<RailEle> tempList)
-        {
-        }
+        //private void ChooseStartDotForStartPart(List<RailEle> paraList, Int16 i)
+        //{
+        //    StraightEle strTemp = new StraightEle();
+        //    CurvedEle curTemp = new CurvedEle();
+        //    CrossEle croTemp = new CrossEle();
+        //    switch (paraList[i].graphType)
+        //    {
+        //        case 1:
+        //            strTemp = (StraightEle)paraList[i];
+        //            paraList[i].startPoint = strTemp.pointList[0];
+        //            paraList[i].endPoint = strTemp.pointList[1];
+        //            break;
+        //        case 2:
+        //            curTemp = (CurvedEle)paraList[i];
+        //            paraList[i].startPoint = curTemp.firstDot;
+        //            paraList[i].endPoint = curTemp.secDot;
+        //            break;
+        //        case 3:
+        //            croTemp = (CrossEle)paraList[i];
+        //            paraList[i].startPoint = croTemp.pointList[0];
+        //            paraList[i].endPoint = croTemp.pointList[5];
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //    if (!SearchForNeighborDot(paraList, paraList[i].endPoint, Convert.ToInt16(i + 1)))
+        //    {
+        //        switch (paraList[i].graphType)
+        //        {
+        //            case 1:
+        //                strTemp = (StraightEle)paraList[i];
+        //                paraList[i].startPoint = strTemp.pointList[1];
+        //                paraList[i].endPoint = strTemp.pointList[0];
+        //                break;
+        //            case 2:
+        //                curTemp = (CurvedEle)paraList[i];
+        //                paraList[i].startPoint = curTemp.secDot;
+        //                paraList[i].endPoint = curTemp.firstDot;
+        //                break;
+        //            case 3:
+        //                croTemp = (CrossEle)paraList[i];
+        //                paraList[i].startPoint = croTemp.pointList[5];
+        //                paraList[i].endPoint = croTemp.pointList[0];
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //}
+
+        //private bool SearchForNeighborDot(List<RailEle> tempList, Point pt, Int16 j)
+        //{
+        //    StraightEle strTemp = new StraightEle();
+        //    CurvedEle curTemp = new CurvedEle();
+        //    CrossEle croTemp = new CrossEle();
+        //    Point startPt = Point.Empty;
+        //    Point endPt = pt;
+        //    switch (tempList[j].graphType)
+        //    {
+        //        case 1:
+        //            strTemp = (StraightEle)tempList[j];
+        //            if ((Int16)Math.Sqrt((strTemp.pointList[0].X - pt.X) * (strTemp.pointList[0].X - pt.X) +
+        //                (strTemp.pointList[0].Y - pt.Y) * (strTemp.pointList[0].Y - pt.Y)) < 2)
+        //            {
+        //                tempList[j].startPoint = strTemp.pointList[0];
+        //                tempList[j].endPoint = strTemp.pointList[1];
+        //                return true;
+        //            }
+        //            else if ((Int16)Math.Sqrt((strTemp.pointList[1].X - pt.X) * (strTemp.pointList[1].X - pt.X) +
+        //                (strTemp.pointList[1].Y - pt.Y) * (strTemp.pointList[1].Y - pt.Y)) < 2)
+        //            {
+        //                tempList[j].startPoint = strTemp.pointList[1];
+        //                tempList[j].endPoint = strTemp.pointList[0];
+        //                return true;
+        //            }
+        //            break;
+        //        case 2:
+        //            curTemp = (CurvedEle)tempList[j];
+        //            if ((Int16)Math.Sqrt((curTemp.firstDot.X - endPt.X) * (curTemp.firstDot.X - endPt.X) +
+        //                (curTemp.firstDot.Y - pt.Y) * (curTemp.firstDot.Y - pt.Y)) < 2)
+        //            {
+        //                tempList[j].startPoint = curTemp.firstDot;
+        //                tempList[j].endPoint = curTemp.secDot;
+        //                return true;
+        //            }
+        //            else if ((Int16)Math.Sqrt((curTemp.secDot.X - endPt.X) * (curTemp.secDot.X - endPt.X) +
+        //                (curTemp.secDot.Y - pt.Y) * (curTemp.secDot.Y - pt.Y)) < 2)
+        //            {
+        //                tempList[j].startPoint = curTemp.secDot;
+        //                tempList[j].endPoint = curTemp.firstDot;
+        //                return true;
+        //            }
+        //            break;
+        //        case 3:
+        //            croTemp = (CrossEle)tempList[j];
+        //            if ((Int16)Math.Sqrt((croTemp.pointList[0].X - pt.X) * (croTemp.pointList[0].X - pt.X) +
+        //                (croTemp.pointList[0].Y - pt.Y) * (croTemp.pointList[0].Y - pt.Y)) < 2)
+        //            {
+        //                tempList[j].startPoint = croTemp.pointList[0];
+        //                tempList[j].endPoint = croTemp.pointList[5];
+        //                return true;
+        //            }
+        //            else if ((Int16)Math.Sqrt((croTemp.pointList[5].X - pt.X) * (croTemp.pointList[5].X - pt.X) +
+        //                (croTemp.pointList[5].Y - pt.Y) * (croTemp.pointList[5].Y - pt.Y)) < 2)
+        //            {
+        //                tempList[j].startPoint = croTemp.pointList[5];
+        //                tempList[j].endPoint = croTemp.pointList[0];
+        //                return true;
+        //            }
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //    return false;
+        //}
     }
 }
