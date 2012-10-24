@@ -17,6 +17,14 @@ using boost::asio::ip::tcp;
 //----------------------------------------------------------------------
 
 typedef std::deque<amhs_message> amhs_message_queue;
+enum AMHS_DEV_TYPE
+{
+	DEV_TYPE_UNKNOW = 0,
+	DEV_TYPE_OHT = 1,
+	DEV_TYPE_STOCKER = 2
+};
+
+
 
 //----------------------------------------------------------------------
 
@@ -30,24 +38,53 @@ public:
 	int nDevType_;
 };
 
-typedef boost::shared_ptr<amhs_participant> chat_participant_ptr;
+typedef boost::shared_ptr<amhs_participant> amhs_participant_ptr;
 
+typedef struct
+{
+	int nID;
+	int nPOS;
+	int nHand;
+	amhs_participant_ptr p_participant;
+} amhs_OHT;
+typedef boost::shared_ptr<amhs_OHT> amhs_oht_ptr;
+typedef std::map<int, amhs_oht_ptr> amhs_oht_map;
+typedef std::set<amhs_oht_ptr> amhs_oht_set;
 //----------------------------------------------------------------------
 
 class amhs_room
 {
 public:
-	void join(chat_participant_ptr participant)
+	void join(amhs_participant_ptr participant)
 	{
 		participants_.insert(participant);
 	}
 
-	void leave(chat_participant_ptr participant)
+	void leave(amhs_participant_ptr participant)
 	{
+		if (DEV_TYPE_OHT == participant->nDevType_)
+		{
+			amhs_oht_map::iterator it = oht_map_.find(participant->nID_);
+			if (it != oht_map_.end())
+			{
+				oht_map_.erase(it);
+			}
+		}
 		participants_.erase(participant);
 	}
 
-	void SendPacket(chat_participant_ptr participants, AMHSPacket &ack)
+	amhs_oht_set GetOhtDataSet()
+	{
+		amhs_oht_set oht_set;
+		for (amhs_oht_map::iterator it = oht_map_.begin();
+			it != oht_map_.end(); ++it)
+		{
+			oht_set.insert(it->second);
+		}
+		return oht_set;
+	}
+
+	void SendPacket(amhs_participant_ptr participants, AMHSPacket &ack)
 	{
 		amhs_message msg;
 
@@ -60,23 +97,100 @@ public:
 		participants->deliver(msg);
 	}
 
-	void push_msg(const amhs_message& msg)
+	int DecodePacket(amhs_participant_ptr participants, AMHSPacket* Packet)
 	{
-		recent_msgs_.push_back(msg);
-	}
+		int mOpcode = Packet->GetOpcode();
+		switch(mOpcode)
+		{
+		case OHT_POSITION:
+			{
+				uint8		ohtID = 0;
+				uint16		ohtPosition = 0;
+				*Packet >> ohtID;
+				*Packet >> ohtPosition;
+				//printf("OHT POS  ---> id: %d, pos: %d\n", ohtID, ohtPosition);
+				amhs_oht_map::iterator it = oht_map_.find(ohtID);
+				if (it != oht_map_.end())
+				{
+					it->second->nPOS = ohtPosition;
+				}
+			}
+			break;
+		case OHT_AUTH:
+			{
+				uint8		ohtID = 0;
+				uint16		ohtPosition = 0;
+				uint8		ohtHand = 0;
+				*Packet >> ohtID;
+				*Packet >> ohtPosition;
+				*Packet >> ohtHand;
+				printf("OHT Auth  ---> id: %d, pos: %d, hand: %d\n", ohtID, ohtPosition, ohtHand);
+				participants->nID_ = ohtID;
+				participants->nDevType_ = DEV_TYPE_OHT;
+				delete Packet;
+				
+				amhs_oht_map::iterator it = oht_map_.find(ohtID);
+				uint8 nAuthAck = 0;
+				if (it != oht_map_.end())
+				{
+					nAuthAck = 0;
+				}
+				else
+				{
+					amhs_oht_ptr pOht = amhs_oht_ptr(new amhs_OHT());
+					pOht->nID = ohtID;
+					pOht->nPOS = ohtPosition;
+					pOht->nHand = ohtHand;
+					pOht->p_participant = participants;
+					oht_map_.insert(std::make_pair(ohtID, pOht));
+					nAuthAck = 1;
+				}
 
-	amhs_message pop_msg()
-	{
-		if(recent_msgs_.size() > 0)
-		{
-			amhs_message msg = recent_msgs_.front();
-			recent_msgs_.pop_front();
-			return msg;
+				AMHSPacket ack(OHT_MCS_ACK_AUTH, 2);
+				ack << uint8(ohtID);
+				ack << nAuthAck;
+				SendPacket(participants, ack);
+
+				//__time64_t ltime;
+				//_time64( &ltime );
+				//char bufTime[256] = "";
+				//_ctime64_s(bufTime, &ltime);
+				//printf( "The time is %s\n", bufTime ); // C4996
+			}
+			break;
+		case STK_AUTH:
+			{
+				uint8 stockerID = 0;
+				uint32 uIP = 0;
+				*Packet >> stockerID;
+				*Packet >> uIP;
+				struct in_addr addr1;
+
+				memcpy(&addr1, &uIP, 4);
+				char* sIP = inet_ntoa(addr1);
+				printf("STOCKER Auth ---> id: %d, ip: %s\n", stockerID, sIP);
+				participants->nDevType_ = DEV_TYPE_STOCKER;
+				participants->nID_ = stockerID;
+				delete Packet;
+
+				AMHSPacket ack(STK_MCS_ACK_AUTH, 10);
+				ack << uint8(stockerID);
+				ack << uint8(1);
+				__time64_t ltime;
+				_time64( &ltime );
+				ack << uint64(ltime);
+
+				SendPacket(participants, ack);
+			}
+			break;
+		default:
+			{
+				return -1;
+			}
+			break;
 		}
-		else
-		{
-			return amhs_message();
-		}
+
+		return 0;
 	}
 
 	void deliver_all(const amhs_message& msg)
@@ -95,18 +209,13 @@ public:
 	}
 
 private:
-	std::set<chat_participant_ptr> participants_;
+	std::set<amhs_participant_ptr> participants_;
 	enum { max_recent_msgs = 100 };
 	amhs_message_queue recent_msgs_;
+	amhs_oht_map oht_map_;
 };
 
 //----------------------------------------------------------------------
-enum AMHS_DEV_TYPE
-{
-	DEV_TYPE_UNKNOW = 0,
-	DEV_TYPE_OHT = 1,
-	DEV_TYPE_STOCKER = 2
-};
 
 class amhs_session
 	: public amhs_participant,
@@ -168,7 +277,7 @@ public:
 				boost::asio::buffer(read_msg_.body(), read_msg_.body_length()),
 				boost::bind(&amhs_session::handle_read_body, shared_from_this(),
 				boost::asio::placeholders::error));
-			PutSocketInfo(socket_);
+			//PutSocketInfo(socket_);
 		}
 		else
 		{
@@ -180,84 +289,21 @@ public:
 	{
 		if (!error)
 		{
-			room_.push_msg(read_msg_);
 			int mOpcode = read_msg_.command();
 			int mSize = read_msg_.body_length();
-			AMHSPacket* Packet;
-			Packet = new AMHSPacket(static_cast<uint16>(mOpcode), mSize);
-			Packet->resize(mSize);
-
-			memcpy((void*)Packet->contents(), read_msg_.body(), mSize);
-			switch(mOpcode)
+			if (mSize > 0)
 			{
-			case OHT_POSITION:
-				{
-					uint8		ohtID = 0;
-					uint16		ohtPosition = 0;
-					*Packet >> ohtID;
-					*Packet >> ohtPosition;
-					printf("OHT POS  ---> id: %d, pos: %d\n", ohtID, ohtPosition);
-				}
-				break;
-			case OHT_AUTH:
-				{
-					uint8		ohtID = 0;
-					uint16		ohtPosition = 0;
-					uint8		ohtHand = 0;
-					*Packet >> ohtID;
-					*Packet >> ohtPosition;
-					*Packet >> ohtHand;
-					printf("OHT Auth  ---> id: %d, pos: %d, hand: %d\n", ohtID, ohtPosition, ohtHand);
-					nID_ = ohtID;
-					nDevType_ = DEV_TYPE_OHT;
-					delete Packet;
+				AMHSPacket* Packet;
+				Packet = new AMHSPacket(static_cast<uint16>(mOpcode), mSize);
+				Packet->resize(mSize);
 
-					AMHSPacket ack(OHT_MCS_ACK_AUTH, 2);
-					ack << uint8(ohtID);
-					ack << uint8(1); // success
-					//SendPacket(&ack);
-					room_.SendPacket(shared_from_this(), ack);
-
-					__time64_t ltime;
-					_time64( &ltime );
-					char bufTime[256] = "";
-					_ctime64_s(bufTime, &ltime);
-					printf( "The time is %s\n", bufTime ); // C4996
-				}
-				break;
-			case STK_AUTH:
-				{
-					uint8 stockerID = 0;
-					uint32 uIP = 0;
-					*Packet >> stockerID;
-					*Packet >> uIP;
-					struct in_addr addr1;
-
-					memcpy(&addr1, &uIP, 4);
-					char* sIP = inet_ntoa(addr1);
-					printf("STOCKER Auth ---> id: %d, ip: %s\n", stockerID, sIP);
-					nDevType_ = DEV_TYPE_STOCKER;
-					nID_ = stockerID;
-					delete Packet;
-
-					AMHSPacket ack(STK_MCS_ACK_AUTH, 10);
-					ack << uint8(stockerID);
-					ack << uint8(1);
-					__time64_t ltime;
-					_time64( &ltime );
-					ack << uint64(ltime);
-
-					//SendPacket(&ack);
-					room_.SendPacket(shared_from_this(), ack);
-				}
-				break;
-			default:
+				memcpy((void*)Packet->contents(), read_msg_.body(), mSize);
+				int nDecode = room_.DecodePacket(shared_from_this(), Packet);
+				if (nDecode < 0)
 				{
 					room_.deliver_all(read_msg_);
 				}
-				break;
 			}
-			
 
 			boost::asio::async_read(socket_,
 				boost::asio::buffer(read_msg_.data(), amhs_message::header_length),
@@ -336,9 +382,9 @@ public:
 		return room_.GetCount();
 	}
 
-	amhs_message pop_msg()
+	amhs_oht_set GetOhtDataSet()
 	{
-		return room_.pop_msg();
+		return room_.GetOhtDataSet();
 	}
 
 	void setOhtMessageBackTime(int nID, int ms)

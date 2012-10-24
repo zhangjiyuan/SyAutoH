@@ -20,9 +20,9 @@ public:
 		return m_pServer->GetConnectCount();
 	}
 
-	amhs_message GetMsg()
+	amhs_oht_set GetOhtSet()
 	{
-		return m_pServer->pop_msg();
+		return m_pServer->GetOhtDataSet();
 	}
 
 private:

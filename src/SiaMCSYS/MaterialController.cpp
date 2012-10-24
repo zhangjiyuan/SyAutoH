@@ -45,28 +45,16 @@ void MaterialController::Check(void)
 	//m_amhsDrive.SetOHTBackMessage(24, 200);
 	//m_amhsDrive.Check();
 
-	AMHSPacket* Packet = m_amhsDrive.GetMsgPacket();
-	if (NULL != Packet)
+	DR_OHT_LIST oht_list = m_amhsDrive.GetOhtList();
+	string strOhtList = "";
+	char buf[256] ="";
+	for (DR_OHT_LIST::iterator it = oht_list.begin(); 
+		it != oht_list.end(); ++it)
 	{
-		int mOpcode = Packet->GetOpcode();
-		switch(mOpcode)
-		{
-		case OHT_POSITION:
-			{
-				uint8		ohtID = 0;
-				uint16		ohtPosition = 0;
-				*Packet >> ohtID;
-				*Packet >> ohtPosition;
-				//printf("OHT POS  ---> id: %d, pos: %d\n", ohtID, ohtPosition);
-				char buf[256] = "";
-				sprintf_s(buf, 256, "%d,%d", ohtID, ohtPosition);
-				m_GuiHub.SetData("OHT.POS", buf);
-			}
-			break;
-		}
-		delete Packet;
+		sprintf_s(buf, 256, "<%d, %d, %d>", it->nID, it->nPos, it->nHand);
+		strOhtList += buf;
 	}
-
+	m_GuiHub.SetData("OHTARRAY:<ID,POS,HAND>", strOhtList.c_str());
 	
 	
 }

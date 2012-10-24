@@ -47,6 +47,23 @@ int CAMHSDrive::Init()
 	return 0;
 }
 
+DR_OHT_LIST CAMHSDrive::GetOhtList()
+{
+	DR_OHT_LIST list;
+	amhs_oht_set oht_set = sAmhsServer.GetOhtSet();
+	for (amhs_oht_set::iterator it = oht_set.begin(); 
+		it != oht_set.end(); ++it)
+	{
+		amhs_oht_ptr sp_oht = *it;
+		driveOHT dOht;
+		dOht.nID = sp_oht->nID;
+		dOht.nPos =  sp_oht->nPOS;
+		dOht.nHand = sp_oht->nHand;
+		list.push_back(dOht);
+	}
+	return list;
+}
+
 int CAMHSDrive::Check()
 {
 	/*while(1)
@@ -82,27 +99,6 @@ int CAMHSDrive::SetOHTBackMessage(int nOHT, int ms)
 {
 	sAmhsServer.SetOHTBaceMesageTime(nOHT, ms);
 	return 0;
-}
-
-AMHSPacket* CAMHSDrive::GetMsgPacket()
-{
-	amhs_message  msgRead = sAmhsServer.GetMsg();
-	int mOpcode = msgRead.command();
-	int mSize = msgRead.body_length();
-	if (mSize > 0)
-	{
-		AMHSPacket* Packet;
-		Packet = new AMHSPacket(static_cast<uint16>(mOpcode), mSize);
-		Packet->resize(mSize);
-
-		memcpy((void*)Packet->contents(), msgRead.body(), mSize);
-		return Packet;
-	}
-	else
-	{
-		return NULL;
-	}
-	
 }
 
 int CAMHSDrive::SetOHTLocation(int nPoint)

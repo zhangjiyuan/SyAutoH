@@ -491,10 +491,9 @@
             // 
             // labelCBTest
             // 
-            this.labelCBTest.AutoSize = true;
-            this.labelCBTest.Location = new System.Drawing.Point(295, 258);
+            this.labelCBTest.Location = new System.Drawing.Point(8, 285);
             this.labelCBTest.Name = "labelCBTest";
-            this.labelCBTest.Size = new System.Drawing.Size(41, 12);
+            this.labelCBTest.Size = new System.Drawing.Size(495, 138);
             this.labelCBTest.TabIndex = 4;
             this.labelCBTest.Text = "label9";
             // 
