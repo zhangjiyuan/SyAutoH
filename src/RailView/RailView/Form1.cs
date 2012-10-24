@@ -12,15 +12,17 @@ namespace RailView
 {
     public partial class Form1 : Form
     {
-        ShowRunning showRunningHandle = new ShowRunning();
-//        CodingRailCoordinates codingHandle = new CodingRailCoordinates();
+        WinFormElement.FormOperation formOperation = new WinFormElement.FormOperation();
+
         public Form1()
         {
             InitializeComponent();
             ComponentLocChanged();
-            showRunningHandle.InitShowRunning();
-            TestRailDrawCoor();   //test using, finally delete
-//            this.Invalidate();
+            formOperation.FormShowRegionInit();
+            formOperation.Test();
+            //test using, finally delete
+            TestRailDrawCoor();   
+            this.Invalidate();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -54,14 +56,13 @@ namespace RailView
         private void showPic_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            showRunningHandle.DrawRailInfo(g);
-            showRunningHandle.DrawRunningInfo(g);
+            formOperation.ShowRegion(g);
             base.OnPaint(e);
         }
 
+        //test using, finally delete
         public void TestRailDrawCoor()
         {
-            //test using, finally delete
             System.Timers.Timer timer = new System.Timers.Timer();
             timer.Elapsed += new ElapsedEventHandler(StartTimer);
             timer.Interval = 3000;
@@ -69,9 +70,9 @@ namespace RailView
             timer.Enabled = true;
         }
 
+        //test using, finally delete
         public void StartTimer(object source, System.Timers.ElapsedEventArgs e)
         {
-            //test using, finally delete
             this.showPic.Invalidate();
         }
     }   

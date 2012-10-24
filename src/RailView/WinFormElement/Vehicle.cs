@@ -4,16 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Diagnostics;
 
-namespace RailView
+namespace WinFormElement
 {
     public class Vehicle
     {
         private Int16 vehicleID;
         private bool vehicleState;
         private bool vehicleAlarm;
-        private Point vehicleOldPoint=Point.Empty;
+        private Point vehicleOldPoint = Point.Empty;
         private Point vehicleTempPoint = Point.Empty;
 
         public Int16 VehicleID
@@ -53,7 +52,7 @@ namespace RailView
             canvas.FillPath(bsh, path);
             pen.Dispose();
             bsh.Dispose();
-//            Debug.WriteLine(string.Format("trangelePts {0},{1},{2}", tranglePts[0], tranglePts[1], tranglePts[2]));
+            //            Debug.WriteLine(string.Format("trangelePts {0},{1},{2}", tranglePts[0], tranglePts[1], tranglePts[2]));
             return false;
         }
 
