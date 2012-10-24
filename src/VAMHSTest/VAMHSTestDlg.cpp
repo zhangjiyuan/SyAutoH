@@ -243,7 +243,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 	}
 	else
 	{
-		MessageBox(_T("FoupID 超出范围,应在0——254之间！"));
+		MessageBox(_T("FoupID 超出范围,应在0——253之间！"));
 	}
 }
 
@@ -275,7 +275,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 	}
 	else
 	{
-		MessageBox(_T("FOUPID 超出范围，应在0——254之间！"));
+		MessageBox(_T("FOUPID 超出范围，应在0——253之间！"));
 	}
 
 }
@@ -441,8 +441,8 @@ void CVAMHSTestDlg::SetFOUPListItemData(ItemFoup* pFOUP, int nListIndex)
 	str.Format(_T("%d"),pFOUP->FoupID[0]);
 	m_listCtrlFOUP.SetItemText(nListIndex,0,str);
 	str.Format(_T("%d"),pFOUP->nProcessStatus);
-	m_listCtrlFOUP.SetItemText(nListIndex,1,str);
-	m_listCtrlFOUP.SetItemText(nListIndex,2,_T("Idle"));
+	m_listCtrlFOUP.SetItemText(nListIndex,2,str);
+	m_listCtrlFOUP.SetItemText(nListIndex,1,_T("Idle"));
 }
 void CVAMHSTestDlg::DeleteFOUPListItemData(int FoupID)
 {
