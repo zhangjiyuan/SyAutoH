@@ -17,62 +17,56 @@ namespace BaseRailElement
     {
         //以下为对象基本属性
         private int graphType = 0;
+        protected bool locationLock = false;
+        protected bool sizeLock = false;
+        private bool selectable = true;
+        private float speed = 0;
+        private Int16 segmentNumber = 0;
+        private Int16 tagNumber = 0;
+        private int drawMultiFactor = 1;
+
         [Browsable(false)]
         public int GraphType
         {
             get { return graphType; }
             set { graphType = value; }
         }
-
-        //lock
-        protected bool locationLock = false;
         [Description("位置锁定"), Category("锁定")]
         public bool LocationLock
         {
             get { return locationLock; }
             set { locationLock = value; }
-        }
-
-        protected bool sizeLock = false;
+        } 
         [Description("尺寸锁定"), Category("锁定")]
         public bool SizeLock
         {
             get { return sizeLock; }
             set { sizeLock = value; }
-        }
-
-        private bool selectable = true;
+        } 
         [Browsable(false)]
         public bool Selectable
         {
             get { return selectable; }
             set { selectable = value; }
-        }
-
-        private float speed = 0;
+        }    
+        [Category("其他")]
         public float Speed
         {
             get { return speed; }
             set { speed = value; }
-        }
-
-        private Int16 segmentNumber = 0;
+        }       
         [Description("段号"),Category("轨道段信息")]
         public Int16 SegmentNumber
         {
             get { return segmentNumber; }
             set { segmentNumber = value; }
-        }
-
-        private Int16 tagNumber = 0;
+        } 
         [Description("条形码数量"),Category("轨道段信息")]
         public Int16 TagNumber
         {
             get { return tagNumber; }
             set { tagNumber = value; }
-        }
-      
-        private int drawMultiFactor = 1;
+        }   
         [XmlIgnore]
         [Browsable(false)]
         public int DrawMultiFactor
