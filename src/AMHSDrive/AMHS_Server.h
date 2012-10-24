@@ -20,6 +20,11 @@ public:
 		return m_pServer->GetConnectCount();
 	}
 
+	amhs_message GetMsg()
+	{
+		return m_pServer->pop_msg();
+	}
+
 private:
 	boost::asio::io_service m_io_service;
 	boost::thread m_thread;

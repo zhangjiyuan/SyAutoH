@@ -3,6 +3,8 @@
 #include "GuiDataHubI.h"
 
 GuiDataHubServer::GuiDataHubServer(void)
+	:
+m_pGuiHub(NULL)
 {
 	Proxy("DataHub");
 }
@@ -15,7 +17,15 @@ GuiDataHubServer::~GuiDataHubServer(void)
 
 void GuiDataHubServer::GetProxy()
 {
-	GuiDataHubI* pManager = new GuiDataHubI();
+	m_pGuiHub = new GuiDataHubI();
 	//pManager->Init();
-	m_objPtr = pManager;
+	m_objPtr = m_pGuiHub;
+}
+
+void GuiDataHubServer::UpdateData(const string& sTag, const string& sVal)
+{
+	if (NULL != m_pGuiHub)
+	{
+		m_pGuiHub->UpdateData(sTag, sVal);
+	}
 }

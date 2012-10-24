@@ -1,5 +1,7 @@
 #include "StdAfx.h"
 #include "MaterialController.h"
+#include "../shared/AMHSPacket.h"
+#include "OptCodes.h"
 
 #include <iostream>
 #include <string>
@@ -42,6 +44,31 @@ void MaterialController::Check(void)
 	//m_amhsDrive.Run();
 	//m_amhsDrive.SetOHTBackMessage(24, 200);
 	//m_amhsDrive.Check();
+
+	AMHSPacket* Packet = m_amhsDrive.GetMsgPacket();
+	if (NULL != Packet)
+	{
+		int mOpcode = Packet->GetOpcode();
+		switch(mOpcode)
+		{
+		case OHT_POSITION:
+			{
+				uint8		ohtID = 0;
+				uint16		ohtPosition = 0;
+				*Packet >> ohtID;
+				*Packet >> ohtPosition;
+				//printf("OHT POS  ---> id: %d, pos: %d\n", ohtID, ohtPosition);
+				char buf[256] = "";
+				sprintf_s(buf, 256, "%d,%d", ohtID, ohtPosition);
+				m_GuiHub.SetData("OHT.POS", buf);
+			}
+			break;
+		}
+		delete Packet;
+	}
+
+	
+	
 }
 
 

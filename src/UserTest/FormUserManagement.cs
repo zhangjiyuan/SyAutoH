@@ -23,6 +23,7 @@ namespace UserTest
         private DataHubCli dataHubLink = new DataHubCli();
         private int m_nSession = 0;
         private string strUserLogin = "";
+        private string strVal;
         //private int nUserLoginRight = 0;
 
         private void bnLogin_Click(object sender, EventArgs e)
@@ -49,9 +50,17 @@ namespace UserTest
 
         private void GuiDataUpdate(string strTag, string sVal)
         {
-            if (strTag.CompareTo("TEST") == 0)
+            //if (strTag.CompareTo("TEST") == 0)
+            //{
+            //    this.labelCBTest.Text = sVal;
+            //}
+            //if (strTag.CompareTo("OHT.POS") == 0)
+            //{
+            //    this.labelCBTest.Text = sVal;
+            //}
+            lock(this)
             {
-                labelCBTest.Text = sVal;
+                strVal = sVal;
             }
         }
 
@@ -71,6 +80,7 @@ namespace UserTest
             this.comboBoxUserRight.SelectedIndex = 0;
 
             //this.tabControl1.TabPages.RemoveAt(2);
+            timer1.Start();
         }
 
         private void bnNewUser_Click(object sender, EventArgs e)
@@ -274,6 +284,11 @@ namespace UserTest
 
             int nWRet = dataHubLink.WriteData("OHT", "MOVE", m_nSession);
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            labelCBTest.Text = strVal;
         }
     }
 }

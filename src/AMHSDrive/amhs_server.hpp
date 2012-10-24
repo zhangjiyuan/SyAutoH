@@ -60,6 +60,25 @@ public:
 		participants->deliver(msg);
 	}
 
+	void push_msg(const amhs_message& msg)
+	{
+		recent_msgs_.push_back(msg);
+	}
+
+	amhs_message pop_msg()
+	{
+		if(recent_msgs_.size() > 0)
+		{
+			amhs_message msg = recent_msgs_.front();
+			recent_msgs_.pop_front();
+			return msg;
+		}
+		else
+		{
+			return amhs_message();
+		}
+	}
+
 	void deliver_all(const amhs_message& msg)
 	{
 		//recent_msgs_.push_back(msg);
@@ -161,6 +180,7 @@ public:
 	{
 		if (!error)
 		{
+			room_.push_msg(read_msg_);
 			int mOpcode = read_msg_.command();
 			int mSize = read_msg_.body_length();
 			AMHSPacket* Packet;
@@ -314,6 +334,11 @@ public:
 	int GetConnectCount()
 	{
 		return room_.GetCount();
+	}
+
+	amhs_message pop_msg()
+	{
+		return room_.pop_msg();
 	}
 
 	void setOhtMessageBackTime(int nID, int ms)

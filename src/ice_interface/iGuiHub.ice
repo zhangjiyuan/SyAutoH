@@ -18,7 +18,7 @@ module MCS
 
 interface GuiDataUpdater
 {
-		idempotent void UpdateData(string Tag, string Val);
+		["ami", "amd"] idempotent void UpdateData(string Tag, string Val);
 };
 
 interface GuiDataHub

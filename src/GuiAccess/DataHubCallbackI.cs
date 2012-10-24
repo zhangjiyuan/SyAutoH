@@ -10,13 +10,24 @@ namespace GuiAccess
     public sealed class DataHubCallbackI : GuiDataUpdaterDisp_
     {
         public event DataChangeHander DataChange;
-        public override void UpdateData(string sTag, string sval, Ice.Current current)
+        //public override void UpdateData(string sTag, string sval, Ice.Current current)
+        //{
+        //    string strTag = sTag;
+        //    if (null != this.DataChange)
+        //    {
+        //        this.DataChange(strTag, sval);
+        //    }
+        //}
+
+        public override void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData updater, 
+            string sTag, string sVal, Ice.Current current)
         {
-            string strTag = sTag;
-            if (null != this.DataChange)
-            {
-                this.DataChange(strTag, sval);
-            }
+            updater.ice_response();
+             if (null != this.DataChange)
+             {
+                 this.DataChange(sTag, sVal);
+             }
         }
+       
     }
 }

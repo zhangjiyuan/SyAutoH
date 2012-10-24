@@ -12,6 +12,7 @@
 
 #pragma  once
 // 此类是从 AMHSDrive.dll 导出的
+class AMHSPacket;
 class AMHSDRIVE_API CAMHSDrive {
 public:
 	CAMHSDrive(void);
@@ -23,4 +24,5 @@ public:
 	int Clean();
 	int SetOHTLocation(int nPoint);
 	int SetOHTBackMessage(int nOHT, int ms);
+	AMHSPacket* GetMsgPacket();
 };

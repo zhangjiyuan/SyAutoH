@@ -84,6 +84,27 @@ int CAMHSDrive::SetOHTBackMessage(int nOHT, int ms)
 	return 0;
 }
 
+AMHSPacket* CAMHSDrive::GetMsgPacket()
+{
+	amhs_message  msgRead = sAmhsServer.GetMsg();
+	int mOpcode = msgRead.command();
+	int mSize = msgRead.body_length();
+	if (mSize > 0)
+	{
+		AMHSPacket* Packet;
+		Packet = new AMHSPacket(static_cast<uint16>(mOpcode), mSize);
+		Packet->resize(mSize);
+
+		memcpy((void*)Packet->contents(), msgRead.body(), mSize);
+		return Packet;
+	}
+	else
+	{
+		return NULL;
+	}
+	
+}
+
 int CAMHSDrive::SetOHTLocation(int nPoint)
 {
 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.bnNewUser = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageLogin = new System.Windows.Forms.TabPage();
@@ -70,6 +71,7 @@
             this.bnOHTGo = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.labelCBTest = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -496,6 +498,11 @@
             this.labelCBTest.TabIndex = 4;
             this.labelCBTest.Text = "label9";
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // FormUserManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -566,6 +573,7 @@
         private System.Windows.Forms.Button bnOHTGo;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Label labelCBTest;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

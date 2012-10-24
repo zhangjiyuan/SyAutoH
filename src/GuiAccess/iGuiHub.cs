@@ -273,6 +273,9 @@ namespace MCS
         Ice.AsyncResult begin_UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
 
         void end_UpdateData(Ice.AsyncResult r__);
+
+        bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, string Tag, string Val);
+        bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -410,13 +413,13 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataUpdaterOperations_
     {
-        void UpdateData(string Tag, string Val, Ice.Current current__);
+        void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, string Tag, string Val, Ice.Current current__);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataUpdaterOperationsNC_
     {
-        void UpdateData(string Tag, string Val);
+        void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, string Tag, string Val);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -586,6 +589,28 @@ namespace MCS
             {
                 cb__();
             }
+        }
+
+        public bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, string Tag, string Val)
+        {
+            Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> result__ = begin_UpdateData(Tag, Val);
+            result__.whenCompleted(cb__.response__, cb__.exception__);
+            if(cb__ is Ice.AMISentCallback)
+            {
+                result__.whenSent((Ice.AsyncCallback)cb__.sent__);
+            }
+            return result__.sentSynchronously();
+        }
+
+        public bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        {
+            Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> result__ = begin_UpdateData(Tag, Val, ctx__);
+            result__.whenCompleted(cb__.response__, cb__.exception__);
+            if(cb__ is Ice.AMISentCallback)
+            {
+                result__.whenSent((Ice.AsyncCallback)cb__.sent__);
+            }
+            return result__.sentSynchronously();
         }
 
         #endregion
@@ -3127,44 +3152,7 @@ namespace MCS
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
         public void UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> context__)
         {
-            Ice.Current current__ = new Ice.Current();
-            initCurrent__(ref current__, "UpdateData", Ice.OperationMode.Idempotent, context__);
-            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
-            {
-                GuiDataUpdater servant__ = null;
-                try
-                {
-                    servant__ = (GuiDataUpdater)obj__;
-                }
-                catch(_System.InvalidCastException)
-                {
-                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
-                }
-                servant__.UpdateData(Tag, Val, current__);
-                return Ice.DispatchStatus.DispatchOK;
-            };
-            IceInternal.Direct direct__ = null;
-            try
-            {
-                direct__ = new IceInternal.Direct(current__, run__);
-                try
-                {
-                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
-                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
-                }
-                finally
-                {
-                    direct__.destroy();
-                }
-            }
-            catch(Ice.SystemException)
-            {
-                throw;
-            }
-            catch(_System.Exception ex__)
-            {
-                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
-            }
+            throw new Ice.CollocationOptimizationException();
         }
     }
 
@@ -3680,12 +3668,12 @@ namespace MCS
     {
         #region Slice operations
 
-        public void UpdateData(string Tag, string Val)
+        public void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, string Tag, string Val)
         {
-            UpdateData(Tag, Val, Ice.ObjectImpl.defaultCurrent);
+            UpdateData_async(cb__, Tag, Val, Ice.ObjectImpl.defaultCurrent);
         }
 
-        public abstract void UpdateData(string Tag, string Val, Ice.Current current__);
+        public abstract void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, string Tag, string Val, Ice.Current current__);
 
         #endregion
 
@@ -3747,8 +3735,16 @@ namespace MCS
             string Val;
             Val = is__.readString();
             is__.endReadEncaps();
-            obj__.UpdateData(Tag, Val, current__);
-            return Ice.DispatchStatus.DispatchOK;
+            AMD_GuiDataUpdater_UpdateData cb__ = new _AMD_GuiDataUpdater_UpdateData(inS__);
+            try
+            {
+                obj__.UpdateData_async(cb__, Tag, Val, current__);
+            }
+            catch(_System.Exception ex__)
+            {
+                cb__.ice_exception(ex__);
+            }
+            return Ice.DispatchStatus.DispatchAsync;
         }
 
         private static string[] all__ =
@@ -4438,5 +4434,43 @@ namespace MCS
         }
 
         #endregion
+    }
+}
+
+namespace MCS
+{
+    [_System.Runtime.InteropServices.ComVisible(false)]
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public abstract class AMI_GuiDataUpdater_UpdateData : Ice.AMICallbackBase
+    {
+        public abstract void ice_response();
+
+        public void response__()
+        {
+            ice_response();
+        }
+    }
+
+    [_System.Runtime.InteropServices.ComVisible(false)]
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public interface AMD_GuiDataUpdater_UpdateData : Ice.AMDCallback
+    {
+        void ice_response();
+    }
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    class _AMD_GuiDataUpdater_UpdateData : IceInternal.IncomingAsync, AMD_GuiDataUpdater_UpdateData
+    {
+        public _AMD_GuiDataUpdater_UpdateData(IceInternal.Incoming inc) : base(inc)
+        {
+        }
+
+        public void ice_response()
+        {
+            if(validateResponse__(true))
+            {
+                response__(true);
+            }
+        }
     }
 }
