@@ -121,7 +121,7 @@ BOOL CVAMHSTestDlg::OnInitDialog()
 	FILE* file;
 	freopen_s( &file, "CONOUT$", "w+t", stdout);// 申请写
 	pVirualAMHSDevice = new CVirtualAMHS();
-	SetTimer(100, 500, NULL);
+	SetTimer(100, 500, NULL);          //0.5s 定时
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
