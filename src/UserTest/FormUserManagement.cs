@@ -47,11 +47,20 @@ namespace UserTest
           
         }
 
+        private void GuiDataUpdate(string strTag, string sVal)
+        {
+            if (strTag.CompareTo("TEST") == 0)
+            {
+                labelCBTest.Text = sVal;
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             userMge.ConnectServer();
             mesLink.ConnectServer();
             dataHubLink.ConnectServer();
+            dataHubLink.DataUpdater += new DataUpdaterHander(GuiDataUpdate);
             dataHubLink.SetCallBack();
 
             this.comboBoxUserRight.Items.Clear();

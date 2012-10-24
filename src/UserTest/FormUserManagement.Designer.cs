@@ -65,10 +65,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxFoupName = new System.Windows.Forms.TextBox();
             this.tabOHT = new System.Windows.Forms.TabPage();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.bnOHTGo = new System.Windows.Forms.Button();
-            this.tbOhtMoveTo = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.tbOhtMoveTo = new System.Windows.Forms.TextBox();
+            this.bnOHTGo = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.labelCBTest = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -439,6 +440,7 @@
             // 
             // tabOHT
             // 
+            this.tabOHT.Controls.Add(this.labelCBTest);
             this.tabOHT.Controls.Add(this.label3);
             this.tabOHT.Controls.Add(this.tbOhtMoveTo);
             this.tabOHT.Controls.Add(this.bnOHTGo);
@@ -451,13 +453,21 @@
             this.tabOHT.Text = "OHT Info";
             this.tabOHT.UseVisualStyleBackColor = true;
             // 
-            // listView1
+            // label3
             // 
-            this.listView1.Location = new System.Drawing.Point(8, 6);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(495, 245);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 258);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(77, 12);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "OHT Move To:";
+            // 
+            // tbOhtMoveTo
+            // 
+            this.tbOhtMoveTo.Location = new System.Drawing.Point(81, 255);
+            this.tbOhtMoveTo.Name = "tbOhtMoveTo";
+            this.tbOhtMoveTo.Size = new System.Drawing.Size(100, 21);
+            this.tbOhtMoveTo.TabIndex = 2;
             // 
             // bnOHTGo
             // 
@@ -469,21 +479,22 @@
             this.bnOHTGo.UseVisualStyleBackColor = true;
             this.bnOHTGo.Click += new System.EventHandler(this.bnOHTGo_Click);
             // 
-            // tbOhtMoveTo
+            // listView1
             // 
-            this.tbOhtMoveTo.Location = new System.Drawing.Point(81, 255);
-            this.tbOhtMoveTo.Name = "tbOhtMoveTo";
-            this.tbOhtMoveTo.Size = new System.Drawing.Size(100, 21);
-            this.tbOhtMoveTo.TabIndex = 2;
+            this.listView1.Location = new System.Drawing.Point(8, 6);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(495, 245);
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
-            // label3
+            // labelCBTest
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 258);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 12);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "OHT Move To:";
+            this.labelCBTest.AutoSize = true;
+            this.labelCBTest.Location = new System.Drawing.Point(295, 258);
+            this.labelCBTest.Name = "labelCBTest";
+            this.labelCBTest.Size = new System.Drawing.Size(41, 12);
+            this.labelCBTest.TabIndex = 4;
+            this.labelCBTest.Text = "label9";
             // 
             // FormUserManagement
             // 
@@ -554,6 +565,7 @@
         private System.Windows.Forms.TextBox tbOhtMoveTo;
         private System.Windows.Forms.Button bnOHTGo;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.Label labelCBTest;
     }
 }
 

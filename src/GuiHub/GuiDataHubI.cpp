@@ -21,5 +21,5 @@ Ice::Int GuiDataHubI::WriteData(const std::string &,const std::string &,Ice::Int
 }
 void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& dataUpdater, const ::Ice::Current& /* = ::Ice::Current */)
 {
-	dataUpdater->UpdateData("OHT.POS", "1000");
+	dataUpdater->UpdateData("TEST", "CallBack OK 1000");
 }
