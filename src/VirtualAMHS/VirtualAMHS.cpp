@@ -107,6 +107,7 @@ int CVirtualAMHS::OHT_Auth(int nIndex, int nPos, int nHand)
 LIST_FOUP CVirtualAMHS::Stocker_GetFoupsStatus(int nStocker)
 {
 	LIST_FOUP list;
+
 	return list;
 }
 

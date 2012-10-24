@@ -205,12 +205,13 @@ void CVAMHSTestDlg::OnDestroy()
 		++it;
 	}
 	g_mapOHTs.clear();
+
 }
 
 //add the Stock?
 void CVAMHSTestDlg::OnBnClickedBnAddstk()
 {
-	pVirualAMHSDevice->Stocker_Auth(StockerID, "192.168.55.10");
+	pVirualAMHSDevice->Stocker_Auth(StockerID, "192.168.55.10");  //查找Stocker是否在线，并进行连接
 }
 
 //the button of input
@@ -218,7 +219,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 {
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
-	pVirualAMHSDevice->Stocker_ManualInputFoup(StockerID, strFoup);
+	pVirualAMHSDevice->Stocker_ManualInputFoup(StockerID, strFoup);     //查找Stocker，将FOUP列入map，发送给STOCKER 消息，让stocker取入FOUP，g_mapFoups保存的是列表显示的Foups
 	//zhang adds the code in 2012.10.24
 	int nFoup_ID = GetDlgItemInt(IDC_EDIT_STK_FOUP); 
 	if(nFoup_ID >= 0 && nFoup_ID <= 254)
@@ -277,7 +278,6 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 	{
 		MessageBox(_T("FOUPID 超出范围，应在0——253之间！"));
 	}
-
 }
 
 // the button function of addOHT
@@ -356,8 +356,8 @@ void CVAMHSTestDlg::InitListCtrlFOUP(void)
 //timer event
 void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	LIST_OHT ohts = pVirualAMHSDevice->OHT_GetStatus();
-	LIST_FOUP foups = pVirualAMHSDevice->Stocker_GetFoupsStatus(StockerID);
+	LIST_OHT ohts = pVirualAMHSDevice->OHT_GetStatus();                          //更新在线小车的信息
+	LIST_FOUP foups = pVirualAMHSDevice->Stocker_GetFoupsStatus(StockerID);       //更新列表中Foup的信息
 
 	LIST_OHT::iterator itOht = ohts.begin();
 	while(itOht != ohts.end())
@@ -391,7 +391,6 @@ void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 		MAP_ItemFoup::iterator itMap = g_mapFoups.find(itFoup->FoupID[0]);
 		if(itMap != g_mapFoups.end())
 		{
-			itMap->second->FoupID[0] = itFoup->FoupID[0];
 			itMap->second->nProcessStatus = itFoup->nProcessStatus;
 		}
 		++itFoup;
