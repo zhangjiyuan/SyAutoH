@@ -20,6 +20,7 @@ namespace UserTest
             new string[] { "NoRight", "Viewer", "Guest", "Operator", "Admin", "SuperAdmin"};
         private UserCli userMge = new UserCli();
         private MESLink mesLink = new MESLink();
+        private DataHubCli dataHubLink = new DataHubCli();
         private int m_nSession = 0;
         private string strUserLogin = "";
         //private int nUserLoginRight = 0;
@@ -50,6 +51,9 @@ namespace UserTest
         {
             userMge.ConnectServer();
             mesLink.ConnectServer();
+            dataHubLink.ConnectServer();
+            dataHubLink.SetCallBack();
+
             this.comboBoxUserRight.Items.Clear();
             foreach (string strRight in RightCollection)
             {
@@ -57,7 +61,7 @@ namespace UserTest
             }
             this.comboBoxUserRight.SelectedIndex = 0;
 
-            this.tabControl1.TabPages.RemoveAt(2);
+            //this.tabControl1.TabPages.RemoveAt(2);
         }
 
         private void bnNewUser_Click(object sender, EventArgs e)
@@ -241,6 +245,26 @@ namespace UserTest
             {
                 RefreshUserList();
             }
+        }
+
+        private void bnOHTGo_Click(object sender, EventArgs e)
+        {
+            string strPos = this.tbOhtMoveTo.Text;
+            int nPos = 0;
+            try
+            { 
+                nPos = System.Convert.ToInt32(strPos);
+            }
+            catch (System.Exception ex)
+            {
+            	
+            }
+           
+
+            string sVal = dataHubLink.ReadData("OHT", m_nSession);
+
+            int nWRet = dataHubLink.WriteData("OHT", "MOVE", m_nSession);
+
         }
     }
 }

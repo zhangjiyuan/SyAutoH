@@ -13,6 +13,7 @@
 #pragma once
 
 class UserManagementServer;
+class GuiDataHubServer;
 // 此类是从 GuiHub.dll 导出的
 class GUIHUB_API CGuiHub {
 public:
@@ -20,8 +21,8 @@ public:
 	~CGuiHub();
 private:
 	UserManagementServer* m_pUserMgt;
-
+	GuiDataHubServer*				m_pGuiDataHub;
 public:
 
-	int StartUserManagement(void);
+	int StartServer(void);
 };

@@ -5,31 +5,8 @@
 ########################################################
 MESLink.Proxy=MESLink:tcp -p 21200
 UserAce.Proxy=UserAce:tcp -p 21210
-
-#
-# Setting for HistoryClient
-#
-History.Proxy=History:tcp -p 15390
-
-#
-# Setting for AccountClient
-#
-Account.Proxy=account:tcp -p 15378
-
-#
-# Setting for RecipeClient
-#
-RecipeFile.Proxy=RecipeFile:tcp -p 15367
-
-#
-# Setting for StatisticClient
-#
-Statistic.Proxy=Statistic:tcp -p 15380
-
-#
-# Setting for SimIO
-#
-SimIO.Proxy=SimIO:tcp -p 16000
+DataHub.Proxy=DataHub:tcp -p 21220
+DataHubCB.Endpoints=tcp -p 21230
 
 #
 # Warn about connection exceptions

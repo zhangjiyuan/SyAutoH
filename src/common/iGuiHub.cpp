@@ -37,9 +37,13 @@
 #   endif
 #endif
 
+static const ::std::string __MCS__GuiDataUpdater__UpdateData_name = "UpdateData";
+
 static const ::std::string __MCS__GuiDataHub__ReadData_name = "ReadData";
 
 static const ::std::string __MCS__GuiDataHub__WriteData_name = "WriteData";
+
+static const ::std::string __MCS__GuiDataHub__SetDataUpdater_name = "SetDataUpdater";
 
 static const ::std::string __MCS__UserManagement__Login_name = "Login";
 
@@ -57,11 +61,30 @@ static const ::std::string __MCS__UserManagement__GetUserCount_name = "GetUserCo
 
 static const ::std::string __MCS__UserManagement__GetUserList_name = "GetUserList";
 
+::Ice::Object* IceInternal::upCast(::MCS::GuiDataUpdater* p) { return p; }
+::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::MCS::GuiDataUpdater* p) { return p; }
+
 ::Ice::Object* IceInternal::upCast(::MCS::GuiDataHub* p) { return p; }
 ::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::MCS::GuiDataHub* p) { return p; }
 
 ::Ice::Object* IceInternal::upCast(::MCS::UserManagement* p) { return p; }
 ::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::MCS::UserManagement* p) { return p; }
+
+void
+MCS::__read(::IceInternal::BasicStream* __is, ::MCS::GuiDataUpdaterPrx& v)
+{
+    ::Ice::ObjectPrx proxy;
+    __is->read(proxy);
+    if(!proxy)
+    {
+        v = 0;
+    }
+    else
+    {
+        v = new ::IceProxy::MCS::GuiDataUpdater;
+        v->__copyFrom(proxy);
+    }
+}
 
 void
 MCS::__read(::IceInternal::BasicStream* __is, ::MCS::GuiDataHubPrx& v)
@@ -132,6 +155,81 @@ MCS::__readUserList(::IceInternal::BasicStream* __is, ::MCS::UserList& v)
     {
         v[i].__read(__is);
     }
+}
+
+void
+IceProxy::MCS::GuiDataUpdater::UpdateData(const ::std::string& Tag, const ::std::string& Val, const ::Ice::Context* __ctx)
+{
+    int __cnt = 0;
+    while(true)
+    {
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
+        {
+            __delBase = __getDelegate(false);
+            ::IceDelegate::MCS::GuiDataUpdater* __del = dynamic_cast< ::IceDelegate::MCS::GuiDataUpdater*>(__delBase.get());
+            __del->UpdateData(Tag, Val, __ctx);
+            return;
+        }
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
+    }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MCS::GuiDataUpdater::begin_UpdateData(const ::std::string& Tag, const ::std::string& Val, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+{
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataUpdater__UpdateData_name, __del, __cookie);
+    try
+    {
+        __result->__prepare(__MCS__GuiDataUpdater__UpdateData_name, ::Ice::Idempotent, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(Tag);
+        __os->write(Val);
+        __os->endWriteEncaps();
+        __result->__send(true);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __result->__exceptionAsync(__ex);
+    }
+    return __result;
+}
+
+void
+IceProxy::MCS::GuiDataUpdater::end_UpdateData(const ::Ice::AsyncResultPtr& __result)
+{
+    __end(__result, __MCS__GuiDataUpdater__UpdateData_name);
+}
+
+const ::std::string&
+IceProxy::MCS::GuiDataUpdater::ice_staticId()
+{
+    return ::MCS::GuiDataUpdater::ice_staticId();
+}
+
+::IceInternal::Handle< ::IceDelegateM::Ice::Object>
+IceProxy::MCS::GuiDataUpdater::__createDelegateM()
+{
+    return ::IceInternal::Handle< ::IceDelegateM::Ice::Object>(new ::IceDelegateM::MCS::GuiDataUpdater);
+}
+
+::IceInternal::Handle< ::IceDelegateD::Ice::Object>
+IceProxy::MCS::GuiDataUpdater::__createDelegateD()
+{
+    return ::IceInternal::Handle< ::IceDelegateD::Ice::Object>(new ::IceDelegateD::MCS::GuiDataUpdater);
+}
+
+::IceProxy::Ice::Object*
+IceProxy::MCS::GuiDataUpdater::__newInstance() const
+{
+    return new GuiDataUpdater;
 }
 
 ::std::string
@@ -271,6 +369,56 @@ IceProxy::MCS::GuiDataHub::end_WriteData(const ::Ice::AsyncResultPtr& __result)
     __is->read(__ret);
     __is->endReadEncaps();
     return __ret;
+}
+
+void
+IceProxy::MCS::GuiDataHub::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context* __ctx)
+{
+    int __cnt = 0;
+    while(true)
+    {
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
+        {
+            __delBase = __getDelegate(false);
+            ::IceDelegate::MCS::GuiDataHub* __del = dynamic_cast< ::IceDelegate::MCS::GuiDataHub*>(__delBase.get());
+            __del->SetDataUpdater(updater, __ctx);
+            return;
+        }
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
+    }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MCS::GuiDataHub::begin_SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+{
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataHub__SetDataUpdater_name, __del, __cookie);
+    try
+    {
+        __result->__prepare(__MCS__GuiDataHub__SetDataUpdater_name, ::Ice::Idempotent, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(::Ice::ObjectPrx(::IceInternal::upCast(updater.get())));
+        __os->endWriteEncaps();
+        __result->__send(true);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __result->__exceptionAsync(__ex);
+    }
+    return __result;
+}
+
+void
+IceProxy::MCS::GuiDataHub::end_SetDataUpdater(const ::Ice::AsyncResultPtr& __result)
+{
+    __end(__result, __MCS__GuiDataHub__SetDataUpdater_name);
 }
 
 const ::std::string&
@@ -876,6 +1024,46 @@ IceProxy::MCS::UserManagement::__newInstance() const
     return new UserManagement;
 }
 
+void
+IceDelegateM::MCS::GuiDataUpdater::UpdateData(const ::std::string& Tag, const ::std::string& Val, const ::Ice::Context* __context)
+{
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataUpdater__UpdateData_name, ::Ice::Idempotent, __context);
+    try
+    {
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(Tag);
+        __os->write(Val);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __og.abort(__ex);
+    }
+    bool __ok = __og.invoke();
+    if(!__og.is()->b.empty())
+    {
+        try
+        {
+            if(!__ok)
+            {
+                try
+                {
+                    __og.throwUserException();
+                }
+                catch(const ::Ice::UserException& __ex)
+                {
+                    ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                    throw __uue;
+                }
+            }
+            __og.is()->skipEmptyEncaps();
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+        }
+    }
+}
+
 ::std::string
 IceDelegateM::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::Context* __context)
 {
@@ -958,6 +1146,45 @@ IceDelegateM::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::
     catch(const ::Ice::LocalException& __ex)
     {
         throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+    }
+}
+
+void
+IceDelegateM::MCS::GuiDataHub::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context* __context)
+{
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataHub__SetDataUpdater_name, ::Ice::Idempotent, __context);
+    try
+    {
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(::Ice::ObjectPrx(::IceInternal::upCast(updater.get())));
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __og.abort(__ex);
+    }
+    bool __ok = __og.invoke();
+    if(!__og.is()->b.empty())
+    {
+        try
+        {
+            if(!__ok)
+            {
+                try
+                {
+                    __og.throwUserException();
+                }
+                catch(const ::Ice::UserException& __ex)
+                {
+                    ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                    throw __uue;
+                }
+            }
+            __og.is()->skipEmptyEncaps();
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+        }
     }
 }
 
@@ -1300,6 +1527,72 @@ IceDelegateM::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCo
     }
 }
 
+void
+IceDelegateD::MCS::GuiDataUpdater::UpdateData(const ::std::string& Tag, const ::std::string& Val, const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(const ::std::string& Tag, const ::std::string& Val, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _m_Tag(Tag),
+            _m_Val(Val)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::MCS::GuiDataUpdater* servant = dynamic_cast< ::MCS::GuiDataUpdater*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            servant->UpdateData(_m_Tag, _m_Val, _current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        const ::std::string& _m_Tag;
+        const ::std::string& _m_Val;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __MCS__GuiDataUpdater__UpdateData_name, ::Ice::Idempotent, __context);
+    try
+    {
+        _DirectI __direct(Tag, Val, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
+}
+
 ::std::string
 IceDelegateD::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::Context* __context)
 {
@@ -1440,6 +1733,70 @@ IceDelegateD::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::
         throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
     }
     return __result;
+}
+
+void
+IceDelegateD::MCS::GuiDataHub::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _m_updater(updater)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::MCS::GuiDataHub* servant = dynamic_cast< ::MCS::GuiDataHub*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            servant->SetDataUpdater(_m_updater, _current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        const ::MCS::GuiDataUpdaterPrx& _m_updater;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __MCS__GuiDataHub__SetDataUpdater_name, ::Ice::Idempotent, __context);
+    try
+    {
+        _DirectI __direct(updater, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
 }
 
 ::Ice::Int
@@ -2009,6 +2366,165 @@ IceDelegateD::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCo
 }
 
 ::Ice::ObjectPtr
+MCS::GuiDataUpdater::ice_clone() const
+{
+    throw ::Ice::CloneNotImplementedException(__FILE__, __LINE__);
+    return 0; // to avoid a warning with some compilers
+}
+
+static const ::std::string __MCS__GuiDataUpdater_ids[2] =
+{
+    "::Ice::Object",
+    "::MCS::GuiDataUpdater"
+};
+
+bool
+MCS::GuiDataUpdater::ice_isA(const ::std::string& _s, const ::Ice::Current&) const
+{
+    return ::std::binary_search(__MCS__GuiDataUpdater_ids, __MCS__GuiDataUpdater_ids + 2, _s);
+}
+
+::std::vector< ::std::string>
+MCS::GuiDataUpdater::ice_ids(const ::Ice::Current&) const
+{
+    return ::std::vector< ::std::string>(&__MCS__GuiDataUpdater_ids[0], &__MCS__GuiDataUpdater_ids[2]);
+}
+
+const ::std::string&
+MCS::GuiDataUpdater::ice_id(const ::Ice::Current&) const
+{
+    return __MCS__GuiDataUpdater_ids[1];
+}
+
+const ::std::string&
+MCS::GuiDataUpdater::ice_staticId()
+{
+    return __MCS__GuiDataUpdater_ids[1];
+}
+
+::Ice::DispatchStatus
+MCS::GuiDataUpdater::___UpdateData(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Idempotent, __current.mode);
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::std::string Tag;
+    ::std::string Val;
+    __is->read(Tag);
+    __is->read(Val);
+    __is->endReadEncaps();
+    UpdateData(Tag, Val, __current);
+    return ::Ice::DispatchOK;
+}
+
+static ::std::string __MCS__GuiDataUpdater_all[] =
+{
+    "UpdateData",
+    "ice_id",
+    "ice_ids",
+    "ice_isA",
+    "ice_ping"
+};
+
+::Ice::DispatchStatus
+MCS::GuiDataUpdater::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& current)
+{
+    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__GuiDataUpdater_all, __MCS__GuiDataUpdater_all + 5, current.operation);
+    if(r.first == r.second)
+    {
+        throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
+    }
+
+    switch(r.first - __MCS__GuiDataUpdater_all)
+    {
+        case 0:
+        {
+            return ___UpdateData(in, current);
+        }
+        case 1:
+        {
+            return ___ice_id(in, current);
+        }
+        case 2:
+        {
+            return ___ice_ids(in, current);
+        }
+        case 3:
+        {
+            return ___ice_isA(in, current);
+        }
+        case 4:
+        {
+            return ___ice_ping(in, current);
+        }
+    }
+
+    assert(false);
+    throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
+}
+
+void
+MCS::GuiDataUpdater::__write(::IceInternal::BasicStream* __os) const
+{
+    __os->writeTypeId(ice_staticId());
+    __os->startWriteSlice();
+    __os->endWriteSlice();
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+    Object::__write(__os);
+#else
+    ::Ice::Object::__write(__os);
+#endif
+}
+
+void
+MCS::GuiDataUpdater::__read(::IceInternal::BasicStream* __is, bool __rid)
+{
+    if(__rid)
+    {
+        ::std::string myId;
+        __is->readTypeId(myId);
+    }
+    __is->startReadSlice();
+    __is->endReadSlice();
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+    Object::__read(__is, true);
+#else
+    ::Ice::Object::__read(__is, true);
+#endif
+}
+
+// COMPILERFIX: Stream API is not supported with VC++ 6
+#if !defined(_MSC_VER) || (_MSC_VER >= 1300)
+void
+MCS::GuiDataUpdater::__write(const ::Ice::OutputStreamPtr&) const
+{
+    Ice::MarshalException ex(__FILE__, __LINE__);
+    ex.reason = "type MCS::GuiDataUpdater was not generated with stream support";
+    throw ex;
+}
+
+void
+MCS::GuiDataUpdater::__read(const ::Ice::InputStreamPtr&, bool)
+{
+    Ice::MarshalException ex(__FILE__, __LINE__);
+    ex.reason = "type MCS::GuiDataUpdater was not generated with stream support";
+    throw ex;
+}
+#endif
+
+void 
+MCS::__patch__GuiDataUpdaterPtr(void* __addr, ::Ice::ObjectPtr& v)
+{
+    ::MCS::GuiDataUpdaterPtr* p = static_cast< ::MCS::GuiDataUpdaterPtr*>(__addr);
+    assert(p);
+    *p = ::MCS::GuiDataUpdaterPtr::dynamicCast(v);
+    if(v && !*p)
+    {
+        IceInternal::Ex::throwUOE(::MCS::GuiDataUpdater::ice_staticId(), v->ice_id());
+    }
+}
+
+::Ice::ObjectPtr
 MCS::GuiDataHub::ice_clone() const
 {
     throw ::Ice::CloneNotImplementedException(__FILE__, __LINE__);
@@ -2081,9 +2597,23 @@ MCS::GuiDataHub::___WriteData(::IceInternal::Incoming& __inS, const ::Ice::Curre
     return ::Ice::DispatchOK;
 }
 
+::Ice::DispatchStatus
+MCS::GuiDataHub::___SetDataUpdater(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Idempotent, __current.mode);
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::MCS::GuiDataUpdaterPrx updater;
+    ::MCS::__read(__is, updater);
+    __is->endReadEncaps();
+    SetDataUpdater(updater, __current);
+    return ::Ice::DispatchOK;
+}
+
 static ::std::string __MCS__GuiDataHub_all[] =
 {
     "ReadData",
+    "SetDataUpdater",
     "WriteData",
     "ice_id",
     "ice_ids",
@@ -2094,7 +2624,7 @@ static ::std::string __MCS__GuiDataHub_all[] =
 ::Ice::DispatchStatus
 MCS::GuiDataHub::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& current)
 {
-    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__GuiDataHub_all, __MCS__GuiDataHub_all + 6, current.operation);
+    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__GuiDataHub_all, __MCS__GuiDataHub_all + 7, current.operation);
     if(r.first == r.second)
     {
         throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
@@ -2108,21 +2638,25 @@ MCS::GuiDataHub::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& c
         }
         case 1:
         {
-            return ___WriteData(in, current);
+            return ___SetDataUpdater(in, current);
         }
         case 2:
         {
-            return ___ice_id(in, current);
+            return ___WriteData(in, current);
         }
         case 3:
         {
-            return ___ice_ids(in, current);
+            return ___ice_id(in, current);
         }
         case 4:
         {
-            return ___ice_isA(in, current);
+            return ___ice_ids(in, current);
         }
         case 5:
+        {
+            return ___ice_isA(in, current);
+        }
+        case 6:
         {
             return ___ice_ping(in, current);
         }
