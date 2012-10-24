@@ -170,6 +170,15 @@ public:
 			memcpy((void*)Packet->contents(), read_msg_.body(), mSize);
 			switch(mOpcode)
 			{
+			case OHT_POSITION:
+				{
+					uint8		ohtID = 0;
+					uint16		ohtPosition = 0;
+					*Packet >> ohtID;
+					*Packet >> ohtPosition;
+					printf("OHT POS  ---> id: %d, pos: %d\n", ohtID, ohtPosition);
+				}
+				break;
 			case OHT_AUTH:
 				{
 					uint8		ohtID = 0;

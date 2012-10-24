@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace BaseRailElement
 {
@@ -16,76 +17,67 @@ namespace BaseRailElement
     {
         ObjectCrossOp objectCrossOp = new ObjectCrossOp();
         private Pen pen = new Pen(Color.Black, 1);
-
         private bool mirror = false;
+        private int lenghtOfStrai = 100;
+        private int firstPart = 30;
+        private int secPart = 40;
+        private int thPart = 30;
+        private Point fourPart = new Point(40, 40);
+        private int startAngle = 0;
+        private int rotateAngle = 90;
+        private DirectionCross directionOfCross = DirectionCross.NULL;
+        public enum DirectionCross
+        {
+            first, second, third, four, NULL
+        }
+        
         [Browsable(false)]
         public bool Mirror
         {
             get { return mirror; }
             set { mirror = value; }
         }
-
-        private int lenghtOfStrai = 100;
-       
-        private int firstPart = 30;
-        [Category("lenght")]
+        [Category("轨道长度")]
         public int FirstPart
         {
             get { return objectCrossOp.FirstPart; }
             set { firstPart = value; objectCrossOp.FirstPart = value; }
         }
-
-        private int secPart = 40;
-        [Category("lenght")]
+        [Category("轨道长度")]
         public int SecPart
         {
             get { return objectCrossOp.SecPart; }
             set { secPart = value; objectCrossOp.SecPart = value; }
         }
-
-        private int thPart = 30;
-        [Category("lenght")]
+        [Category("轨道长度")]
         public int ThPart
         {
             get { return objectCrossOp.ThPart; }
             set { thPart = value; objectCrossOp.ThPart = value; }
         }
-
-        private Point fourPart = new Point(40, 40);
-        [Category("lenght")]
+        [Category("轨道长度")]
         public Point FourPart
         {
             get { return objectCrossOp.FourPart; }
             set { fourPart = value; objectCrossOp.FourPart = value; }
         }
-
         [Browsable(false)]
         public List<Point> PointList
         {
             get { return objectCrossOp.PointList; }
         }
-
-        private int startAngle = 0;
         [Browsable(false)]
         public int StartAngle
         {
             get { return startAngle; }
             set { startAngle = value; }
         }
-
-        private int rotateAngle = 90;
         [Browsable(false)]
         public int RotateAngle
         {
             get { return rotateAngle; }
             set { rotateAngle = value; }
         }
-
-        public enum DirectionCross
-        {
-            first, second, third, four, NULL
-        }
-        private DirectionCross directionOfCross = DirectionCross.NULL;
         [Browsable(false)]
         public DirectionCross DirectionOfCross
         {
@@ -168,11 +160,12 @@ namespace BaseRailElement
         protected override void Scale(int handle, int dx, int dy)
         {
             objectCrossOp.scale(handle, dx, dy, Mirror);
-            firstPart = FirstPart / DrawMultiFactor;
-            secPart = SecPart / DrawMultiFactor;
-            thPart = ThPart / DrawMultiFactor;
-            fourPart.X = FourPart.X / DrawMultiFactor;
-            fourPart.Y = FourPart.Y / DrawMultiFactor;
+            firstPart = FirstPart;
+            secPart = SecPart;
+            thPart = ThPart;
+            fourPart.X = FourPart.X;
+            fourPart.Y = FourPart.Y;
+            Debug.WriteLine(string.Format("first is {0},sec is {1},th is {2}", firstPart, secPart, thPart));
         }
 
         public override void RotateCounterClw()
@@ -452,6 +445,7 @@ namespace BaseRailElement
                 case DirectionCross.NULL:
                     break;
             }
+            Debug.WriteLine(string.Format("first is {0},sec is {1},th is {2}", firstPart, secPart, thPart));
         }
         public override bool ChosedInRegion(Rectangle rect)
         {

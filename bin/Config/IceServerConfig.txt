@@ -5,31 +5,7 @@
 ##############################################
 MESLink.Endpoints=tcp -p 21200
 UserAce.Endpoints=tcp -p 21210
-
-#
-# Setting for HistoryServer
-#
-History.Endpoints=tcp -p 15390
-
-#
-# Setting for AccountServer
-#
-Account.Endpoints=tcp -p 15378
-
-#
-# Setting for RecipeServer
-#
-RecipeFile.Endpoints=tcp -p 15367
-
-#
-# Setting for StatisticServer
-#
-Statistic.Endpoints=tcp -p 15380
-
-#
-# Setting for SimIO
-#
-SimIO.Endpoints=tcp -p 16000
+DataHub.Endpoints=tcp -p 21220
 
 #
 # Warn about connection exceptions

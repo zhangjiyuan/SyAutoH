@@ -30,7 +30,7 @@ int MaterialController::Init(void)
 
 
 
-	m_GuiHub.StartUserManagement();
+	m_GuiHub.StartServer();
 	m_amhsDrive.Init();
 	
 	return 0;

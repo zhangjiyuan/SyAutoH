@@ -37,6 +37,21 @@ namespace MCS
     [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1720")]
     [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1722")]
     [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1724")]
+    public partial interface GuiDataUpdater : Ice.Object, GuiDataUpdaterOperations_, GuiDataUpdaterOperationsNC_
+    {
+    }
+
+    [_System.Runtime.InteropServices.ComVisible(false)]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1710")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1715")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1716")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1720")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1722")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1724")]
     public partial interface GuiDataHub : Ice.Object, GuiDataHubOperations_, GuiDataHubOperationsNC_
     {
     }
@@ -207,10 +222,16 @@ namespace MCS
 namespace MCS
 {
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public delegate void Callback_GuiDataUpdater_UpdateData();
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public delegate void Callback_GuiDataHub_ReadData(string ret__);
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public delegate void Callback_GuiDataHub_WriteData(int ret__);
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public delegate void Callback_GuiDataHub_SetDataUpdater();
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public delegate void Callback_UserManagement_Login(int ret__);
@@ -240,6 +261,21 @@ namespace MCS
 namespace MCS
 {
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public interface GuiDataUpdaterPrx : Ice.ObjectPrx
+    {
+        void UpdateData(string Tag, string Val);
+        void UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(string Tag, string Val);
+        Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__);
+
+        Ice.AsyncResult begin_UpdateData(string Tag, string Val, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+
+        void end_UpdateData(Ice.AsyncResult r__);
+    }
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubPrx : Ice.ObjectPrx
     {
         string ReadData(string Tag, int session);
@@ -263,6 +299,17 @@ namespace MCS
         Ice.AsyncResult begin_WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
 
         int end_WriteData(Ice.AsyncResult r__);
+
+        void SetDataUpdater(MCS.GuiDataUpdaterPrx updater);
+        void SetDataUpdater(MCS.GuiDataUpdaterPrx updater, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        Ice.AsyncResult<MCS.Callback_GuiDataHub_SetDataUpdater> begin_SetDataUpdater(MCS.GuiDataUpdaterPrx updater);
+        Ice.AsyncResult<MCS.Callback_GuiDataHub_SetDataUpdater> begin_SetDataUpdater(MCS.GuiDataUpdaterPrx updater, _System.Collections.Generic.Dictionary<string, string> ctx__);
+
+        Ice.AsyncResult begin_SetDataUpdater(MCS.GuiDataUpdaterPrx updater, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_SetDataUpdater(MCS.GuiDataUpdaterPrx updater, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+
+        void end_SetDataUpdater(Ice.AsyncResult r__);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -361,11 +408,25 @@ namespace MCS
 namespace MCS
 {
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public interface GuiDataUpdaterOperations_
+    {
+        void UpdateData(string Tag, string Val, Ice.Current current__);
+    }
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public interface GuiDataUpdaterOperationsNC_
+    {
+        void UpdateData(string Tag, string Val);
+    }
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubOperations_
     {
         string ReadData(string Tag, int session, Ice.Current current__);
 
         int WriteData(string Tag, string Val, int session, Ice.Current current__);
+
+        void SetDataUpdater(MCS.GuiDataUpdaterPrx updater, Ice.Current current__);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -374,6 +435,8 @@ namespace MCS
         string ReadData(string Tag, int session);
 
         int WriteData(string Tag, string Val, int session);
+
+        void SetDataUpdater(MCS.GuiDataUpdaterPrx updater);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -421,6 +484,265 @@ namespace MCS
 {
     [_System.Runtime.InteropServices.ComVisible(false)]
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public sealed class GuiDataUpdaterPrxHelper : Ice.ObjectPrxHelperBase, GuiDataUpdaterPrx
+    {
+        #region Synchronous operations
+
+        public void UpdateData(string Tag, string Val)
+        {
+            UpdateData(Tag, Val, null, false);
+        }
+
+        public void UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            UpdateData(Tag, Val, context__, true);
+        }
+
+        private void UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        {
+            if(explicitContext__ && context__ == null)
+            {
+                context__ = emptyContext_;
+            }
+            int cnt__ = 0;
+            while(true)
+            {
+                Ice.ObjectDel_ delBase__ = null;
+                try
+                {
+                    delBase__ = getDelegate__(false);
+                    GuiDataUpdaterDel_ del__ = (GuiDataUpdaterDel_)delBase__;
+                    del__.UpdateData(Tag, Val, context__);
+                    return;
+                }
+                catch(IceInternal.LocalExceptionWrapper ex__)
+                {
+                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    handleException__(delBase__, ex__, true, ref cnt__);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Asynchronous operations
+
+        public Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(string Tag, string Val)
+        {
+            return begin_UpdateData(Tag, Val, null, false, null, null);
+        }
+
+        public Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        {
+            return begin_UpdateData(Tag, Val, ctx__, true, null, null);
+        }
+
+        public Ice.AsyncResult begin_UpdateData(string Tag, string Val, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_UpdateData(Tag, Val, null, false, cb__, cookie__);
+        }
+
+        public Ice.AsyncResult begin_UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_UpdateData(Tag, Val, ctx__, true, cb__, cookie__);
+        }
+
+        private const string __UpdateData_name = "UpdateData";
+
+        public void end_UpdateData(Ice.AsyncResult r__)
+        {
+            end__(r__, __UpdateData_name);
+        }
+
+        private Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            IceInternal.OnewayOutgoingAsync<MCS.Callback_GuiDataUpdater_UpdateData> result__ = new IceInternal.OnewayOutgoingAsync<MCS.Callback_GuiDataUpdater_UpdateData>(this, __UpdateData_name, UpdateData_completed__, cookie__);
+            if(cb__ != null)
+            {
+                result__.whenCompletedWithAsyncCallback(cb__);
+            }
+            try
+            {
+                result__.prepare__(__UpdateData_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
+                IceInternal.BasicStream os__ = result__.ostr__;
+                os__.writeString(Tag);
+                os__.writeString(Val);
+                os__.endWriteEncaps();
+                result__.send__(true);
+            }
+            catch(Ice.LocalException ex__)
+            {
+                result__.exceptionAsync__(ex__);
+            }
+            return result__;
+        }
+
+        private void UpdateData_completed__(MCS.Callback_GuiDataUpdater_UpdateData cb__)
+        {
+            if(cb__ != null)
+            {
+                cb__();
+            }
+        }
+
+        #endregion
+
+        #region Checked and unchecked cast operations
+
+        public static GuiDataUpdaterPrx checkedCast(Ice.ObjectPrx b)
+        {
+            if(b == null)
+            {
+                return null;
+            }
+            GuiDataUpdaterPrx r = b as GuiDataUpdaterPrx;
+            if((r == null) && b.ice_isA(ice_staticId()))
+            {
+                GuiDataUpdaterPrxHelper h = new GuiDataUpdaterPrxHelper();
+                h.copyFrom__(b);
+                r = h;
+            }
+            return r;
+        }
+
+        public static GuiDataUpdaterPrx checkedCast(Ice.ObjectPrx b, _System.Collections.Generic.Dictionary<string, string> ctx)
+        {
+            if(b == null)
+            {
+                return null;
+            }
+            GuiDataUpdaterPrx r = b as GuiDataUpdaterPrx;
+            if((r == null) && b.ice_isA(ice_staticId(), ctx))
+            {
+                GuiDataUpdaterPrxHelper h = new GuiDataUpdaterPrxHelper();
+                h.copyFrom__(b);
+                r = h;
+            }
+            return r;
+        }
+
+        public static GuiDataUpdaterPrx checkedCast(Ice.ObjectPrx b, string f)
+        {
+            if(b == null)
+            {
+                return null;
+            }
+            Ice.ObjectPrx bb = b.ice_facet(f);
+            try
+            {
+                if(bb.ice_isA(ice_staticId()))
+                {
+                    GuiDataUpdaterPrxHelper h = new GuiDataUpdaterPrxHelper();
+                    h.copyFrom__(bb);
+                    return h;
+                }
+            }
+            catch(Ice.FacetNotExistException)
+            {
+            }
+            return null;
+        }
+
+        public static GuiDataUpdaterPrx checkedCast(Ice.ObjectPrx b, string f, _System.Collections.Generic.Dictionary<string, string> ctx)
+        {
+            if(b == null)
+            {
+                return null;
+            }
+            Ice.ObjectPrx bb = b.ice_facet(f);
+            try
+            {
+                if(bb.ice_isA(ice_staticId(), ctx))
+                {
+                    GuiDataUpdaterPrxHelper h = new GuiDataUpdaterPrxHelper();
+                    h.copyFrom__(bb);
+                    return h;
+                }
+            }
+            catch(Ice.FacetNotExistException)
+            {
+            }
+            return null;
+        }
+
+        public static GuiDataUpdaterPrx uncheckedCast(Ice.ObjectPrx b)
+        {
+            if(b == null)
+            {
+                return null;
+            }
+            GuiDataUpdaterPrx r = b as GuiDataUpdaterPrx;
+            if(r == null)
+            {
+                GuiDataUpdaterPrxHelper h = new GuiDataUpdaterPrxHelper();
+                h.copyFrom__(b);
+                r = h;
+            }
+            return r;
+        }
+
+        public static GuiDataUpdaterPrx uncheckedCast(Ice.ObjectPrx b, string f)
+        {
+            if(b == null)
+            {
+                return null;
+            }
+            Ice.ObjectPrx bb = b.ice_facet(f);
+            GuiDataUpdaterPrxHelper h = new GuiDataUpdaterPrxHelper();
+            h.copyFrom__(bb);
+            return h;
+        }
+
+        public static readonly string[] ids__ =
+        {
+            "::Ice::Object",
+            "::MCS::GuiDataUpdater"
+        };
+
+        public static string ice_staticId()
+        {
+            return ids__[1];
+        }
+
+        #endregion
+
+        #region Marshaling support
+
+        protected override Ice.ObjectDelM_ createDelegateM__()
+        {
+            return new GuiDataUpdaterDelM_();
+        }
+
+        protected override Ice.ObjectDelD_ createDelegateD__()
+        {
+            return new GuiDataUpdaterDelD_();
+        }
+
+        public static void write__(IceInternal.BasicStream os__, GuiDataUpdaterPrx v__)
+        {
+            os__.writeProxy(v__);
+        }
+
+        public static GuiDataUpdaterPrx read__(IceInternal.BasicStream is__)
+        {
+            Ice.ObjectPrx proxy = is__.readProxy();
+            if(proxy != null)
+            {
+                GuiDataUpdaterPrxHelper result = new GuiDataUpdaterPrxHelper();
+                result.copyFrom__(proxy);
+                return result;
+            }
+            return null;
+        }
+
+        #endregion
+    }
+
+    [_System.Runtime.InteropServices.ComVisible(false)]
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public sealed class GuiDataHubPrxHelper : Ice.ObjectPrxHelperBase, GuiDataHubPrx
     {
         #region Synchronous operations
@@ -451,6 +773,44 @@ namespace MCS
                     delBase__ = getDelegate__(false);
                     GuiDataHubDel_ del__ = (GuiDataHubDel_)delBase__;
                     return del__.ReadData(Tag, session, context__);
+                }
+                catch(IceInternal.LocalExceptionWrapper ex__)
+                {
+                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    handleException__(delBase__, ex__, true, ref cnt__);
+                }
+            }
+        }
+
+        public void SetDataUpdater(MCS.GuiDataUpdaterPrx updater)
+        {
+            SetDataUpdater(updater, null, false);
+        }
+
+        public void SetDataUpdater(MCS.GuiDataUpdaterPrx updater, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            SetDataUpdater(updater, context__, true);
+        }
+
+        private void SetDataUpdater(MCS.GuiDataUpdaterPrx updater, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        {
+            if(explicitContext__ && context__ == null)
+            {
+                context__ = emptyContext_;
+            }
+            int cnt__ = 0;
+            while(true)
+            {
+                Ice.ObjectDel_ delBase__ = null;
+                try
+                {
+                    delBase__ = getDelegate__(false);
+                    GuiDataHubDel_ del__ = (GuiDataHubDel_)delBase__;
+                    del__.SetDataUpdater(updater, context__);
+                    return;
                 }
                 catch(IceInternal.LocalExceptionWrapper ex__)
                 {
@@ -592,6 +952,63 @@ namespace MCS
             if(cb__ != null)
             {
                 cb__(ret__);
+            }
+        }
+
+        public Ice.AsyncResult<MCS.Callback_GuiDataHub_SetDataUpdater> begin_SetDataUpdater(MCS.GuiDataUpdaterPrx updater)
+        {
+            return begin_SetDataUpdater(updater, null, false, null, null);
+        }
+
+        public Ice.AsyncResult<MCS.Callback_GuiDataHub_SetDataUpdater> begin_SetDataUpdater(MCS.GuiDataUpdaterPrx updater, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        {
+            return begin_SetDataUpdater(updater, ctx__, true, null, null);
+        }
+
+        public Ice.AsyncResult begin_SetDataUpdater(MCS.GuiDataUpdaterPrx updater, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_SetDataUpdater(updater, null, false, cb__, cookie__);
+        }
+
+        public Ice.AsyncResult begin_SetDataUpdater(MCS.GuiDataUpdaterPrx updater, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_SetDataUpdater(updater, ctx__, true, cb__, cookie__);
+        }
+
+        private const string __SetDataUpdater_name = "SetDataUpdater";
+
+        public void end_SetDataUpdater(Ice.AsyncResult r__)
+        {
+            end__(r__, __SetDataUpdater_name);
+        }
+
+        private Ice.AsyncResult<MCS.Callback_GuiDataHub_SetDataUpdater> begin_SetDataUpdater(MCS.GuiDataUpdaterPrx updater, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            IceInternal.OnewayOutgoingAsync<MCS.Callback_GuiDataHub_SetDataUpdater> result__ = new IceInternal.OnewayOutgoingAsync<MCS.Callback_GuiDataHub_SetDataUpdater>(this, __SetDataUpdater_name, SetDataUpdater_completed__, cookie__);
+            if(cb__ != null)
+            {
+                result__.whenCompletedWithAsyncCallback(cb__);
+            }
+            try
+            {
+                result__.prepare__(__SetDataUpdater_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
+                IceInternal.BasicStream os__ = result__.ostr__;
+                MCS.GuiDataUpdaterPrxHelper.write__(os__, updater);
+                os__.endWriteEncaps();
+                result__.send__(true);
+            }
+            catch(Ice.LocalException ex__)
+            {
+                result__.exceptionAsync__(ex__);
+            }
+            return result__;
+        }
+
+        private void SetDataUpdater_completed__(MCS.Callback_GuiDataHub_SetDataUpdater cb__)
+        {
+            if(cb__ != null)
+            {
+                cb__();
             }
         }
 
@@ -2076,11 +2493,19 @@ namespace MCS
 namespace MCS
 {
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public interface GuiDataUpdaterDel_ : Ice.ObjectDel_
+    {
+        void UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> context__);
+    }
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubDel_ : Ice.ObjectDel_
     {
         string ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
         int WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        void SetDataUpdater(MCS.GuiDataUpdaterPrx updater, _System.Collections.Generic.Dictionary<string, string> context__);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -2106,6 +2531,56 @@ namespace MCS
 
 namespace MCS
 {
+    [_System.Runtime.InteropServices.ComVisible(false)]
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public sealed class GuiDataUpdaterDelM_ : Ice.ObjectDelM_, GuiDataUpdaterDel_
+    {
+        public void UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            IceInternal.Outgoing og__ = handler__.getOutgoing("UpdateData", Ice.OperationMode.Idempotent, context__);
+            try
+            {
+                try
+                {
+                    IceInternal.BasicStream os__ = og__.ostr();
+                    os__.writeString(Tag);
+                    os__.writeString(Val);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    og__.abort(ex__);
+                }
+                bool ok__ = og__.invoke();
+                if(!og__.istr().isEmpty())
+                {
+                    try
+                    {
+                        if(!ok__)
+                        {
+                            try
+                            {
+                                og__.throwUserException();
+                            }
+                            catch(Ice.UserException ex__)
+                            {
+                                throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                            }
+                        }
+                        og__.istr().skipEmptyEncaps();
+                    }
+                    catch(Ice.LocalException ex__)
+                    {
+                        throw new IceInternal.LocalExceptionWrapper(ex__, false);
+                    }
+                }
+            }
+            finally
+            {
+                handler__.reclaimOutgoing(og__);
+            }
+        }
+    }
+
     [_System.Runtime.InteropServices.ComVisible(false)]
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public sealed class GuiDataHubDelM_ : Ice.ObjectDelM_, GuiDataHubDel_
@@ -2149,6 +2624,50 @@ namespace MCS
                 catch(Ice.LocalException ex__)
                 {
                     throw new IceInternal.LocalExceptionWrapper(ex__, false);
+                }
+            }
+            finally
+            {
+                handler__.reclaimOutgoing(og__);
+            }
+        }
+
+        public void SetDataUpdater(MCS.GuiDataUpdaterPrx updater, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            IceInternal.Outgoing og__ = handler__.getOutgoing("SetDataUpdater", Ice.OperationMode.Idempotent, context__);
+            try
+            {
+                try
+                {
+                    IceInternal.BasicStream os__ = og__.ostr();
+                    MCS.GuiDataUpdaterPrxHelper.write__(os__, updater);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    og__.abort(ex__);
+                }
+                bool ok__ = og__.invoke();
+                if(!og__.istr().isEmpty())
+                {
+                    try
+                    {
+                        if(!ok__)
+                        {
+                            try
+                            {
+                                og__.throwUserException();
+                            }
+                            catch(Ice.UserException ex__)
+                            {
+                                throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                            }
+                        }
+                        og__.istr().skipEmptyEncaps();
+                    }
+                    catch(Ice.LocalException ex__)
+                    {
+                        throw new IceInternal.LocalExceptionWrapper(ex__, false);
+                    }
                 }
             }
             finally
@@ -2603,6 +3122,54 @@ namespace MCS
 {
     [_System.Runtime.InteropServices.ComVisible(false)]
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public sealed class GuiDataUpdaterDelD_ : Ice.ObjectDelD_, GuiDataUpdaterDel_
+    {
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
+        public void UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            Ice.Current current__ = new Ice.Current();
+            initCurrent__(ref current__, "UpdateData", Ice.OperationMode.Idempotent, context__);
+            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
+            {
+                GuiDataUpdater servant__ = null;
+                try
+                {
+                    servant__ = (GuiDataUpdater)obj__;
+                }
+                catch(_System.InvalidCastException)
+                {
+                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+                }
+                servant__.UpdateData(Tag, Val, current__);
+                return Ice.DispatchStatus.DispatchOK;
+            };
+            IceInternal.Direct direct__ = null;
+            try
+            {
+                direct__ = new IceInternal.Direct(current__, run__);
+                try
+                {
+                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
+                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
+                }
+                finally
+                {
+                    direct__.destroy();
+                }
+            }
+            catch(Ice.SystemException)
+            {
+                throw;
+            }
+            catch(_System.Exception ex__)
+            {
+                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
+            }
+        }
+    }
+
+    [_System.Runtime.InteropServices.ComVisible(false)]
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public sealed class GuiDataHubDelD_ : Ice.ObjectDelD_, GuiDataHubDel_
     {
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
@@ -2648,6 +3215,49 @@ namespace MCS
                 IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
             }
             return result__;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
+        public void SetDataUpdater(MCS.GuiDataUpdaterPrx updater, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            Ice.Current current__ = new Ice.Current();
+            initCurrent__(ref current__, "SetDataUpdater", Ice.OperationMode.Idempotent, context__);
+            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
+            {
+                GuiDataHub servant__ = null;
+                try
+                {
+                    servant__ = (GuiDataHub)obj__;
+                }
+                catch(_System.InvalidCastException)
+                {
+                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+                }
+                servant__.SetDataUpdater(updater, current__);
+                return Ice.DispatchStatus.DispatchOK;
+            };
+            IceInternal.Direct direct__ = null;
+            try
+            {
+                direct__ = new IceInternal.Direct(current__, run__);
+                try
+                {
+                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
+                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
+                }
+                finally
+                {
+                    direct__.destroy();
+                }
+            }
+            catch(Ice.SystemException)
+            {
+                throw;
+            }
+            catch(_System.Exception ex__)
+            {
+                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
+            }
         }
 
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
@@ -3066,6 +3676,168 @@ namespace MCS
 {
     [_System.Runtime.InteropServices.ComVisible(false)]
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public abstract class GuiDataUpdaterDisp_ : Ice.ObjectImpl, GuiDataUpdater
+    {
+        #region Slice operations
+
+        public void UpdateData(string Tag, string Val)
+        {
+            UpdateData(Tag, Val, Ice.ObjectImpl.defaultCurrent);
+        }
+
+        public abstract void UpdateData(string Tag, string Val, Ice.Current current__);
+
+        #endregion
+
+        #region Slice type-related members
+
+        public static new readonly string[] ids__ = 
+        {
+            "::Ice::Object",
+            "::MCS::GuiDataUpdater"
+        };
+
+        public override bool ice_isA(string s)
+        {
+            return _System.Array.BinarySearch(ids__, s, IceUtilInternal.StringUtil.OrdinalStringComparer) >= 0;
+        }
+
+        public override bool ice_isA(string s, Ice.Current current__)
+        {
+            return _System.Array.BinarySearch(ids__, s, IceUtilInternal.StringUtil.OrdinalStringComparer) >= 0;
+        }
+
+        public override string[] ice_ids()
+        {
+            return ids__;
+        }
+
+        public override string[] ice_ids(Ice.Current current__)
+        {
+            return ids__;
+        }
+
+        public override string ice_id()
+        {
+            return ids__[1];
+        }
+
+        public override string ice_id(Ice.Current current__)
+        {
+            return ids__[1];
+        }
+
+        public static new string ice_staticId()
+        {
+            return ids__[1];
+        }
+
+        #endregion
+
+        #region Operation dispatch
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+        public static Ice.DispatchStatus UpdateData___(GuiDataUpdater obj__, IceInternal.Incoming inS__, Ice.Current current__)
+        {
+            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
+            IceInternal.BasicStream is__ = inS__.istr();
+            is__.startReadEncaps();
+            string Tag;
+            Tag = is__.readString();
+            string Val;
+            Val = is__.readString();
+            is__.endReadEncaps();
+            obj__.UpdateData(Tag, Val, current__);
+            return Ice.DispatchStatus.DispatchOK;
+        }
+
+        private static string[] all__ =
+        {
+            "UpdateData",
+            "ice_id",
+            "ice_ids",
+            "ice_isA",
+            "ice_ping"
+        };
+
+        public override Ice.DispatchStatus dispatch__(IceInternal.Incoming inS__, Ice.Current current__)
+        {
+            int pos = _System.Array.BinarySearch(all__, current__.operation, IceUtilInternal.StringUtil.OrdinalStringComparer);
+            if(pos < 0)
+            {
+                throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+            }
+
+            switch(pos)
+            {
+                case 0:
+                {
+                    return UpdateData___(this, inS__, current__);
+                }
+                case 1:
+                {
+                    return ice_id___(this, inS__, current__);
+                }
+                case 2:
+                {
+                    return ice_ids___(this, inS__, current__);
+                }
+                case 3:
+                {
+                    return ice_isA___(this, inS__, current__);
+                }
+                case 4:
+                {
+                    return ice_ping___(this, inS__, current__);
+                }
+            }
+
+            _System.Diagnostics.Debug.Assert(false);
+            throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+        }
+
+        #endregion
+
+        #region Marshaling support
+
+        public override void write__(IceInternal.BasicStream os__)
+        {
+            os__.writeTypeId(ice_staticId());
+            os__.startWriteSlice();
+            os__.endWriteSlice();
+            base.write__(os__);
+        }
+
+        public override void read__(IceInternal.BasicStream is__, bool rid__)
+        {
+            if(rid__)
+            {
+                /* string myId = */ is__.readTypeId();
+            }
+            is__.startReadSlice();
+            is__.endReadSlice();
+            base.read__(is__, true);
+        }
+
+        public override void write__(Ice.OutputStream outS__)
+        {
+            Ice.MarshalException ex = new Ice.MarshalException();
+            ex.reason = "type MCS::GuiDataUpdater was not generated with stream support";
+            throw ex;
+        }
+
+        public override void read__(Ice.InputStream inS__, bool rid__)
+        {
+            Ice.MarshalException ex = new Ice.MarshalException();
+            ex.reason = "type MCS::GuiDataUpdater was not generated with stream support";
+            throw ex;
+        }
+
+        #endregion
+    }
+
+    [_System.Runtime.InteropServices.ComVisible(false)]
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public abstract class GuiDataHubDisp_ : Ice.ObjectImpl, GuiDataHub
     {
         #region Slice operations
@@ -3083,6 +3855,13 @@ namespace MCS
         }
 
         public abstract int WriteData(string Tag, string Val, int session, Ice.Current current__);
+
+        public void SetDataUpdater(MCS.GuiDataUpdaterPrx updater)
+        {
+            SetDataUpdater(updater, Ice.ObjectImpl.defaultCurrent);
+        }
+
+        public abstract void SetDataUpdater(MCS.GuiDataUpdaterPrx updater, Ice.Current current__);
 
         #endregion
 
@@ -3169,9 +3948,23 @@ namespace MCS
             return Ice.DispatchStatus.DispatchOK;
         }
 
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+        public static Ice.DispatchStatus SetDataUpdater___(GuiDataHub obj__, IceInternal.Incoming inS__, Ice.Current current__)
+        {
+            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
+            IceInternal.BasicStream is__ = inS__.istr();
+            is__.startReadEncaps();
+            MCS.GuiDataUpdaterPrx updater;
+            updater = MCS.GuiDataUpdaterPrxHelper.read__(is__);
+            is__.endReadEncaps();
+            obj__.SetDataUpdater(updater, current__);
+            return Ice.DispatchStatus.DispatchOK;
+        }
+
         private static string[] all__ =
         {
             "ReadData",
+            "SetDataUpdater",
             "WriteData",
             "ice_id",
             "ice_ids",
@@ -3195,21 +3988,25 @@ namespace MCS
                 }
                 case 1:
                 {
-                    return WriteData___(this, inS__, current__);
+                    return SetDataUpdater___(this, inS__, current__);
                 }
                 case 2:
                 {
-                    return ice_id___(this, inS__, current__);
+                    return WriteData___(this, inS__, current__);
                 }
                 case 3:
                 {
-                    return ice_ids___(this, inS__, current__);
+                    return ice_id___(this, inS__, current__);
                 }
                 case 4:
                 {
-                    return ice_isA___(this, inS__, current__);
+                    return ice_ids___(this, inS__, current__);
                 }
                 case 5:
+                {
+                    return ice_isA___(this, inS__, current__);
+                }
+                case 6:
                 {
                     return ice_ping___(this, inS__, current__);
                 }

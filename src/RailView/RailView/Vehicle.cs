@@ -21,13 +21,11 @@ namespace RailView
             get { return vehicleID; }
             set { vehicleID = value; }
         }
-
         public bool VehicleState
         {
             get { return vehicleState; }
             set { vehicleState = value; }
         }
-
         public bool VehicleAlarm
         {
             get { return vehicleAlarm; }

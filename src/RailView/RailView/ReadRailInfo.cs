@@ -19,6 +19,7 @@ namespace RailView
             try
             {
                 xmlDoc.Load("..//config//rails.xml");
+                //xmlDoc.Load("3.xml");
             }
             catch 
             {
@@ -60,6 +61,8 @@ namespace RailView
                                         strTemp.lenght = int.Parse(ctwoxe.InnerText);
                                     else if (ctwoxe.Name == "StartAngle")
                                         strTemp.startAngle = int.Parse(ctwoxe.InnerText);
+                                    else if(ctwoxe.Name=="StartDot")
+                                        strTemp.startDot=ctwoxe.InnerText;
                                     else if (ctwoxe.Name == "PointList")
                                     {
                                         cThNodeList = ctwoxe.ChildNodes;
@@ -227,6 +230,7 @@ namespace RailView
     {      
         public int lenght = 0;
         public int startAngle = 0;
+        public string startDot = "";
         public List<Point> pointList = new List<Point>();
     }
 
