@@ -36,6 +36,8 @@ typedef struct
 	int nProcessStatus;
 } ItemFoup;
 typedef std::list<ItemFoup> LIST_FOUP;
+//zhang add the code in 2012.10.24
+typedef std::map<int,ItemFoup*> MAP_ItemFoup;
 
 class VIRUALAMHS_API CVirtualAMHS {
 public:

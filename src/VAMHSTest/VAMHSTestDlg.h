@@ -45,4 +45,7 @@ public:
 	void InitListCtrlFOUP(void);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	void SetOHTListItemData(ItemOHT* pOHT, int nListIndex);
+	void SetFOUPListItemData(ItemFoup* pFOUP, int nListIndex);
+	void DeleteFOUPListItemData(int FoupID);
+
 };
