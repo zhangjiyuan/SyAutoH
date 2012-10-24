@@ -277,7 +277,7 @@ public:
 				boost::asio::buffer(read_msg_.body(), read_msg_.body_length()),
 				boost::bind(&amhs_session::handle_read_body, shared_from_this(),
 				boost::asio::placeholders::error));
-			//PutSocketInfo(socket_);
+			PutSocketInfo(socket_);
 		}
 		else
 		{

@@ -276,7 +276,8 @@ void CVAMHSTestDlg::InitListCtrlOHT(void)
 {
 	DWORD dwStyle;
 	dwStyle = m_listCtrlOHT.GetStyle();  //取得样式
-	dwStyle =    LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT ;   //添加样式
+	dwStyle =    LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT
+		| LVS_EX_DOUBLEBUFFER;   //添加样式
 	m_listCtrlOHT.SetExtendedStyle(dwStyle);     //重新设置
 
 	m_listCtrlOHT.InsertColumn(0, _T("ID"), LVCFMT_CENTER, 30);
