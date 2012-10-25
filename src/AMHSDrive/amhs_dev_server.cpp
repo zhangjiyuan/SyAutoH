@@ -70,17 +70,49 @@ amhs_oht_set amhs_room::GetOhtDataSet()
 	return oht_set;
 }
 
-void amhs_room::SendPacket(amhs_participant_ptr participants, AMHSPacket &ack)
+void amhs_room::SendPacket(amhs_participant_ptr participants, AMHSPacket &packet)
 {
-	amhs_message msg;
+	size_t szLen = packet.size();
+	size_t szLimit = amhs_message::max_body_length;
+	int nLoop = szLen / szLimit + 1;
 
-	msg.body_length(ack.size());
-	msg.command(ack.GetOpcode());
-	msg.IsNeedRespond(true);
-	memcpy(msg.body(), ack.contents(), msg.body_length());
-	msg.encode_header();
-
-	participants->deliver(msg);
+	size_t szPacketLen = 0;
+	for (int i=0; i<nLoop; i++)
+	{
+		amhs_message msg;
+		msg.Index(i+1);
+		if ((i+1) < nLoop)
+		{
+			msg.IsLast(0);
+		}
+		else
+		{
+			msg.IsLast(1);
+		}
+		if (szLen > szLimit)
+		{
+			szPacketLen = szLimit;
+			szLen -= szLimit;
+		}
+		else
+		{
+			szPacketLen = szLen;
+		}
+		msg.command(packet.GetOpcode());
+		msg.body_length(szPacketLen);
+		msg.IsNeedRespond(true);
+		memcpy(msg.body(), packet.contents() + (i*szLimit), msg.body_length());
+		msg.encode_header();
+		
+		if (254 == participants->nID_)
+		{
+			deliver_all(msg);
+		}
+		else
+		{
+			participants->deliver(msg);
+		}
+	}
 }
 
 void amhs_room::Handle_STK_AckFoup(amhs_participant_ptr, AMHSPacket& Packet)
