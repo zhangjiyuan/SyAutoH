@@ -1,6 +1,14 @@
 #include "StdAfx.h"
 #include "amhs_dev_server.h"
 
+amhs_room::amhs_room()
+{
+	m_optHanders.insert(std::make_pair(OHT_AUTH, (HANDLE_OPT)&amhs_room::Handle_OHT_Auth));
+	m_optHanders.insert(std::make_pair(OHT_POSITION, (HANDLE_OPT)&amhs_room::Handle_OHT_Pos));
+
+	m_optHanders.insert(std::make_pair(STK_AUTH, (HANDLE_OPT)&amhs_room::Handle_STK_Auth));
+}
+
 void amhs_room::join(amhs_participant_ptr participant)
 {
 	participants_.insert(participant);
@@ -43,100 +51,91 @@ void amhs_room::SendPacket(amhs_participant_ptr participants, AMHSPacket &ack)
 	participants->deliver(msg);
 }
 
-int amhs_room::DecodePacket(amhs_participant_ptr participants, AMHSPacket* Packet)
+void amhs_room::Handle_OHT_Auth(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-	int mOpcode = Packet->GetOpcode();
-	switch(mOpcode)
+	uint8		ohtID = 0;
+	uint16		ohtPosition = 0;
+	uint8		ohtHand = 0;
+	Packet >> ohtID;
+	Packet >> ohtPosition;
+	Packet >> ohtHand;
+	printf("OHT Auth  ---> id: %d, pos: %d, hand: %d\n", ohtID, ohtPosition, ohtHand);
+	participants->nID_ = ohtID;
+	participants->nDevType_ = DEV_TYPE_OHT;
+
+	amhs_oht_map::iterator it = oht_map_.find(ohtID);
+	uint8 nAuthAck = 0;
+	if (it != oht_map_.end())
 	{
-	case OHT_POSITION:
-		{
-			uint8		ohtID = 0;
-			uint16		ohtPosition = 0;
-			*Packet >> ohtID;
-			*Packet >> ohtPosition;
-			//printf("OHT POS  ---> id: %d, pos: %d\n", ohtID, ohtPosition);
-			amhs_oht_map::iterator it = oht_map_.find(ohtID);
-			if (it != oht_map_.end())
-			{
-				it->second->nPOS = ohtPosition;
-			}
-		}
-		break;
-	case OHT_AUTH:
-		{
-			uint8		ohtID = 0;
-			uint16		ohtPosition = 0;
-			uint8		ohtHand = 0;
-			*Packet >> ohtID;
-			*Packet >> ohtPosition;
-			*Packet >> ohtHand;
-			printf("OHT Auth  ---> id: %d, pos: %d, hand: %d\n", ohtID, ohtPosition, ohtHand);
-			participants->nID_ = ohtID;
-			participants->nDevType_ = DEV_TYPE_OHT;
-			delete Packet;
-
-			amhs_oht_map::iterator it = oht_map_.find(ohtID);
-			uint8 nAuthAck = 0;
-			if (it != oht_map_.end())
-			{
-				nAuthAck = 0;
-			}
-			else
-			{
-				amhs_oht_ptr pOht = amhs_oht_ptr(new amhs_OHT());
-				pOht->nID = ohtID;
-				pOht->nPOS = ohtPosition;
-				pOht->nHand = ohtHand;
-				pOht->p_participant = participants;
-				oht_map_.insert(std::make_pair(ohtID, pOht));
-				nAuthAck = 1;
-			}
-
-			AMHSPacket ack(OHT_MCS_ACK_AUTH, 2);
-			ack << uint8(ohtID);
-			ack << nAuthAck;
-			SendPacket(participants, ack);
-
-			//__time64_t ltime;
-			//_time64( &ltime );
-			//char bufTime[256] = "";
-			//_ctime64_s(bufTime, &ltime);
-			//printf( "The time is %s\n", bufTime ); // C4996
-		}
-		break;
-	case STK_AUTH:
-		{
-			uint8 stockerID = 0;
-			uint32 uIP = 0;
-			*Packet >> stockerID;
-			*Packet >> uIP;
-			struct in_addr addr1;
-
-			memcpy(&addr1, &uIP, 4);
-			char* sIP = inet_ntoa(addr1);
-			printf("STOCKER Auth ---> id: %d, ip: %s\n", stockerID, sIP);
-			participants->nDevType_ = DEV_TYPE_STOCKER;
-			participants->nID_ = stockerID;
-			delete Packet;
-
-			AMHSPacket ack(STK_MCS_ACK_AUTH, 10);
-			ack << uint8(stockerID);
-			ack << uint8(1);
-			__time64_t ltime;
-			_time64( &ltime );
-			ack << uint64(ltime);
-
-			SendPacket(participants, ack);
-		}
-		break;
-	default:
-		{
-			return -1;
-		}
-		break;
+		nAuthAck = 0;
+	}
+	else
+	{
+		amhs_oht_ptr pOht = amhs_oht_ptr(new amhs_OHT());
+		pOht->nID = ohtID;
+		pOht->nPOS = ohtPosition;
+		pOht->nHand = ohtHand;
+		pOht->p_participant = participants;
+		oht_map_.insert(std::make_pair(ohtID, pOht));
+		nAuthAck = 1;
 	}
 
-	return 0;
+	AMHSPacket ack(OHT_MCS_ACK_AUTH, 2);
+	ack << uint8(ohtID);
+	ack << nAuthAck;
+	SendPacket(participants, ack);
+}
+void amhs_room::Handle_STK_Auth(amhs_participant_ptr participants, AMHSPacket& Packet)
+{
+	uint8 stockerID = 0;
+	uint32 uIP = 0;
+	Packet >> stockerID;
+	Packet >> uIP;
+	struct in_addr addr1;
+
+	memcpy(&addr1, &uIP, 4);
+	char* sIP = inet_ntoa(addr1);
+	printf("STOCKER Auth ---> id: %d, ip: %s\n", stockerID, sIP);
+	participants->nDevType_ = DEV_TYPE_STOCKER;
+	participants->nID_ = stockerID;
+
+	AMHSPacket ack(STK_MCS_ACK_AUTH, 10);
+	ack << uint8(stockerID);
+	ack << uint8(1);
+	__time64_t ltime;
+	_time64( &ltime );
+	ack << uint64(ltime);
+
+	SendPacket(participants, ack);
+}
+
+void amhs_room::Handle_OHT_Pos(amhs_participant_ptr participants, AMHSPacket& Packet)
+{
+	uint8		ohtID = 0;
+	uint16		ohtPosition = 0;
+	Packet >> ohtID;
+	Packet >> ohtPosition;
+	//printf("OHT POS  ---> id: %d, pos: %d\n", ohtID, ohtPosition);
+	amhs_oht_map::iterator it = oht_map_.find(ohtID);
+	if (it != oht_map_.end())
+	{
+		it->second->nPOS = ohtPosition;
+	}
+}
+
+int amhs_room::DecodePacket(amhs_participant_ptr participants, AMHSPacket& Packet)
+{
+	int mOpcode = Packet.GetOpcode();
+	OPT_MAP::iterator it = m_optHanders.find(mOpcode);
+	if (it != m_optHanders.end())
+	{
+		(this->*it->second)(participants, Packet);
+		return 0;
+	}
+	else
+	{
+		return -1;
+	}
 }
 
 void amhs_room::deliver_all(const amhs_message& msg)
@@ -211,7 +210,6 @@ void amhs_session::handle_read_header(const boost::system::error_code& error)
 			boost::asio::buffer(read_msg_.body(), read_msg_.body_length()),
 			boost::bind(&amhs_session::handle_read_body, shared_from_this(),
 			boost::asio::placeholders::error));
-		PutSocketInfo(socket_);
 	}
 	else
 	{
@@ -232,11 +230,12 @@ void amhs_session::handle_read_body(const boost::system::error_code& error)
 			Packet->resize(mSize);
 
 			memcpy((void*)Packet->contents(), read_msg_.body(), mSize);
-			int nDecode = room_.DecodePacket(shared_from_this(), Packet);
+			int nDecode = room_.DecodePacket(shared_from_this(), *Packet);
 			if (nDecode < 0)
 			{
 				room_.deliver_all(read_msg_);
 			}
+			delete Packet;
 		}
 
 		boost::asio::async_read(socket_,

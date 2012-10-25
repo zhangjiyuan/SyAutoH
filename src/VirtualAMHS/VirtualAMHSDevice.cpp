@@ -69,12 +69,6 @@ int VirtualAMHSDevice::Close(void)
 
 int VirtualAMHSDevice::SendPacket(AMHSPacket& packet)
 {
-	/*bool bConnect = false;
-	if (false == bConnect)
-	{
-	Close();
-	Connect(m_sIP, m_nPort);
-	}*/
 	amhs_message msg;
 	
 	msg.body_length(packet.size());
@@ -82,7 +76,14 @@ int VirtualAMHSDevice::SendPacket(AMHSPacket& packet)
 	msg.IsNeedRespond(true);
 	memcpy(msg.body(), packet.contents(), msg.body_length());
 	msg.encode_header();
-	m_pClient->write(msg);
+	try
+	{
+		m_pClient->write(msg);
+	}
+	catch(...)
+	{
+
+	}
 
 	return 0;
 }

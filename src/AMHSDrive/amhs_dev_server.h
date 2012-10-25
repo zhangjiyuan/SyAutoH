@@ -55,19 +55,29 @@ typedef std::set<amhs_oht_ptr> amhs_oht_set;
 class amhs_room
 {
 public:
+	amhs_room();
 	void join(amhs_participant_ptr participant);
 	void leave(amhs_participant_ptr participant);
 	amhs_oht_set GetOhtDataSet();
 	void SendPacket(amhs_participant_ptr participants, AMHSPacket &ack);
-	int DecodePacket(amhs_participant_ptr participants, AMHSPacket* Packet);
+	int DecodePacket(amhs_participant_ptr participants, AMHSPacket& Packet);
 	void deliver_all(const amhs_message& msg);
 	int GetCount();
+
+private:
+	void Handle_OHT_Auth(amhs_participant_ptr, AMHSPacket&);
+	void Handle_STK_Auth(amhs_participant_ptr, AMHSPacket&);
+	void Handle_OHT_Pos(amhs_participant_ptr, AMHSPacket&);
 
 private:
 	std::set<amhs_participant_ptr> participants_;
 	enum { max_recent_msgs = 100 };
 	amhs_message_queue recent_msgs_;
 	amhs_oht_map oht_map_;
+
+	typedef void (amhs_room::*HANDLE_OPT)(amhs_participant_ptr, AMHSPacket& packet);
+	typedef std::map<int, HANDLE_OPT> OPT_MAP;
+	OPT_MAP m_optHanders;
 };
 
 //----------------------------------------------------------------------
