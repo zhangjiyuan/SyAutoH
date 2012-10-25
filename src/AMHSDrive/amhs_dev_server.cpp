@@ -117,23 +117,23 @@ void amhs_room::SendPacket(amhs_participant_ptr participants, AMHSPacket &packet
 
 void amhs_room::Handle_STK_AckFoup(amhs_participant_ptr, AMHSPacket& Packet)
 {
-
+	printf("Packet handle not implemented \n");
 }
 void amhs_room::Handle_STK_AckStatus(amhs_participant_ptr, AMHSPacket& Packet)
 {
-
+	printf("Packet handle not implemented \n");
 }
 void amhs_room::Handle_STK_AckRoom(amhs_participant_ptr, AMHSPacket& Packet)
 {
-
+	printf("Packet handle not implemented \n");
 }
 void amhs_room::Handle_STK_AckStorage(amhs_participant_ptr, AMHSPacket& Packet)
 {
-
+	printf("Packet handle not implemented \n");
 }
 void amhs_room::Handle_STK_AckInputStatus(amhs_participant_ptr, AMHSPacket& Packet)
 {
-
+	printf("Packet handle not implemented \n");
 }
 void amhs_room::Handle_STK_AckHistory(amhs_participant_ptr, AMHSPacket& Packet)
 {
@@ -142,38 +142,38 @@ void amhs_room::Handle_STK_AckHistory(amhs_participant_ptr, AMHSPacket& Packet)
 }
 void amhs_room::Handle_STK_AckAlarms(amhs_participant_ptr, AMHSPacket& Packet)
 {
-
+	printf("Packet handle not implemented \n");
 }
 
 void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr, AMHSPacket& Packet)
 {
-
+	printf("Packet handle not implemented \n");
 }
 
 
 void amhs_room::Handle_OHT_AckStatusBackTime(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-
+	printf("Packet handle not implemented \n");
 }
 void amhs_room::Handle_OHT_AckPosBackTime(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-
+	printf("Packet handle not implemented \n");
 }
 void amhs_room::Handle_OHT_AckPath(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-
+	printf("Packet handle not implemented \n");
 }
 void amhs_room::Handle_OHT_AckMove(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-
+	printf("Packet handle not implemented \n");
 }
 void amhs_room::Handle_OHT_AckFoup(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-
+	printf("Packet handle not implemented \n");
 }
 void amhs_room::Handle_OHT_Status(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-
+	printf("Packet handle not implemented \n");
 }
 
 void amhs_room::Handle_OHT_Auth(amhs_participant_ptr participants, AMHSPacket& Packet)
@@ -344,6 +344,7 @@ void amhs_session::handle_read_header(const boost::system::error_code& error)
 
 void amhs_session::handle_read_body(const boost::system::error_code& error)
 {
+	// TODO: need message index check for packet sequence
 	if (!error)
 	{
 		int mOpcode = read_msg_.command();
@@ -387,9 +388,6 @@ void amhs_session::handle_read_body(const boost::system::error_code& error)
 				Packet->append(read_msg_.body(), mSize);
 			}
 		}
-
-	
-		
 
 		boost::asio::async_read(socket_,
 			boost::asio::buffer(read_msg_.data(), amhs_message::header_length),
@@ -476,3 +474,4 @@ void amhs_dev_server::setOhtMessageBackTime(int nID, int ms)
 	msg.encode_header();
 	room_.deliver_all(msg);
 }
+
