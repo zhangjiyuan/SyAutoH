@@ -290,5 +290,10 @@ namespace UserTest
         {
             labelCBTest.Text = strVal;
         }
+
+        private void bnSTK_History_Click(object sender, EventArgs e)
+        {
+            int nWret = dataHubLink.WriteData("STK.HISTORY", "GET", m_nSession);
+        }
     }
 }

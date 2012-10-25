@@ -45,4 +45,5 @@ public:
 	void InitListCtrlFOUP(void);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	void SetOHTListItemData(ItemOHT* pOHT, int nListIndex);
+	afx_msg void OnBnClickedBnStkHistory();
 };

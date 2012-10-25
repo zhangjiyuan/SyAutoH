@@ -10,6 +10,8 @@ public:
 	amhs_message()
 		: body_length_(0),
 		cmd_(0),
+		nIndex(1),
+		nIsLast(1),
 		isNeedRespond_(false),
 		isRespond_(false)
 	{
@@ -65,11 +67,14 @@ public:
 	{
 		AMHSPktHeader PktHeader;
 		memcpy(&PktHeader, data_, header_length);
-		cmd_ = PktHeader.cmd;
-		body_length_ = PktHeader.size;
 		uint8 comm = PktHeader.comm;
 		isRespond_ = (comm & 0x80 ? true : false);
 		isNeedRespond_ = (comm & 0x40 ? true : false);
+		cmd_ = PktHeader.cmd;
+		body_length_ = PktHeader.size;
+		nIndex = PktHeader.index;
+		nIsLast = PktHeader.bLast;
+		
 		if (body_length_ > max_body_length)
 		{
 			body_length_ = 0;
@@ -96,19 +101,24 @@ public:
 		}
 		PktHeader.comm = comm;
 
-		if (body_length_ < 512)
-		{
-			PktHeader.bLast = 1;
-			PktHeader.index = 1;
-		}
+		PktHeader.index = nIndex;
+		PktHeader.bLast = nIsLast;
 
 		memcpy(data_, &PktHeader, header_length);
 	}
+	
+	uint8 IsLast() const { return nIsLast; }
+	void IsLast(uint8 val) { nIsLast = val; }
+	uint16 Index() const { return nIndex; }
+	void Index(uint16 val) { nIndex = val; }
 
 private:
 	uint8 data_[header_length + max_body_length];
-	size_t body_length_;
-	uint32 cmd_;
+	
 	bool isNeedRespond_;
 	bool isRespond_;
+	uint32 cmd_;
+	size_t body_length_;
+	uint16 nIndex;
+	uint8   nIsLast;
 };

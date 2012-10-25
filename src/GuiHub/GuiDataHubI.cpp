@@ -17,6 +17,7 @@ std::string GuiDataHubI::ReadData(const std::string &,Ice::Int,const Ice::Curren
 }
 Ice::Int GuiDataHubI::WriteData(const std::string &,const std::string &,Ice::Int,const Ice::Current &)
 {
+
 	return 0;
 }
 void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Current& /* = ::Ice::Current */)

@@ -64,6 +64,20 @@ int VirtualStocker::ManualInputFoup(const TCHAR* sFoupID)
 	return 0;
 }
 
+int VirtualStocker::History()
+{
+	printf("Test big Packet \n");
+	AMHSPacket Packet(STK_ACK_HISTORY, 2500);
+
+	for (int i=0; i<2500; i++)
+	{
+		Packet << uint8(i);
+	}
+
+	SendPacket(Packet);
+	return 0;
+}
+
 int VirtualStocker::ManualOutputFoup(const TCHAR* sFoupID)
 {
 	int nFoupID = _wtoi(sFoupID);

@@ -3,10 +3,42 @@
 
 amhs_room::amhs_room()
 {
-	m_optHanders.insert(std::make_pair(OHT_AUTH, (HANDLE_OPT)&amhs_room::Handle_OHT_Auth));
-	m_optHanders.insert(std::make_pair(OHT_POSITION, (HANDLE_OPT)&amhs_room::Handle_OHT_Pos));
+	m_optHanders.insert(std::make_pair(OHT_ACK_STATUS_BACK_TIME, 
+		&amhs_room::Handle_OHT_AckStatusBackTime));
+	m_optHanders.insert(std::make_pair(OHT_ACK_POSITION_BACK_TIME, 
+		&amhs_room::Handle_OHT_AckPosBackTime));
+	m_optHanders.insert(std::make_pair(OHT_ACK_PATH, 
+		&amhs_room::Handle_OHT_AckPath));
+	m_optHanders.insert(std::make_pair(OHT_ACK_MOVE, 
+		&amhs_room::Handle_OHT_AckMove));
+	m_optHanders.insert(std::make_pair(OHT_ACK_FOUP, 
+		&amhs_room::Handle_OHT_AckFoup));
+	m_optHanders.insert(std::make_pair(OHT_AUTH, 
+		&amhs_room::Handle_OHT_Auth));
+	m_optHanders.insert(std::make_pair(OHT_POSITION, 
+		&amhs_room::Handle_OHT_Pos));
+	m_optHanders.insert(std::make_pair(OHT_STATUS, 
+		&amhs_room::Handle_OHT_Status));
 
-	m_optHanders.insert(std::make_pair(STK_AUTH, (HANDLE_OPT)&amhs_room::Handle_STK_Auth));
+	//////////////////////////////////////////////////////////////////////////
+	m_optHanders.insert(std::make_pair(STK_ACK_FOUP, 
+		&amhs_room::Handle_STK_AckFoup));
+	m_optHanders.insert(std::make_pair(STK_ACK_STATUS, 
+		&amhs_room::Handle_STK_AckStatus));
+	m_optHanders.insert(std::make_pair(STK_ACK_ROOM, 
+		&amhs_room::Handle_STK_AckRoom));
+	m_optHanders.insert(std::make_pair(STK_ACK_STORAGE, 
+		&amhs_room::Handle_STK_AckStorage));
+	m_optHanders.insert(std::make_pair(STK_ACK_INPUT_STATUS, 
+		&amhs_room::Handle_STK_AckInputStatus));
+	m_optHanders.insert(std::make_pair(STK_ACK_HISTORY, 
+		&amhs_room::Handle_STK_AckHistory));
+	m_optHanders.insert(std::make_pair(STK_ACK_ALARMS, 
+		&amhs_room::Handle_STK_AckAlarms));
+	m_optHanders.insert(std::make_pair(STK_AUTH, 
+		&amhs_room::Handle_STK_Auth));
+	m_optHanders.insert(std::make_pair(STK_FOUP_EVENT, 
+		&amhs_room::Handle_STK_FoupEvent));
 }
 
 void amhs_room::join(amhs_participant_ptr participant)
@@ -49,6 +81,67 @@ void amhs_room::SendPacket(amhs_participant_ptr participants, AMHSPacket &ack)
 	msg.encode_header();
 
 	participants->deliver(msg);
+}
+
+void amhs_room::Handle_STK_AckFoup(amhs_participant_ptr, AMHSPacket& Packet)
+{
+
+}
+void amhs_room::Handle_STK_AckStatus(amhs_participant_ptr, AMHSPacket& Packet)
+{
+
+}
+void amhs_room::Handle_STK_AckRoom(amhs_participant_ptr, AMHSPacket& Packet)
+{
+
+}
+void amhs_room::Handle_STK_AckStorage(amhs_participant_ptr, AMHSPacket& Packet)
+{
+
+}
+void amhs_room::Handle_STK_AckInputStatus(amhs_participant_ptr, AMHSPacket& Packet)
+{
+
+}
+void amhs_room::Handle_STK_AckHistory(amhs_participant_ptr, AMHSPacket& Packet)
+{
+	size_t szLen = Packet.size();
+	printf("Stocker history packet len %d\n", szLen);
+}
+void amhs_room::Handle_STK_AckAlarms(amhs_participant_ptr, AMHSPacket& Packet)
+{
+
+}
+
+void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr, AMHSPacket& Packet)
+{
+
+}
+
+
+void amhs_room::Handle_OHT_AckStatusBackTime(amhs_participant_ptr participants, AMHSPacket& Packet)
+{
+
+}
+void amhs_room::Handle_OHT_AckPosBackTime(amhs_participant_ptr participants, AMHSPacket& Packet)
+{
+
+}
+void amhs_room::Handle_OHT_AckPath(amhs_participant_ptr participants, AMHSPacket& Packet)
+{
+
+}
+void amhs_room::Handle_OHT_AckMove(amhs_participant_ptr participants, AMHSPacket& Packet)
+{
+
+}
+void amhs_room::Handle_OHT_AckFoup(amhs_participant_ptr participants, AMHSPacket& Packet)
+{
+
+}
+void amhs_room::Handle_OHT_Status(amhs_participant_ptr participants, AMHSPacket& Packet)
+{
+
 }
 
 void amhs_room::Handle_OHT_Auth(amhs_participant_ptr participants, AMHSPacket& Packet)
@@ -223,20 +316,48 @@ void amhs_session::handle_read_body(const boost::system::error_code& error)
 	{
 		int mOpcode = read_msg_.command();
 		int mSize = read_msg_.body_length();
+		
 		if (mSize > 0)
 		{
 			AMHSPacket* Packet;
-			Packet = new AMHSPacket(static_cast<uint16>(mOpcode), mSize);
-			Packet->resize(mSize);
-
-			memcpy((void*)Packet->contents(), read_msg_.body(), mSize);
-			int nDecode = room_.DecodePacket(shared_from_this(), *Packet);
-			if (nDecode < 0)
+			Packet_Map::iterator it = read_packets_.find(mOpcode);
+			if (it != read_packets_.end())
 			{
-				room_.deliver_all(read_msg_);
+				Packet = it->second;
 			}
-			delete Packet;
+			else
+			{
+				Packet = new AMHSPacket(static_cast<uint16>(mOpcode), mSize);
+				Packet->resize(0);
+				read_packets_.insert(std::make_pair(mOpcode, Packet));
+			}
+			
+			if (read_msg_.IsLast() == 1)
+			{
+				Packet_Map::iterator it = read_packets_.find(mOpcode);
+				if (it != read_packets_.end())
+				{
+					read_packets_.erase(it);
+				}
+				
+				Packet->append(read_msg_.body(), mSize);
+
+				int nDecode = room_.DecodePacket(shared_from_this(), *Packet);	
+				if (nDecode < 0)
+				{
+					printf("Wrong packet. \n");
+				}
+				
+				delete Packet;
+			}
+			else
+			{
+				Packet->append(read_msg_.body(), mSize);
+			}
 		}
+
+	
+		
 
 		boost::asio::async_read(socket_,
 			boost::asio::buffer(read_msg_.data(), amhs_message::header_length),

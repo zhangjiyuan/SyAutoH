@@ -14,7 +14,7 @@
 
 CVirtualAMHS* pVirualAMHSDevice = NULL;
 MAP_ItemOHT g_mapOHTs;
-const int StockerID = 24;
+const int STOCKER_ID = 24;
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -77,6 +77,7 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BN_SetHand, &CVAMHSTestDlg::OnBnClickedBnSethand)
 	ON_BN_CLICKED(IDC_BN_SetPos, &CVAMHSTestDlg::OnBnClickedBnSetpos)
 	ON_WM_TIMER()
+	ON_BN_CLICKED(IDC_BN_STK_HISTORY, &CVAMHSTestDlg::OnBnClickedBnStkHistory)
 END_MESSAGE_MAP()
 
 
@@ -207,7 +208,7 @@ void CVAMHSTestDlg::OnDestroy()
 
 void CVAMHSTestDlg::OnBnClickedBnAddstk()
 {
-	pVirualAMHSDevice->Stocker_Auth(StockerID, "192.168.55.10");
+	pVirualAMHSDevice->Stocker_Auth(STOCKER_ID, "192.168.55.10");
 }
 
 
@@ -215,7 +216,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 {
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
-	pVirualAMHSDevice->Stocker_ManualInputFoup(StockerID, strFoup);
+	pVirualAMHSDevice->Stocker_ManualInputFoup(STOCKER_ID, strFoup);
 }
 
 
@@ -223,7 +224,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 {
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
-	pVirualAMHSDevice->Stocker_ManualOutputFoup(StockerID, strFoup);
+	pVirualAMHSDevice->Stocker_ManualOutputFoup(STOCKER_ID, strFoup);
 
 }
 
@@ -305,7 +306,7 @@ void CVAMHSTestDlg::InitListCtrlFOUP(void)
 void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	LIST_OHT ohts = pVirualAMHSDevice->OHT_GetStatus();
-	LIST_FOUP foups = pVirualAMHSDevice->Stocker_GetFoupsStatus(StockerID);
+	LIST_FOUP foups = pVirualAMHSDevice->Stocker_GetFoupsStatus(STOCKER_ID);
 
 	LIST_OHT::iterator itOht = ohts.begin();
 	while(itOht != ohts.end())
@@ -358,4 +359,10 @@ void CVAMHSTestDlg::SetOHTListItemData(ItemOHT* pOHT, int nListIndex)
 	}
 	m_listCtrlOHT.SetItemText(nListIndex, 4, str);
 	m_listCtrlOHT.SetItemData(nListIndex, pOHT->nID);
+}
+
+
+void CVAMHSTestDlg::OnBnClickedBnStkHistory()
+{
+	pVirualAMHSDevice->STK_History(STOCKER_ID);
 }

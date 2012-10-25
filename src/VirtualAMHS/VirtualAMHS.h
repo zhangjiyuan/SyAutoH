@@ -50,6 +50,7 @@ public:
 	LIST_FOUP Stocker_GetFoupsStatus(int nStocker);
 	int Stocker_ManualInputFoup(int nStocker, const TCHAR* sFoupID);
 	int Stocker_ManualOutputFoup(int nStocker, const TCHAR* sFoupID);
+	int STK_History(int nStocker);
 
 	// for OHT
 	LIST_OHT OHT_GetStatus();
