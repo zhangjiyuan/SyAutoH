@@ -1,7 +1,7 @@
-//#include "Errors.h"
+#include "Errors.h"
 #include "Common.h"
 
-extern SERVER_DECL void arcAssertFailed(const char* fname, int line, const char* expr)
+extern void arcAssertFailed(const char* fname, int line, const char* expr)
 {
 	printf("Assertion Failed: (%s)\n", expr);
 	printf("Location: %s(%i)\n", fname, line);

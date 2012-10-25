@@ -1,6 +1,4 @@
-#if !defined (CONFIG_H)
-#define CONFIG_H
-#define SERVER_COMMON_H
+#pragma once
 #include "Common.h"
 
 #ifndef EOL
@@ -71,5 +69,3 @@ class ConfigMgr
 };
 
 extern ConfigMgr Config;
-
-#endif

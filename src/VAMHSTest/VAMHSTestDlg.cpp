@@ -181,7 +181,7 @@ void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 {
 	int nItem = m_listCtrlOHT.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
 	int nOHT_ID = m_listCtrlOHT.GetItemData(nItem);
-	int nAdd = pVirualAMHSDevice->OHT_Auth(nOHT_ID);
+	int nAdd = pVirualAMHSDevice->OHT_Auth(nOHT_ID);                // 验证小车
 }
 
 

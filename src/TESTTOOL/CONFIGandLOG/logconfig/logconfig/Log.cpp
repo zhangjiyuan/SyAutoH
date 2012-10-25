@@ -26,25 +26,25 @@ string FormatOutputString(const char* Prefix, const char* Description, bool useT
 createFileSingleton(oLog);
 initialiseSingleton(WorldLog);
 
-SERVER_DECL time_t UNIXTIME;
-SERVER_DECL tm g_localTime;
+time_t UNIXTIME;
+tm g_localTime;
 
 void oLog::outFile(FILE* file, char* msg, const char* source)
 {
 	char time_buffer[TIME_FORMAT_LENGTH];
-	char szltr_buffer[SZLTR_LENGTH];
+	//char szltr_buffer[SZLTR_LENGTH];
 	Time(time_buffer);
-	pdcds(SZLTR, szltr_buffer);
+	//pdcds(SZLTR, szltr_buffer);
 
 	if(source != NULL)
 	{
-		fprintf(file, "%s%s%s: %s\n", time_buffer, szltr_buffer, source, msg);
-		printf("%s%s%s: %s\n", time_buffer, szltr_buffer, source, msg);
+		fprintf(file, "%s%s: %s\n", time_buffer,source, msg);
+		printf("%s%s: %s\n", time_buffer, source, msg);
 	}
 	else
 	{
-		fprintf(file, "%s%s%s\n", time_buffer, szltr_buffer, msg);
-		printf("%s%s%s\n", time_buffer, szltr_buffer, msg);
+		fprintf(file, "%s%s\n", time_buffer, msg);
+		printf("%s%s\n", time_buffer, msg);
 	}
 }
 
@@ -52,18 +52,18 @@ void oLog::outFile(FILE* file, char* msg, const char* source)
 void oLog::outFileSilent(FILE* file, char* msg, const char* source)
 {
 	char time_buffer[TIME_FORMAT_LENGTH];
-	char szltr_buffer[SZLTR_LENGTH];
+	//char szltr_buffer[SZLTR_LENGTH];
 	Time(time_buffer);
-	pdcds(SZLTR, szltr_buffer);
+	//pdcds(SZLTR, szltr_buffer);
 
 	if(source != NULL)
 	{
-		fprintf(file, "%s%s%s: %s\n", time_buffer, szltr_buffer, source, msg);
+		fprintf(file, "%s%s: %s\n", time_buffer, source, msg);
 		// Don't use printf to prevent text from being shown in the console output.
 	}
 	else
 	{
-		fprintf(file, "%s%s%s\n", time_buffer, szltr_buffer, msg);
+		fprintf(file, "%s%s\n", time_buffer, msg);
 		// Don't use printf to prevent text from being shown in the console output.
 	}
 }

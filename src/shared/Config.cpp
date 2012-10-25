@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ConfigEnv.h"
-#include <cstdarg>
-#include <iostream>
+//#include <cstdarg>
+//#include <iostream>
 ConfigMgr Config;
 
 //#define _CONFIG_DEBUG

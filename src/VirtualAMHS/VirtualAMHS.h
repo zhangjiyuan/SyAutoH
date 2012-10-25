@@ -60,7 +60,4 @@ private:
 	MAP_VOHT* m_mapOHT;
 	Mutex*			m_pOhtLock;
 	MAP_VSTK*	 m_mapSTK;
-	//zhang added the code in 2012.10.24
-	MAP_VFOUP m_mapFoup;
-	Mutex* m_pFoupLock;
 };

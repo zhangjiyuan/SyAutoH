@@ -1,5 +1,4 @@
-#ifndef SERVER_ERRORS_H
-#define SERVER_ERRORS_H
+#pragma once
 
 extern void arcAssertFailed(const char* fname, int line, const char* expr);
 
@@ -22,5 +21,3 @@ extern void arcAssertFailed(const char* fname, int line, const char* expr);
 #define WPFatal( assertion, errmsg ) if( ! (assertion) ) { Log::getSingleton( ).outError( "%s:%i FATAL ERROR:\n  %s\n", __FILE__, __LINE__, (char *)errmsg ); assert( #assertion &&0 ); abort(); }
 
 #define ASSERT WPAssert      //∂œ—‘£¨∂œ—‘ ß∞‹ ± ‰≥ˆ–≈œ¢
-
-#endif
