@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../shared/Singleton.h"
-#include "amhs_server.hpp"
+#include "amhs_dev_server.h"
 class AMHS_Server;
 class AMHS_Server : public Singleton<AMHS_Server>
 {
