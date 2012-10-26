@@ -30,9 +30,11 @@ namespace RailView
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("在线车辆");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("以分配队列");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("报警");
+            System.Windows.Forms.ContextMenuStrip baseInfoMenu;
             this.baseInfoTreeView = new System.Windows.Forms.TreeView();
             this.showRegion = new System.Windows.Forms.Panel();
             this.showPic = new System.Windows.Forms.PictureBox();
@@ -41,6 +43,7 @@ namespace RailView
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            baseInfoMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showRegion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.showPic)).BeginInit();
             this.systemStatues.SuspendLayout();
@@ -64,6 +67,7 @@ namespace RailView
             treeNode3});
             this.baseInfoTreeView.Size = new System.Drawing.Size(109, 502);
             this.baseInfoTreeView.TabIndex = 0;
+            this.baseInfoTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.baseInfoTreeView_MouseUp);
             // 
             // showRegion
             // 
@@ -129,6 +133,11 @@ namespace RailView
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
             this.fileToolStripMenuItem.Text = "File";
+            // 
+            // baseInfoMenu
+            // 
+            baseInfoMenu.Name = "contextMenuStrip1";
+            baseInfoMenu.Size = new System.Drawing.Size(61, 4);
             // 
             // Form1
             // 
