@@ -262,18 +262,18 @@ namespace WinFormElement
             pen.Dispose();
         }
 
-        public void DrawVehicleInfo(Graphics canvas, Int16 offset, List<Vehicle> vList, TestPoint tempTest)
+        public void DrawVehicleInfo(Graphics canvas, List<Vehicle> vList)
         {
-            offset = tempTest.offsetOfText;
-            if (offset != -1)
+            foreach (Vehicle obj in vList)
             {
-                Pen pen = new Pen(Color.Red, 1);
-                Point carrierCoor = ComputeCoordinates(railCodingEleList, Convert.ToUInt16(offset));
-                foreach (Vehicle obj in vList)
+                obj.VehiclePosCoding = obj.tempTest.offsetOfText;
+                if (obj.VehiclePosCoding != -1)
                 {
+                    Pen pen = new Pen(Color.Red, 1);
+                    Point carrierCoor = ComputeCoordinates(railCodingEleList, Convert.ToUInt16(obj.VehiclePosCoding));
                     obj.ShowInScreen(canvas, carrierCoor);
+                    pen.Dispose();
                 }
-                pen.Dispose();
             }
         }
 

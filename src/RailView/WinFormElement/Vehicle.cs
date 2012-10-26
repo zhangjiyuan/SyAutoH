@@ -9,7 +9,12 @@ namespace WinFormElement
 {
     public class Vehicle
     {
+        //using for test
+        public TestPoint tempTest = new TestPoint();
+        //using for test
+
         private Int16 vehicleID;
+        private short vehiclePosCoding;
         private bool vehicleState;
         private bool vehicleAlarm;
         private Point vehicleOldPoint = Point.Empty;
@@ -19,6 +24,11 @@ namespace WinFormElement
         {
             get { return vehicleID; }
             set { vehicleID = value; }
+        }
+        public short VehiclePosCoding
+        {
+            get { return vehiclePosCoding; }
+            set { vehiclePosCoding = value; }
         }
         public bool VehicleState
         {
@@ -34,8 +44,7 @@ namespace WinFormElement
         public Vehicle(Int16 ID)
         {
             vehicleID = ID;
-            //vehicleOldPoint = initPoint;
-            //vehicleTempPoint = initPoint;
+            tempTest.Show();
         }
 
         public bool ShowInScreen(Graphics canvas, Point location)
