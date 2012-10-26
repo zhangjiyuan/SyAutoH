@@ -47,7 +47,7 @@
     <Compile Include="FormOperation.cs" />
     <Compile Include="FormShowRegion.cs" />
     <Compile Include="FormTabControl.cs" />
-    <Compile Include="FormTreeNodes.cs" />
+    <Compile Include="FormTreeViewOp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestPoint.cs">
       <SubType>Form</SubType>
