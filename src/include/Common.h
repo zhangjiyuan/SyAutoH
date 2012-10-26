@@ -32,3 +32,16 @@ using namespace std;
 #	define UNLIKELY( _x ) \
 	_x
 
+#ifdef WIN32
+#pragma warning(disable:4996)
+#pragma warning(disable:4251)		// dll-interface bullshit
+#endif
+#define snprintf _snprintf
+
+#include <cstdlib>
+#include <cstdio>
+#include <ctime>
+#include <cerrno>
+#include <queue>
+#include <sstream>
+#include <cstring>
