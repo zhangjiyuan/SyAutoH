@@ -107,6 +107,7 @@
     <ClInclude Include="Threading\Threading.h" />
     <ClInclude Include="Threading\ThreadPool.h" />
     <ClInclude Include="Threading\ThreadStarter.h" />
+    <ClInclude Include="ThreadLock.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CircularBuffer.cpp" />

@@ -3,6 +3,8 @@
 
 amhs_room::amhs_room()
 {
+	Log.Init(3, WORLD_LOG);
+
 	m_optHanders.insert(std::make_pair(OHT_ACK_STATUS_BACK_TIME, 
 		&amhs_room::Handle_OHT_AckStatusBackTime));
 	m_optHanders.insert(std::make_pair(OHT_ACK_POSITION_BACK_TIME, 
@@ -50,11 +52,15 @@ void amhs_room::leave(amhs_participant_ptr participant)
 {
 	if (DEV_TYPE_OHT == participant->nDevType_)
 	{
-		amhs_oht_map::iterator it = oht_map_.find(participant->nID_);
-		if (it != oht_map_.end())
+		WLock(rwLock_oht_map_)
 		{
-			oht_map_.erase(it);
+			amhs_oht_map::iterator it = oht_map_.find(participant->nID_);
+			if (it != oht_map_.end())
+			{
+				oht_map_.erase(it);
+			}
 		}
+	
 	}
 	participants_.erase(participant);
 }
@@ -62,10 +68,13 @@ void amhs_room::leave(amhs_participant_ptr participant)
 amhs_oht_set amhs_room::GetOhtDataSet()
 {
 	amhs_oht_set oht_set;
-	for (amhs_oht_map::iterator it = oht_map_.begin();
-		it != oht_map_.end(); ++it)
+	RLock(rwLock_oht_map_)
 	{
-		oht_set.insert(it->second);
+		for (amhs_oht_map::iterator it = oht_map_.begin();
+			it != oht_map_.end(); ++it)
+		{
+			oht_set.insert(it->second);
+		}
 	}
 	return oht_set;
 }
@@ -138,8 +147,8 @@ void amhs_room::Handle_STK_AckInputStatus(amhs_participant_ptr, AMHSPacket& Pack
 void amhs_room::Handle_STK_AckHistory(amhs_participant_ptr, AMHSPacket& Packet)
 {
 	size_t szLen = Packet.size();
-	Log.Warning("amhs_room", "Packet handle not implemented\n");
-	Log.Debug("amhs_romm", "Stocker history packet len %d\n", szLen);
+	Log.Warning("amhs_room", "Packet handle not implemented.");
+	Log.Debug("amhs_romm", "Stocker history packet len %d", szLen);
 }
 void amhs_room::Handle_STK_AckAlarms(amhs_participant_ptr, AMHSPacket& Packet)
 {
@@ -188,23 +197,27 @@ void amhs_room::Handle_OHT_Auth(amhs_participant_ptr participants, AMHSPacket& P
 	printf("OHT Auth  ---> id: %d, pos: %d, hand: %d\n", ohtID, ohtPosition, ohtHand);
 	participants->nID_ = ohtID;
 	participants->nDevType_ = DEV_TYPE_OHT;
-
-	amhs_oht_map::iterator it = oht_map_.find(ohtID);
+		
 	uint8 nAuthAck = 0;
-	if (it != oht_map_.end())
+	WLock(rwLock_oht_map_)
 	{
-		nAuthAck = 0;
+		amhs_oht_map::iterator it = oht_map_.find(ohtID);
+		if (it != oht_map_.end())
+		{
+			nAuthAck = 0;
+		}
+		else
+		{
+			amhs_oht_ptr pOht = amhs_oht_ptr(new amhs_OHT());
+			pOht->nID = ohtID;
+			pOht->nPOS = ohtPosition;
+			pOht->nHand = ohtHand;
+			pOht->p_participant = participants;
+			oht_map_.insert(std::make_pair(ohtID, pOht));
+			nAuthAck = 1;
+		}
 	}
-	else
-	{
-		amhs_oht_ptr pOht = amhs_oht_ptr(new amhs_OHT());
-		pOht->nID = ohtID;
-		pOht->nPOS = ohtPosition;
-		pOht->nHand = ohtHand;
-		pOht->p_participant = participants;
-		oht_map_.insert(std::make_pair(ohtID, pOht));
-		nAuthAck = 1;
-	}
+	
 
 	AMHSPacket ack(OHT_MCS_ACK_AUTH, 2);
 	ack << uint8(ohtID);
@@ -241,12 +254,16 @@ void amhs_room::Handle_OHT_Pos(amhs_participant_ptr participants, AMHSPacket& Pa
 	uint16		ohtPosition = 0;
 	Packet >> ohtID;
 	Packet >> ohtPosition;
-	//printf("OHT POS  ---> id: %d, pos: %d\n", ohtID, ohtPosition);
-	amhs_oht_map::iterator it = oht_map_.find(ohtID);
-	if (it != oht_map_.end())
+
+	WLock(rwLock_oht_map_)
 	{
-		it->second->nPOS = ohtPosition;
+		amhs_oht_map::iterator it = oht_map_.find(ohtID);
+		if (it != oht_map_.end())
+		{
+			it->second->nPOS = ohtPosition;
+		}
 	}
+
 }
 
 int amhs_room::DecodePacket(amhs_participant_ptr participants, AMHSPacket& Packet)

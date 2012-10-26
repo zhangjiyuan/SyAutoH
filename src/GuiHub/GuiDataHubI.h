@@ -1,5 +1,6 @@
 #pragma once
 #include "iGuiHub.h"
+#include "../shared/ThreadLock.h"
 using namespace MCS;
 
 class ClientInfo
@@ -32,6 +33,7 @@ public:
 
 private:
 	LIST_UPDATER m_listUpdater;
+	rwmutex m_rwmListUpdater;
 };
 
 class UpdateCallback : public IceUtil::Shared
@@ -56,7 +58,7 @@ public:
 
 	void exception(const Ice::Exception& ex)
 	{
-		cerr << "call failed:\n" << ex << endl;
+		//cerr << "call failed:\n" << ex << endl;
 		//int i=0;
 		//i = client->ice_getHash();
 

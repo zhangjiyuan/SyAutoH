@@ -11,6 +11,7 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/asio.hpp>
 #include "amhs_message.hpp"
+#include "ThreadLock.h"
 
 using boost::asio::ip::tcp;
 
@@ -23,9 +24,6 @@ enum AMHS_DEV_TYPE
 	DEV_TYPE_OHT = 1,
 	DEV_TYPE_STOCKER = 2
 };
-
-
-
 //----------------------------------------------------------------------
 
 class amhs_participant
@@ -50,6 +48,7 @@ typedef struct
 typedef boost::shared_ptr<amhs_OHT> amhs_oht_ptr;
 typedef std::map<int, amhs_oht_ptr> amhs_oht_map;
 typedef std::set<amhs_oht_ptr> amhs_oht_set;
+
 //----------------------------------------------------------------------
 
 class amhs_room
@@ -108,6 +107,7 @@ private:
 	enum { max_recent_msgs = 100 };
 	amhs_message_queue recent_msgs_;
 	amhs_oht_map oht_map_;
+	rwmutex rwLock_oht_map_;
 
 	typedef void (amhs_room::*HANDLE_OPT)(amhs_participant_ptr, AMHSPacket& packet);
 	typedef std::map<int, HANDLE_OPT> OPT_MAP;

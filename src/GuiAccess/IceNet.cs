@@ -22,6 +22,10 @@ namespace GuiAccess
             get { return strProxyKey; }
             set { strProxyKey = value; }
         }
+        ~IceNet()
+        {
+            Disconnect();
+        }
         private string GetProcessPath()
         {
             string strPath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
