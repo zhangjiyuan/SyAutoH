@@ -15,6 +15,9 @@
 #include <queue>
 #include <sstream>
 #include <cstring>
+#include <iomanip>
+#include <fstream>
+#include <io.h>
 
 #if defined( __WIN32__ ) || defined( WIN32 ) || defined( _WIN32 )
 //#include <winsock2.h>

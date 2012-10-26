@@ -1,9 +1,7 @@
 #include "ConfigEnv.h"
 #include "LOG.h"
 #include <cstdarg>
-#include <iomanip>
-#include <fstream>
-#include <io.h>
+
 using namespace std;
 string FormatOutputString(const char* Prefix, const char* Description, bool useTimeStamp)
 {
@@ -25,7 +23,7 @@ string FormatOutputString(const char* Prefix, const char* Description, bool useT
 	strcat(p, ".log");
 	return string(p);
 }
-void CopyLogFile(const char *srcfile,string newfile)
+void CopyLogFile(const char *srcfile,string newfile)       //将达到一定大小的LOG文件内容转移到新的LOG文件保存，以便清楚原来的LOG文件的内容
 {
 	
 	char ch;
@@ -63,13 +61,13 @@ void oLog::outFile(FILE* file, char* msg, const char* source)
 	//char szltr_buffer[SZLTR_LENGTH];
 	Time(time_buffer);
 	//pdcds(SZLTR, szltr_buffer);
-	switch(out_colour)
+	switch(out_colour)           //由信息类型选择命令行输出字体的颜色，暂定三种：红、黄、绿
 	{
 	case(1):
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_RED | FOREGROUND_GREEN); //yellow
 		break;
 	case(2):
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_RED); //red i
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_RED); //red 
 		break;
 	case(3):
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_GREEN);//green
@@ -84,9 +82,9 @@ void oLog::outFile(FILE* file, char* msg, const char* source)
 		int32 file_length = filelength(fileno(file));
 	    if(file_length >= 5*1024)
 	    {
-			string filename = FormatOutputString("Longon","normal",true);
+			string filename = FormatOutputString("Longon","normal",true); // 获得新的LOG文件的名字，以类型及时间命名
 			CopyLogFile("logon-normal.log",filename);
-			file = fopen("logon-normal.log","w");
+			file = fopen("logon-normal.log","w");                         //清除LOG文件内容
 			fclose(file);
 			file = fopen("logon-normal.log","a");
 			m_normalFile = file;
