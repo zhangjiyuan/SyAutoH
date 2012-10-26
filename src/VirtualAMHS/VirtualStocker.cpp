@@ -14,8 +14,6 @@ VirtualStocker::~VirtualStocker(void)
 
 void VirtualStocker::HandleCommand(AMHSPacket& packet)
 {
-	printf("VirtualStocker::HandleCommand: %d \n", packet.GetOpcode());
-
 	OPT_MAP::iterator it = m_optHanders.find(packet.GetOpcode());
 	if (it != m_optHanders.end())
 	{

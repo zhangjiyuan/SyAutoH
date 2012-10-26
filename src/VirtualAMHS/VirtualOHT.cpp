@@ -44,8 +44,6 @@ int VirtualOHT::UpdatePos(uint16 nPos)
 
 void VirtualOHT::HandleCommand(AMHSPacket& packet)
 {
-	printf("VirtualOHT::HandleCommand: %d \n", packet.GetOpcode());
-	
 	OPT_MAP::iterator it = m_optHanders.find(packet.GetOpcode());
 	if (it != m_optHanders.end())
 	{

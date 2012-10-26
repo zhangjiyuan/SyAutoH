@@ -58,6 +58,7 @@ void amhs_room::leave(amhs_participant_ptr participant)
 			if (it != oht_map_.end())
 			{
 				oht_map_.erase(it);
+				Log.Debug("amhs_room::leave", "client id: %d type: %d", participant->nID_, participant->nDevType_);
 			}
 		}
 	
