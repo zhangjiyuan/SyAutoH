@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.bnNewUser = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageLogin = new System.Windows.Forms.TabPage();
@@ -70,6 +71,9 @@
             this.bnOHTGo = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.labelCBTest = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tabSTK = new System.Windows.Forms.TabPage();
+            this.bnSTK_History = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -77,6 +81,7 @@
             this.groupBox2.SuspendLayout();
             this.tabPageMES.SuspendLayout();
             this.tabOHT.SuspendLayout();
+            this.tabSTK.SuspendLayout();
             this.SuspendLayout();
             // 
             // bnNewUser
@@ -95,6 +100,7 @@
             this.tabControl1.Controls.Add(this.tabPageUser);
             this.tabControl1.Controls.Add(this.tabPageMES);
             this.tabControl1.Controls.Add(this.tabOHT);
+            this.tabControl1.Controls.Add(this.tabSTK);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -489,12 +495,37 @@
             // 
             // labelCBTest
             // 
-            this.labelCBTest.AutoSize = true;
-            this.labelCBTest.Location = new System.Drawing.Point(295, 258);
+            this.labelCBTest.Location = new System.Drawing.Point(8, 285);
             this.labelCBTest.Name = "labelCBTest";
-            this.labelCBTest.Size = new System.Drawing.Size(41, 12);
+            this.labelCBTest.Size = new System.Drawing.Size(495, 138);
             this.labelCBTest.TabIndex = 4;
             this.labelCBTest.Text = "label9";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // tabSTK
+            // 
+            this.tabSTK.Controls.Add(this.bnSTK_History);
+            this.tabSTK.Location = new System.Drawing.Point(4, 22);
+            this.tabSTK.Name = "tabSTK";
+            this.tabSTK.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSTK.Size = new System.Drawing.Size(511, 428);
+            this.tabSTK.TabIndex = 4;
+            this.tabSTK.Text = "Stocker Info";
+            this.tabSTK.UseVisualStyleBackColor = true;
+            // 
+            // bnSTK_History
+            // 
+            this.bnSTK_History.Location = new System.Drawing.Point(385, 116);
+            this.bnSTK_History.Name = "bnSTK_History";
+            this.bnSTK_History.Size = new System.Drawing.Size(118, 23);
+            this.bnSTK_History.TabIndex = 0;
+            this.bnSTK_History.Text = "history Foups";
+            this.bnSTK_History.UseVisualStyleBackColor = true;
+            this.bnSTK_History.Click += new System.EventHandler(this.bnSTK_History_Click);
             // 
             // FormUserManagement
             // 
@@ -518,6 +549,7 @@
             this.tabPageMES.PerformLayout();
             this.tabOHT.ResumeLayout(false);
             this.tabOHT.PerformLayout();
+            this.tabSTK.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -566,6 +598,9 @@
         private System.Windows.Forms.Button bnOHTGo;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Label labelCBTest;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TabPage tabSTK;
+        private System.Windows.Forms.Button bnSTK_History;
     }
 }
 

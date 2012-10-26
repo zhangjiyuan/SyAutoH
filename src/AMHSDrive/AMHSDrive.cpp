@@ -47,6 +47,23 @@ int CAMHSDrive::Init()
 	return 0;
 }
 
+DR_OHT_LIST CAMHSDrive::GetOhtList()
+{
+	DR_OHT_LIST list;
+	amhs_oht_set oht_set = sAmhsServer.GetOhtSet();
+	for (amhs_oht_set::iterator it = oht_set.begin(); 
+		it != oht_set.end(); ++it)
+	{
+		amhs_oht_ptr sp_oht = *it;
+		driveOHT dOht;
+		dOht.nID = sp_oht->nID;
+		dOht.nPos =  sp_oht->nPOS;
+		dOht.nHand = sp_oht->nHand;
+		list.push_back(dOht);
+	}
+	return list;
+}
+
 int CAMHSDrive::Check()
 {
 	/*while(1)

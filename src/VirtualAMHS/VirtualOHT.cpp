@@ -17,7 +17,7 @@ VirtualOHT::VirtualOHT(void)
 
 VirtualOHT::~VirtualOHT(void)
 {
-	
+	DestoryPosTimer();
 }
 
 int VirtualOHT::Auth( int nPos, int nHand)
@@ -124,5 +124,9 @@ void CALLBACK VirtualOHT::PosTimerHandler(UINT id, UINT msg, DWORD dwUser, DWORD
 void VirtualOHT::OnPosTimer(void)
 {
 	m_nPos += 10;
+	if (m_nPos > 2100)
+	{
+		m_nPos = 0;
+	}
 	UpdatePos(m_nPos);
 }

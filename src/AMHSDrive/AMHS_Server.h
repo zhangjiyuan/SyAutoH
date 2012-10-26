@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../shared/Singleton.h"
-#include "amhs_server.hpp"
+#include "amhs_dev_server.h"
 class AMHS_Server;
 class AMHS_Server : public Singleton<AMHS_Server>
 {
@@ -18,6 +18,11 @@ public:
 	int GetConnectedCount()
 	{
 		return m_pServer->GetConnectCount();
+	}
+
+	amhs_oht_set GetOhtSet()
+	{
+		return m_pServer->GetOhtDataSet();
 	}
 
 private:

@@ -25,4 +25,5 @@ private:
 public:
 
 	int StartServer(void);
+	void SetData(const char* chTag, const char* chVal);
 };

@@ -22,16 +22,6 @@ void VirtualAMHSDevice::PassCommand(void* pDevice, AMHSPacket& packet)
 	pVirtualDev->HandleCommand(packet);
 }
 
-//void VirtualAMHSDevice::HandleCommand(AMHSPacket& packet)
-//{
-//	printf("VirtualAMHSDevice::HandleCommand: %d \n", packet.GetOpcode());
-//	OPT_MAP::iterator it = m_optHanders.find(packet.GetOpcode());
-//	if (it != m_optHanders.end())
-//	{
-//		it->second(packet);
-//	}
-//}
-
 int VirtualAMHSDevice::Connect(string strIP, int nPort)
 {
 	if (NULL != m_pClient)
@@ -69,20 +59,14 @@ int VirtualAMHSDevice::Close(void)
 
 int VirtualAMHSDevice::SendPacket(AMHSPacket& packet)
 {
-	/*bool bConnect = false;
-	if (false == bConnect)
+	try
 	{
-	Close();
-	Connect(m_sIP, m_nPort);
-	}*/
-	amhs_message msg;
-	
-	msg.body_length(packet.size());
-	msg.command(packet.GetOpcode());
-	msg.IsNeedRespond(true);
-	memcpy(msg.body(), packet.contents(), msg.body_length());
-	msg.encode_header();
-	m_pClient->write(msg);
+		m_pClient->write_packet(packet);
+	}
+	catch(...)
+	{
+
+	}
 
 	return 0;
 }

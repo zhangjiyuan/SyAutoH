@@ -133,6 +133,18 @@ LIST_OHT CVirtualAMHS::OHT_GetStatus()
 	return list;
 }
 
+int CVirtualAMHS::STK_History(int nStocker)
+{
+	MAP_VSTK::iterator it;
+	it = m_mapSTK->find(nStocker);
+	if (it != m_mapSTK->end())
+	{
+		VirtualStocker* stocker = it->second;
+		stocker->History();
+	}
+	return 0;
+}
+
 int CVirtualAMHS::Stocker_ManualInputFoup(int nStocker, const TCHAR* sFoupID)
 {
 	MAP_VSTK::iterator it;

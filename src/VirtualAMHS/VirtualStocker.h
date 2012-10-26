@@ -29,6 +29,7 @@ public:
 	int Auth( const char* sIP);
 	int ManualInputFoup( const TCHAR* sFoupID);
 	int ManualOutputFoup( const TCHAR* sFoupID);
+	int History();
 
 private:
 	void Handle_Auth(AMHSPacket& packet);

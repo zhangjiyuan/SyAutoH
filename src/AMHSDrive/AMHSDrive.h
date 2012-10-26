@@ -12,6 +12,17 @@
 
 #pragma  once
 // 此类是从 AMHSDrive.dll 导出的
+typedef struct  
+{
+	int nID;
+	int nPos;
+	int nHand;
+} driveOHT;
+#include <vector>
+#include <map>
+typedef std::vector<driveOHT> DR_OHT_LIST;
+
+class AMHSPacket;
 class AMHSDRIVE_API CAMHSDrive {
 public:
 	CAMHSDrive(void);
@@ -23,4 +34,5 @@ public:
 	int Clean();
 	int SetOHTLocation(int nPoint);
 	int SetOHTBackMessage(int nOHT, int ms);
+	DR_OHT_LIST GetOhtList();
 };

@@ -31,6 +31,7 @@
 #include <Ice/Outgoing.h>
 #include <Ice/OutgoingAsync.h>
 #include <Ice/Incoming.h>
+#include <Ice/IncomingAsync.h>
 #include <Ice/Direct.h>
 #include <IceUtil/ScopedArray.h>
 #include <Ice/StreamF.h>
@@ -211,6 +212,65 @@ void __readUserList(::IceInternal::BasicStream*, UserList&);
 namespace MCS
 {
 
+class AMI_GuiDataUpdater_UpdateData : public ::Ice::AMICallbackBase
+{
+public:
+
+    virtual void ice_response() = 0;
+
+    void __response()
+    {
+        ice_response();
+    }
+    void __exception(const ::Ice::Exception& ex)
+    {
+        ice_exception(ex);
+    }
+    void __sent(bool sentSynchronously)
+    {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        AMICallbackBase::__sent(sentSynchronously);
+#else
+        ::Ice::AMICallbackBase::__sent(sentSynchronously);
+#endif
+    }
+};
+
+typedef ::IceUtil::Handle< ::MCS::AMI_GuiDataUpdater_UpdateData> AMI_GuiDataUpdater_UpdateDataPtr;
+
+class AMD_GuiDataUpdater_UpdateData : virtual public ::Ice::AMDCallback
+{
+public:
+
+    virtual void ice_response() = 0;
+};
+
+typedef ::IceUtil::Handle< ::MCS::AMD_GuiDataUpdater_UpdateData> AMD_GuiDataUpdater_UpdateDataPtr;
+
+}
+
+namespace IceAsync
+{
+
+namespace MCS
+{
+
+class AMD_GuiDataUpdater_UpdateData : public ::MCS::AMD_GuiDataUpdater_UpdateData, public ::IceInternal::IncomingAsync
+{
+public:
+
+    AMD_GuiDataUpdater_UpdateData(::IceInternal::Incoming&);
+
+    virtual void ice_response();
+};
+
+}
+
+}
+
+namespace MCS
+{
+
 class Callback_GuiDataUpdater_UpdateData_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_GuiDataUpdater_UpdateData_Base> Callback_GuiDataUpdater_UpdateDataPtr;
 
@@ -306,6 +366,8 @@ private:
     ::Ice::AsyncResultPtr begin_UpdateData(const ::std::string&, const ::std::string&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
+    bool UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr&, const ::std::string&, const ::std::string&);
+    bool UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr&, const ::std::string&, const ::std::string&, const ::Ice::Context&);
     
     ::IceInternal::ProxyHandle<GuiDataUpdater> ice_context(const ::Ice::Context& __context) const
     {
@@ -1614,7 +1676,7 @@ public:
     virtual const ::std::string& ice_id(const ::Ice::Current& = ::Ice::Current()) const;
     static const ::std::string& ice_staticId();
 
-    virtual void UpdateData(const ::std::string&, const ::std::string&, const ::Ice::Current& = ::Ice::Current()) = 0;
+    virtual void UpdateData_async(const ::MCS::AMD_GuiDataUpdater_UpdateDataPtr&, const ::std::string&, const ::std::string&, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___UpdateData(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual ::Ice::DispatchStatus __dispatch(::IceInternal::Incoming&, const ::Ice::Current&);

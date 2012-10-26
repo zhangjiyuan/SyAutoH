@@ -46,3 +46,11 @@ int CGuiHub::StartServer()
 
 	return 0;
 }
+
+void CGuiHub::SetData(const char* chTag, const char* chVal)
+{
+	if (NULL != m_pGuiDataHub)
+	{
+		m_pGuiDataHub->UpdateData(chTag, chVal);
+	}
+}
