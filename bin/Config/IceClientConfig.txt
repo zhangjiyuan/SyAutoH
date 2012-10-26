@@ -6,7 +6,7 @@
 MESLink.Proxy=MESLink:tcp -p 21200
 UserAce.Proxy=UserAce:tcp -p 21210
 DataHub.Proxy=DataHub:tcp -p 21220
-DataHubCB.Endpoints=tcp -p 21230
+DataHubCB.Endpoints=default
 
 #
 # Warn about connection exceptions

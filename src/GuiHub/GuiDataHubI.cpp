@@ -22,60 +22,64 @@ Ice::Int GuiDataHubI::WriteData(const std::string &,const std::string &,Ice::Int
 }
 void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Current& /* = ::Ice::Current */)
 {
-	//dataUpdater->UpdateData("TEST", "CallBack OK 1000");
-	vector<ClientInfo>::iterator p;
-	for(p = m_listUpdater.begin(); p != m_listUpdater.end(); ++p)
+	WLock(m_rwmListUpdater)
 	{
-		if(updater ==  p->client )
+		for(LIST_UPDATER::iterator p = m_listUpdater.begin(); p != m_listUpdater.end(); ++p)
 		{
-			return;
+			if(updater ==  p->client )
+			{
+				return;
+			}
 		}
-	}
 
-	ClientInfo info;
-	info.client = updater;
-	m_listUpdater.push_back(info);
+		ClientInfo info;
+		info.client = updater;
+	
+		m_listUpdater.push_back(info);
+	}
 }
 
 void GuiDataHubI::removeUpdater(const ::MCS::GuiDataUpdaterPrx& updater)
 {
-	vector<ClientInfo>::iterator p;
-	for(p = m_listUpdater.begin(); p != m_listUpdater.end(); ++p)
+	WLock(m_rwmListUpdater)
 	{
-		if(updater ==  p->client )
+		LIST_UPDATER::iterator p;
+		for(p = m_listUpdater.begin(); p != m_listUpdater.end(); ++p)
 		{
-			break;
+			if(updater ==  p->client )
+			{
+				break;
+			}
 		}
-	}
 
-	//assert(p != m_listUpdater.end());
-	if (p != m_listUpdater.end())
-	{
-		m_listUpdater.erase(p);
+		if (p != m_listUpdater.end())
+		{
+			m_listUpdater.erase(p);
+		}
 	}
 }
 
 void GuiDataHubI::UpdateData(const std::string &sTag, const std::string &sVal)
 {
-	int n = 0;
-	vector<ClientInfo>::iterator p;
-	for(p = m_listUpdater.begin(); p != m_listUpdater.end(); ++p)
+	RLock(m_rwmListUpdater)
 	{
-		try
+		for(LIST_UPDATER::iterator p = m_listUpdater.begin(); p != m_listUpdater.end(); ++p)
 		{
-			UpdateCallbackPtr cb = new UpdateCallback();
-			cb->client = p->client;
-			cb->m_view = this;
+			try
+			{
+				UpdateCallbackPtr cb = new UpdateCallback();
+				cb->client = p->client;
+				cb->m_view = this;
 
-			p->client->begin_UpdateData(sTag, sVal,
-				newCallback_GuiDataUpdater_UpdateData(cb, &UpdateCallback::response, 
-				&UpdateCallback::exception));
+				p->client->begin_UpdateData(sTag, sVal,
+					newCallback_GuiDataUpdater_UpdateData(cb, &UpdateCallback::response, 
+					&UpdateCallback::exception));
+			}
+			catch(const Ice::Exception& /*ex*/)
+			{
 
-			++n;
-		}
-		catch(const Ice::Exception& /*ex*/)
-		{
-
+			}
 		}
 	}
+	
 }
