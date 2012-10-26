@@ -117,63 +117,64 @@ void amhs_room::SendPacket(amhs_participant_ptr participants, AMHSPacket &packet
 
 void amhs_room::Handle_STK_AckFoup(amhs_participant_ptr, AMHSPacket& Packet)
 {
-	printf("Packet handle not implemented \n");
+	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 void amhs_room::Handle_STK_AckStatus(amhs_participant_ptr, AMHSPacket& Packet)
 {
-	printf("Packet handle not implemented \n");
+	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 void amhs_room::Handle_STK_AckRoom(amhs_participant_ptr, AMHSPacket& Packet)
 {
-	printf("Packet handle not implemented \n");
+	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 void amhs_room::Handle_STK_AckStorage(amhs_participant_ptr, AMHSPacket& Packet)
 {
-	printf("Packet handle not implemented \n");
+	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 void amhs_room::Handle_STK_AckInputStatus(amhs_participant_ptr, AMHSPacket& Packet)
 {
-	printf("Packet handle not implemented \n");
+	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 void amhs_room::Handle_STK_AckHistory(amhs_participant_ptr, AMHSPacket& Packet)
 {
 	size_t szLen = Packet.size();
-	printf("Stocker history packet len %d\n", szLen);
+	Log.Warning("amhs_room", "Packet handle not implemented\n");
+	Log.Debug("amhs_romm", "Stocker history packet len %d\n", szLen);
 }
 void amhs_room::Handle_STK_AckAlarms(amhs_participant_ptr, AMHSPacket& Packet)
 {
-	printf("Packet handle not implemented \n");
+	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 
 void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr, AMHSPacket& Packet)
 {
-	printf("Packet handle not implemented \n");
+	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 
 
 void amhs_room::Handle_OHT_AckStatusBackTime(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-	printf("Packet handle not implemented \n");
+	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 void amhs_room::Handle_OHT_AckPosBackTime(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-	printf("Packet handle not implemented \n");
+	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 void amhs_room::Handle_OHT_AckPath(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-	printf("Packet handle not implemented \n");
+	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 void amhs_room::Handle_OHT_AckMove(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-	printf("Packet handle not implemented \n");
+	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 void amhs_room::Handle_OHT_AckFoup(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-	printf("Packet handle not implemented \n");
+	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 void amhs_room::Handle_OHT_Status(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-	printf("Packet handle not implemented \n");
+	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 
 void amhs_room::Handle_OHT_Auth(amhs_participant_ptr participants, AMHSPacket& Packet)
