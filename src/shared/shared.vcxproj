@@ -82,7 +82,6 @@
     <ClInclude Include="ByteBuffer.h" />
     <ClInclude Include="CircularBuffer.h" />
     <ClInclude Include="Config.h" />
-    <ClInclude Include="ConfigEnv.h" />
     <ClInclude Include="FastQueue.h" />
     <ClInclude Include="ListenSocketWin32.h" />
     <ClInclude Include="Log.h" />

@@ -1,5 +1,6 @@
 #include "stdafx.h"
-#include "ConfigEnv.h"
+#include "Config.h"
+#include "Log.h"
 //#include <cstdarg>
 //#include <iostream>
 ConfigMgr Config;
