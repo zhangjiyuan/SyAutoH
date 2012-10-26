@@ -5,10 +5,11 @@
 #include "Ice/Connection.h"
 #include "iGuiHub.h"
 #include "DBConst.h"
+#include "../shared/Log.h"
 
 UserManagementI::UserManagementI(void)
 {
-	cout<<"User Management Server is Ready." << endl;
+	Log.outBasic("User Management Server is Ready.");
 	m_pUserDB = NULL;
 	m_pSession = NULL;
 }

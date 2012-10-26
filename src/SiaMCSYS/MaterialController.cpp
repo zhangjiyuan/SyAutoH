@@ -2,6 +2,7 @@
 #include "MaterialController.h"
 #include "../shared/AMHSPacket.h"
 #include "OptCodes.h"
+#include "../shared/Log.h"
 
 #include <iostream>
 #include <string>
@@ -12,7 +13,7 @@ using namespace std;
 
 MaterialController::MaterialController(void)
 {
-
+	sLog.Init(0, WORLD_LOG);
 }
 
 MaterialController::~MaterialController(void)
@@ -23,7 +24,7 @@ MaterialController::~MaterialController(void)
 
 int MaterialController::Init(void)
 {
-
+	
 	m_MesReciver.m_pFoupDB = &m_FoupDB;
 		
 
@@ -62,5 +63,5 @@ void MaterialController::Check(void)
 
 void MaterialController::PrintfInfo(void)
 {
-	cout<< "Material Control System V1.0.0.1 \n\n\n" << endl;
+	Log.outBasic("Material Control System V1.0.0.1 \n\n\n");
 }

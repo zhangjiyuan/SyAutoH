@@ -5,9 +5,7 @@
 
 class Session;
 
-//#define SZLTR "\xe5\xcf\xfe\xed\xf3\xfb\x03\xeb"
-//#define SZLTR_LENGTH 9
-#define TIME_FORMAT "[%m-%d-%Y][%H:%M]"
+#define TIME_FORMAT "[%m-%d-%Y %H:%M:%S]"
 #define TIME_FORMAT_LENGTH 100
 
 enum LogType
@@ -64,7 +62,7 @@ class oLog : public Singleton< oLog >
 		void outFile(FILE* file, char* msg, const char* source = NULL);
 		void outFileSilent(FILE* file, char* msg, const char* source = NULL); // Prints text to file without showing it to the user. Used for the startup banner.
 		void Time(char* buffer);
-		/*
+
 		inline char dcd(char in)
 		{
 			char out = in;
@@ -87,7 +85,7 @@ class oLog : public Singleton< oLog >
 			strcpy(buf, str);
 			dcds(buf);
 		}
-		*/
+
 };
 
 class SessionLogWriter

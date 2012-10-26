@@ -41,12 +41,13 @@ void MMoveCtrlServer::Run(int argc, _TCHAR** argv)
 	// init
 	MaterialController MC;
 	MC.PrintfInfo();
-
 	if (0 != MC.Init())
 	{
 		cout<< "MCS Init failed." << endl;
 		return;
 	}
+
+	
 
 	//if(authsockcreated && intersockcreated)
 	{

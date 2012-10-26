@@ -33,19 +33,24 @@ createFileSingleton(oLog);
 void oLog::outFile(FILE* file, char* msg, const char* source)
 {
 	char time_buffer[TIME_FORMAT_LENGTH];
-	//char szltr_buffer[SZLTR_LENGTH];
 	Time(time_buffer);
-	//pdcds(SZLTR, szltr_buffer);
+
 
 	if(source != NULL)
 	{
-		fprintf(file, "%s%s: %s\n", time_buffer, source, msg);
 		printf("%s%s: %s\n", time_buffer, source, msg);
+		if (file != NULL)
+		{
+			fprintf(file, "%s%s: %s\n", time_buffer, source, msg);
+		}
 	}
 	else
 	{
-		fprintf(file, "%s%s\n", time_buffer, msg);
 		printf("%s%s\n", time_buffer, msg);
+		if (file != NULL)
+		{
+			fprintf(file, "%s%s\n", time_buffer, msg);
+		}
 	}
 }
 
@@ -135,8 +140,8 @@ void oLog::outErrorSilent(const char* err, ...)
 
 void oLog::outBasic(const char* str, ...)
 {
-	if(m_normalFile == NULL)
-		return;
+	//if(m_normalFile == NULL)
+		//return;
 
 	char buf[32768];
 	va_list ap;
@@ -390,7 +395,8 @@ void oLog::Init(int32 fileLogLevel, LogType logType)
 		fprintf(stderr, "%s: Error opening '%s': %s\n", __FUNCTION__, logNormalFilename, strerror(errno));
 	else
 	{
-		tm* aTm = localtime(&UNIXTIME);
+		time_t t = time(NULL);
+		tm* aTm = localtime(&t);
 		outBasic("[%-4d-%02d-%02d %02d:%02d:%02d] ", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
 	}
 
@@ -399,7 +405,8 @@ void oLog::Init(int32 fileLogLevel, LogType logType)
 		fprintf(stderr, "%s: Error opening '%s': %s\n", __FUNCTION__, logErrorFilename, strerror(errno));
 	else
 	{
-		tm* aTm = localtime(&UNIXTIME);
+		time_t t = time(NULL);
+		tm* aTm = localtime(&t);
 		// We don't echo time and date again because outBasic above just echoed them.
 		outErrorSilent("[%-4d-%02d-%02d %02d:%02d:%02d] ", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
 	}
