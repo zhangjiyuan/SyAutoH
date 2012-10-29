@@ -4,7 +4,7 @@
 #include "stdafx.h"
 
 #include "Common.h"
-#include "../shared/Network.h"
+
 #include "AMHS_Server.h"
 #include "AMHSDrive.h"
 

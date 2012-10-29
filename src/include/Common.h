@@ -17,13 +17,7 @@ typedef unsigned __int8 uint8;
 #include <map>
 #include <set>
 
-#include "Threading/Threading.h"
-#include "Threading/AtomicULong.h"
-#include "Threading/AtomicFloat.h"
-#include "Threading/AtomicCounter.h"
-#include "Threading/AtomicBoolean.h"
-#include "Threading/ConditionVariable.h"
-#include "Singleton.h"
+//#include "Singleton.h"
 
 using namespace std;
 

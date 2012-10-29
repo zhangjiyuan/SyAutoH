@@ -12,7 +12,6 @@
 
 #pragma once
 
-class  Mutex;
 class VirtualOHT;
 class VirtualStocker;
 #include <map>
@@ -57,6 +56,5 @@ public:
 
 private:
 	MAP_VOHT* m_mapOHT;
-	Mutex*			m_pOhtLock;
 	MAP_VSTK*	 m_mapSTK;
 };

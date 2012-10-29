@@ -57,6 +57,18 @@ CVAMHSTestDlg::CVAMHSTestDlg(CWnd* pParent /*=NULL*/)
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
+CVAMHSTestDlg::~CVAMHSTestDlg()
+{
+	MAP_ItemOHT::iterator it;
+	it = g_mapOHTs.begin();
+	while(it != g_mapOHTs.end())
+	{
+		delete it->second;
+		++it;
+	}
+	g_mapOHTs.clear();
+}
+
 void CVAMHSTestDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
@@ -194,15 +206,6 @@ void CVAMHSTestDlg::OnDestroy()
 		pVirualAMHSDevice = NULL;
 	}
 	FreeConsole();                      // 释放控制台资源
-
-	MAP_ItemOHT::iterator it;
-	it = g_mapOHTs.begin();
-	while(it != g_mapOHTs.end())
-	{
-		delete it->second;
-		++it;
-	}
-	g_mapOHTs.clear();
 }
 
 
