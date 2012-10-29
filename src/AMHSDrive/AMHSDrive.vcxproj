@@ -94,7 +94,9 @@
     <ClCompile Include="AMHSDrive.cpp" />
     <ClCompile Include="AMHSSocket.cpp" />
     <ClCompile Include="amhs_dev_server.cpp" />
+    <ClCompile Include="amhs_room.cpp" />
     <ClCompile Include="AMHS_Server.cpp" />
+    <ClCompile Include="amhs_session.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
