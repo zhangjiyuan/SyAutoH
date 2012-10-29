@@ -231,7 +231,7 @@ namespace BaseRailElement
             pen.Dispose();
         }
 
-        public void changeChooseSign(bool isDown,Point pt)
+        public void ChangeChooseSign(bool isDown,Point pt)
         {
             if (isDown)
             {

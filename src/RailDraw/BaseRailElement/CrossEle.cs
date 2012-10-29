@@ -25,6 +25,8 @@ namespace BaseRailElement
         private Point fourPart = new Point(40, 40);
         private int startAngle = 0;
         private int rotateAngle = 90;
+        private Point thirdDot = Point.Empty;
+        private string startDot = "first dot";
         private DirectionCross directionOfCross = DirectionCross.NULL;
         public enum DirectionCross
         {
@@ -77,6 +79,43 @@ namespace BaseRailElement
         {
             get { return rotateAngle; }
             set { rotateAngle = value; }
+        }
+        public class StartDotConverter : TypeConverter
+        {
+            public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+            {
+                return true;
+            }
+
+            public override TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+            {
+                return new StandardValuesCollection(new string[]{"first dot","sec dot"});
+            }
+        }
+        [XmlIgnore]
+        [TypeConverter(typeof(StartDotConverter)), Category("轨道段信息"), Description("二维码起始端")]
+        public string StartDot
+        {
+            get { return startDot; }
+            set { startDot = value; }
+        }
+        [XmlIgnore]
+        [ReadOnly(true), Category("端点坐标")]
+        public Point FirstDot
+        {
+            get { return PointList[0]; }
+        }
+        [XmlIgnore]
+        [ReadOnly(true), Category("端点坐标")]
+        public Point SecDot
+        {
+            get { return PointList[5]; }
+        }
+        [XmlIgnore]
+        [ReadOnly(true), Category("端点坐标")]
+        public Point ThirdDot
+        {
+            get { return PointList[7]; }
         }
         [Browsable(false)]
         public DirectionCross DirectionOfCross

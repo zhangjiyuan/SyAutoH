@@ -24,6 +24,22 @@ string FormatOutputString(const char* Prefix, const char* Description, bool useT
 	return string(p);
 }
 
+string SetNewName(const char* Description, bool useTimeStamp)
+{
+	char p[MAX_PATH];
+	p[0] = 0;
+	time_t t = time(NULL);
+	tm* a = gmtime(&t);
+	strcat(p, Description);
+	if(useTimeStamp)
+	{
+		char ftime[100];
+		snprintf(ftime, 100, "-%-4d-%02d-%02d-%02d%02d%02d", a->tm_year + 1900, a->tm_mon + 1, a->tm_mday, a->tm_hour+8, a->tm_min, a->tm_sec);
+		strcat(p, ftime);
+	}
+	strcat(p, ".log");
+	return string(p);
+}
 createFileSingleton(oLog);
 //initialiseSingleton(WorldLog);
 
@@ -34,8 +50,48 @@ void oLog::outFile(FILE* file, char* msg, const char* source)
 {
 	char time_buffer[TIME_FORMAT_LENGTH];
 	Time(time_buffer);
-
-
+	switch(out_colour)           //ÓÉÐÅÏ¢ÀàÐÍÑ¡ÔñÃüÁîÐÐÊä³ö×ÖÌåµÄÑÕÉ«£¬ÔÝ¶¨ÈýÖÖ£ººì¡¢»Æ¡¢ÂÌ
+	{
+	case(1):
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_RED | FOREGROUND_GREEN); //yellow
+		break;
+	case(2):
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_RED); //red 
+		break;
+	default:
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_RED |
+			    FOREGROUND_GREEN | FOREGROUND_BLUE);//white
+		break;
+	}
+	if(file == m_normalFile)
+	{
+		int32 file_length = filelength(fileno(file));
+	    if(file_length >= 900*1000)
+	    {
+			fclose(file);
+			string filename = SetNewName("normal",true); // »ñµÃÐÂµÄLOGÎÄ¼þµÄÃû×Ö£¬ÒÔÀàÐÍ¼°Ê±¼äÃüÃû
+			rename("normal.log",filename.c_str());
+			if(rename != 0)
+				perror("rename");
+			file = fopen("normal.log","a");
+			m_normalFile = file;
+	    }
+	}
+	
+	else if(file == m_errorFile)
+	{
+		int32 file_length = filelength(fileno(file));
+	    if(file_length >= 900*1000)
+	    {
+			fclose(file);
+			string filename = SetNewName("error",true); // »ñµÃÐÂµÄLOGÎÄ¼þµÄÃû×Ö£¬ÒÔÀàÐÍ¼°Ê±¼äÃüÃû
+			rename("error.log",filename.c_str());
+			if(rename != 0)
+				perror("rename");
+			file = fopen("error.log","a");
+			m_errorFile = file;
+	    }
+	}
 	if(source != NULL)
 	{
 		printf("%s%s: %s\n", time_buffer, source, msg);
@@ -52,6 +108,9 @@ void oLog::outFile(FILE* file, char* msg, const char* source)
 			fprintf(file, "%s%s\n", time_buffer, msg);
 		}
 	}
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_RED |
+			    FOREGROUND_GREEN | FOREGROUND_BLUE);//white
+	out_colour = 0;
 }
 
 /// Prints text to file without showing it to the user. Used for the startup banner.
@@ -118,7 +177,7 @@ void oLog::outError(const char* err, ...)
 	va_start(ap, err);
 	vsnprintf(buf, 32768, err, ap);
 	va_end(ap);
-
+	out_colour = 2;
 	outFile(m_errorFile, buf);
 }
 
@@ -134,7 +193,6 @@ void oLog::outErrorSilent(const char* err, ...)
 	va_start(ap, err);
 	vsnprintf(buf, 32768, err, ap);
 	va_end(ap);
-
 	outFileSilent(m_errorFile, buf); // This uses a function that won't give console output.
 }
 
@@ -178,6 +236,7 @@ void oLog::outDebug(const char* str, ...)///
 	va_start(ap, str);
 	vsnprintf(buf, 32768, str, ap);
 	va_end(ap);
+	out_colour = 2;
 	outFile(m_errorFile, buf);
 }
 
@@ -231,7 +290,7 @@ void oLog::logError(const char* file, int line, const char* fncname, const char*
 	va_start(ap, msg);
 	vsnprintf(buf, 32768, message, ap);
 	va_end(ap);
-
+	out_colour = 2;
 	outFile(m_errorFile, buf);
 }
 
@@ -249,7 +308,7 @@ void oLog::logDebug(const char* file, int line, const char* fncname, const char*
 	va_start(ap, msg);
 	vsnprintf(buf, 32768, message, ap);
 	va_end(ap);
-
+	out_colour = 2;
 	outFile(m_errorFile, buf);
 }
 
@@ -265,7 +324,7 @@ void oLog::Notice(const char* source, const char* format, ...)
 	va_start(ap, format);
 	vsnprintf(buf, 32768, format, ap);
 	va_end(ap);
-
+	out_colour = 1;
 	outFile(m_normalFile, buf, source);
 }
 
@@ -280,7 +339,7 @@ void oLog::Warning(const char* source, const char* format, ...)
 	va_start(ap, format);
 	vsnprintf(buf, 32768, format, ap);
 	va_end(ap);
-
+	out_colour = 1;
 	outFile(m_normalFile, buf, source);
 }
 
@@ -310,7 +369,7 @@ void oLog::Error(const char* source, const char* format, ...)
 	va_start(ap, format);
 	vsnprintf(buf, 32768, format, ap);
 	va_end(ap);
-
+	out_colour = 2;
 	outFile(m_errorFile, buf, source);
 }
 
@@ -325,7 +384,7 @@ void oLog::Debug(const char* source, const char* format, ...)
 	va_start(ap, format);
 	vsnprintf(buf, 32768, format, ap);
 	va_end(ap);
-
+	out_colour = 2;
 	outFile(m_errorFile, buf, source);
 }
 
@@ -346,7 +405,7 @@ void oLog::LargeErrorMessage(const char* source, ...)                //µ÷ÓÃÊ±£¬×
 		lines.push_back(pointer);
 		pointer = va_arg(ap, char*);
 	}
-
+	out_colour = 2;
 	outError("*********************************************************************");
 	outError("*                        MAJOR ERROR/WARNING                        *");
 	outError("*                        ===================                        *");
@@ -369,26 +428,13 @@ void oLog::LargeErrorMessage(const char* source, ...)                //µ÷ÓÃÊ±£¬×
 	outError("*********************************************************************");
 }
 
-void oLog::Init(int32 fileLogLevel, LogType logType)                    
+void oLog::Init(int32 fileLogLevel)                    
 {
 	SetFileLoggingLevel(fileLogLevel);
 
 	const char* logNormalFilename = NULL, *logErrorFilename = NULL;
-	switch(logType)
-	{
-		case LOGON_LOG:
-			{
-				logNormalFilename = "logon-normal.log";
-				logErrorFilename = "logon-error.log";
-				break;
-			}
-		case WORLD_LOG:
-			{
-				logNormalFilename = "world-normal.log";   //the name can be changed 
-				logErrorFilename = "world-error.log";
-				break;
-			}
-	}
+	logNormalFilename = "normal.log";
+	logErrorFilename = "error.log";
 
 	m_normalFile = fopen(logNormalFilename, "a");
 	if(m_normalFile == NULL)

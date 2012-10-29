@@ -8,17 +8,11 @@ class Session;
 #define TIME_FORMAT "[%m-%d-%Y %H:%M:%S]"
 #define TIME_FORMAT_LENGTH 100
 
-enum LogType
-{
-    WORLD_LOG,
-    LOGON_LOG
-};
-
 extern  time_t UNIXTIME;		/* update this every loop to avoid the time() syscall! */
 extern  tm g_localTime;
 
 std::string FormatOutputString(const char* Prefix, const char* Description, bool useTimeStamp);
-
+string SetNewName(const char* Description, bool useTimeStamp);
 class oLog : public Singleton< oLog >
 {
 	public:
@@ -50,11 +44,12 @@ class oLog : public Singleton< oLog >
 
 		void SetLogging(bool enabled);
 
-		void Init(int32 fileLogLevel, LogType logType);
+		void Init(int32 fileLogLevel);
 		void SetFileLoggingLevel(int32 level);
 
 		void Close();
 
+		int32 out_colour;
 		int32 m_fileLogLevel;
 
 	private:
