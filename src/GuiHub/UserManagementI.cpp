@@ -34,6 +34,12 @@ int UserManagementI::Init()
 	if (NULL == m_pUserDB)
 	{
 		m_pUserDB = new DBUserAce();
+		UserDataList list = m_pUserDB->GetUserList(0, 2);
+		size_t szCount = list.size();
+		if (szCount <= 0)
+		{
+			m_pUserDB->CreateUser("admin", "admin", 4);
+		}
 	}
 	if (NULL == m_pSession)
 	{

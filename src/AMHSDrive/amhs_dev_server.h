@@ -38,16 +38,34 @@ public:
 
 typedef boost::shared_ptr<amhs_participant> amhs_participant_ptr;
 
-typedef struct
+typedef struct sData_OHT
 {
 	int nID;
 	int nPOS;
 	int nHand;
+	int nStatusTime;
+	int nPosTime;
+	int nPathResult;
+	int nMoveStatus;
+	int nMoveAlarm;
+	int nFoupOpt;
+	int nBackStatusMode;
+	int nBackStatusMark;
+	int nBackStausAlarm;
+	bool  bNeedPath;
 	amhs_participant_ptr p_participant;
 } amhs_OHT;
 typedef boost::shared_ptr<amhs_OHT> amhs_oht_ptr;
 typedef std::map<int, amhs_oht_ptr> amhs_oht_map;
 typedef std::set<amhs_oht_ptr> amhs_oht_set;
+
+typedef struct sData_Stocker
+{
+	int nID;
+	amhs_participant_ptr p_participant;
+}amhs_Stocker;
+typedef boost::shared_ptr<amhs_Stocker> amhs_stocker_ptr;
+typedef std::map<int, amhs_stocker_ptr> amhs_stocker_map;
 
 //----------------------------------------------------------------------
 
@@ -57,8 +75,10 @@ public:
 	amhs_room();
 	void join(amhs_participant_ptr participant);
 	void leave(amhs_participant_ptr participant);
+
 	amhs_oht_set GetOhtDataSet();
 	void SendPacket(amhs_participant_ptr participants, AMHSPacket &ack);
+	void SendPacket(int nID, int nType, AMHSPacket& packet);
 	int DecodePacket(amhs_participant_ptr participants, AMHSPacket& Packet);
 	void deliver_all(const amhs_message& msg);
 	int GetCount();
@@ -81,6 +101,7 @@ private:
 	void Handle_OHT_Auth(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_Pos(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_Status(amhs_participant_ptr, AMHSPacket&);
+	void Handle_OHT_NeedPath(amhs_participant_ptr, AMHSPacket&);
 
 	////
 	//STK_ACK_FOUP											= 0x0820,
@@ -107,7 +128,9 @@ private:
 	enum { max_recent_msgs = 100 };
 	amhs_message_queue recent_msgs_;
 	amhs_oht_map oht_map_;
+	amhs_stocker_map stocker_map_;
 	rwmutex rwLock_oht_map_;
+	rwmutex rwLock_stocker_map_;
 
 	typedef void (amhs_room::*HANDLE_OPT)(amhs_participant_ptr, AMHSPacket& packet);
 	typedef std::map<int, HANDLE_OPT> OPT_MAP;
@@ -149,12 +172,29 @@ public:
 	amhs_dev_server(boost::asio::io_service& io_service,
 		const tcp::endpoint& endpoint);
 
+public:
+	int GetConnectCount();
+
+
+	amhs_oht_set OHT_GetDataSet();
+	void OHT_Set_StatusBackTime(int nID, int ms);
+	void OHT_Set_PosBackTime(int nID, int ms);
+	void OHT_Move(int nID, int nControl);
+	void OHT_Foup(int nID, int nDevBuf, int nOperation);
+	void OHT_SetPath();
+
+private:
 	void start_accept();
 	void handle_accept(amhs_session_ptr session,
 		const boost::system::error_code& error);
-	int GetConnectCount();
-	amhs_oht_set GetOhtDataSet();
-	void setOhtMessageBackTime(int nID, int ms);
+	inline void SendPacket_OHT(int nID, AMHSPacket& packet)
+	{
+		room_.SendPacket(nID, DEV_TYPE_OHT, packet);
+	}
+	inline void SendPakcet_Sotcker(int nID, AMHSPacket& packet)
+	{
+		room_.SendPacket(nID, DEV_TYPE_STOCKER, packet);
+	}
 
 private:
 	boost::asio::io_service& io_service_;

@@ -12,11 +12,22 @@
 
 #pragma  once
 // 此类是从 AMHSDrive.dll 导出的
-typedef struct  
+
+typedef struct  sVec_OHT
 {
 	int nID;
-	int nPos;
+	int nPOS;
 	int nHand;
+	int nStatusTime;
+	int nPosTime;
+	int nPathResult;
+	int nMoveStatus;
+	int nMoveAlarm;
+	int nFoupOpt;
+	int nBackStatusMode;
+	int nBackStatusMark;
+	int nBackStausAlarm;
+	bool  bNeedPath;
 } driveOHT;
 #include <vector>
 #include <map>
@@ -32,7 +43,15 @@ public:
 	int Init();
 	int Check();
 	int Clean();
-	int SetOHTLocation(int nPoint);
-	int SetOHTBackMessage(int nOHT, int ms);
+
 	DR_OHT_LIST GetOhtList();
+	void OHTStatusBackTime(int nID, int ms);
+	void OHTPosBackTime(int nID, int ms);
+	void OHTMove(int nID, int nControl);
+	void OHTFoup(int nID, int nDevBuf, int nOperation);
+	void OHTSetPath();
+
+	int SetOHTLocation(int nPoint);
+
+	
 };
