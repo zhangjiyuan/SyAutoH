@@ -18,7 +18,7 @@ namespace RailDraw
     public partial class Form1 : Form
     {
         BaseRailElement.DrawDoc doc1 = new BaseRailElement.DrawDoc();
-        BaseRailElement.ObjectBaseEvents objectEvent = new BaseRailElement.ObjectBaseEvents();      
+        BaseRailElement.ObjectBaseEvents objectEvent = new BaseRailElement.ObjectBaseEvents();
         private bool pic1 = false;
         private bool pic2 = false;
         private bool pic3 = false;
@@ -28,6 +28,9 @@ namespace RailDraw
         const int CONST_MULTI_FACTOR = 1;
         private int multiFactor = 1;
         private string sProjectPath = "";
+
+        //using for test
+        SaveCodingRail saveCodingRail = new SaveCodingRail();
 
         public Form1()
         {
@@ -388,6 +391,7 @@ namespace RailDraw
                     MessageBox.Show("save error");
                 }
             }
+            saveCodingRail.InitRailList(doc1.DrawObjectList);
         }
 
         private void cut_Click(object sender, EventArgs e)

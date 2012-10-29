@@ -22,8 +22,12 @@ namespace BaseRailElement
         private bool selectable = true;
         private float speed = 0;
         private Int16 segmentNumber = 0;
-        private Int16 tagNumber = 0;
+        private Int32 tagNumber = 0;
         private int drawMultiFactor = 1;
+        private Point startPoint = Point.Empty;
+        private Point endPoint = Point.Empty;
+        private Int32 startCoding = 0;
+        private Int32 endCoding = 0;
 
         [Browsable(false)]
         public int GraphType
@@ -55,14 +59,14 @@ namespace BaseRailElement
             get { return speed; }
             set { speed = value; }
         }       
-        [Description("段号"),Category("轨道段信息")]
+        [Description("段号,请按顺时针方向编号，弯轨编号为0"),Category("轨道段信息")]
         public Int16 SegmentNumber
         {
             get { return segmentNumber; }
             set { segmentNumber = value; }
         } 
         [Description("条形码数量"),Category("轨道段信息")]
-        public Int16 TagNumber
+        public Int32 TagNumber
         {
             get { return tagNumber; }
             set { tagNumber = value; }
@@ -73,6 +77,32 @@ namespace BaseRailElement
         {
             get { return drawMultiFactor; }
             set { drawMultiFactor = value; }
+        }
+        [XmlIgnore]
+        [Browsable(false)]
+        public Point StartPoint
+        {
+            get { return startPoint; }
+            set { startPoint = value; }
+        }
+        [XmlIgnore]
+        [Browsable(false)]
+        public Point EndPoint
+        {
+            get { return endPoint; }
+            set { endPoint = value; }
+        }
+        [Browsable(false)]
+        public Int32 StartCoding
+        {
+            get { return startCoding; }
+            set { startCoding = value; }
+        }
+        [Browsable(false)]
+        public Int32 EndCoding
+        {
+            get { return endCoding; }
+            set { endCoding = value; }
         }
 
         public void Move(Point start, Point end)
