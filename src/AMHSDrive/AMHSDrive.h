@@ -33,13 +33,20 @@ typedef struct  sVec_OHT
 #include <map>
 typedef std::vector<driveOHT> DR_OHT_LIST;
 
+typedef struct sPathKeyPoint
+{
+	int nPos;
+	int nType;
+	int nSpeedRate;
+} keyPoint;
+typedef std::vector<keyPoint> PATH_POINT_LIST;
+
 class AMHSPacket;
 class AMHSDRIVE_API CAMHSDrive {
 public:
 	CAMHSDrive(void);
 	~CAMHSDrive();
 
-	// TODO: 在此添加您的方法。
 	int Init();
 	int Check();
 	int Clean();
@@ -49,9 +56,7 @@ public:
 	void OHTPosBackTime(int nID, int ms);
 	void OHTMove(int nID, int nControl);
 	void OHTFoup(int nID, int nDevBuf, int nOperation);
-	void OHTSetPath();
+	void OHTSetPath(int nID, int nType, int nStart, int nTarget, PATH_POINT_LIST& KeyPoints);
 
 	int SetOHTLocation(int nPoint);
-
-	
 };

@@ -6,6 +6,7 @@
 #include <list>
 #include <set>
 #include <map>
+#include <vector>
 #include <boost/bind.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/enable_shared_from_this.hpp>
@@ -58,6 +59,14 @@ typedef struct sData_OHT
 typedef boost::shared_ptr<amhs_OHT> amhs_oht_ptr;
 typedef std::map<int, amhs_oht_ptr> amhs_oht_map;
 typedef std::set<amhs_oht_ptr> amhs_oht_set;
+
+typedef struct sPath_KeyPoint
+{
+	uint16 nPos;
+	uint8 nType;
+	uint8 nSpeedRate;
+} amhs_keyPoint;
+typedef std::vector<amhs_keyPoint> amhs_keypoint_vec;
 
 typedef struct sData_Stocker
 {
@@ -181,7 +190,7 @@ public:
 	void OHT_Set_PosBackTime(int nID, int ms);
 	void OHT_Move(int nID, int nControl);
 	void OHT_Foup(int nID, int nDevBuf, int nOperation);
-	void OHT_SetPath();
+	void OHT_SetPath(int nID, int nType, int nStart, int nTarget, amhs_keypoint_vec& KeyPoints);
 
 private:
 	void start_accept();

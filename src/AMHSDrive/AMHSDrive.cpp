@@ -9,7 +9,6 @@
 #include "AMHSDrive.h"
 
 #include "AMHSPacket.h"
-#include "AMHSSocket.h"
 
 
 // 这是已导出类的构造函数。
@@ -112,9 +111,21 @@ void CAMHSDrive::OHTFoup(int nID, int nDevBuf, int nOperation)
 {
 	sAmhsServer.GetServer()->OHT_Foup(nID, nDevBuf, nOperation);
 }
-void CAMHSDrive::OHTSetPath()
+void CAMHSDrive::OHTSetPath(int nID, int nType, int nStart, int nTarget, PATH_POINT_LIST& KeyPoints)
 {
-	sAmhsServer.GetServer()->OHT_SetPath();
+	//sAmhsServer.GetServer()->OHT_SetPath();
+	amhs_keypoint_vec keyPts;
+	for(PATH_POINT_LIST::iterator it = KeyPoints.begin();
+		it != KeyPoints.end(); ++it)
+	{
+		amhs_keyPoint kPt;
+		kPt.nPos = it->nPos;
+		kPt.nType = it->nType;
+		kPt.nSpeedRate = it->nSpeedRate;
+
+		keyPts.push_back(kPt);
+	}
+	sAmhsServer.GetServer()->OHT_SetPath(nID, nType, nStart, nTarget, keyPts);
 }
 
 int CAMHSDrive::SetOHTLocation(int nPoint)

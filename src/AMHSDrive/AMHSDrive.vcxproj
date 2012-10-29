@@ -84,7 +84,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AMHSDrive.h" />
-    <ClInclude Include="AMHSSocket.h" />
     <ClInclude Include="AMHS_Server.h" />
     <ClInclude Include="amhs_dev_server.h" />
     <ClInclude Include="stdafx.h" />
@@ -92,7 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AMHSDrive.cpp" />
-    <ClCompile Include="AMHSSocket.cpp" />
     <ClCompile Include="amhs_dev_server.cpp" />
     <ClCompile Include="amhs_room.cpp" />
     <ClCompile Include="AMHS_Server.cpp" />
