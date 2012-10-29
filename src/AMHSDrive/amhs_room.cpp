@@ -3,7 +3,7 @@
 
 amhs_room::amhs_room()
 {
-	Log.Init(3, WORLD_LOG);
+	Log.Init(3);
 
 	m_optHanders.insert(std::make_pair(OHT_ACK_STATUS_BACK_TIME, 
 		&amhs_room::Handle_OHT_AckStatusBackTime));

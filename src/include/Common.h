@@ -17,8 +17,6 @@ typedef unsigned __int8 uint8;
 #include <map>
 #include <set>
 
-//#include "Singleton.h"
-
 using namespace std;
 
 #	define LIKELY( _x ) \

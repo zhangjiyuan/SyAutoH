@@ -63,35 +63,40 @@ void oLog::outFile(FILE* file, char* msg, const char* source)
 			    FOREGROUND_GREEN | FOREGROUND_BLUE);//white
 		break;
 	}
-	if(file == m_normalFile)
+	
+	if (NULL != file)
 	{
-		int32 file_length = filelength(fileno(file));
-	    if(file_length >= 900*1000)
-	    {
-			fclose(file);
-			string filename = SetNewName("normal",true); // 获得新的LOG文件的名字，以类型及时间命名
-			rename("normal.log",filename.c_str());
-			if(rename != 0)
-				perror("rename");
-			file = fopen("normal.log","a");
-			m_normalFile = file;
-	    }
+		if(file == m_normalFile)
+		{
+			int32 file_length = filelength(fileno(file));
+			if(file_length >= 900*1000)
+			{
+				fclose(file);
+				string filename = SetNewName("normal",true); // 获得新的LOG文件的名字，以类型及时间命名
+				rename("normal.log",filename.c_str());
+				if(rename != 0)
+					perror("rename");
+				file = fopen("normal.log","a");
+				m_normalFile = file;
+			}
+		}
+		else if(file == m_errorFile)
+		{
+			int32 file_length = filelength(fileno(file));
+			if(file_length >= 900*1000)
+			{
+				fclose(file);
+				string filename = SetNewName("error",true); // 获得新的LOG文件的名字，以类型及时间命名
+				rename("error.log",filename.c_str());
+				if(rename != 0)
+					perror("rename");
+				file = fopen("error.log","a");
+				m_errorFile = file;
+			}
+		}
 	}
 	
-	else if(file == m_errorFile)
-	{
-		int32 file_length = filelength(fileno(file));
-	    if(file_length >= 900*1000)
-	    {
-			fclose(file);
-			string filename = SetNewName("error",true); // 获得新的LOG文件的名字，以类型及时间命名
-			rename("error.log",filename.c_str());
-			if(rename != 0)
-				perror("rename");
-			file = fopen("error.log","a");
-			m_errorFile = file;
-	    }
-	}
+
 	if(source != NULL)
 	{
 		printf("%s%s: %s\n", time_buffer, source, msg);
