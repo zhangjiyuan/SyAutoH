@@ -6,22 +6,20 @@
 class WorldPacket;
 class WorldSession;
 
-//#define SZLTR "\xe5\xcf\xfe\xed\xf3\xfb\x03\xeb"
-//#define SZLTR_LENGTH 9
 #define TIME_FORMAT "[%m-%d-%Y][%H:%M]"
 #define TIME_FORMAT_LENGTH 100
-
+/*
 enum LogType
 {
     WORLD_LOG,
     LOGON_LOG
 };
-
+*/
 extern  time_t UNIXTIME;		/* update this every loop to avoid the time() syscall! */
 extern  tm g_localTime;
 
 std::string FormatOutputString(const char* Prefix, const char* Description, bool useTimeStamp);
-void CoyLogFile(const char *srcfile,string newfile);
+string SetNewName(const char* Description, bool useTimeStamp);
 class oLog : public Singleton< oLog >
 {
 	public:
@@ -53,7 +51,7 @@ class oLog : public Singleton< oLog >
 
 		void SetLogging(bool enabled);
 
-		void Init(int32 fileLogLevel, LogType logType);
+		void Init(int32 fileLogLevel);
 		void SetFileLoggingLevel(int32 level);
 
 		void Close();
@@ -65,30 +63,6 @@ class oLog : public Singleton< oLog >
 		void outFile(FILE* file, char* msg, const char* source = NULL);
 		void outFileSilent(FILE* file, char* msg, const char* source = NULL); // Prints text to file without showing it to the user. Used for the startup banner.
 		void Time(char* buffer);
-		/*
-		inline char dcd(char in)
-		{
-			char out = in;
-			out -= 13;
-			out ^= 131;
-			return out;
-		}
-
-		void dcds(char* str)
-		{
-			unsigned long i = 0;
-			size_t len = strlen(str);
-
-			for(i = 0; i < len; ++i)
-				str[i] = dcd(str[i]);
-		}
-
-		void pdcds(const char* str, char* buf)
-		{
-			strcpy(buf, str);
-			dcds(buf);
-		}
-		*/
 };
 
 class SessionLogWriter
@@ -106,8 +80,6 @@ class SessionLogWriter
 		void Close();
 };
 
-
-
 #define sLog oLog::getSingleton()
 
 #define LOG_BASIC( msg, ... ) sLog.logBasic( __FILE__, __LINE__, __FUNCTION__, msg, ##__VA_ARGS__ )
@@ -115,23 +87,4 @@ class SessionLogWriter
 #define LOG_ERROR( msg, ... ) sLog.logError( __FILE__, __LINE__, __FUNCTION__, msg, ##__VA_ARGS__ )
 #define LOG_DEBUG( msg, ... ) sLog.logDebug( __FILE__, __LINE__, __FUNCTION__, msg, ##__VA_ARGS__ )
 
-
 #define Log sLog
-
-class WorldLog : public Singleton<WorldLog>
-{
-	public:
-		WorldLog();
-		~WorldLog();
-
-		void LogPacket(uint32 len, uint16 opcode, const uint8* data, uint8 direction, uint32 accountid = 0);
-		void Enable();
-		void Disable();
-	private:
-		FILE* m_file;
-		//Mutex mutex;
-		bool bEnabled;
-};
-
-#define sWorldLog WorldLog::getSingleton()
-
