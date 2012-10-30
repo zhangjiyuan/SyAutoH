@@ -7,6 +7,8 @@ class Session;
 
 #define TIME_FORMAT "[%m-%d-%Y %H:%M:%S]"
 #define TIME_FORMAT_LENGTH 100
+#define LINE_COLOUR_RED 2;
+#define LINE_COLOUR_YELLOW 1;
 
 extern  time_t UNIXTIME;		/* update this every loop to avoid the time() syscall! */
 extern  tm g_localTime;

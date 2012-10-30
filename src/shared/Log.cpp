@@ -19,7 +19,6 @@ string FormatOutputString(const char* Prefix, const char* Description, bool useT
 		snprintf(ftime, 100, "-%-4d-%02d-%02d %02d-%02d-%02d", a->tm_year + 1900, a->tm_mon + 1, a->tm_mday, a->tm_hour, a->tm_min, a->tm_sec);
 		strcat(p, ftime);
 	}
-
 	strcat(p, ".log");
 	return string(p);
 }
@@ -65,6 +64,11 @@ void oLog::outFile(FILE* file, char* msg, const char* source)
 	}
 	if(file == m_normalFile)
 	{
+		if(file == NULL)
+		{
+			file = fopen("normal.log","a");
+			m_normalFile = file;
+		}
 		int32 file_length = filelength(fileno(file));
 	    if(file_length >= 900*1000)
 	    {
@@ -80,6 +84,11 @@ void oLog::outFile(FILE* file, char* msg, const char* source)
 	
 	else if(file == m_errorFile)
 	{
+		if(file == NULL)
+		{
+			file = fopen("error.log","a");
+			m_errorFile = file;
+		}
 		int32 file_length = filelength(fileno(file));
 	    if(file_length >= 900*1000)
 	    {
@@ -177,7 +186,7 @@ void oLog::outError(const char* err, ...)
 	va_start(ap, err);
 	vsnprintf(buf, 32768, err, ap);
 	va_end(ap);
-	out_colour = 2;
+	out_colour = LINE_COLOUR_RED;
 	outFile(m_errorFile, buf);
 }
 
@@ -236,7 +245,7 @@ void oLog::outDebug(const char* str, ...)///
 	va_start(ap, str);
 	vsnprintf(buf, 32768, str, ap);
 	va_end(ap);
-	out_colour = 2;
+	out_colour = LINE_COLOUR_RED;
 	outFile(m_errorFile, buf);
 }
 
@@ -290,7 +299,7 @@ void oLog::logError(const char* file, int line, const char* fncname, const char*
 	va_start(ap, msg);
 	vsnprintf(buf, 32768, message, ap);
 	va_end(ap);
-	out_colour = 2;
+	out_colour = LINE_COLOUR_RED;
 	outFile(m_errorFile, buf);
 }
 
@@ -308,8 +317,8 @@ void oLog::logDebug(const char* file, int line, const char* fncname, const char*
 	va_start(ap, msg);
 	vsnprintf(buf, 32768, message, ap);
 	va_end(ap);
-	out_colour = 2;
-	outFile(m_errorFile, buf);
+	
+	outFile(m_normalFile, buf);
 }
 
 //old NGLog.h methods
@@ -324,7 +333,7 @@ void oLog::Notice(const char* source, const char* format, ...)
 	va_start(ap, format);
 	vsnprintf(buf, 32768, format, ap);
 	va_end(ap);
-	out_colour = 1;
+	out_colour = LINE_COLOUR_YELLOW;
 	outFile(m_normalFile, buf, source);
 }
 
@@ -339,7 +348,7 @@ void oLog::Warning(const char* source, const char* format, ...)
 	va_start(ap, format);
 	vsnprintf(buf, 32768, format, ap);
 	va_end(ap);
-	out_colour = 1;
+	out_colour = LINE_COLOUR_YELLOW;
 	outFile(m_normalFile, buf, source);
 }
 
@@ -369,7 +378,7 @@ void oLog::Error(const char* source, const char* format, ...)
 	va_start(ap, format);
 	vsnprintf(buf, 32768, format, ap);
 	va_end(ap);
-	out_colour = 2;
+	out_colour = LINE_COLOUR_RED;
 	outFile(m_errorFile, buf, source);
 }
 
@@ -384,8 +393,8 @@ void oLog::Debug(const char* source, const char* format, ...)
 	va_start(ap, format);
 	vsnprintf(buf, 32768, format, ap);
 	va_end(ap);
-	out_colour = 2;
-	outFile(m_errorFile, buf, source);
+	
+	outFile(m_normalFile, buf, source);
 }
 
 void oLog::LargeErrorMessage(const char* source, ...)                //µ÷ÓÃÊ±£¬×îºóÒ»¸ö²ÎÊýÓ¦ÉèÎªNULL
@@ -405,7 +414,7 @@ void oLog::LargeErrorMessage(const char* source, ...)                //µ÷ÓÃÊ±£¬×
 		lines.push_back(pointer);
 		pointer = va_arg(ap, char*);
 	}
-	out_colour = 2;
+	out_colour = LINE_COLOUR_RED;
 	outError("*********************************************************************");
 	outError("*                        MAJOR ERROR/WARNING                        *");
 	outError("*                        ===================                        *");
