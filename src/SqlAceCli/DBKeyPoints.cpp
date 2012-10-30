@@ -84,21 +84,7 @@ int DBKeyPoints::SetKeyPointbyOHTTeach(int nOHT_ID, int nPOS, int nType, int nSp
 	table.m_Rail_ID = 0;
 	table.m_Prev = 0;
 	table.m_Next = 0;
-	//CString strFoupID;
-	//strFoupID = sFoupID;
-	//CString strLot;
-	//strLot = sLot;
-	//wcscpy_s(table.m_FoupID, strFoupID);
-	//table.m_dwFoupIDLength = strFoupID.GetLength() * 2;
-	//wcscpy_s(table.m_Lot, strLot);
-	//table.m_dwLotLength = strLot.GetLength() * 2;
-	//table.m_Local = nLocal;
-	//table.m_Type = nType;
-	//table.m_dwIDStatus = DBSTATUS_S_IGNORE;
-	//table.m_dwLocalStatus = DBSTATUS_S_OK;
-	//table.m_dwTypeStatus = DBSTATUS_S_OK;
-	//table.m_dwLotStatus = DBSTATUS_S_OK;
-	//table.m_dwFoupIDStatus = DBSTATUS_S_OK;
+
 	table.m_dwPositionStatus = DBSTATUS_S_OK;
 	table.m_dwTypeStatus = DBSTATUS_S_OK;
 	table.m_dwSpeedRateStatus = DBSTATUS_S_OK;
@@ -119,7 +105,7 @@ int DBKeyPoints::SetKeyPointbyOHTTeach(int nOHT_ID, int nPOS, int nType, int nSp
 	{
 		table.UpdateAll();
 	}
-
+	table.CloseAll();
 	CoUninitialize();
 
 	return nRet;
