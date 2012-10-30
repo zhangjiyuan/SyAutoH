@@ -9,6 +9,8 @@ public:
 public:
 	int Auth( uint32 nPos, int nHand);
 	int UpdatePos(uint32 nPos);
+	int SetTeachPosition(uint32 nPos, uint8 nType, uint8 nSpeedRate);
+
 	virtual void HandleCommand(AMHSPacket& packet);
 
 private:

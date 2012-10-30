@@ -113,6 +113,20 @@ LIST_FOUP CVirtualAMHS::Stocker_GetFoupsStatus(int nStocker)
 	return list;
 }
 
+int CVirtualAMHS::SetTeachPosition(int nID, int nPos, int nType, int nSpeedRate)
+{
+	RLock(g_rwLOHT)
+	{
+		MAP_VOHT::iterator it = m_mapOHT->find(nID);
+		if (it != m_mapOHT->end())
+		{
+			it->second->SetTeachPosition(nPos, nType, nSpeedRate);
+		}
+	}
+	
+	return 0;
+}
+
 LIST_OHT CVirtualAMHS::OHT_GetStatus()
 {
 	LIST_OHT list;

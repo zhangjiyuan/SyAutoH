@@ -20,6 +20,19 @@ VirtualOHT::~VirtualOHT(void)
 	DestoryPosTimer();
 }
 
+int VirtualOHT::SetTeachPosition(uint32 nPos, uint8 nType, uint8 nSpeedRate)
+{
+	AMHSPacket teachPos(OHT_TEACH_PATH, 7);
+	teachPos << uint8(DeviceID());
+	teachPos << uint32(nPos);
+	teachPos << uint8(nType);
+	teachPos << uint8(nSpeedRate);
+
+	SendPacket(teachPos);
+
+	return 0;
+}
+
 int VirtualOHT::Auth( uint32 nPos, int nHand)
 {
 	AMHSPacket authPacket(OHT_AUTH, 4);

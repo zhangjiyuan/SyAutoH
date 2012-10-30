@@ -12,7 +12,7 @@
 #define new DEBUG_NEW
 #endif
 
-CVirtualAMHS* pVirualAMHSDevice = NULL;
+CVirtualAMHS* g_pVDev = NULL;
 MAP_ItemOHT g_mapOHTs;
 const int STOCKER_ID = 24;
 
@@ -74,6 +74,7 @@ void CVAMHSTestDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST_OHT, m_listCtrlOHT);
 	DDX_Control(pDX, IDC_LIST_FOUP, m_listCtrlFOUP);
+	DDX_Control(pDX, IDC_COMBO_OHT_TeachPOSType, m_cbOhtTeachType);
 }
 
 BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
@@ -87,7 +88,7 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BN_STK_OUT, &CVAMHSTestDlg::OnBnClickedBnStkOut)
 	ON_BN_CLICKED(IDC_BN_OHT_Add, &CVAMHSTestDlg::OnBnClickedBnOhtAdd)
 	ON_BN_CLICKED(IDC_BN_SetHand, &CVAMHSTestDlg::OnBnClickedBnSethand)
-	ON_BN_CLICKED(IDC_BN_SetPos, &CVAMHSTestDlg::OnBnClickedBnSetpos)
+	ON_BN_CLICKED(IDC_BN_SetPos, &CVAMHSTestDlg::OnBnClickedBnTeachPos)
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_BN_STK_HISTORY, &CVAMHSTestDlg::OnBnClickedBnStkHistory)
 END_MESSAGE_MAP()
@@ -130,8 +131,15 @@ BOOL CVAMHSTestDlg::OnInitDialog()
 	AllocConsole();                     // 打开控制台资源
 	FILE* file;
 	freopen_s( &file, "CONOUT$", "w+t", stdout);// 申请写
-	pVirualAMHSDevice = new CVirtualAMHS();
+	g_pVDev = new CVirtualAMHS();
 	SetTimer(100, 500, NULL);
+
+	m_cbOhtTeachType.AddString(L"0x01 直道位置点");
+	m_cbOhtTeachType.AddString(L"0x02 弯道位置点");
+	m_cbOhtTeachType.AddString(L"0x04 道岔位置点");
+	m_cbOhtTeachType.AddString(L"0x08 减速点");
+	m_cbOhtTeachType.AddString(L"0x10 停止点");
+	m_cbOhtTeachType.AddString(L"0x20 取放点");
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -189,9 +197,11 @@ HCURSOR CVAMHSTestDlg::OnQueryDragIcon()
 
 void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 {
-	int nItem = m_listCtrlOHT.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
-	int nOHT_ID = m_listCtrlOHT.GetItemData(nItem);
-	int nAdd = pVirualAMHSDevice->OHT_Auth(nOHT_ID);
+	int nOHT_ID = GetSelectOhtID();
+	if (nOHT_ID >= 0)
+	{
+		int nAdd = g_pVDev->OHT_Auth(nOHT_ID);
+	}
 }
 
 
@@ -200,10 +210,10 @@ void CVAMHSTestDlg::OnDestroy()
 	CDialogEx::OnDestroy();
 
 	// TODO: 在此处添加消息处理程序代码
-	if (pVirualAMHSDevice != NULL)
+	if (g_pVDev != NULL)
 	{
-		delete pVirualAMHSDevice;
-		pVirualAMHSDevice = NULL;
+		delete g_pVDev;
+		g_pVDev = NULL;
 	}
 	FreeConsole();                      // 释放控制台资源
 }
@@ -211,7 +221,7 @@ void CVAMHSTestDlg::OnDestroy()
 
 void CVAMHSTestDlg::OnBnClickedBnAddstk()
 {
-	pVirualAMHSDevice->Stocker_Auth(STOCKER_ID, "192.168.55.10");
+	g_pVDev->Stocker_Auth(STOCKER_ID, "192.168.55.10");
 }
 
 
@@ -219,7 +229,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 {
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
-	pVirualAMHSDevice->Stocker_ManualInputFoup(STOCKER_ID, strFoup);
+	g_pVDev->Stocker_ManualInputFoup(STOCKER_ID, strFoup);
 }
 
 
@@ -227,7 +237,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 {
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
-	pVirualAMHSDevice->Stocker_ManualOutputFoup(STOCKER_ID, strFoup);
+	g_pVDev->Stocker_ManualOutputFoup(STOCKER_ID, strFoup);
 
 }
 
@@ -270,9 +280,43 @@ void CVAMHSTestDlg::OnBnClickedBnSethand()
 }
 
 
-void CVAMHSTestDlg::OnBnClickedBnSetpos()
+void CVAMHSTestDlg::OnBnClickedBnTeachPos()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	int nPos = 0;
+	int nSpeed = 0;
+
+	nPos = GetDlgItemInt(IDC_EDIT_OHT_POS);
+	nSpeed  = GetDlgItemInt(IDC_EDIT_OHT_SPEED);
+	int nTypeString = m_cbOhtTeachType.GetCurSel();
+	int nType = 0;
+	switch(nTypeString)
+	{
+	case 0:
+		nType = 0x01;
+		break;
+	case 1:
+		nType = 0x02;
+		break;
+	case 2:
+		nType = 0x04;
+		break;
+	case 3:
+		nType = 0x08;
+		break;
+	case 4:
+		nType = 0x10;
+		break;
+	case 5:
+		nType = 0x20;
+		break;
+	default:
+		nType = 0x01;
+		break;
+	}
+
+	int nOhtID = 0;
+	nOhtID = GetSelectOhtID();
+	g_pVDev->SetTeachPosition(nOhtID, nPos, nType, nSpeed);
 }
 
 
@@ -308,8 +352,8 @@ void CVAMHSTestDlg::InitListCtrlFOUP(void)
 
 void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	LIST_OHT ohts = pVirualAMHSDevice->OHT_GetStatus();
-	LIST_FOUP foups = pVirualAMHSDevice->Stocker_GetFoupsStatus(STOCKER_ID);
+	LIST_OHT ohts = g_pVDev->OHT_GetStatus();
+	LIST_FOUP foups = g_pVDev->Stocker_GetFoupsStatus(STOCKER_ID);
 
 	LIST_OHT::iterator itOht = ohts.begin();
 	while(itOht != ohts.end())
@@ -367,5 +411,21 @@ void CVAMHSTestDlg::SetOHTListItemData(ItemOHT* pOHT, int nListIndex)
 
 void CVAMHSTestDlg::OnBnClickedBnStkHistory()
 {
-	pVirualAMHSDevice->STK_History(STOCKER_ID);
+	g_pVDev->STK_History(STOCKER_ID);
+}
+
+
+int CVAMHSTestDlg::GetSelectOhtID(void)
+{
+	int nRet = -1;
+	int nItem = m_listCtrlOHT.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
+	if (nItem >= 0)
+	{
+		nRet = m_listCtrlOHT.GetItemData(nItem);
+	}
+	else
+	{
+		nRet = -1;
+	}
+	return nRet;
 }

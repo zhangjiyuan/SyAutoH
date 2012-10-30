@@ -110,7 +110,7 @@ private:
 	void Handle_OHT_Auth(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_Pos(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_Status(amhs_participant_ptr, AMHSPacket&);
-	void Handle_OHT_NeedPath(amhs_participant_ptr, AMHSPacket&);
+	void Handle_OHT_TeachPath(amhs_participant_ptr, AMHSPacket&);
 
 	////
 	//STK_ACK_FOUP											= 0x0820,

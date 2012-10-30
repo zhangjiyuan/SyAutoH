@@ -53,6 +53,7 @@ public:
 
 	// for OHT
 	LIST_OHT OHT_GetStatus();
+	int SetTeachPosition(int nID, int nPos, int nType, int nSpeedRate);
 
 private:
 	MAP_VOHT* m_mapOHT;

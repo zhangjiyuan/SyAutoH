@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "amhs_dev_server.h"
+#include "../SqlAceCli/SqlAceCli.h"
 
 amhs_room::amhs_room()
 {
@@ -21,8 +22,8 @@ amhs_room::amhs_room()
 		&amhs_room::Handle_OHT_Pos));
 	m_optHanders.insert(std::make_pair(OHT_STATUS, 
 		&amhs_room::Handle_OHT_Status));
-	m_optHanders.insert(std::make_pair(OHT_NEED_PATH,
-		&amhs_room::Handle_OHT_NeedPath));
+	m_optHanders.insert(std::make_pair(OHT_TEACH_PATH,
+		&amhs_room::Handle_OHT_TeachPath));
 
 	//////////////////////////////////////////////////////////////////////////
 	m_optHanders.insert(std::make_pair(STK_ACK_FOUP, 
@@ -169,18 +170,32 @@ void amhs_room::SendPacket(amhs_participant_ptr participants, AMHSPacket &packet
 	}
 }
 
-void amhs_room::Handle_OHT_NeedPath(amhs_participant_ptr, AMHSPacket& Packet)
+void amhs_room::Handle_OHT_TeachPath(amhs_participant_ptr, AMHSPacket& Packet)
 {
 	uint8 nID = 0;
+	uint32 nPos = 0;
+	uint8 nType = 0;
+	uint8 nSpeedRate = 0;
+
 	Packet >> nID;
-	WLock(rwLock_oht_map_)
-	{
-		amhs_oht_map::iterator it = oht_map_.find(nID);
-		if (it != oht_map_.end())
-		{
-			it->second->bNeedPath = true;
-		}
-	}
+	Packet >> nPos;
+	Packet >> nType;
+	Packet >> nSpeedRate;
+
+	DBKeyPoints dbKeyPts;
+	dbKeyPts.SetKeyPointbyOHTTeach(nID, nPos, nType, nSpeedRate);
+
+	//WLock(rwLock_oht_map_)
+	//{
+	//	amhs_oht_map::iterator it = oht_map_.find(nID);
+	//	if (it != oht_map_.end())
+	//	{
+	//		//it->second->bNeedPath = true;
+	//	}
+	//}
+
+	// TODO: write key points to DB
+
 
 }
 

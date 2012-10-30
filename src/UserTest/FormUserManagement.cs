@@ -276,7 +276,7 @@ namespace UserTest
             }
             catch (System.Exception ex)
             {
-            	
+                Console.WriteLine(ex.Message);
             }
            
 

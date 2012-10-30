@@ -60,7 +60,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>../lib/$(TargetName).lib</ImportLibrary>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>shared.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shared.lib;ws2_32.lib;sqlacecli.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
