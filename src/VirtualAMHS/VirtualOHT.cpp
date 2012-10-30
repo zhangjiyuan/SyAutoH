@@ -20,11 +20,11 @@ VirtualOHT::~VirtualOHT(void)
 	DestoryPosTimer();
 }
 
-int VirtualOHT::Auth( int nPos, int nHand)
+int VirtualOHT::Auth( uint32 nPos, int nHand)
 {
 	AMHSPacket authPacket(OHT_AUTH, 4);
 	authPacket<< uint8(DeviceID());		// device id
-	authPacket<< uint16(nPos);		// oht location
+	authPacket<< uint32(nPos);		// oht location
 	authPacket<< uint8(nHand);				// oht hand status;
 
 	SendPacket(authPacket);
@@ -32,11 +32,11 @@ int VirtualOHT::Auth( int nPos, int nHand)
 	return 0;
 }
 
-int VirtualOHT::UpdatePos(uint16 nPos)
+int VirtualOHT::UpdatePos(uint32 nPos)
 {
 	AMHSPacket authPacket(OHT_POSITION, 3);
 	authPacket<< uint8(DeviceID());		// device id
-	authPacket<< uint16(nPos);		// oht location
+	authPacket<< uint32(nPos);		// oht location
 	SendPacket(authPacket);
 
 	return 0;
@@ -121,10 +121,10 @@ void CALLBACK VirtualOHT::PosTimerHandler(UINT id, UINT msg, DWORD dwUser, DWORD
 
 void VirtualOHT::OnPosTimer(void)
 {
-	m_nPos += 10;
-	if (m_nPos > 2100)
-	{
-		m_nPos = 0;
-	}
+	m_nPos += 2451;
+	//if (m_nPos > 900000)
+	//{
+	//	m_nPos = 0;
+	//}
 	UpdatePos(m_nPos);
 }

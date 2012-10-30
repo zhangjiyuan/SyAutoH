@@ -70,18 +70,18 @@ void amhs_dev_server::OHT_SetPath(int nID, int nType, int nStart, int nTarget, a
 	Log.outBasic("OHT Setpath is not implenement.");
 	size_t szKeyCount = KeyPoints.size();
 	size_t szPacketLen = 0;
-	szPacketLen = 7 + szKeyCount * 4;
+	szPacketLen = 11 + szKeyCount * 6;
 
 	AMHSPacket packet(OHT_MCS_PATH, szPacketLen);
 	packet << uint8(nID);
 	packet << uint8(nType);
-	packet << uint16(nStart);
-	packet << uint16(nTarget);
+	packet << uint32(nStart);
+	packet << uint32(nTarget);
 	packet << uint8(szKeyCount);
 	for (amhs_keypoint_vec::iterator it = KeyPoints.begin(); 
 		it != KeyPoints.end(); ++it)
 	{
-		packet << uint16(it->nPos);
+		packet << uint32(it->nPos);
 		packet << uint8(it->nType);
 		packet << uint8(it->nSpeedRate);
 	}

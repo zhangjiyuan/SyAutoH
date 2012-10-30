@@ -42,7 +42,7 @@ public:
 	~CVirtualAMHS();
 
 	// device auth
-	int OHT_Auth(int nIndex, int nPos = 0, int nHand = 0);
+	int OHT_Auth(int nIndex, DWORD nPos = 0, int nHand = 0);
 	int Stocker_Auth(int nIndex, const char* sIP);
 
 	// for Stocker

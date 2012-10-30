@@ -42,7 +42,7 @@ typedef boost::shared_ptr<amhs_participant> amhs_participant_ptr;
 typedef struct sData_OHT
 {
 	int nID;
-	int nPOS;
+	DWORD nPOS;
 	int nHand;
 	int nStatusTime;
 	int nPosTime;
@@ -62,7 +62,7 @@ typedef std::set<amhs_oht_ptr> amhs_oht_set;
 
 typedef struct sPath_KeyPoint
 {
-	uint16 nPos;
+	uint32 nPos;
 	uint8 nType;
 	uint8 nSpeedRate;
 } amhs_keyPoint;

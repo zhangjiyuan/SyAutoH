@@ -66,14 +66,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxFoupName = new System.Windows.Forms.TextBox();
             this.tabOHT = new System.Windows.Forms.TabPage();
+            this.labelCBTest = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tbOhtMoveTo = new System.Windows.Forms.TextBox();
             this.bnOHTGo = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.labelCBTest = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.listViewOHTs = new System.Windows.Forms.ListView();
             this.tabSTK = new System.Windows.Forms.TabPage();
             this.bnSTK_History = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -450,7 +450,7 @@
             this.tabOHT.Controls.Add(this.label3);
             this.tabOHT.Controls.Add(this.tbOhtMoveTo);
             this.tabOHT.Controls.Add(this.bnOHTGo);
-            this.tabOHT.Controls.Add(this.listView1);
+            this.tabOHT.Controls.Add(this.listViewOHTs);
             this.tabOHT.Location = new System.Drawing.Point(4, 22);
             this.tabOHT.Name = "tabOHT";
             this.tabOHT.Padding = new System.Windows.Forms.Padding(3);
@@ -458,6 +458,14 @@
             this.tabOHT.TabIndex = 3;
             this.tabOHT.Text = "OHT Info";
             this.tabOHT.UseVisualStyleBackColor = true;
+            // 
+            // labelCBTest
+            // 
+            this.labelCBTest.Location = new System.Drawing.Point(8, 285);
+            this.labelCBTest.Name = "labelCBTest";
+            this.labelCBTest.Size = new System.Drawing.Size(495, 138);
+            this.labelCBTest.TabIndex = 4;
+            this.labelCBTest.Text = "label9";
             // 
             // label3
             // 
@@ -485,26 +493,14 @@
             this.bnOHTGo.UseVisualStyleBackColor = true;
             this.bnOHTGo.Click += new System.EventHandler(this.bnOHTGo_Click);
             // 
-            // listView1
+            // listViewOHTs
             // 
-            this.listView1.Location = new System.Drawing.Point(8, 6);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(495, 245);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
-            // labelCBTest
-            // 
-            this.labelCBTest.Location = new System.Drawing.Point(8, 285);
-            this.labelCBTest.Name = "labelCBTest";
-            this.labelCBTest.Size = new System.Drawing.Size(495, 138);
-            this.labelCBTest.TabIndex = 4;
-            this.labelCBTest.Text = "label9";
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 500;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.listViewOHTs.Location = new System.Drawing.Point(8, 6);
+            this.listViewOHTs.Name = "listViewOHTs";
+            this.listViewOHTs.Size = new System.Drawing.Size(495, 245);
+            this.listViewOHTs.TabIndex = 0;
+            this.listViewOHTs.UseCompatibleStateImageBehavior = false;
+            this.listViewOHTs.View = System.Windows.Forms.View.Details;
             // 
             // tabSTK
             // 
@@ -526,6 +522,11 @@
             this.bnSTK_History.Text = "history Foups";
             this.bnSTK_History.UseVisualStyleBackColor = true;
             this.bnSTK_History.Click += new System.EventHandler(this.bnSTK_History_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // FormUserManagement
             // 
@@ -596,7 +597,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbOhtMoveTo;
         private System.Windows.Forms.Button bnOHTGo;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewOHTs;
         private System.Windows.Forms.Label labelCBTest;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TabPage tabSTK;

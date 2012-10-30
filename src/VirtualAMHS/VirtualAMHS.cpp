@@ -75,7 +75,7 @@ int CVirtualAMHS::Stocker_Auth(int nIndex, const char* sIP)
 	return 0;
 }
 
-int CVirtualAMHS::OHT_Auth(int nIndex, int nPos, int nHand)
+int CVirtualAMHS::OHT_Auth(int nIndex, DWORD nPos, int nHand)
 {
 	MAP_VOHT::iterator it;
 	it = m_mapOHT->find(nIndex);

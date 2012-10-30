@@ -414,7 +414,7 @@ void amhs_room::Handle_STK_Auth(amhs_participant_ptr participants, AMHSPacket& P
 void amhs_room::Handle_OHT_Pos(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
 	uint8		ohtID = 0;
-	uint16		ohtPosition = 0;
+	uint32		ohtPosition = 0;
 	Packet >> ohtID;
 	Packet >> ohtPosition;
 
