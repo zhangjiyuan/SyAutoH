@@ -39,3 +39,5 @@ using namespace std;
 #include <atldbcli.h>
 #include <atldbsch.h>
 
+#include "DBConst.h"
+
