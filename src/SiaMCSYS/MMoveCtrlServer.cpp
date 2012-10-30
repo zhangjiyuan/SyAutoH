@@ -2,7 +2,7 @@
 #include "MMoveCtrlServer.h"
 #include <signal.h>
 #include "MaterialController.h"
-#include "Common.h"
+#include "../shared/Threading/AtomicBoolean.h"
 #include <iostream>
 
 #include "../MesLink/MesLink.h"

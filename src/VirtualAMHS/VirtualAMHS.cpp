@@ -5,8 +5,7 @@
 #include "VirtualAMHS.h"
 #include "VirtualOHT.h"
 #include "VirtualStocker.h"
-#include "../shared/Threading/Mutex.h"
-
+#include "../shared/ThreadLock.h"
 // 这是已导出类的构造函数。
 // 有关类定义的信息，请参阅 VirualAMHS.h
 const int OHT_START_POS = 1000;
@@ -16,23 +15,27 @@ CVirtualAMHS::CVirtualAMHS()
 {
 	m_mapOHT = new MAP_VOHT();
 	m_mapSTK = new MAP_VSTK();
-	m_pOhtLock = new Mutex();
+
 	return;
 }
+
+rwmutex g_rwLOHT;
 
 CVirtualAMHS::~CVirtualAMHS()
 {
 	MAP_VOHT::iterator it;
-	m_pOhtLock->Acquire();
-	it = m_mapOHT->begin();
-	while(it != m_mapOHT->end())
+
+	WLock(g_rwLOHT)
 	{
-		delete it->second;
-		++it;
+		it = m_mapOHT->begin();
+		while(it != m_mapOHT->end())
+		{
+			delete it->second;
+			++it;
+		}
+		delete m_mapOHT;
+		m_mapOHT = NULL;
 	}
-	delete m_mapOHT;
-	m_mapOHT = NULL;
-	m_pOhtLock->Release();
 
 	MAP_VSTK::iterator it_stk;
 	it_stk = m_mapSTK->begin();
@@ -42,8 +45,6 @@ CVirtualAMHS::~CVirtualAMHS()
 		++it_stk;
 	}
 	delete m_mapSTK;
-
-	delete m_pOhtLock;
 }
 
 int CVirtualAMHS::Stocker_Auth(int nIndex, const char* sIP)
@@ -93,13 +94,15 @@ int CVirtualAMHS::OHT_Auth(int nIndex, int nPos, int nHand)
 		}
 	}
 
-	m_pOhtLock->Acquire();
+	
 	VirtualOHT* oht = new VirtualOHT();
 	oht->DeviceID(nIndex);
 	oht->Connect("127.0.0.1", 9999);
 	oht->Auth(nPos, nHand);
-	(*m_mapOHT)[nIndex] = oht;
-	m_pOhtLock->Release();
+	WLock(g_rwLOHT)
+	{
+		(*m_mapOHT)[nIndex] = oht;
+	}
 
 	return 0;
 }
@@ -113,23 +116,24 @@ LIST_FOUP CVirtualAMHS::Stocker_GetFoupsStatus(int nStocker)
 LIST_OHT CVirtualAMHS::OHT_GetStatus()
 {
 	LIST_OHT list;
-	m_pOhtLock->Acquire();
-	for (MAP_VOHT::iterator it = m_mapOHT->begin(); 
-		it != m_mapOHT->end(); ++it)
+	RLock(g_rwLOHT)
 	{
-		VirtualOHT *vOht = it->second;
-		ItemOHT item;
-		item.nID = vOht->DeviceID();
-		if (vOht->Online() == true)
+		for (MAP_VOHT::iterator it = m_mapOHT->begin(); 
+			it != m_mapOHT->end(); ++it)
 		{
-			item.nOnline = 1;
+			VirtualOHT *vOht = it->second;
+			ItemOHT item;
+			item.nID = vOht->DeviceID();
+			if (vOht->Online() == true)
+			{
+				item.nOnline = 1;
+			}
+			item.nHandStatus = vOht->m_nHand;
+			item.nPosition = vOht->m_nPos;
+			list.push_back(item);
 		}
-		item.nHandStatus = vOht->m_nHand;
-		item.nPosition = vOht->m_nPos;
-		list.push_back(item);
 	}
 	
-	m_pOhtLock->Release();
 	return list;
 }
 

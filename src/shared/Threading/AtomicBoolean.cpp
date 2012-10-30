@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Common.h"
+#include "AtomicBoolean.h"
 
 namespace syamhs
 {

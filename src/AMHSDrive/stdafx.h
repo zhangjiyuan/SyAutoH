@@ -13,9 +13,9 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include "Common.h"
-#include "../shared/Network.h"
+
 #include "../shared/log.h"
-#include "../shared/FastQueue.h"
+
 #include "AMHSPacket.h"
 
 #include <boost/bind.hpp>

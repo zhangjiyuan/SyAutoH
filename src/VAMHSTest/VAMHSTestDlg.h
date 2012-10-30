@@ -12,6 +12,7 @@ class CVAMHSTestDlg : public CDialogEx
 // 构造
 public:
 	CVAMHSTestDlg(CWnd* pParent = NULL);	// 标准构造函数
+	~CVAMHSTestDlg();
 
 // 对话框数据
 	enum { IDD = IDD_VAMHSTEST_DIALOG };

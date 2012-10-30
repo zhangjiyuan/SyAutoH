@@ -13,7 +13,7 @@ using namespace std;
 
 MaterialController::MaterialController(void)
 {
-	sLog.Init(3, WORLD_LOG);
+	sLog.Init(3);
 }
 
 MaterialController::~MaterialController(void)

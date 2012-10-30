@@ -65,9 +65,28 @@ void amhs_dev_server::OHT_Move(int nID, int nControl)
 	SendPacket_OHT(nID, packet);
 }
 
-void amhs_dev_server::OHT_SetPath()
+void amhs_dev_server::OHT_SetPath(int nID, int nType, int nStart, int nTarget, amhs_keypoint_vec& KeyPoints)
 {
 	Log.outBasic("OHT Setpath is not implenement.");
+	size_t szKeyCount = KeyPoints.size();
+	size_t szPacketLen = 0;
+	szPacketLen = 7 + szKeyCount * 4;
+
+	AMHSPacket packet(OHT_MCS_PATH, szPacketLen);
+	packet << uint8(nID);
+	packet << uint8(nType);
+	packet << uint16(nStart);
+	packet << uint16(nTarget);
+	packet << uint8(szKeyCount);
+	for (amhs_keypoint_vec::iterator it = KeyPoints.begin(); 
+		it != KeyPoints.end(); ++it)
+	{
+		packet << uint16(it->nPos);
+		packet << uint8(it->nType);
+		packet << uint8(it->nSpeedRate);
+	}
+
+	SendPacket_OHT(nID, packet);
 }
 
 void amhs_dev_server::OHT_Foup(int nID, int nDevBuf, int nOperation)
