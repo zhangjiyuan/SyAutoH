@@ -14,6 +14,7 @@
 
 class UserManagementServer;
 class GuiDataHubServer;
+class CAMHSDrive;
 // 此类是从 GuiHub.dll 导出的
 class GUIHUB_API CGuiHub {
 public:
@@ -24,6 +25,6 @@ private:
 	GuiDataHubServer*				m_pGuiDataHub;
 public:
 
-	int StartServer(void);
+	int StartServer(CAMHSDrive* pDrive);
 	void SetData(const char* chTag, const char* chVal);
 };

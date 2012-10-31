@@ -16,6 +16,7 @@ public:
 
 typedef vector<ClientInfo> LIST_UPDATER;
 
+class CAMHSDrive;
 class GuiDataHubI : public GuiDataHub
 {
 public:
@@ -31,9 +32,13 @@ public:
 	void UpdateData(const std::string &, const std::string &);
 	void removeUpdater(const ::MCS::GuiDataUpdaterPrx& updater);
 
+	CAMHSDrive* AMHSDrive() const { return m_pAMHSDrive; }
+	void AMHSDrive(CAMHSDrive* val) { m_pAMHSDrive = val; }
+
 private:
 	LIST_UPDATER m_listUpdater;
 	rwmutex m_rwmListUpdater;
+	CAMHSDrive* m_pAMHSDrive;
 };
 
 class UpdateCallback : public IceUtil::Shared

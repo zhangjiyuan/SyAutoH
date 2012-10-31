@@ -30,7 +30,7 @@ CGuiHub::~CGuiHub()
 	}
 }
 
-int CGuiHub::StartServer()
+int CGuiHub::StartServer(CAMHSDrive* pDrive)
 {
 	if (NULL == m_pUserMgt)
 	{
@@ -42,6 +42,7 @@ int CGuiHub::StartServer()
 	{
 		m_pGuiDataHub = new GuiDataHubServer();
 		m_pGuiDataHub->InitIce();
+		m_pGuiDataHub->SetDrive(pDrive);
 	}
 
 	return 0;

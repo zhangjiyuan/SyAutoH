@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "GuiDataHubI.h"
-
+#include "../AMHSDrive/AMHSDrive.h"
 
 GuiDataHubI::GuiDataHubI(void)
 {
@@ -15,9 +15,13 @@ std::string GuiDataHubI::ReadData(const std::string &,Ice::Int,const Ice::Curren
 {
 	return "Read";
 }
-Ice::Int GuiDataHubI::WriteData(const std::string &,const std::string &,Ice::Int,const Ice::Current &)
+Ice::Int GuiDataHubI::WriteData(const std::string &strTag,const std::string &strVal,Ice::Int,const Ice::Current &)
 {
-
+	if (strTag.find("OHT.POSTIME") >= 0)
+	{
+		m_pAMHSDrive->OHTPosBackTime(254, 30);
+	}
+	
 	return 0;
 }
 void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Current& /* = ::Ice::Current */)

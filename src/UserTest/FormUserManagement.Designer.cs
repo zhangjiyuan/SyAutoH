@@ -74,6 +74,9 @@
             this.tabSTK = new System.Windows.Forms.TabPage();
             this.bnSTK_History = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label9 = new System.Windows.Forms.Label();
+            this.tBPosTime = new System.Windows.Forms.TextBox();
+            this.bnSetPosTime = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -446,6 +449,9 @@
             // 
             // tabOHT
             // 
+            this.tabOHT.Controls.Add(this.bnSetPosTime);
+            this.tabOHT.Controls.Add(this.tBPosTime);
+            this.tabOHT.Controls.Add(this.label9);
             this.tabOHT.Controls.Add(this.labelCBTest);
             this.tabOHT.Controls.Add(this.label3);
             this.tabOHT.Controls.Add(this.tbOhtMoveTo);
@@ -461,9 +467,9 @@
             // 
             // labelCBTest
             // 
-            this.labelCBTest.Location = new System.Drawing.Point(8, 285);
+            this.labelCBTest.Location = new System.Drawing.Point(8, 326);
             this.labelCBTest.Name = "labelCBTest";
-            this.labelCBTest.Size = new System.Drawing.Size(495, 138);
+            this.labelCBTest.Size = new System.Drawing.Size(495, 97);
             this.labelCBTest.TabIndex = 4;
             this.labelCBTest.Text = "label9";
             // 
@@ -478,9 +484,9 @@
             // 
             // tbOhtMoveTo
             // 
-            this.tbOhtMoveTo.Location = new System.Drawing.Point(81, 255);
+            this.tbOhtMoveTo.Location = new System.Drawing.Point(91, 255);
             this.tbOhtMoveTo.Name = "tbOhtMoveTo";
-            this.tbOhtMoveTo.Size = new System.Drawing.Size(100, 21);
+            this.tbOhtMoveTo.Size = new System.Drawing.Size(90, 21);
             this.tbOhtMoveTo.TabIndex = 2;
             // 
             // bnOHTGo
@@ -527,6 +533,32 @@
             // 
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(8, 288);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(77, 12);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "POS BackTime";
+            // 
+            // tBPosTime
+            // 
+            this.tBPosTime.Location = new System.Drawing.Point(91, 285);
+            this.tBPosTime.Name = "tBPosTime";
+            this.tBPosTime.Size = new System.Drawing.Size(90, 21);
+            this.tBPosTime.TabIndex = 6;
+            // 
+            // bnSetPosTime
+            // 
+            this.bnSetPosTime.Location = new System.Drawing.Point(187, 283);
+            this.bnSetPosTime.Name = "bnSetPosTime";
+            this.bnSetPosTime.Size = new System.Drawing.Size(126, 23);
+            this.bnSetPosTime.TabIndex = 7;
+            this.bnSetPosTime.Text = "Set POS BackTime";
+            this.bnSetPosTime.UseVisualStyleBackColor = true;
+            this.bnSetPosTime.Click += new System.EventHandler(this.bnSetPosTime_Click);
             // 
             // FormUserManagement
             // 
@@ -602,6 +634,9 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TabPage tabSTK;
         private System.Windows.Forms.Button bnSTK_History;
+        private System.Windows.Forms.Button bnSetPosTime;
+        private System.Windows.Forms.TextBox tBPosTime;
+        private System.Windows.Forms.Label label9;
     }
 }
 

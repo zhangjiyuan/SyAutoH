@@ -11,7 +11,10 @@ VirtualOHT::VirtualOHT(void)
 	m_nStatusUpdateTime(0),
 	m_nPosTimerID(0)
 {
-	m_optHanders[OHT_MCS_ACK_AUTH] = (CommandHander)&VirtualOHT::Handle_Auth;
+	m_optHanders.insert(std::make_pair(OHT_MCS_ACK_AUTH, 
+		&VirtualOHT::Handle_Auth));
+	m_optHanders.insert(std::make_pair(OHT_MCS_POSITION_BACK_TIME, 
+		&VirtualOHT::Handle_SetPosTime));
 }
 
 
@@ -70,18 +73,22 @@ void VirtualOHT::Handle_SetPosTime(AMHSPacket&  packet)
 	uint8 nPosTime = 0;
 	packet >> nID;
 	packet >> nPosTime;
-	m_nPosUpdateTime = nPosTime;
-	if(m_nPosTimerID > 0)
+	m_nPosUpdateTime = nPosTime * 16;
+
+	if ((nPosTime >= 30) 
+		&& (nPosTime <= 253))
 	{
-		if (m_nPosUpdateTime > 0)
-		{
-			CreatePosTimer();
-		}
-		else
+
+		if (m_nPosTimerID > 0)
 		{
 			DestoryPosTimer();
-		}	
+		}
+		CreatePosTimer();
 	}
+	else
+	{
+		DestoryPosTimer();
+	}	
 
 	AMHSPacket authPacket(OHT_MCS_POSITION_BACK_TIME, 2);
 	authPacket<< uint8(DeviceID());		// device id
@@ -99,7 +106,7 @@ void VirtualOHT::Handle_Auth(AMHSPacket& packet)
 	
 	printf("OHT %d Auth %d\n", nID, nAuthRes);
 
-	m_nPosUpdateTime = 200;
+	m_nPosUpdateTime = 1600;
 	if (m_nPosTimerID == 0)
 	{
 		CreatePosTimer();
@@ -121,9 +128,12 @@ void VirtualOHT::CreatePosTimer(void)
 
 void VirtualOHT::DestoryPosTimer(void)
 {
-	timeKillEvent(m_nPosTimerID);
-	timeEndPeriod(1);
-	m_nPosTimerID = 0;
+	if (m_nPosTimerID > 0)
+	{
+		timeKillEvent(m_nPosTimerID);
+		timeEndPeriod(1);
+		m_nPosTimerID = 0;
+	}
 }
 
 void CALLBACK VirtualOHT::PosTimerHandler(UINT id, UINT msg, DWORD dwUser, DWORD dw1, DWORD dw2)

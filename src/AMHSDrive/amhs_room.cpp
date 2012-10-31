@@ -97,9 +97,10 @@ amhs_oht_set amhs_room::GetOhtDataSet()
 
 void amhs_room::SendPacket(int nID, int nType, AMHSPacket& packet)
 {
+	amhs_participant_ptr pClient;
 	if (DEV_TYPE_OHT == nType)
 	{
-		amhs_participant_ptr pClient;
+		
 		RLock(rwLock_oht_map_)
 		{
 			amhs_oht_map::iterator it = oht_map_.find(nID);
@@ -108,11 +109,14 @@ void amhs_room::SendPacket(int nID, int nType, AMHSPacket& packet)
 				pClient = it->second->p_participant;
 			}
 		}
-		SendPacket(pClient, packet);
+		if ((pClient != NULL)
+			|| (254 == nID))
+		{
+			SendPacket(pClient, packet);
+		}
 	}
 	else if (DEV_TYPE_STOCKER == nType)
 	{
-		amhs_participant_ptr pClient;
 		RLock(rwLock_stocker_map_)
 		{
 			amhs_stocker_map::iterator it = stocker_map_.find(nID);
@@ -121,7 +125,11 @@ void amhs_room::SendPacket(int nID, int nType, AMHSPacket& packet)
 				pClient = it->second->p_participant;
 			}
 		}
-		SendPacket(pClient, packet);
+		if ((pClient != NULL)
+			|| (254 == nID))
+		{
+			SendPacket(pClient, packet);
+		}
 	}
 }
 
@@ -159,7 +167,7 @@ void amhs_room::SendPacket(amhs_participant_ptr participants, AMHSPacket &packet
 		memcpy(msg.body(), packet.contents() + (i*szLimit), msg.body_length());
 		msg.encode_header();
 
-		if (254 == participants->nID_)
+		if (NULL == participants)
 		{
 			deliver_all(msg);
 		}

@@ -295,5 +295,23 @@ namespace UserTest
         {
             int nWret = dataHubLink.WriteData("STK.HISTORY", "GET", m_nSession);
         }
+
+        private void bnSetPosTime_Click(object sender, EventArgs e)
+        {
+            string strPosTime = tBPosTime.Text;
+            int nPosTime = 0;
+            try
+            {
+                nPosTime = System.Convert.ToByte(strPosTime);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            string strVal;
+            strVal = string.Format("<{0}, {1}>", 254, nPosTime);
+
+            int nWRet = dataHubLink.WriteData("OHT.POSTIME:<ID, VAL>", strVal, m_nSession);
+        }
     }
 }
