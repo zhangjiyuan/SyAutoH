@@ -34,7 +34,7 @@ STR_VEC SplitString(const std::string& input, const std::string& split)
 		nBegin = nFind + 1;
 		nFind = input.find(split, nBegin);
 	}
-	if (nBegin > 0 && nBegin < input.length())
+	if (nBegin > 0 && nBegin < (int)input.length())
 	{
 		string strLast = input.substr(nBegin, input.length() - nBegin);
 		strList.push_back(strLast);

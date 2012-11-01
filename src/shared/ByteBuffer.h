@@ -216,6 +216,18 @@ public:
 		return read<uint8>(pos);
 	}
 
+	uint8 GetXOR() const
+	{
+		uint8 xorHash = 0;
+		size_t szCount = size();
+		for (size_t i=0; i<szCount; i++)
+		{
+			xorHash ^= _storage[i];
+		}
+
+		return xorHash; 
+	}
+
 	size_t rpos()
 	{
 		return _rpos;

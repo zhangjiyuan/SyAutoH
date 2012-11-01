@@ -47,7 +47,7 @@ public:
 
 private:
 	SET_UPDATER m_setUpdater;
-	rwmutex m_rwmListUpdater;
+	rwmutex m_rwUpdaterSet;
 	CAMHSDrive* m_pAMHSDrive;
 };
 

@@ -70,6 +70,18 @@ void amhs_session::handle_read_body(const boost::system::error_code& error)
 	{
 		int mOpcode = read_msg_.command();
 		int mSize = read_msg_.body_length();
+		bool bXor = read_msg_.CheckXOR();
+		if (false == bXor)
+		{
+			cout << "Server XOR error" << endl;
+
+			boost::asio::async_read(socket_,
+				boost::asio::buffer(read_msg_.data(), amhs_message::header_length),
+				boost::bind(&amhs_session::handle_read_header, shared_from_this(),
+				boost::asio::placeholders::error));
+
+			return;
+		}
 
 		if (mSize > 0)
 		{

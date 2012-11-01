@@ -34,17 +34,14 @@ Ice::Int GuiDataHubI::WriteData(const std::string &strTag,const std::string &str
 				m_pAMHSDrive->OHTPosBackTime(nID, nTime);
 			}
 		}
-		
 	}
-
-	
 	
 	return 0;
 }
 
 void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Current& /* = ::Ice::Current */)
 {
-	WLock(m_rwmListUpdater)
+	WLock(m_rwUpdaterSet)
 	{
 		SET_UPDATER::iterator it = m_setUpdater.find(updater);
 		if (it != m_setUpdater.end())
@@ -58,20 +55,24 @@ void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const 
 
 void GuiDataHubI::removeUpdater(const ::MCS::GuiDataUpdaterPrx& updater)
 {
-	WLock(m_rwmListUpdater)
+	WLock(m_rwUpdaterSet)
 	{
 		if (m_setUpdater.size() <= 0)
 		{
 			return;
 		}
 
-		m_setUpdater.erase(updater);
+		SET_UPDATER::iterator it = m_setUpdater.find(updater);
+		if (it != m_setUpdater.end())
+		{
+			m_setUpdater.erase(updater);
+		}
 	}
 }
 
 void GuiDataHubI::UpdateData(const std::string &sTag, const std::string &sVal)
 {
-	RLock(m_rwmListUpdater)
+	RLock(m_rwUpdaterSet)
 	{
 		for(SET_UPDATER::iterator p = m_setUpdater.begin(); p != m_setUpdater.end(); ++p)
 		{
@@ -91,5 +92,4 @@ void GuiDataHubI::UpdateData(const std::string &sTag, const std::string &sVal)
 			}
 		}
 	}
-	
 }

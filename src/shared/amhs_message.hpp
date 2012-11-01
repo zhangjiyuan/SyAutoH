@@ -42,6 +42,18 @@ public:
 		return data_ + header_length;
 	}
 
+	uint8 hash_xor_body()
+	{
+		uint8 uhash = 0;
+		uint8* pData = body();
+		for (size_t i=0; i<body_length_; i++)
+		{
+			uhash ^= *pData++;
+		}
+
+		return uhash;
+	}
+
 	size_t body_length() const
 	{
 		return body_length_;
@@ -52,6 +64,19 @@ public:
 		body_length_ = new_length;
 		if (body_length_ > max_body_length)
 			body_length_ = max_body_length;
+	}
+
+	bool CheckXOR()
+	{
+		uint8 hash = hash_xor_body();
+		if (hXor == hash)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	uint32 command() const { return cmd_; }
@@ -80,6 +105,9 @@ public:
 			body_length_ = 0;
 			return false;
 		}
+
+		hXor = PktHeader.check;
+
 		return true;
 	}
 
@@ -103,6 +131,7 @@ public:
 
 		PktHeader.index = nIndex;
 		PktHeader.bLast = nIsLast;
+		PktHeader.check = hash_xor_body();
 
 		memcpy(data_, &PktHeader, header_length);
 	}
@@ -111,6 +140,7 @@ public:
 	void IsLast(uint8 val) { nIsLast = val; }
 	uint16 Index() const { return nIndex; }
 	void Index(uint16 val) { nIndex = val; }
+	uint8 Xor() const { return hXor; }
 
 private:
 	uint8 data_[header_length + max_body_length];
@@ -121,4 +151,5 @@ private:
 	size_t body_length_;
 	uint16 nIndex;
 	uint8   nIsLast;
+	uint8  hXor;
 };
