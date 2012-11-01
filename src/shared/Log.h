@@ -9,15 +9,30 @@ class Session;
 #define TIME_FORMAT_LENGTH 100
 #define LINE_COLOUR_RED 2;
 #define LINE_COLOUR_YELLOW 1;
+#define LINE_COLOUR_WHITE 0;
+#define NORMAL_FILE 4
+#define ERROR_FILE 5
+#define NOT_GET_LEVEL 3
+//#define FROM_INIT false;
+//#define FROM_CONFIG true;
 
 extern  time_t UNIXTIME;		/* update this every loop to avoid the time() syscall! */
 extern  tm g_localTime;
-
+//bool fileLevel = FROM_CONFIG;
 std::string FormatOutputString(const char* Prefix, const char* Description, bool useTimeStamp);
 string SetNewName(const char* Description, bool useTimeStamp);
 class oLog : public Singleton< oLog >
 {
+	struct element
+    {
+	    int out_colour;
+	    char mes[32768];
+	    int file;
+		char source[1024];
+    };
+    typedef element* PElement;
 	public:
+		oLog();
 		//log level 0
 		void outString(const char* str, ...);
 		void outError(const char* err, ...);
@@ -48,18 +63,26 @@ class oLog : public Singleton< oLog >
 
 		void Init(int32 fileLogLevel);
 		void SetFileLoggingLevel(int32 level);
-
+		void SetFileLoggingLevel( );
+		void SetFileLoggingLevel(const char* levelname);
 		void Close();
+		void Append(PElement m_mes);
+		bool Remove();
+		static unsigned __stdcall WriteFile(PVOID pParam);
 
 		int32 out_colour;
 		int32 m_fileLogLevel;
+		bool funcInCon;
+		std::queue <PElement> Mes;
+        HANDLE hMutex_level,hMutex_queue,hMutex_file,hMutex_write;
+		PElement m_Mes_Write;
 
 	private:
 		FILE* m_normalFile, *m_errorFile;
-		void outFile(FILE* file, char* msg, const char* source = NULL);
+		void outFile(FILE* file, char* msg, int colour,const char* source = NULL);
 		void outFileSilent(FILE* file, char* msg, const char* source = NULL); // Prints text to file without showing it to the user. Used for the startup banner.
 		void Time(char* buffer);
-
+		/*
 		inline char dcd(char in)
 		{
 			char out = in;
@@ -82,7 +105,7 @@ class oLog : public Singleton< oLog >
 			strcpy(buf, str);
 			dcds(buf);
 		}
-
+		*/
 };
 
 class SessionLogWriter
