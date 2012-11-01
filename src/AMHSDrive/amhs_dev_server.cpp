@@ -6,6 +6,7 @@ amhs_dev_server::amhs_dev_server(boost::asio::io_service& io_service,
 	: io_service_(io_service),
 	acceptor_(io_service, endpoint)
 {
+	acceptor_.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
 	start_accept();
 }
 
@@ -97,4 +98,51 @@ void amhs_dev_server::OHT_Foup(int nID, int nDevBuf, int nOperation)
 	packet << uint8(nOperation);
 
 	SendPacket_OHT(nID, packet);
+}
+
+//////////////////////////////////////////////////////////////////////////
+//
+void amhs_dev_server::STK_FOUP(int nID, int nMode, int nPick, int nFoupData)
+{
+	Log.Debug("amhs_dev_server", "STK_FOUP not implement");
+}
+
+void amhs_dev_server::STK_Status(int nID)
+{
+	Log.Debug("amhs_dev_server", "STK_Status not implement");
+}
+
+void amhs_dev_server::STK_Room(int nID)
+{
+	Log.Debug("amhs_dev_server", "STK_Room not implement");
+}
+
+void amhs_dev_server::STK_Storage(int nID)
+{
+	Log.Debug("amhs_dev_server", "STK_Storage not implement");
+}
+
+void amhs_dev_server::STK_InputStatus(int nID)
+{
+	Log.Debug("amhs_dev_server", "STK_InputStatus not implement");
+}
+
+void amhs_dev_server::STK_History(int nID, __int64 timeStart, __int64 timeEnd)
+{
+	Log.Debug("amhs_dev_server", "STK_History not implement");
+}
+
+void amhs_dev_server::STK_Alarms(int nID, __int64 timeStart, __int64 timeEnd)
+{
+	Log.Debug("amhs_dev_server", "STK_Alarms not implement");
+}
+
+void amhs_dev_server::STK_Set_StatusBackTime(int nID, int nSecond)
+{
+	Log.Debug("amhs_dev_server", "STK_Set_StatusBackTime not implement");
+}
+
+void amhs_dev_server::STK_Set_FoupBackTime(int nID, int nSecond)
+{
+	Log.Debug("amhs_dev_server", "STK_Set_FoupBackTime not implement");
 }
