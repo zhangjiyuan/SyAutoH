@@ -5,17 +5,28 @@ using namespace MCS;
 
 class ClientInfo
 {
+private:
+	
+	
 public: 
 	MCS::GuiDataUpdaterPrx client;
 	int nTryCount;
+	
 	ClientInfo()
 	{
 		nTryCount = 0;
 	}
+	~ClientInfo()
+	{
+
+	}
+
+	
 };
 
-typedef vector<ClientInfo> LIST_UPDATER;
+typedef set<MCS::GuiDataUpdaterPrx> SET_UPDATER;
 
+class CAMHSDrive;
 class GuiDataHubI : public GuiDataHub
 {
 public:
@@ -31,9 +42,13 @@ public:
 	void UpdateData(const std::string &, const std::string &);
 	void removeUpdater(const ::MCS::GuiDataUpdaterPrx& updater);
 
+	CAMHSDrive* AMHSDrive() const { return m_pAMHSDrive; }
+	void AMHSDrive(CAMHSDrive* val) { m_pAMHSDrive = val; }
+
 private:
-	LIST_UPDATER m_listUpdater;
-	rwmutex m_rwmListUpdater;
+	SET_UPDATER m_setUpdater;
+	rwmutex m_rwUpdaterSet;
+	CAMHSDrive* m_pAMHSDrive;
 };
 
 class UpdateCallback : public IceUtil::Shared
@@ -50,10 +65,7 @@ public:
 
 	void response()
 	{
-		//int i=0;
-
-		//i = client->ice_getHash();
-
+		//m_view->PopCallPtr();
 	}
 
 	void exception(const Ice::Exception& ex)
@@ -61,6 +73,7 @@ public:
 		//cerr << "call failed:\n" << ex << endl;
 		//int i=0;
 		//i = client->ice_getHash();
+		//cout << "call failed:\n" << ex.ice_name().c_str() << endl;
 
 		if (NULL != m_view)
 		{

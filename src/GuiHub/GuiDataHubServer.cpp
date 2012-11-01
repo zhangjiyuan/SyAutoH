@@ -29,3 +29,11 @@ void GuiDataHubServer::UpdateData(const string& sTag, const string& sVal)
 		m_pGuiHub->UpdateData(sTag, sVal);
 	}
 }
+
+void GuiDataHubServer::SetDrive(CAMHSDrive* pDrive)
+{
+	if (NULL != m_pGuiHub)
+	{
+		m_pGuiHub->AMHSDrive(pDrive);
+	}
+}

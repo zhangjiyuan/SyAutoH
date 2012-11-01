@@ -113,8 +113,17 @@ namespace UserTest
         private void buttonPickFoup_Click(object sender, EventArgs e)
         {
             string strFoupName = this.textBoxFoupName.Text;
-            int nLocal = Convert.ToInt32(this.textBoxLocation.Text);
-            int nType = Convert.ToInt32(this.textBoxLocType.Text);
+            int nLocal = 0;
+            int nType = 0;
+            try
+            {
+                nLocal = Convert.ToInt32(this.textBoxLocation.Text);
+                nType = Convert.ToInt32(this.textBoxLocType.Text);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             mesLink.PickFoup(strFoupName, nLocal, nType);
         }
@@ -276,7 +285,7 @@ namespace UserTest
             }
             catch (System.Exception ex)
             {
-            	
+                Console.WriteLine(ex.Message);
             }
            
 
@@ -294,6 +303,24 @@ namespace UserTest
         private void bnSTK_History_Click(object sender, EventArgs e)
         {
             int nWret = dataHubLink.WriteData("STK.HISTORY", "GET", m_nSession);
+        }
+
+        private void bnSetPosTime_Click(object sender, EventArgs e)
+        {
+            string strPosTime = tBPosTime.Text;
+            int nPosTime = 0;
+            try
+            {
+                nPosTime = System.Convert.ToByte(strPosTime);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            string strVal;
+            strVal = string.Format("<{0}, {1}>", 254, nPosTime);
+
+            int nWRet = dataHubLink.WriteData("OHT.POSTIME:<ID, VAL>", strVal, m_nSession);
         }
     }
 }

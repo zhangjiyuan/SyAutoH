@@ -10,4 +10,8 @@ slice2cpp ../ice_interface/iGuiHub.ice --add-header "stdafx.h" --output-dir ../c
 slice2cs ../ice_interface/iGuiHub.ice  --output-dir ../common
 slice2cs ../ice_interface/iGuiHub.ice  --output-dir ../guiaccess
 
+slice2cpp ../ice_interface/iConstDef.ice --add-header "stdafx.h" --output-dir ../common
+slice2cs ../ice_interface/iConstDef.ice  --output-dir ../common
+slice2cs ../ice_interface/iConstDef.ice  --output-dir ../guiaccess
+
 pause

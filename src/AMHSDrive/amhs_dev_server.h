@@ -42,7 +42,7 @@ typedef boost::shared_ptr<amhs_participant> amhs_participant_ptr;
 typedef struct sData_OHT
 {
 	int nID;
-	int nPOS;
+	DWORD nPOS;
 	int nHand;
 	int nStatusTime;
 	int nPosTime;
@@ -62,7 +62,7 @@ typedef std::set<amhs_oht_ptr> amhs_oht_set;
 
 typedef struct sPath_KeyPoint
 {
-	uint16 nPos;
+	uint32 nPos;
 	uint8 nType;
 	uint8 nSpeedRate;
 } amhs_keyPoint;
@@ -110,7 +110,7 @@ private:
 	void Handle_OHT_Auth(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_Pos(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_Status(amhs_participant_ptr, AMHSPacket&);
-	void Handle_OHT_NeedPath(amhs_participant_ptr, AMHSPacket&);
+	void Handle_OHT_TeachPath(amhs_participant_ptr, AMHSPacket&);
 
 	////
 	//STK_ACK_FOUP											= 0x0820,
@@ -184,13 +184,22 @@ public:
 public:
 	int GetConnectCount();
 
-
 	amhs_oht_set OHT_GetDataSet();
 	void OHT_Set_StatusBackTime(int nID, int ms);
 	void OHT_Set_PosBackTime(int nID, int ms);
 	void OHT_Move(int nID, int nControl);
 	void OHT_Foup(int nID, int nDevBuf, int nOperation);
 	void OHT_SetPath(int nID, int nType, int nStart, int nTarget, amhs_keypoint_vec& KeyPoints);
+
+	void STK_FOUP(int nID, int nMode, int nPick, int nFoupData);
+	void STK_Status(int nID);
+	void STK_Room(int nID);
+	void STK_Storage(int nID);
+	void STK_InputStatus(int nID);
+	void STK_History(int nID, __int64 timeStart, __int64 timeEnd);
+	void STK_Alarms(int nID, __int64 timeStart, __int64 timeEnd);
+	void STK_Set_StatusBackTime(int nID, int nSecond);
+	void STK_Set_FoupBackTime(int nID, int nSecond);
 
 private:
 	void start_accept();
@@ -200,6 +209,7 @@ private:
 	{
 		room_.SendPacket(nID, DEV_TYPE_OHT, packet);
 	}
+
 	inline void SendPakcet_Sotcker(int nID, AMHSPacket& packet)
 	{
 		room_.SendPacket(nID, DEV_TYPE_STOCKER, packet);

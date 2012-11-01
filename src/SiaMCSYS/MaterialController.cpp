@@ -30,12 +30,12 @@ int MaterialController::Init(void)
 
 	m_MesLink.Init(&m_MesSource);
 	m_MesReciver.hookEvent(&m_MesSource);
-
-
-
-	m_GuiHub.StartServer();
+	
+	m_GuiHub.StartServer(&m_amhsDrive);
 	m_amhsDrive.Init();
 	
+
+
 	return 0;
 }
 

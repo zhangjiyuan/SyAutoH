@@ -75,7 +75,7 @@ int CVirtualAMHS::Stocker_Auth(int nIndex, const char* sIP)
 	return 0;
 }
 
-int CVirtualAMHS::OHT_Auth(int nIndex, int nPos, int nHand)
+int CVirtualAMHS::OHT_Auth(int nIndex, DWORD nPos, int nHand)
 {
 	MAP_VOHT::iterator it;
 	it = m_mapOHT->find(nIndex);
@@ -111,6 +111,20 @@ LIST_FOUP CVirtualAMHS::Stocker_GetFoupsStatus(int nStocker)
 {
 	LIST_FOUP list;
 	return list;
+}
+
+int CVirtualAMHS::SetTeachPosition(int nID, int nPos, int nType, int nSpeedRate)
+{
+	RLock(g_rwLOHT)
+	{
+		MAP_VOHT::iterator it = m_mapOHT->find(nID);
+		if (it != m_mapOHT->end())
+		{
+			it->second->SetTeachPosition(nPos, nType, nSpeedRate);
+		}
+	}
+	
+	return 0;
 }
 
 LIST_OHT CVirtualAMHS::OHT_GetStatus()

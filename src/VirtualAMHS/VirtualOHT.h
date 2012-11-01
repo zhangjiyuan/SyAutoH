@@ -7,8 +7,10 @@ public:
 	virtual ~VirtualOHT(void);
 	
 public:
-	int Auth( int nPos, int nHand);
-	int UpdatePos(uint16 nPos);
+	int Auth( uint32 nPos, int nHand);
+	int UpdatePos(uint32 nPos);
+	int SetTeachPosition(uint32 nPos, uint8 nType, uint8 nSpeedRate);
+
 	virtual void HandleCommand(AMHSPacket& packet);
 
 private:
@@ -22,7 +24,7 @@ private:
 
 public:
 	int m_nHand;
-	int m_nPos;
+	DWORD m_nPos;
 	int m_nPosUpdateTime;
 	int m_nStatusUpdateTime;
 	int m_nPosTimerID;

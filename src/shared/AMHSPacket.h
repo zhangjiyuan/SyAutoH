@@ -10,6 +10,7 @@ struct AMHSPktHeader
 	uint16 size;
 	uint16 index;
 	uint8  bLast;
+	uint8  check;
 	uint8 reversed[4];
 };
 #pragma pack(pop)

@@ -55,7 +55,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>iced.lib;iceutild.lib;SqlAceCli.lib;shared.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>iced.lib;iceutild.lib;SqlAceCli.lib;shared.lib;amhsdrive.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
       <ImportLibrary>../lib/$(TargetName).lib</ImportLibrary>
     </Link>

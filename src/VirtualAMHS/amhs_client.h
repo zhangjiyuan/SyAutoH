@@ -107,6 +107,19 @@ private:
 		{
 			int mOpcode = read_msg_.command();
 			int mSize = read_msg_.body_length();
+			bool bXor = read_msg_.CheckXOR();
+			if (false == bXor)
+			{
+				cout << "Cilent XOR error" << endl;
+
+				boost::asio::async_read(socket_,
+					boost::asio::buffer(read_msg_.data(), amhs_message::header_length),
+					boost::bind(&amhs_client::handle_read_header, this,
+					boost::asio::placeholders::error));
+
+				return;
+			}
+
 			AMHSPacket* Packet;
 			Packet = new AMHSPacket(static_cast<uint16>(mOpcode), mSize);
 			Packet->resize(mSize);

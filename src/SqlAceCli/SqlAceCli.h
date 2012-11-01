@@ -74,3 +74,11 @@ public:
 	int GetRealRight(int nSession);
 	int SetRealRight(int nSession, int nRealRight);
 };
+
+class SQLACECLI_API DBKeyPoints
+{
+public:
+	DBKeyPoints(void);
+	~DBKeyPoints(void);
+	int SetKeyPointbyOHTTeach(int nOHT_ID, int nPOS, int nType, int nSpeedRate);
+};
