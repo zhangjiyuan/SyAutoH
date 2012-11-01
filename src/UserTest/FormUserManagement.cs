@@ -113,8 +113,17 @@ namespace UserTest
         private void buttonPickFoup_Click(object sender, EventArgs e)
         {
             string strFoupName = this.textBoxFoupName.Text;
-            int nLocal = Convert.ToInt32(this.textBoxLocation.Text);
-            int nType = Convert.ToInt32(this.textBoxLocType.Text);
+            int nLocal = 0;
+            int nType = 0;
+            try
+            {
+                nLocal = Convert.ToInt32(this.textBoxLocation.Text);
+                nType = Convert.ToInt32(this.textBoxLocType.Text);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             mesLink.PickFoup(strFoupName, nLocal, nType);
         }

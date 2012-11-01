@@ -73,7 +73,7 @@ void VirtualOHT::Handle_SetPosTime(AMHSPacket&  packet)
 	uint8 nPosTime = 0;
 	packet >> nID;
 	packet >> nPosTime;
-	m_nPosUpdateTime = nPosTime * 16;
+	m_nPosUpdateTime = nPosTime;
 
 	if ((nPosTime >= 30) 
 		&& (nPosTime <= 253))
@@ -88,12 +88,15 @@ void VirtualOHT::Handle_SetPosTime(AMHSPacket&  packet)
 	else
 	{
 		DestoryPosTimer();
+		m_nPosUpdateTime = 0;
 	}	
 
-	AMHSPacket authPacket(OHT_MCS_POSITION_BACK_TIME, 2);
+	AMHSPacket authPacket(OHT_ACK_POSITION_BACK_TIME, 2);
 	authPacket<< uint8(DeviceID());		// device id
 	authPacket<< uint8(m_nPosUpdateTime);		// oht location
 	SendPacket(authPacket);
+
+	cout<< "OHT POS TIME -> ID: " << nID << " Time: " << nPosTime << " True Time: " << m_nPosUpdateTime << endl;
 }
 
 void VirtualOHT::Handle_Auth(AMHSPacket& packet)
@@ -106,7 +109,7 @@ void VirtualOHT::Handle_Auth(AMHSPacket& packet)
 	
 	printf("OHT %d Auth %d\n", nID, nAuthRes);
 
-	m_nPosUpdateTime = 1600;
+	m_nPosUpdateTime = 100;
 	if (m_nPosTimerID == 0)
 	{
 		CreatePosTimer();
@@ -118,7 +121,7 @@ void VirtualOHT::CreatePosTimer(void)
 	// Create a periodic timer
 	timeBeginPeriod(1);
 	m_nPosTimerID = timeSetEvent(
-		m_nPosUpdateTime,
+		m_nPosUpdateTime *16,
 		1,
 		&VirtualOHT::PosTimerHandler,
 		(DWORD)this,
