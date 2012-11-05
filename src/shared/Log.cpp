@@ -92,8 +92,8 @@ oLog::oLog()
 	 string procName = GetProcessName();
 	 string procPath = GetProcessPath();
 	 strPath = procPath + "../Log/" + procName;
-	 //LPCWSTR file_create = stringToLPCWSTR(strPath);
-	// CreateDirectory(file_create,NULL);
+	 LPCWSTR file_create = stringToLPCWSTR(strPath);
+	 CreateDirectory(file_create,NULL);
 	 //SetAttribute(strPath);
 	 normal_file_name = strPath + "//normal.log";
 	 error_file_name = strPath + "/error.log";
