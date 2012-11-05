@@ -132,10 +132,10 @@ bool ConfigFile::SetSource(const char* file, bool ignorecase)
 		int length;
 		if(!f)
 		{
-			//sLog.funcInCon = true;
+			sLog.funcInCon = true;
 			sLog.SetFileLoggingLevel(2);
 			sLog.outError("Could not open %s.", file);
-			//sLog.funcInCon = false;
+			sLog.funcInCon = false;
 			return false;
 		}
 
@@ -376,38 +376,38 @@ bool ConfigFile::SetSource(const char* file, bool ignorecase)
 		}
 			catch(...)
 		{
-			//sLog.funcInCon = true;
+			sLog.funcInCon = true;
 			sLog.SetFileLoggingLevel(2);
 			sLog.outError("Exception in config parsing.");
-			//sLog.funcInCon = false;
+			sLog.funcInCon = false;
 			return false;
 		}
 
 		/* handle any errors */
 		if(in_block)
 		{
-			//sLog.funcInCon = true;
+			sLog.funcInCon = true;
 			sLog.SetFileLoggingLevel(2);
 			sLog.outError("Unterminated block.");
-			//sLog.funcInCon = false;
+			sLog.funcInCon = false;
 			return false;
 		}
 
 		if(in_multiline_comment)
 		{
-			//sLog.funcInCon = true;
+			sLog.funcInCon = true;
 			sLog.SetFileLoggingLevel(2);
 			sLog.outError("Unterminated comment.");
-			//sLog.funcInCon = false;
+			sLog.funcInCon = false;
 			return false;
 		}
 
 		if(in_multiline_quote)
 		{
-			//sLog.funcInCon = true;
+			sLog.funcInCon = true;
 			sLog.SetFileLoggingLevel(2);
 			sLog.outError("Unterminated quote.");
-			//sLog.funcInCon = false;
+			sLog.funcInCon = false;
 			return false;
 		}
 

@@ -15,7 +15,7 @@
 CVirtualAMHS* g_pVDev = NULL;
 MAP_ItemOHT g_mapOHTs;
 const int STOCKER_ID = 24;
-
+MAP_ItemFoup g_mapFoups;
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
 class CAboutDlg : public CDialogEx
@@ -229,7 +229,32 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 {
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
-	g_pVDev->Stocker_ManualInputFoup(STOCKER_ID, strFoup);
+	g_pVDev->Stocker_ManualInputFoup(STOCKER_ID, strFoup); //查找Stocker，将FOUP列入map，发送给STOCKER 消息，让stocker取入FOUP，g_mapFoups保存的是列表显示的Foups
+	int nFoup_ID = GetDlgItemInt(IDC_EDIT_STK_FOUP); 
+	if(nFoup_ID >= 0 && nFoup_ID <= 254)
+	{
+		MAP_ItemFoup::iterator it = g_mapFoups.find(nFoup_ID);
+		MAP_ItemFoup::iterator itEnd = g_mapFoups.end();
+		if(it != itEnd)
+		{
+			MessageBox(_T("Foup已存在！"));
+		}
+		else
+		{
+			ItemFoup* pFoup = new ItemFoup;
+			g_mapFoups.insert(std::make_pair(nFoup_ID,pFoup));
+			pFoup->FoupID[0] = nFoup_ID;
+			pFoup->nProcessStatus = 0;
+			CString str;
+			m_listCtrlFOUP.InsertItem(0,str);
+			SetFOUPListItemData(pFoup,0);
+		}
+
+	}
+	else
+	{
+		MessageBox(_T("FoupID 超出范围,应在0——253之间！"));
+	}
 }
 
 
@@ -238,6 +263,29 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
 	g_pVDev->Stocker_ManualOutputFoup(STOCKER_ID, strFoup);
+	int nFoup_ID = GetDlgItemInt(IDC_EDIT_STK_FOUP);
+	if(nFoup_ID <= 254 && nFoup_ID >= 0)
+	{
+		MAP_ItemFoup::iterator it = g_mapFoups.begin();
+		while(it->second->FoupID[0] != nFoup_ID)
+		{
+			it++;
+		}
+		MAP_ItemFoup::iterator itEnd = g_mapFoups.end();
+		if(it != itEnd)
+		{
+			g_mapFoups.erase(it);
+			DeleteFOUPListItemData(nFoup_ID);
+		}
+		else
+		{
+			MessageBox(_T("列表中不存在所要删除的FOUP！请重新选择。"));
+		}
+	}
+	else
+	{
+		MessageBox(_T("FOUPID 超出范围，应在0——253之间！"));
+	}
 
 }
 
@@ -428,4 +476,29 @@ int CVAMHSTestDlg::GetSelectOhtID(void)
 		nRet = -1;
 	}
 	return nRet;
+}
+void CVAMHSTestDlg::SetFOUPListItemData(ItemFoup* pFOUP, int nListIndex)
+{
+	CString str;
+	str.Format(_T("%d"),pFOUP->FoupID[0]);
+	m_listCtrlFOUP.SetItemText(nListIndex,0,str);
+	str.Format(_T("%d"),pFOUP->nProcessStatus);
+	m_listCtrlFOUP.SetItemText(nListIndex,2,str);
+	m_listCtrlFOUP.SetItemText(nListIndex,1,_T("Idle"));
+}
+void CVAMHSTestDlg::DeleteFOUPListItemData(int FoupID)
+{
+	int ncount = m_listCtrlFOUP.GetItemCount();
+	int nlistindex = 0;
+	for(; nlistindex <= ncount;)
+	{
+		CString strText = m_listCtrlFOUP.GetItemText(nlistindex,0);
+		CString strNum;
+		strNum.Format(_T("%d"),FoupID);
+		if(strNum == strText)
+			break;
+		else
+			nlistindex++;
+	}
+	m_listCtrlFOUP.DeleteItem(nlistindex);
 }
