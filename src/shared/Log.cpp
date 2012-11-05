@@ -23,6 +23,20 @@ string FormatOutputString(const char* Prefix, const char* Description, bool useT
 	return string(p);
 }
 */
+/*
+void SetAttribute(string filePath)
+{
+	DWORD dwAttrs;
+	LPCWSTR path = stringToLPCWSTR(filePath);
+	dwAttrs = GetFileAttributes(path);
+    //空32，只读33，隐藏34，只读隐藏35//FILE_ATTRIBUTE_READONLY=1//FILE_ATTRIBUTE_NORMAL=128
+    if (dwAttrs & FILE_ATTRIBUTE_READONLY  && (dwAttrs<34))
+    {
+        dwAttrs &= 0x3E;
+        SetFileAttributes(path,dwAttrs);
+    }
+}
+*/
 string WstringToString(wstring &ws)
 {
     string curLocale = setlocale(LC_ALL, NULL); // curLocale = "C";
@@ -36,6 +50,15 @@ string WstringToString(wstring &ws)
     delete []_Dest;
     setlocale(LC_ALL, curLocale.c_str());
     return result;
+}
+LPCWSTR stringToLPCWSTR(std::string orig)
+{
+	size_t origsize = orig.length() + 1;
+    const size_t newsize = 100;
+    size_t convertedChars = 0;
+    wchar_t *wcstring = (wchar_t *)malloc(sizeof(wchar_t)*(orig.length()-1));
+    mbstowcs_s(&convertedChars, wcstring, origsize, orig.c_str(), _TRUNCATE);
+    return wcstring;
 }
 string SetNewName(const char* Description, bool useTimeStamp)
 {
@@ -66,15 +89,22 @@ oLog::oLog()
 	 hMutex_queue = CreateMutex(NULL,FALSE,NULL);
 	 hMutex_file = CreateMutex(NULL,FALSE,NULL);
 	 hMutex_write = CreateMutex(NULL,FALSE,NULL);
-	 m_normalFile = fopen("normal.log","a");
-	 m_errorFile = fopen("error.log","a");
+	 string procName = GetProcessName();
+	 string procPath = GetProcessPath();
+	 strPath = procPath + "../Log/" + procName;
+	 //LPCWSTR file_create = stringToLPCWSTR(strPath);
+	// CreateDirectory(file_create,NULL);
+	 //SetAttribute(strPath);
+	 normal_file_name = strPath + "//normal.log";
+	 error_file_name = strPath + "/error.log";
+	 m_normalFile = fopen(normal_file_name.c_str(),"a");
+	 m_errorFile = fopen(error_file_name.c_str(),"a");
 	 hthread = (HANDLE)_beginthreadex(NULL,0,WriteFile,this,0,0);
 	 m_fileLogLevel = NOT_GET_LEVEL;
  }
 oLog::~oLog()
 {
 	Close();
-	CloseHandle(hthread);
 }
 void oLog::GetElement(int out_colour,char* Mes,int MesLength,
 	                    int file,const char* Source,char* Timebuffer,int timeLength)
@@ -163,6 +193,7 @@ void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char
 			    FOREGROUND_GREEN | FOREGROUND_BLUE);//white
 		break;
 	}
+	/*
 	if(file == m_normalFile)
 	{
 		int32 file_length = filelength(fileno(file));
@@ -170,10 +201,16 @@ void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char
 	    {
 			fclose(file);
 			string filename = SetNewName("normal",true); // 获得新的LOG文件的名字，以类型及时间命名
-			rename("normal.log",filename.c_str());
+			filename = strPath + "//" + filename;
+			//printf("%s",filename.c_str());
+			rename(normal_file_name.c_str(),filename.c_str());
 			if(rename != 0)
+			{
+				WaitForSingleObject(hMutex_write,INFINITE);
 				perror("rename");
-			file = fopen("normal.log","a");
+				ReleaseMutex(hMutex_write);
+			}
+			file = fopen(normal_file_name.c_str(),"a");
 			//m_normalFile = file;
 	    }
 	}
@@ -185,32 +222,38 @@ void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char
 	    {
 			fclose(file);
 			string filename = SetNewName("error",true); // 获得新的LOG文件的名字，以类型及时间命名
-			rename("error.log",filename.c_str());
+			filename = strPath + "/" + filename;
+			rename(error_file_name.c_str(),filename.c_str());
 			if(rename != 0)
+			{
+				WaitForSingleObject(hMutex_write,INFINITE);
 				perror("rename");
-			file = fopen("error.log","a");
+				ReleaseMutex(hMutex_write);
+			}
+			file = fopen(error_file_name.c_str(),"a");
 			//m_errorFile = file;
 	    }
 	}
+	*/
 	if(source != NULL)
 	{
+		WaitForSingleObject(hMutex_write,INFINITE);
 		printf("%s %s: %s\n", time_buffer, source, msg);
 		if (file != NULL)
 		{
-			WaitForSingleObject(hMutex_write,INFINITE);
-			fprintf(file, "%s %s: %s\n", time_buffer, source, msg);
-			ReleaseMutex(hMutex_write);
+			//fprintf(file, "%s %s: %s\n", time_buffer, source, msg);	
 		}
+		ReleaseMutex(hMutex_write);
 	}
 	else
 	{
+		WaitForSingleObject(hMutex_write,INFINITE);
 		printf("%s %s\n", time_buffer, msg);
 		if (file != NULL)
 		{
-			WaitForSingleObject(hMutex_write,INFINITE);
-			fprintf(file, "%s %s\n", time_buffer, msg);
-			ReleaseMutex(hMutex_write);
+			//fprintf(file, "%s %s\n", time_buffer, msg);
 		}
+		ReleaseMutex(hMutex_write);
 	}
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_RED |
 			    FOREGROUND_GREEN | FOREGROUND_BLUE);//white
@@ -306,7 +349,7 @@ void oLog::outErrorSilent(const char* err, ...)
 	if(m_fileLogLevel == -1)
 		return;
 	if(m_errorFile == NULL)
-		m_errorFile = fopen("error.log","a");
+		m_errorFile = fopen(error_file_name.c_str(),"a");
 	char buf[32768];
 	va_list ap;
 

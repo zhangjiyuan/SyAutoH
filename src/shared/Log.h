@@ -27,6 +27,8 @@ extern  tm g_localTime;
 //std::string FormatOutputString(const char* Prefix, const char* Description, bool useTimeStamp);
 std::string SetNewName(const char* Description, bool useTimeStamp);
 std::string WstringToString(std::wstring &ws);
+LPCWSTR stringToLPCWSTR(std::string orig);
+void SetAttribute(std::string filePath);
 class oLog : public Singleton< oLog >
 {
 	struct element
@@ -75,12 +77,14 @@ class oLog : public Singleton< oLog >
 		void SetFileLoggingLevel(const char* levelname);
 		void Close();
 		
+		
 		int32 out_colour;
 		int32 m_fileLogLevel;
 		bool funcInCon;
 		std::queue <element> Mes;
         HANDLE hMutex_level,hMutex_queue,hMutex_file,hMutex_write,hthread;
 		element m_Mes_Write;
+		std::string strPath,normal_file_name,error_file_name;
 
 
 	private:
