@@ -1,5 +1,5 @@
 #pragma once
-
+#include "AtomicULong.h"
 namespace syamhs
 {
 	namespace Threading

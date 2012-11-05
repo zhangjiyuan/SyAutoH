@@ -17,68 +17,92 @@ namespace BaseRailElement
     {
         //以下为对象基本属性
         private int graphType = 0;
+        protected bool locationLock = false;
+        protected bool sizeLock = false;
+        private bool selectable = true;
+        private float speed = 0;
+        private Int16 segmentNumber = 0;
+        private Int32 tagNumber = 0;
+        private int drawMultiFactor = 1;
+        private Point startPoint = Point.Empty;
+        private Point endPoint = Point.Empty;
+        private Int32 startCoding = 0;
+        private Int32 endCoding = 0;
+
         [Browsable(false)]
         public int GraphType
         {
             get { return graphType; }
             set { graphType = value; }
         }
-
-        //lock
-        protected bool locationLock = false;
         [Description("位置锁定"), Category("锁定")]
         public bool LocationLock
         {
             get { return locationLock; }
             set { locationLock = value; }
-        }
-
-        protected bool sizeLock = false;
+        } 
         [Description("尺寸锁定"), Category("锁定")]
         public bool SizeLock
         {
             get { return sizeLock; }
             set { sizeLock = value; }
-        }
-
-        private bool selectable = true;
+        } 
         [Browsable(false)]
         public bool Selectable
         {
             get { return selectable; }
             set { selectable = value; }
-        }
-
-        private float speed = 0;
+        }    
+        [Category("其他")]
         public float Speed
         {
             get { return speed; }
             set { speed = value; }
-        }
-
-        private Int16 segmentNumber = 0;
-        [Description("段号"),Category("轨道段信息")]
+        }       
+        [Description("段号,请按顺时针方向编号，弯轨编号为0"),Category("轨道段信息")]
         public Int16 SegmentNumber
         {
             get { return segmentNumber; }
             set { segmentNumber = value; }
-        }
-
-        private Int16 tagNumber = 0;
+        } 
         [Description("条形码数量"),Category("轨道段信息")]
-        public Int16 TagNumber
+        public Int32 TagNumber
         {
             get { return tagNumber; }
             set { tagNumber = value; }
-        }
-      
-        private int drawMultiFactor = 1;
+        }   
         [XmlIgnore]
         [Browsable(false)]
         public int DrawMultiFactor
         {
             get { return drawMultiFactor; }
             set { drawMultiFactor = value; }
+        }
+        [XmlIgnore]
+        [Browsable(false)]
+        public Point StartPoint
+        {
+            get { return startPoint; }
+            set { startPoint = value; }
+        }
+        [XmlIgnore]
+        [Browsable(false)]
+        public Point EndPoint
+        {
+            get { return endPoint; }
+            set { endPoint = value; }
+        }
+        [Browsable(false)]
+        public Int32 StartCoding
+        {
+            get { return startCoding; }
+            set { startCoding = value; }
+        }
+        [Browsable(false)]
+        public Int32 EndCoding
+        {
+            get { return endCoding; }
+            set { endCoding = value; }
         }
 
         public void Move(Point start, Point end)

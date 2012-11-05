@@ -2,12 +2,13 @@
 #include "IceMesLinkI.h"
 #include "MesLink.h"
 #include "IceUtil/Unicode.h"
+#include "../shared/Log.h"
 
 using namespace std;
 
 IceMesLinkI::IceMesLinkI(void)
 {
-	wprintf_s(L"MesLink Server is Ready.\n");
+	Log.outBasic("MesLink Server is Ready.");
 }
 
 

@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="DataHubCallbackI.cs" />
+    <Compile Include="DataHubCli.cs" />
     <Compile Include="IceNet.cs" />
     <Compile Include="iGuiHub.cs" />
     <Compile Include="iMesLink.cs" />

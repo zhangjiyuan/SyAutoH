@@ -31,6 +31,7 @@
 #include <Ice/Outgoing.h>
 #include <Ice/OutgoingAsync.h>
 #include <Ice/Incoming.h>
+#include <Ice/IncomingAsync.h>
 #include <Ice/Direct.h>
 #include <IceUtil/ScopedArray.h>
 #include <Ice/StreamF.h>
@@ -54,6 +55,8 @@ namespace IceProxy
 namespace MCS
 {
 
+class GuiDataUpdater;
+
 class GuiDataHub;
 
 class UserManagement;
@@ -64,6 +67,10 @@ class UserManagement;
 
 namespace MCS
 {
+
+class GuiDataUpdater;
+bool operator==(const GuiDataUpdater&, const GuiDataUpdater&);
+bool operator<(const GuiDataUpdater&, const GuiDataUpdater&);
 
 class GuiDataHub;
 bool operator==(const GuiDataHub&, const GuiDataHub&);
@@ -78,6 +85,9 @@ bool operator<(const UserManagement&, const UserManagement&);
 namespace IceInternal
 {
 
+::Ice::Object* upCast(::MCS::GuiDataUpdater*);
+::IceProxy::Ice::Object* upCast(::IceProxy::MCS::GuiDataUpdater*);
+
 ::Ice::Object* upCast(::MCS::GuiDataHub*);
 ::IceProxy::Ice::Object* upCast(::IceProxy::MCS::GuiDataHub*);
 
@@ -88,6 +98,12 @@ namespace IceInternal
 
 namespace MCS
 {
+
+typedef ::IceInternal::Handle< ::MCS::GuiDataUpdater> GuiDataUpdaterPtr;
+typedef ::IceInternal::ProxyHandle< ::IceProxy::MCS::GuiDataUpdater> GuiDataUpdaterPrx;
+
+void __read(::IceInternal::BasicStream*, GuiDataUpdaterPrx&);
+void __patch__GuiDataUpdaterPtr(void*, ::Ice::ObjectPtr&);
 
 typedef ::IceInternal::Handle< ::MCS::GuiDataHub> GuiDataHubPtr;
 typedef ::IceInternal::ProxyHandle< ::IceProxy::MCS::GuiDataHub> GuiDataHubPrx;
@@ -196,11 +212,76 @@ void __readUserList(::IceInternal::BasicStream*, UserList&);
 namespace MCS
 {
 
+class AMI_GuiDataUpdater_UpdateData : public ::Ice::AMICallbackBase
+{
+public:
+
+    virtual void ice_response() = 0;
+
+    void __response()
+    {
+        ice_response();
+    }
+    void __exception(const ::Ice::Exception& ex)
+    {
+        ice_exception(ex);
+    }
+    void __sent(bool sentSynchronously)
+    {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        AMICallbackBase::__sent(sentSynchronously);
+#else
+        ::Ice::AMICallbackBase::__sent(sentSynchronously);
+#endif
+    }
+};
+
+typedef ::IceUtil::Handle< ::MCS::AMI_GuiDataUpdater_UpdateData> AMI_GuiDataUpdater_UpdateDataPtr;
+
+class AMD_GuiDataUpdater_UpdateData : virtual public ::Ice::AMDCallback
+{
+public:
+
+    virtual void ice_response() = 0;
+};
+
+typedef ::IceUtil::Handle< ::MCS::AMD_GuiDataUpdater_UpdateData> AMD_GuiDataUpdater_UpdateDataPtr;
+
+}
+
+namespace IceAsync
+{
+
+namespace MCS
+{
+
+class AMD_GuiDataUpdater_UpdateData : public ::MCS::AMD_GuiDataUpdater_UpdateData, public ::IceInternal::IncomingAsync
+{
+public:
+
+    AMD_GuiDataUpdater_UpdateData(::IceInternal::Incoming&);
+
+    virtual void ice_response();
+};
+
+}
+
+}
+
+namespace MCS
+{
+
+class Callback_GuiDataUpdater_UpdateData_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_GuiDataUpdater_UpdateData_Base> Callback_GuiDataUpdater_UpdateDataPtr;
+
 class Callback_GuiDataHub_ReadData_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_GuiDataHub_ReadData_Base> Callback_GuiDataHub_ReadDataPtr;
 
 class Callback_GuiDataHub_WriteData_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_GuiDataHub_WriteData_Base> Callback_GuiDataHub_WriteDataPtr;
+
+class Callback_GuiDataHub_SetDataUpdater_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_GuiDataHub_SetDataUpdater_Base> Callback_GuiDataHub_SetDataUpdaterPtr;
 
 class Callback_UserManagement_Login_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_UserManagement_Login_Base> Callback_UserManagement_LoginPtr;
@@ -233,6 +314,259 @@ namespace IceProxy
 
 namespace MCS
 {
+
+class GuiDataUpdater : virtual public ::IceProxy::Ice::Object
+{
+public:
+
+    void UpdateData(const ::std::string& Tag, const ::std::string& Val)
+    {
+        UpdateData(Tag, Val, 0);
+    }
+    void UpdateData(const ::std::string& Tag, const ::std::string& Val, const ::Ice::Context& __ctx)
+    {
+        UpdateData(Tag, Val, &__ctx);
+    }
+
+    ::Ice::AsyncResultPtr begin_UpdateData(const ::std::string& Tag, const ::std::string& Val)
+    {
+        return begin_UpdateData(Tag, Val, 0, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_UpdateData(const ::std::string& Tag, const ::std::string& Val, const ::Ice::Context& __ctx)
+    {
+        return begin_UpdateData(Tag, Val, &__ctx, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_UpdateData(const ::std::string& Tag, const ::std::string& Val, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_UpdateData(Tag, Val, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_UpdateData(const ::std::string& Tag, const ::std::string& Val, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_UpdateData(Tag, Val, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_UpdateData(const ::std::string& Tag, const ::std::string& Val, const ::MCS::Callback_GuiDataUpdater_UpdateDataPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_UpdateData(Tag, Val, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_UpdateData(const ::std::string& Tag, const ::std::string& Val, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataUpdater_UpdateDataPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_UpdateData(Tag, Val, &__ctx, __del, __cookie);
+    }
+
+    void end_UpdateData(const ::Ice::AsyncResultPtr&);
+    
+private:
+
+    void UpdateData(const ::std::string&, const ::std::string&, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_UpdateData(const ::std::string&, const ::std::string&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    
+public:
+    bool UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr&, const ::std::string&, const ::std::string&);
+    bool UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr&, const ::std::string&, const ::std::string&, const ::Ice::Context&);
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_context(const ::Ice::Context& __context) const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_context(__context).get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_context(__context).get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_adapterId(const std::string& __id) const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_adapterId(__id).get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_adapterId(__id).get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_endpoints(const ::Ice::EndpointSeq& __endpoints) const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_endpoints(__endpoints).get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_endpoints(__endpoints).get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_locatorCacheTimeout(int __timeout) const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_locatorCacheTimeout(__timeout).get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_locatorCacheTimeout(__timeout).get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_connectionCached(bool __cached) const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_connectionCached(__cached).get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_connectionCached(__cached).get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_endpointSelection(::Ice::EndpointSelectionType __est) const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_endpointSelection(__est).get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_endpointSelection(__est).get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_secure(bool __secure) const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_secure(__secure).get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_secure(__secure).get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_preferSecure(bool __preferSecure) const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_preferSecure(__preferSecure).get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_preferSecure(__preferSecure).get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_router(const ::Ice::RouterPrx& __router) const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_router(__router).get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_router(__router).get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_locator(const ::Ice::LocatorPrx& __locator) const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_locator(__locator).get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_locator(__locator).get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_collocationOptimized(bool __co) const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_collocationOptimized(__co).get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_collocationOptimized(__co).get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_twoway() const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_twoway().get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_twoway().get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_oneway() const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_oneway().get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_oneway().get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_batchOneway() const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_batchOneway().get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_batchOneway().get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_datagram() const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_datagram().get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_datagram().get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_batchDatagram() const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_batchDatagram().get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_batchDatagram().get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_compress(bool __compress) const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_compress(__compress).get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_compress(__compress).get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_timeout(int __timeout) const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_timeout(__timeout).get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_timeout(__timeout).get());
+    #endif
+    }
+    
+    ::IceInternal::ProxyHandle<GuiDataUpdater> ice_connectionId(const std::string& __id) const
+    {
+    #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+        typedef ::IceProxy::Ice::Object _Base;
+        return dynamic_cast<GuiDataUpdater*>(_Base::ice_connectionId(__id).get());
+    #else
+        return dynamic_cast<GuiDataUpdater*>(::IceProxy::Ice::Object::ice_connectionId(__id).get());
+    #endif
+    }
+    
+    static const ::std::string& ice_staticId();
+
+private: 
+
+    virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
+    virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
+    virtual ::IceProxy::Ice::Object* __newInstance() const;
+};
 
 class GuiDataHub : virtual public ::IceProxy::Ice::Object
 {
@@ -331,6 +665,54 @@ private:
 
     ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
     ::Ice::AsyncResultPtr begin_WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    
+public:
+
+    void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater)
+    {
+        SetDataUpdater(updater, 0);
+    }
+    void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context& __ctx)
+    {
+        SetDataUpdater(updater, &__ctx);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater)
+    {
+        return begin_SetDataUpdater(updater, 0, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context& __ctx)
+    {
+        return begin_SetDataUpdater(updater, &__ctx, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetDataUpdater(updater, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetDataUpdater(updater, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::Callback_GuiDataHub_SetDataUpdaterPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetDataUpdater(updater, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataHub_SetDataUpdaterPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetDataUpdater(updater, &__ctx, __del, __cookie);
+    }
+
+    void end_SetDataUpdater(const ::Ice::AsyncResultPtr&);
+    
+private:
+
+    void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
     
@@ -1130,6 +1512,13 @@ namespace IceDelegate
 namespace MCS
 {
 
+class GuiDataUpdater : virtual public ::IceDelegate::Ice::Object
+{
+public:
+
+    virtual void UpdateData(const ::std::string&, const ::std::string&, const ::Ice::Context*) = 0;
+};
+
 class GuiDataHub : virtual public ::IceDelegate::Ice::Object
 {
 public:
@@ -1137,6 +1526,8 @@ public:
     virtual ::std::string ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
 
     virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
+
+    virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*) = 0;
 };
 
 class UserManagement : virtual public ::IceDelegate::Ice::Object
@@ -1170,6 +1561,14 @@ namespace IceDelegateM
 namespace MCS
 {
 
+class GuiDataUpdater : virtual public ::IceDelegate::MCS::GuiDataUpdater,
+                       virtual public ::IceDelegateM::Ice::Object
+{
+public:
+
+    virtual void UpdateData(const ::std::string&, const ::std::string&, const ::Ice::Context*);
+};
+
 class GuiDataHub : virtual public ::IceDelegate::MCS::GuiDataHub,
                    virtual public ::IceDelegateM::Ice::Object
 {
@@ -1178,6 +1577,8 @@ public:
     virtual ::std::string ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
+
+    virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*);
 };
 
 class UserManagement : virtual public ::IceDelegate::MCS::UserManagement,
@@ -1212,6 +1613,14 @@ namespace IceDelegateD
 namespace MCS
 {
 
+class GuiDataUpdater : virtual public ::IceDelegate::MCS::GuiDataUpdater,
+                       virtual public ::IceDelegateD::Ice::Object
+{
+public:
+
+    virtual void UpdateData(const ::std::string&, const ::std::string&, const ::Ice::Context*);
+};
+
 class GuiDataHub : virtual public ::IceDelegate::MCS::GuiDataHub,
                    virtual public ::IceDelegateD::Ice::Object
 {
@@ -1220,6 +1629,8 @@ public:
     virtual ::std::string ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
+
+    virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*);
 };
 
 class UserManagement : virtual public ::IceDelegate::MCS::UserManagement,
@@ -1251,6 +1662,44 @@ public:
 namespace MCS
 {
 
+class GuiDataUpdater : virtual public ::Ice::Object
+{
+public:
+
+    typedef GuiDataUpdaterPrx ProxyType;
+    typedef GuiDataUpdaterPtr PointerType;
+    
+    virtual ::Ice::ObjectPtr ice_clone() const;
+
+    virtual bool ice_isA(const ::std::string&, const ::Ice::Current& = ::Ice::Current()) const;
+    virtual ::std::vector< ::std::string> ice_ids(const ::Ice::Current& = ::Ice::Current()) const;
+    virtual const ::std::string& ice_id(const ::Ice::Current& = ::Ice::Current()) const;
+    static const ::std::string& ice_staticId();
+
+    virtual void UpdateData_async(const ::MCS::AMD_GuiDataUpdater_UpdateDataPtr&, const ::std::string&, const ::std::string&, const ::Ice::Current& = ::Ice::Current()) = 0;
+    ::Ice::DispatchStatus ___UpdateData(::IceInternal::Incoming&, const ::Ice::Current&);
+
+    virtual ::Ice::DispatchStatus __dispatch(::IceInternal::Incoming&, const ::Ice::Current&);
+
+    virtual void __write(::IceInternal::BasicStream*) const;
+    virtual void __read(::IceInternal::BasicStream*, bool);
+// COMPILERFIX: Stream API is not supported with VC++ 6
+#if !defined(_MSC_VER) || (_MSC_VER >= 1300)
+    virtual void __write(const ::Ice::OutputStreamPtr&) const;
+    virtual void __read(const ::Ice::InputStreamPtr&, bool);
+#endif
+};
+
+inline bool operator==(const GuiDataUpdater& l, const GuiDataUpdater& r)
+{
+    return static_cast<const ::Ice::Object&>(l) == static_cast<const ::Ice::Object&>(r);
+}
+
+inline bool operator<(const GuiDataUpdater& l, const GuiDataUpdater& r)
+{
+    return static_cast<const ::Ice::Object&>(l) < static_cast<const ::Ice::Object&>(r);
+}
+
 class GuiDataHub : virtual public ::Ice::Object
 {
 public:
@@ -1270,6 +1719,9 @@ public:
 
     virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___WriteData(::IceInternal::Incoming&, const ::Ice::Current&);
+
+    virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Current& = ::Ice::Current()) = 0;
+    ::Ice::DispatchStatus ___SetDataUpdater(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual ::Ice::DispatchStatus __dispatch(::IceInternal::Incoming&, const ::Ice::Current&);
 
@@ -1355,6 +1807,88 @@ inline bool operator<(const UserManagement& l, const UserManagement& r)
 
 namespace MCS
 {
+
+template<class T>
+class CallbackNC_GuiDataUpdater_UpdateData : public Callback_GuiDataUpdater_UpdateData_Base, public ::IceInternal::OnewayCallbackNC<T>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception&);
+    typedef void (T::*Sent)(bool);
+    typedef void (T::*Response)();
+
+    CallbackNC_GuiDataUpdater_UpdateData(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::OnewayCallbackNC<T>(obj, cb, excb, sentcb)
+    {
+    }
+};
+
+template<class T> Callback_GuiDataUpdater_UpdateDataPtr
+newCallback_GuiDataUpdater_UpdateData(const IceUtil::Handle<T>& instance, void (T::*cb)(), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataUpdater_UpdateData<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_GuiDataUpdater_UpdateDataPtr
+newCallback_GuiDataUpdater_UpdateData(const IceUtil::Handle<T>& instance, void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataUpdater_UpdateData<T>(instance, 0, excb, sentcb);
+}
+
+template<class T> Callback_GuiDataUpdater_UpdateDataPtr
+newCallback_GuiDataUpdater_UpdateData(T* instance, void (T::*cb)(), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataUpdater_UpdateData<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_GuiDataUpdater_UpdateDataPtr
+newCallback_GuiDataUpdater_UpdateData(T* instance, void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataUpdater_UpdateData<T>(instance, 0, excb, sentcb);
+}
+
+template<class T, typename CT>
+class Callback_GuiDataUpdater_UpdateData : public Callback_GuiDataUpdater_UpdateData_Base, public ::IceInternal::OnewayCallback<T, CT>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
+    typedef void (T::*Sent)(bool , const CT&);
+    typedef void (T::*Response)(const CT&);
+
+    Callback_GuiDataUpdater_UpdateData(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::OnewayCallback<T, CT>(obj, cb, excb, sentcb)
+    {
+    }
+};
+
+template<class T, typename CT> Callback_GuiDataUpdater_UpdateDataPtr
+newCallback_GuiDataUpdater_UpdateData(const IceUtil::Handle<T>& instance, void (T::*cb)(const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataUpdater_UpdateData<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_GuiDataUpdater_UpdateDataPtr
+newCallback_GuiDataUpdater_UpdateData(const IceUtil::Handle<T>& instance, void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataUpdater_UpdateData<T, CT>(instance, 0, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_GuiDataUpdater_UpdateDataPtr
+newCallback_GuiDataUpdater_UpdateData(T* instance, void (T::*cb)(const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataUpdater_UpdateData<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_GuiDataUpdater_UpdateDataPtr
+newCallback_GuiDataUpdater_UpdateData(T* instance, void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataUpdater_UpdateData<T, CT>(instance, 0, excb, sentcb);
+}
 
 template<class T>
 class CallbackNC_GuiDataHub_ReadData : public Callback_GuiDataHub_ReadData_Base, public ::IceInternal::TwowayCallbackNC<T>
@@ -1586,6 +2120,88 @@ template<class T, typename CT> Callback_GuiDataHub_WriteDataPtr
 newCallback_GuiDataHub_WriteData(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
     return new Callback_GuiDataHub_WriteData<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T>
+class CallbackNC_GuiDataHub_SetDataUpdater : public Callback_GuiDataHub_SetDataUpdater_Base, public ::IceInternal::OnewayCallbackNC<T>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception&);
+    typedef void (T::*Sent)(bool);
+    typedef void (T::*Response)();
+
+    CallbackNC_GuiDataHub_SetDataUpdater(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::OnewayCallbackNC<T>(obj, cb, excb, sentcb)
+    {
+    }
+};
+
+template<class T> Callback_GuiDataHub_SetDataUpdaterPtr
+newCallback_GuiDataHub_SetDataUpdater(const IceUtil::Handle<T>& instance, void (T::*cb)(), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_SetDataUpdater<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_GuiDataHub_SetDataUpdaterPtr
+newCallback_GuiDataHub_SetDataUpdater(const IceUtil::Handle<T>& instance, void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_SetDataUpdater<T>(instance, 0, excb, sentcb);
+}
+
+template<class T> Callback_GuiDataHub_SetDataUpdaterPtr
+newCallback_GuiDataHub_SetDataUpdater(T* instance, void (T::*cb)(), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_SetDataUpdater<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_GuiDataHub_SetDataUpdaterPtr
+newCallback_GuiDataHub_SetDataUpdater(T* instance, void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_SetDataUpdater<T>(instance, 0, excb, sentcb);
+}
+
+template<class T, typename CT>
+class Callback_GuiDataHub_SetDataUpdater : public Callback_GuiDataHub_SetDataUpdater_Base, public ::IceInternal::OnewayCallback<T, CT>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
+    typedef void (T::*Sent)(bool , const CT&);
+    typedef void (T::*Response)(const CT&);
+
+    Callback_GuiDataHub_SetDataUpdater(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::OnewayCallback<T, CT>(obj, cb, excb, sentcb)
+    {
+    }
+};
+
+template<class T, typename CT> Callback_GuiDataHub_SetDataUpdaterPtr
+newCallback_GuiDataHub_SetDataUpdater(const IceUtil::Handle<T>& instance, void (T::*cb)(const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_SetDataUpdater<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_GuiDataHub_SetDataUpdaterPtr
+newCallback_GuiDataHub_SetDataUpdater(const IceUtil::Handle<T>& instance, void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_SetDataUpdater<T, CT>(instance, 0, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_GuiDataHub_SetDataUpdaterPtr
+newCallback_GuiDataHub_SetDataUpdater(T* instance, void (T::*cb)(const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_SetDataUpdater<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_GuiDataHub_SetDataUpdaterPtr
+newCallback_GuiDataHub_SetDataUpdater(T* instance, void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_SetDataUpdater<T, CT>(instance, 0, excb, sentcb);
 }
 
 template<class T>

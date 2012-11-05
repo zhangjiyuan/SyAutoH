@@ -83,6 +83,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="TKeyPoints.h" />
     <ClInclude Include="TLinkSession.h" />
     <ClInclude Include="TMcsUser.h" />
     <ClInclude Include="Resource.h" />
@@ -93,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DBFoup.cpp" />
+    <ClCompile Include="DBKeyPoints.cpp" />
     <ClCompile Include="DBSession.cpp" />
     <ClCompile Include="DBUserAce.cpp" />
     <ClCompile Include="SqlAceCli.cpp" />

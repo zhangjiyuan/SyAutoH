@@ -14,10 +14,18 @@
 module MCS
 {
 
+
+
+interface GuiDataUpdater
+{
+		["ami", "amd"] idempotent void UpdateData(string Tag, string Val);
+};
+
 interface GuiDataHub
 {
     idempotent string ReadData(string Tag, int session);
     idempotent int WriteData(string Tag, string Val, int session);
+    idempotent void SetDataUpdater(GuiDataUpdater* updater);
 };
 
 struct User

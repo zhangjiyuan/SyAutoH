@@ -56,8 +56,9 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>iced.lib;iceutild.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>iced.lib;iceutild.lib;shared.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>../lib/$(TargetName).lib</ImportLibrary>
+      <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

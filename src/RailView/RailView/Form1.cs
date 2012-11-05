@@ -12,15 +12,22 @@ namespace RailView
 {
     public partial class Form1 : Form
     {
-        ShowRunning showRunningHandle = new ShowRunning();
-//        CodingRailCoordinates codingHandle = new CodingRailCoordinates();
+        WinFormElement.FormOperation formOperation = new WinFormElement.FormOperation();
+        private ContextMenuStrip baseInfoMenu = new ContextMenuStrip();
         public Form1()
         {
             InitializeComponent();
-            ComponentLocChanged();
-            showRunningHandle.InitShowRunning();
-            TestRailDrawCoor();   //test using, finally delete
-//            this.Invalidate();
+            InitForm();
+        }
+
+        private void InitForm()
+        {
+            ComponentLocChanged();        
+            formOperation.FormShowRegionInit();
+            formOperation.AddVehicleNode(baseInfoTreeView);
+            //test using, finally delete
+            TestRailDrawCoor();
+            this.Invalidate();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -54,14 +61,13 @@ namespace RailView
         private void showPic_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            showRunningHandle.DrawRailInfo(g);
-            showRunningHandle.DrawRunningInfo(g);
+            formOperation.ShowRegion(g);
             base.OnPaint(e);
         }
 
+        //test using, finally delete
         public void TestRailDrawCoor()
         {
-            //test using, finally delete
             System.Timers.Timer timer = new System.Timers.Timer();
             timer.Elapsed += new ElapsedEventHandler(StartTimer);
             timer.Interval = 3000;
@@ -69,10 +75,69 @@ namespace RailView
             timer.Enabled = true;
         }
 
+        //test using, finally delete
         public void StartTimer(object source, System.Timers.ElapsedEventArgs e)
         {
-            //test using, finally delete
             this.showPic.Invalidate();
+        }
+
+        private void baseInfoTreeView_MouseUp(object sender, MouseEventArgs e)
+        {
+            TreeView tempTree = sender as TreeView;
+            Point pt = tempTree.PointToClient(Cursor.Position);
+            TreeViewHitTestInfo info = tempTree.HitTest(pt.X, pt.Y);
+            TreeNode node = info.Node;
+            if (node != null && MouseButtons.Right == e.Button)
+            {
+                tempTree.SelectedNode = node;
+                switch (node.Name)
+                {
+                    case "CarsOnline":
+                        baseInfoMenu.Items.Clear();
+                        baseInfoMenu.Items.Add("add vehicle");
+                        for (int i = 0; i < baseInfoMenu.Items.Count; i++)
+                        {
+                            baseInfoMenu.Items[i].Click += new EventHandler(contextmenu_Click);
+                        }
+                        baseInfoMenu.Show(Cursor.Position.X, Cursor.Position.Y);
+                        break;
+                    case "QueueAssign":
+                        baseInfoMenu.Items.Clear();
+                        for (int i = 0; i < baseInfoMenu.Items.Count; i++)
+                        {
+                            baseInfoMenu.Items[i].Click += new EventHandler(contextmenu_Click);
+                        }
+                        baseInfoMenu.Show(Cursor.Position.X, Cursor.Position.Y);
+                        break;
+                    case "Alarm":
+                        baseInfoMenu.Items.Clear();
+                        for (int i = 0; i < baseInfoMenu.Items.Count; i++)
+                        {
+                            baseInfoMenu.Items[i].Click += new EventHandler(contextmenu_Click);
+                        }
+                        baseInfoMenu.Show(Cursor.Position.X, Cursor.Position.Y);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void contextmenu_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            if (item != null)
+            {
+                switch (item.Text)
+                {
+                    case "add vehicle":
+                        formOperation.AddVehicleNode(baseInfoTreeView);
+                        break;
+                    case "456":
+                        MessageBox.Show("dfd");
+                        break;
+                }
+            }
         }
     }   
 }

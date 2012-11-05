@@ -14,8 +14,6 @@ VirtualStocker::~VirtualStocker(void)
 
 void VirtualStocker::HandleCommand(AMHSPacket& packet)
 {
-	printf("VirtualStocker::HandleCommand: %d \n", packet.GetOpcode());
-
 	OPT_MAP::iterator it = m_optHanders.find(packet.GetOpcode());
 	if (it != m_optHanders.end())
 	{
@@ -61,6 +59,20 @@ int VirtualStocker::ManualInputFoup(const TCHAR* sFoupID)
 
 	
 
+	return 0;
+}
+
+int VirtualStocker::History()
+{
+	printf("Test big Packet \n");
+	AMHSPacket Packet(STK_ACK_HISTORY, 2500);
+
+	for (int i=0; i<2500; i++)
+	{
+		Packet << uint8(i);
+	}
+
+	SendPacket(Packet);
 	return 0;
 }
 

@@ -12,12 +12,9 @@
 #define new DEBUG_NEW
 #endif
 
-CVirtualAMHS* pVirualAMHSDevice = NULL;
+CVirtualAMHS* g_pVDev = NULL;
 MAP_ItemOHT g_mapOHTs;
-//zhang adds the code in 2012.10.24
-MAP_ItemFoup g_mapFoups;
-
-const int StockerID = 24;
+const int STOCKER_ID = 24;
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -60,11 +57,24 @@ CVAMHSTestDlg::CVAMHSTestDlg(CWnd* pParent /*=NULL*/)
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
+CVAMHSTestDlg::~CVAMHSTestDlg()
+{
+	MAP_ItemOHT::iterator it;
+	it = g_mapOHTs.begin();
+	while(it != g_mapOHTs.end())
+	{
+		delete it->second;
+		++it;
+	}
+	g_mapOHTs.clear();
+}
+
 void CVAMHSTestDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST_OHT, m_listCtrlOHT);
 	DDX_Control(pDX, IDC_LIST_FOUP, m_listCtrlFOUP);
+	DDX_Control(pDX, IDC_COMBO_OHT_TeachPOSType, m_cbOhtTeachType);
 }
 
 BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
@@ -78,8 +88,9 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BN_STK_OUT, &CVAMHSTestDlg::OnBnClickedBnStkOut)
 	ON_BN_CLICKED(IDC_BN_OHT_Add, &CVAMHSTestDlg::OnBnClickedBnOhtAdd)
 	ON_BN_CLICKED(IDC_BN_SetHand, &CVAMHSTestDlg::OnBnClickedBnSethand)
-	ON_BN_CLICKED(IDC_BN_SetPos, &CVAMHSTestDlg::OnBnClickedBnSetpos)
+	ON_BN_CLICKED(IDC_BN_SetPos, &CVAMHSTestDlg::OnBnClickedBnTeachPos)
 	ON_WM_TIMER()
+	ON_BN_CLICKED(IDC_BN_STK_HISTORY, &CVAMHSTestDlg::OnBnClickedBnStkHistory)
 END_MESSAGE_MAP()
 
 
@@ -120,8 +131,15 @@ BOOL CVAMHSTestDlg::OnInitDialog()
 	AllocConsole();                     // 打开控制台资源
 	FILE* file;
 	freopen_s( &file, "CONOUT$", "w+t", stdout);// 申请写
-	pVirualAMHSDevice = new CVirtualAMHS();
-	SetTimer(100, 500, NULL);          //0.5s 定时
+	g_pVDev = new CVirtualAMHS();
+	SetTimer(100, 500, NULL);
+
+	m_cbOhtTeachType.AddString(L"0x01 直道位置点");
+	m_cbOhtTeachType.AddString(L"0x02 弯道位置点");
+	m_cbOhtTeachType.AddString(L"0x04 道岔位置点");
+	m_cbOhtTeachType.AddString(L"0x08 减速点");
+	m_cbOhtTeachType.AddString(L"0x10 停止点");
+	m_cbOhtTeachType.AddString(L"0x20 取放点");
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -176,12 +194,14 @@ HCURSOR CVAMHSTestDlg::OnQueryDragIcon()
 }
 
 
-// the button of OHTonline
+
 void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 {
-	int nItem = m_listCtrlOHT.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
-	int nOHT_ID = m_listCtrlOHT.GetItemData(nItem);
-	int nAdd = pVirualAMHSDevice->OHT_Auth(nOHT_ID);                // 验证小车
+	int nOHT_ID = GetSelectOhtID();
+	if (nOHT_ID >= 0)
+	{
+		int nAdd = g_pVDev->OHT_Auth(nOHT_ID);
+	}
 }
 
 
@@ -190,98 +210,39 @@ void CVAMHSTestDlg::OnDestroy()
 	CDialogEx::OnDestroy();
 
 	// TODO: 在此处添加消息处理程序代码
-	if (pVirualAMHSDevice != NULL)
+	if (g_pVDev != NULL)
 	{
-		delete pVirualAMHSDevice;
-		pVirualAMHSDevice = NULL;
+		delete g_pVDev;
+		g_pVDev = NULL;
 	}
 	FreeConsole();                      // 释放控制台资源
-
-	MAP_ItemOHT::iterator it;
-	it = g_mapOHTs.begin();
-	while(it != g_mapOHTs.end())
-	{
-		delete it->second;
-		++it;
-	}
-	g_mapOHTs.clear();
-
 }
 
-//add the Stock?
+
 void CVAMHSTestDlg::OnBnClickedBnAddstk()
 {
-	pVirualAMHSDevice->Stocker_Auth(StockerID, "192.168.55.10");  //查找Stocker是否在线，并进行连接
+	g_pVDev->Stocker_Auth(STOCKER_ID, "192.168.55.10");
 }
 
-//the button of input
+
 void CVAMHSTestDlg::OnBnClickedBnStkIn()
 {
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
-	pVirualAMHSDevice->Stocker_ManualInputFoup(StockerID, strFoup);     //查找Stocker，将FOUP列入map，发送给STOCKER 消息，让stocker取入FOUP，g_mapFoups保存的是列表显示的Foups
-	//zhang adds the code in 2012.10.24
-	int nFoup_ID = GetDlgItemInt(IDC_EDIT_STK_FOUP); 
-	if(nFoup_ID >= 0 && nFoup_ID <= 254)
-	{
-		MAP_ItemFoup::iterator it = g_mapFoups.find(nFoup_ID);
-		MAP_ItemFoup::iterator itEnd = g_mapFoups.end();
-		if(it != itEnd)
-		{
-			MessageBox(_T("Foup已存在！"));
-		}
-		else
-		{
-			ItemFoup* pFoup = new ItemFoup;
-			g_mapFoups.insert(std::make_pair(nFoup_ID,pFoup));
-			pFoup->FoupID[0] = nFoup_ID;
-			pFoup->nProcessStatus = 0;
-			CString str;
-			m_listCtrlFOUP.InsertItem(0,str);
-			SetFOUPListItemData(pFoup,0);
-		}
-
-	}
-	else
-	{
-		MessageBox(_T("FoupID 超出范围,应在0——253之间！"));
-	}
+	g_pVDev->Stocker_ManualInputFoup(STOCKER_ID, strFoup);
 }
 
-// the button of output 
+
 void CVAMHSTestDlg::OnBnClickedBnStkOut()
 {
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
-	pVirualAMHSDevice->Stocker_ManualOutputFoup(StockerID, strFoup);
-	//zhang add the code in 2012.10.24
-	int nFoup_ID = GetDlgItemInt(IDC_EDIT_STK_FOUP);
-	if(nFoup_ID <= 254 && nFoup_ID >= 0)
-	{
-		MAP_ItemFoup::iterator it = g_mapFoups.begin();
-		while(it->second->FoupID[0] != nFoup_ID)
-		{
-			it++;
-		}
-		MAP_ItemFoup::iterator itEnd = g_mapFoups.end();
-		if(it != itEnd)
-		{
-			g_mapFoups.erase(it);
-			DeleteFOUPListItemData(nFoup_ID);
-		}
-		else
-		{
-			MessageBox(_T("列表中不存在所要删除的FOUP！请重新选择。"));
-		}
-	}
-	else
-	{
-		MessageBox(_T("FOUPID 超出范围，应在0——253之间！"));
-	}
+	g_pVDev->Stocker_ManualOutputFoup(STOCKER_ID, strFoup);
+
 }
 
-// the button function of addOHT
-void CVAMHSTestDlg::OnBnClickedBnOhtAdd()                             
+
+void CVAMHSTestDlg::OnBnClickedBnOhtAdd()
 {
 	int nOHT_ID = GetDlgItemInt(IDC_EDIT_OHTID);
 	if (nOHT_ID >= 0 && nOHT_ID < 254)
@@ -312,52 +273,87 @@ void CVAMHSTestDlg::OnBnClickedBnOhtAdd()
 	}
 }
 
-//the button of Sethand
+
 void CVAMHSTestDlg::OnBnClickedBnSethand()
 {
 	// TODO: 在此添加控件通知处理程序代码
 }
 
-//the button of Setpos
-void CVAMHSTestDlg::OnBnClickedBnSetpos()
+
+void CVAMHSTestDlg::OnBnClickedBnTeachPos()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	int nPos = 0;
+	int nSpeed = 0;
+
+	nPos = GetDlgItemInt(IDC_EDIT_OHT_POS);
+	nSpeed  = GetDlgItemInt(IDC_EDIT_OHT_SPEED);
+	int nTypeString = m_cbOhtTeachType.GetCurSel();
+	int nType = 0;
+	switch(nTypeString)
+	{
+	case 0:
+		nType = 0x01;
+		break;
+	case 1:
+		nType = 0x02;
+		break;
+	case 2:
+		nType = 0x04;
+		break;
+	case 3:
+		nType = 0x08;
+		break;
+	case 4:
+		nType = 0x10;
+		break;
+	case 5:
+		nType = 0x20;
+		break;
+	default:
+		nType = 0x01;
+		break;
+	}
+
+	int nOhtID = 0;
+	nOhtID = GetSelectOhtID();
+	g_pVDev->SetTeachPosition(nOhtID, nPos, nType, nSpeed);
 }
 
-//used for initialising the OHT list?
+
 void CVAMHSTestDlg::InitListCtrlOHT(void)
 {
 	DWORD dwStyle;
 	dwStyle = m_listCtrlOHT.GetStyle();  //取得样式
-	dwStyle =    LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT ;   //添加样式
+	dwStyle =    LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT
+		| LVS_EX_DOUBLEBUFFER;   //添加样式
 	m_listCtrlOHT.SetExtendedStyle(dwStyle);     //重新设置
 
-	m_listCtrlOHT.InsertColumn(0, _T("ID"), LVCFMT_CENTER, 30);            //插入列
+	m_listCtrlOHT.InsertColumn(0, _T("ID"), LVCFMT_CENTER, 30);
 	m_listCtrlOHT.InsertColumn(1, _T("POS"), LVCFMT_CENTER, 80);
 	m_listCtrlOHT.InsertColumn(2, _T("HAND"), LVCFMT_CENTER, 50);
 	m_listCtrlOHT.InsertColumn(3, _T("Status"), LVCFMT_CENTER, 50);
 	m_listCtrlOHT.InsertColumn(4, _T("Online"), LVCFMT_CENTER, 50);
 }
 
-//used for initialising the FOUP list 
+
 void CVAMHSTestDlg::InitListCtrlFOUP(void)
 {
 	DWORD dwStyle;
 	dwStyle = m_listCtrlFOUP.GetStyle();  //取得样式
-	dwStyle =    LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT ;   //添加样式（全行选中与栅格风格）
+	dwStyle =    LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT ;   //添加样式
 	m_listCtrlFOUP.SetExtendedStyle(dwStyle);     //重新设置
 
 	m_listCtrlFOUP.InsertColumn(0, _T("ID"), LVCFMT_CENTER, 100);
 	m_listCtrlFOUP.InsertColumn(1, _T("Location"), LVCFMT_CENTER, 80);
 	m_listCtrlFOUP.InsertColumn(2, _T("Status"), LVCFMT_CENTER, 50);
-	
+
 }
 
-//timer event
+
 void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	LIST_OHT ohts = pVirualAMHSDevice->OHT_GetStatus();                          //更新在线小车的信息
-	LIST_FOUP foups = pVirualAMHSDevice->Stocker_GetFoupsStatus(StockerID);       //更新列表中Foup的信息
+	LIST_OHT ohts = g_pVDev->OHT_GetStatus();
+	LIST_FOUP foups = g_pVDev->Stocker_GetFoupsStatus(STOCKER_ID);
 
 	LIST_OHT::iterator itOht = ohts.begin();
 	while(itOht != ohts.end())
@@ -384,33 +380,12 @@ void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 		}
 	}
 
-	//zhang added the code in 2012.10.24
-	LIST_FOUP::iterator itFoup = foups.begin();
-	while(itFoup != foups.end())
-	{
-		MAP_ItemFoup::iterator itMap = g_mapFoups.find(itFoup->FoupID[0]);
-		if(itMap != g_mapFoups.end())
-		{
-			itMap->second->nProcessStatus = itFoup->nProcessStatus;
-		}
-		++itFoup;
-	}
-	int nCount_Foup = m_listCtrlFOUP.GetItemCount();
-	for (int i=0; i<nCount_Foup; i++)
-	{
-		int nFoup = m_listCtrlFOUP.GetItemData(i);
-		MAP_ItemFoup::iterator it = g_mapFoups.find(nFoup);
-		if (it != g_mapFoups.end())
-		{
-			ItemFoup* pFoup = it->second;
-			SetFOUPListItemData(pFoup, i);
-		}
-	}
+
 
 	CDialogEx::OnTimer(nIDEvent);
 }
 
-//used for displaying the data in the list?
+
 void CVAMHSTestDlg::SetOHTListItemData(ItemOHT* pOHT, int nListIndex)
 {
 	CString str;
@@ -433,29 +408,24 @@ void CVAMHSTestDlg::SetOHTListItemData(ItemOHT* pOHT, int nListIndex)
 	m_listCtrlOHT.SetItemData(nListIndex, pOHT->nID);
 }
 
-//zhang add the code in 2012.10.24
-void CVAMHSTestDlg::SetFOUPListItemData(ItemFoup* pFOUP, int nListIndex)
+
+void CVAMHSTestDlg::OnBnClickedBnStkHistory()
 {
-	CString str;
-	str.Format(_T("%d"),pFOUP->FoupID[0]);
-	m_listCtrlFOUP.SetItemText(nListIndex,0,str);
-	str.Format(_T("%d"),pFOUP->nProcessStatus);
-	m_listCtrlFOUP.SetItemText(nListIndex,2,str);
-	m_listCtrlFOUP.SetItemText(nListIndex,1,_T("Idle"));
+	g_pVDev->STK_History(STOCKER_ID);
 }
-void CVAMHSTestDlg::DeleteFOUPListItemData(int FoupID)
+
+
+int CVAMHSTestDlg::GetSelectOhtID(void)
 {
-	int ncount = m_listCtrlFOUP.GetItemCount();
-	int nlistindex = 0;
-	for(; nlistindex <= ncount;)
+	int nRet = -1;
+	int nItem = m_listCtrlOHT.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
+	if (nItem >= 0)
 	{
-		CString strText = m_listCtrlFOUP.GetItemText(nlistindex,0);
-		CString strNum;
-		strNum.Format(_T("%d"),FoupID);
-		if(strNum == strText)
-			break;
-		else
-			nlistindex++;
+		nRet = m_listCtrlOHT.GetItemData(nItem);
 	}
-	m_listCtrlFOUP.DeleteItem(nlistindex);
+	else
+	{
+		nRet = -1;
+	}
+	return nRet;
 }

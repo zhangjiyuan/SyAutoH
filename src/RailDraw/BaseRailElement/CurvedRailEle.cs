@@ -14,72 +14,66 @@ namespace BaseRailElement
     public class CurvedRailEle : BaseRailEle
     {
         private ObjectCurvedOp objectCurvedOp = new ObjectCurvedOp();
-
         private int startAngle = 0;
+        private int sweepAngle = 90;
+        private int rotateAngle = 90;
+        private int oldRadiu = 50;
+        private int radiu = 50;
+        private Point oldCenter = new Point();
+        private Point center = new Point();       
+        private Point oldFirstDot = Point.Empty;
+        private Point firstDot = Point.Empty;
+        private Point oldSecDot = Point.Empty;
+        private Point secDot = Point.Empty;
+        private DirectonCurved directionCurved = DirectonCurved.NULL;
+
+        public enum DirectonCurved
+        {
+            first, second, third, four, NULL
+        }
+
         [Browsable(false)]
         public int StartAngle
         {
             get { return startAngle; }
             set { startAngle = value; }
         }
-
-        private int sweepAngle = 90;
         [Browsable(false)]
         public int SweepAngle
         {
             get { return sweepAngle; }
             set { sweepAngle = value; }
         }
-
-        private int rotateAngle = 90;
         [Browsable(false)]
         private int RotateAngle
         {
             get { return rotateAngle; }
             set { rotateAngle = value; }
         }
-
-        private Point oldCenter = new Point();
-
-        private Point center = new Point();                
-        public Point Center
-        {
-            get { return center; }
-            set { oldCenter = center; center = value; }
-        }
-
-        private int oldRadiu = 50;
-
-        private int radiu = 50;
+        [Category("轨道坐标")]
         public int Radiu
         {
             get { return radiu; }
             set { oldRadiu = radiu; radiu = value; }
         }
-
-        private Point oldFirstDot = Point.Empty;
-
-        private Point firstDot = Point.Empty;
+        [Category("轨道坐标")]
+        public Point Center
+        {
+            get { return center; }
+            set { oldCenter = center; center = value; }
+        }
+        [Category("轨道坐标")]
         public Point FirstDot
         {
             get { return firstDot; }
             set { oldFirstDot = firstDot; firstDot = value; }
         }
-
-        private Point oldSecDot = Point.Empty;
-
-        private Point secDot = Point.Empty;
+        [Category("轨道坐标")]
         public Point SecDot
         {
             get { return secDot; }
             set { oldSecDot = secDot; secDot = value; }
         }
-
-        public enum DirectonCurved
-        {
-            first, second, third, four, NULL
-        }
-        private DirectonCurved directionCurved = DirectonCurved.NULL;
         [Browsable(false)]
         public DirectonCurved DirectionCurvedAttribute
         {

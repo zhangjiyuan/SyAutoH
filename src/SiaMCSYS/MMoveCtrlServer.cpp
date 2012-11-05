@@ -2,7 +2,7 @@
 #include "MMoveCtrlServer.h"
 #include <signal.h>
 #include "MaterialController.h"
-#include "Common.h"
+#include "../shared/Threading/AtomicBoolean.h"
 #include <iostream>
 
 #include "../MesLink/MesLink.h"
@@ -41,12 +41,13 @@ void MMoveCtrlServer::Run(int argc, _TCHAR** argv)
 	// init
 	MaterialController MC;
 	MC.PrintfInfo();
-
 	if (0 != MC.Init())
 	{
 		cout<< "MCS Init failed." << endl;
 		return;
 	}
+
+	
 
 	//if(authsockcreated && intersockcreated)
 	{
@@ -102,7 +103,7 @@ void MMoveCtrlServer::Run(int argc, _TCHAR** argv)
 			//wprintf_s(L"MCS Running.\n");
 			MC.Check();
 
-			Sleep(1000);
+			Sleep(50);
 		}
 
 		//sLog.outString("Shutting down...");

@@ -60,7 +60,7 @@ public:
 // 信息。请在查看完此连接字符串并找到所有与安全
 // 有关的问题后移除 #error。可能需要将此密码存
 // 储为其他格式或使用其他的用户身份验证。
-		hr = _db.OpenFromInitializationString(L"Provider=SQLNCLI10.1;Integrated Security=SSPI;Persist Security Info=False;User ID=\"\";Initial Catalog=MCS;Data Source=SDNY-PC\\AMHS;Use Procedure for Prepare=1;Auto Translate=True;Packet Size=4096;Workstation ID=SDNY-PC;Initial File Name=\"\";Use Encryption for Data=False;Tag with column collation when possible=False;MARS Connection=False;DataTypeCompatibility=0;Trust Server Certificate=False");
+		hr = _db.OpenFromInitializationString(DbConnectString);
 		if (FAILED(hr))
 		{
 #ifdef _DEBUG

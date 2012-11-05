@@ -21,6 +21,44 @@ public:
 		m_pHandleCommand = NULL;
 	}
 
+	void write_packet(AMHSPacket& packet)
+	{
+		size_t szLen = packet.size();
+		size_t szLimit = amhs_message::max_body_length;
+		int nLoop = szLen / szLimit + 1;
+		
+		size_t szPacketLen = 0;
+		for (int i=0; i<nLoop; i++)
+		{
+			amhs_message msg;
+			msg.Index(i+1);
+			if ((i+1) < nLoop)
+			{
+				msg.IsLast(0);
+			}
+			else
+			{
+				msg.IsLast(1);
+			}
+			if (szLen > szLimit)
+			{
+				szPacketLen = szLimit;
+				szLen -= szLimit;
+			}
+			else
+			{
+				szPacketLen = szLen;
+			}
+			msg.command(packet.GetOpcode());
+			msg.body_length(szPacketLen);
+			msg.IsNeedRespond(true);
+			memcpy(msg.body(), packet.contents() + (i*szLimit), msg.body_length());
+			msg.encode_header();
+			write(msg);
+		}
+		
+	}
+
 	void write(const amhs_message& msg)
 	{
 		io_service_.post(boost::bind(&amhs_client::do_write, this, msg));
@@ -67,10 +105,21 @@ private:
 	{
 		if (!error)
 		{
-			//std::cout.write(read_msg_.body(), read_msg_.body_length());
-			//std::cout << "\n";
 			int mOpcode = read_msg_.command();
 			int mSize = read_msg_.body_length();
+			bool bXor = read_msg_.CheckXOR();
+			if (false == bXor)
+			{
+				cout << "Cilent XOR error" << endl;
+
+				boost::asio::async_read(socket_,
+					boost::asio::buffer(read_msg_.data(), amhs_message::header_length),
+					boost::bind(&amhs_client::handle_read_header, this,
+					boost::asio::placeholders::error));
+
+				return;
+			}
+
 			AMHSPacket* Packet;
 			Packet = new AMHSPacket(static_cast<uint16>(mOpcode), mSize);
 			Packet->resize(mSize);
@@ -81,48 +130,6 @@ private:
 				m_pHandleCommand(m_pVirtualDevice, Packet);
 			}
 			delete Packet;
-
-			/*switch(mOpcode)
-			{
-			case OHT_MCS_STATUS_BACK_TIME:
-			{
-			uint8 nID = 0;
-			uint8 nTime = 0;
-			*Packet >> nID;
-			*Packet >> nTime;
-			printf("OHT Status Back Time:  %d Time %d\n", nID, nTime);
-			delete Packet;
-			}
-			break;
-			case OHT_MCS_ACK_AUTH:
-			{
-
-			}
-			break;
-			case STK_MCS_ACK_AUTH:
-			{
-			uint8 nID = 0;
-			uint8 nAuthRes = 0;
-			uint64 uTime = 0;
-			*Packet >> nID;
-			*Packet >> nAuthRes;
-			*Packet >> uTime;
-			__time64_t tTime;
-			memcpy(&tTime, &uTime, 8);
-
-			printf("Stocker %d Auth %d SysTime: %s\n", nID, nAuthRes, _ctime64( &tTime ));
-			delete Packet;
-			}
-			break;
-			default:
-			{
-			delete Packet;
-			}
-			break;
-			}*/
-
-
-
 
 			boost::asio::async_read(socket_,
 				boost::asio::buffer(read_msg_.data(), amhs_message::header_length),

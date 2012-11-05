@@ -2,7 +2,7 @@
 
 enum Optcodes
 {
-	OPTION_NULL_ACTION										= 0x0000,
+	OPTION_NULL_ACTION								= 0x0000,
 	// defines for OHT
 	OHT_MCS_STATUS_BACK_TIME				= 0x0801,	// MCS设置 OHT 状态反馈周期
 	OHT_MCS_POSITION_BACK_TIME			= 0x0802,	// MCS设置 OHT 位置反馈周期
@@ -18,6 +18,7 @@ enum Optcodes
 	OHT_AUTH													= 0x0816,
 	OHT_POSITION												= 0x0817,
 	OHT_STATUS												= 0x0818,
+	OHT_TEACH_PATH										= 0x0819,
 
 	// defines for Stocker
 	STK_MCS_FOUP											= 0x0807,

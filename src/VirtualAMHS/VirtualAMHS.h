@@ -12,7 +12,6 @@
 
 #pragma once
 
-class  Mutex;
 class VirtualOHT;
 class VirtualStocker;
 #include <map>
@@ -45,19 +44,20 @@ public:
 	~CVirtualAMHS();
 
 	// device auth
-	int OHT_Auth(int nIndex, int nPos = 0, int nHand = 0);
+	int OHT_Auth(int nIndex, DWORD nPos = 0, int nHand = 0);
 	int Stocker_Auth(int nIndex, const char* sIP);
 
 	// for Stocker
 	LIST_FOUP Stocker_GetFoupsStatus(int nStocker);
 	int Stocker_ManualInputFoup(int nStocker, const TCHAR* sFoupID);
 	int Stocker_ManualOutputFoup(int nStocker, const TCHAR* sFoupID);
+	int STK_History(int nStocker);
 
 	// for OHT
 	LIST_OHT OHT_GetStatus();
+	int SetTeachPosition(int nID, int nPos, int nType, int nSpeedRate);
 
 private:
 	MAP_VOHT* m_mapOHT;
-	Mutex*			m_pOhtLock;
 	MAP_VSTK*	 m_mapSTK;
 };

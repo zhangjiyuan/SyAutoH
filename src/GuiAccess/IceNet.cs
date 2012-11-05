@@ -9,6 +9,10 @@ namespace GuiAccess
     public class IceNet
     {
         private Ice.Communicator communicator = null;
+        public Ice.Communicator Communicator
+        {
+            get { return communicator; }
+        }
         public Ice.ObjectPrx m_objectPrx = null;
         public virtual void GetProxy() { }
 
@@ -17,6 +21,10 @@ namespace GuiAccess
         {
             get { return strProxyKey; }
             set { strProxyKey = value; }
+        }
+        ~IceNet()
+        {
+            Disconnect();
         }
         private string GetProcessPath()
         {

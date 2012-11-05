@@ -5,6 +5,7 @@
 #pragma once
 #include "afxcmn.h"
 #include "../VirtualAMHS/VirtualAMHS.h"
+#include "afxwin.h"
 
 // CVAMHSTestDlg 对话框
 class CVAMHSTestDlg : public CDialogEx
@@ -12,6 +13,7 @@ class CVAMHSTestDlg : public CDialogEx
 // 构造
 public:
 	CVAMHSTestDlg(CWnd* pParent = NULL);	// 标准构造函数
+	~CVAMHSTestDlg();
 
 // 对话框数据
 	enum { IDD = IDD_VAMHSTEST_DIALOG };
@@ -38,14 +40,14 @@ public:
 	afx_msg void OnBnClickedBnStkOut();
 	afx_msg void OnBnClickedBnOhtAdd();
 	afx_msg void OnBnClickedBnSethand();
-	afx_msg void OnBnClickedBnSetpos();
+	afx_msg void OnBnClickedBnTeachPos();
 	CListCtrl m_listCtrlOHT;
 	CListCtrl m_listCtrlFOUP;
 	void InitListCtrlOHT(void);
 	void InitListCtrlFOUP(void);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	void SetOHTListItemData(ItemOHT* pOHT, int nListIndex);
-	void SetFOUPListItemData(ItemFoup* pFOUP, int nListIndex);
-	void DeleteFOUPListItemData(int FoupID);
-
+	afx_msg void OnBnClickedBnStkHistory();
+	CComboBox m_cbOhtTeachType;
+	int GetSelectOhtID(void);
 };

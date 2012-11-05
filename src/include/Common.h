@@ -10,20 +10,12 @@ typedef unsigned __int32 uint32;
 typedef unsigned __int16 uint16;
 typedef unsigned __int8 uint8;
 
-//#include <string>
+#include <string>
 #include <vector>
 #include <assert.h>
 #include <list>
 #include <map>
 #include <set>
-
-#include "Threading/Threading.h"
-#include "Threading/AtomicULong.h"
-#include "Threading/AtomicFloat.h"
-#include "Threading/AtomicCounter.h"
-#include "Threading/AtomicBoolean.h"
-#include "Threading/ConditionVariable.h"
-#include "Singleton.h"
 
 using namespace std;
 
@@ -31,7 +23,6 @@ using namespace std;
 	_x
 #	define UNLIKELY( _x ) \
 	_x
-
 
 #ifdef WIN32
 #pragma warning(disable:4996)
@@ -46,4 +37,5 @@ using namespace std;
 #include <queue>
 #include <sstream>
 #include <cstring>
-
+#include <io.h>
+#include <process.h>

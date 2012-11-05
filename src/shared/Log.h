@@ -5,22 +5,16 @@
 
 class Session;
 
-//#define SZLTR "\xe5\xcf\xfe\xed\xf3\xfb\x03\xeb"
-//#define SZLTR_LENGTH 9
-#define TIME_FORMAT "[%m-%d-%Y][%H:%M]"
+#define TIME_FORMAT "[%m-%d-%Y %H:%M:%S]"
 #define TIME_FORMAT_LENGTH 100
-
-enum LogType
-{
-    WORLD_LOG,
-    LOGON_LOG
-};
+#define LINE_COLOUR_RED 2;
+#define LINE_COLOUR_YELLOW 1;
 
 extern  time_t UNIXTIME;		/* update this every loop to avoid the time() syscall! */
 extern  tm g_localTime;
 
 std::string FormatOutputString(const char* Prefix, const char* Description, bool useTimeStamp);
-
+string SetNewName(const char* Description, bool useTimeStamp);
 class oLog : public Singleton< oLog >
 {
 	public:
@@ -52,11 +46,12 @@ class oLog : public Singleton< oLog >
 
 		void SetLogging(bool enabled);
 
-		void Init(int32 fileLogLevel, LogType logType);
+		void Init(int32 fileLogLevel);
 		void SetFileLoggingLevel(int32 level);
 
 		void Close();
 
+		int32 out_colour;
 		int32 m_fileLogLevel;
 
 	private:
@@ -64,7 +59,7 @@ class oLog : public Singleton< oLog >
 		void outFile(FILE* file, char* msg, const char* source = NULL);
 		void outFileSilent(FILE* file, char* msg, const char* source = NULL); // Prints text to file without showing it to the user. Used for the startup banner.
 		void Time(char* buffer);
-		/*
+
 		inline char dcd(char in)
 		{
 			char out = in;
@@ -87,7 +82,7 @@ class oLog : public Singleton< oLog >
 			strcpy(buf, str);
 			dcds(buf);
 		}
-		*/
+
 };
 
 class SessionLogWriter

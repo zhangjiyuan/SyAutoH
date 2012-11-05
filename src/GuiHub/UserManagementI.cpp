@@ -5,10 +5,11 @@
 #include "Ice/Connection.h"
 #include "iGuiHub.h"
 #include "DBConst.h"
+#include "../shared/Log.h"
 
 UserManagementI::UserManagementI(void)
 {
-	cout<<"User Management Server is Ready." << endl;
+	Log.outBasic("User Management Server is Ready.");
 	m_pUserDB = NULL;
 	m_pSession = NULL;
 }
@@ -33,6 +34,12 @@ int UserManagementI::Init()
 	if (NULL == m_pUserDB)
 	{
 		m_pUserDB = new DBUserAce();
+		UserDataList list = m_pUserDB->GetUserList(0, 2);
+		size_t szCount = list.size();
+		if (szCount <= 0)
+		{
+			m_pUserDB->CreateUser("admin", "admin", 4);
+		}
 	}
 	if (NULL == m_pSession)
 	{

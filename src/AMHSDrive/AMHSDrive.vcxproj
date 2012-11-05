@@ -40,9 +40,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\..\bin\$(Configuration)\</OutDir>
-    <IncludePath>D:\boost_1_51_0;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
-    <LibraryPath>D:\boost_1_51_0\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -60,7 +60,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>../lib/$(TargetName).lib</ImportLibrary>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>shared.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shared.lib;ws2_32.lib;sqlacecli.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -84,16 +84,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AMHSDrive.h" />
-    <ClInclude Include="AMHSSocket.h" />
     <ClInclude Include="AMHS_Server.h" />
-    <ClInclude Include="amhs_server.hpp" />
+    <ClInclude Include="amhs_dev_server.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AMHSDrive.cpp" />
-    <ClCompile Include="AMHSSocket.cpp" />
+    <ClCompile Include="amhs_dev_server.cpp" />
+    <ClCompile Include="amhs_room.cpp" />
     <ClCompile Include="AMHS_Server.cpp" />
+    <ClCompile Include="amhs_session.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

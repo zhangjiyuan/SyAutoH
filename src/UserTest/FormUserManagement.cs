@@ -20,8 +20,10 @@ namespace UserTest
             new string[] { "NoRight", "Viewer", "Guest", "Operator", "Admin", "SuperAdmin"};
         private UserCli userMge = new UserCli();
         private MESLink mesLink = new MESLink();
+        private DataHubCli dataHubLink = new DataHubCli();
         private int m_nSession = 0;
         private string strUserLogin = "";
+        private string strVal;
         //private int nUserLoginRight = 0;
 
         private void bnLogin_Click(object sender, EventArgs e)
@@ -46,10 +48,30 @@ namespace UserTest
           
         }
 
+        private void GuiDataUpdate(string strTag, string sVal)
+        {
+            //if (strTag.CompareTo("TEST") == 0)
+            //{
+            //    this.labelCBTest.Text = sVal;
+            //}
+            //if (strTag.CompareTo("OHT.POS") == 0)
+            //{
+            //    this.labelCBTest.Text = sVal;
+            //}
+            lock(this)
+            {
+                strVal = sVal;
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             userMge.ConnectServer();
             mesLink.ConnectServer();
+            dataHubLink.ConnectServer();
+            dataHubLink.DataUpdater += new DataUpdaterHander(GuiDataUpdate);
+            dataHubLink.SetCallBack();
+
             this.comboBoxUserRight.Items.Clear();
             foreach (string strRight in RightCollection)
             {
@@ -57,7 +79,8 @@ namespace UserTest
             }
             this.comboBoxUserRight.SelectedIndex = 0;
 
-            this.tabControl1.TabPages.RemoveAt(2);
+            //this.tabControl1.TabPages.RemoveAt(2);
+            timer1.Start();
         }
 
         private void bnNewUser_Click(object sender, EventArgs e)
@@ -90,8 +113,17 @@ namespace UserTest
         private void buttonPickFoup_Click(object sender, EventArgs e)
         {
             string strFoupName = this.textBoxFoupName.Text;
-            int nLocal = Convert.ToInt32(this.textBoxLocation.Text);
-            int nType = Convert.ToInt32(this.textBoxLocType.Text);
+            int nLocal = 0;
+            int nType = 0;
+            try
+            {
+                nLocal = Convert.ToInt32(this.textBoxLocation.Text);
+                nType = Convert.ToInt32(this.textBoxLocType.Text);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             mesLink.PickFoup(strFoupName, nLocal, nType);
         }
@@ -241,6 +273,54 @@ namespace UserTest
             {
                 RefreshUserList();
             }
+        }
+
+        private void bnOHTGo_Click(object sender, EventArgs e)
+        {
+            string strPos = this.tbOhtMoveTo.Text;
+            int nPos = 0;
+            try
+            { 
+                nPos = System.Convert.ToInt32(strPos);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+           
+
+            string sVal = dataHubLink.ReadData("OHT", m_nSession);
+
+            int nWRet = dataHubLink.WriteData("OHT", "MOVE", m_nSession);
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            labelCBTest.Text = strVal;
+        }
+
+        private void bnSTK_History_Click(object sender, EventArgs e)
+        {
+            int nWret = dataHubLink.WriteData("STK.HISTORY", "GET", m_nSession);
+        }
+
+        private void bnSetPosTime_Click(object sender, EventArgs e)
+        {
+            string strPosTime = tBPosTime.Text;
+            int nPosTime = 0;
+            try
+            {
+                nPosTime = System.Convert.ToByte(strPosTime);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            string strVal;
+            strVal = string.Format("<{0}, {1}>", 254, nPosTime);
+
+            int nWRet = dataHubLink.WriteData("OHT.POSTIME:<ID, VAL>", strVal, m_nSession);
         }
     }
 }
