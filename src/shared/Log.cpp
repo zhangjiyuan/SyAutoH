@@ -23,20 +23,6 @@ string FormatOutputString(const char* Prefix, const char* Description, bool useT
 	return string(p);
 }
 */
-/*
-void SetAttribute(string filePath)
-{
-	DWORD dwAttrs;
-	LPCWSTR path = stringToLPCWSTR(filePath);
-	dwAttrs = GetFileAttributes(path);
-    //¿Õ32£¬Ö»¶Á33£¬Òþ²Ø34£¬Ö»¶ÁÒþ²Ø35//FILE_ATTRIBUTE_READONLY=1//FILE_ATTRIBUTE_NORMAL=128
-    if (dwAttrs & FILE_ATTRIBUTE_READONLY  && (dwAttrs<34))
-    {
-        dwAttrs &= 0x3E;
-        SetFileAttributes(path,dwAttrs);
-    }
-}
-*/
 string WstringToString(wstring &ws)
 {
     string curLocale = setlocale(LC_ALL, NULL); // curLocale = "C";
@@ -71,7 +57,7 @@ string SetNewName(const char* Description, bool useTimeStamp)
 	{
 		char ftime[100];
 		snprintf(ftime, 100, "-%-4d-%02d-%02d-%02d%02d%02d", a->tm_year + 1900, 
-			            a->tm_mon + 1, a->tm_mday, a->tm_hour+8, a->tm_min, a->tm_sec);
+			            a->tm_mon + 1, a->tm_mday, a->tm_hour + 8, a->tm_min, a->tm_sec);
 		strcat(p, ftime);
 	}
 	strcat(p, ".log");
@@ -88,7 +74,10 @@ oLog::oLog()
 	 hMutex_level = CreateMutex(NULL,FALSE,NULL);
 	 hMutex_queue = CreateMutex(NULL,FALSE,NULL);
 	 hMutex_file = CreateMutex(NULL,FALSE,NULL);
-	 hMutex_write = CreateMutex(NULL,FALSE,NULL);
+	 hMutex_write = CreateMutex(NULL,FALSE,NULL); 
+
+	 hMutex_logfile = CreateMutex(NULL,FALSE,NULL);
+
 	 string procName = GetProcessName();
 	 string procPath = GetProcessPath();
 	 strPath = procPath + "../Log/" + procName;
@@ -180,7 +169,7 @@ unsigned __stdcall oLog::WriteFile(PVOID pParam)
 }
 void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char* source)
 {
-	switch(colour)           //ÓÉÐÅÏ¢ÀàÐÍÑ¡ÔñÃüÁîÐÐÊä³ö×ÖÌåµÄÑÕÉ«£¬ÔÝ¶¨ÈýÖÖ£ººì¡¢»Æ¡¢ÂÌ
+	switch(colour)           //ÓÉÐÅÏ¢ÀàÐÍÑ¡ÔñÃüÁîÐÐÊä³ö×ÖÌåµÄÑÕÉ«£¬ÔÝ¶¨ÈýÖÖ£ººì¡¢»Æ¡¢°×
 	{
 	case(1):
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_RED | FOREGROUND_GREEN); //yellow
@@ -193,32 +182,34 @@ void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char
 			    FOREGROUND_GREEN | FOREGROUND_BLUE);//white
 		break;
 	}
-	/*
+	
 	if(file == m_normalFile)
 	{
 		int32 file_length = filelength(fileno(file));
-	    if(file_length >= 900*1000)
+	    if(file_length >= 1*1000)
 	    {
-			fclose(file);
 			string filename = SetNewName("normal",true); // »ñµÃÐÂµÄLOGÎÄ¼þµÄÃû×Ö£¬ÒÔÀàÐÍ¼°Ê±¼äÃüÃû
-			filename = strPath + "//" + filename;
-			//printf("%s",filename.c_str());
+			filename = strPath + "/" + filename;
+			WaitForSingleObject(hMutex_logfile,INFINITE);
+			fclose(file);
 			rename(normal_file_name.c_str(),filename.c_str());
+			ReleaseMutex(hMutex_logfile);
 			if(rename != 0)
 			{
 				WaitForSingleObject(hMutex_write,INFINITE);
 				perror("rename");
 				ReleaseMutex(hMutex_write);
 			}
+			WaitForSingleObject(hMutex_logfile,INFINITE);
 			file = fopen(normal_file_name.c_str(),"a");
-			//m_normalFile = file;
+			m_normalFile = file;
+			ReleaseMutex(hMutex_logfile);
 	    }
 	}
-	
 	else if(file == m_errorFile)
 	{
 		int32 file_length = filelength(fileno(file));
-	    if(file_length >= 900*1000)
+	    if(file_length >= 1*1000)
 	    {
 			fclose(file);
 			string filename = SetNewName("error",true); // »ñµÃÐÂµÄLOGÎÄ¼þµÄÃû×Ö£¬ÒÔÀàÐÍ¼°Ê±¼äÃüÃû
@@ -231,17 +222,17 @@ void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char
 				ReleaseMutex(hMutex_write);
 			}
 			file = fopen(error_file_name.c_str(),"a");
-			//m_errorFile = file;
+			m_errorFile = file;
 	    }
 	}
-	*/
+	
 	if(source != NULL)
 	{
 		WaitForSingleObject(hMutex_write,INFINITE);
 		printf("%s %s: %s\n", time_buffer, source, msg);
 		if (file != NULL)
 		{
-			//fprintf(file, "%s %s: %s\n", time_buffer, source, msg);	
+			fprintf(file, "%s %s: %s\n", time_buffer, source, msg);	
 		}
 		ReleaseMutex(hMutex_write);
 	}
@@ -251,7 +242,7 @@ void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char
 		printf("%s %s\n", time_buffer, msg);
 		if (file != NULL)
 		{
-			//fprintf(file, "%s %s\n", time_buffer, msg);
+			fprintf(file, "%s %s\n", time_buffer, msg);
 		}
 		ReleaseMutex(hMutex_write);
 	}
@@ -461,7 +452,6 @@ void oLog::logDetail(const char* file, int line, const char* fncname, const char
 
 	snprintf(message, 32768, " [DTL] %s:%d %s %s", file, line, fncname, msg);
 	va_list ap;
-
 	va_start(ap, msg);
 	vsnprintf(buf, 32768, message, ap);
 	va_end(ap);
@@ -657,7 +647,6 @@ void oLog::LargeErrorMessage(const char* source, ...)                //µ÷ÓÃÊ±£¬×
 		sstext << " *";
 		outError(sstext.str().c_str());
 	}
-
 	outError("*********************************************************************");
 }
 
@@ -667,10 +656,13 @@ void oLog::Init(int32 fileLogLevel)
 	SetFileLoggingLevel(fileLogLevel);
 	ReleaseMutex(hMutex_level);
 	const char* logNormalFilename = NULL, *logErrorFilename = NULL;
+	logNormalFilename = normal_file_name.c_str();
+	logErrorFilename = error_file_name.c_str();
 	//logNormalFilename = "normal.log";
 	//logErrorFilename = "error.log";
 
 	//m_normalFile = fopen(logNormalFilename, "a");
+	WaitForSingleObject(hMutex_logfile,INFINITE);
 	if(m_normalFile == NULL)
 		fprintf(stderr, "%s: Error opening '%s': %s\n", __FUNCTION__, logNormalFilename, strerror(errno));
 	else
@@ -679,8 +671,10 @@ void oLog::Init(int32 fileLogLevel)
 		tm* aTm = localtime(&t);
 		outBasic("[%-4d-%02d-%02d %02d:%02d:%02d] ", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
 	}
+	ReleaseMutex(hMutex_logfile);
 
 	//m_errorFile = fopen(logErrorFilename, "a");
+	WaitForSingleObject(hMutex_logfile,INFINITE);
 	if(m_errorFile == NULL)
 		fprintf(stderr, "%s: Error opening '%s': %s\n", __FUNCTION__, logErrorFilename, strerror(errno));
 	else
@@ -690,6 +684,7 @@ void oLog::Init(int32 fileLogLevel)
 		// We don't echo time and date again because outBasic above just echoed them.
 		outErrorSilent("[%-4d-%02d-%02d %02d:%02d:%02d] ", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
 	}
+	ReleaseMutex(hMutex_logfile);
 }
 
 void oLog::Close()
