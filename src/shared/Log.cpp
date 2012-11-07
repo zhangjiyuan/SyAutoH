@@ -82,18 +82,7 @@ oLog::oLog()
 	 CreateDirectory(file_create,NULL);
 	 normal_file_name = strPath + "/normal.log";
 	 error_file_name = strPath + "/error.log";
-	 /*
-	 m_normalFile = fopen(normal_file_name.c_str(),"a");
-	 if(m_normalFile == NULL)
-	 {
-		 printf("error opening %s",normal_file_name.c_str());
-	 }
-	 m_errorFile = fopen(error_file_name.c_str(),"a");
-	 if(m_errorFile == NULL)
-	 {
-		 printf("error opening %s",error_file_name.c_str());
-	 }
-	 */
+	
 	 hthread = (HANDLE)_beginthreadex(NULL,0,WriteFile,this,0,0);
 	 m_fileLogLevel = NOT_GET_LEVEL;
  }
@@ -174,7 +163,9 @@ unsigned __stdcall oLog::WriteFile(PVOID pParam)
 			    }
 		    }
 			if(This->m_Mes_Write.file == NORMAL_FILE)
+			{
 				file = This->m_normalFile;
+			}
 			else if(This->m_Mes_Write.file == ERROR_FILE)
 				file = This->m_errorFile;
 			char *source = This->m_Mes_Write.source;
@@ -212,12 +203,13 @@ void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char
 	}
 	if(file == m_normalFile)
 	{
+		
 		int32 file_length = filelength(fileno(file));
 	    if(file_length >= 900*1000)
 	    {
 			string filename = SetNewName("normal",true);// 获得新的LOG文件的名字，以类型及时间命名
 			filename = strPath + "/" + filename;
-			fflush(m_normalFile);
+			//fflush(m_normalFile);
 			fclose(file);
 			rename(normal_file_name.c_str(),filename.c_str());
 			if(rename != 0)
@@ -231,11 +223,11 @@ void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char
 	else if(file == m_errorFile)
 	{
 		int32 file_length = filelength(fileno(file));
-	    if(file_length >= 1*1000)
+	    if(file_length >= 900*1000)
 	    {
 			string filename = SetNewName("error",true); // 获得新的LOG文件的名字，以类型及时间命名
 			filename = strPath + "/" + filename;
-			fflush(m_errorFile);
+			//fflush(m_errorFile);
 			fclose(file);
 			rename(error_file_name.c_str(),filename.c_str());
 			if(rename != 0)
@@ -251,7 +243,8 @@ void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char
 		printf("%s : %s: %s\n", time_buffer, source, msg);
 		if (file != NULL)
 		{
-			fprintf(file, "%s : %s: %s\n", time_buffer, source, msg);	
+			fprintf(file, "%s : %s: %s\n", time_buffer, source, msg);
+			fflush(file);
 		}
 	}
 	else
@@ -260,6 +253,7 @@ void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char
 		if (file != NULL)
 		{
 			fprintf(file, "%s :%s\n", time_buffer, msg);
+			fflush(file);
 		}
 	}
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_RED |
@@ -276,7 +270,7 @@ void oLog::outFileSilent(FILE* file, char* msg, const char* source)
 	{
 		string filename = SetNewName("error",true); // 获得新的LOG文件的名字，以类型及时间命名
 		filename = strPath + "/" + filename;
-		fflush(m_errorFile);
+		//fflush(m_errorFile);
 		fclose(m_errorFile);
 		rename(error_file_name.c_str(),filename.c_str());
 		if(rename != 0)
@@ -295,6 +289,7 @@ void oLog::outFileSilent(FILE* file, char* msg, const char* source)
 		fprintf(file, "%s : %s\n", time_buffer, msg);
 		// Don't use printf to prevent text from being shown in the console output.
 	}
+	fflush(file);
 }
 
 void oLog::Time(char* buffer)
@@ -713,17 +708,13 @@ void oLog::Init(int32 fileLogLevel)
 		// We don't echo time and date again because outBasic above just echoed them.
 		outErrorSilent("[%-4d-%02d-%02d %02d:%02d:%02d]", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
 	}
-	
-	//fflush(m_normalFile);
 	fclose(m_normalFile);
 	m_normalFile = NULL;
-	//fflush(m_errorFile);
 	fclose(m_errorFile);
 	m_errorFile = NULL;
 	if(ReleaseMutex(hMutex_logfile) != 0)
 		ReleaseMutex(hMutex_logfile);
 }
-
 void oLog::Close()
 {
 	if(hMutex_queue != NULL)

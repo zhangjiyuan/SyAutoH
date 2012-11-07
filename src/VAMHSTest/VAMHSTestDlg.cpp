@@ -265,11 +265,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 	int nFoup_ID = GetDlgItemInt(IDC_EDIT_STK_FOUP);
 	if(nFoup_ID <= 254 && nFoup_ID >= 0)
 	{
-		MAP_ItemFoup::iterator it = g_mapFoups.begin();
-		while(it->second->FoupID[0] != nFoup_ID)
-		{
-			it++;
-		}
+		MAP_ItemFoup::iterator it = g_mapFoups.find(nFoup_ID);
 		MAP_ItemFoup::iterator itEnd = g_mapFoups.end();
 		if(it != itEnd)
 		{
