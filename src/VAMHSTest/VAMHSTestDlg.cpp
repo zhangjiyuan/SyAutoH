@@ -249,7 +249,6 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 			m_listCtrlFOUP.InsertItem(0,str);
 			SetFOUPListItemData(pFoup,0);
 		}
-
 	}
 	else
 	{

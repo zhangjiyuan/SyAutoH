@@ -6,7 +6,7 @@
 class WorldPacket;
 class WorldSession;
 
-#define TIME_FORMAT "[%m-%d-%Y][%H:%M]"
+#define TIME_FORMAT "[%m-%d-%Y %H:%M:%S]"
 #define TIME_FORMAT_LENGTH 100
 /*
 enum LogType
@@ -81,7 +81,7 @@ class oLog : public Singleton< oLog >
 		int32 m_fileLogLevel;
 		bool funcInCon;
 		std::queue <element> Mes;
-        HANDLE hMutex_level,hMutex_queue,hMutex_file,hMutex_write,hthread,hMutex_logfile;
+        HANDLE hMutex_level,hMutex_queue,hMutex_file,hthread,hMutex_logfile;
 		element m_Mes_Write;
 		std::string strPath,normal_file_name,error_file_name;
 
@@ -98,6 +98,7 @@ class oLog : public Singleton< oLog >
 		std::string GetProcessPath(); 
 		std::string GetProcessName();
 		void GetElement(int out_colour,char* Mes,int MesLength,int file,const char* Source,char* Timebuffer,int timeLength);
+
 };
 
 class SessionLogWriter

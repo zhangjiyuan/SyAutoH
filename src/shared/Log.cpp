@@ -71,11 +71,8 @@ createFileSingleton(oLog);
 
 oLog::oLog()
  {
-	 hMutex_level = CreateMutex(NULL,FALSE,NULL);
-	 hMutex_queue = CreateMutex(NULL,FALSE,NULL);
-	 hMutex_file = CreateMutex(NULL,FALSE,NULL);
-	 hMutex_write = CreateMutex(NULL,FALSE,NULL); 
-
+	 hMutex_queue = CreateMutex(NULL,TRUE,NULL);
+	 hMutex_file = CreateMutex(NULL,TRUE,NULL);
 	 hMutex_logfile = CreateMutex(NULL,FALSE,NULL);
 
 	 string procName = GetProcessName();
@@ -83,11 +80,20 @@ oLog::oLog()
 	 strPath = procPath + "../Log/" + procName;
 	 LPCWSTR file_create = stringToLPCWSTR(strPath);
 	 CreateDirectory(file_create,NULL);
-	 //SetAttribute(strPath);
-	 normal_file_name = strPath + "//normal.log";
+	 normal_file_name = strPath + "/normal.log";
 	 error_file_name = strPath + "/error.log";
+	 /*
 	 m_normalFile = fopen(normal_file_name.c_str(),"a");
+	 if(m_normalFile == NULL)
+	 {
+		 printf("error opening %s",normal_file_name.c_str());
+	 }
 	 m_errorFile = fopen(error_file_name.c_str(),"a");
+	 if(m_errorFile == NULL)
+	 {
+		 printf("error opening %s",error_file_name.c_str());
+	 }
+	 */
 	 hthread = (HANDLE)_beginthreadex(NULL,0,WriteFile,this,0,0);
 	 m_fileLogLevel = NOT_GET_LEVEL;
  }
@@ -113,14 +119,15 @@ void oLog::GetElement(int out_colour,char* Mes,int MesLength,
 	    }
 	}
 	memset(m_Mes.timebuffer,0,100);
-	memcpy(m_Mes.timebuffer,Timebuffer,timeLength);  //size problem
+	memcpy(m_Mes.timebuffer,Timebuffer,timeLength);//size problem
 	Append(m_Mes);
 }
 void oLog::Append(element m_mes)
  {
 	 WaitForSingleObject(hMutex_queue,INFINITE);
 	 Mes.push(m_mes);
-	 ReleaseMutex(hMutex_queue);
+	 if(ReleaseMutex(hMutex_queue) != 0)
+		 ReleaseMutex(hMutex_queue);
  }
 bool oLog::Remove()
 {
@@ -129,12 +136,14 @@ bool oLog::Remove()
 	{
 		m_Mes_Write = Mes.front();
 	    Mes.pop();
-	    ReleaseMutex(hMutex_queue);
+		if(ReleaseMutex(hMutex_queue) != 0)
+			ReleaseMutex(hMutex_queue);
 		return true;
 	}
 	else
 	{
-		ReleaseMutex(hMutex_queue);
+		if(ReleaseMutex(hMutex_queue) != 0)
+			ReleaseMutex(hMutex_queue);
 		return false;
 	}
 }
@@ -146,12 +155,28 @@ unsigned __stdcall oLog::WriteFile(PVOID pParam)
 		FILE* file = NULL;
 		if(This->Remove())
 		{
+		    WaitForSingleObject(This->hMutex_logfile,INFINITE);
+			//printf("%s","reached here too");
+			if(This->m_normalFile == NULL)
+		    {
+			    This->m_normalFile = fopen(This->normal_file_name.c_str(),"a");
+			    if(This->m_normalFile == NULL)
+			    {
+				    printf("ERROR OPENING %s",This->normal_file_name.c_str());
+			    }
+		    }
+		    if(This->m_errorFile == NULL)
+		    {
+			    This->m_errorFile = fopen(This->error_file_name.c_str(),"a");
+			    if(This->m_errorFile == NULL)
+			    {
+				    printf("ERROR OPENING %s",This->error_file_name.c_str());
+			    }
+		    }
 			if(This->m_Mes_Write.file == NORMAL_FILE)
 				file = This->m_normalFile;
 			else if(This->m_Mes_Write.file == ERROR_FILE)
 				file = This->m_errorFile;
-			else
-				GetLastError();
 			char *source = This->m_Mes_Write.source;
 			if(source != NULL)
 			{
@@ -162,9 +187,12 @@ unsigned __stdcall oLog::WriteFile(PVOID pParam)
 			{
 				This->outFile(file,This->m_Mes_Write.mes,This->m_Mes_Write.out_colour,This->m_Mes_Write.timebuffer);
 			}
+			DWORD num = ReleaseMutex(This->hMutex_logfile);
+		    if(num != 0)
+			    ReleaseMutex(This->hMutex_logfile);
 		}
 		else
-			Sleep(500);
+			Sleep(1);
 	}
 }
 void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char* source)
@@ -182,28 +210,22 @@ void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char
 			    FOREGROUND_GREEN | FOREGROUND_BLUE);//white
 		break;
 	}
-	
 	if(file == m_normalFile)
 	{
 		int32 file_length = filelength(fileno(file));
-	    if(file_length >= 1*1000)
+	    if(file_length >= 900*1000)
 	    {
-			string filename = SetNewName("normal",true); // »ñµÃÐÂµÄLOGÎÄ¼þµÄÃû×Ö£¬ÒÔÀàÐÍ¼°Ê±¼äÃüÃû
+			string filename = SetNewName("normal",true);// »ñµÃÐÂµÄLOGÎÄ¼þµÄÃû×Ö£¬ÒÔÀàÐÍ¼°Ê±¼äÃüÃû
 			filename = strPath + "/" + filename;
-			WaitForSingleObject(hMutex_logfile,INFINITE);
+			fflush(m_normalFile);
 			fclose(file);
 			rename(normal_file_name.c_str(),filename.c_str());
-			ReleaseMutex(hMutex_logfile);
 			if(rename != 0)
 			{
-				WaitForSingleObject(hMutex_write,INFINITE);
-				perror("rename");
-				ReleaseMutex(hMutex_write);
+				perror("Save the Log file");
 			}
-			WaitForSingleObject(hMutex_logfile,INFINITE);
 			file = fopen(normal_file_name.c_str(),"a");
 			m_normalFile = file;
-			ReleaseMutex(hMutex_logfile);
 	    }
 	}
 	else if(file == m_errorFile)
@@ -211,40 +233,34 @@ void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char
 		int32 file_length = filelength(fileno(file));
 	    if(file_length >= 1*1000)
 	    {
-			fclose(file);
 			string filename = SetNewName("error",true); // »ñµÃÐÂµÄLOGÎÄ¼þµÄÃû×Ö£¬ÒÔÀàÐÍ¼°Ê±¼äÃüÃû
 			filename = strPath + "/" + filename;
+			fflush(m_errorFile);
+			fclose(file);
 			rename(error_file_name.c_str(),filename.c_str());
 			if(rename != 0)
 			{
-				WaitForSingleObject(hMutex_write,INFINITE);
-				perror("rename");
-				ReleaseMutex(hMutex_write);
+				perror("Save the Log file");
 			}
 			file = fopen(error_file_name.c_str(),"a");
 			m_errorFile = file;
 	    }
 	}
-	
 	if(source != NULL)
 	{
-		WaitForSingleObject(hMutex_write,INFINITE);
-		printf("%s %s: %s\n", time_buffer, source, msg);
+		printf("%s : %s: %s\n", time_buffer, source, msg);
 		if (file != NULL)
 		{
-			fprintf(file, "%s %s: %s\n", time_buffer, source, msg);	
+			fprintf(file, "%s : %s: %s\n", time_buffer, source, msg);	
 		}
-		ReleaseMutex(hMutex_write);
 	}
 	else
 	{
-		WaitForSingleObject(hMutex_write,INFINITE);
-		printf("%s %s\n", time_buffer, msg);
+		printf("%s :%s\n", time_buffer, msg);
 		if (file != NULL)
 		{
-			fprintf(file, "%s %s\n", time_buffer, msg);
+			fprintf(file, "%s :%s\n", time_buffer, msg);
 		}
-		ReleaseMutex(hMutex_write);
 	}
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_RED |
 			    FOREGROUND_GREEN | FOREGROUND_BLUE);//white
@@ -255,18 +271,28 @@ void oLog::outFileSilent(FILE* file, char* msg, const char* source)
 {
 	char time_buffer[TIME_FORMAT_LENGTH];
 	Time(time_buffer);
+	int32 file_length = filelength(fileno(file));
+	if(file_length >= 900*1000)
+	{
+		string filename = SetNewName("error",true); // »ñµÃÐÂµÄLOGÎÄ¼þµÄÃû×Ö£¬ÒÔÀàÐÍ¼°Ê±¼äÃüÃû
+		filename = strPath + "/" + filename;
+		fflush(m_errorFile);
+		fclose(m_errorFile);
+		rename(error_file_name.c_str(),filename.c_str());
+		if(rename != 0)
+		{
+			perror("Save the Log file");
+		}
+		m_errorFile = fopen(error_file_name.c_str(),"a");
+	}
 	if(source != NULL)
 	{
-		WaitForSingleObject(hMutex_write,INFINITE);
-		fprintf(file, "%s %s: %s\n", time_buffer, source, msg);
-		ReleaseMutex(hMutex_write);
+		fprintf(file, "%s %s : %s\n", time_buffer, source, msg);
 		// Don't use printf to prevent text from being shown in the console output.
 	}
 	else
 	{
-		WaitForSingleObject(hMutex_write,INFINITE);
-		fprintf(file, "%s %s\n", time_buffer, msg);
-		ReleaseMutex(hMutex_write);
+		fprintf(file, "%s : %s\n", time_buffer, msg);
 		// Don't use printf to prevent text from being shown in the console output.
 	}
 }
@@ -652,29 +678,32 @@ void oLog::LargeErrorMessage(const char* source, ...)                //µ÷ÓÃÊ±£¬×
 
 void oLog::Init(int32 fileLogLevel)                    
 {
+
 	WaitForSingleObject(hMutex_level,INFINITE);
 	SetFileLoggingLevel(fileLogLevel);
-	ReleaseMutex(hMutex_level);
+	if(ReleaseMutex(hMutex_level) != 0)
+		ReleaseMutex(hMutex_level);
 	const char* logNormalFilename = NULL, *logErrorFilename = NULL;
 	logNormalFilename = normal_file_name.c_str();
 	logErrorFilename = error_file_name.c_str();
-	//logNormalFilename = "normal.log";
-	//logErrorFilename = "error.log";
 
-	//m_normalFile = fopen(logNormalFilename, "a");
 	WaitForSingleObject(hMutex_logfile,INFINITE);
+	if(m_normalFile == NULL)
+	{
+	    m_normalFile = fopen(logNormalFilename,"a");
+	}
+	if(m_errorFile == NULL)
+	{
+	    m_errorFile = fopen(logErrorFilename,"a");
+	}
 	if(m_normalFile == NULL)
 		fprintf(stderr, "%s: Error opening '%s': %s\n", __FUNCTION__, logNormalFilename, strerror(errno));
 	else
 	{
 		time_t t = time(NULL);
 		tm* aTm = localtime(&t);
-		outBasic("[%-4d-%02d-%02d %02d:%02d:%02d] ", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
+		outBasic("[%-4d-%02d-%02d %02d:%02d:%02d]", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
 	}
-	ReleaseMutex(hMutex_logfile);
-
-	//m_errorFile = fopen(logErrorFilename, "a");
-	WaitForSingleObject(hMutex_logfile,INFINITE);
 	if(m_errorFile == NULL)
 		fprintf(stderr, "%s: Error opening '%s': %s\n", __FUNCTION__, logErrorFilename, strerror(errno));
 	else
@@ -682,9 +711,17 @@ void oLog::Init(int32 fileLogLevel)
 		time_t t = time(NULL);
 		tm* aTm = localtime(&t);
 		// We don't echo time and date again because outBasic above just echoed them.
-		outErrorSilent("[%-4d-%02d-%02d %02d:%02d:%02d] ", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
+		outErrorSilent("[%-4d-%02d-%02d %02d:%02d:%02d]", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
 	}
-	ReleaseMutex(hMutex_logfile);
+	
+	//fflush(m_normalFile);
+	fclose(m_normalFile);
+	m_normalFile = NULL;
+	//fflush(m_errorFile);
+	fclose(m_errorFile);
+	m_errorFile = NULL;
+	if(ReleaseMutex(hMutex_logfile) != 0)
+		ReleaseMutex(hMutex_logfile);
 }
 
 void oLog::Close()
@@ -709,8 +746,6 @@ void oLog::Close()
 		CloseHandle(hMutex_level);
 	if(hMutex_file != NULL)
 		CloseHandle(hMutex_file);
-	if(hMutex_write != NULL)
-		CloseHandle(hMutex_write);
 }
 string oLog::GetProcessPath()
 {
@@ -729,24 +764,21 @@ string oLog::GetProcessName()
 	std::wstring wstr;
 	wstr = buf;
 	std::string str = "";
-	str =  WstringToString(wstr);
-
+	str = WstringToString(wstr);
 	size_t nBar = str.find_last_of('\\') + 1;
 	str = str.substr(nBar, str.length() - nBar);
-
 	size_t nCm = str.find_last_of('.');
 	str = str.substr(0, nCm);
-
 	return str;
 }
 
 void oLog::SetFileLoggingLevel(int32 level)
 {
-	//log level -1 is no more allowed
 	WaitForSingleObject(hMutex_level,INFINITE);
-	if(level >= 0)
+	if(level >= -1)
 		m_fileLogLevel = level;
-	ReleaseMutex(hMutex_level);
+	if(ReleaseMutex(hMutex_level) != 0)
+		ReleaseMutex(hMutex_level);
 }
 
 void oLog::SetFileLoggingLevel()
@@ -755,6 +787,7 @@ void oLog::SetFileLoggingLevel()
 	funcInCon = false;
 	string strpath = GetProcessPath();
 	strpath = strpath + "../config/log_level.conf";
+	WaitForSingleObject(hMutex_level,INFINITE);
 	if(Config.MainConfig.SetSource(strpath.c_str(),false))
 	{
 		int32 level;
@@ -762,23 +795,21 @@ void oLog::SetFileLoggingLevel()
 		{
 			WaitForSingleObject(hMutex_level,INFINITE);
 			m_fileLogLevel = level;
-			ReleaseMutex(hMutex_level);
 		}
 		else 
 		{
 			printf("%s","Get fileLevel failed!");
-			WaitForSingleObject(hMutex_level,INFINITE);
 			m_fileLogLevel = -1;
-			ReleaseMutex(hMutex_level);
 		}
 	}
 	else
 	{
-		WaitForSingleObject(hMutex_level,INFINITE);
 		m_fileLogLevel = -1;
-		ReleaseMutex(hMutex_level);
 	}
-	ReleaseMutex(hMutex_file);
+	if(ReleaseMutex(hMutex_level) != 0)
+		ReleaseMutex(hMutex_level);
+    if(ReleaseMutex(hMutex_file) != 0)
+		ReleaseMutex(hMutex_file);
 }
 /*
 void oLog::SetFileLoggingLevel(const char* levelname)
