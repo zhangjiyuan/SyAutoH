@@ -240,19 +240,19 @@ void oLog::outFile(FILE* file, char* msg,int colour,char* time_buffer,const char
 	}
 	if(source != NULL)
 	{
-		printf("%s : %s: %s\n", time_buffer, source, msg);
+		printf("%s %s %s\n", time_buffer, source, msg);
 		if (file != NULL)
 		{
-			fprintf(file, "%s : %s: %s\n", time_buffer, source, msg);
+			fprintf(file, "%s %s %s\n", time_buffer, source, msg);
 			fflush(file);
 		}
 	}
 	else
 	{
-		printf("%s :%s\n", time_buffer, msg);
+		printf("%s %s\n", time_buffer, msg);
 		if (file != NULL)
 		{
-			fprintf(file, "%s :%s\n", time_buffer, msg);
+			fprintf(file, "%s %s\n", time_buffer, msg);
 			fflush(file);
 		}
 	}
@@ -281,12 +281,12 @@ void oLog::outFileSilent(FILE* file, char* msg, const char* source)
 	}
 	if(source != NULL)
 	{
-		fprintf(file, "%s %s : %s\n", time_buffer, source, msg);
+		fprintf(file, "%s %s %s\n", time_buffer, source, msg);
 		// Don't use printf to prevent text from being shown in the console output.
 	}
 	else
 	{
-		fprintf(file, "%s : %s\n", time_buffer, msg);
+		fprintf(file, "%s %s\n", time_buffer, msg);
 		// Don't use printf to prevent text from being shown in the console output.
 	}
 	fflush(file);
@@ -544,7 +544,7 @@ void oLog::Notice(const char* source, const char* format, ...)
 	va_start(ap, format);
 	vsnprintf(buf, 32768, format, ap);
 	va_end(ap);
-	GetElement(LINE_COLOUR_YELLOW,buf,sizeof(buf),
+    GetElement(LINE_COLOUR_WHITE,buf,sizeof(buf),
 		           NORMAL_FILE,source,time_buffer,sizeof(time_buffer));
 	//outFile(m_normalFile, buf, source);
 }
@@ -565,7 +565,7 @@ void oLog::Warning(const char* source, const char* format, ...)
 	va_start(ap, format);
 	vsnprintf(buf, 32768, format, ap);
 	va_end(ap);
-	GetElement(LINE_COLOUR_YELLOW,buf,sizeof(buf),
+	GetElement(LINE_COLOUR_WHITE,buf,sizeof(buf),
 		           NORMAL_FILE,source,time_buffer,sizeof(time_buffer));
 }
 
@@ -625,7 +625,6 @@ void oLog::Debug(const char* source, const char* format, ...)
 		//m_normalFile = fopen("normal.log","a");
 	char buf[32768];
 	va_list ap;
-
 	va_start(ap, format);
 	vsnprintf(buf, 32768, format, ap);
 	va_end(ap);
