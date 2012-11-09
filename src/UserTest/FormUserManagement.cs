@@ -17,6 +17,7 @@ namespace UserTest
             InitializeComponent();
             Init_listViewStockerFoups();
             Init_listView_MesLocation();
+            Init_listView_MesFoups();
         }
         private string[] RightCollection = 
             new string[] { "NoRight", "Viewer", "Guest", "Operator", "Admin", "SuperAdmin"};
@@ -26,6 +27,17 @@ namespace UserTest
         private int m_nSession = 0;
         private string strUserLogin = "";
         private string strVal;
+
+        private void Init_listView_MesFoups()
+        {
+            lVMes_Foup.Clear();
+            lVMes_Foup.Columns.Clear();
+            lVMes_Foup.Columns.Add("Lot", 60, HorizontalAlignment.Center);
+            lVMes_Foup.Columns.Add("BarCode", 60, HorizontalAlignment.Center);
+            lVMes_Foup.Columns.Add("Status", 60, HorizontalAlignment.Center);
+            lVMes_Foup.Columns.Add("Location", 60, HorizontalAlignment.Center);
+            lVMes_Foup.Columns.Add("OHT Pos", 60, HorizontalAlignment.Center);
+        }
 
         private void Init_listView_MesLocation()
         {

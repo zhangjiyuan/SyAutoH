@@ -139,7 +139,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(883, 454);
+            this.tabControl1.Size = new System.Drawing.Size(960, 454);
             this.tabControl1.TabIndex = 8;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -386,7 +386,7 @@
             this.tabPageMES.Location = new System.Drawing.Point(4, 22);
             this.tabPageMES.Name = "tabPageMES";
             this.tabPageMES.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMES.Size = new System.Drawing.Size(875, 428);
+            this.tabPageMES.Size = new System.Drawing.Size(952, 428);
             this.tabPageMES.TabIndex = 1;
             this.tabPageMES.Text = "MES Simulator";
             // 
@@ -565,7 +565,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(742, 14);
+            this.linkLabel1.Location = new System.Drawing.Point(819, 14);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(125, 12);
             this.linkLabel1.TabIndex = 15;
@@ -706,7 +706,7 @@
             this.lVMes_Foup.BackColor = System.Drawing.Color.SkyBlue;
             this.lVMes_Foup.Location = new System.Drawing.Point(589, 36);
             this.lVMes_Foup.Name = "lVMes_Foup";
-            this.lVMes_Foup.Size = new System.Drawing.Size(280, 384);
+            this.lVMes_Foup.Size = new System.Drawing.Size(355, 384);
             this.lVMes_Foup.TabIndex = 11;
             this.lVMes_Foup.UseCompatibleStateImageBehavior = false;
             this.lVMes_Foup.View = System.Windows.Forms.View.Details;
@@ -874,7 +874,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(883, 454);
+            this.ClientSize = new System.Drawing.Size(960, 454);
             this.Controls.Add(this.tabControl1);
             this.Name = "FormUserManagement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
