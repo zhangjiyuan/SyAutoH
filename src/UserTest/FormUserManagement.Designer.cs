@@ -150,7 +150,7 @@
             this.tabPageLogin.Controls.Add(this.groupBox1);
             this.tabPageLogin.Location = new System.Drawing.Point(4, 22);
             this.tabPageLogin.Name = "tabPageLogin";
-            this.tabPageLogin.Size = new System.Drawing.Size(875, 428);
+            this.tabPageLogin.Size = new System.Drawing.Size(952, 428);
             this.tabPageLogin.TabIndex = 2;
             this.tabPageLogin.Text = "Login";
             // 
@@ -163,7 +163,7 @@
             this.groupBox1.Controls.Add(this.bnLogout);
             this.groupBox1.Controls.Add(this.bnLogin);
             this.groupBox1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox1.Location = new System.Drawing.Point(189, 149);
+            this.groupBox1.Location = new System.Drawing.Point(284, 139);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(377, 131);
             this.groupBox1.TabIndex = 15;
@@ -725,13 +725,13 @@
             this.tabOHT.Location = new System.Drawing.Point(4, 22);
             this.tabOHT.Name = "tabOHT";
             this.tabOHT.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOHT.Size = new System.Drawing.Size(875, 428);
+            this.tabOHT.Size = new System.Drawing.Size(952, 428);
             this.tabOHT.TabIndex = 3;
             this.tabOHT.Text = "OHT Info";
             // 
             // bnSetPosTime
             // 
-            this.bnSetPosTime.Location = new System.Drawing.Point(187, 283);
+            this.bnSetPosTime.Location = new System.Drawing.Point(818, 6);
             this.bnSetPosTime.Name = "bnSetPosTime";
             this.bnSetPosTime.Size = new System.Drawing.Size(126, 23);
             this.bnSetPosTime.TabIndex = 7;
@@ -741,7 +741,7 @@
             // 
             // tBPosTime
             // 
-            this.tBPosTime.Location = new System.Drawing.Point(91, 285);
+            this.tBPosTime.Location = new System.Drawing.Point(722, 8);
             this.tBPosTime.Name = "tBPosTime";
             this.tBPosTime.Size = new System.Drawing.Size(90, 21);
             this.tBPosTime.TabIndex = 6;
@@ -749,7 +749,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 288);
+            this.label9.Location = new System.Drawing.Point(639, 11);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(77, 12);
             this.label9.TabIndex = 5;
@@ -757,16 +757,16 @@
             // 
             // labelCBTest
             // 
-            this.labelCBTest.Location = new System.Drawing.Point(8, 326);
+            this.labelCBTest.Location = new System.Drawing.Point(641, 32);
             this.labelCBTest.Name = "labelCBTest";
-            this.labelCBTest.Size = new System.Drawing.Size(495, 97);
+            this.labelCBTest.Size = new System.Drawing.Size(308, 97);
             this.labelCBTest.TabIndex = 4;
             this.labelCBTest.Text = "label9";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 258);
+            this.label3.Location = new System.Drawing.Point(639, 152);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 12);
             this.label3.TabIndex = 3;
@@ -774,14 +774,14 @@
             // 
             // tbOhtMoveTo
             // 
-            this.tbOhtMoveTo.Location = new System.Drawing.Point(91, 255);
+            this.tbOhtMoveTo.Location = new System.Drawing.Point(722, 149);
             this.tbOhtMoveTo.Name = "tbOhtMoveTo";
             this.tbOhtMoveTo.Size = new System.Drawing.Size(90, 21);
             this.tbOhtMoveTo.TabIndex = 2;
             // 
             // bnOHTGo
             // 
-            this.bnOHTGo.Location = new System.Drawing.Point(187, 253);
+            this.bnOHTGo.Location = new System.Drawing.Point(818, 147);
             this.bnOHTGo.Name = "bnOHTGo";
             this.bnOHTGo.Size = new System.Drawing.Size(75, 23);
             this.bnOHTGo.TabIndex = 1;
@@ -793,7 +793,7 @@
             // 
             this.listViewOHTs.Location = new System.Drawing.Point(8, 6);
             this.listViewOHTs.Name = "listViewOHTs";
-            this.listViewOHTs.Size = new System.Drawing.Size(495, 245);
+            this.listViewOHTs.Size = new System.Drawing.Size(426, 336);
             this.listViewOHTs.TabIndex = 0;
             this.listViewOHTs.UseCompatibleStateImageBehavior = false;
             this.listViewOHTs.View = System.Windows.Forms.View.Details;
@@ -806,7 +806,7 @@
             this.tabSTK.Location = new System.Drawing.Point(4, 22);
             this.tabSTK.Name = "tabSTK";
             this.tabSTK.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSTK.Size = new System.Drawing.Size(875, 428);
+            this.tabSTK.Size = new System.Drawing.Size(952, 428);
             this.tabSTK.TabIndex = 4;
             this.tabSTK.Text = "Stocker Info";
             this.tabSTK.UseVisualStyleBackColor = true;
@@ -849,7 +849,7 @@
             this.tabFoups.Location = new System.Drawing.Point(4, 22);
             this.tabFoups.Name = "tabFoups";
             this.tabFoups.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFoups.Size = new System.Drawing.Size(875, 428);
+            this.tabFoups.Size = new System.Drawing.Size(952, 428);
             this.tabFoups.TabIndex = 5;
             this.tabFoups.Text = "Foup Info";
             this.tabFoups.UseVisualStyleBackColor = true;
