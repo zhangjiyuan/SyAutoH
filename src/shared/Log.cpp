@@ -40,7 +40,6 @@ string SetNewName(const char* Description, bool useTimeStamp)
 	return string(p);
 }
 createFileSingleton(oLog);
-//initialiseSingleton(WorldLog);
 
  time_t UNIXTIME;
  tm g_localTime;
@@ -58,7 +57,7 @@ void oLog::outFile(FILE* file, char* msg, const char* source)
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_RED); //red 
 		break;
 	default:
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_RED |
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED |
 			    FOREGROUND_GREEN | FOREGROUND_BLUE);//white
 		break;
 	}

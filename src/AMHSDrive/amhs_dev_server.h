@@ -93,15 +93,6 @@ public:
 	int GetCount();
 
 private:
-	////
-	//OHT_ACK_STATUS_BACK_TIME				= 0x0811,
-	//	OHT_ACK_POSITION_BACK_TIME				= 0x0812,	
-	//	OHT_ACK_PATH											= 0x0813,	
-	//	OHT_ACK_MOVE											= 0x0814,
-	//	OHT_ACK_FOUP											= 0x0815,
-	//	OHT_AUTH													= 0x0816,
-	//	OHT_POSITION												= 0x0817,
-	//	OHT_STATUS												= 0x0818,
 	void Handle_OHT_AckStatusBackTime(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_AckPosBackTime(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_AckPath(amhs_participant_ptr, AMHSPacket&);
@@ -112,16 +103,6 @@ private:
 	void Handle_OHT_Status(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_TeachPath(amhs_participant_ptr, AMHSPacket&);
 
-	////
-	//STK_ACK_FOUP											= 0x0820,
-	//	STK_ACK_STATUS										= 0x0821,
-	//	STK_ACK_ROOM											= 0x0822,
-	//	STK_ACK_STORAGE										= 0x0823,
-	//	STK_ACK_INPUT_STATUS							= 0x0824,
-	//	STK_ACK_HISTORY										= 0x0825,
-	//	STK_ACK_ALARMS										= 0x0826,
-	//	STK_AUTH														= 0x0827,
-	//	STK_FOUP_EVENT										= 0x0829,
 	void Handle_STK_AckFoup(amhs_participant_ptr, AMHSPacket&);
 	void Handle_STK_AckStatus(amhs_participant_ptr, AMHSPacket&);
 	void Handle_STK_AckRoom(amhs_participant_ptr, AMHSPacket&);

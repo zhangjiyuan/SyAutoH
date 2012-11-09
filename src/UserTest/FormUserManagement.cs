@@ -15,6 +15,8 @@ namespace UserTest
         public FormUserManagement()
         {
             InitializeComponent();
+            Init_listViewStockerFoups();
+            Init_listView_MesLocation();
         }
         private string[] RightCollection = 
             new string[] { "NoRight", "Viewer", "Guest", "Operator", "Admin", "SuperAdmin"};
@@ -24,7 +26,26 @@ namespace UserTest
         private int m_nSession = 0;
         private string strUserLogin = "";
         private string strVal;
-        //private int nUserLoginRight = 0;
+
+        private void Init_listView_MesLocation()
+        {
+            lVMes_Location.Clear();
+            lVMes_Location.Columns.Clear();
+            lVMes_Location.Columns.Add("Name", 80, HorizontalAlignment.Center);
+            lVMes_Location.Columns.Add("Type", 60, HorizontalAlignment.Center);
+            lVMes_Location.Columns.Add("BarCode", 60, HorizontalAlignment.Center);
+        }
+
+        private void Init_listViewStockerFoups()
+        {
+            listViewStockerFoups.Clear();
+            listViewStockerFoups.Columns.Clear();
+            listViewStockerFoups.Columns.Add("ID", 60, HorizontalAlignment.Center);
+            listViewStockerFoups.Columns.Add("Lot", 60, HorizontalAlignment.Center);
+            listViewStockerFoups.Columns.Add("Location", 60, HorizontalAlignment.Center);
+            listViewStockerFoups.Columns.Add("LocType", 60, HorizontalAlignment.Center);
+            listViewStockerFoups.Columns.Add("Status", 60, HorizontalAlignment.Center);
+        }
 
         private void bnLogin_Click(object sender, EventArgs e)
         {
@@ -40,6 +61,9 @@ namespace UserTest
                 strUserLogin = this.textBoxUser.Text;
                 this.textBoxLoginUser.Text = strUserLogin;
                 this.comboBoxUserRight.SelectedIndex = 4;
+
+                this.Text = "MCS Control  Login User: " + this.textBoxUser.Text;
+           
             }
             else
             {
@@ -107,42 +131,6 @@ namespace UserTest
                 }
             }
 
-            
-        }
-
-        private void buttonPickFoup_Click(object sender, EventArgs e)
-        {
-            string strFoupName = this.textBoxFoupName.Text;
-            int nLocal = 0;
-            int nType = 0;
-            try
-            {
-                nLocal = Convert.ToInt32(this.textBoxLocation.Text);
-                nType = Convert.ToInt32(this.textBoxLocType.Text);
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            mesLink.PickFoup(strFoupName, nLocal, nType);
-        }
-
-        private void buttonPlaceFoup_Click(object sender, EventArgs e)
-        {
-            string strFoupName = this.textBoxFoupName.Text;
-            int nLocal = Convert.ToInt32(this.textBoxLocation.Text);
-            int nType = Convert.ToInt32(this.textBoxLocType.Text);
-
-            mesLink.PlaceFoup(strFoupName, nLocal, nType);
-        }
-
-        private void buttonGetFoupID_Click(object sender, EventArgs e)
-        {
-            int nLocal = 0;
-            int nType = 0;
-            string strFoupName = this.textBoxFoupName.Text;
-            mesLink.GetFoupLocation(strFoupName, out nLocal, out nType);
             
         }
 
@@ -257,6 +245,7 @@ namespace UserTest
             {
                 userMge.Logout(m_nSession);
                 m_nSession = 0;
+                this.Text = "MCS Control Logout";
             }
         }
 
@@ -321,6 +310,27 @@ namespace UserTest
             strVal = string.Format("<{0}, {1}>", 254, nPosTime);
 
             int nWRet = dataHubLink.WriteData("OHT.POSTIME:<ID, VAL>", strVal, m_nSession);
+        }
+
+        private void maskedTextBoxPW_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar.CompareTo('\r') == 0)
+            {
+                bnLogin_Click(null, null);
+            }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //MessageBox.Show("Refresh Foups in MCS");
+            tBMesFS_Lot.Text = "345";
+            tBMesFS_BC.Text = "11982";
+            tBMesFS_ST.Text = "Ready";
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

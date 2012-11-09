@@ -64,4 +64,5 @@ void MaterialController::Check(void)
 void MaterialController::PrintfInfo(void)
 {
 	Log.outBasic("Material Control System V1.0.0.1 \n\n\n");
+	//LOG_BASIC("Material Control System V1.0.0.1 \n\n\n");
 }

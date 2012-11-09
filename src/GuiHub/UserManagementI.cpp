@@ -34,11 +34,21 @@ int UserManagementI::Init()
 	if (NULL == m_pUserDB)
 	{
 		m_pUserDB = new DBUserAce();
+		sLog.outBasic("DB testing...");
 		UserDataList list = m_pUserDB->GetUserList(0, 2);
 		size_t szCount = list.size();
 		if (szCount <= 0)
 		{
 			m_pUserDB->CreateUser("admin", "admin", 4);
+		}
+		list = m_pUserDB->GetUserList(0, 2);
+		if (list.size() > 0)
+		{
+			sLog.outBasic("DB OK");
+		}
+		else
+		{
+			sLog.outError("DB Failed!");
 		}
 	}
 	if (NULL == m_pSession)
