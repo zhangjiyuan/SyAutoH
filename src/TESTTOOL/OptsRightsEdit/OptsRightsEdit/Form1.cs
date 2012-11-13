@@ -98,5 +98,11 @@ namespace OptsRightsEdit
             TextRenderer.DrawText(e.Graphics, rownum.ToString(), dataGridView1.RowHeadersDefaultCellStyle.Font, 
                                   rct, dataGridView1.RowHeadersDefaultCellStyle.ForeColor, System.Drawing.Color.Transparent, TextFormatFlags.HorizontalCenter);
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult key = MessageBox.Show("是否确认关闭窗口？如未保存数据，请点‘否’返回保存后继续。", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            e.Cancel = (key == DialogResult.No);
+        }
     }
 }
