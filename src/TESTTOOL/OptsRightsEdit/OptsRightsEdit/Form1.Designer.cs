@@ -30,13 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.OPT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RoleRight = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Add_Row = new System.Windows.Forms.Button();
             this.Delete_Row = new System.Windows.Forms.Button();
             this.Save_Data = new System.Windows.Forms.Button();
             this.rightInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.OPT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RoleRight = new System.Windows.Forms.DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightInfoBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -57,6 +57,24 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing);
             this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
+            // 
+            // OPT
+            // 
+            this.OPT.HeaderText = "OPT";
+            this.OPT.Name = "OPT";
+            // 
+            // MODE
+            // 
+            this.MODE.HeaderText = "MODE";
+            this.MODE.Name = "MODE";
+            // 
+            // RoleRight
+            // 
+            this.RoleRight.DataPropertyName = "ID";
+            this.RoleRight.HeaderText = "RoleRight";
+            this.RoleRight.Name = "RoleRight";
+            this.RoleRight.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.RoleRight.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // Add_Row
             // 
@@ -88,33 +106,9 @@
             this.Save_Data.UseVisualStyleBackColor = true;
             this.Save_Data.Click += new System.EventHandler(this.Save_Data_Click);
             // 
-            // mCSDataSet
-            // 
-            // 
             // rightInfoBindingSource
             // 
             this.rightInfoBindingSource.DataMember = "RightInfo";
-            // 
-            // rightInfoTableAdapter
-            //
-            // 
-            // OPT
-            // 
-            this.OPT.HeaderText = "OPT";
-            this.OPT.Name = "OPT";
-            // 
-            // MODE
-            // 
-            this.MODE.HeaderText = "MODE";
-            this.MODE.Name = "MODE";
-            // 
-            // RoleRight
-            // 
-            this.RoleRight.DataPropertyName = "ID";
-            this.RoleRight.HeaderText = "RoleRight";
-            this.RoleRight.Name = "RoleRight";
-            this.RoleRight.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.RoleRight.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // Form1
             // 
@@ -127,6 +121,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightInfoBindingSource)).EndInit();
