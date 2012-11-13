@@ -26,7 +26,7 @@ namespace OptsRightsEdit
             this.dataGridView1.AutoGenerateColumns = false;
 
             SqlConnection scon = new SqlConnection();
-            scon.ConnectionString = "Integrated Security = True; database = MCS; server = HL-20121109HRYV\\AMHS";
+            scon.ConnectionString = "Integrated Security = True; database = MCS; server = (local)\\AMHS";
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "select * from dbo.OptsRights";
             cmd.Connection = scon;
