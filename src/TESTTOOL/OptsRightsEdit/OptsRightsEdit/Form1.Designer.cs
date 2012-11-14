@@ -37,6 +37,7 @@
             this.Delete_Row = new System.Windows.Forms.Button();
             this.Save_Data = new System.Windows.Forms.Button();
             this.rightInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightInfoBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -55,6 +56,7 @@
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.Size = new System.Drawing.Size(348, 317);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing);
             this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
             // 
@@ -82,7 +84,7 @@
             this.Add_Row.Name = "Add_Row";
             this.Add_Row.Size = new System.Drawing.Size(101, 35);
             this.Add_Row.TabIndex = 1;
-            this.Add_Row.Text = "添加新行信息";
+            this.Add_Row.Text = "添加新行";
             this.Add_Row.UseVisualStyleBackColor = true;
             this.Add_Row.Click += new System.EventHandler(this.Add_Row_Click);
             // 
@@ -110,11 +112,21 @@
             // 
             this.rightInfoBindingSource.DataMember = "RightInfo";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(133, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(95, 12);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "OptsRights Edit";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(503, 404);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.Save_Data);
             this.Controls.Add(this.Delete_Row);
             this.Controls.Add(this.Add_Row);
@@ -126,6 +138,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightInfoBindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -139,6 +152,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn OPT;
         private System.Windows.Forms.DataGridViewTextBoxColumn MODE;
         private System.Windows.Forms.DataGridViewComboBoxColumn RoleRight;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -45,7 +45,7 @@ namespace OptsRightsEdit
             DataTable dtbox = new DataTable();
             sdabox.Fill(dtbox);
             DataGridViewComboBoxColumn dgvComboBoxColumn = dataGridView1.Columns["RoleRight"] as DataGridViewComboBoxColumn;
-            dgvComboBoxColumn.DataPropertyName = "ID";
+            dgvComboBoxColumn.DataPropertyName = "RoleRight";
             dgvComboBoxColumn.DataSource = dtbox.DefaultView;
             dgvComboBoxColumn.DisplayMember = "RoleName";
             dgvComboBoxColumn.ValueMember = "ID";
@@ -72,6 +72,7 @@ namespace OptsRightsEdit
 
         private void Save_Data_Click(object sender, EventArgs e)
         {
+
             SqlCommandBuilder sqlcb = new SqlCommandBuilder(sda);
             sda.InsertCommand = sqlcb.GetInsertCommand();
             sda.Update(dt);
@@ -101,8 +102,27 @@ namespace OptsRightsEdit
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult key = MessageBox.Show("是否确认关闭窗口？如未保存数据，请点‘否’返回保存后继续。", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult key = MessageBox.Show("是否确认关闭窗口？(如未保存数据，请点‘否’返回保存后继续)", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             e.Cancel = (key == DialogResult.No);
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            int count = this.dataGridView1.Rows.Count;
+            if (count > 1 && dataGridView1.CurrentCell.RowIndex > 0)
+            {
+                if (this.dataGridView1.CurrentCell.ColumnIndex == 0)
+                {
+                    for (int i = 0; i < this.dataGridView1.CurrentCell.RowIndex; i++)
+                    {
+                        if (this.dataGridView1.Rows[i].Cells[0].Value.ToString() == this.dataGridView1.Rows[this.dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString())
+                        {
+                            MessageBox.Show("输入的OPT值重复，请重新输入！", "提示");
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }
