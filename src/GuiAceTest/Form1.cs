@@ -18,27 +18,36 @@ namespace GuiAceTest
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.labelInfo.Text = "Login and do data operate.";
+            User formUser = new User();
+            formUser.MdiParent = this;
+            formUser.Show();
+            this.Controls.Add(formUser);
+            for (int i = 0; i < this.Controls.Count; i++)
+            {
+                MdiClient ClientMdi = this.Controls[i] as MdiClient;
+                if (ClientMdi != null)
+                {
+                    ClientMdi.MouseMove += new System.Windows.Forms.MouseEventHandler(ClientMdi_MouseMove);
+                    ClientMdi.BackColor = Color.FromArgb(214, 213, 215);
+                }
+            }
         }
 
-        private void buttonLogin_Click(object sender, EventArgs e)
+        private void ClientMdi_MouseMove(object sender, MouseEventArgs e)  
+     {  
+             
+     }
+
+        private void splitContainer2_Panel2_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void buttonLogout_Click(object sender, EventArgs e)
+        private void splitContainer5_Panel2_Paint(object sender, PaintEventArgs e)
         {
 
-        }
+        } 
 
-        private void buttonTagRead_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonTagWrite_Click(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }

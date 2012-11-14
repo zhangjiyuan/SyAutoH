@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Timers;
+using GuiAccess;
+using WinFormElement;
 
 namespace RailView
 {
@@ -19,11 +21,13 @@ namespace RailView
            
         }
 
+        private DataHubCli dataHubLink = new DataHubCli();
+        private string strVal = "";
+
         private void InitForm()
         {
             //ComponentLocChanged();        
             formOperation.FormShowRegionInit();
-            formOperation.AddVehicleNode(baseInfoTreeView);
             //test using, finally delete
             TestRailDrawCoor();
             this.Invalidate();
@@ -41,7 +45,7 @@ namespace RailView
         {
             System.Timers.Timer timer = new System.Timers.Timer();
             timer.Elapsed += new ElapsedEventHandler(StartTimer);
-            timer.Interval = 3000;
+            timer.Interval = 200;
             timer.AutoReset = true;
             timer.Enabled = true;
         }
@@ -49,7 +53,44 @@ namespace RailView
         //test using, finally delete
         public void StartTimer(object source, System.Timers.ElapsedEventArgs e)
         {
+            UpdateOHTPosition();
             this.showPic.Invalidate();
+        }
+
+        private void UpdateOHTPosition()
+        {
+            lock (strVal)
+            {
+                if (strVal.Length < 1)
+                {
+                    return;
+                }
+               
+                string strSplit = "<>";
+                char[] spliter = strSplit.ToCharArray();
+                string[] strItem = strVal.Split(spliter);
+
+                List<OhtPos> listOht = new List<OhtPos>();
+                foreach (string strOht in strItem)
+                {
+                    if (strOht.Length > 0)
+                    {
+                        string[] strParams = strOht.Split(',');
+                        if (strParams.Length == 3)
+                        {
+                            OhtPos oht = new OhtPos();
+                            oht.nID = Convert.ToByte(strParams[0]);
+                            oht.nPos = Convert.ToUInt32(strParams[1]);
+                            oht.nHand = Convert.ToByte(strParams[2]);
+                            listOht.Add(oht);
+                        }
+                    }
+                }
+
+                formOperation.UpdateOHTPos(listOht);
+
+            }
+            
         }
 
         private void baseInfoTreeView_MouseUp(object sender, MouseEventArgs e)
@@ -94,26 +135,29 @@ namespace RailView
             }
         }
 
-        private void contextmenu_Click(object sender, EventArgs e)
-        {
-            ToolStripMenuItem item = sender as ToolStripMenuItem;
-            if (item != null)
-            {
-                switch (item.Text)
-                {
-                    case "add vehicle":
-                        formOperation.AddVehicleNode(baseInfoTreeView);
-                        break;
-                    case "456":
-                        MessageBox.Show("dfd");
-                        break;
-                }
-            }
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             InitForm();
+
+            dataHubLink.ConnectServer();
+            dataHubLink.DataUpdater += new DataUpdaterHander(GuiDataUpdate);
+            dataHubLink.SetCallBack();
+        }
+
+        private void GuiDataUpdate(string strTag, string sVal)
+        {
+            //if (strTag.CompareTo("TEST") == 0)
+            //{
+            //    this.labelCBTest.Text = sVal;
+            //}
+            //if (strTag.CompareTo("OHT.POS") == 0)
+            //{
+            //    this.labelCBTest.Text = sVal;
+            //}
+            lock (this)
+            {
+                strVal = sVal;
+            }
         }
     }   
 }
