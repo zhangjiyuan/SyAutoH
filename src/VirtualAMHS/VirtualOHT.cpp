@@ -147,10 +147,10 @@ void CALLBACK VirtualOHT::PosTimerHandler(UINT id, UINT msg, DWORD dwUser, DWORD
 
 void VirtualOHT::OnPosTimer(void)
 {
-	m_nPos += 2451;
-	//if (m_nPos > 900000)
-	//{
-	//	m_nPos = 0;
-	//}
+	m_nPos += 50;
+	if (m_nPos > 12400)
+	{
+		m_nPos = 0;
+	}
 	UpdatePos(m_nPos);
 }

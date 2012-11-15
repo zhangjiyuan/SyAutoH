@@ -78,6 +78,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\GuiAccess\GuiAccess.csproj">
+      <Project>{C969609B-8A6A-4D79-B77B-EB7C2A5DC54E}</Project>
+      <Name>GuiAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WinFormElement\WinFormElement.csproj">
       <Project>{A90AC1D7-F370-41D4-83F8-AAF0115FB73D}</Project>
       <Name>WinFormElement</Name>

@@ -7,44 +7,63 @@ using System.Drawing.Drawing2D;
 
 namespace WinFormElement
 {
+    public struct OhtPos
+    {
+         public byte nID;
+         public uint nPos;
+         public byte nHand;
+         public uint nError;
+    }
+    
     public class Vehicle
     {
         //using for test
         public TestPoint tempTest = new TestPoint();
         //using for test
 
-        private Int16 vehicleID;
-        private short vehiclePosCoding;
-        private bool vehicleState;
-        private bool vehicleAlarm;
-        private Point vehicleOldPoint = Point.Empty;
-        private Point vehicleTempPoint = Point.Empty;
-
-        public Int16 VehicleID
+        private byte nID;
+        private byte nHandStatus;
+        private uint nPosCode;
+        private bool bState;
+        private bool bAlarm;
+        private Point ptOld = Point.Empty;
+        private Point ptTemp = Point.Empty;
+        private int dtLast;
+        
+        public int UpdateTime
         {
-            get { return vehicleID; }
-            set { vehicleID = value; }
+            get { return dtLast; }
+            set { dtLast = value; }
         }
-        public short VehiclePosCoding
+        public byte Hand
         {
-            get { return vehiclePosCoding; }
-            set { vehiclePosCoding = value; }
-        }
-        public bool VehicleState
-        {
-            get { return vehicleState; }
-            set { vehicleState = value; }
-        }
-        public bool VehicleAlarm
-        {
-            get { return vehicleAlarm; }
-            set { vehicleAlarm = value; }
+            get { return nHandStatus; }
+            set { nHandStatus = value;  }
         }
 
-        public Vehicle(Int16 ID)
+        public byte ID
         {
-            vehicleID = ID;
-            tempTest.Show();
+            get { return nID; }
+        }
+        public uint PosCode
+        {
+            get { return nPosCode; }
+            set { nPosCode = value; }
+        }
+        public bool IsState
+        {
+            get { return bState; }
+            set { bState = value; }
+        }
+        public bool IsAlarm
+        {
+            get { return bAlarm; }
+            set { bAlarm = value; }
+        }
+
+        public Vehicle(byte ID)
+        {
+            nID = ID;
         }
 
         public bool ShowInScreen(Graphics canvas, Point location)
@@ -67,18 +86,18 @@ namespace WinFormElement
 
         private void ChangeVehiclePoint(Point pt)
         {
-            if (pt != vehicleTempPoint)
+            if (pt != ptTemp)
             {
-                vehicleOldPoint = vehicleTempPoint;
-                vehicleTempPoint = pt;
+                ptOld = ptTemp;
+                ptTemp = pt;
             }
         }
 
         private void ComputeVehicleShape(Point pt, Point[] pts)
         {
             Point[] tempPts = new Point[3];
-            int dx = pt.X - vehicleOldPoint.X;
-            int dy = pt.Y - vehicleOldPoint.Y;
+            int dx = pt.X - ptOld.X;
+            int dy = pt.Y - ptOld.Y;
             Int16 dxSign = 0;
             Int16 dysign = 0;
             if (dx != 0)
