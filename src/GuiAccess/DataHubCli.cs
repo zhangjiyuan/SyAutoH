@@ -74,7 +74,8 @@ namespace GuiAccess
         {
             try
             {
-                remote.SetDataUpdater(dataCallback);
+                remote.begin_SetDataUpdater(dataCallback);
+                //remote.SetDataUpdater(dataCallback);
             }
             catch (System.Exception /*ex*/)
             {
