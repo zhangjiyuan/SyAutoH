@@ -159,5 +159,33 @@ namespace RailView
                 strVal = sVal;
             }
         }
+
+        private void quitToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            if (DialogResult.OK == MessageBox.Show("Want to Quit?", "Warnning", MessageBoxButtons.OKCancel) )
+            {
+                this.Close();
+            }
+        }
+
+        private void screenToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            if (FormBorderStyle.None == this.FormBorderStyle)
+            {
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.WindowState = FormWindowState.Normal;
+                this.screenToolStripMenuItem.Text = "Full Screen";
+                this.screenToolStripMenuItem.Image = global::RailView.Properties.Resources.full_screen2;
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Normal;
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.WindowState = FormWindowState.Maximized;
+                this.TopMost = true;
+                this.screenToolStripMenuItem.Text = "Normal Screen";
+                this.screenToolStripMenuItem.Image = global::RailView.Properties.Resources.normal_screen2;
+            }
+        }
     }   
 }
