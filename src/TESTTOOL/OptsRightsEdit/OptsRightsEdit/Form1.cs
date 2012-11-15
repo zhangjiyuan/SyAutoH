@@ -72,7 +72,6 @@ namespace OptsRightsEdit
 
         private void Save_Data_Click(object sender, EventArgs e)
         {
-
             SqlCommandBuilder sqlcb = new SqlCommandBuilder(sda);
             sda.InsertCommand = sqlcb.GetInsertCommand();
             sda.Update(dt);
