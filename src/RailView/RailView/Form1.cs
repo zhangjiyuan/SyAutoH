@@ -172,17 +172,17 @@ namespace RailView
         {
             if (FormBorderStyle.None == this.FormBorderStyle)
             {
-                this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.WindowState = FormWindowState.Normal;
+                this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.screenToolStripMenuItem.Text = "Full Screen";
                 this.screenToolStripMenuItem.Image = global::RailView.Properties.Resources.full_screen2;
             }
             else
             {
+                this.TopMost = true;
                 this.WindowState = FormWindowState.Normal;
                 this.FormBorderStyle = FormBorderStyle.None;
                 this.WindowState = FormWindowState.Maximized;
-                this.TopMost = true;
                 this.screenToolStripMenuItem.Text = "Normal Screen";
                 this.screenToolStripMenuItem.Image = global::RailView.Properties.Resources.normal_screen2;
             }

@@ -32,41 +32,41 @@ namespace RailView
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ContextMenuStrip baseInfoMenu;
-            System.Windows.Forms.TreeNode treeNode155 = new System.Windows.Forms.TreeNode("GEM Communcation:");
-            System.Windows.Forms.TreeNode treeNode156 = new System.Windows.Forms.TreeNode("GEM Control:");
-            System.Windows.Forms.TreeNode treeNode157 = new System.Windows.Forms.TreeNode("MCS System Status:");
-            System.Windows.Forms.TreeNode treeNode158 = new System.Windows.Forms.TreeNode("MCS Availabilty:");
-            System.Windows.Forms.TreeNode treeNode159 = new System.Windows.Forms.TreeNode("Test Mode:");
-            System.Windows.Forms.TreeNode treeNode160 = new System.Windows.Forms.TreeNode("Queued:");
-            System.Windows.Forms.TreeNode treeNode161 = new System.Windows.Forms.TreeNode("Waitting:");
-            System.Windows.Forms.TreeNode treeNode162 = new System.Windows.Forms.TreeNode("Transfering:");
-            System.Windows.Forms.TreeNode treeNode163 = new System.Windows.Forms.TreeNode("Paused:");
-            System.Windows.Forms.TreeNode treeNode164 = new System.Windows.Forms.TreeNode("Canceling:");
-            System.Windows.Forms.TreeNode treeNode165 = new System.Windows.Forms.TreeNode("Aborting:");
-            System.Windows.Forms.TreeNode treeNode166 = new System.Windows.Forms.TreeNode("Transfer Count:", new System.Windows.Forms.TreeNode[] {
-            treeNode160,
-            treeNode161,
-            treeNode162,
-            treeNode163,
-            treeNode164,
-            treeNode165});
-            System.Windows.Forms.TreeNode treeNode167 = new System.Windows.Forms.TreeNode("Auto Transfer Executable:");
-            System.Windows.Forms.TreeNode treeNode168 = new System.Windows.Forms.TreeNode("Transfering:");
-            System.Windows.Forms.TreeNode treeNode169 = new System.Windows.Forms.TreeNode("Stage:");
-            System.Windows.Forms.TreeNode treeNode170 = new System.Windows.Forms.TreeNode("Maintenance:");
-            System.Windows.Forms.TreeNode treeNode171 = new System.Windows.Forms.TreeNode("OFF-LINE:");
-            System.Windows.Forms.TreeNode treeNode172 = new System.Windows.Forms.TreeNode("Removed:");
-            System.Windows.Forms.TreeNode treeNode173 = new System.Windows.Forms.TreeNode("OHT Count:", new System.Windows.Forms.TreeNode[] {
-            treeNode167,
-            treeNode168,
-            treeNode169,
-            treeNode170,
-            treeNode171,
-            treeNode172});
-            System.Windows.Forms.TreeNode treeNode174 = new System.Windows.Forms.TreeNode("ZCU Count:");
-            System.Windows.Forms.TreeNode treeNode175 = new System.Windows.Forms.TreeNode("Error:");
-            System.Windows.Forms.TreeNode treeNode176 = new System.Windows.Forms.TreeNode("Fork Count:", new System.Windows.Forms.TreeNode[] {
-            treeNode175});
+            System.Windows.Forms.TreeNode treeNode177 = new System.Windows.Forms.TreeNode("GEM Communcation:");
+            System.Windows.Forms.TreeNode treeNode178 = new System.Windows.Forms.TreeNode("GEM Control:");
+            System.Windows.Forms.TreeNode treeNode179 = new System.Windows.Forms.TreeNode("MCS System Status:");
+            System.Windows.Forms.TreeNode treeNode180 = new System.Windows.Forms.TreeNode("MCS Availabilty:");
+            System.Windows.Forms.TreeNode treeNode181 = new System.Windows.Forms.TreeNode("Test Mode:");
+            System.Windows.Forms.TreeNode treeNode182 = new System.Windows.Forms.TreeNode("Queued:");
+            System.Windows.Forms.TreeNode treeNode183 = new System.Windows.Forms.TreeNode("Waitting:");
+            System.Windows.Forms.TreeNode treeNode184 = new System.Windows.Forms.TreeNode("Transfering:");
+            System.Windows.Forms.TreeNode treeNode185 = new System.Windows.Forms.TreeNode("Paused:");
+            System.Windows.Forms.TreeNode treeNode186 = new System.Windows.Forms.TreeNode("Canceling:");
+            System.Windows.Forms.TreeNode treeNode187 = new System.Windows.Forms.TreeNode("Aborting:");
+            System.Windows.Forms.TreeNode treeNode188 = new System.Windows.Forms.TreeNode("Transfer Count:", new System.Windows.Forms.TreeNode[] {
+            treeNode182,
+            treeNode183,
+            treeNode184,
+            treeNode185,
+            treeNode186,
+            treeNode187});
+            System.Windows.Forms.TreeNode treeNode189 = new System.Windows.Forms.TreeNode("Auto Transfer Executable:");
+            System.Windows.Forms.TreeNode treeNode190 = new System.Windows.Forms.TreeNode("Transfering:");
+            System.Windows.Forms.TreeNode treeNode191 = new System.Windows.Forms.TreeNode("Stage:");
+            System.Windows.Forms.TreeNode treeNode192 = new System.Windows.Forms.TreeNode("Maintenance:");
+            System.Windows.Forms.TreeNode treeNode193 = new System.Windows.Forms.TreeNode("OFF-LINE:");
+            System.Windows.Forms.TreeNode treeNode194 = new System.Windows.Forms.TreeNode("Removed:");
+            System.Windows.Forms.TreeNode treeNode195 = new System.Windows.Forms.TreeNode("OHT Count:", new System.Windows.Forms.TreeNode[] {
+            treeNode189,
+            treeNode190,
+            treeNode191,
+            treeNode192,
+            treeNode193,
+            treeNode194});
+            System.Windows.Forms.TreeNode treeNode196 = new System.Windows.Forms.TreeNode("ZCU Count:");
+            System.Windows.Forms.TreeNode treeNode197 = new System.Windows.Forms.TreeNode("Error:");
+            System.Windows.Forms.TreeNode treeNode198 = new System.Windows.Forms.TreeNode("Fork Count:", new System.Windows.Forms.TreeNode[] {
+            treeNode197});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.systemStatues = new System.Windows.Forms.TabControl();
@@ -90,7 +90,9 @@ namespace RailView
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.screenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             baseInfoMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.statusStrip1.SuspendLayout();
             this.systemStatues.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -112,6 +114,8 @@ namespace RailView
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel2});
             this.statusStrip1.Location = new System.Drawing.Point(0, 718);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -229,61 +233,61 @@ namespace RailView
             this.baseInfoTreeView.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
             this.baseInfoTreeView.Location = new System.Drawing.Point(0, 0);
             this.baseInfoTreeView.Name = "baseInfoTreeView";
-            treeNode155.Name = "GEM Communcation:";
-            treeNode155.Text = "GEM Communcation:";
-            treeNode156.Name = "GEM Control:";
-            treeNode156.Tag = "ONLINE";
-            treeNode156.Text = "GEM Control:";
-            treeNode157.Name = "MCS System Status:";
-            treeNode157.Text = "MCS System Status:";
-            treeNode158.Name = "节点0";
-            treeNode158.Text = "MCS Availabilty:";
-            treeNode159.Name = "Test Mode:";
-            treeNode159.Text = "Test Mode:";
-            treeNode160.Name = "Queued:";
-            treeNode160.Text = "Queued:";
-            treeNode161.Name = "Waitting:";
-            treeNode161.Text = "Waitting:";
-            treeNode162.Name = "Transfering:";
-            treeNode162.Text = "Transfering:";
-            treeNode163.Name = "Paused:";
-            treeNode163.Text = "Paused:";
-            treeNode164.Name = "Canceling:";
-            treeNode164.Text = "Canceling:";
-            treeNode165.Name = "Aborting:";
-            treeNode165.Text = "Aborting:";
-            treeNode166.Name = "Transfer Count:";
-            treeNode166.Text = "Transfer Count:";
-            treeNode167.Name = "Auto Transfer Executable:";
-            treeNode167.Text = "Auto Transfer Executable:";
-            treeNode168.Name = "Transfering:";
-            treeNode168.Text = "Transfering:";
-            treeNode169.Name = "Stage:";
-            treeNode169.Text = "Stage:";
-            treeNode170.Name = "Maintenance:";
-            treeNode170.Text = "Maintenance:";
-            treeNode171.Name = "OFF-LINE:";
-            treeNode171.Text = "OFF-LINE:";
-            treeNode172.Name = "Removed:";
-            treeNode172.Text = "Removed:";
-            treeNode173.Name = "OHT Count:";
-            treeNode173.Text = "OHT Count:";
-            treeNode174.Name = "ZCU Count:";
-            treeNode174.Text = "ZCU Count:";
-            treeNode175.Name = "Error:";
-            treeNode175.Text = "Error:";
-            treeNode176.Name = "Fork Count:";
-            treeNode176.Text = "Fork Count:";
+            treeNode177.Name = "GEM Communcation:";
+            treeNode177.Text = "GEM Communcation:";
+            treeNode178.Name = "GEM Control:";
+            treeNode178.Tag = "ONLINE";
+            treeNode178.Text = "GEM Control:";
+            treeNode179.Name = "MCS System Status:";
+            treeNode179.Text = "MCS System Status:";
+            treeNode180.Name = "节点0";
+            treeNode180.Text = "MCS Availabilty:";
+            treeNode181.Name = "Test Mode:";
+            treeNode181.Text = "Test Mode:";
+            treeNode182.Name = "Queued:";
+            treeNode182.Text = "Queued:";
+            treeNode183.Name = "Waitting:";
+            treeNode183.Text = "Waitting:";
+            treeNode184.Name = "Transfering:";
+            treeNode184.Text = "Transfering:";
+            treeNode185.Name = "Paused:";
+            treeNode185.Text = "Paused:";
+            treeNode186.Name = "Canceling:";
+            treeNode186.Text = "Canceling:";
+            treeNode187.Name = "Aborting:";
+            treeNode187.Text = "Aborting:";
+            treeNode188.Name = "Transfer Count:";
+            treeNode188.Text = "Transfer Count:";
+            treeNode189.Name = "Auto Transfer Executable:";
+            treeNode189.Text = "Auto Transfer Executable:";
+            treeNode190.Name = "Transfering:";
+            treeNode190.Text = "Transfering:";
+            treeNode191.Name = "Stage:";
+            treeNode191.Text = "Stage:";
+            treeNode192.Name = "Maintenance:";
+            treeNode192.Text = "Maintenance:";
+            treeNode193.Name = "OFF-LINE:";
+            treeNode193.Text = "OFF-LINE:";
+            treeNode194.Name = "Removed:";
+            treeNode194.Text = "Removed:";
+            treeNode195.Name = "OHT Count:";
+            treeNode195.Text = "OHT Count:";
+            treeNode196.Name = "ZCU Count:";
+            treeNode196.Text = "ZCU Count:";
+            treeNode197.Name = "Error:";
+            treeNode197.Text = "Error:";
+            treeNode198.Name = "Fork Count:";
+            treeNode198.Text = "Fork Count:";
             this.baseInfoTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode155,
-            treeNode156,
-            treeNode157,
-            treeNode158,
-            treeNode159,
-            treeNode166,
-            treeNode173,
-            treeNode174,
-            treeNode176});
+            treeNode177,
+            treeNode178,
+            treeNode179,
+            treeNode180,
+            treeNode181,
+            treeNode188,
+            treeNode195,
+            treeNode196,
+            treeNode198});
             this.baseInfoTreeView.Size = new System.Drawing.Size(160, 691);
             this.baseInfoTreeView.TabIndex = 0;
             this.baseInfoTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.baseInfoTreeView_MouseUp);
@@ -381,6 +385,12 @@ namespace RailView
             this.screenToolStripMenuItem.Text = "Full Screen";
             this.screenToolStripMenuItem.Click += new System.EventHandler(this.screenToolStripMenuItem_Click_1);
             // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(44, 17);
+            this.toolStripStatusLabel2.Text = "Ready";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -395,6 +405,8 @@ namespace RailView
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RailView";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.systemStatues.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -437,5 +449,6 @@ namespace RailView
         private ToolStripMenuItem viewToolStripMenuItem;
         private ToolStripMenuItem quitToolStripMenuItem;
         private ToolStripMenuItem screenToolStripMenuItem;
+        private ToolStripStatusLabel toolStripStatusLabel2;
     }
 }
