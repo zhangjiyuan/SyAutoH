@@ -5,6 +5,8 @@
 
 GuiDataHubI::GuiDataHubI(void)
 {
+	m_optHanders.insert(std::make_pair("OHT.POSTIME", 
+		&GuiDataHubI::OHT_SetPositionBackTime));
 }
 
 
@@ -17,26 +19,35 @@ std::string GuiDataHubI::ReadData(const std::string &,Ice::Int,const Ice::Curren
 	return "Read";
 }
 
-Ice::Int GuiDataHubI::WriteData(const std::string &strTag,const std::string &strVal,Ice::Int,const Ice::Current &)
+void GuiDataHubI::OHT_SetPositionBackTime(const std::string& strVal)
 {
-	if (strTag.find("OHT.POSTIME") >= 0)
+	STR_VEC vecStr = GetVecStrings(strVal);
+	for(STR_VEC::iterator it = vecStr.begin();
+		it != vecStr.end(); ++it)
 	{
-		STR_VEC vecStr = GetVecStrings(strVal);
-		for(STR_VEC::iterator it = vecStr.begin();
-			it != vecStr.end(); ++it)
+		string strE = *it;
+		STR_VEC Params = SplitString(*it, ",");
+		if (Params.size() == 2)
 		{
-			string strE = *it;
-			STR_VEC Params = SplitString(*it, ",");
-			if (Params.size() == 2)
-			{
-				int nID = atoi(Params[0].c_str());
-				int nTime = atoi(Params[1].c_str());
-				m_pAMHSDrive->OHTPosBackTime(nID, nTime);
-			}
+			int nID = atoi(Params[0].c_str());
+			int nTime = atoi(Params[1].c_str());
+			m_pAMHSDrive->OHTPosBackTime(nID, nTime);
 		}
 	}
-	
-	return 0;
+}
+
+Ice::Int GuiDataHubI::WriteData(const std::string &strTag,const std::string &strVal,Ice::Int,const Ice::Current &)
+{
+	OPT_MAP::iterator it = m_optHanders.find(strTag);
+	if (it != m_optHanders.end())
+	{
+		(this->*it->second)(strVal);
+		return 0;
+	}
+	else
+	{
+		return -1;
+	}
 }
 
 void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Current& /* = ::Ice::Current */)

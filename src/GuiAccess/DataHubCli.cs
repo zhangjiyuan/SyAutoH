@@ -40,6 +40,18 @@ namespace GuiAccess
             }
         }
 
+        public void Async_WriteData(string strCmd, string sVal, int nSession)
+        {
+            try
+            {
+                remote.begin_WriteData(strCmd, sVal, nSession);
+            }
+            catch (System.Exception /*ex*/)
+            {
+
+            }
+        }
+
         public int WriteData(string strCmd, string sVal, int nSession)
         {
             int nRet = -1;
@@ -74,8 +86,19 @@ namespace GuiAccess
         {
             try
             {
+                remote.SetDataUpdater(dataCallback);
+            }
+            catch (System.Exception /*ex*/)
+            {
+
+            }
+        }
+
+        public void Async_SetCallBack()
+        {
+            try
+            {
                 remote.begin_SetDataUpdater(dataCallback);
-                //remote.SetDataUpdater(dataCallback);
             }
             catch (System.Exception /*ex*/)
             {

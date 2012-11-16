@@ -106,7 +106,7 @@ namespace UserTest
             mesLink.ConnectServer();
             dataHubLink.ConnectServer();
             dataHubLink.DataUpdater += new DataUpdaterHander(GuiDataUpdate);
-            dataHubLink.SetCallBack();
+            dataHubLink.Async_SetCallBack();
 
             this.comboBoxUserRight.Items.Clear();
             foreach (string strRight in RightCollection)
@@ -321,7 +321,7 @@ namespace UserTest
             string strVal;
             strVal = string.Format("<{0}, {1}>", 254, nPosTime);
 
-            int nWRet = dataHubLink.WriteData("OHT.POSTIME:<ID, VAL>", strVal, m_nSession);
+            int nWRet = dataHubLink.WriteData("OHT.POSTIME", strVal, m_nSession);
         }
 
         private void maskedTextBoxPW_KeyPress(object sender, KeyPressEventArgs e)
@@ -343,6 +343,16 @@ namespace UserTest
         private void label8_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+           
+        }
+
+        private void linkOHTMoveToRefresh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            dataHubLink.Async_WriteData("OHT.GetLocationTable", "", m_nSession);
         }
     }
 }

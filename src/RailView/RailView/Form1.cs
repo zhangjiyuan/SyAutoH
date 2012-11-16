@@ -141,7 +141,7 @@ namespace RailView
 
             dataHubLink.ConnectServer();
             dataHubLink.DataUpdater += new DataUpdaterHander(GuiDataUpdate);
-            dataHubLink.SetCallBack();
+            dataHubLink.Async_SetCallBack();
         }
 
         private void GuiDataUpdate(string strTag, string sVal)

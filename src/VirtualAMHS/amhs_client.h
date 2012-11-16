@@ -61,7 +61,10 @@ public:
 
 	void write(const amhs_message& msg)
 	{
-		io_service_.post(boost::bind(&amhs_client::do_write, this, msg));
+		if(socket_.is_open())
+		{
+			io_service_.post(boost::bind(&amhs_client::do_write, this, msg));
+		}
 	}
 
 	void close()
@@ -178,6 +181,7 @@ private:
 
 	void do_close()
 	{
+		cout<< "socket close()" << endl;
 		socket_.close();
 	}
 

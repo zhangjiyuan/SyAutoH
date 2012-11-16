@@ -50,4 +50,5 @@ public:
 	afx_msg void OnBnClickedBnStkHistory();
 	CComboBox m_cbOhtTeachType;
 	int GetSelectOhtID(void);
+	afx_msg void OnBnClickedBnOhtOff();
 };
