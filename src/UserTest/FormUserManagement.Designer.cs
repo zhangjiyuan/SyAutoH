@@ -94,10 +94,15 @@
             this.button6 = new System.Windows.Forms.Button();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.linkOHTMoveToRefresh = new System.Windows.Forms.LinkLabel();
             this.tbOhtMoveTo = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.bnOHTGo = new System.Windows.Forms.Button();
             this.listViewOhtMove = new System.Windows.Forms.ListView();
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -136,11 +141,9 @@
             this.tabFoups = new System.Windows.Forms.TabPage();
             this.listViewFoups = new System.Windows.Forms.ListView();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.linkOHTMoveToRefresh = new System.Windows.Forms.LinkLabel();
-            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tBOHTID = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.bnpath = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -757,6 +760,7 @@
             // tabOHT
             // 
             this.tabOHT.BackColor = System.Drawing.Color.SandyBrown;
+            this.tabOHT.Controls.Add(this.bnpath);
             this.tabOHT.Controls.Add(this.groupBox10);
             this.tabOHT.Controls.Add(this.groupBox9);
             this.tabOHT.Controls.Add(this.groupBox8);
@@ -777,7 +781,7 @@
             this.groupBox10.Controls.Add(this.label29);
             this.groupBox10.Controls.Add(this.button6);
             this.groupBox10.Controls.Add(this.textBox5);
-            this.groupBox10.Location = new System.Drawing.Point(407, 113);
+            this.groupBox10.Location = new System.Drawing.Point(406, 174);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(200, 109);
             this.groupBox10.TabIndex = 21;
@@ -833,6 +837,17 @@
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "OHT Move To";
             // 
+            // linkOHTMoveToRefresh
+            // 
+            this.linkOHTMoveToRefresh.AutoSize = true;
+            this.linkOHTMoveToRefresh.Location = new System.Drawing.Point(178, 397);
+            this.linkOHTMoveToRefresh.Name = "linkOHTMoveToRefresh";
+            this.linkOHTMoveToRefresh.Size = new System.Drawing.Size(47, 12);
+            this.linkOHTMoveToRefresh.TabIndex = 20;
+            this.linkOHTMoveToRefresh.TabStop = true;
+            this.linkOHTMoveToRefresh.Text = "Refresh";
+            this.linkOHTMoveToRefresh.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkOHTMoveToRefresh_LinkClicked);
+            // 
             // tbOhtMoveTo
             // 
             this.tbOhtMoveTo.Location = new System.Drawing.Point(84, 20);
@@ -873,6 +888,25 @@
             this.listViewOhtMove.UseCompatibleStateImageBehavior = false;
             this.listViewOhtMove.View = System.Windows.Forms.View.Details;
             // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "Name";
+            this.columnHeader13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Position";
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Type";
+            this.columnHeader11.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Speed";
+            this.columnHeader12.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -884,6 +918,8 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.label30);
+            this.groupBox8.Controls.Add(this.tBOHTID);
             this.groupBox8.Controls.Add(this.label9);
             this.groupBox8.Controls.Add(this.button4);
             this.groupBox8.Controls.Add(this.tBPosTime);
@@ -892,7 +928,7 @@
             this.groupBox8.Controls.Add(this.label27);
             this.groupBox8.Location = new System.Drawing.Point(407, 23);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(201, 83);
+            this.groupBox8.Size = new System.Drawing.Size(201, 145);
             this.groupBox8.TabIndex = 13;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Back Time Config";
@@ -900,7 +936,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(15, 23);
+            this.label9.Location = new System.Drawing.Point(14, 73);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(53, 12);
             this.label9.TabIndex = 5;
@@ -908,7 +944,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(138, 47);
+            this.button4.Location = new System.Drawing.Point(137, 97);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(52, 23);
             this.button4.TabIndex = 12;
@@ -917,21 +953,21 @@
             // 
             // tBPosTime
             // 
-            this.tBPosTime.Location = new System.Drawing.Point(74, 20);
+            this.tBPosTime.Location = new System.Drawing.Point(73, 70);
             this.tBPosTime.Name = "tBPosTime";
             this.tBPosTime.Size = new System.Drawing.Size(58, 21);
             this.tBPosTime.TabIndex = 6;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(74, 47);
+            this.textBox4.Location = new System.Drawing.Point(73, 97);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(58, 21);
             this.textBox4.TabIndex = 11;
             // 
             // bnSetPosTime
             // 
-            this.bnSetPosTime.Location = new System.Drawing.Point(138, 20);
+            this.bnSetPosTime.Location = new System.Drawing.Point(137, 70);
             this.bnSetPosTime.Name = "bnSetPosTime";
             this.bnSetPosTime.Size = new System.Drawing.Size(52, 23);
             this.bnSetPosTime.TabIndex = 7;
@@ -942,7 +978,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(15, 50);
+            this.label27.Location = new System.Drawing.Point(14, 100);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(41, 12);
             this.label27.TabIndex = 10;
@@ -1228,35 +1264,31 @@
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // linkOHTMoveToRefresh
+            // tBOHTID
             // 
-            this.linkOHTMoveToRefresh.AutoSize = true;
-            this.linkOHTMoveToRefresh.Location = new System.Drawing.Point(178, 397);
-            this.linkOHTMoveToRefresh.Name = "linkOHTMoveToRefresh";
-            this.linkOHTMoveToRefresh.Size = new System.Drawing.Size(47, 12);
-            this.linkOHTMoveToRefresh.TabIndex = 20;
-            this.linkOHTMoveToRefresh.TabStop = true;
-            this.linkOHTMoveToRefresh.Text = "Refresh";
-            this.linkOHTMoveToRefresh.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkOHTMoveToRefresh_LinkClicked);
+            this.tBOHTID.Location = new System.Drawing.Point(73, 40);
+            this.tBOHTID.Name = "tBOHTID";
+            this.tBOHTID.Size = new System.Drawing.Size(58, 21);
+            this.tBOHTID.TabIndex = 13;
             // 
-            // columnHeader10
+            // label30
             // 
-            this.columnHeader10.Text = "Position";
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(14, 43);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(47, 12);
+            this.label30.TabIndex = 14;
+            this.label30.Text = "OHT ID:";
             // 
-            // columnHeader11
+            // bnpath
             // 
-            this.columnHeader11.Text = "Type";
-            this.columnHeader11.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // columnHeader12
-            // 
-            this.columnHeader12.Text = "Speed";
-            this.columnHeader12.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // columnHeader13
-            // 
-            this.columnHeader13.Text = "Name";
-            this.columnHeader13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.bnpath.Location = new System.Drawing.Point(614, 120);
+            this.bnpath.Name = "bnpath";
+            this.bnpath.Size = new System.Drawing.Size(52, 23);
+            this.bnpath.TabIndex = 15;
+            this.bnpath.Text = "Path";
+            this.bnpath.UseVisualStyleBackColor = true;
+            this.bnpath.Click += new System.EventHandler(this.bnpath_Click);
             // 
             // FormUserManagement
             // 
@@ -1417,6 +1449,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.ColumnHeader columnHeader11;
         private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox tBOHTID;
+        private System.Windows.Forms.Button bnpath;
     }
 }
 

@@ -52,8 +52,9 @@ void amhs_session::handle_read_header(const boost::system::error_code& error)
 {
 	if (!error && read_msg_.decode_header())
 	{
+		read_msg_.Header_HexLike();
 		boost::asio::async_read(socket_,
-			boost::asio::buffer(read_msg_.body(), read_msg_.body_length()),
+			boost::asio::buffer(read_msg_.body(), read_msg_.max_body_length - read_msg_.header_length),
 			boost::bind(&amhs_session::handle_read_body, shared_from_this(),
 			boost::asio::placeholders::error));
 	}

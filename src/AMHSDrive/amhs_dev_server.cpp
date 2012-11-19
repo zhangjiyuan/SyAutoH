@@ -23,6 +23,7 @@ void amhs_dev_server::handle_accept(amhs_session_ptr session,
 {
 	if (!error)
 	{
+		cout<< "amhs_dev_server::accept link" << endl;
 		session->start();
 	}
 
@@ -68,7 +69,7 @@ void amhs_dev_server::OHT_Move(int nID, int nControl)
 
 void amhs_dev_server::OHT_SetPath(int nID, int nType, int nStart, int nTarget, amhs_keypoint_vec& KeyPoints)
 {
-	Log.outBasic("OHT Setpath is not implenement.");
+	Log.outBasic("OHT Setpath");
 	size_t szKeyCount = KeyPoints.size();
 	size_t szPacketLen = 0;
 	szPacketLen = 11 + szKeyCount * 6;

@@ -164,6 +164,7 @@ void amhs_room::SendPacket(amhs_participant_ptr participants, AMHSPacket &packet
 		msg.command(packet.GetOpcode());
 		msg.body_length(szPacketLen);
 		msg.IsNeedRespond(true);
+		msg.IsRespond(false);
 		memcpy(msg.body(), packet.contents() + (i*szLimit), msg.body_length());
 		msg.encode_header();
 
@@ -357,12 +358,12 @@ void amhs_room::Handle_OHT_Status(amhs_participant_ptr participants, AMHSPacket&
 void amhs_room::Handle_OHT_Auth(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
 	uint8		ohtID = 0;
-	uint16		ohtPosition = 0;
+	uint32		ohtPosition = 0;
 	uint8		ohtHand = 0;
 	Packet >> ohtID;
 	Packet >> ohtPosition;
 	Packet >> ohtHand;
-	printf("OHT Auth  ---> id: %d, pos: %d, hand: %d\n", ohtID, ohtPosition, ohtHand);
+	printf("OHT Auth  ---> id: %d, pos: %lld, hand: %d\n", ohtID, ohtPosition, ohtHand);
 	participants->nID_ = ohtID;
 	participants->nDevType_ = DEV_TYPE_OHT;
 
@@ -458,6 +459,7 @@ int amhs_room::DecodePacket(amhs_participant_ptr participants, AMHSPacket& Packe
 	OPT_MAP::iterator it = m_optHanders.find(mOpcode);
 	if (it != m_optHanders.end())
 	{
+		Packet.hexlike();
 		(this->*it->second)(participants, Packet);
 		return 0;
 	}

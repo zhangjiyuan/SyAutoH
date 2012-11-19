@@ -12,6 +12,8 @@ GuiDataHubI::GuiDataHubI(void)
 		&GuiDataHubI::OHT_SetPositionBackTime));
 	m_optHanders.insert(std::make_pair("OHT.GetPosTable", 
 		&GuiDataHubI::OHT_GetPositionTable));
+	m_optHanders.insert(std::make_pair("OHT.PATHTEST", 
+		&GuiDataHubI::OHT_PathTest));
 }
 
 
@@ -47,6 +49,40 @@ void GuiDataHubI::OHT_GetPositionTable(const std::string&)
 	}
 
 	UpdateData("OHT.PosTable", strVal);
+}
+
+void GuiDataHubI::OHT_PathTest(const std::string&)
+{
+	PATH_POINT_LIST list;
+	keyPoint pt;
+
+	pt.nPos = 1;
+	pt.nType = 1;
+	pt.nSpeedRate = 100;
+	list.push_back(pt);
+
+	pt.nPos = 30;
+	pt.nType = 2;
+	pt.nSpeedRate = 30;
+	list.push_back(pt);
+
+	pt.nPos = 50;
+	pt.nType = 4;
+	pt.nSpeedRate = 50;
+	list.push_back(pt);
+
+	pt.nPos = 70;
+	pt.nType = 8;
+	pt.nSpeedRate = 70;
+	list.push_back(pt);
+
+	pt.nPos = 100;
+	pt.nType = 16;
+	pt.nSpeedRate = 100;
+	list.push_back(pt);
+	
+
+	m_pAMHSDrive->OHTSetPath(1, 1, 1, 100, list);
 }
 
 void GuiDataHubI::OHT_SetPositionBackTime(const std::string& strVal)

@@ -316,6 +316,15 @@ namespace UserTest
         {
             string strPosTime = tBPosTime.Text;
             int nPosTime = 0;
+            int nID = 0;
+            try
+            {
+                nID = Convert.ToByte(tBOHTID.Text);
+            }
+            catch (System.Exception /*ex*/)
+            {
+                nID = 254;
+            }
             try
             {
                 nPosTime = System.Convert.ToByte(strPosTime);
@@ -325,7 +334,7 @@ namespace UserTest
                 Console.WriteLine(ex.Message);
             }
             string strVal;
-            strVal = string.Format("<{0}, {1}>", 254, nPosTime);
+            strVal = string.Format("<{0}, {1}>", nID, nPosTime);
 
             int nWRet = dataHubLink.WriteData("OHT.POSTIME", strVal, m_nSession);
         }
@@ -359,6 +368,11 @@ namespace UserTest
         private void linkOHTMoveToRefresh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             dataHubLink.Async_WriteData("OHT.GetPosTable", "", m_nSession);
+        }
+
+        private void bnpath_Click(object sender, EventArgs e)
+        {
+            dataHubLink.Async_WriteData("OHT.PATHTEST", "", m_nSession);
         }
     }
 }
