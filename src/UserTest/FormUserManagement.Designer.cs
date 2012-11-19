@@ -88,11 +88,12 @@
             this.label12 = new System.Windows.Forms.Label();
             this.lVMes_Foup = new System.Windows.Forms.ListView();
             this.tabOHT = new System.Windows.Forms.TabPage();
+            this.bnpath = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.button5 = new System.Windows.Forms.Button();
+            this.bnPlace = new System.Windows.Forms.Button();
             this.label29 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.bnPick = new System.Windows.Forms.Button();
+            this.tBBuffID = new System.Windows.Forms.TextBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.linkOHTMoveToRefresh = new System.Windows.Forms.LinkLabel();
             this.tbOhtMoveTo = new System.Windows.Forms.TextBox();
@@ -105,10 +106,12 @@
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.tBOHTID = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.tBPosTime = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.tBStatus = new System.Windows.Forms.TextBox();
             this.bnSetPosTime = new System.Windows.Forms.Button();
             this.label27 = new System.Windows.Forms.Label();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
@@ -141,9 +144,11 @@
             this.tabFoups = new System.Windows.Forms.TabPage();
             this.listViewFoups = new System.Windows.Forms.ListView();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.tBOHTID = new System.Windows.Forms.TextBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.bnpath = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.tbStkStatusTime = new System.Windows.Forms.TextBox();
+            this.tbStkID = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -775,12 +780,22 @@
             this.tabOHT.TabIndex = 3;
             this.tabOHT.Text = "OHT Info";
             // 
+            // bnpath
+            // 
+            this.bnpath.Location = new System.Drawing.Point(614, 120);
+            this.bnpath.Name = "bnpath";
+            this.bnpath.Size = new System.Drawing.Size(52, 23);
+            this.bnpath.TabIndex = 15;
+            this.bnpath.Text = "Path";
+            this.bnpath.UseVisualStyleBackColor = true;
+            this.bnpath.Click += new System.EventHandler(this.bnpath_Click);
+            // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.button5);
+            this.groupBox10.Controls.Add(this.bnPlace);
             this.groupBox10.Controls.Add(this.label29);
-            this.groupBox10.Controls.Add(this.button6);
-            this.groupBox10.Controls.Add(this.textBox5);
+            this.groupBox10.Controls.Add(this.bnPick);
+            this.groupBox10.Controls.Add(this.tBBuffID);
             this.groupBox10.Location = new System.Drawing.Point(406, 174);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(200, 109);
@@ -788,14 +803,14 @@
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Foup Move";
             // 
-            // button5
+            // bnPlace
             // 
-            this.button5.Location = new System.Drawing.Point(74, 74);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(87, 23);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "Place";
-            this.button5.UseVisualStyleBackColor = true;
+            this.bnPlace.Location = new System.Drawing.Point(74, 74);
+            this.bnPlace.Name = "bnPlace";
+            this.bnPlace.Size = new System.Drawing.Size(87, 23);
+            this.bnPlace.TabIndex = 14;
+            this.bnPlace.Text = "Place";
+            this.bnPlace.UseVisualStyleBackColor = true;
             // 
             // label29
             // 
@@ -806,21 +821,22 @@
             this.label29.TabIndex = 13;
             this.label29.Text = "Buf ID";
             // 
-            // button6
+            // bnPick
             // 
-            this.button6.Location = new System.Drawing.Point(74, 47);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(87, 23);
-            this.button6.TabIndex = 13;
-            this.button6.Text = "Pick";
-            this.button6.UseVisualStyleBackColor = true;
+            this.bnPick.Location = new System.Drawing.Point(74, 47);
+            this.bnPick.Name = "bnPick";
+            this.bnPick.Size = new System.Drawing.Size(87, 23);
+            this.bnPick.TabIndex = 13;
+            this.bnPick.Text = "Pick";
+            this.bnPick.UseVisualStyleBackColor = true;
+            this.bnPick.Click += new System.EventHandler(this.bnPick_Click);
             // 
-            // textBox5
+            // tBBuffID
             // 
-            this.textBox5.Location = new System.Drawing.Point(74, 20);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(87, 21);
-            this.textBox5.TabIndex = 14;
+            this.tBBuffID.Location = new System.Drawing.Point(74, 20);
+            this.tBBuffID.Name = "tBBuffID";
+            this.tBBuffID.Size = new System.Drawing.Size(87, 21);
+            this.tBBuffID.TabIndex = 14;
             // 
             // groupBox9
             // 
@@ -923,7 +939,7 @@
             this.groupBox8.Controls.Add(this.label9);
             this.groupBox8.Controls.Add(this.button4);
             this.groupBox8.Controls.Add(this.tBPosTime);
-            this.groupBox8.Controls.Add(this.textBox4);
+            this.groupBox8.Controls.Add(this.tBStatus);
             this.groupBox8.Controls.Add(this.bnSetPosTime);
             this.groupBox8.Controls.Add(this.label27);
             this.groupBox8.Location = new System.Drawing.Point(407, 23);
@@ -932,6 +948,22 @@
             this.groupBox8.TabIndex = 13;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Back Time Config";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(14, 43);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(47, 12);
+            this.label30.TabIndex = 14;
+            this.label30.Text = "OHT ID:";
+            // 
+            // tBOHTID
+            // 
+            this.tBOHTID.Location = new System.Drawing.Point(73, 40);
+            this.tBOHTID.Name = "tBOHTID";
+            this.tBOHTID.Size = new System.Drawing.Size(58, 21);
+            this.tBOHTID.TabIndex = 13;
             // 
             // label9
             // 
@@ -950,6 +982,7 @@
             this.button4.TabIndex = 12;
             this.button4.Text = "Set";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // tBPosTime
             // 
@@ -958,12 +991,12 @@
             this.tBPosTime.Size = new System.Drawing.Size(58, 21);
             this.tBPosTime.TabIndex = 6;
             // 
-            // textBox4
+            // tBStatus
             // 
-            this.textBox4.Location = new System.Drawing.Point(73, 97);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(58, 21);
-            this.textBox4.TabIndex = 11;
+            this.tBStatus.Location = new System.Drawing.Point(73, 97);
+            this.tBStatus.Name = "tBStatus";
+            this.tBStatus.Size = new System.Drawing.Size(58, 21);
+            this.tBStatus.TabIndex = 11;
             // 
             // bnSetPosTime
             // 
@@ -1062,8 +1095,13 @@
             // tabSTK
             // 
             this.tabSTK.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.tabSTK.Controls.Add(this.tbStkStatusTime);
+            this.tabSTK.Controls.Add(this.button5);
+            this.tabSTK.Controls.Add(this.tbStkID);
             this.tabSTK.Controls.Add(this.label21);
+            this.tabSTK.Controls.Add(this.label31);
             this.tabSTK.Controls.Add(this.comboBox2);
+            this.tabSTK.Controls.Add(this.label32);
             this.tabSTK.Controls.Add(this.groupBox7);
             this.tabSTK.Controls.Add(this.groupBox6);
             this.tabSTK.Controls.Add(this.linkLabel2);
@@ -1264,31 +1302,49 @@
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // tBOHTID
+            // button5
             // 
-            this.tBOHTID.Location = new System.Drawing.Point(73, 40);
-            this.tBOHTID.Name = "tBOHTID";
-            this.tBOHTID.Size = new System.Drawing.Size(58, 21);
-            this.tBOHTID.TabIndex = 13;
+            this.button5.Location = new System.Drawing.Point(442, 218);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(55, 23);
+            this.button5.TabIndex = 19;
+            this.button5.Text = "Set";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // label30
+            // tbStkStatusTime
             // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(14, 43);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(47, 12);
-            this.label30.TabIndex = 14;
-            this.label30.Text = "OHT ID:";
+            this.tbStkStatusTime.Location = new System.Drawing.Point(378, 218);
+            this.tbStkStatusTime.Name = "tbStkStatusTime";
+            this.tbStkStatusTime.Size = new System.Drawing.Size(58, 21);
+            this.tbStkStatusTime.TabIndex = 22;
+            this.tbStkStatusTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // bnpath
+            // tbStkID
             // 
-            this.bnpath.Location = new System.Drawing.Point(614, 120);
-            this.bnpath.Name = "bnpath";
-            this.bnpath.Size = new System.Drawing.Size(52, 23);
-            this.bnpath.TabIndex = 15;
-            this.bnpath.Text = "Path";
-            this.bnpath.UseVisualStyleBackColor = true;
-            this.bnpath.Click += new System.EventHandler(this.bnpath_Click);
+            this.tbStkID.Location = new System.Drawing.Point(378, 194);
+            this.tbStkID.Name = "tbStkID";
+            this.tbStkID.Size = new System.Drawing.Size(58, 21);
+            this.tbStkID.TabIndex = 21;
+            this.tbStkID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(313, 221);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(47, 12);
+            this.label31.TabIndex = 20;
+            this.label31.Text = "Second:";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(313, 197);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(23, 12);
+            this.label32.TabIndex = 19;
+            this.label32.Text = "ID:";
             // 
             // FormUserManagement
             // 
@@ -1433,17 +1489,17 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox tBStatus;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.ListView listViewOhtMove;
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button bnPlace;
         private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Button bnPick;
+        private System.Windows.Forms.TextBox tBBuffID;
         private System.Windows.Forms.LinkLabel linkOHTMoveToRefresh;
         private System.Windows.Forms.ColumnHeader columnHeader13;
         private System.Windows.Forms.ColumnHeader columnHeader10;
@@ -1452,6 +1508,11 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TextBox tBOHTID;
         private System.Windows.Forms.Button bnpath;
+        private System.Windows.Forms.TextBox tbStkStatusTime;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox tbStkID;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label32;
     }
 }
 

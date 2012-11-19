@@ -153,7 +153,7 @@ private:
 		{
 			boost::asio::async_write(socket_,
 				boost::asio::buffer(write_msgs_.front().data(),
-				write_msgs_.front().length()),
+				msg.max_body_length - msg.header_length),
 				boost::bind(&amhs_client::handle_write, this,
 				boost::asio::placeholders::error));
 		}
@@ -166,9 +166,10 @@ private:
 			write_msgs_.pop_front();
 			if (!write_msgs_.empty())
 			{
+				amhs_message msg;
 				boost::asio::async_write(socket_,
 					boost::asio::buffer(write_msgs_.front().data(),
-					write_msgs_.front().length()),
+					msg.max_body_length - msg.header_length),
 					boost::bind(&amhs_client::handle_write, this,
 					boost::asio::placeholders::error));
 			}

@@ -295,7 +295,7 @@ namespace UserTest
 
             string sVal = dataHubLink.ReadData("OHT", m_nSession);
 
-            int nWRet = dataHubLink.WriteData("OHT", "MOVE", m_nSession);
+            int nWRet = dataHubLink.WriteData("OHT.MOVETEST", "MOVE", m_nSession);
 
         }
 
@@ -373,6 +373,65 @@ namespace UserTest
         private void bnpath_Click(object sender, EventArgs e)
         {
             dataHubLink.Async_WriteData("OHT.PATHTEST", "", m_nSession);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string strTime = tBStatus.Text;
+            int nTime = 0;
+            int nID = 0;
+            try
+            {
+                nID = Convert.ToByte(tBOHTID.Text);
+            }
+            catch (System.Exception /*ex*/)
+            {
+                nID = 254;
+            }
+            try
+            {
+                nTime = System.Convert.ToByte(strTime);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            string strVal;
+            strVal = string.Format("<{0}, {1}>", nID, nTime);
+
+            int nWRet = dataHubLink.WriteData("OHT.STATUSTIME", strVal, m_nSession);
+        }
+
+        private void bnPick_Click(object sender, EventArgs e)
+        {
+            dataHubLink.WriteData("OHT.FOUPTEST", "", m_nSession);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string strTime = tbStkStatusTime.Text;
+            int nTime = 0;
+            int nID = 0;
+            try
+            {
+                nID = Convert.ToByte(tbStkID.Text);
+            }
+            catch (System.Exception /*ex*/)
+            {
+                nID = 254;
+            }
+            try
+            {
+                nTime = System.Convert.ToByte(strTime);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            string strVal;
+            strVal = string.Format("<{0}, {1}>", nID, nTime);
+
+            int nWRet = dataHubLink.WriteData("STK.STATUSTIME", strVal, m_nSession);
         }
     }
 }

@@ -58,5 +58,8 @@ public:
 	void OHTFoup(int nID, int nDevBuf, int nOperation);
 	void OHTSetPath(int nID, int nType, int nStart, int nTarget, PATH_POINT_LIST& KeyPoints);
 
+	void STKFoup(int nID, int nOpt, int nMode, int nData);
+	void STKStatusBackTime(int nID, int ms);
+
 	int SetOHTLocation(int nPoint);
 };

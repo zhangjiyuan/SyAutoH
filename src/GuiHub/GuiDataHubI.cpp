@@ -10,10 +10,19 @@ GuiDataHubI::GuiDataHubI(void)
 {
 	m_optHanders.insert(std::make_pair("OHT.POSTIME", 
 		&GuiDataHubI::OHT_SetPositionBackTime));
+	m_optHanders.insert(std::make_pair("OHT.STATUSTIME", 
+		&GuiDataHubI::OHT_SetStatusBackTime));
 	m_optHanders.insert(std::make_pair("OHT.GetPosTable", 
 		&GuiDataHubI::OHT_GetPositionTable));
 	m_optHanders.insert(std::make_pair("OHT.PATHTEST", 
 		&GuiDataHubI::OHT_PathTest));
+	m_optHanders.insert(std::make_pair("OHT.MOVETEST", 
+		&GuiDataHubI::OHT_MoveTest));
+	m_optHanders.insert(std::make_pair("OHT.FOUPTEST", 
+		&GuiDataHubI::OHT_FoupTest));
+
+	m_optHanders.insert(std::make_pair("STK.STATUSTIME", 
+		&GuiDataHubI::STK_SetStatusBackTime));
 }
 
 
@@ -24,6 +33,23 @@ GuiDataHubI::~GuiDataHubI(void)
 std::string GuiDataHubI::ReadData(const std::string &,Ice::Int,const Ice::Current &)
 {
 	return "Read";
+}
+
+void GuiDataHubI::STK_SetStatusBackTime(const std::string& strVal)
+{
+	STR_VEC vecStr = GetVecStrings(strVal);
+	for(STR_VEC::iterator it = vecStr.begin();
+		it != vecStr.end(); ++it)
+	{
+		string strE = *it;
+		STR_VEC Params = SplitString(*it, ",");
+		if (Params.size() == 2)
+		{
+			int nID = atoi(Params[0].c_str());
+			int nTime = atoi(Params[1].c_str());
+			m_pAMHSDrive->STKStatusBackTime(nID, nTime);
+		}
+	}
 }
 
 void GuiDataHubI::OHT_GetPositionTable(const std::string&)
@@ -50,6 +76,14 @@ void GuiDataHubI::OHT_GetPositionTable(const std::string&)
 
 	UpdateData("OHT.PosTable", strVal);
 }
+void GuiDataHubI::OHT_FoupTest(const std::string&)
+{
+	m_pAMHSDrive->OHTFoup(1, 100, 0);
+}
+void GuiDataHubI::OHT_MoveTest(const std::string&)
+{
+	m_pAMHSDrive->OHTMove(1, 1);
+}
 
 void GuiDataHubI::OHT_PathTest(const std::string&)
 {
@@ -58,7 +92,7 @@ void GuiDataHubI::OHT_PathTest(const std::string&)
 
 	pt.nPos = 1;
 	pt.nType = 1;
-	pt.nSpeedRate = 100;
+	pt.nSpeedRate = 10;
 	list.push_back(pt);
 
 	pt.nPos = 30;
@@ -84,7 +118,22 @@ void GuiDataHubI::OHT_PathTest(const std::string&)
 
 	m_pAMHSDrive->OHTSetPath(1, 1, 1, 100, list);
 }
-
+void GuiDataHubI::OHT_SetStatusBackTime(const std::string& strVal)
+{
+	STR_VEC vecStr = GetVecStrings(strVal);
+	for(STR_VEC::iterator it = vecStr.begin();
+		it != vecStr.end(); ++it)
+	{
+		string strE = *it;
+		STR_VEC Params = SplitString(*it, ",");
+		if (Params.size() == 2)
+		{
+			int nID = atoi(Params[0].c_str());
+			int nTime = atoi(Params[1].c_str());
+			m_pAMHSDrive->OHTStatusBackTime(nID, nTime);
+		}
+	}
+}
 void GuiDataHubI::OHT_SetPositionBackTime(const std::string& strVal)
 {
 	STR_VEC vecStr = GetVecStrings(strVal);

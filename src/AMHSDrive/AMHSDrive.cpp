@@ -128,8 +128,19 @@ void CAMHSDrive::OHTSetPath(int nID, int nType, int nStart, int nTarget, PATH_PO
 	sAmhsServer.GetServer()->OHT_SetPath(nID, nType, nStart, nTarget, keyPts);
 }
 
+void CAMHSDrive::STKFoup(int nID, int nOpt, int nMode, int nData)
+{
+	sAmhsServer.GetServer()->STK_FOUP(nID, nOpt, nMode, nData);
+}
+
+void CAMHSDrive::STKStatusBackTime(int nID, int ms)
+{
+	sAmhsServer.GetServer()->STK_Set_StatusBackTime(nID, ms);
+}
+
 int CAMHSDrive::SetOHTLocation(int nPoint)
 {
 
 	return 0;
 }
+

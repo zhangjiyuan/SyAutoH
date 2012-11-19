@@ -44,6 +44,8 @@ amhs_room::amhs_room()
 		&amhs_room::Handle_STK_Auth));
 	m_optHanders.insert(std::make_pair(STK_FOUP_EVENT, 
 		&amhs_room::Handle_STK_FoupEvent));
+	m_optHanders.insert(std::make_pair(STK_ACK_STATUS_TIME, 
+		&amhs_room::Handle_STK_Ack_StatusTime));
 }
 
 void amhs_room::join(amhs_participant_ptr participant)
@@ -167,6 +169,7 @@ void amhs_room::SendPacket(amhs_participant_ptr participants, AMHSPacket &packet
 		msg.IsRespond(false);
 		memcpy(msg.body(), packet.contents() + (i*szLimit), msg.body_length());
 		msg.encode_header();
+		packet.hexlike();
 
 		if (NULL == participants)
 		{
@@ -212,6 +215,16 @@ void amhs_room::Handle_STK_AckFoup(amhs_participant_ptr, AMHSPacket& Packet)
 {
 	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
+
+void amhs_room::Handle_STK_Ack_StatusTime(amhs_participant_ptr, AMHSPacket& Packet)
+{
+	uint8 nID = 0;
+	uint8 nResult = 0;
+	Packet >> nID; 
+	Packet >> nResult;
+	LOG_DEBUG("ID: %d, RESULT:%d", nID, nResult);
+}
+
 void amhs_room::Handle_STK_AckStatus(amhs_participant_ptr, AMHSPacket& Packet)
 {
 	Log.Warning("amhs_room", "Packet handle not implemented\n");
@@ -239,9 +252,26 @@ void amhs_room::Handle_STK_AckAlarms(amhs_participant_ptr, AMHSPacket& Packet)
 	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 
-void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr, AMHSPacket& Packet)
+void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-	Log.Warning("amhs_room", "Packet handle not implemented\n");
+	//Log.Warning("amhs_room", "Packet handle not implemented\n");
+	uint8 nID = 0;
+	uint8 nChaned = 0;
+	uint8 foupRoom = 0;
+	uint16 foupLot = 0;
+	uint16 foupBarCode = 0;
+	uint8 nInput = 0;
+	Packet >> nID;
+	Packet >> nChaned;
+	Packet >> foupRoom;
+	Packet >> foupLot;
+	Packet >> foupBarCode;
+	Packet >> nInput;
+
+	AMHSPacket ack(STK_MCS_ACK_FOUP_EVENT, 2);
+	ack << uint8(nID);
+	ack << uint8(1);
+	SendPacket(participants, ack);
 }
 
 void amhs_room::Handle_OHT_AckStatusBackTime(amhs_participant_ptr participants, AMHSPacket& Packet)
@@ -397,13 +427,21 @@ void amhs_room::Handle_STK_Auth(amhs_participant_ptr participants, AMHSPacket& P
 {
 	uint8 stockerID = 0;
 	uint32 uIP = 0;
+	uint8 room = 0;
+	uint8 autoin = 0;
+	uint8 manin = 0;
 	Packet >> stockerID;
 	Packet >> uIP;
+	Packet >> room;
+	Packet >> autoin;
+	Packet >> manin;
+	
 	struct in_addr addr1;
 
 	memcpy(&addr1, &uIP, 4);
 	char* sIP = inet_ntoa(addr1);
-	printf("STOCKER Auth ---> id: %d, ip: %s\n", stockerID, sIP);
+	printf("STOCKER Auth ---> id: %d, ip: %s  room:%d, autoin: %d, manin:%d\n", stockerID, sIP,
+		room, autoin, manin);
 	participants->nDevType_ = DEV_TYPE_STOCKER;
 	participants->nID_ = stockerID;
 
@@ -426,11 +464,20 @@ void amhs_room::Handle_STK_Auth(amhs_participant_ptr participants, AMHSPacket& P
 	}
 
 	AMHSPacket ack(STK_MCS_ACK_AUTH, 10);
+	SYSTEMTIME st = {0};
+	GetLocalTime(&st);
 	ack << uint8(stockerID);
 	ack << uint8(nAuthAck);
-	__time64_t ltime;
-	_time64( &ltime );
-	ack << uint64(ltime);
+	//__time64_t ltime;
+	//_time64( &ltime );
+	//ack << uint64(ltime);
+	ack << uint16(st.wYear);
+	ack << uint8(st.wMonth);
+	ack << uint8(st.wDay);
+	ack << uint8(st.wHour);
+	ack << uint8(st.wMinute);
+	ack << uint8(st.wSecond);
+	ack << uint8(0);
 
 	SendPacket(participants, ack);
 }
