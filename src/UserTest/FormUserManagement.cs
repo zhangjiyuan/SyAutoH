@@ -10,6 +10,7 @@ using GuiAccess;
 
 namespace UserTest
 {
+    
     public partial class FormUserManagement : Form
     {
         public FormUserManagement()
@@ -26,7 +27,8 @@ namespace UserTest
         private DataHubCli dataHubLink = new DataHubCli();
         private int m_nSession = 0;
         private string strUserLogin = "";
-        private string strVal;
+
+        private MCS.GuiDataItem guiData = new MCS.GuiDataItem();
 
         private void Init_listView_MesFoups()
         {
@@ -84,7 +86,7 @@ namespace UserTest
           
         }
 
-        private void GuiDataUpdate(string strTag, string sVal)
+        private void GuiDataUpdate(MCS.GuiDataItem item)
         {
             //if (strTag.CompareTo("TEST") == 0)
             //{
@@ -94,9 +96,10 @@ namespace UserTest
             //{
             //    this.labelCBTest.Text = sVal;
             //}
-            lock(this)
+            lock(guiData)
             {
-                strVal = sVal;
+                guiData = item;
+               
             }
         }
 
@@ -298,7 +301,10 @@ namespace UserTest
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            labelCBTest.Text = strVal;
+            lock (guiData)
+            {
+                labelCBTest.Text = guiData.sVal;
+            }
         }
 
         private void bnSTK_History_Click(object sender, EventArgs e)
@@ -352,7 +358,7 @@ namespace UserTest
 
         private void linkOHTMoveToRefresh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            dataHubLink.Async_WriteData("OHT.GetLocationTable", "", m_nSession);
+            dataHubLink.Async_WriteData("OHT.GetPosTable", "", m_nSession);
         }
     }
 }

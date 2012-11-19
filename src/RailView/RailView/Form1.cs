@@ -22,7 +22,7 @@ namespace RailView
         }
 
         private DataHubCli dataHubLink = new DataHubCli();
-        private string strVal = "";
+        private MCS.GuiDataItem guiDataItem = new MCS.GuiDataItem();
 
         private void InitForm()
         {
@@ -59,12 +59,17 @@ namespace RailView
 
         private void UpdateOHTPosition()
         {
-            lock (strVal)
+            lock (guiDataItem)
             {
-                if (strVal.Length < 1)
+                if (guiDataItem.sTag.CompareTo("OHT.Pos") != 0)
                 {
                     return;
                 }
+                if (guiDataItem.sVal.Length < 1)
+                {
+                    return;
+                }
+                string strVal = guiDataItem.sVal;
                
                 string strSplit = "<>";
                 char[] spliter = strSplit.ToCharArray();
@@ -144,19 +149,11 @@ namespace RailView
             dataHubLink.Async_SetCallBack();
         }
 
-        private void GuiDataUpdate(string strTag, string sVal)
+        private void GuiDataUpdate(MCS.GuiDataItem guiData)
         {
-            //if (strTag.CompareTo("TEST") == 0)
-            //{
-            //    this.labelCBTest.Text = sVal;
-            //}
-            //if (strTag.CompareTo("OHT.POS") == 0)
-            //{
-            //    this.labelCBTest.Text = sVal;
-            //}
-            lock (this)
+            lock (guiDataItem)
             {
-                strVal = sVal;
+                guiDataItem = guiData;
             }
         }
 

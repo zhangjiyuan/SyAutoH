@@ -6,7 +6,7 @@ using MCS;
 
 namespace GuiAccess
 {
-    public delegate void DataUpdaterHander(string sTag, string sVal);
+    public delegate void DataUpdaterHander(GuiDataItem item);
     public class DataHubCli : IceNet
     {
         private GuiDataHubPrx remote = null;
@@ -32,11 +32,11 @@ namespace GuiAccess
                                            adapter.createProxy(Communicator.stringToIdentity("callbackReceiver")));
         }
 
-        public void CallBack(string sTag, string sVal)
+        public void CallBack(GuiDataItem item)
         {
             if (null != this.DataUpdater)
             {
-                this.DataUpdater(sTag, sVal);
+                this.DataUpdater(item);
             }
         }
 

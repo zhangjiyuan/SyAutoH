@@ -56,6 +56,7 @@ private:
 
 private:
 	void OHT_SetPositionBackTime(const std::string&);
+	void OHT_GetPositionTable(const std::string&);
 };
 
 class UpdateCallback : public IceUtil::Shared

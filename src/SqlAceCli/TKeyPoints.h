@@ -1,10 +1,10 @@
-// KeyPoints.h : CKeyPointsTable 的声明
+// KeyPoints.h : CKeyPoints 的声明
 
 #pragma once
 
-// 代码生成在 2012年10月30日, 14:26
+// 代码生成在 2012年11月16日, 15:21
 
-class CKeyPointsTableAccessor
+class CKeyPointsAccessor
 {
 public:
 	LONG m_Position;
@@ -15,6 +15,7 @@ public:
 	BYTE m_Rail_ID;
 	LONG m_Prev;
 	LONG m_Next;
+	TCHAR m_Name[51];
 
 	// 以下向导生成的数据成员包含
 	//列映射中相应字段的状态值。
@@ -33,6 +34,7 @@ public:
 	DBSTATUS m_dwRail_IDStatus;
 	DBSTATUS m_dwPrevStatus;
 	DBSTATUS m_dwNextStatus;
+	DBSTATUS m_dwNameStatus;
 
 	// 以下向导生成的数据成员包含
 	//列映射中相应字段的长度值。
@@ -47,6 +49,7 @@ public:
 	DBLENGTH m_dwRail_IDLength;
 	DBLENGTH m_dwPrevLength;
 	DBLENGTH m_dwNextLength;
+	DBLENGTH m_dwNameLength;
 
 
 	void GetRowsetProperties(CDBPropSet* pPropSet)
@@ -62,10 +65,10 @@ public:
 		CDataSource _db;
 		HRESULT hr;
 //#error 安全问题：连接字符串可能包含密码。
-// 此连接字符串中可能包含明文密码和/或其他重要
-// 信息。请在查看完此连接字符串并找到所有与安全
-// 有关的问题后移除 #error。可能需要将此密码存
-// 储为其他格式或使用其他的用户身份验证。
+//// 此连接字符串中可能包含明文密码和/或其他重要
+//// 信息。请在查看完此连接字符串并找到所有与安全
+//// 有关的问题后移除 #error。可能需要将此密码存
+//// 储为其他格式或使用其他的用户身份验证。
 		hr = _db.OpenFromInitializationString(DbConnectString);
 		if (FAILED(hr))
 		{
@@ -89,7 +92,7 @@ public:
 
 	CSession m_session;
 
-	DEFINE_COMMAND_EX(CKeyPointsTableAccessor, L" \
+	DEFINE_COMMAND_EX(CKeyPointsAccessor, L" \
 	SELECT \
 		Position, \
 		Type, \
@@ -98,14 +101,15 @@ public:
 		OHT_ID, \
 		Rail_ID, \
 		Prev, \
-		Next \
+		Next, \
+		Name \
 		FROM dbo.KeyPoints")
 
 
 	// 为解决某些提供程序的若干问题，以下代码可能以
 	// 不同于提供程序所报告的顺序来绑定列
 
-	BEGIN_COLUMN_MAP(CKeyPointsTableAccessor)
+	BEGIN_COLUMN_MAP(CKeyPointsAccessor)
 		COLUMN_ENTRY_LENGTH_STATUS(1, m_Position, m_dwPositionLength, m_dwPositionStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(2, m_Type, m_dwTypeLength, m_dwTypeStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(3, m_SpeedRate, m_dwSpeedRateLength, m_dwSpeedRateStatus)
@@ -114,10 +118,11 @@ public:
 		COLUMN_ENTRY_LENGTH_STATUS(6, m_Rail_ID, m_dwRail_IDLength, m_dwRail_IDStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(7, m_Prev, m_dwPrevLength, m_dwPrevStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(8, m_Next, m_dwNextLength, m_dwNextStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(9, m_Name, m_dwNameLength, m_dwNameStatus)
 	END_COLUMN_MAP()
 };
 
-class CKeyPointsTable : public CCommand<CAccessor<CKeyPointsTableAccessor> >
+class CKeyPoints : public CCommand<CAccessor<CKeyPointsAccessor> >
 {
 public:
 	HRESULT OpenAll()

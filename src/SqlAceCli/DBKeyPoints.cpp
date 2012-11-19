@@ -12,6 +12,39 @@ DBKeyPoints::~DBKeyPoints(void)
 {
 }
 
+VEC_KEYPOINT DBKeyPoints::GetKeyPointsTable()
+{
+	VEC_KEYPOINT keyPTList;
+
+	CoInitialize(NULL);
+	HRESULT hr;
+	CKeyPoints table;
+	hr = table.OpenAll();
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return keyPTList;
+	}
+
+	while(table.MoveNext() != DB_S_ENDOFROWSET)
+	{
+		KeyPointItem item;
+		item.uPosition = table.m_Position;
+		item.uType = table.m_Type;
+		item.uSpeedRate = table.m_SpeedRate;
+		item.uTeachMode = table.m_TeachMode;
+		item.uOHT_ID = table.m_OHT_ID;
+		item.uRail_ID = table.m_Rail_ID;
+		item.uPrev = table.m_Prev;
+		item.uNext = table.m_Next;
+		item.strName = table.m_Name;
+		keyPTList.push_back(item);
+	}
+	table.CloseAll();
+	CoUninitialize();
+
+	return keyPTList;
+}
 
 int DBKeyPoints::SetKeyPointbyOHTTeach(int nOHT_ID, int nPOS, int nType, int nSpeedRate)
 {
@@ -19,7 +52,7 @@ int DBKeyPoints::SetKeyPointbyOHTTeach(int nOHT_ID, int nPOS, int nType, int nSp
 	HRESULT hr;
 	int nFoup = 0;
 
-	CKeyPointsTable table;
+	CKeyPoints table;
 	hr = table.OpenDataSource();
 	if (FAILED(hr))
 	{
@@ -93,6 +126,7 @@ int DBKeyPoints::SetKeyPointbyOHTTeach(int nOHT_ID, int nPOS, int nType, int nSp
 	table.m_dwRail_IDStatus = DBSTATUS_S_OK;
 	table.m_dwPrevStatus = DBSTATUS_S_OK;
 	table.m_dwNextStatus = DBSTATUS_S_OK;
+	table.m_dwNameStatus = DBSTATUS_S_IGNORE;
 
 	table.Insert();
 

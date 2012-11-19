@@ -26,6 +26,155 @@ using _Microsoft = global::Microsoft;
 
 namespace MCS
 {
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1710")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1715")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1716")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1720")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1722")]
+    [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1724")]
+    public partial class GuiDataItem : _System.ICloneable
+    {
+        #region Slice data members
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public string sTag;
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public string sVal;
+
+        #endregion
+
+        #region Constructors
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public GuiDataItem()
+        {
+        }
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public GuiDataItem(string sTag, string sVal)
+        {
+            this.sTag = sTag;
+            this.sVal = sVal;
+        }
+
+        #endregion
+
+        #region ICloneable members
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
+        #endregion
+
+        #region Object members
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public override int GetHashCode()
+        {
+            int h__ = 0;
+            if(sTag != null)
+            {
+                h__ = 5 * h__ + sTag.GetHashCode();
+            }
+            if(sVal != null)
+            {
+                h__ = 5 * h__ + sVal.GetHashCode();
+            }
+            return h__;
+        }
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public override bool Equals(object other__)
+        {
+            if(object.ReferenceEquals(this, other__))
+            {
+                return true;
+            }
+            if(other__ == null)
+            {
+                return false;
+            }
+            if(GetType() != other__.GetType())
+            {
+                return false;
+            }
+            GuiDataItem o__ = (GuiDataItem)other__;
+            if(sTag == null)
+            {
+                if(o__.sTag != null)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if(!sTag.Equals(o__.sTag))
+                {
+                    return false;
+                }
+            }
+            if(sVal == null)
+            {
+                if(o__.sVal != null)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if(!sVal.Equals(o__.sVal))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        #endregion
+
+        #region Comparison members
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public static bool operator==(GuiDataItem lhs__, GuiDataItem rhs__)
+        {
+            return Equals(lhs__, rhs__);
+        }
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public static bool operator!=(GuiDataItem lhs__, GuiDataItem rhs__)
+        {
+            return !Equals(lhs__, rhs__);
+        }
+
+        #endregion
+
+        #region Marshalling support
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public void write__(IceInternal.BasicStream os__)
+        {
+            os__.writeString(sTag);
+            os__.writeString(sVal);
+        }
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public void read__(IceInternal.BasicStream is__)
+        {
+            sTag = is__.readString();
+            sVal = is__.readString();
+        }
+
+        #endregion
+    }
+
     [_System.Runtime.InteropServices.ComVisible(false)]
     [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704")]
     [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707")]
@@ -263,19 +412,19 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataUpdaterPrx : Ice.ObjectPrx
     {
-        void UpdateData(string Tag, string Val);
-        void UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> context__);
+        void UpdateData(MCS.GuiDataItem data);
+        void UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(string Tag, string Val);
-        Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__);
+        Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(MCS.GuiDataItem data);
+        Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__);
 
-        Ice.AsyncResult begin_UpdateData(string Tag, string Val, Ice.AsyncCallback cb__, object cookie__);
-        Ice.AsyncResult begin_UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_UpdateData(MCS.GuiDataItem data, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
 
         void end_UpdateData(Ice.AsyncResult r__);
 
-        bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, string Tag, string Val);
-        bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__);
+        bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data);
+        bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -413,13 +562,13 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataUpdaterOperations_
     {
-        void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, string Tag, string Val, Ice.Current current__);
+        void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data, Ice.Current current__);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataUpdaterOperationsNC_
     {
-        void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, string Tag, string Val);
+        void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -491,17 +640,17 @@ namespace MCS
     {
         #region Synchronous operations
 
-        public void UpdateData(string Tag, string Val)
+        public void UpdateData(MCS.GuiDataItem data)
         {
-            UpdateData(Tag, Val, null, false);
+            UpdateData(data, null, false);
         }
 
-        public void UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> context__)
+        public void UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__)
         {
-            UpdateData(Tag, Val, context__, true);
+            UpdateData(data, context__, true);
         }
 
-        private void UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        private void UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
         {
             if(explicitContext__ && context__ == null)
             {
@@ -515,7 +664,7 @@ namespace MCS
                 {
                     delBase__ = getDelegate__(false);
                     GuiDataUpdaterDel_ del__ = (GuiDataUpdaterDel_)delBase__;
-                    del__.UpdateData(Tag, Val, context__);
+                    del__.UpdateData(data, context__);
                     return;
                 }
                 catch(IceInternal.LocalExceptionWrapper ex__)
@@ -533,24 +682,24 @@ namespace MCS
 
         #region Asynchronous operations
 
-        public Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(string Tag, string Val)
+        public Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(MCS.GuiDataItem data)
         {
-            return begin_UpdateData(Tag, Val, null, false, null, null);
+            return begin_UpdateData(data, null, false, null, null);
         }
 
-        public Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        public Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__)
         {
-            return begin_UpdateData(Tag, Val, ctx__, true, null, null);
+            return begin_UpdateData(data, ctx__, true, null, null);
         }
 
-        public Ice.AsyncResult begin_UpdateData(string Tag, string Val, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_UpdateData(MCS.GuiDataItem data, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_UpdateData(Tag, Val, null, false, cb__, cookie__);
+            return begin_UpdateData(data, null, false, cb__, cookie__);
         }
 
-        public Ice.AsyncResult begin_UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_UpdateData(Tag, Val, ctx__, true, cb__, cookie__);
+            return begin_UpdateData(data, ctx__, true, cb__, cookie__);
         }
 
         private const string __UpdateData_name = "UpdateData";
@@ -560,7 +709,7 @@ namespace MCS
             end__(r__, __UpdateData_name);
         }
 
-        private Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        private Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
         {
             IceInternal.OnewayOutgoingAsync<MCS.Callback_GuiDataUpdater_UpdateData> result__ = new IceInternal.OnewayOutgoingAsync<MCS.Callback_GuiDataUpdater_UpdateData>(this, __UpdateData_name, UpdateData_completed__, cookie__);
             if(cb__ != null)
@@ -571,8 +720,15 @@ namespace MCS
             {
                 result__.prepare__(__UpdateData_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
                 IceInternal.BasicStream os__ = result__.ostr__;
-                os__.writeString(Tag);
-                os__.writeString(Val);
+                if(data == null)
+                {
+                    MCS.GuiDataItem tmp__ = new MCS.GuiDataItem();
+                    tmp__.write__(os__);
+                }
+                else
+                {
+                    data.write__(os__);
+                }
                 os__.endWriteEncaps();
                 result__.send__(true);
             }
@@ -591,9 +747,9 @@ namespace MCS
             }
         }
 
-        public bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, string Tag, string Val)
+        public bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data)
         {
-            Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> result__ = begin_UpdateData(Tag, Val);
+            Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> result__ = begin_UpdateData(data);
             result__.whenCompleted(cb__.response__, cb__.exception__);
             if(cb__ is Ice.AMISentCallback)
             {
@@ -602,9 +758,9 @@ namespace MCS
             return result__.sentSynchronously();
         }
 
-        public bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        public bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__)
         {
-            Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> result__ = begin_UpdateData(Tag, Val, ctx__);
+            Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> result__ = begin_UpdateData(data, ctx__);
             result__.whenCompleted(cb__.response__, cb__.exception__);
             if(cb__ is Ice.AMISentCallback)
             {
@@ -2520,7 +2676,7 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataUpdaterDel_ : Ice.ObjectDel_
     {
-        void UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> context__);
+        void UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -2560,7 +2716,7 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public sealed class GuiDataUpdaterDelM_ : Ice.ObjectDelM_, GuiDataUpdaterDel_
     {
-        public void UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> context__)
+        public void UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             IceInternal.Outgoing og__ = handler__.getOutgoing("UpdateData", Ice.OperationMode.Idempotent, context__);
             try
@@ -2568,8 +2724,15 @@ namespace MCS
                 try
                 {
                     IceInternal.BasicStream os__ = og__.ostr();
-                    os__.writeString(Tag);
-                    os__.writeString(Val);
+                    if(data == null)
+                    {
+                        MCS.GuiDataItem tmp__ = new MCS.GuiDataItem();
+                        tmp__.write__(os__);
+                    }
+                    else
+                    {
+                        data.write__(os__);
+                    }
                 }
                 catch(Ice.LocalException ex__)
                 {
@@ -3150,7 +3313,7 @@ namespace MCS
     public sealed class GuiDataUpdaterDelD_ : Ice.ObjectDelD_, GuiDataUpdaterDel_
     {
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
-        public void UpdateData(string Tag, string Val, _System.Collections.Generic.Dictionary<string, string> context__)
+        public void UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             throw new Ice.CollocationOptimizationException();
         }
@@ -3668,12 +3831,12 @@ namespace MCS
     {
         #region Slice operations
 
-        public void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, string Tag, string Val)
+        public void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data)
         {
-            UpdateData_async(cb__, Tag, Val, Ice.ObjectImpl.defaultCurrent);
+            UpdateData_async(cb__, data, Ice.ObjectImpl.defaultCurrent);
         }
 
-        public abstract void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, string Tag, string Val, Ice.Current current__);
+        public abstract void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data, Ice.Current current__);
 
         #endregion
 
@@ -3730,15 +3893,18 @@ namespace MCS
             checkMode__(Ice.OperationMode.Idempotent, current__.mode);
             IceInternal.BasicStream is__ = inS__.istr();
             is__.startReadEncaps();
-            string Tag;
-            Tag = is__.readString();
-            string Val;
-            Val = is__.readString();
+            MCS.GuiDataItem data;
+            data = null;
+            if(data == null)
+            {
+                data = new MCS.GuiDataItem();
+            }
+            data.read__(is__);
             is__.endReadEncaps();
             AMD_GuiDataUpdater_UpdateData cb__ = new _AMD_GuiDataUpdater_UpdateData(inS__);
             try
             {
-                obj__.UpdateData_async(cb__, Tag, Val, current__);
+                obj__.UpdateData_async(cb__, data, current__);
             }
             catch(_System.Exception ex__)
             {

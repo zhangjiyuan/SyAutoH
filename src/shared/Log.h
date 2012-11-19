@@ -18,6 +18,7 @@ string SetNewName(const char* Description, bool useTimeStamp);
 class oLog : public Singleton< oLog >
 {
 	public:
+		oLog();
 		//log level 0
 		void outString(const char* str, ...);
 		void outError(const char* err, ...);

@@ -14,11 +14,15 @@
 module MCS
 {
 
-
+struct GuiDataItem
+{
+	string sTag;
+	string sVal;
+};
 
 interface GuiDataUpdater
 {
-		["ami", "amd"] idempotent void UpdateData(string Tag, string Val);
+		["ami", "amd"] idempotent void UpdateData(GuiDataItem data);
 };
 
 interface GuiDataHub

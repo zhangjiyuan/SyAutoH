@@ -55,7 +55,7 @@ void MaterialController::Check(void)
 		sprintf_s(buf, 256, "<%d, %d, %d>", it->nID, it->nPOS, it->nHand);
 		strOhtList += buf;
 	}
-	m_GuiHub.SetData("OHTARRAY:<ID,POS,HAND>", strOhtList.c_str());
+	m_GuiHub.SetData("OHT.Pos", strOhtList.c_str());
 	
 	
 }

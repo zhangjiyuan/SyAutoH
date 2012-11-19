@@ -2,11 +2,16 @@
 #include "GuiDataHubI.h"
 #include "../AMHSDrive/AMHSDrive.h"
 #include "../shared/Util.h"
+#include "../shared/Log.h"
+#include "../SqlAceCli/SqlAceCli.h"
+#include "IceUtil/Unicode.h"
 
 GuiDataHubI::GuiDataHubI(void)
 {
 	m_optHanders.insert(std::make_pair("OHT.POSTIME", 
 		&GuiDataHubI::OHT_SetPositionBackTime));
+	m_optHanders.insert(std::make_pair("OHT.GetPosTable", 
+		&GuiDataHubI::OHT_GetPositionTable));
 }
 
 
@@ -17,6 +22,31 @@ GuiDataHubI::~GuiDataHubI(void)
 std::string GuiDataHubI::ReadData(const std::string &,Ice::Int,const Ice::Current &)
 {
 	return "Read";
+}
+
+void GuiDataHubI::OHT_GetPositionTable(const std::string&)
+{
+	LOG_DEBUG("");
+	//boost::thread();
+	DBKeyPoints db;
+	VEC_KEYPOINT ptKeys = db.GetKeyPointsTable();
+	string strVal = "";
+	char buf[100] = "";
+	for (VEC_KEYPOINT::iterator it = ptKeys.begin();
+		it != ptKeys.end(); ++it)
+	{
+		strVal += "<";
+		strVal += IceUtil::wstringToString(it->strName);
+		strVal += ",";
+		strVal += itoa(it->uPosition, buf, 10);
+		strVal += ",";
+		strVal += itoa(it->uType, buf, 10);
+		strVal += ",";
+		strVal += itoa(it->uSpeedRate, buf, 10);
+		strVal += ">";
+	}
+
+	UpdateData("OHT.PosTable", strVal);
 }
 
 void GuiDataHubI::OHT_SetPositionBackTime(const std::string& strVal)
@@ -92,8 +122,11 @@ void GuiDataHubI::UpdateData(const std::string &sTag, const std::string &sVal)
 				UpdateCallbackPtr cb = new UpdateCallback();
 				cb->client = *p;
 				cb->m_view = this;
+				GuiDataItem item;
+				item.sTag = sTag;
+				item.sVal = sVal;
 
-				::Ice::AsyncResultPtr pAsyncCall = (*p)->begin_UpdateData(sTag, sVal,
+				::Ice::AsyncResultPtr pAsyncCall = (*p)->begin_UpdateData(item,
 					newCallback_GuiDataUpdater_UpdateData(cb, &UpdateCallback::response, 
 					&UpdateCallback::exception));
 			}
