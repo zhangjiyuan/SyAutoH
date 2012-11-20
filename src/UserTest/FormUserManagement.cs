@@ -27,8 +27,7 @@ namespace UserTest
         private DataHubCli dataHubLink = new DataHubCli();
         private int m_nSession = 0;
         private string strUserLogin = "";
-
-        private MCS.GuiDataItem guiData = new MCS.GuiDataItem();
+        private Queue<MCS.GuiDataItem> buf = new Queue<MCS.GuiDataItem>();
 
         private void Init_listView_MesFoups()
         {
@@ -88,18 +87,9 @@ namespace UserTest
 
         private void GuiDataUpdate(MCS.GuiDataItem item)
         {
-            //if (strTag.CompareTo("TEST") == 0)
-            //{
-            //    this.labelCBTest.Text = sVal;
-            //}
-            //if (strTag.CompareTo("OHT.POS") == 0)
-            //{
-            //    this.labelCBTest.Text = sVal;
-            //}
-            lock(guiData)
+            lock(buf)
             {
-                guiData = item;
-               
+                buf.Enqueue(item);
             }
         }
 
@@ -299,11 +289,100 @@ namespace UserTest
 
         }
 
+        private void ProcessDataBuf()
+        {
+            while (buf.Count != 0)
+            {
+                MCS.GuiDataItem item = buf.Dequeue();
+                ProcessGuiData(item);
+           }
+        }
+
+        private void ProcessGuiData(MCS.GuiDataItem guiData)
+        {
+            if (null == guiData.sTag )
+            {
+                return;
+            }
+            if (guiData.sTag.CompareTo("OHT.Info") == 0)
+            {
+                string strVal = guiData.sVal;
+                string strSplit = "<>";
+                char[] spliter = strSplit.ToCharArray();
+                string[] strItem = strVal.Split(spliter);
+                foreach (string strOht in strItem)
+                {
+                    if (strOht.Length > 0)
+                    {
+                        string[] strParams = strOht.Split(',');
+                        if (strParams.Length == 3)
+                        {
+                            string strID = strParams[0];
+                            string strTCP = strParams[1] + ":" + strParams[2];
+                            
+                            ListViewItem lvItem = listViewOHTs.FindItemWithText(strID);
+                            if (lvItem != null)
+                            {
+                                lvItem.SubItems[5].Text = strTCP;
+                            }
+                            else
+                            {
+                                lvItem = new ListViewItem();
+                                lvItem.Text = strID;
+                                lvItem.SubItems.Add("");
+                                lvItem.SubItems.Add("");
+                                lvItem.SubItems.Add("");
+                                lvItem.SubItems.Add("");
+                                lvItem.SubItems.Add("");
+                                lvItem.SubItems[5].Text = strTCP;
+                                listViewOHTs.Items.Add(lvItem);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (guiData.sTag.CompareTo("OHT.Pos") == 0)
+            {
+                string strVal = guiData.sVal;
+                string strSplit = "<>";
+                char[] spliter = strSplit.ToCharArray();
+                string[] strItem = strVal.Split(spliter);
+                foreach (string strOht in strItem)
+                {
+                    if (strOht.Length > 0)
+                    {
+                        string[] strParams = strOht.Split(',');
+                        if (strParams.Length == 3)
+                        {
+                            string strID = strParams[0];
+
+                            ListViewItem lvItem = listViewOHTs.FindItemWithText(strID);
+                            if (lvItem != null)
+                            {
+                                lvItem.SubItems[1].Text = strParams[1];
+                                lvItem.SubItems[2].Text = strParams[2];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
-            lock (guiData)
+            lock (buf)
             {
-                labelCBTest.Text = guiData.sVal;
+                ProcessDataBuf();
+            }
+            DateTime dtNow = DateTime.Now;
+            TimeSpan span = dtNow - dataHubLink.UpdateTime;
+            if (span.TotalSeconds > 5)
+            {
+                foreach (ListViewItem item in listViewOHTs.Items)
+                {
+                    item.SubItems[5].Text = "";
+                }
+                dataHubLink.Async_SetCallBack();
             }
         }
 
@@ -432,6 +511,11 @@ namespace UserTest
             strVal = string.Format("<{0}, {1}>", nID, nTime);
 
             int nWRet = dataHubLink.WriteData("STK.STATUSTIME", strVal, m_nSession);
+        }
+
+        private void listViewOhtMove_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

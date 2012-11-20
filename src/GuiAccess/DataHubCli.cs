@@ -12,6 +12,11 @@ namespace GuiAccess
         private GuiDataHubPrx remote = null;
         private GuiDataUpdaterPrx dataCallback = null;
         private DataHubCallbackI dataHubCB = null;
+        private DateTime m_updateTime = DateTime.Now;
+        public System.DateTime UpdateTime
+        {
+            get { return m_updateTime; }
+        }
         public event DataUpdaterHander DataUpdater;
         public DataHubCli()
         {
@@ -36,6 +41,7 @@ namespace GuiAccess
         {
             if (null != this.DataUpdater)
             {
+                m_updateTime = DateTime.Now;
                 this.DataUpdater(item);
             }
         }

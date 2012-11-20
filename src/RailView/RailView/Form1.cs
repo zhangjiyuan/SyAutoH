@@ -22,7 +22,7 @@ namespace RailView
         }
 
         private DataHubCli dataHubLink = new DataHubCli();
-        private MCS.GuiDataItem guiDataItem = new MCS.GuiDataItem();
+        private Queue<MCS.GuiDataItem> quGuiData = new Queue<MCS.GuiDataItem>();
 
         private void InitForm()
         {
@@ -53,14 +53,24 @@ namespace RailView
         //test using, finally delete
         public void StartTimer(object source, System.Timers.ElapsedEventArgs e)
         {
-            UpdateOHTPosition();
+            ProcessGuiDataBuf();
             this.showPic.Invalidate();
         }
 
-        private void UpdateOHTPosition()
+        private void ProcessGuiDataBuf()
         {
-            lock (guiDataItem)
+            lock (quGuiData)
             {
+                while (quGuiData.Count != 0)
+                {
+                    MCS.GuiDataItem item = quGuiData.Dequeue();
+                    UpdateOHTPosition(item);
+                }
+            }
+        }
+
+        private void UpdateOHTPosition(MCS.GuiDataItem guiDataItem)
+        {
                 if (guiDataItem.sTag.CompareTo("OHT.Pos") != 0)
                 {
                     return;
@@ -93,9 +103,6 @@ namespace RailView
                 }
 
                 formOperation.UpdateOHTPos(listOht);
-
-            }
-            
         }
 
         private void baseInfoTreeView_MouseUp(object sender, MouseEventArgs e)
@@ -151,9 +158,9 @@ namespace RailView
 
         private void GuiDataUpdate(MCS.GuiDataItem guiData)
         {
-            lock (guiDataItem)
+            lock (quGuiData)
             {
-                guiDataItem = guiData;
+                quGuiData.Enqueue(guiData);
             }
         }
 

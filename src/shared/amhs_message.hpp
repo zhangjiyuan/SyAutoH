@@ -5,7 +5,7 @@ class amhs_message
 {
 public:
 	enum { header_length = sizeof(AMHSPktHeader) };
-	enum { max_body_length = 512 };
+	enum { max_body_length = 512 - header_length };
 
 	amhs_message()
 		: body_length_(0),

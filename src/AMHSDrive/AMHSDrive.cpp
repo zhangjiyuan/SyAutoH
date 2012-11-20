@@ -47,6 +47,8 @@ void CopyOHTStruct(driveOHT& target, amhs_oht_ptr& src)
 	target.nBackStatusMark = src->nBackStatusMark;
 	target.nBackStausAlarm = src->nBackStausAlarm;
 	target.bNeedPath = src->bNeedPath;
+	target.strIp = src->p_participant->sIP_;
+	target.uPort = src->p_participant->uPort_;
 }
 
 DR_OHT_LIST CAMHSDrive::GetOhtList()

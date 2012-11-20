@@ -106,140 +106,106 @@ void amhs_dev_server::OHT_Foup(int nID, int nDevBuf, int nOperation)
 //
 void amhs_dev_server::STK_FOUP(int nID, int nMode, int nPick, int nFoupData)
 {
-	Log.Debug("amhs_dev_server", "STK_FOUP not implement");
+	AMHSPacket packet(STK_MCS_FOUP, 13);
+	packet << uint8(nID);
+	packet << uint8(nMode);
+	packet << uint8(nPick);
+	packet << uint64(nFoupData);
+	packet << uint16(0);
+
+	SendPacket_STK(nID, packet);
 }
 
 void amhs_dev_server::STK_Status(int nID)
 {
-	Log.Debug("amhs_dev_server", "STK_Status not implement");
+	AMHSPacket packet(STK_MCS_STATUS, 1);
+	packet << uint8(nID);
+
+	SendPacket_STK(nID, packet);
 }
 
 void amhs_dev_server::STK_Room(int nID)
 {
-	Log.Debug("amhs_dev_server", "STK_Room not implement");
+	AMHSPacket packet(STK_MCS_ROOM, 1);
+	packet << uint8(nID);
+
+	SendPacket_STK(nID, packet);
 }
 
 void amhs_dev_server::STK_Storage(int nID)
 {
-	Log.Debug("amhs_dev_server", "STK_Storage not implement");
+	AMHSPacket packet(STK_MCS_STORAGE, 1);
+	packet << uint8(nID);
+
+	SendPacket_STK(nID, packet);
 }
 
 void amhs_dev_server::STK_InputStatus(int nID)
 {
-	Log.Debug("amhs_dev_server", "STK_InputStatus not implement");
+	AMHSPacket packet(STK_MCS_INPUT_STATUS, 1);
+	packet << uint8(nID);
+
+	SendPacket_STK(nID, packet);
 }
 
-void amhs_dev_server::STK_History(int nID, __int64 timeStart, __int64 timeEnd)
+void amhs_dev_server::STK_History(int nID, const SYSTEMTIME &timeStart, const SYSTEMTIME &timeEnd)
 {
-	Log.Debug("amhs_dev_server", "STK_History not implement");
+	AMHSPacket packet(STK_MCS_HISTORY, 17);
+	packet << uint8(nID);
+	packet << uint16(timeStart.wYear);
+	packet << uint8(timeStart.wMonth);
+	packet << uint8(timeStart.wDay);
+	packet << uint8(timeStart.wHour);
+	packet << uint8(timeStart.wMinute);
+	packet << uint8(timeStart.wSecond);
+	packet << uint8(0);
+	packet << uint16(timeEnd.wYear);
+	packet << uint8(timeEnd.wMonth);
+	packet << uint8(timeEnd.wDay);
+	packet << uint8(timeEnd.wHour);
+	packet << uint8(timeEnd.wMinute);
+	packet << uint8(timeEnd.wSecond);
+	packet << uint8(0);
+
+	SendPacket_STK(nID, packet);
 }
 
-void amhs_dev_server::STK_Alarms(int nID, __int64 timeStart, __int64 timeEnd)
+void amhs_dev_server::STK_Alarms(int nID, const SYSTEMTIME &timeStart, const SYSTEMTIME &timeEnd)
 {
-	Log.Debug("amhs_dev_server", "STK_Alarms not implement");
+	AMHSPacket packet(STK_MCS_ALARMS, 17);
+	packet << uint8(nID);
+	packet << uint16(timeStart.wYear);
+	packet << uint8(timeStart.wMonth);
+	packet << uint8(timeStart.wDay);
+	packet << uint8(timeStart.wHour);
+	packet << uint8(timeStart.wMinute);
+	packet << uint8(timeStart.wSecond);
+	packet << uint8(0);
+	packet << uint16(timeEnd.wYear);
+	packet << uint8(timeEnd.wMonth);
+	packet << uint8(timeEnd.wDay);
+	packet << uint8(timeEnd.wHour);
+	packet << uint8(timeEnd.wMinute);
+	packet << uint8(timeEnd.wSecond);
+	packet << uint8(0);
+
+	SendPacket_STK(nID, packet);
 }
 
 void amhs_dev_server::STK_Set_StatusBackTime(int nID, int nSecond)
 {
-	{
-		AMHSPacket packet(STK_MCS_STATUS_BACK_TIME, 5);
-		packet << uint8(nID);
-		packet << uint32(nSecond);
+	AMHSPacket packet(STK_MCS_STATUS_BACK_TIME, 5);
+	packet << uint8(nID);
+	packet << uint32(nSecond);
 
-		SendPacket_STK(nID, packet);
-	}
-	Sleep(100);
-	{
-		AMHSPacket packet(STK_MCS_FOUP, 13);
-		packet << uint8(nID);
-		packet << uint8(1);
-		packet << uint8(2);
-		packet << uint64(nSecond);
-		packet << uint16(nSecond);
-
-		SendPacket_STK(nID, packet);
-	}
-	Sleep(100);
-	{
-		AMHSPacket packet(STK_MCS_FOUP_BACK_TIME, 5);
-		packet << uint8(nID);
-		packet << uint32(nSecond);
-
-		SendPacket_STK(nID, packet);
-	}
-	Sleep(100);
-	{
-		AMHSPacket packet(STK_MCS_STATUS, 1);
-		packet << uint8(nID);
-
-		SendPacket_STK(nID, packet);
-	}
-
-	Sleep(100);
-	{
-		AMHSPacket packet(STK_MCS_ROOM, 1);
-		packet << uint8(nID);
-
-		SendPacket_STK(nID, packet);
-	}
-
-	Sleep(100);
-	{
-		AMHSPacket packet(STK_MCS_STORAGE, 1);
-		packet << uint8(nID);
-
-		SendPacket_STK(nID, packet);
-	}
-
-	Sleep(100);
-	{
-		AMHSPacket packet(STK_MCS_HISTORY, 17);
-		packet << uint8(nID);
-		packet << uint16(2012);
-		packet << uint8(12);
-		packet << uint8(23);
-		packet << uint8(11);
-		packet << uint8(30);
-		packet << uint8(56);
-		packet << uint8(0);
-		packet << uint16(2012);
-		packet << uint8(11);
-		packet << uint8(12);
-		packet << uint8(13);
-		packet << uint8(14);
-		packet << uint8(15);
-		packet << uint8(0);
-
-		SendPacket_STK(nID, packet);
-	}
-
-	Sleep(100);
-	{
-		AMHSPacket packet(STK_MCS_ALARMS, 17);
-		packet << uint8(nID);
-		packet << uint16(2012);
-		packet << uint8(12);
-		packet << uint8(23);
-		packet << uint8(11);
-		packet << uint8(30);
-		packet << uint8(56);
-		packet << uint8(0);
-		packet << uint16(2012);
-		packet << uint8(11);
-		packet << uint8(12);
-		packet << uint8(13);
-		packet << uint8(14);
-		packet << uint8(15);
-		packet << uint8(0);
-
-		SendPacket_STK(nID, packet);
-	}
-
-	
-	
+	SendPacket_STK(nID, packet);
 }
 
 void amhs_dev_server::STK_Set_FoupBackTime(int nID, int nSecond)
 {
-	Log.Debug("amhs_dev_server", "STK_Set_FoupBackTime not implement");
+	AMHSPacket packet(STK_MCS_FOUP_BACK_TIME, 5);
+	packet << uint8(nID);
+	packet << uint32(nSecond);
+
+	SendPacket_STK(nID, packet);
 }
