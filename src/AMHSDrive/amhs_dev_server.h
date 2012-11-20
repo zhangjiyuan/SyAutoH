@@ -112,6 +112,7 @@ private:
 	void Handle_STK_AckAlarms(amhs_participant_ptr, AMHSPacket&);
 	void Handle_STK_Auth(amhs_participant_ptr, AMHSPacket&);
 	void Handle_STK_FoupEvent(amhs_participant_ptr, AMHSPacket&);
+	void Handle_STK_Ack_StatusTime(amhs_participant_ptr, AMHSPacket&);
 
 private:
 	std::set<amhs_participant_ptr> participants_;
@@ -191,7 +192,7 @@ private:
 		room_.SendPacket(nID, DEV_TYPE_OHT, packet);
 	}
 
-	inline void SendPakcet_Sotcker(int nID, AMHSPacket& packet)
+	inline void SendPacket_STK(int nID, AMHSPacket& packet)
 	{
 		room_.SendPacket(nID, DEV_TYPE_STOCKER, packet);
 	}

@@ -10,6 +10,7 @@ using GuiAccess;
 
 namespace UserTest
 {
+    
     public partial class FormUserManagement : Form
     {
         public FormUserManagement()
@@ -26,7 +27,8 @@ namespace UserTest
         private DataHubCli dataHubLink = new DataHubCli();
         private int m_nSession = 0;
         private string strUserLogin = "";
-        private string strVal;
+
+        private MCS.GuiDataItem guiData = new MCS.GuiDataItem();
 
         private void Init_listView_MesFoups()
         {
@@ -84,7 +86,7 @@ namespace UserTest
           
         }
 
-        private void GuiDataUpdate(string strTag, string sVal)
+        private void GuiDataUpdate(MCS.GuiDataItem item)
         {
             //if (strTag.CompareTo("TEST") == 0)
             //{
@@ -94,9 +96,10 @@ namespace UserTest
             //{
             //    this.labelCBTest.Text = sVal;
             //}
-            lock(this)
+            lock(guiData)
             {
-                strVal = sVal;
+                guiData = item;
+               
             }
         }
 
@@ -106,7 +109,7 @@ namespace UserTest
             mesLink.ConnectServer();
             dataHubLink.ConnectServer();
             dataHubLink.DataUpdater += new DataUpdaterHander(GuiDataUpdate);
-            dataHubLink.SetCallBack();
+            dataHubLink.Async_SetCallBack();
 
             this.comboBoxUserRight.Items.Clear();
             foreach (string strRight in RightCollection)
@@ -292,13 +295,16 @@ namespace UserTest
 
             string sVal = dataHubLink.ReadData("OHT", m_nSession);
 
-            int nWRet = dataHubLink.WriteData("OHT", "MOVE", m_nSession);
+            int nWRet = dataHubLink.WriteData("OHT.MOVETEST", "MOVE", m_nSession);
 
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            labelCBTest.Text = strVal;
+            lock (guiData)
+            {
+                labelCBTest.Text = guiData.sVal;
+            }
         }
 
         private void bnSTK_History_Click(object sender, EventArgs e)
@@ -310,6 +316,15 @@ namespace UserTest
         {
             string strPosTime = tBPosTime.Text;
             int nPosTime = 0;
+            int nID = 0;
+            try
+            {
+                nID = Convert.ToByte(tBOHTID.Text);
+            }
+            catch (System.Exception /*ex*/)
+            {
+                nID = 254;
+            }
             try
             {
                 nPosTime = System.Convert.ToByte(strPosTime);
@@ -319,9 +334,9 @@ namespace UserTest
                 Console.WriteLine(ex.Message);
             }
             string strVal;
-            strVal = string.Format("<{0}, {1}>", 254, nPosTime);
+            strVal = string.Format("<{0}, {1}>", nID, nPosTime);
 
-            int nWRet = dataHubLink.WriteData("OHT.POSTIME:<ID, VAL>", strVal, m_nSession);
+            int nWRet = dataHubLink.WriteData("OHT.POSTIME", strVal, m_nSession);
         }
 
         private void maskedTextBoxPW_KeyPress(object sender, KeyPressEventArgs e)
@@ -343,6 +358,80 @@ namespace UserTest
         private void label8_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+           
+        }
+
+        private void linkOHTMoveToRefresh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            dataHubLink.Async_WriteData("OHT.GetPosTable", "", m_nSession);
+        }
+
+        private void bnpath_Click(object sender, EventArgs e)
+        {
+            dataHubLink.Async_WriteData("OHT.PATHTEST", "", m_nSession);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string strTime = tBStatus.Text;
+            int nTime = 0;
+            int nID = 0;
+            try
+            {
+                nID = Convert.ToByte(tBOHTID.Text);
+            }
+            catch (System.Exception /*ex*/)
+            {
+                nID = 254;
+            }
+            try
+            {
+                nTime = System.Convert.ToByte(strTime);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            string strVal;
+            strVal = string.Format("<{0}, {1}>", nID, nTime);
+
+            int nWRet = dataHubLink.WriteData("OHT.STATUSTIME", strVal, m_nSession);
+        }
+
+        private void bnPick_Click(object sender, EventArgs e)
+        {
+            dataHubLink.WriteData("OHT.FOUPTEST", "", m_nSession);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string strTime = tbStkStatusTime.Text;
+            int nTime = 0;
+            int nID = 0;
+            try
+            {
+                nID = Convert.ToByte(tbStkID.Text);
+            }
+            catch (System.Exception /*ex*/)
+            {
+                nID = 254;
+            }
+            try
+            {
+                nTime = System.Convert.ToByte(strTime);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            string strVal;
+            strVal = string.Format("<{0}, {1}>", nID, nTime);
+
+            int nWRet = dataHubLink.WriteData("STK.STATUSTIME", strVal, m_nSession);
         }
     }
 }

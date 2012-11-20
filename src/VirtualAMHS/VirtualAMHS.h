@@ -45,6 +45,9 @@ public:
 	int OHT_Auth(int nIndex, DWORD nPos = 0, int nHand = 0);
 	int Stocker_Auth(int nIndex, const char* sIP);
 
+	int OHT_Offline(int nIndex);
+	int Stocker_Offline(int nIndex);
+
 	// for Stocker
 	LIST_FOUP Stocker_GetFoupsStatus(int nStocker);
 	int Stocker_ManualInputFoup(int nStocker, const TCHAR* sFoupID);

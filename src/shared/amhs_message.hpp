@@ -15,6 +15,7 @@ public:
 		isNeedRespond_(false),
 		isRespond_(false)
 	{
+		memset(data_, 0, header_length + max_body_length);
 	}
 
 	const uint8* data() const
@@ -88,13 +89,28 @@ public:
 	bool IsRespond() const { return isRespond_; }
 	void IsRespond(bool val) { isRespond_ = val; }
 
+	void Header_HexLike()
+	{
+		AMHSPktHeader PktHeader;
+		memcpy(&PktHeader, data_, header_length);
+		int nSize = sizeof(AMHSPktHeader);
+		uint8* pData = (uint8*)&PktHeader;
+		printf("Header: ");
+		for (int i=0; i<nSize; i++)
+		{
+			printf("%02X ", *pData++);
+		}
+		printf("\r\n");
+
+	}
+
 	bool decode_header()
 	{
 		AMHSPktHeader PktHeader;
 		memcpy(&PktHeader, data_, header_length);
 		uint8 comm = PktHeader.comm;
-		isRespond_ = (comm & 0x80 ? true : false);
-		isNeedRespond_ = (comm & 0x40 ? true : false);
+		isRespond_ = (comm & 0x01 ? true : false);
+		isNeedRespond_ = (comm & 0x02 ? true : false);
 		cmd_ = PktHeader.cmd;
 		body_length_ = PktHeader.size;
 		nIndex = PktHeader.index;
@@ -120,12 +136,12 @@ public:
 		uint8 comm = 0;
 		if (isNeedRespond_)
 		{
-			comm |= 0x40;
+			comm |= 0x02;
 		}
 
 		if (isRespond_)
 		{
-			comm |= 0x80;
+			comm |= 0x01;
 		}
 		PktHeader.comm = comm;
 
@@ -134,6 +150,8 @@ public:
 		PktHeader.check = hash_xor_body();
 
 		memcpy(data_, &PktHeader, header_length);
+		printf("Encode ");
+		Header_HexLike();
 	}
 	
 	uint8 IsLast() const { return nIsLast; }

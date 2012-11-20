@@ -91,6 +91,7 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BN_SetPos, &CVAMHSTestDlg::OnBnClickedBnTeachPos)
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_BN_STK_HISTORY, &CVAMHSTestDlg::OnBnClickedBnStkHistory)
+	ON_BN_CLICKED(IDC_BN_OHT_OFF, &CVAMHSTestDlg::OnBnClickedBnOhtOff)
 END_MESSAGE_MAP()
 
 
@@ -428,4 +429,14 @@ int CVAMHSTestDlg::GetSelectOhtID(void)
 		nRet = -1;
 	}
 	return nRet;
+}
+
+
+void CVAMHSTestDlg::OnBnClickedBnOhtOff()
+{
+	int nOHT_ID = GetSelectOhtID();
+	if (nOHT_ID >= 0)
+	{
+		int nAdd = g_pVDev->OHT_Offline(nOHT_ID);
+	}
 }

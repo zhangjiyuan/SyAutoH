@@ -88,23 +88,47 @@
             this.label12 = new System.Windows.Forms.Label();
             this.lVMes_Foup = new System.Windows.Forms.ListView();
             this.tabOHT = new System.Windows.Forms.TabPage();
-            this.bnSetPosTime = new System.Windows.Forms.Button();
-            this.tBPosTime = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.labelCBTest = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.bnpath = new System.Windows.Forms.Button();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.bnPlace = new System.Windows.Forms.Button();
+            this.label29 = new System.Windows.Forms.Label();
+            this.bnPick = new System.Windows.Forms.Button();
+            this.tBBuffID = new System.Windows.Forms.TextBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.linkOHTMoveToRefresh = new System.Windows.Forms.LinkLabel();
             this.tbOhtMoveTo = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.bnOHTGo = new System.Windows.Forms.Button();
+            this.listViewOhtMove = new System.Windows.Forms.ListView();
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label3 = new System.Windows.Forms.Label();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.tBOHTID = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.tBPosTime = new System.Windows.Forms.TextBox();
+            this.tBStatus = new System.Windows.Forms.TextBox();
+            this.bnSetPosTime = new System.Windows.Forms.Button();
+            this.label27 = new System.Windows.Forms.Label();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+            this.label23 = new System.Windows.Forms.Label();
+            this.labelCBTest = new System.Windows.Forms.Label();
             this.listViewOHTs = new System.Windows.Forms.ListView();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabSTK = new System.Windows.Forms.TabPage();
-            this.listViewStockerSelect = new System.Windows.Forms.ListView();
-            this.listViewStockerFoups = new System.Windows.Forms.ListView();
-            this.bnSTK_History = new System.Windows.Forms.Button();
-            this.tabFoups = new System.Windows.Forms.TabPage();
-            this.listViewFoups = new System.Windows.Forms.ListView();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label20 = new System.Windows.Forms.Label();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.label21 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label22 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
@@ -112,30 +136,19 @@
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button4 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.label20 = new System.Windows.Forms.Label();
+            this.listViewStockerSelect = new System.Windows.Forms.ListView();
+            this.listViewStockerFoups = new System.Windows.Forms.ListView();
+            this.bnSTK_History = new System.Windows.Forms.Button();
+            this.tabFoups = new System.Windows.Forms.TabPage();
+            this.listViewFoups = new System.Windows.Forms.ListView();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.tbStkStatusTime = new System.Windows.Forms.TextBox();
+            this.tbStkID = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -146,13 +159,13 @@
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabOHT.SuspendLayout();
-            this.tabSTK.SuspendLayout();
-            this.tabFoups.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.tabSTK.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.tabFoups.SuspendLayout();
             this.SuspendLayout();
             // 
             // bnNewUser
@@ -752,6 +765,7 @@
             // tabOHT
             // 
             this.tabOHT.BackColor = System.Drawing.Color.SandyBrown;
+            this.tabOHT.Controls.Add(this.bnpath);
             this.tabOHT.Controls.Add(this.groupBox10);
             this.tabOHT.Controls.Add(this.groupBox9);
             this.tabOHT.Controls.Add(this.groupBox8);
@@ -766,48 +780,89 @@
             this.tabOHT.TabIndex = 3;
             this.tabOHT.Text = "OHT Info";
             // 
-            // bnSetPosTime
+            // bnpath
             // 
-            this.bnSetPosTime.Location = new System.Drawing.Point(138, 20);
-            this.bnSetPosTime.Name = "bnSetPosTime";
-            this.bnSetPosTime.Size = new System.Drawing.Size(52, 23);
-            this.bnSetPosTime.TabIndex = 7;
-            this.bnSetPosTime.Text = "Set";
-            this.bnSetPosTime.UseVisualStyleBackColor = true;
-            this.bnSetPosTime.Click += new System.EventHandler(this.bnSetPosTime_Click);
+            this.bnpath.Location = new System.Drawing.Point(614, 120);
+            this.bnpath.Name = "bnpath";
+            this.bnpath.Size = new System.Drawing.Size(52, 23);
+            this.bnpath.TabIndex = 15;
+            this.bnpath.Text = "Path";
+            this.bnpath.UseVisualStyleBackColor = true;
+            this.bnpath.Click += new System.EventHandler(this.bnpath_Click);
             // 
-            // tBPosTime
+            // groupBox10
             // 
-            this.tBPosTime.Location = new System.Drawing.Point(74, 20);
-            this.tBPosTime.Name = "tBPosTime";
-            this.tBPosTime.Size = new System.Drawing.Size(58, 21);
-            this.tBPosTime.TabIndex = 6;
+            this.groupBox10.Controls.Add(this.bnPlace);
+            this.groupBox10.Controls.Add(this.label29);
+            this.groupBox10.Controls.Add(this.bnPick);
+            this.groupBox10.Controls.Add(this.tBBuffID);
+            this.groupBox10.Location = new System.Drawing.Point(406, 174);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(200, 109);
+            this.groupBox10.TabIndex = 21;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Foup Move";
             // 
-            // label9
+            // bnPlace
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(15, 23);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(53, 12);
-            this.label9.TabIndex = 5;
-            this.label9.Text = "Position";
+            this.bnPlace.Location = new System.Drawing.Point(74, 74);
+            this.bnPlace.Name = "bnPlace";
+            this.bnPlace.Size = new System.Drawing.Size(87, 23);
+            this.bnPlace.TabIndex = 14;
+            this.bnPlace.Text = "Place";
+            this.bnPlace.UseVisualStyleBackColor = true;
             // 
-            // labelCBTest
+            // label29
             // 
-            this.labelCBTest.Location = new System.Drawing.Point(405, 323);
-            this.labelCBTest.Name = "labelCBTest";
-            this.labelCBTest.Size = new System.Drawing.Size(201, 97);
-            this.labelCBTest.TabIndex = 4;
-            this.labelCBTest.Text = "label9";
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(27, 23);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(41, 12);
+            this.label29.TabIndex = 13;
+            this.label29.Text = "Buf ID";
             // 
-            // label3
+            // bnPick
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 23);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Position";
+            this.bnPick.Location = new System.Drawing.Point(74, 47);
+            this.bnPick.Name = "bnPick";
+            this.bnPick.Size = new System.Drawing.Size(87, 23);
+            this.bnPick.TabIndex = 13;
+            this.bnPick.Text = "Pick";
+            this.bnPick.UseVisualStyleBackColor = true;
+            this.bnPick.Click += new System.EventHandler(this.bnPick_Click);
+            // 
+            // tBBuffID
+            // 
+            this.tBBuffID.Location = new System.Drawing.Point(74, 20);
+            this.tBBuffID.Name = "tBBuffID";
+            this.tBBuffID.Size = new System.Drawing.Size(87, 21);
+            this.tBBuffID.TabIndex = 14;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.linkOHTMoveToRefresh);
+            this.groupBox9.Controls.Add(this.tbOhtMoveTo);
+            this.groupBox9.Controls.Add(this.label28);
+            this.groupBox9.Controls.Add(this.bnOHTGo);
+            this.groupBox9.Controls.Add(this.listViewOhtMove);
+            this.groupBox9.Controls.Add(this.label3);
+            this.groupBox9.Location = new System.Drawing.Point(711, 8);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(233, 412);
+            this.groupBox9.TabIndex = 20;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "OHT Move To";
+            // 
+            // linkOHTMoveToRefresh
+            // 
+            this.linkOHTMoveToRefresh.AutoSize = true;
+            this.linkOHTMoveToRefresh.Location = new System.Drawing.Point(178, 397);
+            this.linkOHTMoveToRefresh.Name = "linkOHTMoveToRefresh";
+            this.linkOHTMoveToRefresh.Size = new System.Drawing.Size(47, 12);
+            this.linkOHTMoveToRefresh.TabIndex = 20;
+            this.linkOHTMoveToRefresh.TabStop = true;
+            this.linkOHTMoveToRefresh.Text = "Refresh";
+            this.linkOHTMoveToRefresh.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkOHTMoveToRefresh_LinkClicked);
             // 
             // tbOhtMoveTo
             // 
@@ -815,6 +870,14 @@
             this.tbOhtMoveTo.Name = "tbOhtMoveTo";
             this.tbOhtMoveTo.Size = new System.Drawing.Size(90, 21);
             this.tbOhtMoveTo.TabIndex = 2;
+            // 
+            // label28
+            // 
+            this.label28.Location = new System.Drawing.Point(4, 58);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(222, 25);
+            this.label28.TabIndex = 19;
+            this.label28.Text = "Input the position or select a Location listed below:";
             // 
             // bnOHTGo
             // 
@@ -825,6 +888,161 @@
             this.bnOHTGo.Text = "Go";
             this.bnOHTGo.UseVisualStyleBackColor = true;
             this.bnOHTGo.Click += new System.EventHandler(this.bnOHTGo_Click);
+            // 
+            // listViewOhtMove
+            // 
+            this.listViewOhtMove.BackColor = System.Drawing.Color.Linen;
+            this.listViewOhtMove.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader13,
+            this.columnHeader10,
+            this.columnHeader11,
+            this.columnHeader12});
+            this.listViewOhtMove.Location = new System.Drawing.Point(6, 88);
+            this.listViewOhtMove.Name = "listViewOhtMove";
+            this.listViewOhtMove.Size = new System.Drawing.Size(221, 306);
+            this.listViewOhtMove.TabIndex = 18;
+            this.listViewOhtMove.UseCompatibleStateImageBehavior = false;
+            this.listViewOhtMove.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "Name";
+            this.columnHeader13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Position";
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Type";
+            this.columnHeader11.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Speed";
+            this.columnHeader12.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 23);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Position";
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.label30);
+            this.groupBox8.Controls.Add(this.tBOHTID);
+            this.groupBox8.Controls.Add(this.label9);
+            this.groupBox8.Controls.Add(this.button4);
+            this.groupBox8.Controls.Add(this.tBPosTime);
+            this.groupBox8.Controls.Add(this.tBStatus);
+            this.groupBox8.Controls.Add(this.bnSetPosTime);
+            this.groupBox8.Controls.Add(this.label27);
+            this.groupBox8.Location = new System.Drawing.Point(407, 23);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(201, 145);
+            this.groupBox8.TabIndex = 13;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Back Time Config";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(14, 43);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(47, 12);
+            this.label30.TabIndex = 14;
+            this.label30.Text = "OHT ID:";
+            // 
+            // tBOHTID
+            // 
+            this.tBOHTID.Location = new System.Drawing.Point(73, 40);
+            this.tBOHTID.Name = "tBOHTID";
+            this.tBOHTID.Size = new System.Drawing.Size(58, 21);
+            this.tBOHTID.TabIndex = 13;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(14, 73);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 12);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Position";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(137, 97);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(52, 23);
+            this.button4.TabIndex = 12;
+            this.button4.Text = "Set";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // tBPosTime
+            // 
+            this.tBPosTime.Location = new System.Drawing.Point(73, 70);
+            this.tBPosTime.Name = "tBPosTime";
+            this.tBPosTime.Size = new System.Drawing.Size(58, 21);
+            this.tBPosTime.TabIndex = 6;
+            // 
+            // tBStatus
+            // 
+            this.tBStatus.Location = new System.Drawing.Point(73, 97);
+            this.tBStatus.Name = "tBStatus";
+            this.tBStatus.Size = new System.Drawing.Size(58, 21);
+            this.tBStatus.TabIndex = 11;
+            // 
+            // bnSetPosTime
+            // 
+            this.bnSetPosTime.Location = new System.Drawing.Point(137, 70);
+            this.bnSetPosTime.Name = "bnSetPosTime";
+            this.bnSetPosTime.Size = new System.Drawing.Size(52, 23);
+            this.bnSetPosTime.TabIndex = 7;
+            this.bnSetPosTime.Text = "Set";
+            this.bnSetPosTime.UseVisualStyleBackColor = true;
+            this.bnSetPosTime.Click += new System.EventHandler(this.bnSetPosTime_Click);
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(14, 100);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(41, 12);
+            this.label27.TabIndex = 10;
+            this.label27.Text = "Status";
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Location = new System.Drawing.Point(336, 8);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(47, 12);
+            this.linkLabel3.TabIndex = 9;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "Refresh";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(9, 8);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(59, 12);
+            this.label23.TabIndex = 8;
+            this.label23.Text = "OHT List:";
+            // 
+            // labelCBTest
+            // 
+            this.labelCBTest.Location = new System.Drawing.Point(405, 323);
+            this.labelCBTest.Name = "labelCBTest";
+            this.labelCBTest.Size = new System.Drawing.Size(201, 97);
+            this.labelCBTest.TabIndex = 4;
+            this.labelCBTest.Text = "label9";
             // 
             // listViewOHTs
             // 
@@ -842,11 +1060,48 @@
             this.listViewOHTs.UseCompatibleStateImageBehavior = false;
             this.listViewOHTs.View = System.Windows.Forms.View.Details;
             // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "ID";
+            this.columnHeader4.Width = 40;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Position";
+            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Hand";
+            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader6.Width = 40;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Status";
+            this.columnHeader7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Alarm";
+            this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "TCP Info";
+            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader8.Width = 120;
+            // 
             // tabSTK
             // 
             this.tabSTK.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.tabSTK.Controls.Add(this.tbStkStatusTime);
+            this.tabSTK.Controls.Add(this.button5);
+            this.tabSTK.Controls.Add(this.tbStkID);
             this.tabSTK.Controls.Add(this.label21);
+            this.tabSTK.Controls.Add(this.label31);
             this.tabSTK.Controls.Add(this.comboBox2);
+            this.tabSTK.Controls.Add(this.label32);
             this.tabSTK.Controls.Add(this.groupBox7);
             this.tabSTK.Controls.Add(this.groupBox6);
             this.tabSTK.Controls.Add(this.linkLabel2);
@@ -861,83 +1116,43 @@
             this.tabSTK.TabIndex = 4;
             this.tabSTK.Text = "Stocker Info";
             // 
-            // listViewStockerSelect
+            // label21
             // 
-            this.listViewStockerSelect.FullRowSelect = true;
-            this.listViewStockerSelect.GridLines = true;
-            this.listViewStockerSelect.Location = new System.Drawing.Point(593, 6);
-            this.listViewStockerSelect.Name = "listViewStockerSelect";
-            this.listViewStockerSelect.Size = new System.Drawing.Size(167, 293);
-            this.listViewStockerSelect.TabIndex = 2;
-            this.listViewStockerSelect.UseCompatibleStateImageBehavior = false;
-            this.listViewStockerSelect.View = System.Windows.Forms.View.Details;
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(8, 10);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(107, 12);
+            this.label21.TabIndex = 18;
+            this.label21.Text = "Stocker Selected:";
             // 
-            // listViewStockerFoups
+            // comboBox2
             // 
-            this.listViewStockerFoups.FullRowSelect = true;
-            this.listViewStockerFoups.GridLines = true;
-            this.listViewStockerFoups.Location = new System.Drawing.Point(6, 65);
-            this.listViewStockerFoups.Name = "listViewStockerFoups";
-            this.listViewStockerFoups.Size = new System.Drawing.Size(289, 355);
-            this.listViewStockerFoups.TabIndex = 1;
-            this.listViewStockerFoups.UseCompatibleStateImageBehavior = false;
-            this.listViewStockerFoups.View = System.Windows.Forms.View.Details;
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(121, 7);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(174, 20);
+            this.comboBox2.TabIndex = 17;
             // 
-            // bnSTK_History
+            // groupBox7
             // 
-            this.bnSTK_History.Location = new System.Drawing.Point(811, 170);
-            this.bnSTK_History.Name = "bnSTK_History";
-            this.bnSTK_History.Size = new System.Drawing.Size(118, 23);
-            this.bnSTK_History.TabIndex = 0;
-            this.bnSTK_History.Text = "history Foups";
-            this.bnSTK_History.UseVisualStyleBackColor = true;
-            this.bnSTK_History.Click += new System.EventHandler(this.bnSTK_History_Click);
+            this.groupBox7.Controls.Add(this.label22);
+            this.groupBox7.Location = new System.Drawing.Point(301, 6);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(180, 53);
+            this.groupBox7.TabIndex = 16;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Stocker Status";
             // 
-            // tabFoups
+            // label22
             // 
-            this.tabFoups.Controls.Add(this.listViewFoups);
-            this.tabFoups.Location = new System.Drawing.Point(4, 22);
-            this.tabFoups.Name = "tabFoups";
-            this.tabFoups.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFoups.Size = new System.Drawing.Size(952, 428);
-            this.tabFoups.TabIndex = 5;
-            this.tabFoups.Text = "Foup Info";
-            this.tabFoups.UseVisualStyleBackColor = true;
-            // 
-            // listViewFoups
-            // 
-            this.listViewFoups.FullRowSelect = true;
-            this.listViewFoups.GridLines = true;
-            this.listViewFoups.Location = new System.Drawing.Point(10, 6);
-            this.listViewFoups.Name = "listViewFoups";
-            this.listViewFoups.Size = new System.Drawing.Size(495, 293);
-            this.listViewFoups.TabIndex = 2;
-            this.listViewFoups.UseCompatibleStateImageBehavior = false;
-            this.listViewFoups.View = System.Windows.Forms.View.Details;
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 500;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(8, 50);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(107, 12);
-            this.label20.TabIndex = 3;
-            this.label20.Text = "Foups in Stocker:";
-            // 
-            // linkLabel2
-            // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(248, 50);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(47, 12);
-            this.linkLabel2.TabIndex = 4;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "Refresh";
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label22.Location = new System.Drawing.Point(43, 26);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(47, 12);
+            this.label22.TabIndex = 0;
+            this.label22.Text = "Normal";
             // 
             // groupBox6
             // 
@@ -1008,213 +1223,128 @@
             this.label26.TabIndex = 1;
             this.label26.Text = "Status:";
             // 
-            // groupBox7
+            // linkLabel2
             // 
-            this.groupBox7.Controls.Add(this.label22);
-            this.groupBox7.Location = new System.Drawing.Point(301, 6);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(180, 53);
-            this.groupBox7.TabIndex = 16;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Stocker Status";
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(248, 50);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(47, 12);
+            this.linkLabel2.TabIndex = 4;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "Refresh";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
-            // comboBox2
+            // label20
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(121, 7);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(174, 20);
-            this.comboBox2.TabIndex = 17;
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(8, 50);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(107, 12);
+            this.label20.TabIndex = 3;
+            this.label20.Text = "Foups in Stocker:";
             // 
-            // label21
+            // listViewStockerSelect
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(8, 10);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(107, 12);
-            this.label21.TabIndex = 18;
-            this.label21.Text = "Stocker Selected:";
+            this.listViewStockerSelect.FullRowSelect = true;
+            this.listViewStockerSelect.GridLines = true;
+            this.listViewStockerSelect.Location = new System.Drawing.Point(593, 6);
+            this.listViewStockerSelect.Name = "listViewStockerSelect";
+            this.listViewStockerSelect.Size = new System.Drawing.Size(167, 293);
+            this.listViewStockerSelect.TabIndex = 2;
+            this.listViewStockerSelect.UseCompatibleStateImageBehavior = false;
+            this.listViewStockerSelect.View = System.Windows.Forms.View.Details;
             // 
-            // label22
+            // listViewStockerFoups
             // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label22.Location = new System.Drawing.Point(43, 26);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(47, 12);
-            this.label22.TabIndex = 0;
-            this.label22.Text = "Normal";
+            this.listViewStockerFoups.FullRowSelect = true;
+            this.listViewStockerFoups.GridLines = true;
+            this.listViewStockerFoups.Location = new System.Drawing.Point(6, 65);
+            this.listViewStockerFoups.Name = "listViewStockerFoups";
+            this.listViewStockerFoups.Size = new System.Drawing.Size(289, 355);
+            this.listViewStockerFoups.TabIndex = 1;
+            this.listViewStockerFoups.UseCompatibleStateImageBehavior = false;
+            this.listViewStockerFoups.View = System.Windows.Forms.View.Details;
             // 
-            // label23
+            // bnSTK_History
             // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(9, 8);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(59, 12);
-            this.label23.TabIndex = 8;
-            this.label23.Text = "OHT List:";
+            this.bnSTK_History.Location = new System.Drawing.Point(811, 170);
+            this.bnSTK_History.Name = "bnSTK_History";
+            this.bnSTK_History.Size = new System.Drawing.Size(118, 23);
+            this.bnSTK_History.TabIndex = 0;
+            this.bnSTK_History.Text = "history Foups";
+            this.bnSTK_History.UseVisualStyleBackColor = true;
+            this.bnSTK_History.Click += new System.EventHandler(this.bnSTK_History_Click);
             // 
-            // linkLabel3
+            // tabFoups
             // 
-            this.linkLabel3.AutoSize = true;
-            this.linkLabel3.Location = new System.Drawing.Point(336, 8);
-            this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(47, 12);
-            this.linkLabel3.TabIndex = 9;
-            this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "Refresh";
+            this.tabFoups.Controls.Add(this.listViewFoups);
+            this.tabFoups.Location = new System.Drawing.Point(4, 22);
+            this.tabFoups.Name = "tabFoups";
+            this.tabFoups.Padding = new System.Windows.Forms.Padding(3);
+            this.tabFoups.Size = new System.Drawing.Size(952, 428);
+            this.tabFoups.TabIndex = 5;
+            this.tabFoups.Text = "Foup Info";
+            this.tabFoups.UseVisualStyleBackColor = true;
             // 
-            // columnHeader4
+            // listViewFoups
             // 
-            this.columnHeader4.Text = "ID";
-            this.columnHeader4.Width = 40;
+            this.listViewFoups.FullRowSelect = true;
+            this.listViewFoups.GridLines = true;
+            this.listViewFoups.Location = new System.Drawing.Point(10, 6);
+            this.listViewFoups.Name = "listViewFoups";
+            this.listViewFoups.Size = new System.Drawing.Size(495, 293);
+            this.listViewFoups.TabIndex = 2;
+            this.listViewFoups.UseCompatibleStateImageBehavior = false;
+            this.listViewFoups.View = System.Windows.Forms.View.Details;
             // 
-            // columnHeader5
+            // timer1
             // 
-            this.columnHeader5.Text = "Position";
-            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Hand";
-            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader6.Width = 40;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Status";
-            this.columnHeader7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "TCP Info";
-            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader8.Width = 120;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(138, 47);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(52, 23);
-            this.button4.TabIndex = 12;
-            this.button4.Text = "Set";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(74, 47);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(58, 21);
-            this.textBox4.TabIndex = 11;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(15, 50);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(41, 12);
-            this.label27.TabIndex = 10;
-            this.label27.Text = "Status";
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.label9);
-            this.groupBox8.Controls.Add(this.button4);
-            this.groupBox8.Controls.Add(this.tBPosTime);
-            this.groupBox8.Controls.Add(this.textBox4);
-            this.groupBox8.Controls.Add(this.bnSetPosTime);
-            this.groupBox8.Controls.Add(this.label27);
-            this.groupBox8.Location = new System.Drawing.Point(407, 23);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(201, 83);
-            this.groupBox8.TabIndex = 13;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Back Time Config";
-            // 
-            // label28
-            // 
-            this.label28.Location = new System.Drawing.Point(4, 58);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(211, 25);
-            this.label28.TabIndex = 19;
-            this.label28.Text = "Input the position or select a Location listed below:";
-            // 
-            // listView1
-            // 
-            this.listView1.BackColor = System.Drawing.Color.Linen;
-            this.listView1.Location = new System.Drawing.Point(6, 88);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(221, 318);
-            this.listView1.TabIndex = 18;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.tbOhtMoveTo);
-            this.groupBox9.Controls.Add(this.label28);
-            this.groupBox9.Controls.Add(this.bnOHTGo);
-            this.groupBox9.Controls.Add(this.listView1);
-            this.groupBox9.Controls.Add(this.label3);
-            this.groupBox9.Location = new System.Drawing.Point(711, 8);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(233, 412);
-            this.groupBox9.TabIndex = 20;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "OHT Move To";
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Alarm";
-            this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.button5);
-            this.groupBox10.Controls.Add(this.label29);
-            this.groupBox10.Controls.Add(this.button6);
-            this.groupBox10.Controls.Add(this.textBox5);
-            this.groupBox10.Location = new System.Drawing.Point(407, 113);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(200, 109);
-            this.groupBox10.TabIndex = 21;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Foup Move";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(27, 23);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(41, 12);
-            this.label29.TabIndex = 13;
-            this.label29.Text = "Buf ID";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(74, 20);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(87, 21);
-            this.textBox5.TabIndex = 14;
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(74, 74);
+            this.button5.Location = new System.Drawing.Point(442, 218);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(87, 23);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "Place";
+            this.button5.Size = new System.Drawing.Size(55, 23);
+            this.button5.TabIndex = 19;
+            this.button5.Text = "Set";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // button6
+            // tbStkStatusTime
             // 
-            this.button6.Location = new System.Drawing.Point(74, 47);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(87, 23);
-            this.button6.TabIndex = 13;
-            this.button6.Text = "Pick";
-            this.button6.UseVisualStyleBackColor = true;
+            this.tbStkStatusTime.Location = new System.Drawing.Point(378, 218);
+            this.tbStkStatusTime.Name = "tbStkStatusTime";
+            this.tbStkStatusTime.Size = new System.Drawing.Size(58, 21);
+            this.tbStkStatusTime.TabIndex = 22;
+            this.tbStkStatusTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // tbStkID
+            // 
+            this.tbStkID.Location = new System.Drawing.Point(378, 194);
+            this.tbStkID.Name = "tbStkID";
+            this.tbStkID.Size = new System.Drawing.Size(58, 21);
+            this.tbStkID.TabIndex = 21;
+            this.tbStkID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(313, 221);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(47, 12);
+            this.label31.TabIndex = 20;
+            this.label31.Text = "Second:";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(313, 197);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(23, 12);
+            this.label32.TabIndex = 19;
+            this.label32.Text = "ID:";
             // 
             // FormUserManagement
             // 
@@ -1244,19 +1374,19 @@
             this.groupBox3.PerformLayout();
             this.tabOHT.ResumeLayout(false);
             this.tabOHT.PerformLayout();
-            this.tabSTK.ResumeLayout(false);
-            this.tabSTK.PerformLayout();
-            this.tabFoups.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            this.tabSTK.ResumeLayout(false);
+            this.tabSTK.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.tabFoups.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1359,17 +1489,30 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox tBStatus;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewOhtMove;
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button bnPlace;
         private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Button bnPick;
+        private System.Windows.Forms.TextBox tBBuffID;
+        private System.Windows.Forms.LinkLabel linkOHTMoveToRefresh;
+        private System.Windows.Forms.ColumnHeader columnHeader13;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox tBOHTID;
+        private System.Windows.Forms.Button bnpath;
+        private System.Windows.Forms.TextBox tbStkStatusTime;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox tbStkID;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label32;
     }
 }
 

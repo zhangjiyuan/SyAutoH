@@ -44,6 +44,11 @@ createFileSingleton(oLog);
  time_t UNIXTIME;
  tm g_localTime;
 
+ oLog::oLog()
+ {
+	 Init(3);
+ }
+
 void oLog::outFile(FILE* file, char* msg, const char* source)
 {
 	char time_buffer[TIME_FORMAT_LENGTH];

@@ -23,6 +23,7 @@ void amhs_dev_server::handle_accept(amhs_session_ptr session,
 {
 	if (!error)
 	{
+		cout<< "amhs_dev_server::accept link" << endl;
 		session->start();
 	}
 
@@ -45,7 +46,7 @@ void amhs_dev_server::OHT_Set_StatusBackTime(int nID, int ms)
 	packet<< uint8(nID);
 	packet<< uint8(ms);
 
-	SendPacket_OHT(nID, packet);
+	SendPacket_STK(nID, packet);
 }
 
 void amhs_dev_server::OHT_Set_PosBackTime(int nID, int ms)
@@ -68,7 +69,7 @@ void amhs_dev_server::OHT_Move(int nID, int nControl)
 
 void amhs_dev_server::OHT_SetPath(int nID, int nType, int nStart, int nTarget, amhs_keypoint_vec& KeyPoints)
 {
-	Log.outBasic("OHT Setpath is not implenement.");
+	Log.outBasic("OHT Setpath");
 	size_t szKeyCount = KeyPoints.size();
 	size_t szPacketLen = 0;
 	szPacketLen = 11 + szKeyCount * 6;
@@ -79,6 +80,7 @@ void amhs_dev_server::OHT_SetPath(int nID, int nType, int nStart, int nTarget, a
 	packet << uint32(nStart);
 	packet << uint32(nTarget);
 	packet << uint8(szKeyCount);
+	
 	for (amhs_keypoint_vec::iterator it = KeyPoints.begin(); 
 		it != KeyPoints.end(); ++it)
 	{
@@ -139,7 +141,11 @@ void amhs_dev_server::STK_Alarms(int nID, __int64 timeStart, __int64 timeEnd)
 
 void amhs_dev_server::STK_Set_StatusBackTime(int nID, int nSecond)
 {
-	Log.Debug("amhs_dev_server", "STK_Set_StatusBackTime not implement");
+	AMHSPacket packet(STK_MCS_STATUS_BACK_TIME, 5);
+	packet << uint8(nID);
+	packet << uint32(nSecond);
+
+	SendPacket_STK(nID, packet);
 }
 
 void amhs_dev_server::STK_Set_FoupBackTime(int nID, int nSecond)
