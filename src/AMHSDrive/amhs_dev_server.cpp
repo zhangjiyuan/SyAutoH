@@ -46,7 +46,7 @@ void amhs_dev_server::OHT_Set_StatusBackTime(int nID, int ms)
 	packet<< uint8(nID);
 	packet<< uint8(ms);
 
-	SendPacket_STK(nID, packet);
+	SendPacket_OHT(nID, packet);
 }
 
 void amhs_dev_server::OHT_Set_PosBackTime(int nID, int ms)
@@ -141,11 +141,102 @@ void amhs_dev_server::STK_Alarms(int nID, __int64 timeStart, __int64 timeEnd)
 
 void amhs_dev_server::STK_Set_StatusBackTime(int nID, int nSecond)
 {
-	AMHSPacket packet(STK_MCS_STATUS_BACK_TIME, 5);
-	packet << uint8(nID);
-	packet << uint32(nSecond);
+	{
+		AMHSPacket packet(STK_MCS_STATUS_BACK_TIME, 5);
+		packet << uint8(nID);
+		packet << uint32(nSecond);
 
-	SendPacket_STK(nID, packet);
+		SendPacket_STK(nID, packet);
+	}
+	Sleep(100);
+	{
+		AMHSPacket packet(STK_MCS_FOUP, 13);
+		packet << uint8(nID);
+		packet << uint8(1);
+		packet << uint8(2);
+		packet << uint64(nSecond);
+		packet << uint16(nSecond);
+
+		SendPacket_STK(nID, packet);
+	}
+	Sleep(100);
+	{
+		AMHSPacket packet(STK_MCS_FOUP_BACK_TIME, 5);
+		packet << uint8(nID);
+		packet << uint32(nSecond);
+
+		SendPacket_STK(nID, packet);
+	}
+	Sleep(100);
+	{
+		AMHSPacket packet(STK_MCS_STATUS, 1);
+		packet << uint8(nID);
+
+		SendPacket_STK(nID, packet);
+	}
+
+	Sleep(100);
+	{
+		AMHSPacket packet(STK_MCS_ROOM, 1);
+		packet << uint8(nID);
+
+		SendPacket_STK(nID, packet);
+	}
+
+	Sleep(100);
+	{
+		AMHSPacket packet(STK_MCS_STORAGE, 1);
+		packet << uint8(nID);
+
+		SendPacket_STK(nID, packet);
+	}
+
+	Sleep(100);
+	{
+		AMHSPacket packet(STK_MCS_HISTORY, 17);
+		packet << uint8(nID);
+		packet << uint16(2012);
+		packet << uint8(12);
+		packet << uint8(23);
+		packet << uint8(11);
+		packet << uint8(30);
+		packet << uint8(56);
+		packet << uint8(0);
+		packet << uint16(2012);
+		packet << uint8(11);
+		packet << uint8(12);
+		packet << uint8(13);
+		packet << uint8(14);
+		packet << uint8(15);
+		packet << uint8(0);
+
+		SendPacket_STK(nID, packet);
+	}
+
+	Sleep(100);
+	{
+		AMHSPacket packet(STK_MCS_ALARMS, 17);
+		packet << uint8(nID);
+		packet << uint16(2012);
+		packet << uint8(12);
+		packet << uint8(23);
+		packet << uint8(11);
+		packet << uint8(30);
+		packet << uint8(56);
+		packet << uint8(0);
+		packet << uint16(2012);
+		packet << uint8(11);
+		packet << uint8(12);
+		packet << uint8(13);
+		packet << uint8(14);
+		packet << uint8(15);
+		packet << uint8(0);
+
+		SendPacket_STK(nID, packet);
+	}
+
+	
+	
 }
 
 void amhs_dev_server::STK_Set_FoupBackTime(int nID, int nSecond)

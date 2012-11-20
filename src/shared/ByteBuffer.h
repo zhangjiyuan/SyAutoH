@@ -380,51 +380,14 @@ public:
 		printf("STORAGE_SIZE: %u\n", (unsigned int)size());
 		for(uint32 i = 0; i < size(); i++)
 		{
-			if((i == (j * 8)) && ((i != (k * 16))))
+			printf("%02X ", read<uint8>(i));
+			if ((i > 0) && ((i+1) % 8 == 0) )
 			{
-				if(read<uint8>(i) <= 0x0F)
-				{
-					printf("| 0%X ", read<uint8>(i));
-				}
-				else
-				{
-					printf("| %X ", read<uint8>(i));
-				}
-
-				j++;
+				printf("| ");
 			}
-			else if(i == (k * 16))
+			if ((i > 0) && ((i+1) % 16 == 0))
 			{
-				rpos(rpos() - 16);	// move read pointer 16 places back
-				printf(" | ");	  // write split char
-
-				for(int x = 0; x < 16; x++)
-				{
-					printf("%c", read<uint8>(i - 16 + x));
-				}
-
-				if(read<uint8>(i) <= 0x0F)
-				{
-					printf("\n0%X ", read<uint8>(i));
-				}
-				else
-				{
-					printf("\n%X ", read<uint8>(i));
-				}
-
-				k++;
-				j++;
-			}
-			else
-			{
-				if(read<uint8>(i) <= 0x0F)
-				{
-					printf("0%X ", read<uint8>(i));
-				}
-				else
-				{
-					printf("%X ", read<uint8>(i));
-				}
+				printf("\n");
 			}
 		}
 		printf("\n");

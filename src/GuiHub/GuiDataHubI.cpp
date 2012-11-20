@@ -79,6 +79,8 @@ void GuiDataHubI::OHT_GetPositionTable(const std::string&)
 void GuiDataHubI::OHT_FoupTest(const std::string&)
 {
 	m_pAMHSDrive->OHTFoup(1, 100, 0);
+	Sleep(100);
+	m_pAMHSDrive->OHTFoup(1, 100, 1);
 }
 void GuiDataHubI::OHT_MoveTest(const std::string&)
 {

@@ -113,6 +113,7 @@ private:
 	void Handle_STK_Auth(amhs_participant_ptr, AMHSPacket&);
 	void Handle_STK_FoupEvent(amhs_participant_ptr, AMHSPacket&);
 	void Handle_STK_Ack_StatusTime(amhs_participant_ptr, AMHSPacket&);
+	void Handle_STK_Ack_FoupTime(amhs_participant_ptr, AMHSPacket&);
 
 private:
 	std::set<amhs_participant_ptr> participants_;

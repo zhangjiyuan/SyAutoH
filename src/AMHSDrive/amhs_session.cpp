@@ -55,8 +55,8 @@ void amhs_session::handle_read_header(const boost::system::error_code& error)
 		printf("Decode ");
 		read_msg_.Header_HexLike();
 		boost::asio::async_read(socket_,
-			//boost::asio::buffer(read_msg_.body(), read_msg_.max_body_length - read_msg_.header_length), //OHT
-			boost::asio::buffer(read_msg_.body(), read_msg_.body_length()), //STK
+			boost::asio::buffer(read_msg_.body(), read_msg_.max_body_length - read_msg_.header_length), //OHT
+			//boost::asio::buffer(read_msg_.body(), read_msg_.body_length()), //STK
 			boost::bind(&amhs_session::handle_read_body, shared_from_this(),
 			boost::asio::placeholders::error));
 	}
@@ -114,7 +114,7 @@ void amhs_session::handle_read_body(const boost::system::error_code& error)
 				int nDecode = room_.DecodePacket(shared_from_this(), *Packet);	
 				if (nDecode < 0)
 				{
-					printf("Wrong packet. \n");
+					printf("Decode failed. Not processer. \n");
 				}
 
 				delete Packet;

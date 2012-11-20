@@ -38,6 +38,7 @@ enum Optcodes
 	STK_ACK_HISTORY										= 0x0825,
 	STK_ACK_ALARMS										= 0x0826,
 	STK_ACK_STATUS_TIME								= 0x0827,
+	STK_ACK_FOUP_TIME								= 0x0828,
 	STK_AUTH														= 0x0829,
 	STK_MCS_ACK_AUTH									= 0x082A,
 	STK_FOUP_EVENT										= 0x082B,
