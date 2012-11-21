@@ -116,6 +116,7 @@ int CVirtualAMHS::OHT_Offline(int nIndex)
 		VirtualOHT* oht = it->second;
 		if (oht->Online() == true)
 		{
+			oht->DestoryPosTimer();
 			oht->Close();
 		}
 		else
@@ -182,6 +183,10 @@ LIST_OHT CVirtualAMHS::OHT_GetStatus()
 			if (vOht->Online() == true)
 			{
 				item.nOnline = 1;
+			}
+			else
+			{
+				item.nOnline = 0;
 			}
 			item.nHandStatus = vOht->m_nHand;
 			item.nPosition = vOht->m_nPos;

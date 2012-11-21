@@ -67,6 +67,11 @@ public:
 		}
 	}
 
+	bool isClosed()
+	{
+		return !socket_.is_open();
+	}
+
 	void close()
 	{
 		io_service_.post(boost::bind(&amhs_client::do_close, this));
