@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Drawing;
 using System.Xml.Serialization;
+using System.Diagnostics;
 
 namespace BaseRailElement
 {
@@ -40,7 +41,7 @@ namespace BaseRailElement
 
         public RailLabal() { GraphType = 4; }
 
-        public RailLabal CreatEle(int multiFactor)
+        public RailLabal CreatEle(Int16 multiFactor, string text)
         {
             DrawMultiFactor = multiFactor;
             Point rectLocation = new Point(10, 10);
@@ -48,6 +49,8 @@ namespace BaseRailElement
             rect.Location = rectLocation;
             rect.Size = rectSize;
             rectOrigionLoca = rectLocation;
+            objectLabelOp.DrawMultiFactor = multiFactor;
+            this.railText = text;
             return this;
         }
 
@@ -57,19 +60,30 @@ namespace BaseRailElement
             {
                 font = new Font("新宋体", 12, FontStyle.Regular);
             }
-            RectangleF rc = rect;
+            Rectangle rc = rect;
+            Point pt = rc.Location;
+            pt.Offset(pt.X * DrawMultiFactor - pt.X, pt.Y * DrawMultiFactor - pt.Y);
+            rc.Location = pt;
             SolidBrush bsh = new SolidBrush(Color.Black);
             canvas.DrawString(text, font, bsh, rc);
         }
 
         public override void DrawTracker(Graphics canvas)
         {
-            objectLabelOp.DrawTracker(canvas, rect);
+            Rectangle rc = rect;
+            Point pt = rect.Location;
+            pt.Offset(pt.X * DrawMultiFactor - pt.X, pt.Y * DrawMultiFactor - pt.Y);
+            rc.Location = pt;
+            objectLabelOp.DrawTracker(canvas, rc);
         }
 
         public override int HitTest(Point point, bool isSelected)
         {
-            return objectLabelOp.HitTest(point, isSelected, rect);
+            Rectangle rc = rect;
+            Point pt = rect.Location;
+            pt.Offset(pt.X * DrawMultiFactor - pt.X, pt.Y * DrawMultiFactor - pt.Y);
+            rc.Location = pt;
+            return objectLabelOp.HitTest(point, isSelected, rc);
         }
 
         protected override void Translate(int offsetX, int offsetY)
@@ -77,8 +91,8 @@ namespace BaseRailElement
             Point pt = rect.Location;
             pt.Offset(offsetX, offsetY);
             rect.Location = pt;
-            rectOrigionLoca.X = pt.X / DrawMultiFactor;
-            rectOrigionLoca.Y = pt.Y / DrawMultiFactor;
+            rectOrigionLoca = pt;
+            Debug.WriteLine(string.Format("label pt is {0}", pt));
         }
 
         protected override void Scale(int handle, int dx, int dy)
@@ -102,23 +116,19 @@ namespace BaseRailElement
             cl.RectOrigionLoca = RectOrigionLoca;
             cl.SizeLock = SizeLock;
             cl.Text = text;
+            cl.objectLabelOp.DrawMultiFactor = DrawMultiFactor;
+            this.railText = railText;
             return cl;
         }
 
         public override void DrawEnlargeOrShrink(float multiFactor)
         {
-            Point pt = RectOrigionLoca;
-            if (multiFactor > 1)
-            {
-                pt.X *= DrawMultiFactor;
-                pt.Y *= DrawMultiFactor;               
-            }
-            rect.Location = pt;
+            objectLabelOp.DrawMultiFactor = Convert.ToInt16(multiFactor);
         }
 
         public override bool ChosedInRegion(Rectangle rc)
-        { 
-            if(rc.Contains(rect))
+        {
+            if (rc.Contains(rect))
                 return true;
             return false;
         }

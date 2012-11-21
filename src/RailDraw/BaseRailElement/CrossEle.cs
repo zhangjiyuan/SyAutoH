@@ -25,14 +25,16 @@ namespace BaseRailElement
         private Point fourPart = new Point(40, 40);
         private int startAngle = 0;
         private int rotateAngle = 90;
-        private Point thirdDot = Point.Empty;
+        private Int32 nextCoding = -1;
+        private Int32 prevCoding = -1;
+        private Int32 thirdDotCoding = -1;
         private string startDot = "first dot";
         private DirectionCross directionOfCross = DirectionCross.NULL;
         public enum DirectionCross
         {
             first, second, third, four, NULL
         }
-        
+
         [Browsable(false)]
         public bool Mirror
         {
@@ -89,7 +91,7 @@ namespace BaseRailElement
 
             public override TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
             {
-                return new StandardValuesCollection(new string[]{"first dot","sec dot"});
+                return new StandardValuesCollection(new string[] { "first dot", "sec dot" });
             }
         }
         [XmlIgnore]
@@ -117,6 +119,27 @@ namespace BaseRailElement
         {
             get { return PointList[7]; }
         }
+        [XmlIgnore]
+        [Browsable(false)]
+        public Int32 NextCoding
+        {
+            get { return nextCoding; }
+            set { nextCoding = value; }
+        }
+        [XmlIgnore]
+        [Browsable(false)]
+        public Int32 PrevCoding
+        {
+            get { return prevCoding; }
+            set { prevCoding = value; }
+        }
+        [XmlIgnore]
+        [Browsable(false)]
+        public Int32 ThirdDotCoding
+        {
+            get { return thirdDotCoding; }
+            set { thirdDotCoding = value; }
+        }
         [Browsable(false)]
         public DirectionCross DirectionOfCross
         {
@@ -126,7 +149,7 @@ namespace BaseRailElement
 
         public CrossEle() { GraphType = 3; }
 
-        public CrossEle CreatEle(Point pt, Size size, int multiFactor)
+        public CrossEle CreatEle(Point pt, Size size, Int16 multiFactor, string text)
         {
             Point[] pts = new Point[8];
             DrawMultiFactor = multiFactor;
@@ -149,6 +172,7 @@ namespace BaseRailElement
             pts[7].Y = pts[0].Y - 45;
             PointList.AddRange(pts);
             directionOfCross = DirectionCross.first;
+            this.railText = text;
             return this;
         }
 
@@ -340,6 +364,7 @@ namespace BaseRailElement
             cl.ThPart = thPart;
             cl.FourPart = fourPart;
             cl.mirror = mirror;
+            cl.railText = railText;
             return cl;
         }
 
