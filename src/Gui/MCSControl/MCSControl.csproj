@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6C09471F-F39E-46BD-9778-801F3D37ED9E}</ProjectGuid>
+    <ProjectGuid>{93ADB545-6FDE-4995-A648-B836FF587924}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UserTest</RootNamespace>
-    <AssemblyName>UserTest</AssemblyName>
+    <RootNamespace>MCSControl</RootNamespace>
+    <AssemblyName>MCSControl</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -46,44 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormUserManagement.cs">
+    <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormUserManagement.Designer.cs">
-      <DependentUpon>FormUserManagement.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormNewUser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormNewUser.Designer.cs">
-      <DependentUpon>FormNewUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormUserPassword.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormUserPassword.Designer.cs">
-      <DependentUpon>FormUserPassword.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormUserRight.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormUserRight.Designer.cs">
-      <DependentUpon>FormUserRight.cs</DependentUpon>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormUserManagement.resx">
-      <DependentUpon>FormUserManagement.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormNewUser.resx">
-      <DependentUpon>FormNewUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormUserPassword.resx">
-      <DependentUpon>FormUserPassword.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormUserRight.resx">
-      <DependentUpon>FormUserRight.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -92,7 +62,6 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -105,27 +74,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\IMG_4026.JPG" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\vladstudio_deepbluesomething_2560x1600.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\vladstudio_eos7_2560x1600.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\vladstudio_motion3_2560x1600.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\vladstudio_motion3_600.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\vladstudio_motion3_6001.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Gui\GuiAccess\GuiAccess.csproj">
-      <Project>{C969609B-8A6A-4D79-B77B-EB7C2A5DC54E}</Project>
-      <Name>GuiAccess</Name>
+    <ProjectReference Include="..\MCSControlLib\MCSControlLib.csproj">
+      <Project>{F6F8359B-9DC1-4B1E-A2B6-076DE77C8EB2}</Project>
+      <Name>MCSControlLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
