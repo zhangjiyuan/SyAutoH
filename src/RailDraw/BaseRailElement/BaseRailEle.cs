@@ -23,11 +23,12 @@ namespace BaseRailElement
         private float speed = 0;
         private Int16 segmentNumber = 0;
         private Int32 tagNumber = 0;
-        private int drawMultiFactor = 1;
+        private Int16 drawMultiFactor = 1;
         private Point startPoint = Point.Empty;
         private Point endPoint = Point.Empty;
         private Int32 startCoding = 0;
         private Int32 endCoding = 0;
+        public string railText = "";
 
         [Browsable(false)]
         public int GraphType
@@ -40,40 +41,40 @@ namespace BaseRailElement
         {
             get { return locationLock; }
             set { locationLock = value; }
-        } 
+        }
         [Description("尺寸锁定"), Category("锁定")]
         public bool SizeLock
         {
             get { return sizeLock; }
             set { sizeLock = value; }
-        } 
+        }
         [Browsable(false)]
         public bool Selectable
         {
             get { return selectable; }
             set { selectable = value; }
-        }    
+        }
         [Category("其他")]
         public float Speed
         {
             get { return speed; }
             set { speed = value; }
-        }       
-        [Description("段号,请按顺时针方向编号，弯轨编号为0"),Category("轨道段信息")]
+        }
+        [Description("段号,请按顺时针方向编号，弯轨编号为0"), Category("轨道段信息")]
         public Int16 SegmentNumber
         {
             get { return segmentNumber; }
             set { segmentNumber = value; }
-        } 
-        [Description("条形码数量"),Category("轨道段信息")]
+        }
+        [Description("条形码数量"), Category("轨道段信息")]
         public Int32 TagNumber
         {
             get { return tagNumber; }
             set { tagNumber = value; }
-        }   
+        }
         [XmlIgnore]
         [Browsable(false)]
-        public int DrawMultiFactor
+        public Int16 DrawMultiFactor
         {
             get { return drawMultiFactor; }
             set { drawMultiFactor = value; }
