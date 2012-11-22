@@ -10,13 +10,6 @@ namespace BaseRailElement
 {
     public abstract class BaseEvents
     {
-        protected static DrawDoc document = DrawDoc.EmptyDocument;
-        public static DrawDoc Document
-        {
-            get { return document; }
-            set { document = value; }
-        }
-
         protected static Point downPoint = Point.Empty;
         public static Point DownPoint
         {
@@ -37,6 +30,13 @@ namespace BaseRailElement
             lastPoint = point;
         }
 
+        public virtual bool OnRButtonDown(Point point)
+        {
+            downPoint = point;
+            lastPoint = point;
+            return false;
+        }
+
         public virtual void OnMouseMove(Point point)
         {
             lastPoint = point;
@@ -47,14 +47,14 @@ namespace BaseRailElement
             lastPoint = point;
         }
 
-        public virtual Point DrapDrawRegion(Point point) 
+        public virtual Point DrapDrawRegion(Point point)
         {
             lastPoint = point;
             return point;
         }
 
         public virtual void ChangePropertyValue()
-        { 
+        {
         }
     }
 }

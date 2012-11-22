@@ -5,11 +5,19 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace BaseRailElement
 {
     public class ObjectBaseEvents : BaseEvents
     {
+        protected static DrawDoc document = DrawDoc.EmptyDocument;
+        public static DrawDoc Document
+        {
+            get { return document; }
+            set { document = value; }
+        }
+
         public enum SelectObject
         {
             SelectEle, SelectHandle, SelectNone
@@ -17,7 +25,11 @@ namespace BaseRailElement
         private SelectObject selectObject = SelectObject.SelectNone;
 
         private int _hit = -1;
-        
+
+        public ObjectBaseEvents()
+        {
+        }
+
         public override void OnLButtonDown(Point point)
         {
             base.OnLButtonDown(point);
@@ -30,6 +42,15 @@ namespace BaseRailElement
             else
                 selectObject = SelectObject.SelectNone;
             document.ChangeChooseSign(true, point);
+        }
+
+        public override bool OnRButtonDown(Point point)
+        {
+            int hit = document.HitTest(point, false);
+            if (hit >= 0)
+                return true;
+            else
+                return false;
         }
 
         public override void OnLButtonUp(Point point)
@@ -116,6 +137,7 @@ namespace BaseRailElement
                     base.OnMouseMove(point);
                     break;
             }
+            Debug.WriteLine(string.Format("move pt is {0} lastpoint is {1} tempDrawMultiFactor is {2}", point, lastPoint, tempDrawMultiFactor));
         }
 
         public override Point DrapDrawRegion(Point point)

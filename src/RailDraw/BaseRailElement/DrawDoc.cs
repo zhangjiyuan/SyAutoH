@@ -17,7 +17,7 @@ namespace BaseRailElement
     [XmlInclude(typeof(CrossEle))]
     [XmlInclude(typeof(RailLabal))]
 
-    public class DrawDoc:BaseRailEle
+    public class DrawDoc : BaseRailEle
     {
         private string _name = "";
         [Browsable(false)]
@@ -25,7 +25,6 @@ namespace BaseRailElement
         {
             get { return _name; }
             set { _name = value; }
-
         }
 
         [
@@ -41,13 +40,13 @@ namespace BaseRailElement
             get { return new DrawDoc(); }
         }
 
-        List<BaseRailEle> drawObjectList = new List<BaseRailEle>();  
+        List<BaseRailEle> drawObjectList = new List<BaseRailEle>();
         [Browsable(false)]
         public List<BaseRailEle> DrawObjectList
         {
             get { return drawObjectList; }
         }
-       
+
         List<BaseRailEle> selectedDrawObjectList = new List<BaseRailEle>();
         [XmlIgnore]
         [Browsable(false)]
@@ -56,7 +55,7 @@ namespace BaseRailElement
             get { return selectedDrawObjectList; }
         }
 
-        List<BaseRailEle> CutAndCopyObjectList = new List<BaseRailEle>();
+        public List<BaseRailEle> CutAndCopyObjectList = new List<BaseRailEle>();
 
         private BaseRailEle lastHitedObject = null;
 
@@ -178,8 +177,9 @@ namespace BaseRailElement
                         drawObjectList.Remove(obj);
                     }
                 }
-                foreach (BaseRailEle o in CutAndCopyObjectList)
+                else if (_CutOrCopy == CutOrCopy.CopyOp)
                 {
+                    BaseRailEle o = CutAndCopyObjectList[0];
                     if (1 == o.GraphType)
                     {
                         StraightRailEle cl = (StraightRailEle)o;
@@ -208,18 +208,15 @@ namespace BaseRailElement
                         drawObjectList.Add(n);
                         SelectOne(n);
                     }
+                    CutAndCopyObjectList.RemoveAt(0);
                 }
             }
         }
 
-        public void Delete()
+        public void Delete(Int16 index)
         {
-            int n = selectedDrawObjectList.Count;
-            foreach (BaseRailEle obj in selectedDrawObjectList)
-            {
-                drawObjectList.Remove(obj);
-            }
-            selectedDrawObjectList.Clear();
+            drawObjectList.RemoveAt(index);
+            selectedDrawObjectList.RemoveAt(0);
         }
 
         public void ChooseObject(Graphics gp)
@@ -231,7 +228,7 @@ namespace BaseRailElement
             pen.Dispose();
         }
 
-        public void ChangeChooseSign(bool isDown,Point pt)
+        public void ChangeChooseSign(bool isDown, Point pt)
         {
             if (isDown)
             {

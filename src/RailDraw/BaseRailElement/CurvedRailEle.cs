@@ -20,7 +20,7 @@ namespace BaseRailElement
         private int oldRadiu = 50;
         private int radiu = 50;
         private Point oldCenter = new Point();
-        private Point center = new Point();       
+        private Point center = new Point();
         private Point oldFirstDot = Point.Empty;
         private Point firstDot = Point.Empty;
         private Point oldSecDot = Point.Empty;
@@ -80,10 +80,10 @@ namespace BaseRailElement
             get { return directionCurved; }
             set { directionCurved = value; }
         }
-        
+
         public CurvedRailEle() { GraphType = 2; }
 
-        public CurvedRailEle CreatEle(Point centerDot, Size size, int multiFactor)
+        public CurvedRailEle CreatEle(Point centerDot, Size size, Int16 multiFactor, string text)
         {
             DrawMultiFactor = multiFactor;
             objectCurvedOp.DrawMultiFactor = DrawMultiFactor;
@@ -98,6 +98,7 @@ namespace BaseRailElement
             oldFirstDot = pt_first;
             secDot = pt_sec;
             oldSecDot = pt_sec;
+            this.railText = text;
             return this;
         }
 
@@ -160,7 +161,7 @@ namespace BaseRailElement
             {
                 case DirectonCurved.first:
                     pt_first.X = center.X + radiu;
-                    pt_first.Y = center.Y;                   
+                    pt_first.Y = center.Y;
                     pt_sec.X = center.X;
                     pt_sec.Y = center.Y + radiu;
                     break;
@@ -232,7 +233,7 @@ namespace BaseRailElement
             startAngle += rotateAngle;
             matrix.RotateAt(rotateAngle, pt_center);
             matrix.TransformPoints(pts);
-            center =pts[0];
+            center = pts[0];
             oldCenter = pts[0];
             firstDot = pts[1];
             oldFirstDot = pts[1];
@@ -312,6 +313,7 @@ namespace BaseRailElement
             cl.DrawMultiFactor = DrawMultiFactor;
             cl.directionCurved = directionCurved;
             cl.objectCurvedOp.DrawMultiFactor = DrawMultiFactor;
+            cl.railText = railText;
             return cl;
         }
 
@@ -364,7 +366,7 @@ namespace BaseRailElement
             }
             else if (oldCenter.X != center.X
                 || oldCenter.Y != center.Y)
-            {           
+            {
                 dx = center.X - oldCenter.X;
                 dy = center.Y - oldCenter.Y;
                 firstDot.Offset(dx, dy);

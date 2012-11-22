@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Diagnostics;
 
 namespace BaseRailElement
 {
@@ -95,7 +96,7 @@ namespace BaseRailElement
                 pts[i].Offset(pts[i].X * (drawMultiFactor - 1), pts[i].Y * (drawMultiFactor - 1));
                 Point pt = pts[i];
                 Rectangle rc = new Rectangle(pt.X - 3, pt.Y - 3, 6, 6);
-                if (rc.Contains(point)) 
+                if (rc.Contains(point))
                     return i + 1;
             }
             return -1;
@@ -110,6 +111,7 @@ namespace BaseRailElement
                 pt.Offset(offsetX, offsetY);
                 pointList[i] = pt;
             }
+            Debug.WriteLine(string.Format("str pt is {0}", pointList[0]));
         }
 
         public int Scale(int handle, int dx, int dy, int lenght)
@@ -157,7 +159,7 @@ namespace BaseRailElement
                 {
                     if (points[n - 2].X == points[n - 1].X)
                     {
-                        int height =Math.Abs(points[1].Y - points[0].Y);
+                        int height = Math.Abs(points[1].Y - points[0].Y);
                         if (points[i].Y < 0)
                         {
                             points[0].Y = 1;
