@@ -52,6 +52,7 @@
             // 
             // textBoxUser
             // 
+            this.textBoxUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxUser.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.textBoxUser.Location = new System.Drawing.Point(213, 68);
             this.textBoxUser.Name = "textBoxUser";
@@ -71,6 +72,7 @@
             // 
             // maskedTextBoxPW
             // 
+            this.maskedTextBoxPW.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.maskedTextBoxPW.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.maskedTextBoxPW.Location = new System.Drawing.Point(213, 109);
             this.maskedTextBoxPW.Name = "maskedTextBoxPW";
@@ -88,7 +90,7 @@
             this.bnLogout.Name = "bnLogout";
             this.bnLogout.Size = new System.Drawing.Size(86, 30);
             this.bnLogout.TabIndex = 5;
-            this.bnLogout.Text = "Logout";
+            this.bnLogout.Text = "Exit";
             this.bnLogout.UseVisualStyleBackColor = false;
             this.bnLogout.Click += new System.EventHandler(this.bnLogout_Click);
             // 
@@ -153,8 +155,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MCS Control Login";
             this.TopMost = true;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginForm_FormClosing);
-            this.Load += new System.EventHandler(this.LoginForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

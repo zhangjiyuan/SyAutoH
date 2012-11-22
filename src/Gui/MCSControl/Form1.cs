@@ -19,10 +19,13 @@ namespace MCSControl
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            GuiAccess.UserCli userLink = new GuiAccess.UserCli();
+            userLink.ConnectServer();
             bool bNeedLogin = true;
             while (true == bNeedLogin)
             {
                 LoginForm login = new LoginForm();
+                login.UserManagement = userLink;
                 login.ShowDialog();
                 if (login.IsLogin == false)
                 {
@@ -33,10 +36,14 @@ namespace MCSControl
                 {
                     MainForm mainForm = new MainForm();
                     mainForm.UserName = login.UserName;
+                    mainForm.Session = login.Session;
                     mainForm.ShowDialog();
+                    userLink.Logout(mainForm.Session);
                     bNeedLogin = mainForm.NeedLogin;
                 }
             }
+            
+            userLink.Disconnect();
             this.Close();
         }
     }

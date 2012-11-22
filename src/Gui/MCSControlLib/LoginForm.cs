@@ -12,7 +12,12 @@ namespace MCSControlLib
     public partial class LoginForm : Form
     {
         private bool m_isLogin = false;
-        private GuiAccess.UserCli userMge = new GuiAccess.UserCli();
+        private GuiAccess.UserCli userMge = null;
+        public GuiAccess.UserCli UserManagement
+        {
+            get { return userMge; }
+            set { userMge = value; }
+        }
         public bool IsLogin
         {
             get { return m_isLogin; }
@@ -43,7 +48,7 @@ namespace MCSControlLib
             string strHash = GuiAccess.UserHash.HashUserInfo(this.textBoxUser.Text,
                 this.maskedTextBoxPW.Text);
 
-            int m_nSession = userMge.Login(this.textBoxUser.Text, strHash);
+            m_nSession = userMge.Login(this.textBoxUser.Text, strHash);
 
             if (m_nSession > 0)
             {
@@ -71,16 +76,6 @@ namespace MCSControlLib
             {
                 bnLogin_Click(null, null);
             }
-        }
-
-        private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            userMge.Disconnect();
-        }
-
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-            userMge.ConnectServer();
         }
     }
 }
