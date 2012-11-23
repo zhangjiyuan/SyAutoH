@@ -119,7 +119,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.Bisque;
             this.splitContainer1.Size = new System.Drawing.Size(912, 499);
             this.splitContainer1.SplitterDistance = 133;
             this.splitContainer1.TabIndex = 0;
