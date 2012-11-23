@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("OHT Info");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Mes Command");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("OHT Info");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Mes Command");
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLable_Status = new System.Windows.Forms.ToolStripStatusLabel();
@@ -64,11 +64,11 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(864, 435);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(912, 499);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(864, 482);
+            this.toolStripContainer1.Size = new System.Drawing.Size(912, 546);
             this.toolStripContainer1.TabIndex = 1;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -85,7 +85,7 @@
             this.toolStripStatusLabel_User});
             this.statusStrip1.Location = new System.Drawing.Point(0, 0);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(864, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(912, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -98,7 +98,7 @@
             // toolStripStatusLabel_NULL
             // 
             this.toolStripStatusLabel_NULL.Name = "toolStripStatusLabel_NULL";
-            this.toolStripStatusLabel_NULL.Size = new System.Drawing.Size(770, 17);
+            this.toolStripStatusLabel_NULL.Size = new System.Drawing.Size(818, 17);
             this.toolStripStatusLabel_NULL.Spring = true;
             // 
             // toolStripStatusLabel_User
@@ -120,8 +120,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.splitContainer1.Size = new System.Drawing.Size(864, 435);
-            this.splitContainer1.SplitterDistance = 134;
+            this.splitContainer1.Size = new System.Drawing.Size(912, 499);
+            this.splitContainer1.SplitterDistance = 133;
             this.splitContainer1.TabIndex = 0;
             // 
             // treeView1
@@ -134,14 +134,15 @@
             this.treeView1.LineColor = System.Drawing.Color.DodgerBlue;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            treeNode3.Name = "nodeOHTInfo";
-            treeNode3.Text = "OHT Info";
-            treeNode4.Name = "nodeMesCommand";
-            treeNode4.Text = "Mes Command";
+            treeNode1.Name = "nodeOHTInfo";
+            treeNode1.Text = "OHT Info";
+            treeNode2.Name = "nodeMesCommand";
+            treeNode2.Text = "Mes Command";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode4});
-            this.treeView1.Size = new System.Drawing.Size(134, 435);
+            treeNode1,
+            treeNode2});
+            this.treeView1.ShowRootLines = false;
+            this.treeView1.Size = new System.Drawing.Size(133, 499);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
@@ -152,7 +153,7 @@
             this.userToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(864, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(912, 25);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -188,7 +189,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(864, 482);
+            this.ClientSize = new System.Drawing.Size(912, 546);
             this.Controls.Add(this.toolStripContainer1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
