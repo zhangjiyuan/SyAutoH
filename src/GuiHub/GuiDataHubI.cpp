@@ -79,6 +79,8 @@ void GuiDataHubI::OHT_GetPositionTable(const std::string&)
 void GuiDataHubI::OHT_FoupTest(const std::string&)
 {
 	m_pAMHSDrive->OHTFoup(1, 100, 0);
+	Sleep(100);
+	m_pAMHSDrive->OHTFoup(1, 100, 1);
 }
 void GuiDataHubI::OHT_MoveTest(const std::string&)
 {
@@ -115,8 +117,32 @@ void GuiDataHubI::OHT_PathTest(const std::string&)
 	pt.nSpeedRate = 100;
 	list.push_back(pt);
 	
-
+	int nSleep = 50;
+	m_pAMHSDrive->OHTFoup(1, 100, 0);
+	Sleep(nSleep);
 	m_pAMHSDrive->OHTSetPath(1, 1, 1, 100, list);
+	Sleep(nSleep);
+	m_pAMHSDrive->OHTFoup(1, 100, 0);
+	Sleep(nSleep);
+	m_pAMHSDrive->OHTSetPath(1, 1, 1, 100, list);
+	Sleep(nSleep);
+	m_pAMHSDrive->OHTFoup(1, 100, 0);
+	Sleep(nSleep);
+	m_pAMHSDrive->OHTSetPath(1, 1, 1, 100, list);
+	Sleep(nSleep);
+	m_pAMHSDrive->OHTFoup(1, 100, 0);
+	Sleep(nSleep);
+	m_pAMHSDrive->OHTSetPath(1, 1, 1, 100, list);
+	Sleep(nSleep);
+	m_pAMHSDrive->OHTFoup(1, 100, 0);
+	Sleep(nSleep);
+	m_pAMHSDrive->OHTSetPath(1, 1, 1, 100, list);
+	Sleep(nSleep);
+	m_pAMHSDrive->OHTFoup(1, 100, 0);
+	Sleep(nSleep);
+	m_pAMHSDrive->OHTSetPath(1, 1, 1, 100, list);
+	Sleep(nSleep);
+	m_pAMHSDrive->OHTMove(1, 1);
 }
 void GuiDataHubI::OHT_SetStatusBackTime(const std::string& strVal)
 {

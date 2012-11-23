@@ -93,7 +93,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\GuiAccess\GuiAccess.csproj">
+    <ProjectReference Include="..\..\Gui\GuiAccess\GuiAccess.csproj">
       <Project>{C969609B-8A6A-4D79-B77B-EB7C2A5DC54E}</Project>
       <Name>GuiAccess</Name>
     </ProjectReference>

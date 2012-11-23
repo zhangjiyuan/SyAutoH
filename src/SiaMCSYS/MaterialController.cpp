@@ -52,12 +52,19 @@ void MaterialController::Check(void)
 	for (DR_OHT_LIST::iterator it = oht_list.begin(); 
 		it != oht_list.end(); ++it)
 	{
-		sprintf_s(buf, 256, "<%d, %d, %d>", it->nID, it->nPOS, it->nHand);
+		sprintf_s(buf, 256, "<%d,%d,%d>", it->nID, it->nPOS, it->nHand);
 		strOhtList += buf;
 	}
 	m_GuiHub.SetData("OHT.Pos", strOhtList.c_str());
-	
-	
+
+	strOhtList = "";
+	for (DR_OHT_LIST::iterator it = oht_list.begin(); 
+		it != oht_list.end(); ++it)
+	{
+		sprintf_s(buf, 256, "<%d,%s,%u>", it->nID, it->strIp.c_str(), it->uPort);
+		strOhtList += buf;
+	}
+	m_GuiHub.SetData("OHT.Info", strOhtList.c_str());
 }
 
 

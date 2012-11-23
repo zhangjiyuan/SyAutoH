@@ -20,6 +20,8 @@ namespace BaseRailElement
         private int lenght = 100;
         private int startAngle = 0;
         private int rotateAngle = 90;
+        private Int32 nextCoding = -1;
+        private Int32 prevCoding = -1;
         private string startDot = "first dot";
 
         [Category("其他")]
@@ -27,7 +29,7 @@ namespace BaseRailElement
         {
             get { return lenght; }
             set { lenght = value; }
-        }      
+        }
         [Browsable(false)]
         public int StartAngle
         {
@@ -58,7 +60,7 @@ namespace BaseRailElement
 
             public override TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
             {
-                return new StandardValuesCollection(new string[] {"first dot","sec dot"});
+                return new StandardValuesCollection(new string[] { "first dot", "sec dot" });
             }
         }
         [TypeConverter(typeof(StartDotConverter)), Category("轨道段信息"), Description("二维码起始端")]
@@ -67,10 +69,24 @@ namespace BaseRailElement
             get { return startDot; }
             set { startDot = value; }
         }
+        [XmlIgnore]
+        [Browsable(false)]
+        public Int32 NextCoding
+        {
+            get { return nextCoding; }
+            set { nextCoding = value; }
+        }
+        [XmlIgnore]
+        [Browsable(false)]
+        public Int32 PrevCoding
+        {
+            get { return prevCoding; }
+            set { prevCoding = value; }
+        }
 
         public StraightRailEle() { GraphType = 1; }
 
-        public StraightRailEle CreatEle(Point pt, Size size, int multiFactor)
+        public StraightRailEle CreatEle(Point pt, Size size, Int16 multiFactor, string text)
         {
             Point[] pts = new Point[2];
             DrawMultiFactor = multiFactor;
@@ -88,6 +104,7 @@ namespace BaseRailElement
                 pts[1] = new Point(pt.X + lenght, pt.Y);
             }
             PointList.AddRange(pts);
+            this.railText = text;
             return this;
         }
 
@@ -185,7 +202,7 @@ namespace BaseRailElement
             startAngle += rotateAngle;
             objectStaightOp.Rotate(pt, rotateAngle);
         }
-       
+
         public override void DrawEnlargeOrShrink(float drawMultiFactor)
         {
             objectStaightOp.DrawMultiFactor = Convert.ToInt16(drawMultiFactor);
@@ -223,12 +240,13 @@ namespace BaseRailElement
             cl.lenght = lenght;
             cl.DrawMultiFactor = DrawMultiFactor;
             cl.objectStaightOp.DrawMultiFactor = DrawMultiFactor;
+            cl.railText = railText;
             return cl;
         }
 
         public override bool ChosedInRegion(Rectangle rect)
         {
-            return objectStaightOp.ChosedInRegion(rect);          
+            return objectStaightOp.ChosedInRegion(rect);
         }
     }
 }

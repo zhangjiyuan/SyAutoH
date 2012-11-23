@@ -35,6 +35,8 @@ public:
 public:
 	int nID_;
 	int nDevType_;
+	std::string sIP_;
+	unsigned int uPort_;
 };
 
 typedef boost::shared_ptr<amhs_participant> amhs_participant_ptr;
@@ -113,6 +115,7 @@ private:
 	void Handle_STK_Auth(amhs_participant_ptr, AMHSPacket&);
 	void Handle_STK_FoupEvent(amhs_participant_ptr, AMHSPacket&);
 	void Handle_STK_Ack_StatusTime(amhs_participant_ptr, AMHSPacket&);
+	void Handle_STK_Ack_FoupTime(amhs_participant_ptr, AMHSPacket&);
 
 private:
 	std::set<amhs_participant_ptr> participants_;
@@ -178,8 +181,8 @@ public:
 	void STK_Room(int nID);
 	void STK_Storage(int nID);
 	void STK_InputStatus(int nID);
-	void STK_History(int nID, __int64 timeStart, __int64 timeEnd);
-	void STK_Alarms(int nID, __int64 timeStart, __int64 timeEnd);
+	void STK_History(int nID, const SYSTEMTIME &timeStart, const SYSTEMTIME &timeEnd);
+	void STK_Alarms(int nID, const SYSTEMTIME &timeStart, const SYSTEMTIME &timeEnd);
 	void STK_Set_StatusBackTime(int nID, int nSecond);
 	void STK_Set_FoupBackTime(int nID, int nSecond);
 

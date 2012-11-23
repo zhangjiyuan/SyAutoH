@@ -70,6 +70,11 @@ int VirtualAMHSDevice::SendPacket(AMHSPacket& packet)
 
 	try
 	{
+		if (m_pClient->isClosed())
+		{
+			return -1;
+		}
+
 		m_pClient->write_packet(packet);
 	}
 	catch(...)

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("GuiAceTest")]
+[assembly: AssemblyTitle("MCSControl")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("GuiAceTest")]
+[assembly: AssemblyProduct("MCSControl")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("ffbe9e27-3c86-4e16-ab93-0f6625b76463")]
+[assembly: Guid("d911cb24-0839-46e4-8344-679cf9ffa40d")]
 
 // 程序集的版本信息由下面四个值组成:
 //

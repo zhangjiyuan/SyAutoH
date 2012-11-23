@@ -46,6 +46,8 @@ amhs_room::amhs_room()
 		&amhs_room::Handle_STK_FoupEvent));
 	m_optHanders.insert(std::make_pair(STK_ACK_STATUS_TIME, 
 		&amhs_room::Handle_STK_Ack_StatusTime));
+	m_optHanders.insert(std::make_pair(STK_ACK_FOUP_TIME, 
+		&amhs_room::Handle_STK_Ack_FoupTime));
 }
 
 void amhs_room::join(amhs_participant_ptr participant)
@@ -213,10 +215,23 @@ void amhs_room::Handle_OHT_TeachPath(amhs_participant_ptr, AMHSPacket& Packet)
 
 void amhs_room::Handle_STK_AckFoup(amhs_participant_ptr, AMHSPacket& Packet)
 {
-	Log.Warning("amhs_room", "Packet handle not implemented\n");
+	uint8 nID = 0;
+	uint8 nResult = 0;
+	Packet >> nID; 
+	Packet >> nResult;
+	LOG_DEBUG("ID: %d, RESULT:%d", nID, nResult);
 }
 
 void amhs_room::Handle_STK_Ack_StatusTime(amhs_participant_ptr, AMHSPacket& Packet)
+{
+	uint8 nID = 0;
+	uint8 nResult = 0;
+	Packet >> nID; 
+	Packet >> nResult;
+	LOG_DEBUG("ID: %d, RESULT:%d", nID, nResult);
+}
+
+void amhs_room::Handle_STK_Ack_FoupTime(amhs_participant_ptr, AMHSPacket& Packet)
 {
 	uint8 nID = 0;
 	uint8 nResult = 0;
@@ -231,7 +246,31 @@ void amhs_room::Handle_STK_AckStatus(amhs_participant_ptr, AMHSPacket& Packet)
 }
 void amhs_room::Handle_STK_AckRoom(amhs_participant_ptr, AMHSPacket& Packet)
 {
-	Log.Warning("amhs_room", "Packet handle not implemented\n");
+	uint8 nID = 0;
+	uint8 nStats = 0;
+	uint8 item[141] = {0};
+
+	size_t pkSize = Packet.size();
+	LOG_DEBUG("Packet Size: %d", pkSize);
+	Packet >> nID;
+	Packet >> nStats;
+	for (int i=0; i<140; i++)
+	{
+		uint8 uItem = 0;
+		Packet >> uItem;
+		item[i] = uItem;
+	}
+
+	LOG_DEBUG("ID:%d, STATUS: %d", nID, nStats);
+	for (int i=0; i<141; i++)
+	{
+		printf("%d ", item[i]);
+		if (i % 16 == 0)
+		{
+			printf("\r\n");
+		}
+	}
+	LOG_DEBUG("Room end");
 }
 void amhs_room::Handle_STK_AckStorage(amhs_participant_ptr, AMHSPacket& Packet)
 {
@@ -249,7 +288,34 @@ void amhs_room::Handle_STK_AckHistory(amhs_participant_ptr, AMHSPacket& Packet)
 }
 void amhs_room::Handle_STK_AckAlarms(amhs_participant_ptr, AMHSPacket& Packet)
 {
-	Log.Warning("amhs_room", "Packet handle not implemented\n");
+	uint8 nID = 0;
+	uint32 nCount = 0;
+	Packet >> nID;
+	Packet >> nCount;
+	printf("ID: %u Alarms Count: %u \n", nID, nCount);
+	for (uint32 i=0; i<nCount; i++)
+	{
+		uint16 year = 0;
+		uint8   m = 0;
+		uint8  day = 0;
+		uint8 h = 0;
+		uint8 nMin = 0;
+		uint8 nSec = 0;
+		uint8 nNull = 0;
+		uint8 nAlarm = 0;
+
+		Packet >> year;
+		Packet >> m;
+		Packet >> day;
+		Packet >> h;
+		Packet >> nMin;
+		Packet >> nSec;
+		Packet >> nNull;
+		Packet >> nAlarm;
+
+		printf("%u-%u-%u %u:%u:%u Alarm: %u \n", year, m, day,
+			h, nMin, nSec, nAlarm);
+	}
 }
 
 void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPacket& Packet)
@@ -393,7 +459,7 @@ void amhs_room::Handle_OHT_Auth(amhs_participant_ptr participants, AMHSPacket& P
 	Packet >> ohtID;
 	Packet >> ohtPosition;
 	Packet >> ohtHand;
-	printf("OHT Auth  ---> id: %d, pos: %lld, hand: %d\n", ohtID, ohtPosition, ohtHand);
+	printf("OHT Auth  ---> id: %u, pos: %u, hand: %u\n", ohtID, ohtPosition, ohtHand);
 	participants->nID_ = ohtID;
 	participants->nDevType_ = DEV_TYPE_OHT;
 

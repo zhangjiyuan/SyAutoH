@@ -9,17 +9,23 @@ namespace BaseRailElement
 {
     public class ObjectLabelOp
     {
-        public void DrawTracker(Graphics canvas,Rectangle rect)
+        private int drawMultiFactor = 1;
+        public int DrawMultiFactor
+        {
+            set { drawMultiFactor = value; }
+        }
+
+        public void DrawTracker(Graphics canvas, Rectangle rect)
         {
             if (canvas == null)
                 throw new Exception("Graphics对象Canvas不能为空");
-            Pen pen=new Pen(Color.White, 2);
+            Pen pen = new Pen(Color.White, 2);
             SolidBrush bsh = new SolidBrush(Color.Black);
             Point[] pts = new Point[4];
             pts[0] = rect.Location;
-            pts[1] = new Point(rect.X + rect.Width, rect.Y);
-            pts[2] = new Point(rect.X, rect.Y + rect.Height);
-            pts[3] = new Point(rect.X + rect.Width, rect.Y + rect.Height);
+            pts[1] = new Point(pts[0].X + rect.Width, pts[0].Y);
+            pts[2] = new Point(pts[0].X, pts[0].Y + rect.Height);
+            pts[3] = new Point(pts[0].X + rect.Width, pts[0].Y + rect.Height);
             for (int i = 0; i < 4; i++)
             {
                 Rectangle rc = new Rectangle(pts[i].X - 3, pts[i].Y - 3, 6, 6);
@@ -30,11 +36,11 @@ namespace BaseRailElement
             bsh.Dispose();
         }
 
-        public int HitTest(Point pt,bool isSelected,Rectangle rect)
+        public int HitTest(Point pt, bool isSelected, Rectangle rect)
         {
             if (isSelected)
             {
-                int handleHit = HandleHitTest(pt,rect);
+                int handleHit = HandleHitTest(pt, rect);
                 if (handleHit > 0)
                     return handleHit;
             }
@@ -43,7 +49,7 @@ namespace BaseRailElement
             return -1;
         }
 
-        public int HandleHitTest(Point pt,Rectangle rect)
+        public int HandleHitTest(Point pt, Rectangle rect)
         {
             Point[] pts = new Point[4];
             pts[0] = rect.Location;
@@ -60,13 +66,13 @@ namespace BaseRailElement
             return -1;
         }
 
-        public Rectangle Scale(int handle,Rectangle rect,int dx,int dy)
+        public Rectangle Scale(int handle, Rectangle rect, int dx, int dy)
         {
             Point[] pts = new Point[4];
             pts[0] = rect.Location;
             pts[1] = new Point(rect.X + rect.Width, rect.Y);
             pts[2] = new Point(rect.X, rect.Y + rect.Height);
-            pts[3] = new Point(rect.X + rect.Width, rect.Y + rect.Height);          
+            pts[3] = new Point(rect.X + rect.Width, rect.Y + rect.Height);
             switch (handle)
             {
                 case 1:

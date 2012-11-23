@@ -23,14 +23,14 @@ namespace BaseRailElement
             int radiu = radiuArc * drawMultiFactor;
             Point[] points = new Point[4];
             Pen pen = new Pen(Color.White, 2);
-            SolidBrush bsh = new SolidBrush(Color.Black);        
+            SolidBrush bsh = new SolidBrush(Color.Black);
             switch (direction)
             {
                 case CurvedRailEle.DirectonCurved.first:
                     points[0] = center;
                     points[1] = new Point(center.X + radiu, center.Y);
                     points[2] = new Point(center.X + radiu, center.Y + radiu);
-                    points[3] = new Point(center.X, center.Y + radiu);                   
+                    points[3] = new Point(center.X, center.Y + radiu);
                     break;
                 case CurvedRailEle.DirectonCurved.second:
                     points[0] = center;
@@ -66,7 +66,7 @@ namespace BaseRailElement
         public int HitTest(
             Point point,
             bool isSelected,
-            Point centerArc, 
+            Point centerArc,
             int radiuArc,
             CurvedRailEle.DirectonCurved direction)
         {
@@ -75,7 +75,7 @@ namespace BaseRailElement
             if (isSelected)
             {
                 int handleHit = HandleHitTest(point, center, radiu, direction);
-                if (handleHit > 0) 
+                if (handleHit > 0)
                     return handleHit;
             }
             Point[] wrapper = new Point[1];
@@ -155,7 +155,7 @@ namespace BaseRailElement
             {
                 Point pt = points[i];
                 Rectangle rc = new Rectangle(pt.X - 3, pt.Y - 3, 6, 6);
-                if (rc.Contains(point)) 
+                if (rc.Contains(point))
                     return i + 1;
             }
             return -1;
@@ -467,7 +467,7 @@ namespace BaseRailElement
             int dw, dh;
             dw = wrapper[0].X - points[handle - 1].X;
             dh = wrapper[0].Y - points[handle - 1].Y;
-            
+
             switch (direction)
             {
                 case CurvedRailEle.DirectonCurved.first:

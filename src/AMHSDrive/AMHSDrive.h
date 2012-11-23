@@ -28,6 +28,8 @@ typedef struct  sVec_OHT
 	int nBackStatusMark;
 	int nBackStausAlarm;
 	bool  bNeedPath;
+	string strIp;
+	unsigned int uPort;
 } driveOHT;
 #include <vector>
 #include <map>

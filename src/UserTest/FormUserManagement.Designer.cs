@@ -125,8 +125,13 @@
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabSTK = new System.Windows.Forms.TabPage();
+            this.tbStkStatusTime = new System.Windows.Forms.TextBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.tbStkID = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label32 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label22 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -144,11 +149,6 @@
             this.tabFoups = new System.Windows.Forms.TabPage();
             this.listViewFoups = new System.Windows.Forms.ListView();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button5 = new System.Windows.Forms.Button();
-            this.tbStkStatusTime = new System.Windows.Forms.TextBox();
-            this.tbStkID = new System.Windows.Forms.TextBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -903,6 +903,7 @@
             this.listViewOhtMove.TabIndex = 18;
             this.listViewOhtMove.UseCompatibleStateImageBehavior = false;
             this.listViewOhtMove.View = System.Windows.Forms.View.Details;
+            this.listViewOhtMove.SelectedIndexChanged += new System.EventHandler(this.listViewOhtMove_SelectedIndexChanged);
             // 
             // columnHeader13
             // 
@@ -1053,6 +1054,8 @@
             this.columnHeader7,
             this.columnHeader9,
             this.columnHeader8});
+            this.listViewOHTs.FullRowSelect = true;
+            this.listViewOHTs.GridLines = true;
             this.listViewOHTs.Location = new System.Drawing.Point(6, 23);
             this.listViewOHTs.Name = "listViewOHTs";
             this.listViewOHTs.Size = new System.Drawing.Size(395, 397);
@@ -1089,8 +1092,7 @@
             // columnHeader8
             // 
             this.columnHeader8.Text = "TCP Info";
-            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader8.Width = 120;
+            this.columnHeader8.Width = 150;
             // 
             // tabSTK
             // 
@@ -1116,6 +1118,32 @@
             this.tabSTK.TabIndex = 4;
             this.tabSTK.Text = "Stocker Info";
             // 
+            // tbStkStatusTime
+            // 
+            this.tbStkStatusTime.Location = new System.Drawing.Point(378, 218);
+            this.tbStkStatusTime.Name = "tbStkStatusTime";
+            this.tbStkStatusTime.Size = new System.Drawing.Size(58, 21);
+            this.tbStkStatusTime.TabIndex = 22;
+            this.tbStkStatusTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(442, 218);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(55, 23);
+            this.button5.TabIndex = 19;
+            this.button5.Text = "Set";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // tbStkID
+            // 
+            this.tbStkID.Location = new System.Drawing.Point(378, 194);
+            this.tbStkID.Name = "tbStkID";
+            this.tbStkID.Size = new System.Drawing.Size(58, 21);
+            this.tbStkID.TabIndex = 21;
+            this.tbStkID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // label21
             // 
             this.label21.AutoSize = true;
@@ -1125,6 +1153,15 @@
             this.label21.TabIndex = 18;
             this.label21.Text = "Stocker Selected:";
             // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(313, 221);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(47, 12);
+            this.label31.TabIndex = 20;
+            this.label31.Text = "Second:";
+            // 
             // comboBox2
             // 
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1133,6 +1170,15 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(174, 20);
             this.comboBox2.TabIndex = 17;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(313, 197);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(23, 12);
+            this.label32.TabIndex = 19;
+            this.label32.Text = "ID:";
             // 
             // groupBox7
             // 
@@ -1301,50 +1347,6 @@
             // 
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(442, 218);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(55, 23);
-            this.button5.TabIndex = 19;
-            this.button5.Text = "Set";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // tbStkStatusTime
-            // 
-            this.tbStkStatusTime.Location = new System.Drawing.Point(378, 218);
-            this.tbStkStatusTime.Name = "tbStkStatusTime";
-            this.tbStkStatusTime.Size = new System.Drawing.Size(58, 21);
-            this.tbStkStatusTime.TabIndex = 22;
-            this.tbStkStatusTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // tbStkID
-            // 
-            this.tbStkID.Location = new System.Drawing.Point(378, 194);
-            this.tbStkID.Name = "tbStkID";
-            this.tbStkID.Size = new System.Drawing.Size(58, 21);
-            this.tbStkID.TabIndex = 21;
-            this.tbStkID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(313, 221);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(47, 12);
-            this.label31.TabIndex = 20;
-            this.label31.Text = "Second:";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(313, 197);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(23, 12);
-            this.label32.TabIndex = 19;
-            this.label32.Text = "ID:";
             // 
             // FormUserManagement
             // 
