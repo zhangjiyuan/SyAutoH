@@ -45,7 +45,8 @@ namespace MCSControlLib
         }
     }
 
-    public class Class1
+    public class OhtInfoServer
     {
+
     }
 }
