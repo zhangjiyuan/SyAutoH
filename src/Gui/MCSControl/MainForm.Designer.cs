@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("OHT Info");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Mes Command");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("OHT Info");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Mes Command");
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLable_Status = new System.Windows.Forms.ToolStripStatusLabel();
@@ -134,13 +134,13 @@
             this.treeView1.LineColor = System.Drawing.Color.DodgerBlue;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "nodeOHTInfo";
-            treeNode1.Text = "OHT Info";
-            treeNode2.Name = "nodeMesCommand";
-            treeNode2.Text = "Mes Command";
+            treeNode7.Name = "nodeOHTInfo";
+            treeNode7.Text = "OHT Info";
+            treeNode8.Name = "nodeMesCommand";
+            treeNode8.Text = "Mes Command";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
+            treeNode7,
+            treeNode8});
             this.treeView1.ShowRootLines = false;
             this.treeView1.Size = new System.Drawing.Size(133, 499);
             this.treeView1.TabIndex = 0;
@@ -148,7 +148,9 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.userToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);

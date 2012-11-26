@@ -16,6 +16,8 @@ namespace MCSControlLib
         private Dictionary<int, OhtInfoData> m_dictOhtInfo = new Dictionary<int, OhtInfoData>();
         private DataSet m_dataSet = new DataSet();
         private DataTable m_tableOHTInfo = null;
+        private byte m_uIdSelected = 0;
+
         public OHTInfo()
         {
             InitializeComponent();
@@ -152,13 +154,13 @@ namespace MCSControlLib
             if (null == m_tableOHTInfo)
             {
                 m_tableOHTInfo = new DataTable("OHT");
-                m_tableOHTInfo.Columns.Add("ID", typeof(System.Int32));
+                m_tableOHTInfo.Columns.Add("ID", typeof(System.Byte));
                 m_tableOHTInfo.Columns["ID"].AllowDBNull = false;
                 m_tableOHTInfo.PrimaryKey = new DataColumn[]{m_tableOHTInfo.Columns["ID"]};
                 m_tableOHTInfo.Columns.Add("Position", typeof(System.Int32));
-                m_tableOHTInfo.Columns.Add("Hand", typeof(System.Int32));
-                m_tableOHTInfo.Columns.Add("Status", typeof(System.Int32));
-                m_tableOHTInfo.Columns.Add("Alarm", typeof(System.Int32));
+                m_tableOHTInfo.Columns.Add("Hand", typeof(System.Byte));
+                m_tableOHTInfo.Columns.Add("Status", typeof(System.Byte));
+                m_tableOHTInfo.Columns.Add("Alarm", typeof(System.Byte));
                 m_tableOHTInfo.Columns.Add("TcpInfo", typeof(System.String));
 
                 m_tableOHTInfo.AcceptChanges();
@@ -176,70 +178,70 @@ namespace MCSControlLib
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            string nID = "254";
             DataGridViewSelectedRowCollection rows = dataGridView1.SelectedRows;
             if (rows.Count > 0)
             {
                 DataGridViewRow row = rows[0];
-                nID = row.Cells[0].Value.ToString();
-               
+                m_uIdSelected = TryConver.ToByte(row.Cells[0].Value.ToString());
             }
-            
-            tBOHTID.Text = nID;
+            tBOHTID.Text = m_uIdSelected.ToString();
+        }
+
+        private void GetOHTIDbyTextBox()
+        {
+            m_uIdSelected = TryConver.ToByte(tBOHTID.Text);
         }
 
         private void bnSetPosTime_Click(object sender, EventArgs e)
         {
-            string strPosTime = tBPosTime.Text;
-            int nPosTime = 0;
-            int nID = 0;
-            try
-            {
-                nID = Convert.ToByte(tBOHTID.Text);
-            }
-            catch (System.Exception /*ex*/)
-            {
-                nID = 254;
-            }
-            try
-            {
-                nPosTime = System.Convert.ToByte(strPosTime);
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            string strTime = tBPosTime.Text;
+            byte nTime = 0;
+            GetOHTIDbyTextBox();
+            nTime = TryConver.ToByte(strTime);
             string strVal;
-            strVal = string.Format("<{0}, {1}>", nID, nPosTime);
+            strVal = string.Format("<{0}, {1}>", m_uIdSelected, nTime);
 
             int nWRet = m_dataHub.WriteData("OHT.POSTIME", strVal);
         }
 
         private void bnSetStatusTime_Click(object sender, EventArgs e)
         {
-            string strPosTime = tBStatusTime.Text;
-            int nPosTime = 0;
-            int nID = 0;
-            try
-            {
-                nID = Convert.ToByte(tBOHTID.Text);
-            }
-            catch (System.Exception /*ex*/)
-            {
-                nID = 254;
-            }
-            try
-            {
-                nPosTime = System.Convert.ToByte(strPosTime);
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            string strTime = tBStatusTime.Text;
+            byte nTime = 0;
+            GetOHTIDbyTextBox();
+            nTime = TryConver.ToByte(strTime);
             string strVal;
-            strVal = string.Format("<{0}, {1}>", nID, nPosTime);
+            strVal = string.Format("<{0}, {1}>", m_uIdSelected, nTime);
 
             int nWRet = m_dataHub.WriteData("OHT.STATUSTIME", strVal);
+        }
+
+        private byte GetBufID()
+        {
+            byte uBufID = 0;
+            uBufID = TryConver.ToByte(tBBuffID.Text);
+            return uBufID;
+        }
+
+        private void bnPick_Click(object sender, EventArgs e)
+        {
+            GetOHTIDbyTextBox();
+            byte uBuffID = GetBufID();
+            Foup_Pick_Place(m_uIdSelected, uBuffID, 0);
+        }
+
+        private void Foup_Pick_Place(byte uID, byte uTarget, byte uOperation)
+        {
+            string strVal;
+            strVal = string.Format("<{0},{1},{3}>", uID, uTarget, uOperation);
+            int nWRet = m_dataHub.WriteData("OHT.FOUPHANDING", strVal);
+        }
+
+        private void bnPlace_Click(object sender, EventArgs e)
+        {
+            GetOHTIDbyTextBox();
+            byte uBuffID = GetBufID();
+            Foup_Pick_Place(m_uIdSelected, uBuffID, 1);
         }
     }
 }
