@@ -107,6 +107,48 @@ int CVirtualAMHS::OHT_Auth(int nIndex, DWORD nPos, int nHand)
 	return 0;
 }
 
+int CVirtualAMHS::OHT_Offline(int nIndex)
+{
+	MAP_VOHT::iterator it;
+	it = m_mapOHT->find(nIndex);
+	if (it != m_mapOHT->end())
+	{
+		VirtualOHT* oht = it->second;
+		if (oht->Online() == true)
+		{
+			oht->DestoryPosTimer();
+			oht->Close();
+		}
+		else
+		{
+			printf("OHT %d not closed. \n", oht->DeviceID());
+			return 0;
+		}
+	}
+
+	return 0;
+}
+
+int CVirtualAMHS::Stocker_Offline(int nIndex)
+{
+	MAP_VSTK::iterator it;
+	it = m_mapSTK->find(nIndex);
+	if (it != m_mapSTK->end())
+	{
+		VirtualStocker* stocker = it->second;
+		if (stocker->Online() == true)
+		{
+			stocker->Close();
+		}
+		else
+		{
+			printf("Stocker %d not closed. \n", stocker->DeviceID());
+			return 0;
+		}
+	}
+	return 0;
+}
+
 LIST_FOUP CVirtualAMHS::Stocker_GetFoupsStatus(int nStocker)
 {
 	LIST_FOUP list;
@@ -142,6 +184,10 @@ LIST_OHT CVirtualAMHS::OHT_GetStatus()
 			if (vOht->Online() == true)
 			{
 				item.nOnline = 1;
+			}
+			else
+			{
+				item.nOnline = 0;
 			}
 			item.nHandStatus = vOht->m_nHand;
 			item.nPosition = vOht->m_nPos;

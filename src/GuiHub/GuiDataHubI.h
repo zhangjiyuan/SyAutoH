@@ -49,6 +49,20 @@ private:
 	SET_UPDATER m_setUpdater;
 	rwmutex m_rwUpdaterSet;
 	CAMHSDrive* m_pAMHSDrive;
+
+	typedef void (GuiDataHubI::*WriteHander)(const std::string&);
+	typedef std::map<std::string, WriteHander> OPT_MAP;
+	OPT_MAP m_optHanders;
+
+private:
+	void OHT_SetPositionBackTime(const std::string&);
+	void OHT_SetStatusBackTime(const std::string&);
+	void OHT_GetPositionTable(const std::string&);
+	void OHT_PathTest(const std::string&);
+	void OHT_FoupTest(const std::string&);
+	void OHT_MoveTest(const std::string&);
+
+	void STK_SetStatusBackTime(const std::string&);
 };
 
 class UpdateCallback : public IceUtil::Shared

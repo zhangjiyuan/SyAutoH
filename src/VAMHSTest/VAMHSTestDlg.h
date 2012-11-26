@@ -50,6 +50,5 @@ public:
 	afx_msg void OnBnClickedBnStkHistory();
 	CComboBox m_cbOhtTeachType;
 	int GetSelectOhtID(void);
-	void SetFOUPListItemData(ItemFoup* pFOUP, int nListIndex);
-	void DeleteFOUPListItemData(int FoupID);
+	afx_msg void OnBnClickedBnOhtOff();
 };

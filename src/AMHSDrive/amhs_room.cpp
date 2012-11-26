@@ -44,6 +44,10 @@ amhs_room::amhs_room()
 		&amhs_room::Handle_STK_Auth));
 	m_optHanders.insert(std::make_pair(STK_FOUP_EVENT, 
 		&amhs_room::Handle_STK_FoupEvent));
+	m_optHanders.insert(std::make_pair(STK_ACK_STATUS_TIME, 
+		&amhs_room::Handle_STK_Ack_StatusTime));
+	m_optHanders.insert(std::make_pair(STK_ACK_FOUP_TIME, 
+		&amhs_room::Handle_STK_Ack_FoupTime));
 }
 
 void amhs_room::join(amhs_participant_ptr participant)
@@ -164,8 +168,10 @@ void amhs_room::SendPacket(amhs_participant_ptr participants, AMHSPacket &packet
 		msg.command(packet.GetOpcode());
 		msg.body_length(szPacketLen);
 		msg.IsNeedRespond(true);
+		msg.IsRespond(false);
 		memcpy(msg.body(), packet.contents() + (i*szLimit), msg.body_length());
 		msg.encode_header();
+		packet.hexlike();
 
 		if (NULL == participants)
 		{
@@ -209,15 +215,62 @@ void amhs_room::Handle_OHT_TeachPath(amhs_participant_ptr, AMHSPacket& Packet)
 
 void amhs_room::Handle_STK_AckFoup(amhs_participant_ptr, AMHSPacket& Packet)
 {
-	Log.Warning("amhs_room", "Packet handle not implemented\n");
+	uint8 nID = 0;
+	uint8 nResult = 0;
+	Packet >> nID; 
+	Packet >> nResult;
+	LOG_DEBUG("ID: %d, RESULT:%d", nID, nResult);
 }
+
+void amhs_room::Handle_STK_Ack_StatusTime(amhs_participant_ptr, AMHSPacket& Packet)
+{
+	uint8 nID = 0;
+	uint8 nResult = 0;
+	Packet >> nID; 
+	Packet >> nResult;
+	LOG_DEBUG("ID: %d, RESULT:%d", nID, nResult);
+}
+
+void amhs_room::Handle_STK_Ack_FoupTime(amhs_participant_ptr, AMHSPacket& Packet)
+{
+	uint8 nID = 0;
+	uint8 nResult = 0;
+	Packet >> nID; 
+	Packet >> nResult;
+	LOG_DEBUG("ID: %d, RESULT:%d", nID, nResult);
+}
+
 void amhs_room::Handle_STK_AckStatus(amhs_participant_ptr, AMHSPacket& Packet)
 {
 	Log.Warning("amhs_room", "Packet handle not implemented\n");
 }
 void amhs_room::Handle_STK_AckRoom(amhs_participant_ptr, AMHSPacket& Packet)
 {
-	Log.Warning("amhs_room", "Packet handle not implemented\n");
+	uint8 nID = 0;
+	uint8 nStats = 0;
+	uint8 item[141] = {0};
+
+	size_t pkSize = Packet.size();
+	LOG_DEBUG("Packet Size: %d", pkSize);
+	Packet >> nID;
+	Packet >> nStats;
+	for (int i=0; i<140; i++)
+	{
+		uint8 uItem = 0;
+		Packet >> uItem;
+		item[i] = uItem;
+	}
+
+	LOG_DEBUG("ID:%d, STATUS: %d", nID, nStats);
+	for (int i=0; i<141; i++)
+	{
+		printf("%d ", item[i]);
+		if (i % 16 == 0)
+		{
+			printf("\r\n");
+		}
+	}
+	LOG_DEBUG("Room end");
 }
 void amhs_room::Handle_STK_AckStorage(amhs_participant_ptr, AMHSPacket& Packet)
 {
@@ -235,12 +288,56 @@ void amhs_room::Handle_STK_AckHistory(amhs_participant_ptr, AMHSPacket& Packet)
 }
 void amhs_room::Handle_STK_AckAlarms(amhs_participant_ptr, AMHSPacket& Packet)
 {
-	Log.Warning("amhs_room", "Packet handle not implemented\n");
+	uint8 nID = 0;
+	uint32 nCount = 0;
+	Packet >> nID;
+	Packet >> nCount;
+	printf("ID: %u Alarms Count: %u \n", nID, nCount);
+	for (uint32 i=0; i<nCount; i++)
+	{
+		uint16 year = 0;
+		uint8   m = 0;
+		uint8  day = 0;
+		uint8 h = 0;
+		uint8 nMin = 0;
+		uint8 nSec = 0;
+		uint8 nNull = 0;
+		uint8 nAlarm = 0;
+
+		Packet >> year;
+		Packet >> m;
+		Packet >> day;
+		Packet >> h;
+		Packet >> nMin;
+		Packet >> nSec;
+		Packet >> nNull;
+		Packet >> nAlarm;
+
+		printf("%u-%u-%u %u:%u:%u Alarm: %u \n", year, m, day,
+			h, nMin, nSec, nAlarm);
+	}
 }
 
-void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr, AMHSPacket& Packet)
+void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-	Log.Warning("amhs_room", "Packet handle not implemented\n");
+	//Log.Warning("amhs_room", "Packet handle not implemented\n");
+	uint8 nID = 0;
+	uint8 nChaned = 0;
+	uint8 foupRoom = 0;
+	uint16 foupLot = 0;
+	uint16 foupBarCode = 0;
+	uint8 nInput = 0;
+	Packet >> nID;
+	Packet >> nChaned;
+	Packet >> foupRoom;
+	Packet >> foupLot;
+	Packet >> foupBarCode;
+	Packet >> nInput;
+
+	AMHSPacket ack(STK_MCS_ACK_FOUP_EVENT, 2);
+	ack << uint8(nID);
+	ack << uint8(1);
+	SendPacket(participants, ack);
 }
 
 void amhs_room::Handle_OHT_AckStatusBackTime(amhs_participant_ptr participants, AMHSPacket& Packet)
@@ -357,12 +454,12 @@ void amhs_room::Handle_OHT_Status(amhs_participant_ptr participants, AMHSPacket&
 void amhs_room::Handle_OHT_Auth(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
 	uint8		ohtID = 0;
-	uint16		ohtPosition = 0;
+	uint32		ohtPosition = 0;
 	uint8		ohtHand = 0;
 	Packet >> ohtID;
 	Packet >> ohtPosition;
 	Packet >> ohtHand;
-	printf("OHT Auth  ---> id: %d, pos: %d, hand: %d\n", ohtID, ohtPosition, ohtHand);
+	printf("OHT Auth  ---> id: %u, pos: %u, hand: %u\n", ohtID, ohtPosition, ohtHand);
 	participants->nID_ = ohtID;
 	participants->nDevType_ = DEV_TYPE_OHT;
 
@@ -396,13 +493,21 @@ void amhs_room::Handle_STK_Auth(amhs_participant_ptr participants, AMHSPacket& P
 {
 	uint8 stockerID = 0;
 	uint32 uIP = 0;
+	uint8 room = 0;
+	uint8 autoin = 0;
+	uint8 manin = 0;
 	Packet >> stockerID;
 	Packet >> uIP;
+	Packet >> room;
+	Packet >> autoin;
+	Packet >> manin;
+	
 	struct in_addr addr1;
 
 	memcpy(&addr1, &uIP, 4);
 	char* sIP = inet_ntoa(addr1);
-	printf("STOCKER Auth ---> id: %d, ip: %s\n", stockerID, sIP);
+	printf("STOCKER Auth ---> id: %d, ip: %s  room:%d, autoin: %d, manin:%d\n", stockerID, sIP,
+		room, autoin, manin);
 	participants->nDevType_ = DEV_TYPE_STOCKER;
 	participants->nID_ = stockerID;
 
@@ -425,11 +530,20 @@ void amhs_room::Handle_STK_Auth(amhs_participant_ptr participants, AMHSPacket& P
 	}
 
 	AMHSPacket ack(STK_MCS_ACK_AUTH, 10);
+	SYSTEMTIME st = {0};
+	GetLocalTime(&st);
 	ack << uint8(stockerID);
 	ack << uint8(nAuthAck);
-	__time64_t ltime;
-	_time64( &ltime );
-	ack << uint64(ltime);
+	//__time64_t ltime;
+	//_time64( &ltime );
+	//ack << uint64(ltime);
+	ack << uint16(st.wYear);
+	ack << uint8(st.wMonth);
+	ack << uint8(st.wDay);
+	ack << uint8(st.wHour);
+	ack << uint8(st.wMinute);
+	ack << uint8(st.wSecond);
+	ack << uint8(0);
 
 	SendPacket(participants, ack);
 }
@@ -458,6 +572,7 @@ int amhs_room::DecodePacket(amhs_participant_ptr participants, AMHSPacket& Packe
 	OPT_MAP::iterator it = m_optHanders.find(mOpcode);
 	if (it != m_optHanders.end())
 	{
+		Packet.hexlike();
 		(this->*it->second)(participants, Packet);
 		return 0;
 	}

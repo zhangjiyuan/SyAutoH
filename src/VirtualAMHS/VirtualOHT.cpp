@@ -75,7 +75,7 @@ void VirtualOHT::Handle_SetPosTime(AMHSPacket&  packet)
 	packet >> nPosTime;
 	m_nPosUpdateTime = nPosTime;
 
-	if ((nPosTime >= 30) 
+	if ((nPosTime >= 0) 
 		&& (nPosTime <= 253))
 	{
 
@@ -126,6 +126,7 @@ void VirtualOHT::CreatePosTimer(void)
 		&VirtualOHT::PosTimerHandler,
 		(DWORD)this,
 		TIME_PERIODIC);
+	printf("ID: %u TimerID: %d\n", DeviceID(), m_nPosTimerID);
 }
 
 
@@ -147,10 +148,10 @@ void CALLBACK VirtualOHT::PosTimerHandler(UINT id, UINT msg, DWORD dwUser, DWORD
 
 void VirtualOHT::OnPosTimer(void)
 {
-	m_nPos += 2451;
-	//if (m_nPos > 900000)
-	//{
-	//	m_nPos = 0;
-	//}
+	m_nPos += 50;
+	if (m_nPos > 12400)
+	{
+		m_nPos = 0;
+	}
 	UpdatePos(m_nPos);
 }

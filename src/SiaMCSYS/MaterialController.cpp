@@ -52,16 +52,24 @@ void MaterialController::Check(void)
 	for (DR_OHT_LIST::iterator it = oht_list.begin(); 
 		it != oht_list.end(); ++it)
 	{
-		sprintf_s(buf, 256, "<%d, %d, %d>", it->nID, it->nPOS, it->nHand);
+		sprintf_s(buf, 256, "<%d,%d,%d>", it->nID, it->nPOS, it->nHand);
 		strOhtList += buf;
 	}
-	m_GuiHub.SetData("OHTARRAY:<ID,POS,HAND>", strOhtList.c_str());
-	
-	
+	m_GuiHub.SetData("OHT.Pos", strOhtList.c_str());
+
+	strOhtList = "";
+	for (DR_OHT_LIST::iterator it = oht_list.begin(); 
+		it != oht_list.end(); ++it)
+	{
+		sprintf_s(buf, 256, "<%d,%s,%u>", it->nID, it->strIp.c_str(), it->uPort);
+		strOhtList += buf;
+	}
+	m_GuiHub.SetData("OHT.Info", strOhtList.c_str());
 }
 
 
 void MaterialController::PrintfInfo(void)
 {
 	Log.outBasic("Material Control System V1.0.0.1 \n\n\n");
+	//LOG_BASIC("Material Control System V1.0.0.1 \n\n\n");
 }

@@ -17,9 +17,9 @@ tcp::socket& amhs_session::socket()
 void amhs_session::PutSocketInfo(tcp::socket& socket_)
 {
 	tcp::socket::endpoint_type ep = socket_.remote_endpoint();
-	std::string sIP = ep.address().to_string();
-	unsigned int uPort = ep.port();
-	std::cout<< "socket IP: " << sIP << " Port: " << uPort << std::endl;
+	sIP_ = ep.address().to_string();
+	uPort_ = ep.port();
+	std::cout<< "socket IP: " << sIP_ << " Port: " << uPort_ << std::endl;
 }
 
 void amhs_session::start()
@@ -52,8 +52,11 @@ void amhs_session::handle_read_header(const boost::system::error_code& error)
 {
 	if (!error && read_msg_.decode_header())
 	{
+		printf("Decode ");
+		read_msg_.Header_HexLike();
 		boost::asio::async_read(socket_,
-			boost::asio::buffer(read_msg_.body(), read_msg_.body_length()),
+			boost::asio::buffer(read_msg_.body(), read_msg_.max_body_length), //OHT
+			//boost::asio::buffer(read_msg_.body(), read_msg_.body_length()), //STK
 			boost::bind(&amhs_session::handle_read_body, shared_from_this(),
 			boost::asio::placeholders::error));
 	}
@@ -73,14 +76,14 @@ void amhs_session::handle_read_body(const boost::system::error_code& error)
 		bool bXor = read_msg_.CheckXOR();
 		if (false == bXor)
 		{
-			cout << "Server XOR error" << endl;
+		cout << "Server XOR error" << endl;
 
-			boost::asio::async_read(socket_,
-				boost::asio::buffer(read_msg_.data(), amhs_message::header_length),
-				boost::bind(&amhs_session::handle_read_header, shared_from_this(),
-				boost::asio::placeholders::error));
+		boost::asio::async_read(socket_,
+		boost::asio::buffer(read_msg_.data(), amhs_message::header_length),
+		boost::bind(&amhs_session::handle_read_header, shared_from_this(),
+		boost::asio::placeholders::error));
 
-			return;
+		return;
 		}
 
 		if (mSize > 0)
@@ -111,7 +114,7 @@ void amhs_session::handle_read_body(const boost::system::error_code& error)
 				int nDecode = room_.DecodePacket(shared_from_this(), *Packet);	
 				if (nDecode < 0)
 				{
-					printf("Wrong packet. \n");
+					printf("Decode failed. Not processer. \n");
 				}
 
 				delete Packet;

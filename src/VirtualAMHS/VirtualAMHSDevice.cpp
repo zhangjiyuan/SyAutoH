@@ -48,18 +48,32 @@ int VirtualAMHSDevice::Connect(string strIP, int nPort)
 
 int VirtualAMHSDevice::Close(void)
 {
-	m_pClient->close();
-	m_thread.join();
-	delete m_pClient;
-	m_pClient = NULL;
+	if (NULL != m_pClient)
+	{
+		m_pClient->close();
+		m_thread.join();
+		delete m_pClient;
+		m_pClient = NULL;
+	}
+	m_isOnline = false;
 
 	return 0;
 }
 
 int VirtualAMHSDevice::SendPacket(AMHSPacket& packet)
 {
+	if (NULL == m_pClient)
+	{
+		return -1;
+	}
+
 	try
 	{
+		if (m_pClient->isClosed())
+		{
+			return -1;
+		}
+
 		m_pClient->write_packet(packet);
 	}
 	catch(...)

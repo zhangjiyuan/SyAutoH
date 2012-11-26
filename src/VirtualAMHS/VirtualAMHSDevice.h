@@ -18,7 +18,17 @@ public:
 	static void PassCommand(void* pDevice, AMHSPacket& packet);
 	virtual void HandleCommand(AMHSPacket& packet) = 0;
 
-	bool Online() const { return m_isOnline; }
+	bool Online() const 
+	{ 
+		if (NULL != m_pClient)
+		{
+			return !m_pClient->isClosed();
+		}
+		else
+		{
+			return m_isOnline; 
+		}
+	}
 
 private:
 	amhs_client* m_pClient;

@@ -35,6 +35,8 @@ public:
 public:
 	int nID_;
 	int nDevType_;
+	std::string sIP_;
+	unsigned int uPort_;
 };
 
 typedef boost::shared_ptr<amhs_participant> amhs_participant_ptr;
@@ -65,6 +67,7 @@ typedef struct sPath_KeyPoint
 	uint32 nPos;
 	uint8 nType;
 	uint8 nSpeedRate;
+
 } amhs_keyPoint;
 typedef std::vector<amhs_keyPoint> amhs_keypoint_vec;
 
@@ -93,15 +96,6 @@ public:
 	int GetCount();
 
 private:
-	////
-	//OHT_ACK_STATUS_BACK_TIME				= 0x0811,
-	//	OHT_ACK_POSITION_BACK_TIME				= 0x0812,	
-	//	OHT_ACK_PATH											= 0x0813,	
-	//	OHT_ACK_MOVE											= 0x0814,
-	//	OHT_ACK_FOUP											= 0x0815,
-	//	OHT_AUTH													= 0x0816,
-	//	OHT_POSITION												= 0x0817,
-	//	OHT_STATUS												= 0x0818,
 	void Handle_OHT_AckStatusBackTime(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_AckPosBackTime(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_AckPath(amhs_participant_ptr, AMHSPacket&);
@@ -112,16 +106,6 @@ private:
 	void Handle_OHT_Status(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_TeachPath(amhs_participant_ptr, AMHSPacket&);
 
-	////
-	//STK_ACK_FOUP											= 0x0820,
-	//	STK_ACK_STATUS										= 0x0821,
-	//	STK_ACK_ROOM											= 0x0822,
-	//	STK_ACK_STORAGE										= 0x0823,
-	//	STK_ACK_INPUT_STATUS							= 0x0824,
-	//	STK_ACK_HISTORY										= 0x0825,
-	//	STK_ACK_ALARMS										= 0x0826,
-	//	STK_AUTH														= 0x0827,
-	//	STK_FOUP_EVENT										= 0x0829,
 	void Handle_STK_AckFoup(amhs_participant_ptr, AMHSPacket&);
 	void Handle_STK_AckStatus(amhs_participant_ptr, AMHSPacket&);
 	void Handle_STK_AckRoom(amhs_participant_ptr, AMHSPacket&);
@@ -131,6 +115,8 @@ private:
 	void Handle_STK_AckAlarms(amhs_participant_ptr, AMHSPacket&);
 	void Handle_STK_Auth(amhs_participant_ptr, AMHSPacket&);
 	void Handle_STK_FoupEvent(amhs_participant_ptr, AMHSPacket&);
+	void Handle_STK_Ack_StatusTime(amhs_participant_ptr, AMHSPacket&);
+	void Handle_STK_Ack_FoupTime(amhs_participant_ptr, AMHSPacket&);
 
 private:
 	std::set<amhs_participant_ptr> participants_;
@@ -196,8 +182,8 @@ public:
 	void STK_Room(int nID);
 	void STK_Storage(int nID);
 	void STK_InputStatus(int nID);
-	void STK_History(int nID, __int64 timeStart, __int64 timeEnd);
-	void STK_Alarms(int nID, __int64 timeStart, __int64 timeEnd);
+	void STK_History(int nID, const SYSTEMTIME &timeStart, const SYSTEMTIME &timeEnd);
+	void STK_Alarms(int nID, const SYSTEMTIME &timeStart, const SYSTEMTIME &timeEnd);
 	void STK_Set_StatusBackTime(int nID, int nSecond);
 	void STK_Set_FoupBackTime(int nID, int nSecond);
 
@@ -210,7 +196,7 @@ private:
 		room_.SendPacket(nID, DEV_TYPE_OHT, packet);
 	}
 
-	inline void SendPakcet_Sotcker(int nID, AMHSPacket& packet)
+	inline void SendPacket_STK(int nID, AMHSPacket& packet)
 	{
 		room_.SendPacket(nID, DEV_TYPE_STOCKER, packet);
 	}

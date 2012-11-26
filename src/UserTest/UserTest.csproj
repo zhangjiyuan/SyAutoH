@@ -92,6 +92,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -104,7 +105,25 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GuiAccess\GuiAccess.csproj">
+    <None Include="Resources\IMG_4026.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vladstudio_deepbluesomething_2560x1600.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vladstudio_eos7_2560x1600.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vladstudio_motion3_2560x1600.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vladstudio_motion3_600.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vladstudio_motion3_6001.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gui\GuiAccess\GuiAccess.csproj">
       <Project>{C969609B-8A6A-4D79-B77B-EB7C2A5DC54E}</Project>
       <Name>GuiAccess</Name>
     </ProjectReference>

@@ -14,6 +14,7 @@
 #include <windows.h>
 #include <string>
 #include <list>
+#include <vector>
 #include <map>
 
 using namespace std;
@@ -75,10 +76,24 @@ public:
 	int SetRealRight(int nSession, int nRealRight);
 };
 
+typedef struct 
+{
+	wstring strName;
+	UINT uPosition;
+	WORD uType;//,[Type]
+	WORD uSpeedRate;//,[SpeedRate]
+	WORD uTeachMode;//,[TeachMode]
+	WORD uOHT_ID;//,[OHT_ID]
+	WORD uRail_ID;//,[Rail_ID]
+	UINT uPrev;//,[Prev]
+	UINT uNext;//,[Next]
+} KeyPointItem;
+typedef std::vector<KeyPointItem> VEC_KEYPOINT;
 class SQLACECLI_API DBKeyPoints
 {
 public:
 	DBKeyPoints(void);
 	~DBKeyPoints(void);
 	int SetKeyPointbyOHTTeach(int nOHT_ID, int nPOS, int nType, int nSpeedRate);
+	VEC_KEYPOINT GetKeyPointsTable();
 };

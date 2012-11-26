@@ -61,7 +61,15 @@ public:
 
 	void write(const amhs_message& msg)
 	{
-		io_service_.post(boost::bind(&amhs_client::do_write, this, msg));
+		if(socket_.is_open())
+		{
+			io_service_.post(boost::bind(&amhs_client::do_write, this, msg));
+		}
+	}
+
+	bool isClosed()
+	{
+		return !socket_.is_open();
 	}
 
 	void close()
@@ -150,7 +158,7 @@ private:
 		{
 			boost::asio::async_write(socket_,
 				boost::asio::buffer(write_msgs_.front().data(),
-				write_msgs_.front().length()),
+				msg.max_body_length + msg.header_length),
 				boost::bind(&amhs_client::handle_write, this,
 				boost::asio::placeholders::error));
 		}
@@ -163,9 +171,10 @@ private:
 			write_msgs_.pop_front();
 			if (!write_msgs_.empty())
 			{
+				amhs_message msg;
 				boost::asio::async_write(socket_,
 					boost::asio::buffer(write_msgs_.front().data(),
-					write_msgs_.front().length()),
+					msg.max_body_length + msg.header_length),
 					boost::bind(&amhs_client::handle_write, this,
 					boost::asio::placeholders::error));
 			}
@@ -178,6 +187,7 @@ private:
 
 	void do_close()
 	{
+		cout<< "socket close()" << endl;
 		socket_.close();
 	}
 

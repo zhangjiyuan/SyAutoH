@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GuiAccess;
-
 namespace UserTest
 {
+    
     public partial class FormUserManagement : Form
     {
         public FormUserManagement()
         {
             InitializeComponent();
+            Init_listViewStockerFoups();
+            Init_listView_MesLocation();
+            Init_listView_MesFoups();
         }
         private string[] RightCollection = 
             new string[] { "NoRight", "Viewer", "Guest", "Operator", "Admin", "SuperAdmin"};
@@ -23,8 +26,38 @@ namespace UserTest
         private DataHubCli dataHubLink = new DataHubCli();
         private int m_nSession = 0;
         private string strUserLogin = "";
-        private string strVal;
-        //private int nUserLoginRight = 0;
+        private Queue<MCS.GuiDataItem> buf = new Queue<MCS.GuiDataItem>();
+
+        private void Init_listView_MesFoups()
+        {
+            lVMes_Foup.Clear();
+            lVMes_Foup.Columns.Clear();
+            lVMes_Foup.Columns.Add("Lot", 60, HorizontalAlignment.Center);
+            lVMes_Foup.Columns.Add("BarCode", 60, HorizontalAlignment.Center);
+            lVMes_Foup.Columns.Add("Status", 60, HorizontalAlignment.Center);
+            lVMes_Foup.Columns.Add("Location", 60, HorizontalAlignment.Center);
+            lVMes_Foup.Columns.Add("OHT Pos", 60, HorizontalAlignment.Center);
+        }
+
+        private void Init_listView_MesLocation()
+        {
+            lVMes_Location.Clear();
+            lVMes_Location.Columns.Clear();
+            lVMes_Location.Columns.Add("Name", 80, HorizontalAlignment.Center);
+            lVMes_Location.Columns.Add("Type", 60, HorizontalAlignment.Center);
+            lVMes_Location.Columns.Add("BarCode", 60, HorizontalAlignment.Center);
+        }
+
+        private void Init_listViewStockerFoups()
+        {
+            listViewStockerFoups.Clear();
+            listViewStockerFoups.Columns.Clear();
+            listViewStockerFoups.Columns.Add("ID", 60, HorizontalAlignment.Center);
+            listViewStockerFoups.Columns.Add("Lot", 60, HorizontalAlignment.Center);
+            listViewStockerFoups.Columns.Add("Location", 60, HorizontalAlignment.Center);
+            listViewStockerFoups.Columns.Add("LocType", 60, HorizontalAlignment.Center);
+            listViewStockerFoups.Columns.Add("Status", 60, HorizontalAlignment.Center);
+        }
 
         private void bnLogin_Click(object sender, EventArgs e)
         {
@@ -40,6 +73,9 @@ namespace UserTest
                 strUserLogin = this.textBoxUser.Text;
                 this.textBoxLoginUser.Text = strUserLogin;
                 this.comboBoxUserRight.SelectedIndex = 4;
+
+                this.Text = "MCS Control  Login User: " + this.textBoxUser.Text;
+           
             }
             else
             {
@@ -48,19 +84,11 @@ namespace UserTest
           
         }
 
-        private void GuiDataUpdate(string strTag, string sVal)
+        private void GuiDataUpdate(MCS.GuiDataItem item)
         {
-            //if (strTag.CompareTo("TEST") == 0)
-            //{
-            //    this.labelCBTest.Text = sVal;
-            //}
-            //if (strTag.CompareTo("OHT.POS") == 0)
-            //{
-            //    this.labelCBTest.Text = sVal;
-            //}
-            lock(this)
+            lock(buf)
             {
-                strVal = sVal;
+                buf.Enqueue(item);
             }
         }
 
@@ -70,7 +98,7 @@ namespace UserTest
             mesLink.ConnectServer();
             dataHubLink.ConnectServer();
             dataHubLink.DataUpdater += new DataUpdaterHander(GuiDataUpdate);
-            dataHubLink.SetCallBack();
+            dataHubLink.Async_SetCallBack();
 
             this.comboBoxUserRight.Items.Clear();
             foreach (string strRight in RightCollection)
@@ -107,42 +135,6 @@ namespace UserTest
                 }
             }
 
-            
-        }
-
-        private void buttonPickFoup_Click(object sender, EventArgs e)
-        {
-            string strFoupName = this.textBoxFoupName.Text;
-            int nLocal = 0;
-            int nType = 0;
-            try
-            {
-                nLocal = Convert.ToInt32(this.textBoxLocation.Text);
-                nType = Convert.ToInt32(this.textBoxLocType.Text);
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            mesLink.PickFoup(strFoupName, nLocal, nType);
-        }
-
-        private void buttonPlaceFoup_Click(object sender, EventArgs e)
-        {
-            string strFoupName = this.textBoxFoupName.Text;
-            int nLocal = Convert.ToInt32(this.textBoxLocation.Text);
-            int nType = Convert.ToInt32(this.textBoxLocType.Text);
-
-            mesLink.PlaceFoup(strFoupName, nLocal, nType);
-        }
-
-        private void buttonGetFoupID_Click(object sender, EventArgs e)
-        {
-            int nLocal = 0;
-            int nType = 0;
-            string strFoupName = this.textBoxFoupName.Text;
-            mesLink.GetFoupLocation(strFoupName, out nLocal, out nType);
             
         }
 
@@ -257,6 +249,7 @@ namespace UserTest
             {
                 userMge.Logout(m_nSession);
                 m_nSession = 0;
+                this.Text = "MCS Control Logout";
             }
         }
 
@@ -291,13 +284,105 @@ namespace UserTest
 
             string sVal = dataHubLink.ReadData("OHT", m_nSession);
 
-            int nWRet = dataHubLink.WriteData("OHT", "MOVE", m_nSession);
+            int nWRet = dataHubLink.WriteData("OHT.MOVETEST", "MOVE", m_nSession);
 
+        }
+
+        private void ProcessDataBuf()
+        {
+            while (buf.Count != 0)
+            {
+                MCS.GuiDataItem item = buf.Dequeue();
+                ProcessGuiData(item);
+           }
+        }
+
+        private void ProcessGuiData(MCS.GuiDataItem guiData)
+        {
+            if (null == guiData.sTag )
+            {
+                return;
+            }
+            if (guiData.sTag.CompareTo("OHT.Info") == 0)
+            {
+                string strVal = guiData.sVal;
+                string strSplit = "<>";
+                char[] spliter = strSplit.ToCharArray();
+                string[] strItem = strVal.Split(spliter);
+                foreach (string strOht in strItem)
+                {
+                    if (strOht.Length > 0)
+                    {
+                        string[] strParams = strOht.Split(',');
+                        if (strParams.Length == 3)
+                        {
+                            string strID = strParams[0];
+                            string strTCP = strParams[1] + ":" + strParams[2];
+                            
+                            ListViewItem lvItem = listViewOHTs.FindItemWithText(strID);
+                            if (lvItem != null)
+                            {
+                                lvItem.SubItems[5].Text = strTCP;
+                            }
+                            else
+                            {
+                                lvItem = new ListViewItem();
+                                lvItem.Text = strID;
+                                lvItem.SubItems.Add("");
+                                lvItem.SubItems.Add("");
+                                lvItem.SubItems.Add("");
+                                lvItem.SubItems.Add("");
+                                lvItem.SubItems.Add("");
+                                lvItem.SubItems[5].Text = strTCP;
+                                listViewOHTs.Items.Add(lvItem);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (guiData.sTag.CompareTo("OHT.Pos") == 0)
+            {
+                string strVal = guiData.sVal;
+                string strSplit = "<>";
+                char[] spliter = strSplit.ToCharArray();
+                string[] strItem = strVal.Split(spliter);
+                foreach (string strOht in strItem)
+                {
+                    if (strOht.Length > 0)
+                    {
+                        string[] strParams = strOht.Split(',');
+                        if (strParams.Length == 3)
+                        {
+                            string strID = strParams[0];
+
+                            ListViewItem lvItem = listViewOHTs.FindItemWithText(strID);
+                            if (lvItem != null)
+                            {
+                                lvItem.SubItems[1].Text = strParams[1];
+                                lvItem.SubItems[2].Text = strParams[2];
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            labelCBTest.Text = strVal;
+            lock (buf)
+            {
+                ProcessDataBuf();
+            }
+            DateTime dtNow = DateTime.Now;
+            TimeSpan span = dtNow - dataHubLink.UpdateTime;
+            if (span.TotalSeconds > 5)
+            {
+                foreach (ListViewItem item in listViewOHTs.Items)
+                {
+                    item.SubItems[5].Text = "";
+                }
+                dataHubLink.Async_SetCallBack();
+            }
         }
 
         private void bnSTK_History_Click(object sender, EventArgs e)
@@ -309,6 +394,15 @@ namespace UserTest
         {
             string strPosTime = tBPosTime.Text;
             int nPosTime = 0;
+            int nID = 0;
+            try
+            {
+                nID = Convert.ToByte(tBOHTID.Text);
+            }
+            catch (System.Exception /*ex*/)
+            {
+                nID = 254;
+            }
             try
             {
                 nPosTime = System.Convert.ToByte(strPosTime);
@@ -318,9 +412,109 @@ namespace UserTest
                 Console.WriteLine(ex.Message);
             }
             string strVal;
-            strVal = string.Format("<{0}, {1}>", 254, nPosTime);
+            strVal = string.Format("<{0}, {1}>", nID, nPosTime);
 
-            int nWRet = dataHubLink.WriteData("OHT.POSTIME:<ID, VAL>", strVal, m_nSession);
+            int nWRet = dataHubLink.WriteData("OHT.POSTIME", strVal, m_nSession);
+        }
+
+        private void maskedTextBoxPW_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar.CompareTo('\r') == 0)
+            {
+                bnLogin_Click(null, null);
+            }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //MessageBox.Show("Refresh Foups in MCS");
+            tBMesFS_Lot.Text = "345";
+            tBMesFS_BC.Text = "11982";
+            tBMesFS_ST.Text = "Ready";
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+           
+        }
+
+        private void linkOHTMoveToRefresh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            dataHubLink.Async_WriteData("OHT.GetPosTable", "", m_nSession);
+        }
+
+        private void bnpath_Click(object sender, EventArgs e)
+        {
+            dataHubLink.Async_WriteData("OHT.PATHTEST", "", m_nSession);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string strTime = tBStatus.Text;
+            int nTime = 0;
+            int nID = 0;
+            try
+            {
+                nID = Convert.ToByte(tBOHTID.Text);
+            }
+            catch (System.Exception /*ex*/)
+            {
+                nID = 254;
+            }
+            try
+            {
+                nTime = System.Convert.ToByte(strTime);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            string strVal;
+            strVal = string.Format("<{0}, {1}>", nID, nTime);
+
+            int nWRet = dataHubLink.WriteData("OHT.STATUSTIME", strVal, m_nSession);
+        }
+
+        private void bnPick_Click(object sender, EventArgs e)
+        {
+            dataHubLink.WriteData("OHT.FOUPTEST", "", m_nSession);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string strTime = tbStkStatusTime.Text;
+            int nTime = 0;
+            int nID = 0;
+            try
+            {
+                nID = Convert.ToByte(tbStkID.Text);
+            }
+            catch (System.Exception /*ex*/)
+            {
+                nID = 254;
+            }
+            try
+            {
+                nTime = System.Convert.ToByte(strTime);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            string strVal;
+            strVal = string.Format("<{0}, {1}>", nID, nTime);
+
+            int nWRet = dataHubLink.WriteData("STK.STATUSTIME", strVal, m_nSession);
+        }
+
+        private void listViewOhtMove_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

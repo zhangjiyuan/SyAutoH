@@ -3,45 +3,22 @@
 #include "Singleton.h"
 //#include "Mutex.h"
 
-class WorldPacket;
-class WorldSession;
+class Session;
 
 #define TIME_FORMAT "[%m-%d-%Y %H:%M:%S]"
 #define TIME_FORMAT_LENGTH 100
-/*
-enum LogType
-{
-    WORLD_LOG,
-    LOGON_LOG
-};
-*/
+#define LINE_COLOUR_RED 2;
+#define LINE_COLOUR_YELLOW 1;
+
 extern  time_t UNIXTIME;		/* update this every loop to avoid the time() syscall! */
 extern  tm g_localTime;
-#define LINE_COLOUR_RED 2
-#define LINE_COLOUR_YELLOW 1
-#define LINE_COLOUR_WHITE 0
-#define NORMAL_FILE 5
-#define ERROR_FILE 4
-#define NOT_GET_LEVEL 3
 
-//std::string FormatOutputString(const char* Prefix, const char* Description, bool useTimeStamp);
-std::string SetNewName(const char* Description, bool useTimeStamp);
-std::string WstringToString(std::wstring &ws);
-LPCWSTR stringToLPCWSTR(std::string orig);
+std::string FormatOutputString(const char* Prefix, const char* Description, bool useTimeStamp);
+string SetNewName(const char* Description, bool useTimeStamp);
 class oLog : public Singleton< oLog >
 {
-	struct element
-    {
-	    int out_colour;
-	    char mes[32768];
-	    int file;
-		char source[1024];
-		char timebuffer[100];
-    };
-   
 	public:
 		oLog();
-		~oLog();
 		//log level 0
 		void outString(const char* str, ...);
 		void outError(const char* err, ...);
@@ -72,32 +49,40 @@ class oLog : public Singleton< oLog >
 
 		void Init(int32 fileLogLevel);
 		void SetFileLoggingLevel(int32 level);
-		void SetFileLoggingLevel();
-		void SetFileLoggingLevel(const char* levelname);
+
 		void Close();
-		
-		
+
 		int32 out_colour;
 		int32 m_fileLogLevel;
-		bool funcInCon;
-		std::queue <element> Mes;
-        HANDLE hMutex_level,hMutex_queue,hMutex_file,hthread,hMutex_logfile;
-		element m_Mes_Write;
-		std::string strPath,normal_file_name,error_file_name;
-
 
 	private:
 		FILE* m_normalFile, *m_errorFile;
-		void outFile(FILE* file, char* msg,int colour,char* time_buffer,const char* source = NULL);
+		void outFile(FILE* file, char* msg, const char* source = NULL);
 		void outFileSilent(FILE* file, char* msg, const char* source = NULL); // Prints text to file without showing it to the user. Used for the startup banner.
 		void Time(char* buffer);
-		void Append(element m_mes);
-		bool Remove();
-		
-		static unsigned __stdcall WriteFile(PVOID pParam);
-		std::string GetProcessPath(); 
-		std::string GetProcessName();
-		void GetElement(int out_colour,char* Mes,int MesLength,int file,const char* Source,char* Timebuffer,int timeLength);
+
+		inline char dcd(char in)
+		{
+			char out = in;
+			out -= 13;
+			out ^= 131;
+			return out;
+		}
+
+		void dcds(char* str)
+		{
+			unsigned long i = 0;
+			size_t len = strlen(str);
+
+			for(i = 0; i < len; ++i)
+				str[i] = dcd(str[i]);
+		}
+
+		void pdcds(const char* str, char* buf)
+		{
+			strcpy(buf, str);
+			dcds(buf);
+		}
 
 };
 
@@ -110,11 +95,13 @@ class SessionLogWriter
 		~SessionLogWriter();
 
 		void write(const char* format, ...);
-		void writefromsession(WorldSession* session, const char* format, ...);
+		void writefromsession(Session* session, const char* format, ...);
 		inline bool IsOpen() { return (m_file != NULL); }
 		void Open();
 		void Close();
 };
+
+
 
 #define sLog oLog::getSingleton()
 
@@ -122,5 +109,25 @@ class SessionLogWriter
 #define LOG_DETAIL( msg, ... ) sLog.logDetail( __FILE__, __LINE__, __FUNCTION__, msg, ##__VA_ARGS__ )
 #define LOG_ERROR( msg, ... ) sLog.logError( __FILE__, __LINE__, __FUNCTION__, msg, ##__VA_ARGS__ )
 #define LOG_DEBUG( msg, ... ) sLog.logDebug( __FILE__, __LINE__, __FUNCTION__, msg, ##__VA_ARGS__ )
- 
+
+
 #define Log sLog
+
+/*
+class WorldLog : public Singleton<WorldLog>
+{
+	public:
+		WorldLog();
+		~WorldLog();
+
+		void LogPacket(uint32 len, uint16 opcode, const uint8* data, uint8 direction, uint32 accountid = 0);
+		void Enable();
+		void Disable();
+	private:
+		FILE* m_file;
+		//Mutex mutex;
+		bool bEnabled;
+};
+
+#define sWorldLog WorldLog::getSingleton()
+*/

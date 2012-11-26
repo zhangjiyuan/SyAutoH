@@ -62,7 +62,7 @@ namespace BaseRailElement
             pts[3] = pointList[7];
             if (drawMultiFactor != 1)
             {
-                for (int i = 0; i < pts.Length;i++ )
+                for (int i = 0; i < pts.Length; i++)
                 {
                     pts[i].Offset(pts[i].X * drawMultiFactor - pts[i].X, pts[i].Y * drawMultiFactor - pts[i].Y);
                 }
@@ -103,7 +103,7 @@ namespace BaseRailElement
                 pts[0] = pointList[5];
                 pts[2] = pointList[0];
             }
-            pts[1] = pointList[3];           
+            pts[1] = pointList[3];
             pts[3] = pointList[7];
             if (drawMultiFactor != 1)
             {
@@ -176,7 +176,7 @@ namespace BaseRailElement
                 switch (handle)
                 {
                     case 1:
-                        if (Math.Abs(ptsList[0].X - ptsList[1].X) > (1+Math.Abs(dx)))
+                        if (Math.Abs(ptsList[0].X - ptsList[1].X) > (1 + Math.Abs(dx)))
                         {
                             ptsList[0].Offset(dx, 0);
                             if (Math.Abs(ptsList[0].X - ptsList[1].X) > (1 + Math.Abs(dx)))
@@ -203,7 +203,7 @@ namespace BaseRailElement
                                     secPart += dx;
                                 else
                                     secPart -= dx;
-                            }                          
+                            }
                         }
                         break;
                     case 3:
@@ -230,7 +230,7 @@ namespace BaseRailElement
                                 if (ptsList[7].X > ptsList[6].X)
                                     fourPart.Offset(dx, dx);
                                 else
-                                    fourPart.Offset(-dx,-dx);
+                                    fourPart.Offset(-dx, -dx);
                             }
                         }
                         else if (isMirror && Math.Abs(ptsList[7].X - ptsList[6].X) > (1 + Math.Abs(dx)) && (dx * dy) > 0)

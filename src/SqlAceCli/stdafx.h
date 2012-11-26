@@ -40,4 +40,3 @@ using namespace std;
 #include <atldbsch.h>
 
 #include "DBConst.h"
-

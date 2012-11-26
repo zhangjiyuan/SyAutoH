@@ -262,22 +262,30 @@ namespace WinFormElement
             pen.Dispose();
         }
 
-        public void DrawVehicleInfo(Graphics canvas, List<Vehicle> vList)
+        public void DrawVehicleInfo(Graphics canvas, Dictionary<uint, Vehicle> vList)
         {
-            foreach (Vehicle obj in vList)
+            foreach (KeyValuePair<uint, Vehicle> item in vList)
             {
-                obj.VehiclePosCoding = obj.tempTest.offsetOfText;
-                if (obj.VehiclePosCoding != -1)
+                Vehicle oht = item.Value;
+                //obj.VehiclePosCoding = obj.tempTest.offsetOfText;
+                //obj.PosCode += 50;
+
+                if (oht.PosCode > 6100)
+                {
+                    //obj.VehiclePosCoding = 0;
+                }
+
+               // if (obj.VehiclePosCoding != -1)
                 {
                     Pen pen = new Pen(Color.Red, 1);
-                    Point carrierCoor = ComputeCoordinates(railCodingEleList, Convert.ToUInt16(obj.VehiclePosCoding));
-                    obj.ShowInScreen(canvas, carrierCoor);
+                    Point carrierCoor = ComputeCoordinates(railCodingEleList, Convert.ToUInt32(oht.PosCode));
+                    oht.ShowInScreen(canvas, carrierCoor);
                     pen.Dispose();
                 }
             }
         }
 
-        private Point ComputeCoordinates(List<RailEle> tempList, ushort locationValue)
+        private Point ComputeCoordinates(List<RailEle> tempList, uint locationValue)
         {
             Point returnPt = Point.Empty;
             Int32 offsetTemp = 0;
@@ -361,7 +369,7 @@ namespace WinFormElement
             return tempList;
         }
 
-        private Int16 ComputeSegmentNumber(ushort value, List<RailEle> paraList)
+        private Int16 ComputeSegmentNumber(uint value, List<RailEle> paraList)
         {
             Int16 temp = Convert.ToInt16(value);
             Int16 segNum = 0;
@@ -377,7 +385,7 @@ namespace WinFormElement
             return segNum;
         }
 
-        private Int16 ComputeSegmentOffset(ushort value, List<RailEle> tempList, Int16 segNum)
+        private Int16 ComputeSegmentOffset(uint value, List<RailEle> tempList, Int16 segNum)
         {
             Int16 temp = Convert.ToInt16(value);
             for (Int16 i = 0; i < segNum; i++)

@@ -98,9 +98,10 @@ int DBSession::LoginOut(int nSession)
 
 	if (linkSession.MoveFirst() != DB_S_ENDOFROWSET)
 	{
-		linkSession.m_dwSessionIDStatus = DBSTATUS_S_IGNORE;
-		linkSession.m_UserStatus = 2;
-		hr = linkSession.SetData();
+		//linkSession.m_dwSessionIDStatus = DBSTATUS_S_IGNORE;
+		//linkSession.m_UserStatus = 2;
+		//hr = linkSession.SetData();
+		hr = linkSession.Delete();
 		if (!FAILED(hr))
 		{
 			m_pmapRole->erase(nSession);
