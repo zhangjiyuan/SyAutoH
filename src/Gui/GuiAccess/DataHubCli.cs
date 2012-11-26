@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using MCS;
@@ -10,6 +11,7 @@ namespace GuiAccess
     public class DataHubCli : IceNet
     {
         private GuiDataHubPrx remote = null;
+        private int m_nSession = 0;
         private GuiDataUpdaterPrx dataCallback = null;
         private DataHubCallbackI dataHubCB = null;
         private DateTime m_updateTime = DateTime.Now;
@@ -17,6 +19,12 @@ namespace GuiAccess
         {
             get { return m_updateTime; }
         }
+        public int Session
+        {
+            get { return m_nSession; }
+            set { m_nSession = value; }
+        }
+
         public event DataUpdaterHander DataUpdater;
         public DataHubCli()
         {
@@ -73,6 +81,21 @@ namespace GuiAccess
             return nRet;
         }
 
+        public int WriteData(string strCmd, string sVal)
+        {
+            int nRet = -1;
+            try
+            {
+                nRet = remote.WriteData(strCmd, sVal, m_nSession);
+            }
+            catch (System.Exception /*ex*/)
+            {
+
+            }
+
+            return nRet;
+        }
+
         public string ReadData(string strCmd, int nSession)
         {
             string strRet = "";
@@ -110,6 +133,30 @@ namespace GuiAccess
             {
 
             }
+        }
+
+        static public ArrayList ConvertToArrayList(string strVal)
+        {
+            ArrayList list = new ArrayList();
+
+            string strSplit = "<>";
+            char[] spliter = strSplit.ToCharArray();
+            string[] strItem = strVal.Split(spliter);
+            foreach (string strDataGroup in strItem)
+            {
+                if (strDataGroup.Length > 0)
+                {
+                    ArrayList alData = new ArrayList();
+                    string[] strParams = strDataGroup.Split(',');
+                    foreach (string spV in strParams)
+                    {
+                        alData.Add(spV);
+                    }
+                    list.Add(alData);
+                }
+            }
+
+            return list;
         }
     }
 }

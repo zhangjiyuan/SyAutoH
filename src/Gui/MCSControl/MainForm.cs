@@ -55,6 +55,7 @@ namespace MCSControl
             toolStripStatusLabel_User.Text = "Logined User: " + m_strUserName + " ";
             m_dataHub.DataUpdater += new GuiAccess.DataUpdaterHander(GuiDataUpdate);
             m_dataHub.Async_SetCallBack();
+            m_dataHub.Session = m_nSession;
 
             InitMcsControlDictionary();
             this.timer1.Start();
@@ -86,6 +87,7 @@ namespace MCSControl
             if (null != _ctrl)
             {
                 m_ctrlBase = _ctrl as IMcsControlBase;
+                m_ctrlBase.DataHub = m_dataHub;
                 _ctrl.Location = new Point(10, 10);
                 _ctrl.Size = new Size(10, 10);
                 this.splitContainer1.Panel2.Controls.Clear();
