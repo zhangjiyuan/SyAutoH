@@ -7,22 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace RailDraw
 {
-    public partial class WorkRegion : Form
+    public partial class WorkRegion : DockContent
     {
         public bool winShown = false;
 
         public WorkRegion()
         {
             InitializeComponent();
-            InitTabPage();
         }
 
         private void WorkRegion_Load(object sender, EventArgs e)
         {
-            Point sizeTabPage = (Point)this.tabPage1.Size;
+            Point sizeTabPage = (Point)this.panel1.Size;
             this.pictureBox1.Size = (Size)sizeTabPage;
             this.pictureBox1.Location = new Point(0);
         }
@@ -111,12 +111,6 @@ namespace RailDraw
                         break;
                 }
             }
-        }
-
-        private void InitTabPage()
-        {
-            TabPage temp = tabControl1.TabPages[0];
-            temp.Text = "project1";
         }
 
         public void DeleteElement()
