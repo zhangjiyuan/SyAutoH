@@ -136,13 +136,14 @@ namespace RailDraw
                     this.proPage.propertyGrid1.Refresh();
                 }
             }
+            this.workRegion.Activate();
         }
         #endregion
 
         public void ChangePropertyValue()
         {
             objectEvent.ChangePropertyValue();
-            this.workRegion.pictureBox1.Invalidate();
+            this.workRegion.Invalidate();
         }
 
         #region 菜单操作
