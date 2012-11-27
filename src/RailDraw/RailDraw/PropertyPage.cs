@@ -6,10 +6,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace RailDraw
 {
-    public partial class PropertyPage : Form
+    public partial class PropertyPage : DockContent
     {
         public bool winShown = false;
 

@@ -6,10 +6,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace RailDraw
 {
-    public partial class ProgramRegion : Form
+    public partial class ProgramRegion : DockContent
     {
         public List<TreeNode> treeNodeList = new List<TreeNode>();
         public bool winShown = false;
@@ -22,7 +23,7 @@ namespace RailDraw
 
         private void ProgramRegion_Load(object sender, EventArgs e)
         {
-            TreeNode rootNode = new TreeNode(((FatherWindow)this.ParentForm).workRegion.tabPage1.Text);
+            TreeNode rootNode = new TreeNode(((FatherWindow)this.ParentForm).workRegion.Text);
             this.treeView1.Nodes.Add(rootNode);
         }
 
@@ -62,7 +63,7 @@ namespace RailDraw
         {
             TreeView tempTree = sender as TreeView;
             TreeNode node = tempTree.SelectedNode;
-            if (node != null && MouseButtons.Right == e.Button && node.Text != ((FatherWindow)this.ParentForm).workRegion.tabPage1.Text)
+            if (node != null && MouseButtons.Right == e.Button && node.Text != ((FatherWindow)this.ParentForm).workRegion.Text)
             {
                 switch (node.Text)
                 {
@@ -88,7 +89,7 @@ namespace RailDraw
             ((FatherWindow)this.ParentForm).DeleteElement();
         }
 
-        public void AddElementNode(TabPage pTabPage, string str)
+        public void AddElementNode(string fatherRoot, string str)
         {
             TreeNode tempTreeNode;
             tempTreeNode = new TreeNode(str);
@@ -96,7 +97,7 @@ namespace RailDraw
             treeNodeList.Add(tempTreeNode);
             foreach (TreeNode node in treeView1.Nodes)
             {
-                if (node.Text == pTabPage.Text)
+                if (node.Text == fatherRoot)
                 {
                     node.Nodes.Add(tempTreeNode);
                     tempTreeNode.Parent.ExpandAll();
@@ -105,14 +106,14 @@ namespace RailDraw
             this.treeView1.SelectedNode = tempTreeNode;
         }
 
-        public void DeleteElementNode(TabPage pTabPage, Int16 index)
+        public void DeleteElementNode(string fatherRoot, Int16 index)
         {
             TreeNode tempTreeNode;
             tempTreeNode = treeNodeList[index];
             treeNodeList.RemoveAt(index);
             foreach (TreeNode node in treeView1.Nodes)
             {
-                if (node.Text == pTabPage.Text)
+                if (node.Text == fatherRoot)
                 {
                     node.Nodes.Remove(tempTreeNode);
                 }

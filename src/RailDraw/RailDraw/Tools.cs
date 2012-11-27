@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace RailDraw
 {
-    public partial class Tools : Form
+    public partial class Tools : DockContent
     {
         public bool picLine = false;
         public ListViewItem itemSelected = null;
