@@ -66,6 +66,18 @@ namespace GuiAccess
             }
         }
 
+        public void Async_WriteData(string strCmd, string sVal)
+        {
+            try
+            {
+                remote.begin_WriteData(strCmd, sVal, m_nSession);
+            }
+            catch (System.Exception /*ex*/)
+            {
+
+            }
+        }
+
         public int WriteData(string strCmd, string sVal, int nSession)
         {
             int nRet = -1;

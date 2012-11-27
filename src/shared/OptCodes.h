@@ -8,7 +8,7 @@ enum Optcodes
 	OHT_MCS_POSITION_BACK_TIME			= 0x0802,	// MCS设置 OHT 位置反馈周期
 	OHT_MCS_PATH											= 0x0803,	// MCS设置 OHT 的路径指令
 	OHT_MCS_MOVE											= 0x0804,
-	OHT_MCS_FOUP											= 0x0805,
+	OHT_MCS_FOUPHANDING											= 0x0805,
 	OHT_MCS_ACK_AUTH								= 0x0806,
 	OHT_ACK_STATUS_BACK_TIME				= 0x0811,
 	OHT_ACK_POSITION_BACK_TIME				= 0x0812,	
