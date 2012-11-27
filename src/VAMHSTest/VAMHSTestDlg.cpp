@@ -8,7 +8,9 @@
 #include "VAMHSTestDlg.h"
 #include "afxdialogex.h"
 #include "../VirtualAMHS/VirtualAMHS.h"
-
+#include "CMarkup.h"
+#include <iostream>
+using namespace std;
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -93,6 +95,7 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_BN_STK_HISTORY, &CVAMHSTestDlg::OnBnClickedBnStkHistory)
 	ON_BN_CLICKED(IDC_BN_OHT_OFF, &CVAMHSTestDlg::OnBnClickedBnOhtOff)
+	ON_BN_CLICKED(IDC_DEL_OHT, &CVAMHSTestDlg::OnBnClickedDelOht)
 END_MESSAGE_MAP()
 
 
@@ -212,6 +215,7 @@ void CVAMHSTestDlg::OnDestroy()
 	CDialogEx::OnDestroy();
 
 	// TODO: 在此处添加消息处理程序代码
+	SaveXML();
 	if (g_pVDev != NULL)
 	{
 		delete g_pVDev;
@@ -242,7 +246,120 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 	g_pVDev->Stocker_ManualOutputFoup(STOCKER_ID, strFoup);
 
 }
+void CVAMHSTestDlg::SaveXML()
+{
+	CStringW filePath = GetPath();
+	filePath += "../Config/OHT.xml";
+	CMarkup XML;
+	XML.Load(filePath);
+	XML.ResetMainPos();
+	while(XML.FindChildElem(_T("OHT")))
+	{
+		XML.RemoveChildElem();
+	}
+	int ncount = m_listCtrlOHT.GetItemCount();
+	for(int i = 0;i < ncount;i++)
+	{
+		XML.AddChildElem(_T("OHT"));
+		XML.IntoElem();
+		for(int j = 0;j < 5;j++)
+		{
+			CString value = m_listCtrlOHT.GetItemText(i,j);
+			if(j == 0)
+			{
+				XML.AddChildElem(_T("ID"),value);
+			}
+			if(j == 1)
+			{
+				XML.AddChildElem(_T("POS"),value);
+			}
+			if(j == 2)
+			{
+				XML.AddChildElem(_T("HAND"),value);
+			}
+			if(j == 3)
+			{
+				XML.AddChildElem(_T("Status"),value);
+			}
+			if(j == 4)
+			{
+				CString online;
+				if(value == "on")
+				{
+					online.Format(_T("%d"),1); 
+				}
+				else
+				{
+					online.Format(_T("%d"),0);
+				}
+				XML.AddChildElem(_T("Online"),online);
+			}
+		}
+		XML.OutOfElem();
+	}
+	XML.Save(filePath);
+}
+void CVAMHSTestDlg::ReadXML()
+{
+	CStringW filePath = GetPath();
+	filePath += "../Config/OHT.xml";
+	CMarkup XML;
+	if(!XML.Load(filePath))
+	{
+		MessageBox(_T("加载文件失败"));
+		XML.AddElem(_T("OHT"));
+		XML.OutOfElem();
+		XML.Save(filePath);
+		return ;
+	}
+	int item = 0;
+	XML.ResetMainPos();
+	while(XML.FindChildElem(_T("OHT")))
+	{
+		XML.IntoElem();  //into OHT
+		XML.FindChildElem(_T("ID"));
+		XML.IntoElem();
+		CString CID = XML.GetData();
+		int ID = _ttoi(CID);
+		ItemOHT* pOht = new ItemOHT;
+		XML.OutOfElem();
+		XML.FindChildElem(_T("POS"));
+		XML.IntoElem();
+		CString CPOS = XML.GetData();
+		XML.OutOfElem();
+		XML.FindChildElem(_T("HAND"));
+		XML.IntoElem();
+		CString CHAND = XML.GetData();
+		XML.OutOfElem();
+		XML.FindChildElem(_T("Online"));
+		XML.IntoElem();
+		CString COnline = XML.GetData();
+		XML.OutOfElem();
+		int POS = _ttoi(CPOS);
+		int HAND = _ttoi(CHAND);
+		int Online = _ttoi(COnline);
+		pOht->nHandStatus = HAND;
+		pOht->nID = ID;
+		pOht->nOnline = Online;
+		pOht->nPosition = POS;
+		g_mapOHTs.insert(std::make_pair(ID, pOht));
+		CString str;
+		m_listCtrlOHT.InsertItem(0, str);
+		SetOHTListItemData(pOht, 0);
+		XML.OutOfElem();
 
+	}
+}
+CStringW CVAMHSTestDlg::GetPath()
+{
+	TCHAR path[200];
+	GetModuleFileName(NULL,path,200);
+	wstring ws = path;
+	size_t nBar = ws.find_last_of('\\') + 1;
+	ws = ws.substr(0, nBar);
+	CStringW csw = ws.c_str();
+	return csw;
+}
 
 void CVAMHSTestDlg::OnBnClickedBnOhtAdd()
 {
@@ -335,20 +452,23 @@ void CVAMHSTestDlg::InitListCtrlOHT(void)
 	m_listCtrlOHT.InsertColumn(2, _T("HAND"), LVCFMT_CENTER, 50);
 	m_listCtrlOHT.InsertColumn(3, _T("Status"), LVCFMT_CENTER, 50);
 	m_listCtrlOHT.InsertColumn(4, _T("Online"), LVCFMT_CENTER, 50);
+	ReadXML();
+	
 }
 
 
 void CVAMHSTestDlg::InitListCtrlFOUP(void)
 {
+	
 	DWORD dwStyle;
 	dwStyle = m_listCtrlFOUP.GetStyle();  //取得样式
-	dwStyle =    LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT ;   //添加样式
+	dwStyle = LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT ;   //添加样式
 	m_listCtrlFOUP.SetExtendedStyle(dwStyle);     //重新设置
 
 	m_listCtrlFOUP.InsertColumn(0, _T("ID"), LVCFMT_CENTER, 100);
 	m_listCtrlFOUP.InsertColumn(1, _T("Location"), LVCFMT_CENTER, 80);
 	m_listCtrlFOUP.InsertColumn(2, _T("Status"), LVCFMT_CENTER, 50);
-
+	
 }
 
 
@@ -381,9 +501,6 @@ void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 			SetOHTListItemData(pOht, i);
 		}
 	}
-
-
-
 	CDialogEx::OnTimer(nIDEvent);
 }
 
@@ -440,4 +557,22 @@ void CVAMHSTestDlg::OnBnClickedBnOhtOff()
 	{
 		int nAdd = g_pVDev->OHT_Offline(nOHT_ID);
 	}
+}
+
+void CVAMHSTestDlg::OnBnClickedDelOht()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	int OHT_ID = GetSelectOhtID();
+	CString str;
+    int nId;
+    POSITION pos = m_listCtrlOHT.GetFirstSelectedItemPosition();
+    if(pos==NULL)
+    {
+		MessageBox(_T("请至少选择一项"));
+		return;
+	}
+	nId=(int)m_listCtrlOHT.GetNextSelectedItem(pos);
+	m_listCtrlOHT.DeleteItem(nId);
+	MAP_ItemOHT::iterator it = g_mapOHTs.find(OHT_ID);
+	g_mapOHTs.erase(it);
 }
