@@ -230,6 +230,7 @@ namespace MCSControlLib
                 m_uIdSelected = TryConver.ToByte(row.Cells[0].Value.ToString());
             }
             tBOHTID.Text = m_uIdSelected.ToString();
+            checkBox1.Checked = false;
         }
 
         private void GetOHTIDbyTextBox()
@@ -293,6 +294,14 @@ namespace MCSControlLib
         private void linkLabelRefresh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             m_dataHub.Async_WriteData("OHT.GetPosTable", "");
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (true == checkBox1.Checked)
+            {
+                tBOHTID.Text = "254";
+            }
         }
     }
 }

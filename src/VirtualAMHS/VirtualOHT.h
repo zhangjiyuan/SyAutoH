@@ -31,7 +31,7 @@ public:
 	int m_nPosUpdateTimeSet;
 	int m_nStatusUpdateTimeSet;
 	int m_nTimerID;
-	__int64 m_n64TimeCounter;
+	int m_nTimeCounter;
 	void CreateTimer(void);
 	void DestoryTimer(void);
 	static void CALLBACK TimerHandler(UINT id, UINT msg, DWORD dwUser, DWORD dw1, DWORD dw2);

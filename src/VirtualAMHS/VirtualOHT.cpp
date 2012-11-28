@@ -10,7 +10,7 @@ VirtualOHT::VirtualOHT(void)
 	m_nPosUpdateTimeSet(0),
 	m_nStatusUpdateTimeSet(0),
 	m_nTimerID(0),
-	m_n64TimeCounter(0)
+	m_nTimeCounter(0)
 {
 	m_optHanders.insert(std::make_pair(OHT_MCS_ACK_AUTH, 
 		&VirtualOHT::Handle_Auth));
@@ -188,14 +188,14 @@ void VirtualOHT::OnTimer(void)
 	}
 	
 	// 
-	m_n64TimeCounter++;
+	m_nTimeCounter++;
 	if ((m_nPosUpdateTimeSet > 0) 
-		&& (m_n64TimeCounter % m_nPosUpdateTimeSet == 0))
+		&& (m_nTimeCounter % m_nPosUpdateTimeSet == 0))
 	{
 		UpdatePos();
 	}
 	if ((m_nStatusUpdateTimeSet > 0 )
-		&& (m_n64TimeCounter % m_nStatusUpdateTimeSet == 0))
+		&& (m_nTimeCounter % m_nStatusUpdateTimeSet == 0))
 	{
 		UpdateStatus();
 	}

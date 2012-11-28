@@ -71,6 +71,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOHTInfo)).BeginInit();
             this.groupBox8.SuspendLayout();
             this.groupBox10.SuspendLayout();
@@ -237,7 +238,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(353, 15);
+            this.label30.Location = new System.Drawing.Point(359, 35);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(47, 12);
             this.label30.TabIndex = 14;
@@ -245,7 +246,7 @@
             // 
             // tBOHTID
             // 
-            this.tBOHTID.Location = new System.Drawing.Point(412, 12);
+            this.tBOHTID.Location = new System.Drawing.Point(412, 32);
             this.tBOHTID.Name = "tBOHTID";
             this.tBOHTID.Size = new System.Drawing.Size(58, 21);
             this.tBOHTID.TabIndex = 13;
@@ -361,7 +362,7 @@
             // 
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Location = new System.Drawing.Point(347, 39);
+            this.groupBox1.Location = new System.Drawing.Point(347, 62);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(131, 51);
             this.groupBox1.TabIndex = 26;
@@ -388,7 +389,7 @@
             // 
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Location = new System.Drawing.Point(347, 96);
+            this.groupBox2.Location = new System.Drawing.Point(347, 119);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(131, 50);
             this.groupBox2.TabIndex = 27;
@@ -414,7 +415,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(28, 289);
+            this.button1.Location = new System.Drawing.Point(28, 266);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 28;
@@ -454,9 +455,9 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox3.Controls.Add(this.dataGridViewPath);
             this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Location = new System.Drawing.Point(347, 152);
+            this.groupBox3.Location = new System.Drawing.Point(347, 175);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(131, 318);
+            this.groupBox3.Size = new System.Drawing.Size(131, 295);
             this.groupBox3.TabIndex = 32;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Path";
@@ -486,7 +487,7 @@
             this.dataGridViewPath.RowHeadersVisible = false;
             this.dataGridViewPath.RowTemplate.Height = 23;
             this.dataGridViewPath.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewPath.Size = new System.Drawing.Size(115, 265);
+            this.dataGridViewPath.Size = new System.Drawing.Size(115, 242);
             this.dataGridViewPath.TabIndex = 33;
             // 
             // groupBox4
@@ -522,10 +523,22 @@
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "Set To";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(347, 10);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(66, 16);
+            this.checkBox1.TabIndex = 36;
+            this.checkBox1.Text = "All OHT";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // OHTInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.groupBox4);
@@ -604,5 +617,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
