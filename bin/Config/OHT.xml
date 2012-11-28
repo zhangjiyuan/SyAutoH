@@ -1,4 +1,5 @@
-<OHTList>
+<?xml version="1.0" encoding="UTF-8"?>
+<OHTLIST>
 <OHT>
 <ID>56</ID>
 <POS>0</POS>
@@ -7,17 +8,17 @@
 <Online>0</Online>
 </OHT>
 <OHT>
-<ID>253</ID>
-<POS>300</POS>
-<HAND>0</HAND>
-<Status>Idle</Status>
-<Online>0</Online>
-</OHT>
-<OHT>
-<ID>36</ID>
+<ID>6</ID>
 <POS>0</POS>
 <HAND>0</HAND>
 <Status>Idle</Status>
 <Online>0</Online>
 </OHT>
-</OHTList>
+<OHT>
+<ID>45</ID>
+<POS>1000</POS>
+<HAND>0</HAND>
+<Status>Idle</Status>
+<Online>0</Online>
+</OHT>
+</OHTLIST>
