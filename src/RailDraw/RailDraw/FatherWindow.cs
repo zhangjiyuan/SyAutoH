@@ -53,27 +53,21 @@ namespace RailDraw
             workSize = new Point(size.X - 4, size.Y - menuHeight - toolHeight - statusHeight - 4);
             Debug.WriteLine(string.Format("size {0} menuH {1} toolH {2} statusH {3}", size, menuHeight, toolHeight, statusHeight));
 
-            proRegion.MdiParent = this;
-            proRegion.Location = new Point(0, 0);
-            proRegion.Size = (Size)new Point(workSize.X / 6, workSize.Y / 2);
-            proRegion.Show();
+            proRegion.Show(this.dockPanel1);
+            proRegion.DockTo(this.dockPanel1, DockStyle.Left);
             Debug.WriteLine(string.Format("programRegion location {0} size {1}", proRegion.Location, proRegion.Size));
 
-            proPage.MdiParent = this;
-            proPage.Location = new Point(0, workSize.Y / 2);
-            proPage.Size = (Size)new Point(workSize.X / 6, workSize.Y / 2);
-            proPage.Show();
+            proPage.Show(this.dockPanel1);
+            proPage.DockTo(this.dockPanel1, DockStyle.Left);
             Debug.WriteLine(string.Format("proPage location {0} size {1}", proPage.Location, proPage.Size));
-            workRegion.MdiParent = this;
-            workRegion.Location = new Point(proRegion.Size.Width, 0);
+
             workRegion.Size = (Size)new Point(workSize.X / 6 * 4, workSize.Y);
-            workRegion.Show();
+            workRegion.Show(this.dockPanel1);
+            workRegion.DockTo(this.dockPanel1, DockStyle.Fill);
             Debug.WriteLine(string.Format("workRegion location {0} size {1}", workRegion.Location, workRegion.Size));
 
-            tools.MdiParent = this;
-            tools.Location = new Point(proRegion.Size.Width + workRegion.Size.Width, 0);
-            tools.Size = (Size)new Point(workSize.X / 6, workSize.Y);
-            tools.Show();
+            tools.Show(this.dockPanel1);
+            tools.DockTo(this.dockPanel1, DockStyle.Right);
             Debug.WriteLine(string.Format("tools location {0} size {1}", tools.Location, tools.Size));
 
             drawregOrigSize.Width = this.workRegion.pictureBox1.Width;
@@ -142,13 +136,14 @@ namespace RailDraw
                     this.proPage.propertyGrid1.Refresh();
                 }
             }
+            this.workRegion.Activate();
         }
         #endregion
 
         public void ChangePropertyValue()
         {
             objectEvent.ChangePropertyValue();
-            this.workRegion.pictureBox1.Invalidate();
+            this.workRegion.Invalidate();
         }
 
         #region 菜单操作
@@ -425,7 +420,7 @@ namespace RailDraw
             BaseRailElement.RailLabal railLalal = new BaseRailElement.RailLabal();
             this.drawDoc.DrawObjectList.Add(railLalal.CreatEle(multiFactor, this.tools.itemSelected.Text));
             drawDoc.SelectOne(railLalal);
-            proRegion.AddElementNode(this.workRegion.tabPage1, railLalal.railText);
+            proRegion.AddElementNode(this.workRegion.Text, railLalal.railText);
             this.workRegion.pictureBox1.Invalidate();
             proPage.propertyGrid1.SelectedObject = railLalal;
             proPage.propertyGrid1.Refresh();
@@ -465,7 +460,7 @@ namespace RailDraw
         {
             Point drawRegionLoc = Point.Empty;
             Point drawRegionSize = (Point)this.workRegion.pictureBox1.Size;
-            Point workRegSize = (Point)this.workRegion.tabPage1.Size;
+            Point workRegSize = (Point)this.workRegion.panel1.Size;
             Point centerDrawRegion = new Point(drawRegionSize.X / 2, drawRegionSize.Y / 2);
             Point centerWorkRegSize = new Point(workRegSize.X / 2, workRegSize.Y / 2);
             int dx = centerWorkRegSize.X - centerDrawRegion.X;
@@ -482,7 +477,7 @@ namespace RailDraw
                     BaseRailElement.StraightRailEle strRailEle = new BaseRailElement.StraightRailEle();
                     drawDoc.DrawObjectList.Add(strRailEle.CreatEle(mousePt, workRegionSize, multiFactor, this.tools.itemSelected.Text));
                     drawDoc.SelectOne(strRailEle);
-                    proRegion.AddElementNode(this.workRegion.tabPage1, strRailEle.railText);
+                    proRegion.AddElementNode(this.workRegion.Text, strRailEle.railText);
                     workRegion.pictureBox1.Invalidate();
                     proPage.propertyGrid1.SelectedObject = strRailEle;
                     proPage.propertyGrid1.Refresh();
@@ -491,7 +486,7 @@ namespace RailDraw
                     BaseRailElement.CurvedRailEle curRailEle = new BaseRailElement.CurvedRailEle();
                     drawDoc.DrawObjectList.Add(curRailEle.CreatEle(mousePt, workRegionSize, multiFactor, this.tools.itemSelected.Text));
                     drawDoc.SelectOne(curRailEle);
-                    proRegion.AddElementNode(this.workRegion.tabPage1, curRailEle.railText);
+                    proRegion.AddElementNode(this.workRegion.Text, curRailEle.railText);
                     workRegion.pictureBox1.Invalidate();
                     proPage.propertyGrid1.SelectedObject = curRailEle;
                     proPage.propertyGrid1.Refresh();
@@ -500,7 +495,7 @@ namespace RailDraw
                     BaseRailElement.CrossEle croRailEle = new BaseRailElement.CrossEle();
                     drawDoc.DrawObjectList.Add(croRailEle.CreatEle(mousePt, workRegionSize, multiFactor, this.tools.itemSelected.Text));
                     drawDoc.SelectOne(croRailEle);
-                    proRegion.AddElementNode(this.workRegion.tabPage1, croRailEle.railText);
+                    proRegion.AddElementNode(this.workRegion.Text, croRailEle.railText);
                     workRegion.pictureBox1.Invalidate();
                     proPage.propertyGrid1.SelectedObject = croRailEle;
                     proPage.propertyGrid1.Refresh();
@@ -547,7 +542,7 @@ namespace RailDraw
         {
             for (Int16 i = 0; i < drawDoc.CutAndCopyObjectList.Count; )
             {
-                this.proRegion.AddElementNode(this.workRegion.tabPage1, drawDoc.CutAndCopyObjectList[0].railText);
+                this.proRegion.AddElementNode(this.workRegion.Text, drawDoc.CutAndCopyObjectList[0].railText);
                 this.drawDoc.Paste();
                 this.workRegion.pictureBox1.Invalidate();
             }
@@ -558,7 +553,7 @@ namespace RailDraw
             for (Int16 i = 0; i < drawDoc.SelectedDrawObjectList.Count; )
             {
                 Int16 num = Convert.ToInt16(drawDoc.DrawObjectList.IndexOf(drawDoc.SelectedDrawObjectList[0]));
-                this.proRegion.DeleteElementNode(this.workRegion.tabPage1, num);
+                this.proRegion.DeleteElementNode(this.workRegion.Text, num);
                 this.drawDoc.Delete(num);
                 this.workRegion.pictureBox1.Invalidate();
             }

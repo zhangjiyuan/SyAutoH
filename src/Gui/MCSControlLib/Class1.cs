@@ -45,8 +45,21 @@ namespace MCSControlLib
         }
     }
 
-    public class OhtInfoServer
+    public partial class TryConver
     {
-
+        static public byte ToByte(string value)
+        {
+            byte byteValue = 0;
+            try
+            {
+                byteValue = System.Convert.ToByte(value);
+            }
+            catch (System.Exception /*ex*/)
+            {
+                //System.Windows.Forms.MessageBox.Show(ex.Message);
+                byteValue = 0;
+            }
+            return byteValue;
+        }
     }
 }

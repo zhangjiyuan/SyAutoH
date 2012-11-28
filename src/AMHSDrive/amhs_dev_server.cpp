@@ -94,7 +94,7 @@ void amhs_dev_server::OHT_SetPath(int nID, int nType, int nStart, int nTarget, a
 
 void amhs_dev_server::OHT_Foup(int nID, int nDevBuf, int nOperation)
 {
-	AMHSPacket packet(OHT_MCS_FOUP, 3);
+	AMHSPacket packet(OHT_MCS_FOUPHANDING, 3);
 	packet << uint8(nID);
 	packet << uint8(nDevBuf);
 	packet << uint8(nOperation);
