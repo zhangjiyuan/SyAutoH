@@ -215,7 +215,7 @@ void CVAMHSTestDlg::OnDestroy()
 	CDialogEx::OnDestroy();
 
 	// TODO: 在此处添加消息处理程序代码
-	SaveXML();
+	//SaveXML();
 	if (g_pVDev != NULL)
 	{
 		delete g_pVDev;
@@ -306,8 +306,8 @@ void CVAMHSTestDlg::ReadXML()
 	CMarkup XML;
 	if(!XML.Load(filePath))
 	{
-		MessageBox(_T("加载文件失败"));
-		XML.AddElem(_T("OHT"));
+		XML.SetDoc(_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")); 
+		XML.AddElem(_T("OHTLIST"));
 		XML.OutOfElem();
 		XML.Save(filePath);
 		return ;
@@ -501,6 +501,7 @@ void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 			SetOHTListItemData(pOht, i);
 		}
 	}
+	SaveXML();
 	CDialogEx::OnTimer(nIDEvent);
 }
 
