@@ -433,6 +433,23 @@ void CVAMHSTestDlg::OnBnClickedBnTeachPos()
 
 	int nOhtID = 0;
 	nOhtID = GetSelectOhtID();
+	CStringW filePath = GetPath();
+	filePath += "../Config/TeachPOS.xml";
+	CMarkup xml;
+	if(!xml.Load(filePath))
+	{
+		xml.SetDoc(_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"));
+		xml.AddElem(_T("TeachPOSList"));
+	}
+	xml.FindElem();
+	xml.AddChildElem(_T("TeachPOS"));
+	xml.IntoElem();
+	xml.AddChildElem(_T("DeviceID"),nOhtID);
+	xml.AddChildElem(_T("POS"),nPos);
+	xml.AddChildElem(_T("Type"),nType);
+	xml.AddChildElem(_T("Speed"),nSpeed);
+	xml.OutOfElem();
+	xml.Save(filePath);
 	g_pVDev->SetTeachPosition(nOhtID, nPos, nType, nSpeed);
 }
 
