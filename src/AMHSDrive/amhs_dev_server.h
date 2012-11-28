@@ -67,6 +67,7 @@ typedef struct sPath_KeyPoint
 	uint32 nPos;
 	uint8 nType;
 	uint8 nSpeedRate;
+
 } amhs_keyPoint;
 typedef std::vector<amhs_keyPoint> amhs_keypoint_vec;
 

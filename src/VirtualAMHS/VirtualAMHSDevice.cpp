@@ -46,7 +46,6 @@ int VirtualAMHSDevice::Connect(string strIP, int nPort)
 	return 0;
 }
 
-
 int VirtualAMHSDevice::Close(void)
 {
 	if (NULL != m_pClient)

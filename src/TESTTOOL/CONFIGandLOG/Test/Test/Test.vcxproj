@@ -39,8 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\学习\杂乱实验\logconfig\logconfig;F:\工作\logconfig\logconfig;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\学习\杂乱实验\logconfig\Debug;F:\工作\logconfig\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>\SyAutoH\src\TESTTOOL\CONFIGandLOG\logconfig\logconfig;$(IncludePath)</IncludePath>
+    <LibraryPath>\SyAutoH\src\TESTTOOL\CONFIGandLOG\logconfig\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

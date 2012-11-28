@@ -95,7 +95,7 @@ void LogTest()
 	string filename ;
 	filename = "testlog";
 	cout<<endl;
-	Log.Init(0,LOGON_LOG);
+	Log.Init(0);
 	cout<<endl;
 	//log level 0
 	Log.outString("(test logString)Start the debug:");

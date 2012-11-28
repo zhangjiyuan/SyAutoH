@@ -1,5 +1,4 @@
-#if !defined (CONFIG_H)
-#define CONFIG_H
+#pragma once
 #include "Common.h"
 
 #ifndef EOL
@@ -19,7 +18,7 @@
 #endif
 
 using namespace std;
-struct SERVER_DECL ConfigSetting
+struct ConfigSetting
 {
 	string AsString;
 	bool AsBool;
@@ -29,7 +28,7 @@ struct SERVER_DECL ConfigSetting
 
 typedef map<uint32, ConfigSetting> ConfigBlock;
 
-class SERVER_DECL ConfigFile
+class ConfigFile
 {
 	public:
 		ConfigFile();
@@ -59,7 +58,7 @@ class SERVER_DECL ConfigFile
 };
 
 
-class SERVER_DECL ConfigMgr
+class ConfigMgr
 {
 		// Mainly used for WS, others will probably only have one.
 	public:
@@ -69,6 +68,4 @@ class SERVER_DECL ConfigMgr
 		ConfigFile OptionalConfig;   //can selected
 };
 
-extern SERVER_DECL ConfigMgr Config;
-
-#endif
+extern ConfigMgr Config;

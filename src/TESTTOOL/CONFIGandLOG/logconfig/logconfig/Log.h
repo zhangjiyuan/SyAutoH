@@ -1,6 +1,4 @@
-#ifndef WOWSERVER_LOG_H
-#define WOWSERVER_LOG_H
-
+#pragma once
 #include "Common.h"
 #include "Singleton.h"
 //#include "Mutex.h"
@@ -8,23 +6,21 @@
 class WorldPacket;
 class WorldSession;
 
-#define SZLTR "\xe5\xcf\xfe\xed\xf3\xfb\x03\xeb"
-#define SZLTR_LENGTH 9
 #define TIME_FORMAT "[%m-%d-%Y][%H:%M]"
 #define TIME_FORMAT_LENGTH 100
-
+/*
 enum LogType
 {
     WORLD_LOG,
     LOGON_LOG
 };
-
-extern SERVER_DECL time_t UNIXTIME;		/* update this every loop to avoid the time() syscall! */
-extern SERVER_DECL tm g_localTime;
+*/
+extern  time_t UNIXTIME;		/* update this every loop to avoid the time() syscall! */
+extern  tm g_localTime;
 
 std::string FormatOutputString(const char* Prefix, const char* Description, bool useTimeStamp);
-
-class SERVER_DECL oLog : public Singleton< oLog >
+string SetNewName(const char* Description, bool useTimeStamp);
+class oLog : public Singleton< oLog >
 {
 	public:
 		//log level 0
@@ -55,11 +51,11 @@ class SERVER_DECL oLog : public Singleton< oLog >
 
 		void SetLogging(bool enabled);
 
-		void Init(int32 fileLogLevel, LogType logType);
+		void Init(int32 fileLogLevel);
 		void SetFileLoggingLevel(int32 level);
 
 		void Close();
-
+		int32 out_colour;
 		int32 m_fileLogLevel;
 
 	private:
@@ -67,31 +63,9 @@ class SERVER_DECL oLog : public Singleton< oLog >
 		void outFile(FILE* file, char* msg, const char* source = NULL);
 		void outFileSilent(FILE* file, char* msg, const char* source = NULL); // Prints text to file without showing it to the user. Used for the startup banner.
 		void Time(char* buffer);
-		ARCEMU_INLINE char dcd(char in)
-		{
-			char out = in;
-			out -= 13;
-			out ^= 131;
-			return out;
-		}
-
-		void dcds(char* str)
-		{
-			unsigned long i = 0;
-			size_t len = strlen(str);
-
-			for(i = 0; i < len; ++i)
-				str[i] = dcd(str[i]);
-		}
-
-		void pdcds(const char* str, char* buf)
-		{
-			strcpy(buf, str);
-			dcds(buf);
-		}
 };
 
-class SERVER_DECL SessionLogWriter
+class SessionLogWriter
 {
 		FILE* m_file;
 		char* m_filename;
@@ -101,12 +75,10 @@ class SERVER_DECL SessionLogWriter
 
 		void write(const char* format, ...);
 		void writefromsession(WorldSession* session, const char* format, ...);
-		ARCEMU_INLINE bool IsOpen() { return (m_file != NULL); }
+		inline bool IsOpen() { return (m_file != NULL); }
 		void Open();
 		void Close();
 };
-
-
 
 #define sLog oLog::getSingleton()
 
@@ -115,24 +87,4 @@ class SERVER_DECL SessionLogWriter
 #define LOG_ERROR( msg, ... ) sLog.logError( __FILE__, __LINE__, __FUNCTION__, msg, ##__VA_ARGS__ )
 #define LOG_DEBUG( msg, ... ) sLog.logDebug( __FILE__, __LINE__, __FUNCTION__, msg, ##__VA_ARGS__ )
 
-
 #define Log sLog
-
-class WorldLog : public Singleton<WorldLog>
-{
-	public:
-		WorldLog();
-		~WorldLog();
-
-		void LogPacket(uint32 len, uint16 opcode, const uint8* data, uint8 direction, uint32 accountid = 0);
-		void Enable();
-		void Disable();
-	private:
-		FILE* m_file;
-		//Mutex mutex;
-		bool bEnabled;
-};
-
-#define sWorldLog WorldLog::getSingleton()
-
-#endif

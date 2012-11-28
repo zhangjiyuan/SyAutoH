@@ -152,6 +152,7 @@ int CVirtualAMHS::Stocker_Offline(int nIndex)
 LIST_FOUP CVirtualAMHS::Stocker_GetFoupsStatus(int nStocker)
 {
 	LIST_FOUP list;
+
 	return list;
 }
 

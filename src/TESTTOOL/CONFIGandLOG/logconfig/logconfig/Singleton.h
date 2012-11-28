@@ -1,5 +1,4 @@
-#ifndef SERVER_SINGLETON_H
-#define SERVER_SINGLETON_H
+#pragma once
 
 #include "Errors.h"
 
@@ -16,7 +15,7 @@
   initialiseSingleton( type ); \
   type the##type
 
-template < class type > class SERVER_DECL Singleton
+template < class type > class  Singleton
 {
 	public:
 		/// Constructor
@@ -31,11 +30,10 @@ template < class type > class SERVER_DECL Singleton
 		{
 			this->mSingleton = 0;
 		}
-		ARCEMU_INLINE static type& getSingleton() { ASSERT(mSingleton); return *mSingleton; }
-		ARCEMU_INLINE static type* getSingletonPtr() { return mSingleton; }                             //返回指针
+		inline static type& getSingleton() { ASSERT(mSingleton); return *mSingleton; }
+		inline static type* getSingletonPtr() { return mSingleton; }                             //返回指针
 	protected:
 		/// Singleton pointer, must be set to 0 prior to creating the object
 		static type* mSingleton ;    //LOG类指针
 		
 };
-#endif

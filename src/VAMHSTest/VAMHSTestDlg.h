@@ -5,6 +5,7 @@
 #pragma once
 #include "afxcmn.h"
 #include "../VirtualAMHS/VirtualAMHS.h"
+#include "../shared/Log.h"
 #include "afxwin.h"
 
 // CVAMHSTestDlg ¶Ô»°¿ò
@@ -50,5 +51,9 @@ public:
 	afx_msg void OnBnClickedBnStkHistory();
 	CComboBox m_cbOhtTeachType;
 	int GetSelectOhtID(void);
+	void SaveXML();
+	void ReadXML();
+	CStringW GetPath();
 	afx_msg void OnBnClickedBnOhtOff();
+	afx_msg void OnBnClickedDelOht();
 };
