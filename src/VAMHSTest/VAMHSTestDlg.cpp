@@ -244,7 +244,6 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
 	g_pVDev->Stocker_ManualOutputFoup(STOCKER_ID, strFoup);
-
 }
 void CVAMHSTestDlg::SaveXML()
 {
@@ -347,7 +346,6 @@ void CVAMHSTestDlg::ReadXML()
 		m_listCtrlOHT.InsertItem(0, str);
 		SetOHTListItemData(pOht, 0);
 		XML.OutOfElem();
-
 	}
 }
 CStringW CVAMHSTestDlg::GetPath()
