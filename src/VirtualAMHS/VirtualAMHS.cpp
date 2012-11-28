@@ -116,7 +116,7 @@ int CVirtualAMHS::OHT_Offline(int nIndex)
 		VirtualOHT* oht = it->second;
 		if (oht->Online() == true)
 		{
-			oht->DestoryPosTimer();
+			oht->DestoryTimer();
 			oht->Close();
 		}
 		else

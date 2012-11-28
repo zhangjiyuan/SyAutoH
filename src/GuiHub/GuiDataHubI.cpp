@@ -8,12 +8,15 @@
 
 GuiDataHubI::GuiDataHubI(void)
 {
-	m_optHanders.insert(std::make_pair("OHT.POSTIME", 
+	m_optHanders.insert(std::make_pair("OHT.PosTime", 
 		&GuiDataHubI::OHT_SetPositionBackTime));
-	m_optHanders.insert(std::make_pair("OHT.STATUSTIME", 
+	m_optHanders.insert(std::make_pair("OHT.StatusTime", 
 		&GuiDataHubI::OHT_SetStatusBackTime));
 	m_optHanders.insert(std::make_pair("OHT.GetPosTable", 
 		&GuiDataHubI::OHT_GetPositionTable));
+	m_optHanders.insert(std::make_pair("OHT.FoupHanding", 
+		&GuiDataHubI::OHT_FoupHanding));
+
 	m_optHanders.insert(std::make_pair("OHT.PATHTEST", 
 		&GuiDataHubI::OHT_PathTest));
 	m_optHanders.insert(std::make_pair("OHT.MOVETEST", 
@@ -157,6 +160,24 @@ void GuiDataHubI::OHT_SetStatusBackTime(const std::string& strVal)
 			int nID = atoi(Params[0].c_str());
 			int nTime = atoi(Params[1].c_str());
 			m_pAMHSDrive->OHTStatusBackTime(nID, nTime);
+		}
+	}
+}
+
+void GuiDataHubI::OHT_FoupHanding(const std::string& strVal)
+{
+	STR_VEC vecStr = GetVecStrings(strVal);
+	for(STR_VEC::iterator it = vecStr.begin();
+		it != vecStr.end(); ++it)
+	{
+		string strE = *it;
+		STR_VEC Params = SplitString(*it, ",");
+		if (Params.size() == 3)
+		{
+			int nID = atoi(Params[0].c_str());
+			int nBuffID = atoi(Params[1].c_str());
+			int nHanding = atoi(Params[2].c_str());
+			m_pAMHSDrive->OHTFoup(nID, nBuffID, nHanding);
 		}
 	}
 }
