@@ -14,12 +14,26 @@ namespace MCSControlLib
     {
         private GuiAccess.DataHubCli m_dataHub = null;
         private Dictionary<int, OhtInfoData> m_dictOhtInfo = new Dictionary<int, OhtInfoData>();
-        private DataSet m_dataSet = new DataSet();
         private DataTable m_tableOHTInfo = null;
+        private DataTable m_tableKeyPos = null;
+        private byte m_uIdSelected = 0;
+        private delegate void ProcessHandler(ArrayList item);
+        private Dictionary<string, ProcessHandler> m_dictProcess = new Dictionary<string, ProcessHandler>();
+
         public OHTInfo()
         {
             InitializeComponent();
+
+            InitProcessDictionary();
         }
+
+        private void InitProcessDictionary()
+        {
+            m_dictProcess.Add("OHT.Info", ProcessOHTInfo);
+            m_dictProcess.Add("OHT.Pos", ProcessOHTPos);
+            m_dictProcess.Add("OHT.PosTable", ProcessPosTable);
+        }
+
         public GuiAccess.DataHubCli DataHub
         {
             set
@@ -32,7 +46,7 @@ namespace MCSControlLib
             }
         }
 
-        public void ProcessGuiData(List<MCS.GuiDataItem> list)
+        public  void ProcessGuiData(List<MCS.GuiDataItem> list)
         {
             foreach (MCS.GuiDataItem item in list)
             {
@@ -42,23 +56,45 @@ namespace MCSControlLib
 
         private void ProcessGuiDataItem(MCS.GuiDataItem guiData)
         {
-            ArrayList alDatas = GuiAccess.DataHubCli.ConvertToArrayList(guiData.sVal);
-            if (guiData.sTag.CompareTo("OHT.Info") == 0)
+            
+            ProcessHandler handler = null;
+            bool bGet = m_dictProcess.TryGetValue(guiData.sTag, out handler);
+            if (true == bGet)
             {
+                ArrayList alDatas = GuiAccess.DataHubCli.ConvertToArrayList(guiData.sVal);
                 foreach (ArrayList item in alDatas)
                 {
-                    ProcessOHTInfo(item);
+                    handler(item);
                 }
             }
-            else if (guiData.sTag.CompareTo("OHT.Pos") == 0)
-            {
-                foreach (ArrayList item in alDatas)
-                {
-                    ProcessOHTPos(item);
-                }
-            }
+        }
 
-            UpdateTableData();
+        private void ProcessPosTable(ArrayList item)
+        {
+            if (4 == item.Count)
+            {
+                UInt32 uPos = Convert.ToUInt32(item[1]);
+                Byte uType = TryConver.ToByte(item[2].ToString());
+                Byte uSpeed = TryConver.ToByte(item[3].ToString());
+                DataRow row = m_tableKeyPos.Rows.Find(uPos);
+                if (null != row)
+                {
+                    row["Name"] = item[0].ToString();
+                    row["Type"] = uType;
+                    row["Speed"] = uSpeed;
+                    row.AcceptChanges();
+                }
+                else
+                {
+                    row = m_tableKeyPos.NewRow();
+                    row["Position"] = uPos;
+                    row["Name"] = item[0].ToString();
+                    row["Type"] = uType;
+                    row["Speed"] = uSpeed;
+                    m_tableKeyPos.Rows.Add(row);
+                    m_tableKeyPos.AcceptChanges();
+                }
+            }
         }
 
         private void ProcessOHTInfo(ArrayList item)
@@ -80,7 +116,7 @@ namespace MCSControlLib
                     info.TcpInfo = strTCP;
                     m_dictOhtInfo.Add(nID, info);
                 }
-
+                UpdateOhtInfo(info);
             }
         }
 
@@ -106,33 +142,30 @@ namespace MCSControlLib
                     info.Position = nPosition;
                     info.Hand = nHand;
                     m_dictOhtInfo.Add(nID, info);
-                }
+                } 
+                UpdateOhtInfo(info);
             }
         }
 
-        private void UpdateTableData()
+        private void UpdateOhtInfo(OhtInfoData info)
         {
-            foreach (KeyValuePair<int, OhtInfoData> item in m_dictOhtInfo)
+            DataRow row = m_tableOHTInfo.Rows.Find(info.ID);
+            if (null != row)
             {
-                OhtInfoData info = item.Value;
-                DataRow row = m_tableOHTInfo.Rows.Find(info.ID);
-                if (null != row)
-                {
-                    SetRowData(row, info);
-                    row.AcceptChanges();
-                }
-                else
-                {
-                    row = m_tableOHTInfo.NewRow();
-                    row["ID"] = info.ID;
-                    SetRowData(row, info);
-                    m_tableOHTInfo.Rows.Add(row);
-                    m_tableOHTInfo.AcceptChanges();
-                }
+                SetRowOHTInfoData(row, info);
+                row.AcceptChanges();
+            }
+            else
+            {
+                row = m_tableOHTInfo.NewRow();
+                row["ID"] = info.ID;
+                SetRowOHTInfoData(row, info);
+                m_tableOHTInfo.Rows.Add(row);
+                m_tableOHTInfo.AcceptChanges();
             }
         }
 
-        private void SetRowData(DataRow row, OhtInfoData info)
+        private void SetRowOHTInfoData(DataRow row, OhtInfoData info)
         {
             row["Position"] = info.Position;
             row["Hand"] = info.Hand;
@@ -146,100 +179,120 @@ namespace MCSControlLib
             MessageBox.Show("Oht Info test");
         }
 
+        private void InitKeyPosTable()
+        {
+            if (null == m_tableKeyPos)
+            {
+                m_tableKeyPos = new DataTable("KeyPos");
+                m_tableKeyPos.Columns.Add("Position", typeof(System.UInt32));
+                m_tableKeyPos.Columns["Position"].AllowDBNull = false;
+                m_tableKeyPos.PrimaryKey = new DataColumn[] { m_tableKeyPos.Columns["Position"] };
+                m_tableKeyPos.Columns.Add("Name", typeof(System.String));
+                m_tableKeyPos.Columns.Add("Type", typeof(System.Byte));
+                m_tableKeyPos.Columns.Add("Speed", typeof(System.Byte));
+
+                m_tableKeyPos.AcceptChanges();
+            }
+        }
+
         private void InitDataTable()
         {
-            m_tableOHTInfo = m_dataSet.Tables["OHT"];
             if (null == m_tableOHTInfo)
             {
                 m_tableOHTInfo = new DataTable("OHT");
-                m_tableOHTInfo.Columns.Add("ID", typeof(System.Int32));
+                m_tableOHTInfo.Columns.Add("ID", typeof(System.Byte));
                 m_tableOHTInfo.Columns["ID"].AllowDBNull = false;
                 m_tableOHTInfo.PrimaryKey = new DataColumn[]{m_tableOHTInfo.Columns["ID"]};
                 m_tableOHTInfo.Columns.Add("Position", typeof(System.Int32));
-                m_tableOHTInfo.Columns.Add("Hand", typeof(System.Int32));
-                m_tableOHTInfo.Columns.Add("Status", typeof(System.Int32));
-                m_tableOHTInfo.Columns.Add("Alarm", typeof(System.Int32));
+                m_tableOHTInfo.Columns.Add("Hand", typeof(System.Byte));
+                m_tableOHTInfo.Columns.Add("Status", typeof(System.Byte));
+                m_tableOHTInfo.Columns.Add("Alarm", typeof(System.Byte));
                 m_tableOHTInfo.Columns.Add("TcpInfo", typeof(System.String));
 
                 m_tableOHTInfo.AcceptChanges();
-
-                m_dataSet.Tables.Add(m_tableOHTInfo);
-                m_dataSet.AcceptChanges();
             }
         }
 
         private void OHTInfo_Load(object sender, EventArgs e)
         {
             InitDataTable();
-            dataGridView1.DataSource = m_tableOHTInfo;
+            InitKeyPosTable();
+            dataGridViewOHTInfo.DataSource = m_tableOHTInfo;
+            dataGridViewKeyPos.DataSource = m_tableKeyPos;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            string nID = "254";
-            DataGridViewSelectedRowCollection rows = dataGridView1.SelectedRows;
+            DataGridViewSelectedRowCollection rows = dataGridViewOHTInfo.SelectedRows;
             if (rows.Count > 0)
             {
                 DataGridViewRow row = rows[0];
-                nID = row.Cells[0].Value.ToString();
-               
+                m_uIdSelected = TryConver.ToByte(row.Cells[0].Value.ToString());
             }
-            
-            tBOHTID.Text = nID;
+            tBOHTID.Text = m_uIdSelected.ToString();
+        }
+
+        private void GetOHTIDbyTextBox()
+        {
+            m_uIdSelected = TryConver.ToByte(tBOHTID.Text);
         }
 
         private void bnSetPosTime_Click(object sender, EventArgs e)
         {
-            string strPosTime = tBPosTime.Text;
-            int nPosTime = 0;
-            int nID = 0;
-            try
-            {
-                nID = Convert.ToByte(tBOHTID.Text);
-            }
-            catch (System.Exception /*ex*/)
-            {
-                nID = 254;
-            }
-            try
-            {
-                nPosTime = System.Convert.ToByte(strPosTime);
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            string strTime = tBPosTime.Text;
+            byte nTime = 0;
+            GetOHTIDbyTextBox();
+            nTime = TryConver.ToByte(strTime);
             string strVal;
-            strVal = string.Format("<{0}, {1}>", nID, nPosTime);
+            strVal = string.Format("<{0}, {1}>", m_uIdSelected, nTime);
 
-            int nWRet = m_dataHub.WriteData("OHT.POSTIME", strVal);
+            int nWRet = m_dataHub.WriteData("OHT.PosTime", strVal);
         }
 
         private void bnSetStatusTime_Click(object sender, EventArgs e)
         {
-            string strPosTime = tBStatusTime.Text;
-            int nPosTime = 0;
-            int nID = 0;
-            try
-            {
-                nID = Convert.ToByte(tBOHTID.Text);
-            }
-            catch (System.Exception /*ex*/)
-            {
-                nID = 254;
-            }
-            try
-            {
-                nPosTime = System.Convert.ToByte(strPosTime);
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            string strTime = tBStatusTime.Text;
+            byte nTime = 0;
+            GetOHTIDbyTextBox();
+            nTime = TryConver.ToByte(strTime);
             string strVal;
-            strVal = string.Format("<{0}, {1}>", nID, nPosTime);
+            strVal = string.Format("<{0}, {1}>", m_uIdSelected, nTime);
 
-            int nWRet = m_dataHub.WriteData("OHT.STATUSTIME", strVal);
+            int nWRet = m_dataHub.WriteData("OHT.StatusTime", strVal);
+        }
+
+        private byte GetBufID()
+        {
+            byte uBufID = 0;
+            uBufID = TryConver.ToByte(tBBuffID.Text);
+            tBBuffID.Text = uBufID.ToString();
+            return uBufID;
+        }
+
+        private void bnPick_Click(object sender, EventArgs e)
+        {
+            GetOHTIDbyTextBox();
+            byte uBuffID = GetBufID();
+            Foup_Pick_Place(m_uIdSelected, uBuffID, 0);
+        }
+
+        private void Foup_Pick_Place(byte uID, byte uTarget, byte uOperation)
+        {
+            string strVal = "";
+            strVal = string.Format("<{0},{1},{2}>", uID, uTarget, uOperation);
+            int nWRet = m_dataHub.WriteData("OHT.FoupHanding", strVal);
+        }
+
+        private void bnPlace_Click(object sender, EventArgs e)
+        {
+            GetOHTIDbyTextBox();
+            byte uBuffID = GetBufID();
+            Foup_Pick_Place(m_uIdSelected, uBuffID, 1);
+        }
+
+        private void linkLabelRefresh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            m_dataHub.Async_WriteData("OHT.GetPosTable", "");
         }
     }
 }

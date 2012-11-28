@@ -58,6 +58,8 @@ private:
 	void OHT_SetPositionBackTime(const std::string&);
 	void OHT_SetStatusBackTime(const std::string&);
 	void OHT_GetPositionTable(const std::string&);
+	void OHT_FoupHanding(const std::string&);
+	
 	void OHT_PathTest(const std::string&);
 	void OHT_FoupTest(const std::string&);
 	void OHT_MoveTest(const std::string&);
