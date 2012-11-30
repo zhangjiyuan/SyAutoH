@@ -3,9 +3,9 @@
 /* this ALWAYS GENERATED file contains the definitions for the interfaces */
 
 
- /* File created by MIDL compiler version 7.00.0546 */
+ /* File created by MIDL compiler version 7.00.0555 */
 /* Compiler settings for sqlncli.idl:
-    Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0546 
+    Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 
     protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
     VC __declspec() decoration level: 
@@ -84,6 +84,12 @@ typedef interface IBCPSession IBCPSession;
 #endif 	/* __IBCPSession_FWD_DEFINED__ */
 
 
+#ifndef __IBCPSession2_FWD_DEFINED__
+#define __IBCPSession2_FWD_DEFINED__
+typedef interface IBCPSession2 IBCPSession2;
+#endif 	/* __IBCPSession2_FWD_DEFINED__ */
+
+
 #ifndef __ISSAbort_FWD_DEFINED__
 #define __ISSAbort_FWD_DEFINED__
 typedef interface ISSAbort ISSAbort;
@@ -131,10 +137,54 @@ extern "C"{
 //-----------------------------------------------------------------------------
 
 #if !defined(SQLNCLI_VER)
-#define SQLNCLI_VER 1000
+#define SQLNCLI_VER 1100
 #endif
 
-#if SQLNCLI_VER >= 1000
+#if SQLNCLI_VER >= 1100
+
+#define SQLNCLI_PRODUCT_NAME_FULL_VER_ANSI      "Microsoft SQL Server Native Client 11.0"
+#define SQLNCLI_PRODUCT_NAME_FULL_ANSI          "Microsoft SQL Server Native Client"
+#define SQLNCLI_PRODUCT_NAME_SHORT_VER_ANSI     "SQL Server Native Client 11.0"
+#define SQLNCLI_PRODUCT_NAME_SHORT_ANSI         "SQL Server Native Client"
+
+#define SQLNCLI_FILE_NAME_ANSI                  "sqlncli"
+#define SQLNCLI_FILE_NAME_VER_ANSI              "sqlncli11"
+#define SQLNCLI_FILE_NAME_FULL_ANSI             "sqlncli11.dll"
+
+#define SQLNCLI_PRODUCT_NAME_FULL_VER_UNICODE   L"Microsoft SQL Server Native Client 11.0"
+#define SQLNCLI_PRODUCT_NAME_FULL_UNICODE       L"Microsoft SQL Server Native Client"
+#define SQLNCLI_PRODUCT_NAME_SHORT_VER_UNICODE  L"SQL Server Native Client 11.0"
+#define SQLNCLI_PRODUCT_NAME_SHORT_UNICODE      L"SQL Server Native Client"
+
+#define SQLNCLI_FILE_NAME_UNICODE               L"sqlncli"
+#define SQLNCLI_FILE_NAME_VER_UNICODE           L"sqlncli11"
+#define SQLNCLI_FILE_NAME_FULL_UNICODE          L"sqlncli11.dll"
+
+#if defined(_SQLNCLI_OLEDB_) || !defined(_SQLNCLI_ODBC_)
+
+#define SQLNCLI_VI_PROG_ID_ANSI                 "SQLNCLI11"
+#define SQLNCLI_VI_ERROR_LOOKUP_PROG_ID_ANSI    "SQLNCLI11.ErrorLookup"
+#define SQLNCLI_VI_ENUMERATOR_PROG_ID_ANSI      "SQLNCLI11.Enumerator"
+
+#define SQLNCLI_PROG_ID_ANSI                    "SQLNCLI11.1"
+#define SQLNCLI_ERROR_LOOKUP_PROG_ID_ANSI       "SQLNCLI11.ErrorLookup.1"
+#define SQLNCLI_ENUMERATOR_PROG_ID_ANSI         "SQLNCLI11.Enumerator.1"
+
+#define SQLNCLI_VI_PROG_ID_UNICODE              L"SQLNCLI11"
+#define SQLNCLI_VI_ERROR_LOOKUP_PROG_ID_UNICODE L"SQLNCLI11.ErrorLookup"
+#define SQLNCLI_VI_ENUMERATOR_PROG_ID_UNICODE   L"SQLNCLI11.Enumerator"
+
+#define SQLNCLI_PROG_ID_UNICODE                 L"SQLNCLI11.1"
+#define SQLNCLI_ERROR_LOOKUP_PROG_ID_UNICODE    L"SQLNCLI11.ErrorLookup.1"
+#define SQLNCLI_ENUMERATOR_PROG_ID_UNICODE      L"SQLNCLI11.Enumerator.1"
+
+#define SQLNCLI_CLSID                           CLSID_SQLNCLI11
+#define SQLNCLI_ERROR_CLSID                     CLSID_SQLNCLI11_ERROR
+#define SQLNCLI_ENUMERATOR_CLSID                CLSID_SQLNCLI11_ENUMERATOR
+
+#endif // defined(_SQLNCLI_OLEDB_) || !defined(_SQLNCLI_ODBC_)
+
+#elif SQLNCLI_VER >= 1000
 
 #define SQLNCLI_PRODUCT_NAME_FULL_VER_ANSI      "Microsoft SQL Server Native Client 10.0"
 #define SQLNCLI_PRODUCT_NAME_FULL_ANSI          "Microsoft SQL Server Native Client"
@@ -178,7 +228,7 @@ extern "C"{
 
 #endif // defined(_SQLNCLI_OLEDB_) || !defined(_SQLNCLI_ODBC_)
 
-#else  // SQLNCLI_VER >= 1000
+#else
 
 #define SQLNCLI_PRODUCT_NAME_FULL_VER_ANSI      "Microsoft SQL Server Native Client"
 #define SQLNCLI_PRODUCT_NAME_FULL_ANSI          "Microsoft SQL Server Native Client"
@@ -222,7 +272,7 @@ extern "C"{
 
 #endif  // defined(_SQLNCLI_OLEDB_) || !defined(_SQLNCLI_ODBC_)
 
-#endif  // SQLNCLI_VER >= 1000
+#endif  // SQLNCLI_VER >= 1100
 
 // define the character type agnostic constants
 #if defined(_UNICODE) || defined(UNICODE)
@@ -673,6 +723,11 @@ typedef DWORD DBASYNCHPHASE;
 
 #endif       // This is already defined in oledb.h
 
+#ifndef _SQLNCLI_OLEDB_IGNORE_DEPRECATION_WARNING_
+    #define _SQLNCLI_OLEDB_DEPRECATE_WARNING __declspec(deprecated("The SQL Server Native Client OLEDB provider is deprecated and will be removed in a future release of SQL Server Native Client. To disable this warning, define the following symbol in your application: _SQLNCLI_OLEDB_IGNORE_DEPRECATION_WARNING_"))
+#else
+    #define _SQLNCLI_OLEDB_DEPRECATE_WARNING
+#endif
 //-------------------------------------------------------------------
 // Variant Access macros, similar to ole automation.
 //-------------------------------------------------------------------
@@ -923,7 +978,8 @@ EXTERN_C const IID IID_ISQLServerErrorInfo;
     public:
         virtual HRESULT STDMETHODCALLTYPE GetErrorInfo( 
             /* [out] */ SSERRORINFO **ppErrorInfo,
-            /* [out] */ OLECHAR **ppStringsBuffer) = 0;
+            /* [annotation][out] */ 
+            __deref_out  OLECHAR **ppStringsBuffer) = 0;
         
     };
     
@@ -948,7 +1004,8 @@ EXTERN_C const IID IID_ISQLServerErrorInfo;
         HRESULT ( STDMETHODCALLTYPE *GetErrorInfo )( 
             ISQLServerErrorInfo * This,
             /* [out] */ SSERRORINFO **ppErrorInfo,
-            /* [out] */ OLECHAR **ppStringsBuffer);
+            /* [annotation][out] */ 
+            __deref_out  OLECHAR **ppStringsBuffer);
         
         END_INTERFACE
     } ISQLServerErrorInfoVtbl;
@@ -1453,7 +1510,160 @@ EXTERN_C const IID IID_IBCPSession;
 #endif 	/* __IBCPSession_INTERFACE_DEFINED__ */
 
 
-/* interface __MIDL_itf_sqlncli_0000_0006 */
+#ifndef __IBCPSession2_INTERFACE_DEFINED__
+#define __IBCPSession2_INTERFACE_DEFINED__
+
+/* interface IBCPSession2 */
+/* [unique][uuid][object][local] */ 
+
+
+EXTERN_C const IID IID_IBCPSession2;
+
+#if defined(__cplusplus) && !defined(CINTERFACE)
+    
+    MIDL_INTERFACE("AD79D3B6-59DD-46a3-BFC6-E62A65FF3523")
+    IBCPSession2 : public IBCPSession
+    {
+    public:
+        virtual HRESULT STDMETHODCALLTYPE BCPSetBulkMode( 
+            /* [in] */ int property,
+            /* [size_is][in] */ void *pField,
+            /* [in] */ int cbField,
+            /* [size_is][in] */ void *pRow,
+            /* [in] */ int cbRow) = 0;
+        
+    };
+    
+#else 	/* C style interface */
+
+    typedef struct IBCPSession2Vtbl
+    {
+        BEGIN_INTERFACE
+        
+        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+            IBCPSession2 * This,
+            /* [in] */ REFIID riid,
+            /* [annotation][iid_is][out] */ 
+            __RPC__deref_out  void **ppvObject);
+        
+        ULONG ( STDMETHODCALLTYPE *AddRef )( 
+            IBCPSession2 * This);
+        
+        ULONG ( STDMETHODCALLTYPE *Release )( 
+            IBCPSession2 * This);
+        
+        HRESULT ( STDMETHODCALLTYPE *BCPColFmt )( 
+            IBCPSession2 * This,
+            /* [in] */ DBORDINAL idxUserDataCol,
+            /* [in] */ int eUserDataType,
+            /* [in] */ int cbIndicator,
+            /* [in] */ int cbUserData,
+            /* [size_is][in] */ BYTE *pbUserDataTerm,
+            /* [in] */ int cbUserDataTerm,
+            /* [in] */ DBORDINAL idxServerCol);
+        
+        HRESULT ( STDMETHODCALLTYPE *BCPColumns )( 
+            IBCPSession2 * This,
+            /* [in] */ DBCOUNTITEM nColumns);
+        
+        HRESULT ( STDMETHODCALLTYPE *BCPControl )( 
+            IBCPSession2 * This,
+            /* [in] */ int eOption,
+            /* [in] */ void *iValue);
+        
+        HRESULT ( STDMETHODCALLTYPE *BCPDone )( 
+            IBCPSession2 * This);
+        
+        HRESULT ( STDMETHODCALLTYPE *BCPExec )( 
+            IBCPSession2 * This,
+            /* [out] */ DBROWCOUNT *pRowsCopied);
+        
+        HRESULT ( STDMETHODCALLTYPE *BCPInit )( 
+            IBCPSession2 * This,
+            /* [string][in] */ const wchar_t *pwszTable,
+            /* [string][in] */ const wchar_t *pwszDataFile,
+            /* [string][in] */ const wchar_t *pwszErrorFile,
+            /* [in] */ int eDirection);
+        
+        HRESULT ( STDMETHODCALLTYPE *BCPReadFmt )( 
+            IBCPSession2 * This,
+            /* [string][in] */ const wchar_t *pwszFormatFile);
+        
+        HRESULT ( STDMETHODCALLTYPE *BCPWriteFmt )( 
+            IBCPSession2 * This,
+            /* [string][in] */ const wchar_t *pwszFormatFile);
+        
+        HRESULT ( STDMETHODCALLTYPE *BCPSetBulkMode )( 
+            IBCPSession2 * This,
+            /* [in] */ int property,
+            /* [size_is][in] */ void *pField,
+            /* [in] */ int cbField,
+            /* [size_is][in] */ void *pRow,
+            /* [in] */ int cbRow);
+        
+        END_INTERFACE
+    } IBCPSession2Vtbl;
+
+    interface IBCPSession2
+    {
+        CONST_VTBL struct IBCPSession2Vtbl *lpVtbl;
+    };
+
+    
+
+#ifdef COBJMACROS
+
+
+#define IBCPSession2_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define IBCPSession2_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define IBCPSession2_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define IBCPSession2_BCPColFmt(This,idxUserDataCol,eUserDataType,cbIndicator,cbUserData,pbUserDataTerm,cbUserDataTerm,idxServerCol)	\
+    ( (This)->lpVtbl -> BCPColFmt(This,idxUserDataCol,eUserDataType,cbIndicator,cbUserData,pbUserDataTerm,cbUserDataTerm,idxServerCol) ) 
+
+#define IBCPSession2_BCPColumns(This,nColumns)	\
+    ( (This)->lpVtbl -> BCPColumns(This,nColumns) ) 
+
+#define IBCPSession2_BCPControl(This,eOption,iValue)	\
+    ( (This)->lpVtbl -> BCPControl(This,eOption,iValue) ) 
+
+#define IBCPSession2_BCPDone(This)	\
+    ( (This)->lpVtbl -> BCPDone(This) ) 
+
+#define IBCPSession2_BCPExec(This,pRowsCopied)	\
+    ( (This)->lpVtbl -> BCPExec(This,pRowsCopied) ) 
+
+#define IBCPSession2_BCPInit(This,pwszTable,pwszDataFile,pwszErrorFile,eDirection)	\
+    ( (This)->lpVtbl -> BCPInit(This,pwszTable,pwszDataFile,pwszErrorFile,eDirection) ) 
+
+#define IBCPSession2_BCPReadFmt(This,pwszFormatFile)	\
+    ( (This)->lpVtbl -> BCPReadFmt(This,pwszFormatFile) ) 
+
+#define IBCPSession2_BCPWriteFmt(This,pwszFormatFile)	\
+    ( (This)->lpVtbl -> BCPWriteFmt(This,pwszFormatFile) ) 
+
+
+#define IBCPSession2_BCPSetBulkMode(This,property,pField,cbField,pRow,cbRow)	\
+    ( (This)->lpVtbl -> BCPSetBulkMode(This,property,pField,cbField,pRow,cbRow) ) 
+
+#endif /* COBJMACROS */
+
+
+#endif 	/* C style interface */
+
+
+
+
+#endif 	/* __IBCPSession2_INTERFACE_DEFINED__ */
+
+
+/* interface __MIDL_itf_sqlncli_0000_0007 */
 /* [local] */ 
 
 
@@ -1465,8 +1675,8 @@ EXTERN_C const IID IID_IBCPSession;
 
 
 
-extern RPC_IF_HANDLE __MIDL_itf_sqlncli_0000_0006_v0_0_c_ifspec;
-extern RPC_IF_HANDLE __MIDL_itf_sqlncli_0000_0006_v0_0_s_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_sqlncli_0000_0007_v0_0_c_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_sqlncli_0000_0007_v0_0_s_ifspec;
 
 #ifndef __ISSAbort_INTERFACE_DEFINED__
 #define __ISSAbort_INTERFACE_DEFINED__
@@ -1545,7 +1755,7 @@ EXTERN_C const IID IID_ISSAbort;
 #endif 	/* __ISSAbort_INTERFACE_DEFINED__ */
 
 
-/* interface __MIDL_itf_sqlncli_0000_0007 */
+/* interface __MIDL_itf_sqlncli_0000_0008 */
 /* [local] */ 
 
 
@@ -1569,8 +1779,8 @@ typedef struct tagSSPARAMPROPS
 
 
 
-extern RPC_IF_HANDLE __MIDL_itf_sqlncli_0000_0007_v0_0_c_ifspec;
-extern RPC_IF_HANDLE __MIDL_itf_sqlncli_0000_0007_v0_0_s_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_sqlncli_0000_0008_v0_0_c_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_sqlncli_0000_0008_v0_0_s_ifspec;
 
 #ifndef __ISSCommandWithParameters_INTERFACE_DEFINED__
 #define __ISSCommandWithParameters_INTERFACE_DEFINED__
@@ -1926,7 +2136,7 @@ EXTERN_C const IID IID_ISSAsynchStatus;
 #endif 	/* __ISSAsynchStatus_INTERFACE_DEFINED__ */
 
 
-/* interface __MIDL_itf_sqlncli_0000_0010 */
+/* interface __MIDL_itf_sqlncli_0000_0011 */
 /* [local] */ 
 
 //----------------------------------------------------------------------------
@@ -1983,6 +2193,7 @@ EXTERN_C const IID IID_ISSAsynchStatus;
 #define SSPROP_INIT_TRUST_SERVER_CERTIFICATE     21
 #define SSPROP_INIT_SERVERSPN                    22
 #define SSPROP_INIT_FAILOVERPARTNERSPN           23
+#define SSPROP_INIT_APPLICATIONINTENT            24
 
 //-----------------------------------------------------------------------------
 // Values for SSPROP_INIT_USEPROCFORPREP
@@ -2125,6 +2336,12 @@ EXTERN_C const IID IID_ISSAsynchStatus;
 #define BCP_OPTION_FIRSTEX          17
 #define BCP_OPTION_LASTEX           18
 #define BCP_OPTION_ROWCOUNT         19
+#define BCP_OPTION_DELAYREADFMT     20
+
+#define BCP_OUT_CHARACTER_MODE      0x01
+#define BCP_OUT_WIDE_CHARACTER_MODE 0x02
+#define BCP_OUT_NATIVE_TEXT_MODE    0x03
+#define BCP_OUT_NATIVE_MODE         0x04
 
 #define BCP_FILECP_ACP              0
 #define BCP_FILECP_OEMCP            1
@@ -2148,18 +2365,26 @@ EXTERN_C const IID IID_ISSAsynchStatus;
 // Provider-specific Class Ids
 //
 
-#if SQLNCLI_VER >= 1000
+#if SQLNCLI_VER >= 1100
 
-extern const GUID OLEDBDECLSPEC CLSID_SQLNCLI10                = {0x8F4A6B68L,0x4F36,0x4e3c,{0xBE,0x81,0xBC,0x7C,0xA4,0xE9,0xC4,0x5C}};
-extern const GUID OLEDBDECLSPEC CLSID_SQLNCLI10_ERROR          = {0x53F9C3BCL,0x275F,0x4FA5,{0xB3,0xE6,0x25,0xED,0xCD,0x51,0x20,0x23}};
-extern const GUID OLEDBDECLSPEC CLSID_SQLNCLI10_ENUMERATOR     = {0x91E4F2A5L,0x1B07,0x45f6,{0x86,0xBF,0x92,0x03,0xC7,0xC7,0x2B,0xE3}};
+extern const GUID OLEDBDECLSPEC _SQLNCLI_OLEDB_DEPRECATE_WARNING CLSID_SQLNCLI11                = {0x397C2819L,0x8272,0x4532,{0xAD,0x3A,0xFB,0x5E,0x43,0xBE,0xAA,0x39}};
+extern const GUID OLEDBDECLSPEC _SQLNCLI_OLEDB_DEPRECATE_WARNING CLSID_SQLNCLI11_ERROR          = {0xCA99D701L,0xE6E7,0x4db4,{0xA5,0xCC,0x81,0x54,0x1C,0x75,0x18,0x8A}};
+extern const GUID OLEDBDECLSPEC _SQLNCLI_OLEDB_DEPRECATE_WARNING CLSID_SQLNCLI11_ENUMERATOR     = {0x8F612DD2L,0x7E28,0x424f,{0xA2,0xFD,0xC2,0xEE,0xCC,0x31,0x4A,0xA2}};
 
 #endif
 
-extern const GUID OLEDBDECLSPEC CLSID_SQLNCLI                = {0x85ecafccL,0xbdd9,0x4b03,{0x97,0xa8,0xfa,0x65,0xcb,0xe3,0x85,0x9b}};
-extern const GUID OLEDBDECLSPEC CLSID_SQLNCLI_ERROR          = {0xe8bc0a7aL,0xea71,0x4263,{0x8c,0xda,0x94,0xf3,0x88,0xb8,0xed,0x10}};
-extern const GUID OLEDBDECLSPEC CLSID_SQLNCLI_ENUMERATOR     = {0x4898ad37L,0xfe05,0x42df,{0x92,0xf9,0xe8,0x57,0xdd,0xfe,0xe7,0x30}};
-extern const GUID OLEDBDECLSPEC CLSID_ROWSET_TVP             = {0xc7ef28d5L,0x7bee,0x443f,{0x86,0xda,0xe3,0x98,0x4f,0xcd,0x4d,0xf9}};
+#if SQLNCLI_VER >= 1000
+
+extern const GUID OLEDBDECLSPEC _SQLNCLI_OLEDB_DEPRECATE_WARNING CLSID_SQLNCLI10                = {0x8F4A6B68L,0x4F36,0x4e3c,{0xBE,0x81,0xBC,0x7C,0xA4,0xE9,0xC4,0x5C}};
+extern const GUID OLEDBDECLSPEC _SQLNCLI_OLEDB_DEPRECATE_WARNING CLSID_SQLNCLI10_ERROR          = {0x53F9C3BCL,0x275F,0x4FA5,{0xB3,0xE6,0x25,0xED,0xCD,0x51,0x20,0x23}};
+extern const GUID OLEDBDECLSPEC _SQLNCLI_OLEDB_DEPRECATE_WARNING CLSID_SQLNCLI10_ENUMERATOR     = {0x91E4F2A5L,0x1B07,0x45f6,{0x86,0xBF,0x92,0x03,0xC7,0xC7,0x2B,0xE3}};
+
+#endif
+
+extern const GUID OLEDBDECLSPEC _SQLNCLI_OLEDB_DEPRECATE_WARNING CLSID_SQLNCLI                = {0x85ecafccL,0xbdd9,0x4b03,{0x97,0xa8,0xfa,0x65,0xcb,0xe3,0x85,0x9b}};
+extern const GUID OLEDBDECLSPEC _SQLNCLI_OLEDB_DEPRECATE_WARNING CLSID_SQLNCLI_ERROR          = {0xe8bc0a7aL,0xea71,0x4263,{0x8c,0xda,0x94,0xf3,0x88,0xb8,0xed,0x10}};
+extern const GUID OLEDBDECLSPEC _SQLNCLI_OLEDB_DEPRECATE_WARNING CLSID_SQLNCLI_ENUMERATOR     = {0x4898ad37L,0xfe05,0x42df,{0x92,0xf9,0xe8,0x57,0xdd,0xfe,0xe7,0x30}};
+extern const GUID OLEDBDECLSPEC _SQLNCLI_OLEDB_DEPRECATE_WARNING CLSID_ROWSET_TVP             = {0xc7ef28d5L,0x7bee,0x443f,{0x86,0xda,0xe3,0x98,0x4f,0xcd,0x4d,0xf9}};
 
 //----------------------------------------------------------------------------
 // Provider-specific Interface Ids
@@ -2173,6 +2398,7 @@ extern const GUID OLEDBDECLSPEC IID_ISQLXMLHelper            = {0xd22a7678L,0xf8
 #endif //_SQLOLEDB_H_
 extern const GUID OLEDBDECLSPEC IID_ISSAbort                 = {0x5cf4ca15,0xef21,0x11d0,{0x97,0xe7,0x0,0xc0,0x4f,0xc2,0xad,0x98}};
 extern const GUID OLEDBDECLSPEC IID_IBCPSession              = {0x88352D80,0x42D1,0x42f0,{0xA1,0x70,0xAB,0x0F,0x8B,0x45,0xB9,0x39}};
+extern const GUID OLEDBDECLSPEC IID_IBCPSession2             = {0xad79d3b6,0x59dd,0x46a3,{0xbf,0xc6,0xe6,0x2a,0x65,0xff,0x35,0x23}};
 extern const GUID OLEDBDECLSPEC IID_ISSCommandWithParameters = {0xeec30162,0x6087,0x467c,{0xb9,0x95,0x7c,0x52,0x3c,0xe9,0x65,0x61}};
 extern const GUID OLEDBDECLSPEC IID_ISSAsynchStatus          = {0x1FF1F743,0x8BB0, 0x4c00,{0xAC,0xC4,0xC1,0x0E,0x43,0xB0,0x8F,0xC1}};
 
@@ -2316,7 +2542,8 @@ extern const DBID OLEDBDECLSPEC DBCOLUMN_SS_ASSEMBLY_TYPENAME= {DBCOLUMN_SS_X_GU
 #define SQL_COPT_SS_FAILOVER_PARTNER_SPN                (SQL_COPT_SS_BASE+30) // Failover partner server SPN
 #define SQL_COPT_SS_INTEGRATED_AUTHENTICATION_METHOD    (SQL_COPT_SS_BASE+31) // The integrated authentication method used for the connection
 #define SQL_COPT_SS_MUTUALLY_AUTHENTICATED              (SQL_COPT_SS_BASE+32) // Used to decide if the connection is mutually authenticated
-#define SQL_COPT_SS_MAX_USED                            SQL_COPT_SS_MUTUALLY_AUTHENTICATED
+#define SQL_COPT_SS_CLIENT_CONNECTION_ID                (SQL_COPT_SS_BASE+33) // Post connection attribute used to get the ConnectionID
+#define SQL_COPT_SS_MAX_USED                            SQL_COPT_SS_CLIENT_CONNECTION_ID
 // Define old names
 #define SQL_REMOTE_PWD                              SQL_COPT_SS_REMOTE_PWD
 #define SQL_USE_PROCEDURE_FOR_PREPARE               SQL_COPT_SS_USE_PROC_FOR_PREP
@@ -2349,7 +2576,9 @@ extern const DBID OLEDBDECLSPEC DBCOLUMN_SS_ASSEMBLY_TYPENAME= {DBCOLUMN_SS_X_GU
 #define SQL_COPT_SS_CONNECTION_DEAD                 (SQL_COPT_SS_BASE_EX+4) // dbdead SQLGetConnectOption only. It will try to ping the server. Expensive connection check
 #define SQL_COPT_SS_BROWSE_CACHE_DATA               (SQL_COPT_SS_BASE_EX+5) // Determines if we should cache browse info. Used when returned buffer is greater then ODBC limit (32K)
 #define SQL_COPT_SS_RESET_CONNECTION                (SQL_COPT_SS_BASE_EX+6) // When this option is set, we will perform connection reset on next packet
-#define SQL_COPT_SS_EX_MAX_USED                     SQL_COPT_SS_RESET_CONNECTION
+#define SQL_COPT_SS_APPLICATION_INTENT              (SQL_COPT_SS_BASE_EX+7) // Application Intent
+#define SQL_COPT_SS_MULTISUBNET_FAILOVER            (SQL_COPT_SS_BASE_EX+8) // Multi-subnet Failover
+#define SQL_COPT_SS_EX_MAX_USED                     SQL_COPT_SS_MULTISUBNET_FAILOVER
 
 // SQLColAttributes driver specific defines.
 // SQLSetDescField/SQLGetDescField driver specific defines.
@@ -2519,6 +2748,11 @@ extern const DBID OLEDBDECLSPEC DBCOLUMN_SS_ASSEMBLY_TYPENAME= {DBCOLUMN_SS_X_GU
 #define SQL_SS_TYPE_DEFAULT                         0L
 #define SQL_SS_TYPE_SMALLDATETIME                   1L
 #define SQL_SS_TYPE_DATETIME                        2L
+
+// Extended C Types range 4000 and above. Range of -100 thru 200 is reserved by Driver Manager.
+#define SQL_C_TYPES_EXTENDED                0x04000L
+#define SQL_C_SS_TIME2                         (SQL_C_TYPES_EXTENDED+0)
+#define SQL_C_SS_TIMESTAMPOFFSET               (SQL_C_TYPES_EXTENDED+1)
 
 #ifndef SQLNCLI_NO_BCP
 // Define the symbol SQLNCLI_NO_BCP if you are not using BCP in your application
@@ -2745,10 +2979,6 @@ typedef short SQLSMALLINT;
 
 typedef unsigned short SQLUSMALLINT;
 
-typedef long SQLINTEGER;
-
-typedef unsigned long SQLUINTEGER;
-
 typedef unsigned char DBBINARY;
 
 typedef unsigned char DBTINYINT;
@@ -2794,27 +3024,25 @@ typedef LONG DBMONEY4;
 // New Date Time Structures
 // New Structure for TIME2
 typedef struct tagSS_TIME2_STRUCT
-    {
-    SQLUSMALLINT hour;
-    SQLUSMALLINT minute;
-    SQLUSMALLINT second;
-    SQLUINTEGER fraction;
-    } 	SQL_SS_TIME2_STRUCT;
-
+{
+        SQLUSMALLINT   hour;
+        SQLUSMALLINT   minute;
+        SQLUSMALLINT   second;
+        SQLUINTEGER    fraction;
+} SQL_SS_TIME2_STRUCT;
 // New Structure for TIMESTAMPOFFSET
 typedef struct tagSS_TIMESTAMPOFFSET_STRUCT
-    {
-    SQLSMALLINT year;
-    SQLUSMALLINT month;
-    SQLUSMALLINT day;
-    SQLUSMALLINT hour;
-    SQLUSMALLINT minute;
-    SQLUSMALLINT second;
-    SQLUINTEGER fraction;
-    SQLSMALLINT timezone_hour;
-    SQLSMALLINT timezone_minute;
-    } 	SQL_SS_TIMESTAMPOFFSET_STRUCT;
-
+{
+        SQLSMALLINT    year;
+        SQLUSMALLINT   month;
+        SQLUSMALLINT   day;
+        SQLUSMALLINT   hour;
+        SQLUSMALLINT   minute;
+        SQLUSMALLINT   second;
+        SQLUINTEGER    fraction;
+        SQLSMALLINT    timezone_hour;
+        SQLSMALLINT    timezone_minute;
+} SQL_SS_TIMESTAMPOFFSET_STRUCT;
 #include <poppack.h>     // restore original structure packing
 
 // Money value *10,000
@@ -2937,6 +3165,7 @@ typedef struct sqlperf
 #define BCPFIRSTEX              17  // Starting Row for BCP operation (64 bit)
 #define BCPLASTEX               18  // Ending Row for BCP operation (64 bit)
 #define BCPROWCOUNT             19  // Total Number of Rows Copied (64 bit)
+#define BCPDELAYREADFMT         20  // Delay reading format file unil bcp_exec
 // BCPFILECP values
 // Any valid code page that is installed on the client can be passed plus:
 #define BCPFILECP_ACP           0   // Data in file is in Windows code page
@@ -2952,6 +3181,11 @@ typedef struct sqlperf
 #define BCP_FMT_SERVER_COL      0x05
 #define BCP_FMT_COLLATION       0x06
 #define BCP_FMT_COLLATION_ID    0x07
+// bcp_setbulkmode properties
+#define BCP_OUT_CHARACTER_MODE      0x01
+#define BCP_OUT_WIDE_CHARACTER_MODE 0x02
+#define BCP_OUT_NATIVE_TEXT_MODE    0x03
+#define BCP_OUT_NATIVE_MODE         0x04
 // BCP functions
 DBINT SQL_API bcp_batch (HDBC);
 RETCODE SQL_API bcp_bind (HDBC, LPCBYTE, INT, DBINT, LPCBYTE, INT, INT, INT);
@@ -2969,6 +3203,7 @@ RETCODE SQL_API bcp_moretext (HDBC, DBINT, LPCBYTE);
 RETCODE SQL_API bcp_readfmtA (HDBC, LPCSTR);
 RETCODE SQL_API bcp_readfmtW (HDBC, LPCWSTR);
 RETCODE SQL_API bcp_sendrow (HDBC);
+RETCODE SQL_API bcp_setbulkmode (HDBC, INT, __in_bcount(cbField) void*, INT cbField, __in_bcount(cbRow) void *, INT cbRow);
 RETCODE SQL_API bcp_setcolfmt (HDBC, INT, INT, void *, INT);
 RETCODE SQL_API bcp_writefmtA (HDBC, LPCSTR);
 RETCODE SQL_API bcp_writefmtW (HDBC, LPCWSTR);
@@ -3032,8 +3267,1370 @@ HANDLE __stdcall OpenSqlFilestream (
 
 
 
-extern RPC_IF_HANDLE __MIDL_itf_sqlncli_0000_0010_v0_0_c_ifspec;
-extern RPC_IF_HANDLE __MIDL_itf_sqlncli_0000_0010_v0_0_s_ifspec;
+#ifndef _SQLUSERINSTANCE_H_
+#define _SQLUSERINSTANCE_H_
+
+#include <windows.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+//  Recommended buffer size to store a LocalDB connection string 
+#define LOCALDB_MAX_SQLCONNECTION_BUFFER_SIZE 260
+
+// type definition for LocalDBCreateInstance function
+typedef HRESULT __cdecl FnLocalDBCreateInstance (
+		// I			the LocalDB version (e.g. 11.0 or 11.0.1094.2)
+		__in_z			PCWSTR	wszVersion,
+		// I			the instance name
+		__in_z			PCWSTR	pInstanceName,
+		// I			reserved for the future use. Currently should be set to 0.
+		__in			DWORD	dwFlags
+);
+
+// type definition for pointer to LocalDBCreateInstance function
+typedef FnLocalDBCreateInstance* PFnLocalDBCreateInstance;
+
+// type definition for LocalDBStartInstance function
+typedef HRESULT __cdecl FnLocalDBStartInstance (
+		// I			the LocalDB instance name
+		__in_z									PCWSTR	pInstanceName,
+		// I			reserved for the future use. Currently should be set to 0.
+		__in									DWORD	dwFlags,
+		// O			the buffer to store the connection string to the LocalDB instance
+		__out_ecount_z_opt(*lpcchSqlConnection)	LPWSTR	wszSqlConnection,
+		// I/O			on input has the size of the wszSqlConnection buffer in characters. On output, if the given buffer size is 
+		//				too small, has the buffer size required, in characters, including trailing null.
+		__inout_opt								LPDWORD	lpcchSqlConnection
+);
+
+// type definition for pointer to LocalDBStartInstance function
+typedef FnLocalDBStartInstance* PFnLocalDBStartInstance;
+
+// Flags for the LocalDBFormatMessage function
+#define LOCALDB_TRUNCATE_ERR_MESSAGE		0x0001L
+
+// type definition for LocalDBFormatMessage function
+typedef HRESULT __cdecl FnLocalDBFormatMessage(
+			// I		the LocalDB error code
+			__in							HRESULT	hrLocalDB,
+			// I		Available flags:
+			//			LOCALDB_TRUNCATE_ERR_MESSAGE - if the input buffer is too short,
+			//			the error message will be truncated to fit into the buffer 
+			__in							DWORD	dwFlags,
+			// I		Language desired (LCID) or 0 (in which case Win32 FormatMessage order is used)
+			__in							DWORD	dwLanguageId,
+			// O		the buffer to store the LocalDB error message
+			__out_ecount_z(*lpcchMessage)	LPWSTR	wszMessage,
+			// I/O		on input has the size of the wszMessage buffer in characters. On output, if the given buffer size is 
+			//			too small, has the buffer size required, in characters, including trailing null. If the function succeeds
+			//			contains the number of characters in the message, excluding the trailing null
+			__inout							LPDWORD	lpcchMessage
+);
+
+// type definition for function pointer to LocalDBFormatMessage function
+typedef FnLocalDBFormatMessage* PFnLocalDBFormatMessage;
+
+
+// MessageId: LOCALDB_ERROR_NOT_INSTALLED
+//
+// MessageText:
+//
+// LocalDB is not installed.
+//
+#define LOCALDB_ERROR_NOT_INSTALLED            ((HRESULT)0x89C50116L)
+
+//---------------------------------------------------------------------
+// Function: LocalDBCreateInstance
+//
+// Description: This function will create the new LocalDB instance.
+// 
+// Available Flags:
+//	No flags available. Reserved for future use.
+//
+// Return Values:
+//	S_OK, if the function succeeds
+//	LOCALDB_ERROR_INVALID_PARAM_INSTANCE_NAME, if the instance name parameter is invalid
+//	LOCALDB_ERROR_INVALID_PARAM_VERSION, if the version parameter is invalid
+//	LOCALDB_ERROR_INVALID_PARAM_FLAGS, if the flags are invalid
+//	LOCALDB_ERROR_INVALID_OPERATION, if the user tries to create a default instance
+//	LOCALDB_ERROR_INSTANCE_FOLDER_PATH_TOO_LONG, if the path where instance should be stored is longer than MAX_PATH
+//	LOCALDB_ERROR_VERSION_REQUESTED_NOT_INSTALLED, if the specified patch level is not installed
+//	LOCALDB_ERROR_INSTANCE_FOLDER_ALREADY_EXISTS, if the instance folder already exists and is not empty
+//	LOCALDB_ERROR_INSTANCE_EXISTS_WITH_LOWER_VERSION,	if the specified instance already exists but with lower version
+//	LOCALDB_ERROR_CANNOT_CREATE_INSTANCE_FOLDER, if a folder cannot be created under %userprofile%
+//	LOCALDB_ERROR_CANNOT_GET_USER_PROFILE_FOLDER, if a user profile folder cannot be retrieved
+//	LOCALDB_ERROR_CANNOT_ACCESS_INSTANCE_FOLDER, if a instance folder cannot be accessed
+//	LOCALDB_ERROR_CANNOT_ACCESS_INSTANCE_REGISTRY, if a instance registry cannot be accessed
+//	LOCALDB_ERROR_INTERNAL_ERROR, if an unexpected error occurred. See event log for details
+//	LOCALDB_ERROR_CANNOT_MODIFY_INSTANCE_REGISTRY, if an instance registry cannot be modified
+//	LOCALDB_ERROR_CANNOT_CREATE_SQL_PROCESS, if a process for Sql Server cannot be created
+//	LOCALDB_ERROR_SQL_SERVER_STARTUP_FAILED, if a Sql Server process is started but Sql Server startup failed.
+//	LOCALDB_ERROR_INSTANCE_CONFIGURATION_CORRUPT, if a instance configuration is corrupted
+//
+FnLocalDBCreateInstance LocalDBCreateInstance;
+
+//---------------------------------------------------------------------
+// Function: LocalDBStartInstance
+// 
+// Description: This function will start the given LocalDB instance.
+//
+// Return Values:
+//	S_OK, if the function succeeds
+//	LOCALDB_ERROR_UNKNOWN_INSTANCE, if the specified instance doesn't exist
+//	LOCALDB_ERROR_INVALID_PARAM_INSTANCE_NAME, if the instance name parameter is invalid
+//	LOCALDB_ERROR_INVALID_PARAM_CONNECTION, if the wszSqlConnection parameter is NULL
+//	LOCALDB_ERROR_INVALID_PARAM_FLAGS, if the flags are invalid
+//	LOCALDB_ERROR_INSUFFICIENT_BUFFER, if the buffer wszSqlConnection is too small
+//	LOCALDB_ERROR_INSTANCE_FOLDER_PATH_TOO_LONG, if the path where instance should be stored is longer than MAX_PATH
+
+//	LOCALDB_ERROR_CANNOT_GET_USER_PROFILE_FOLDER, if a user profile folder cannot be retrieved
+//	LOCALDB_ERROR_CANNOT_ACCESS_INSTANCE_FOLDER, if a instance folder cannot be accessed
+//	LOCALDB_ERROR_CANNOT_ACCESS_INSTANCE_REGISTRY, if a instance registry cannot be accessed
+//	LOCALDB_ERROR_INTERNAL_ERROR, if an unexpected error occurred. See event log for details
+//	LOCALDB_ERROR_CANNOT_MODIFY_INSTANCE_REGISTRY, if an instance registry cannot be modified
+//	LOCALDB_ERROR_CANNOT_CREATE_SQL_PROCESS, if a process for Sql Server cannot be created
+//	LOCALDB_ERROR_SQL_SERVER_STARTUP_FAILED, if a Sql Server process is started but Sql Server startup failed.
+//	LOCALDB_ERROR_INSTANCE_CONFIGURATION_CORRUPT, if a instance configuration is corrupted
+//
+FnLocalDBStartInstance LocalDBStartInstance;
+
+// type definition for LocalDBStopInstance function
+typedef HRESULT __cdecl FnLocalDBStopInstance (
+		// I			the LocalDB instance name
+		__in_z			PCWSTR	pInstanceName,
+		// I			Available flags:
+		//				LOCALDB_SHUTDOWN_KILL_PROCESS	- force the instance to stop immediately
+		//				LOCALDB_SHUTDOWN_WITH_NOWAIT	- shutdown the instance with NOWAIT option
+		__in			DWORD	dwFlags,
+		// I			the time in seconds to wait this operation to complete. If this value is 0, this function will return immediately
+		//				without waiting for LocalDB instance to stop
+		__in			ULONG	ulTimeout
+);
+
+// type definition for pointer to LocalDBStopInstance function
+typedef FnLocalDBStopInstance* PFnLocalDBStopInstance;
+
+// Flags for the StopLocalDBInstance function
+#define LOCALDB_SHUTDOWN_KILL_PROCESS		0x0001L
+#define LOCALDB_SHUTDOWN_WITH_NOWAIT		0x0002L
+
+//---------------------------------------------------------------------
+// Function: LocalDBStopInstance
+//
+// Description: This function will shutdown the given LocalDB instance. 
+// If the flag LOCALDB_SHUTDOWN_KILL_PROCESS is set, the LocalDB instance will be killed immediately.
+// IF the flag LOCALDB_SHUTDOWN_WITH_NOWAIT is set, the LocalDB instance will shutdown with NOWAIT option.
+//
+// Return Values:
+//	S_OK, if the function succeeds
+//	LOCALDB_ERROR_UNKNOWN_INSTANCE, if the specified instance doesn't exist
+//	LOCALDB_ERROR_INVALID_PARAM_INSTANCE_NAME, if the instance name parameter is invalid
+//	LOCALDB_ERROR_INVALID_PARAM_FLAGS, if the flags are invalid
+//	LOCALDB_ERROR_WAIT_TIMEOUT - if this function has not finished in given time
+//	LOCALDB_ERROR_INTERNAL_ERROR, if an unexpected error occurred. See event log for details
+//
+FnLocalDBStopInstance LocalDBStopInstance;
+
+// type definition for LocalDBDeleteInstance function
+typedef HRESULT __cdecl FnLocalDBDeleteInstance (
+		// I			the LocalDB instance name
+		__in_z			PCWSTR	pInstanceName,
+		// I			reserved for the future use. Currently should be set to 0.
+		__in			DWORD	dwFlags
+);
+
+// type definition for pointer to LocalDBDeleteInstance function
+typedef FnLocalDBDeleteInstance* PFnLocalDBDeleteInstance;
+
+//---------------------------------------------------------------------
+// Function: LocalDBDeleteInstance
+//
+// Description: This function will remove the given LocalDB instance. If the given instance is running this function will
+// fail with the error code LOCALDB_ERROR_INSTANCE_BUSY.
+//
+// Return Values:
+//	S_OK, if the function succeeds
+//	LOCALDB_ERROR_INVALID_PARAM_INSTANCE_NAME, if the instance name parameter is invalid
+//	LOCALDB_ERROR_INVALID_PARAM_FLAGS, if the flags are invalid
+//	LOCALDB_ERROR_UNKNOWN_INSTANCE, if the specified instance doesn't exist
+//	LOCALDB_ERROR_INSTANCE_BUSY, if the given instance is running
+//	LOCALDB_ERROR_INTERNAL_ERROR, if an unexpected error occurred. See event log for details
+//
+FnLocalDBDeleteInstance LocalDBDeleteInstance;
+
+// Function: LocalDBFormatMessage
+//
+// Description: This function will return the localized textual description for the given LocalDB error
+//
+// Available Flags:
+//	LOCALDB_TRUNCATE_ERR_MESSAGE - the error message should be truncated to fit into the provided buffer
+//
+// Return Value:
+//	S_OK, if the function succeeds
+//
+//	LOCALDB_ERROR_UNKNOWN_HRESULT,		if the given HRESULT is unknown
+//	LOCALDB_ERROR_UNKNOWN_LANGUAGE_ID,	if the given language id is unknown (0 is recommended for the //	default language)
+//	LOCALDB_ERROR_UNKNOWN_ERROR_CODE,	if the LocalDB error code is unknown
+//	LOCALDB_ERROR_INVALID_PARAM_FLAGS,	if the flags are invalid
+//	LOCALDB_ERROR_INSUFFICIENT_BUFFER,	if the input buffer is too short and LOCALDB_TRUNCATE_ERR_MESSAGE flag 
+//										is not set
+//	LOCALDB_ERROR_INTERNAL_ERROR,		if an unexpected error occurred. See event log for details
+//
+FnLocalDBFormatMessage LocalDBFormatMessage;
+
+#define MAX_LOCALDB_INSTANCE_NAME_LENGTH 128
+#define MAX_LOCALDB_PARENT_INSTANCE_LENGTH MAX_INSTANCE_NAME
+
+typedef WCHAR TLocalDBInstanceName[MAX_LOCALDB_INSTANCE_NAME_LENGTH + 1];
+typedef TLocalDBInstanceName* PTLocalDBInstanceName;
+
+// type definition for LocalDBGetInstances function
+typedef HRESULT __cdecl FnLocalDBGetInstances(
+		// O					buffer for a LocalDB instance names
+		__out					PTLocalDBInstanceName	pInstanceNames,
+		// I/O					on input has the number slots for instance names in the pInstanceNames buffer. On output, 
+		//						has the number of existing LocalDB instances
+		__inout					LPDWORD					lpdwNumberOfInstances
+);
+
+// type definition for pointer to LocalDBGetInstances function
+typedef FnLocalDBGetInstances* PFnLocalDBGetInstances;
+
+// Function: LocalDBGetInstances
+// 
+// Description: This function returns names for all existing Local DB instances
+//
+// Usage Example:
+//	DWORD dwN = 0;
+//	LocalDBGetInstances(NULL, &dwN);
+
+//	PTLocalDBInstanceName insts = (PTLocalDBInstanceName) malloc(dwN * sizeof(TLocalDBInstanceName));
+//	LocalDBGetInstances(insts, &dwN);
+
+//	for (int i = 0; i < dwN; i++)
+//		wprintf(L"%s\n", insts[i]);
+//
+// Return values:
+//	S_OK, if the function succeeds
+//
+// LOCALDB_ERROR_INSUFFICIENT_BUFFER,			the given buffer is to small
+// LOCALDB_ERROR_INTERNAL_ERROR,		if an unexpected error occurred. See event log for details
+//
+FnLocalDBGetInstances LocalDBGetInstances;
+
+// SID string format: S - Revision(1B) - Authority ID (6B) {- Sub authority ID (4B)} * max 15 sub-authorities = 1 + 1 + 3 + 1 + 15 + (1 + 10) * 15
+#define MAX_STRING_SID_LENGTH 186
+
+#pragma pack(push)
+#pragma pack(8)
+
+// DEVNOTE: If you want to modify this structure please read DEVNOTEs on top of function LocalDBGetInstanceInfo in sqluserinstance.cpp file.
+//
+typedef struct _LocalDBInstanceInfo
+{
+	DWORD					cbLocalDBInstanceInfoSize;
+	TLocalDBInstanceName	wszInstanceName;
+	BOOL					bExists;
+	BOOL					bConfigurationCorrupted;
+	BOOL					bIsRunning;
+	DWORD					dwMajor;
+	DWORD					dwMinor;
+	DWORD					dwBuild;
+	DWORD					dwRevision;
+	FILETIME				ftLastStartDateUTC;
+	WCHAR					wszConnection[LOCALDB_MAX_SQLCONNECTION_BUFFER_SIZE];
+	BOOL					bIsShared;
+	TLocalDBInstanceName	wszSharedInstanceName;
+	WCHAR					wszOwnerSID[MAX_STRING_SID_LENGTH + 1];
+	BOOL					bIsAutomatic;
+} LocalDBInstanceInfo;
+
+#pragma pack(pop)
+
+typedef LocalDBInstanceInfo* PLocalDBInstanceInfo;
+
+// type definition for LocalDBGetInstanceInfo function
+typedef HRESULT __cdecl FnLocalDBGetInstanceInfo(
+		// I		the LocalDB instance name
+		__in_z		PCWSTR					wszInstanceName, 
+		// O		instance information
+		__out		PLocalDBInstanceInfo	pInfo,
+		// I		Size of LocalDBInstanceInfo structure in bytes
+		__in		DWORD					cbInfo);
+
+// type definition for pointer to LocalDBGetInstances function
+typedef FnLocalDBGetInstanceInfo* PFnLocalDBGetInstanceInfo;
+
+// Function: LocalDBGetInstanceInfo
+//
+// Description: This function returns information about the given instance.
+//
+// Return values:
+//	S_OK, if the function succeeds
+//
+// ERROR_INVALID_PARAMETER, if some of the parameters is invalid
+// LOCALDB_ERROR_INTERNAL_ERROR,		if an unexpected error occurred. See event log for details
+// 
+FnLocalDBGetInstanceInfo LocalDBGetInstanceInfo;
+
+// Version has format: Major.Minor[.Build[.Revision]]. Each of components is 32bit integer which is at most 40 digits and 3 dots
+//
+#define MAX_LOCALDB_VERSION_LENGTH 43
+
+typedef WCHAR TLocalDBVersion[MAX_LOCALDB_VERSION_LENGTH + 1];
+typedef TLocalDBVersion* PTLocalDBVersion;
+
+// type definition for LocalDBGetVersions function
+typedef HRESULT __cdecl FnLocalDBGetVersions(
+		// O					buffer for installed LocalDB versions
+		__out					PTLocalDBVersion	pVersions,
+		// I/O					on input has the number slots for versions in the pVersions buffer. On output, 
+		//						has the number of existing LocalDB versions
+		__inout					LPDWORD				lpdwNumberOfVersions
+);
+
+// type definition for pointer to LocalDBGetVersions function
+typedef FnLocalDBGetVersions* PFnLocalDBGetVersions;
+
+// Function: LocalDBGetVersions
+// 
+// Description: This function returns all installed LocalDB versions. Returned versions will be in format Major.Minor
+//
+// Usage Example:
+//	DWORD dwN = 0;
+//	LocalDBGetVersions(NULL, &dwN);
+
+//	PTLocalDBVersion versions = (PTLocalDBVersion) malloc(dwN * sizeof(TLocalDBVersion));
+//	LocalDBGetVersions(insts, &dwN);
+
+//	for (int i = 0; i < dwN; i++)
+//		wprintf(L"%s\n", insts[i]);
+//
+// Return values:
+//	S_OK, if the function succeeds
+//
+// LOCALDB_ERROR_INSUFFICIENT_BUFFER,			the given buffer is to small
+// LOCALDB_ERROR_INTERNAL_ERROR,				if an unexpected error occurs.
+//
+FnLocalDBGetVersions LocalDBGetVersions;
+
+#pragma pack(push)
+#pragma pack(8)
+
+// DEVNOTE: If you want to modify this structure please read DEVNOTEs on top of function LocalDBGetVersionInfo in sqluserinstance.cpp file.
+//
+typedef struct _LocalDBVersionInfo
+{
+	DWORD				cbLocalDBVersionInfoSize;
+	TLocalDBVersion		wszVersion;
+	BOOL				bExists;
+	DWORD				dwMajor;
+	DWORD				dwMinor;
+	DWORD				dwBuild;
+	DWORD				dwRevision;
+} LocalDBVersionInfo;
+
+#pragma pack(pop)
+
+typedef LocalDBVersionInfo* PLocalDBVersionInfo;
+
+// type definition for LocalDBGetVersionInfo function
+typedef HRESULT __cdecl FnLocalDBGetVersionInfo(
+		// I			LocalDB version string
+		__in_z			PCWSTR					wszVersion,
+		// O			version information
+		__out			PLocalDBVersionInfo		pVersionInfo,
+		// I			Size of LocalDBVersionInfo structure in bytes
+		__in			DWORD					cbVersionInfo
+);
+
+// type definition for pointer to LocalDBGetVersionInfo function
+typedef FnLocalDBGetVersionInfo* PFnLocalDBGetVersionInfo;
+
+// Function: LocalDBGetVersionInfo
+// 
+// Description: This function returns information about the given LocalDB version
+//
+// Return values:
+//	S_OK, if the function succeeds
+//	LOCALDB_ERROR_INTERNAL_ERROR, if some internal error occurred
+//	LOCALDB_ERROR_INVALID_PARAMETER, if a input parameter is invalid
+//
+FnLocalDBGetVersionInfo LocalDBGetVersionInfo;
+
+typedef HRESULT __cdecl FnLocalDBStartTracing();
+typedef FnLocalDBStartTracing* PFnLocalDBStartTracing;
+
+// Function: LocalDBStartTracing
+//
+// Description: This function will write in registry that Tracing sessions should be started for the current user.
+//
+// Return values:
+//	S_OK - on success
+//	Propper HRESULT in case of failure
+//
+FnLocalDBStartTracing LocalDBStartTracing;
+
+typedef HRESULT __cdecl FnLocalDBStopTracing();
+typedef FnLocalDBStopTracing* PFnFnLocalDBStopTracing;
+
+// Function: LocalDBStopTracing
+//
+// Description: This function will write in registry that Tracing sessions should be stopped for the current user.
+//
+// Return values:
+//	S_OK - on success
+//	Propper HRESULT in case of failure
+//
+FnLocalDBStopTracing LocalDBStopTracing;
+
+// type definition for LocalDBShareInstance function
+typedef HRESULT __cdecl FnLocalDBShareInstance(
+		// I		the SID of the LocalDB instance owner
+		__in_opt	PSID 					pOwnerSID, 
+		// I		the private name of LocalDB instance which should be shared
+		__in_z		PCWSTR					wszPrivateLocalDBInstanceName,
+		// I		the public shared name
+		__in_z		PCWSTR					wszSharedName,
+		// I		reserved for the future use. Currently should be set to 0.
+		__in		DWORD	dwFlags);
+
+// type definition for pointer to LocalDBShareInstance function
+typedef FnLocalDBShareInstance* PFnLocalDBShareInstance;
+
+// Function: LocalDBShareInstance
+//
+// Description: This function will share the given private instance of the given user with the given shared name.
+// This function has to be executed elevated.
+//
+// Return values:
+//	HRESULT
+//
+FnLocalDBShareInstance LocalDBShareInstance;
+
+// type definition for LocalDBUnshareInstance function
+typedef HRESULT __cdecl FnLocalDBUnshareInstance(
+		// I		the LocalDB instance name
+		__in_z		PCWSTR					pInstanceName,
+		// I		reserved for the future use. Currently should be set to 0.
+		__in		DWORD	dwFlags);
+
+// type definition for pointer to LocalDBUnshareInstance function
+typedef FnLocalDBUnshareInstance* PFnLocalDBUnshareInstance;
+
+// Function: LocalDBUnshareInstance
+//
+// Description: This function unshares the given LocalDB instance.
+// If a shared name is given then that shared instance will be unshared.
+// If a private name is given then we will check if the caller
+// shares a private instance with the given private name and unshare it.
+//
+// Return values:
+//	HRESULT
+//
+FnLocalDBUnshareInstance LocalDBUnshareInstance;
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
+
+#if defined(LOCALDB_DEFINE_PROXY_FUNCTIONS)
+//---------------------------------------------------------------------
+// The following section is enabled only if the constant LOCALDB_DEFINE_PROXY_FUNCTIONS
+// is defined. It provides an implementation of proxies for each of the LocalDB APIs.
+// The proxy implementations use a common function to bind to entry points in the
+// latest installed SqlUserInstance DLL, and then forward the requests.
+//
+// The current implementation loads the SqlUserInstance DLL on the first call into
+// a proxy function. There is no provision for unloading the DLL. Note that if the
+// process includes multiple binaries (EXE and one or more DLLs), each of them could
+// load a separate instance of the SqlUserInstance DLL.
+//
+// For future consideration: allow the SqlUserInstance DLL to be unloaded dynamically.
+//
+// WARNING: these functions must not be called in DLL initialization, since a deadlock
+// could result loading dependent DLLs.
+//---------------------------------------------------------------------
+
+// This macro provides the body for each proxy function.
+//
+#define LOCALDB_PROXY(LocalDBFn) static Fn##LocalDBFn* pfn##LocalDBFn = NULL; if (!pfn##LocalDBFn) {HRESULT hr = LocalDBGetPFn(#LocalDBFn, (FARPROC *)&pfn##LocalDBFn); if (FAILED(hr)) return hr;} return (*pfn##LocalDBFn)
+
+// Structure and function to parse the "Installed Versions" registry subkeys
+//
+typedef struct {
+    DWORD dwComponent[2];
+    WCHAR wszKeyName[256];
+} Version;
+
+// The following algorithm is intended to match, in part, the .NET Version class.
+// A maximum of two components are allowed, which must be separated with a period.
+// Valid: "11", "11.0"
+// Invalid: "", ".0", "11.", "11.0."
+//
+static BOOL ParseVersion(Version * pVersion)
+{
+    pVersion->dwComponent[0] = 0;
+    pVersion->dwComponent[1] = 0;
+    WCHAR * pwch = pVersion->wszKeyName;
+
+    for (int i = 0; i<2; i++)
+    {
+        LONGLONG llVal = 0;
+        BOOL fHaveDigit = FALSE;
+
+        while (*pwch >= L'0' && *pwch <= L'9')
+        {
+            llVal = llVal * 10 + (*pwch++ - L'0');
+            fHaveDigit = TRUE;
+
+            if (llVal > 0x7fffffff)
+            {
+                return FALSE;
+            }
+        }
+
+        if (!fHaveDigit)
+            return FALSE;
+
+        pVersion->dwComponent[i] = (DWORD) llVal;
+
+        if (*pwch == L'\0')
+            return TRUE;
+
+        if (*pwch != L'.')
+            return FALSE;
+
+        pwch++;
+    }
+    // If we get here, the version string was terminated with L'.', which is not valid
+    //
+    return FALSE;
+}
+
+#include <assert.h>
+
+// This function loads the correct LocalDB API DLL (if required) and returns a pointer to a procedure.
+// Note that the first-loaded API DLL for the process will be used until process termination: installation of
+//  a new version of the API will not be recognized after first load.
+//
+static HRESULT LocalDBGetPFn(LPCSTR szLocalDBFn, FARPROC *pfnLocalDBFn)
+{
+    static volatile HMODULE hLocalDBDll = NULL;
+
+    if (!hLocalDBDll)
+    {
+        LONG    ec;
+        HKEY    hkeyVersions = NULL;
+        HKEY    hkeyVersion = NULL;
+        Version verHigh = {0};
+        Version verCurrent;
+        DWORD   cchKeyName;
+        DWORD   dwValueType;
+        WCHAR   wszLocalDBDll[MAX_PATH+1];
+        DWORD   cbLocalDBDll = sizeof(wszLocalDBDll) - sizeof(WCHAR); // to deal with RegQueryValueEx null-termination quirk
+        HMODULE hLocalDBDllTemp = NULL;
+
+        if (ERROR_SUCCESS != (ec = RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Microsoft SQL Server Local DB\\Installed Versions", 0, KEY_READ, &hkeyVersions)))
+        {
+            goto Cleanup;
+        }
+
+        for (int i = 0; ; i++)
+        {
+            cchKeyName = 256;
+            if (ERROR_SUCCESS != (ec = RegEnumKeyExW(hkeyVersions, i, verCurrent.wszKeyName, &cchKeyName, 0, NULL, NULL, NULL)))
+            {
+                if (ERROR_NO_MORE_ITEMS == ec)
+                {
+                    break;
+                }
+                goto Cleanup;
+            }
+
+            if (!ParseVersion(&verCurrent))
+            {
+                continue; // invalid version syntax
+            }
+
+            if (verCurrent.dwComponent[0] > verHigh.dwComponent[0] ||
+                (verCurrent.dwComponent[0] == verHigh.dwComponent[0] && verCurrent.dwComponent[1] > verHigh.dwComponent[1]))
+            {
+                verHigh = verCurrent;
+            }
+        }
+        if (!verHigh.wszKeyName[0])
+        {
+            // ec must be ERROR_NO_MORE_ITEMS here
+            //
+            assert(ec == ERROR_NO_MORE_ITEMS);
+
+            // We will change the error code to ERROR_FILE_NOT_FOUND in order to indicate that
+            // LocalDB instalation is not found. Registry key "SOFTWARE\\Microsoft\\Microsoft SQL Server Local DB\\Installed Versions" exists
+            // but it is empty.
+            //
+            ec = ERROR_FILE_NOT_FOUND;
+            goto Cleanup;
+        }
+
+        if (ERROR_SUCCESS != (ec = RegOpenKeyExW(hkeyVersions, verHigh.wszKeyName, 0, KEY_READ, &hkeyVersion)))
+        {
+            goto Cleanup;
+        }
+        if (ERROR_SUCCESS != (ec = RegQueryValueExW(hkeyVersion, L"InstanceAPIPath", NULL, &dwValueType, (PBYTE) wszLocalDBDll, &cbLocalDBDll)))
+        {
+            goto Cleanup;
+        }
+        if (dwValueType != REG_SZ)
+        {
+            ec = ERROR_INVALID_DATA;
+            goto Cleanup;
+        }
+        // Ensure string value null-terminated
+        // Note that we left a spare character in the output buffer for RegQueryValueEx for this purpose
+        //
+        wszLocalDBDll[cbLocalDBDll/sizeof(WCHAR)] = L'\0';
+
+        hLocalDBDllTemp = LoadLibraryW(wszLocalDBDll);
+        if (NULL == hLocalDBDllTemp)
+        {
+            ec = GetLastError();
+            goto Cleanup;
+        }
+        if (NULL == InterlockedCompareExchangePointer((volatile PVOID *)&hLocalDBDll, hLocalDBDllTemp, NULL))
+        {
+            // We were the winner: we gave away our DLL handle
+            //
+            hLocalDBDllTemp = NULL;
+        }
+        ec = ERROR_SUCCESS;
+Cleanup:
+        if (hLocalDBDllTemp)
+            FreeLibrary(hLocalDBDllTemp);
+        if (hkeyVersion)
+            RegCloseKey(hkeyVersion);
+        if (hkeyVersions)
+            RegCloseKey(hkeyVersions);
+
+        // Error code ERROR_FILE_NOT_FOUND can occure if registry hive with installed LocalDB versions is missing.
+        // In that case we should return the LocalDB specific error code
+        //
+        if (ec == ERROR_FILE_NOT_FOUND)
+            return LOCALDB_ERROR_NOT_INSTALLED;
+
+        if (ec != ERROR_SUCCESS)
+            return HRESULT_FROM_WIN32(ec);
+    }
+
+    FARPROC pfn = GetProcAddress(hLocalDBDll, szLocalDBFn);
+
+    if (!pfn)
+    {
+       return HRESULT_FROM_WIN32(GetLastError());
+    }
+    *pfnLocalDBFn = pfn;
+    return S_OK;
+}
+
+// The following proxy functions forward calls to the latest LocalDB API DLL.
+//
+
+HRESULT __cdecl
+LocalDBCreateInstance (
+		// I			the LocalDB version (e.g. 11.0 or 11.0.1094.2)
+		__in_z			PCWSTR	wszVersion,
+		// I			the instance name
+		__in_z			PCWSTR	pInstanceName,
+		// I			reserved for the future use. Currently should be set to 0.
+		__in			DWORD	dwFlags
+)
+{
+	LOCALDB_PROXY(LocalDBCreateInstance)(wszVersion, pInstanceName, dwFlags);
+}
+
+HRESULT __cdecl
+LocalDBStartInstance(
+		// I			the instance name
+		__in_z										PCWSTR	pInstanceName,
+		// I			reserved for the future use. Currently should be set to 0.
+		__in										DWORD	dwFlags,
+		// O			the buffer to store the connection string to the LocalDB instance
+		__out_ecount_z_opt(*lpcchSqlConnection)		LPWSTR	wszSqlConnection,
+		// I/O			on input has the size of the wszSqlConnection buffer in characters. On output, if the given buffer size is 
+		//				too small, has the buffer size required, in characters, including trailing null.
+		__inout_opt									LPDWORD	lpcchSqlConnection
+)
+{
+	LOCALDB_PROXY(LocalDBStartInstance)(pInstanceName, dwFlags, wszSqlConnection, lpcchSqlConnection);
+}
+
+HRESULT __cdecl
+LocalDBStopInstance (
+		// I			the instance name
+		__in_z			PCWSTR	pInstanceName,
+		// I			Available flags:
+		//				LOCALDB_SHUTDOWN_KILL_PROCESS		- force the instance to stop immediately
+		//				LOCALDB_SHUTDOWN_WITH_NOWAIT	- shutdown the instance with NOWAIT option
+		__in			DWORD	dwFlags,
+		// I			the time in seconds to wait this operation to complete. If this value is 0, this function will return immediately
+		//				without waiting for LocalDB instance to stop
+		__in			ULONG	ulTimeout
+)
+{
+	LOCALDB_PROXY(LocalDBStopInstance)(pInstanceName, dwFlags, ulTimeout);
+}
+
+HRESULT __cdecl
+LocalDBDeleteInstance (
+		// I			the instance name
+		__in_z			PCWSTR	pInstanceName,
+		//				reserved for the future use. Currently should be set to 0.
+		__in			DWORD	dwFlags
+)
+{
+	LOCALDB_PROXY(LocalDBDeleteInstance)(pInstanceName, dwFlags);
+}
+
+HRESULT __cdecl
+LocalDBFormatMessage(
+			// I		the LocalDB error code
+			__in								HRESULT	hrLocalDB,
+			// I		Available flags:
+			//			LOCALDB_TRUNCATE_ERR_MESSAGE - if the input buffer is too short,
+			//			the error message will be truncated to fit into the buffer 
+			__in								DWORD	dwFlags,
+			// I		Language desired (LCID) or 0 (in which case Win32 FormatMessage order is used)
+			__in								DWORD	dwLanguageId,
+			// O		the buffer to store the LocalDB error message
+			__out_ecount_z(*lpcchMessage)		LPWSTR	wszMessage,
+			// I/O		on input has the size of the wszMessage buffer in characters. On output, if the given buffer size is 
+			//			too small, has the buffer size required, in characters, including trailing null. If the function succeeds
+			//			contains the number of characters in the message, excluding the trailing null
+			__inout								LPDWORD	lpcchMessage
+)
+{
+	LOCALDB_PROXY(LocalDBFormatMessage)(hrLocalDB, dwFlags, dwLanguageId, wszMessage, lpcchMessage);
+}
+
+HRESULT __cdecl
+LocalDBGetInstances(
+		// O					buffer with instance names
+		__out					PTLocalDBInstanceName	pInstanceNames,
+		// I/O					on input has the number slots for instance names in the pInstanceNames buffer. On output, 
+		//						has the number of existing LocalDB instances
+		__inout					LPDWORD					lpdwNumberOfInstances
+)
+{
+	LOCALDB_PROXY(LocalDBGetInstances)(pInstanceNames, lpdwNumberOfInstances);
+}
+
+HRESULT __cdecl
+LocalDBGetInstanceInfo(
+		// I		the instance name
+		__in_z		PCWSTR					wszInstanceName, 
+		// O		instance information
+		__out		PLocalDBInstanceInfo	pInfo,
+		// I		Size of LocalDBInstanceInfo structure in bytes
+		__in		DWORD					cbInfo
+)
+{
+	LOCALDB_PROXY(LocalDBGetInstanceInfo)(wszInstanceName, pInfo, cbInfo);
+}
+
+HRESULT __cdecl
+LocalDBStartTracing()
+{
+	LOCALDB_PROXY(LocalDBStartTracing)();
+}
+
+HRESULT __cdecl
+LocalDBStopTracing()
+{
+	LOCALDB_PROXY(LocalDBStopTracing)();
+}
+
+HRESULT __cdecl 
+LocalDBShareInstance(
+		// I		the SID of the LocalDB instance owner
+		__in_opt	PSID 					pOwnerSID, 
+		// I		the private name of LocalDB instance which should be shared
+		__in_z		PCWSTR					wszLocalDBInstancePrivateName,
+		// I		the public shared name
+		__in_z		PCWSTR					wszSharedName,
+		// I		reserved for the future use. Currently should be set to 0.
+		__in		DWORD	dwFlags)
+{
+	LOCALDB_PROXY(LocalDBShareInstance)(pOwnerSID, wszLocalDBInstancePrivateName, wszSharedName, dwFlags);
+}
+
+HRESULT __cdecl
+LocalDBGetVersions(
+		// O					buffer for installed LocalDB versions
+		__out					PTLocalDBVersion	pVersions,
+		// I/O					on input has the number slots for versions in the pVersions buffer. On output, 
+		//						has the number of existing LocalDB versions
+		__inout					LPDWORD				lpdwNumberOfVersions
+)
+{
+	LOCALDB_PROXY(LocalDBGetVersions)(pVersions, lpdwNumberOfVersions);
+}
+
+HRESULT __cdecl
+LocalDBUnshareInstance(
+		// I		the LocalDB instance name
+		__in_z		PCWSTR					pInstanceName,
+		// I		reserved for the future use. Currently should be set to 0.
+		__in		DWORD	dwFlags)
+{
+	LOCALDB_PROXY(LocalDBUnshareInstance)(pInstanceName, dwFlags);
+}
+
+HRESULT __cdecl 
+LocalDBGetVersionInfo(
+		// I			LocalDB version string
+		__in_z			PCWSTR						wszVersion,
+		// O			version information
+		__out			PLocalDBVersionInfo			pVersionInfo,
+		// I			Size of LocalDBVersionInfo structure in bytes
+		__in			DWORD						cbVersionInfo)
+{
+	LOCALDB_PROXY(LocalDBGetVersionInfo)(wszVersion, pVersionInfo, cbVersionInfo);
+}
+
+#endif
+
+#endif	// _SQLUSERINSTANCE_H_
+
+//-----------------------------------------------------------------------------
+// File:			sqluserinstancemsgs.mc
+//
+// Copyright:		Copyright (c) Microsoft Corporation
+//-----------------------------------------------------------------------------
+#ifndef _LOCALDB_MESSAGES_H_
+#define _LOCALDB_MESSAGES_H_
+// Header section
+//
+// Section with the LocalDB messages
+//
+//
+//  Values are 32 bit values laid out as follows:
+//
+//   3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1
+//   1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0
+//  +-+-+-+-+-+---------------------+-------------------------------+
+//  |S|R|C|N|r|    Facility         |               Code            |
+//  +-+-+-+-+-+---------------------+-------------------------------+
+//
+//  where
+//
+//      S - Severity - indicates success/fail
+//
+//          0 - Success
+//          1 - Fail (COERROR)
+//
+//      R - reserved portion of the facility code, corresponds to NT's
+//              second severity bit.
+//
+//      C - reserved portion of the facility code, corresponds to NT's
+//              C field.
+//
+//      N - reserved portion of the facility code. Used to indicate a
+//              mapped NT status value.
+//
+//      r - reserved portion of the facility code. Reserved for internal
+//              use. Used to indicate HRESULT values that are not status
+//              values, but are instead message ids for display strings.
+//
+//      Facility - is the facility code
+//
+//      Code - is the facility's status code
+//
+//
+// Define the facility codes
+//
+#define FACILITY_LOCALDB                 0x9C5
+
+
+//
+// Define the severity codes
+//
+#define LOCALDB_SEVERITY_SUCCESS         0x0
+#define LOCALDB_SEVERITY_ERROR           0x2
+
+
+//
+// MessageId: LOCALDB_ERROR_CANNOT_CREATE_INSTANCE_FOLDER
+//
+// MessageText:
+//
+// Cannot create folder for the LocalDB instance at: %%LOCALAPPDATA%%\Microsoft\Microsoft SQL Server Local DB\Instances\<instance name>.
+//
+#define LOCALDB_ERROR_CANNOT_CREATE_INSTANCE_FOLDER ((HRESULT)0x89C50100L)
+
+//
+// MessageId: LOCALDB_ERROR_INVALID_PARAMETER
+//
+// MessageText:
+//
+// The parameter for the LocalDB Instance API method is incorrect. Consult the API documentation.
+//
+#define LOCALDB_ERROR_INVALID_PARAMETER  ((HRESULT)0x89C50101L)
+
+//
+// MessageId: LOCALDB_ERROR_INSTANCE_EXISTS_WITH_LOWER_VERSION
+//
+// MessageText:
+//
+// Unable to create the LocalDB instance with specified version. An instance with the same name already exists, but it has lower version than the specified version.
+//
+#define LOCALDB_ERROR_INSTANCE_EXISTS_WITH_LOWER_VERSION ((HRESULT)0x89C50102L)
+
+//
+// MessageId: LOCALDB_ERROR_CANNOT_GET_USER_PROFILE_FOLDER
+//
+// MessageText:
+//
+// Cannot access the user profile folder for local application data (%%LOCALAPPDATA%%).
+//
+#define LOCALDB_ERROR_CANNOT_GET_USER_PROFILE_FOLDER ((HRESULT)0x89C50103L)
+
+//
+// MessageId: LOCALDB_ERROR_INSTANCE_FOLDER_PATH_TOO_LONG
+//
+// MessageText:
+//
+// The full path length of the LocalDB instance folder is longer than MAX_PATH. The instance must be stored in folder: %%LOCALAPPDATA%%\Microsoft\Microsoft SQL Server Local DB\Instances\<instance name>.
+//
+#define LOCALDB_ERROR_INSTANCE_FOLDER_PATH_TOO_LONG ((HRESULT)0x89C50104L)
+
+//
+// MessageId: LOCALDB_ERROR_CANNOT_ACCESS_INSTANCE_FOLDER
+//
+// MessageText:
+//
+// Cannot access LocalDB instance folder: %%LOCALAPPDATA%%\Microsoft\Microsoft SQL Server Local DB\Instances\<instance name>.
+//
+#define LOCALDB_ERROR_CANNOT_ACCESS_INSTANCE_FOLDER ((HRESULT)0x89C50105L)
+
+//
+// MessageId: LOCALDB_ERROR_CANNOT_ACCESS_INSTANCE_REGISTRY
+//
+// MessageText:
+//
+// Unexpected error occurred while trying to access the LocalDB instance registry configuration. See the Windows Application event log for error details.
+//
+#define LOCALDB_ERROR_CANNOT_ACCESS_INSTANCE_REGISTRY ((HRESULT)0x89C50106L)
+
+//
+// MessageId: LOCALDB_ERROR_UNKNOWN_INSTANCE
+//
+// MessageText:
+//
+// The specified LocalDB instance does not exist.
+//
+#define LOCALDB_ERROR_UNKNOWN_INSTANCE   ((HRESULT)0x89C50107L)
+
+//
+// MessageId: LOCALDB_ERROR_INTERNAL_ERROR
+//
+// MessageText:
+//
+// Unexpected error occurred inside a LocalDB instance API method call. See the Windows Application event log for error details.
+//
+#define LOCALDB_ERROR_INTERNAL_ERROR     ((HRESULT)0x89C50108L)
+
+//
+// MessageId: LOCALDB_ERROR_CANNOT_MODIFY_INSTANCE_REGISTRY
+//
+// MessageText:
+//
+// Unexpected error occurred while trying to modify the registry configuration for the LocalDB instance. See the Windows Application event log for error details.
+//
+#define LOCALDB_ERROR_CANNOT_MODIFY_INSTANCE_REGISTRY ((HRESULT)0x89C50109L)
+
+//
+// MessageId: LOCALDB_ERROR_SQL_SERVER_STARTUP_FAILED
+//
+// MessageText:
+//
+// Error occurred during LocalDB instance startup: SQL Server process failed to start.
+//
+#define LOCALDB_ERROR_SQL_SERVER_STARTUP_FAILED ((HRESULT)0x89C5010AL)
+
+//
+// MessageId: LOCALDB_ERROR_INSTANCE_CONFIGURATION_CORRUPT
+//
+// MessageText:
+//
+// LocalDB instance is corrupted. See the Windows Application event log for error details.
+//
+#define LOCALDB_ERROR_INSTANCE_CONFIGURATION_CORRUPT ((HRESULT)0x89C5010BL)
+
+//
+// MessageId: LOCALDB_ERROR_CANNOT_CREATE_SQL_PROCESS
+//
+// MessageText:
+//
+// Error occurred during LocalDB instance startup: unable to create the SQL Server process.
+//
+#define LOCALDB_ERROR_CANNOT_CREATE_SQL_PROCESS ((HRESULT)0x89C5010CL)
+
+//
+// MessageId: LOCALDB_ERROR_UNKNOWN_VERSION
+//
+// MessageText:
+//
+// The specified LocalDB version is not available on this computer.
+//
+#define LOCALDB_ERROR_UNKNOWN_VERSION    ((HRESULT)0x89C5010DL)
+
+//
+// MessageId: LOCALDB_ERROR_UNKNOWN_LANGUAGE_ID
+//
+// MessageText:
+//
+// Error getting the localized error message. The language specified by 'Language ID' parameter is unknown.
+//
+#define LOCALDB_ERROR_UNKNOWN_LANGUAGE_ID ((HRESULT)0x89C5010EL)
+
+//
+// MessageId: LOCALDB_ERROR_INSTANCE_STOP_FAILED
+//
+// MessageText:
+//
+// Stop operation for LocalDB instance failed to complete within the specified time.
+//
+#define LOCALDB_ERROR_INSTANCE_STOP_FAILED ((HRESULT)0x89C5010FL)
+
+//
+// MessageId: LOCALDB_ERROR_UNKNOWN_ERROR_CODE
+//
+// MessageText:
+//
+// Error getting the localized error message. The specified error code is unknown.
+//
+#define LOCALDB_ERROR_UNKNOWN_ERROR_CODE ((HRESULT)0x89C50110L)
+
+//
+// MessageId: LOCALDB_ERROR_VERSION_REQUESTED_NOT_INSTALLED
+//
+// MessageText:
+//
+// The LocalDB version available on this workstation is lower than the requested LocalDB version.
+//
+#define LOCALDB_ERROR_VERSION_REQUESTED_NOT_INSTALLED ((HRESULT)0x89C50111L)
+
+//
+// MessageId: LOCALDB_ERROR_INSTANCE_BUSY
+//
+// MessageText:
+//
+// Requested operation on LocalDB instance cannot be performed because specified instance is currently in use. Stop the instance and try again.
+//
+#define LOCALDB_ERROR_INSTANCE_BUSY      ((HRESULT)0x89C50112L)
+
+//
+// MessageId: LOCALDB_ERROR_INVALID_OPERATION
+//
+// MessageText:
+//
+// Default LocalDB instances cannot be created, stopped or deleted manually.
+//
+#define LOCALDB_ERROR_INVALID_OPERATION  ((HRESULT)0x89C50113L)
+
+//
+// MessageId: LOCALDB_ERROR_INSUFFICIENT_BUFFER
+//
+// MessageText:
+//
+// The buffer passed to the LocalDB instance API method has insufficient size.
+//
+#define LOCALDB_ERROR_INSUFFICIENT_BUFFER ((HRESULT)0x89C50114L)
+
+//
+// MessageId: LOCALDB_ERROR_WAIT_TIMEOUT
+//
+// MessageText:
+//
+// Timeout occurred inside the LocalDB instance API method.
+//
+#define LOCALDB_ERROR_WAIT_TIMEOUT       ((HRESULT)0x89C50115L)
+
+// MessageId=0x0116 message id is reserved. This message ID will be used for error LOCALDB_ERROR_NOT_INSTALLED.
+// This message is specific since it has to be present in SqlUserIntsnace.h because it can be returned by discovery API.
+//
+//
+// MessageId: LOCALDB_ERROR_XEVENT_FAILED
+//
+// MessageText:
+//
+// Failed to start XEvent engine within the LocalDB Instance API.
+//
+#define LOCALDB_ERROR_XEVENT_FAILED      ((HRESULT)0x89C50117L)
+
+//
+// MessageId: LOCALDB_ERROR_AUTO_INSTANCE_CREATE_FAILED
+//
+// MessageText:
+//
+// Cannot create an automatic instance. See the Windows Application event log for error details.
+//
+#define LOCALDB_ERROR_AUTO_INSTANCE_CREATE_FAILED ((HRESULT)0x89C50118L)
+
+//
+// MessageId: LOCALDB_ERROR_SHARED_NAME_TAKEN
+//
+// MessageText:
+//
+// Cannot create a shared instance. The specified shared instance name is already in use.
+//
+#define LOCALDB_ERROR_SHARED_NAME_TAKEN  ((HRESULT)0x89C50119L)
+
+//
+// MessageId: LOCALDB_ERROR_CALLER_IS_NOT_OWNER
+//
+// MessageText:
+//
+// API caller is not LocalDB instance owner.
+//
+#define LOCALDB_ERROR_CALLER_IS_NOT_OWNER ((HRESULT)0x89C5011AL)
+
+//
+// MessageId: LOCALDB_ERROR_INVALID_INSTANCE_NAME
+//
+// MessageText:
+//
+// Specified LocalDB instance name is invalid.
+//
+#define LOCALDB_ERROR_INVALID_INSTANCE_NAME ((HRESULT)0x89C5011BL)
+
+//
+// MessageId: LOCALDB_ERROR_INSTANCE_ALREADY_SHARED
+//
+// MessageText:
+//
+// The specified LocalDB instance is already shared with different shared name.
+//
+#define LOCALDB_ERROR_INSTANCE_ALREADY_SHARED ((HRESULT)0x89C5011CL)
+
+//
+// MessageId: LOCALDB_ERROR_INSTANCE_NOT_SHARED
+//
+// MessageText:
+//
+// The specified LocalDB instance is not shared.
+//
+#define LOCALDB_ERROR_INSTANCE_NOT_SHARED ((HRESULT)0x89C5011DL)
+
+//
+// MessageId: LOCALDB_ERROR_ADMIN_RIGHTS_REQUIRED
+//
+// MessageText:
+//
+// Administrator privileges are required in order to execute this operation.
+//
+#define LOCALDB_ERROR_ADMIN_RIGHTS_REQUIRED ((HRESULT)0x89C5011EL)
+
+//
+// MessageId: LOCALDB_ERROR_TOO_MANY_SHARED_INSTANCES
+//
+// MessageText:
+//
+// Unable to share a LocalDB instance - maximum number of shared LocalDB instances reached.
+//
+#define LOCALDB_ERROR_TOO_MANY_SHARED_INSTANCES ((HRESULT)0x89C5011FL)
+
+//
+// MessageId: LOCALDB_ERROR_CANNOT_GET_LOCAL_APP_DATA_PATH
+//
+// MessageText:
+//
+// Cannot get a local application data path. Most probably a user profile is not loaded. If LocalDB is executed under IIS, make sure that profile loading is enabled for the current user.
+//
+#define LOCALDB_ERROR_CANNOT_GET_LOCAL_APP_DATA_PATH ((HRESULT)0x89C50120L)
+
+//
+// MessageId: LOCALDB_ERROR_CANNOT_LOAD_RESOURCES
+//
+// MessageText:
+//
+// Cannot load resources for this DLL. Resources for this DLL should be stored in a subfolder Resources, with the same file name as this DLL and the extension ".RLL".
+//
+#define LOCALDB_ERROR_CANNOT_LOAD_RESOURCES ((HRESULT)0x89C50121L)
+
+ // Detailed error descriptions
+//
+// MessageId: LOCALDB_EDETAIL_DATADIRECTORY_IS_MISSING
+//
+// MessageText:
+//
+// The "DataDirectory" registry value is missing in the LocalDB instance registry key: %1
+//
+#define LOCALDB_EDETAIL_DATADIRECTORY_IS_MISSING ((HRESULT)0x89C50200L)
+
+//
+// MessageId: LOCALDB_EDETAIL_CANNOT_ACCESS_INSTANCE_FOLDER
+//
+// MessageText:
+//
+// Cannot access LocalDB instance folder: %1
+//
+#define LOCALDB_EDETAIL_CANNOT_ACCESS_INSTANCE_FOLDER ((HRESULT)0x89C50201L)
+
+//
+// MessageId: LOCALDB_EDETAIL_DATADIRECTORY_IS_TOO_LONG
+//
+// MessageText:
+//
+// The "DataDirectory" registry value is too long in the LocalDB instance registry key: %1
+//
+#define LOCALDB_EDETAIL_DATADIRECTORY_IS_TOO_LONG ((HRESULT)0x89C50202L)
+
+//
+// MessageId: LOCALDB_EDETAIL_PARENT_INSTANCE_IS_MISSING
+//
+// MessageText:
+//
+// The "Parent Instance" registry value is missing in the LocalDB instance registry key: %1
+//
+#define LOCALDB_EDETAIL_PARENT_INSTANCE_IS_MISSING ((HRESULT)0x89C50203L)
+
+//
+// MessageId: LOCALDB_EDETAIL_PARENT_INSTANCE_IS_TOO_LONG
+//
+// MessageText:
+//
+// The "Parent Instance" registry value is too long in the LocalDB instance registry key: %1
+//
+#define LOCALDB_EDETAIL_PARENT_INSTANCE_IS_TOO_LONG ((HRESULT)0x89C50204L)
+
+//
+// MessageId: LOCALDB_EDETAIL_DATA_DIRECTORY_INVALID
+//
+// MessageText:
+//
+// Data directory for LocalDB instance is invalid: %1
+//
+#define LOCALDB_EDETAIL_DATA_DIRECTORY_INVALID ((HRESULT)0x89C50205L)
+
+//
+// MessageId: LOCALDB_EDETAIL_XEVENT_ASSERT
+//
+// MessageText:
+//
+// LocalDB instance API: XEvent engine assert: %1 in %2:%3 (%4)
+//
+#define LOCALDB_EDETAIL_XEVENT_ASSERT    ((HRESULT)0x89C50206L)
+
+//
+// MessageId: LOCALDB_EDETAIL_XEVENT_ERROR
+//
+// MessageText:
+//
+// LocalDB instance API: XEvent error: %1
+//
+#define LOCALDB_EDETAIL_XEVENT_ERROR     ((HRESULT)0x89C50207L)
+
+//
+// MessageId: LOCALDB_EDETAIL_INSTALLATION_CORRUPTED
+//
+// MessageText:
+//
+// LocalDB installation is corrupted. Reinstall the LocalDB.
+//
+#define LOCALDB_EDETAIL_INSTALLATION_CORRUPTED ((HRESULT)0x89C50208L)
+
+//
+// MessageId: LOCALDB_EDETAIL_CANNOT_GET_PROGRAM_FILES_LOCATION
+//
+// MessageText:
+//
+// LocalDB XEvent error: cannot determine %ProgramFiles% folder location.
+//
+#define LOCALDB_EDETAIL_CANNOT_GET_PROGRAM_FILES_LOCATION ((HRESULT)0x89C50209L)
+
+//
+// MessageId: LOCALDB_EDETAIL_XEVENT_CANNOT_INITIALIZE
+//
+// MessageText:
+//
+// LocalDB XEvent error: Cannot initialize XEvent engine.
+//
+#define LOCALDB_EDETAIL_XEVENT_CANNOT_INITIALIZE ((HRESULT)0x89C5020AL)
+
+//
+// MessageId: LOCALDB_EDETAIL_XEVENT_CANNOT_FIND_CONF_FILE
+//
+// MessageText:
+//
+// LocalDB XEvent error: Cannot find XEvents configuration file: %1
+//
+#define LOCALDB_EDETAIL_XEVENT_CANNOT_FIND_CONF_FILE ((HRESULT)0x89C5020BL)
+
+//
+// MessageId: LOCALDB_EDETAIL_XEVENT_CANNOT_CONFIGURE
+//
+// MessageText:
+//
+// LocalDB XEvent error: Cannot configure XEvents engine with the configuration file: %1
+// HRESULT returned: %2
+//
+#define LOCALDB_EDETAIL_XEVENT_CANNOT_CONFIGURE ((HRESULT)0x89C5020CL)
+
+//
+// MessageId: LOCALDB_EDETAIL_XEVENT_CONF_FILE_NAME_TOO_LONG
+//
+// MessageText:
+//
+// LocalDB XEvent error: XEvents engine configuration file too long
+//
+#define LOCALDB_EDETAIL_XEVENT_CONF_FILE_NAME_TOO_LONG ((HRESULT)0x89C5020DL)
+
+//
+// MessageId: LOCALDB_EDETAIL_COINITIALIZEEX_FAILED
+//
+// MessageText:
+//
+// CoInitializeEx API failed. HRESULT returned: %1
+//
+#define LOCALDB_EDETAIL_COINITIALIZEEX_FAILED ((HRESULT)0x89C5020EL)
+
+//
+// MessageId: LOCALDB_EDETAIL_PARENT_INSTANCE_VERSION_INVALID
+//
+// MessageText:
+//
+// LocalDB parent instance version is invalid: %1
+//
+#define LOCALDB_EDETAIL_PARENT_INSTANCE_VERSION_INVALID ((HRESULT)0x89C5020FL)
+
+//
+// MessageId: LOCALDB_EDETAIL_WINAPI_ERROR
+//
+// MessageText:
+//
+// Windows API call %1 returned error code: %2. Windows system error message is: %3Reported at line: %4. %5
+//
+#define LOCALDB_EDETAIL_WINAPI_ERROR     ((HRESULT)0xC9C50210L)
+
+//
+// MessageId: LOCALDB_EDETAIL_UNEXPECTED_RESULT
+//
+// MessageText:
+//
+// Function %1 returned %2 at line %3.
+//
+#define LOCALDB_EDETAIL_UNEXPECTED_RESULT ((HRESULT)0x89C50211L)
+
+//
+#endif
+
+
+extern RPC_IF_HANDLE __MIDL_itf_sqlncli_0000_0011_v0_0_c_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_sqlncli_0000_0011_v0_0_s_ifspec;
 
 /* Additional Prototypes for ALL interfaces */
 
