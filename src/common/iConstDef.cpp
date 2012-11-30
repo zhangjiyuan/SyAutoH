@@ -37,15 +37,29 @@
 #endif
 
 void
-MCS::__write(::IceInternal::BasicStream* __os, ::MCS::Fruit v)
+MCS::GUIHUB::OHT::__write(::IceInternal::BasicStream* __os, ::MCS::GUIHUB::OHT::GuiCommand v)
 {
-    __os->write(static_cast< ::Ice::Byte>(v), 3);
+    __os->write(static_cast< ::Ice::Byte>(v), 7);
 }
 
 void
-MCS::__read(::IceInternal::BasicStream* __is, ::MCS::Fruit& v)
+MCS::GUIHUB::OHT::__read(::IceInternal::BasicStream* __is, ::MCS::GUIHUB::OHT::GuiCommand& v)
 {
     ::Ice::Byte val;
-    __is->read(val, 3);
-    v = static_cast< ::MCS::Fruit>(val);
+    __is->read(val, 7);
+    v = static_cast< ::MCS::GUIHUB::OHT::GuiCommand>(val);
+}
+
+void
+MCS::GUIHUB::STK::__write(::IceInternal::BasicStream* __os, ::MCS::GUIHUB::STK::Guicommand v)
+{
+    __os->write(static_cast< ::Ice::Byte>(v), 1);
+}
+
+void
+MCS::GUIHUB::STK::__read(::IceInternal::BasicStream* __is, ::MCS::GUIHUB::STK::Guicommand& v)
+{
+    ::Ice::Byte val;
+    __is->read(val, 1);
+    v = static_cast< ::MCS::GUIHUB::STK::Guicommand>(val);
 }

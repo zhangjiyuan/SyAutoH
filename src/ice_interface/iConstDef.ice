@@ -24,7 +24,31 @@ module MCS
 		const int	OHTStatusfoupmoved = 6;
 	};
 	
-	enum Fruit { Apple, Pear, Orange };
+	module GUIHUB
+	{
+		module OHT
+		{
+			enum GuiCommand
+			{ 
+				PosTime, 
+				StatusTime, 
+				GetPosTable,
+				FoupHanding,
+				
+				PathTest,
+				MoveTest,
+				FoupTest 
+			};
+		};
+		
+		module STK
+		{
+			enum Guicommand
+			{
+				StatusTime
+			};
+		};
+	};
 
 };
 

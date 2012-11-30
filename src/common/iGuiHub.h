@@ -348,6 +348,12 @@ typedef ::IceUtil::Handle< Callback_GuiDataHub_ReadData_Base> Callback_GuiDataHu
 class Callback_GuiDataHub_WriteData_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_GuiDataHub_WriteData_Base> Callback_GuiDataHub_WriteDataPtr;
 
+class Callback_GuiDataHub_ReadData2_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_GuiDataHub_ReadData2_Base> Callback_GuiDataHub_ReadData2Ptr;
+
+class Callback_GuiDataHub_WriteData2_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_GuiDataHub_WriteData2_Base> Callback_GuiDataHub_WriteData2Ptr;
+
 class Callback_GuiDataHub_SetDataUpdater_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_GuiDataHub_SetDataUpdater_Base> Callback_GuiDataHub_SetDataUpdaterPtr;
 
@@ -733,6 +739,102 @@ private:
 
     ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
     ::Ice::AsyncResultPtr begin_WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    
+public:
+
+    ::std::string ReadData2(::Ice::Int Tag, ::Ice::Int session)
+    {
+        return ReadData2(Tag, session, 0);
+    }
+    ::std::string ReadData2(::Ice::Int Tag, ::Ice::Int session, const ::Ice::Context& __ctx)
+    {
+        return ReadData2(Tag, session, &__ctx);
+    }
+
+    ::Ice::AsyncResultPtr begin_ReadData2(::Ice::Int Tag, ::Ice::Int session)
+    {
+        return begin_ReadData2(Tag, session, 0, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_ReadData2(::Ice::Int Tag, ::Ice::Int session, const ::Ice::Context& __ctx)
+    {
+        return begin_ReadData2(Tag, session, &__ctx, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_ReadData2(::Ice::Int Tag, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_ReadData2(Tag, session, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_ReadData2(::Ice::Int Tag, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_ReadData2(Tag, session, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_ReadData2(::Ice::Int Tag, ::Ice::Int session, const ::MCS::Callback_GuiDataHub_ReadData2Ptr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_ReadData2(Tag, session, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_ReadData2(::Ice::Int Tag, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataHub_ReadData2Ptr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_ReadData2(Tag, session, &__ctx, __del, __cookie);
+    }
+
+    ::std::string end_ReadData2(const ::Ice::AsyncResultPtr&);
+    
+private:
+
+    ::std::string ReadData2(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_ReadData2(::Ice::Int, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    
+public:
+
+    ::Ice::Int WriteData2(::Ice::Int Tag, const ::std::string& Val, ::Ice::Int session)
+    {
+        return WriteData2(Tag, Val, session, 0);
+    }
+    ::Ice::Int WriteData2(::Ice::Int Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context& __ctx)
+    {
+        return WriteData2(Tag, Val, session, &__ctx);
+    }
+
+    ::Ice::AsyncResultPtr begin_WriteData2(::Ice::Int Tag, const ::std::string& Val, ::Ice::Int session)
+    {
+        return begin_WriteData2(Tag, Val, session, 0, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_WriteData2(::Ice::Int Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context& __ctx)
+    {
+        return begin_WriteData2(Tag, Val, session, &__ctx, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_WriteData2(::Ice::Int Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_WriteData2(Tag, Val, session, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_WriteData2(::Ice::Int Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_WriteData2(Tag, Val, session, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_WriteData2(::Ice::Int Tag, const ::std::string& Val, ::Ice::Int session, const ::MCS::Callback_GuiDataHub_WriteData2Ptr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_WriteData2(Tag, Val, session, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_WriteData2(::Ice::Int Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataHub_WriteData2Ptr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_WriteData2(Tag, Val, session, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::Int end_WriteData2(const ::Ice::AsyncResultPtr&);
+    
+private:
+
+    ::Ice::Int WriteData2(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_WriteData2(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
 
@@ -1595,6 +1697,10 @@ public:
 
     virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
 
+    virtual ::std::string ReadData2(::Ice::Int, ::Ice::Int, const ::Ice::Context*) = 0;
+
+    virtual ::Ice::Int WriteData2(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
+
     virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*) = 0;
 };
 
@@ -1645,6 +1751,10 @@ public:
     virtual ::std::string ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
+
+    virtual ::std::string ReadData2(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+
+    virtual ::Ice::Int WriteData2(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
     virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*);
 };
@@ -1697,6 +1807,10 @@ public:
     virtual ::std::string ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
+
+    virtual ::std::string ReadData2(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+
+    virtual ::Ice::Int WriteData2(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
     virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*);
 };
@@ -1787,6 +1901,12 @@ public:
 
     virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___WriteData(::IceInternal::Incoming&, const ::Ice::Current&);
+
+    virtual ::std::string ReadData2(::Ice::Int, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
+    ::Ice::DispatchStatus ___ReadData2(::IceInternal::Incoming&, const ::Ice::Current&);
+
+    virtual ::Ice::Int WriteData2(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
+    ::Ice::DispatchStatus ___WriteData2(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___SetDataUpdater(::IceInternal::Incoming&, const ::Ice::Current&);
@@ -2188,6 +2308,238 @@ template<class T, typename CT> Callback_GuiDataHub_WriteDataPtr
 newCallback_GuiDataHub_WriteData(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
     return new Callback_GuiDataHub_WriteData<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T>
+class CallbackNC_GuiDataHub_ReadData2 : public Callback_GuiDataHub_ReadData2_Base, public ::IceInternal::TwowayCallbackNC<T>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception&);
+    typedef void (T::*Sent)(bool);
+    typedef void (T::*Response)(const ::std::string&);
+
+    CallbackNC_GuiDataHub_ReadData2(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
+    {
+    }
+
+    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
+    {
+        ::MCS::GuiDataHubPrx __proxy = ::MCS::GuiDataHubPrx::uncheckedCast(__result->getProxy());
+        ::std::string __ret;
+        try
+        {
+            __ret = __proxy->end_ReadData2(__result);
+        }
+        catch(::Ice::Exception& ex)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            __exception(__result, ex);
+#else
+            ::IceInternal::CallbackNC<T>::__exception(__result, ex);
+#endif
+            return;
+        }
+        if(response)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            (callback.get()->*response)(__ret);
+#else
+            (::IceInternal::CallbackNC<T>::callback.get()->*response)(__ret);
+#endif
+        }
+    }
+
+    Response response;
+};
+
+template<class T> Callback_GuiDataHub_ReadData2Ptr
+newCallback_GuiDataHub_ReadData2(const IceUtil::Handle<T>& instance, void (T::*cb)(const ::std::string&), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_ReadData2<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_GuiDataHub_ReadData2Ptr
+newCallback_GuiDataHub_ReadData2(T* instance, void (T::*cb)(const ::std::string&), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_ReadData2<T>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT>
+class Callback_GuiDataHub_ReadData2 : public Callback_GuiDataHub_ReadData2_Base, public ::IceInternal::TwowayCallback<T, CT>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
+    typedef void (T::*Sent)(bool , const CT&);
+    typedef void (T::*Response)(const ::std::string&, const CT&);
+
+    Callback_GuiDataHub_ReadData2(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
+    {
+    }
+
+    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
+    {
+        ::MCS::GuiDataHubPrx __proxy = ::MCS::GuiDataHubPrx::uncheckedCast(__result->getProxy());
+        ::std::string __ret;
+        try
+        {
+            __ret = __proxy->end_ReadData2(__result);
+        }
+        catch(::Ice::Exception& ex)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            __exception(__result, ex);
+#else
+            ::IceInternal::Callback<T, CT>::__exception(__result, ex);
+#endif
+            return;
+        }
+        if(response)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            (callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
+#else
+            (::IceInternal::Callback<T, CT>::callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
+#endif
+        }
+    }
+
+    Response response;
+};
+
+template<class T, typename CT> Callback_GuiDataHub_ReadData2Ptr
+newCallback_GuiDataHub_ReadData2(const IceUtil::Handle<T>& instance, void (T::*cb)(const ::std::string&, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_ReadData2<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_GuiDataHub_ReadData2Ptr
+newCallback_GuiDataHub_ReadData2(T* instance, void (T::*cb)(const ::std::string&, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_ReadData2<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T>
+class CallbackNC_GuiDataHub_WriteData2 : public Callback_GuiDataHub_WriteData2_Base, public ::IceInternal::TwowayCallbackNC<T>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception&);
+    typedef void (T::*Sent)(bool);
+    typedef void (T::*Response)(::Ice::Int);
+
+    CallbackNC_GuiDataHub_WriteData2(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
+    {
+    }
+
+    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
+    {
+        ::MCS::GuiDataHubPrx __proxy = ::MCS::GuiDataHubPrx::uncheckedCast(__result->getProxy());
+        ::Ice::Int __ret;
+        try
+        {
+            __ret = __proxy->end_WriteData2(__result);
+        }
+        catch(::Ice::Exception& ex)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            __exception(__result, ex);
+#else
+            ::IceInternal::CallbackNC<T>::__exception(__result, ex);
+#endif
+            return;
+        }
+        if(response)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            (callback.get()->*response)(__ret);
+#else
+            (::IceInternal::CallbackNC<T>::callback.get()->*response)(__ret);
+#endif
+        }
+    }
+
+    Response response;
+};
+
+template<class T> Callback_GuiDataHub_WriteData2Ptr
+newCallback_GuiDataHub_WriteData2(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_WriteData2<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_GuiDataHub_WriteData2Ptr
+newCallback_GuiDataHub_WriteData2(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_WriteData2<T>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT>
+class Callback_GuiDataHub_WriteData2 : public Callback_GuiDataHub_WriteData2_Base, public ::IceInternal::TwowayCallback<T, CT>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
+    typedef void (T::*Sent)(bool , const CT&);
+    typedef void (T::*Response)(::Ice::Int, const CT&);
+
+    Callback_GuiDataHub_WriteData2(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
+    {
+    }
+
+    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
+    {
+        ::MCS::GuiDataHubPrx __proxy = ::MCS::GuiDataHubPrx::uncheckedCast(__result->getProxy());
+        ::Ice::Int __ret;
+        try
+        {
+            __ret = __proxy->end_WriteData2(__result);
+        }
+        catch(::Ice::Exception& ex)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            __exception(__result, ex);
+#else
+            ::IceInternal::Callback<T, CT>::__exception(__result, ex);
+#endif
+            return;
+        }
+        if(response)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            (callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
+#else
+            (::IceInternal::Callback<T, CT>::callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
+#endif
+        }
+    }
+
+    Response response;
+};
+
+template<class T, typename CT> Callback_GuiDataHub_WriteData2Ptr
+newCallback_GuiDataHub_WriteData2(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_WriteData2<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_GuiDataHub_WriteData2Ptr
+newCallback_GuiDataHub_WriteData2(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_WriteData2<T, CT>(instance, cb, excb, sentcb);
 }
 
 template<class T>

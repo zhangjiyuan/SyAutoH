@@ -63,15 +63,42 @@ const ::Ice::Int OHTStatusfoupmoved = 6;
 
 }
 
-enum Fruit
+namespace GUIHUB
 {
-    Apple,
-    Pear,
-    Orange
+
+namespace OHT
+{
+
+enum GuiCommand
+{
+    PosTime,
+    StatusTime,
+    GetPosTable,
+    FoupHanding,
+    PathTest,
+    MoveTest,
+    FoupTest
 };
 
-void __write(::IceInternal::BasicStream*, Fruit);
-void __read(::IceInternal::BasicStream*, Fruit&);
+void __write(::IceInternal::BasicStream*, GuiCommand);
+void __read(::IceInternal::BasicStream*, GuiCommand&);
+
+}
+
+namespace STK
+{
+
+enum Guicommand
+{
+    StatusTime
+};
+
+void __write(::IceInternal::BasicStream*, Guicommand);
+void __read(::IceInternal::BasicStream*, Guicommand&);
+
+}
+
+}
 
 }
 

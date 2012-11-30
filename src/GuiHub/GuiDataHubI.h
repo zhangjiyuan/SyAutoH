@@ -35,7 +35,9 @@ public:
 
 public:
 	virtual std::string ReadData(const std::string &,Ice::Int,const Ice::Current &);
+	virtual std::string ReadData2(::Ice::Int, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
 	virtual Ice::Int WriteData(const std::string &,const std::string &,Ice::Int,const Ice::Current &);
+	virtual Ice::Int WriteData2(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
 	virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Current& /* = ::Ice::Current */);
 
 public:

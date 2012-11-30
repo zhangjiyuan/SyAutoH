@@ -38,6 +38,11 @@ std::string GuiDataHubI::ReadData(const std::string &,Ice::Int,const Ice::Curren
 	return "Read";
 }
 
+std::string GuiDataHubI::ReadData2(::Ice::Int, ::Ice::Int, const ::Ice::Current& )
+{
+	return "Read2";
+}
+
 void GuiDataHubI::STK_SetStatusBackTime(const std::string& strVal)
 {
 	STR_VEC vecStr = GetVecStrings(strVal);
@@ -210,6 +215,11 @@ Ice::Int GuiDataHubI::WriteData(const std::string &strTag,const std::string &str
 	{
 		return -1;
 	}
+}
+
+Ice::Int GuiDataHubI::WriteData2(::Ice::Int nCommand, const ::std::string&strVal, ::Ice::Int, const ::Ice::Current& )
+{
+	return 0;
 }
 
 void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Current& /* = ::Ice::Current */)
