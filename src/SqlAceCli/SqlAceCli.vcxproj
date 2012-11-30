@@ -83,7 +83,6 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PathInfo.h" />
     <ClInclude Include="TKeyPoints.h" />
     <ClInclude Include="TLinkSession.h" />
     <ClInclude Include="TMcsUser.h" />
