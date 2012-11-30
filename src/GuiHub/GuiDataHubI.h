@@ -54,7 +54,9 @@ private:
 
 	typedef void (GuiDataHubI::*WriteHander)(const std::string&);
 	typedef std::map<std::string, WriteHander> OPT_MAP;
+	typedef std::map<int, WriteHander> HANDLE_MAP;
 	OPT_MAP m_optHanders;
+	HANDLE_MAP m_mapHandles;
 
 private:
 	void OHT_SetPositionBackTime(const std::string&);

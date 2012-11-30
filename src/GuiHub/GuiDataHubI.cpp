@@ -5,6 +5,7 @@
 #include "../shared/Log.h"
 #include "../SqlAceCli/SqlAceCli.h"
 #include "IceUtil/Unicode.h"
+#include "iConstDef.h"
 
 GuiDataHubI::GuiDataHubI(void)
 {
@@ -26,6 +27,10 @@ GuiDataHubI::GuiDataHubI(void)
 
 	m_optHanders.insert(std::make_pair("STK.STATUSTIME", 
 		&GuiDataHubI::STK_SetStatusBackTime));
+
+
+	m_mapHandles.insert(std::make_pair(GUIHUB::OHT::PosTime, 
+		&GuiDataHubI::OHT_SetPositionBackTime));
 }
 
 
