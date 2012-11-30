@@ -63,6 +63,16 @@ const ::Ice::Int OHTStatusfoupmoved = 6;
 
 }
 
+enum Fruit
+{
+    Apple,
+    Pear,
+    Orange
+};
+
+void __write(::IceInternal::BasicStream*, Fruit);
+void __read(::IceInternal::BasicStream*, Fruit&);
+
 }
 
 #endif

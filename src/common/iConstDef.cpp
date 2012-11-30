@@ -20,6 +20,8 @@
 
 #include <stdafx.h>
 #include <iConstDef.h>
+#include <Ice/BasicStream.h>
+#include <Ice/Object.h>
 #include <IceUtil/Iterator.h>
 
 #ifndef ICE_IGNORE_VERSION
@@ -33,3 +35,17 @@
 #       error Ice patch level mismatch!
 #   endif
 #endif
+
+void
+MCS::__write(::IceInternal::BasicStream* __os, ::MCS::Fruit v)
+{
+    __os->write(static_cast< ::Ice::Byte>(v), 3);
+}
+
+void
+MCS::__read(::IceInternal::BasicStream* __is, ::MCS::Fruit& v)
+{
+    ::Ice::Byte val;
+    __is->read(val, 3);
+    v = static_cast< ::MCS::Fruit>(val);
+}

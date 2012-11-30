@@ -70,6 +70,14 @@ namespace MCS
             public const int value = 6;
         }
     }
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public enum Fruit
+    {
+        Apple,
+        Pear,
+        Orange
+    }
 }
 
 namespace MCS

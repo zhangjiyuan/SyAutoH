@@ -23,6 +23,8 @@ module MCS
 		const int	OHTStatusfoupmoving = 5;
 		const int	OHTStatusfoupmoved = 6;
 	};
+	
+	enum Fruit { Apple, Pear, Orange };
 
 };
 
