@@ -26,6 +26,12 @@ namespace BaseRailElement
 
         private int _hit = -1;
 
+        public enum Direction
+        {
+            up, down, left, right, Null
+        }
+        public Direction direction = Direction.Null;
+
         public ObjectBaseEvents()
         {
         }
@@ -152,6 +158,27 @@ namespace BaseRailElement
         {
             int n = document.SelectedDrawObjectList.Count;
             document.SelectedDrawObjectList[n - 1].ChangePropertyValue();
+        }
+
+        public void WorkRegionKeyDown(Direction direction)
+        {
+            Int16 offset = document.SelectedDrawObjectList[0].DrawMultiFactor;
+            selectObject = SelectObject.SelectEle;
+            switch (direction)
+            {
+                case Direction.up:
+                    OnMouseMove(new Point(lastPoint.X, lastPoint.Y - offset));
+                    break;
+                case Direction.down:
+                    OnMouseMove(new Point(lastPoint.X, lastPoint.Y + offset));
+                    break;
+                case Direction.left:
+                    OnMouseMove(new Point(lastPoint.X - offset, lastPoint.Y));
+                    break;
+                case Direction.right:
+                    OnMouseMove(new Point(lastPoint.X + offset, lastPoint.Y));
+                    break;
+            }
         }
     }
 }
