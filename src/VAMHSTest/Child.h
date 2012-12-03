@@ -2,8 +2,14 @@
 #include "afxcmn.h"
 #include "afxwin.h"
 #include "CMarkup.h"
-
 // Child ¶Ô»°¿ò
+typedef struct
+{
+	int nID;
+	int nPos;
+	int nType;
+	int nSpeed;
+}TeachPos;
 
 class Child : public CDialogEx
 {
@@ -24,7 +30,7 @@ public:
 	virtual BOOL OnInitDialog();
 	void InitList();
 	void ReadXML();
-	void SaveXML();
+	void SaveXML(CString nID,CString nPos,CString nType,CString nSpeed);
 	void InitComBox();
 	void DeleteXMLElem(CString ID,CString pos);
 	CStringW GetXMLPath();

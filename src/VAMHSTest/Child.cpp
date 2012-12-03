@@ -167,16 +167,55 @@ void Child::DeleteXMLElem(CString ID,CString pos)
 		if((xID == ID) && (xPos == xPos))
 			XML.RemoveChildElem();
 	}
+	XML.Save(path);
 }
 
 void Child::OnBnClickedButton3()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	CString ID;
-	GetDlgItemText(IDC_ID, ID);
-	MessageBox(ID);
+	CString nPos;
+	CString nSpeed;
+	CString nID;
+	GetDlgItemText(IDC_ID,nID);
+	GetDlgItemText(IDC_POS,nPos);
+	GetDlgItemText(IDC_Speed,nSpeed);
+	int nTypeString =m_TeachPosType.GetCurSel();
+	int nType = 0;
+	switch(nTypeString)
+	{
+	case 0:
+		nType = 0x01;
+		break;
+	case 1:
+		nType = 0x02;
+		break;
+	case 2:
+		nType = 0x04;
+		break;
+	case 3:
+		nType = 0x08;
+		break;
+	case 4:
+		nType = 0x10;
+		break;
+	case 5:
+		nType = 0x20;
+		break;
+	default:
+		nType = 0x01;
+		break;
+	}
+	CString Type;
+	Type.Format(_T("%d"),nType);
+	SaveXML(nID,nPos,Type,nSpeed);
+	CString str;
+	int ncount = m_TeachPos_List.GetItemCount();
+	m_TeachPos_List.InsertItem(ncount,str);
+	m_TeachPos_List.SetItemText(ncount,0,nID);
+	m_TeachPos_List.SetItemText(ncount,1,nPos);
+	m_TeachPos_List.SetItemText(ncount,2,Type);
+	m_TeachPos_List.SetItemText(ncount,3,nSpeed);
 }
-
 
 void Child::OnBnClickedButton2()
 {
@@ -194,4 +233,20 @@ void Child::OnBnClickedButton2()
 	CString Pos = m_TeachPos_List.GetItemText(nId,1);
 	DeleteXMLElem(ID,Pos);
 	m_TeachPos_List.DeleteItem(nId);
+}
+void Child::SaveXML(CString nID,CString nPos,CString nType,CString nSpeed)
+{
+	CStringW path = GetXMLPath();
+	path += "../Config/TeachPOS.xml";
+	CMarkup XML;
+	XML.Load(path);
+	XML.ResetMainPos();
+	XML.FindElem();
+	XML.AddChildElem(_T("TeachPOS"));
+	XML.IntoElem();
+	XML.AddChildElem(_T("DeviceID"),nID);
+	XML.AddChildElem(_T("POS"),nPos);
+	XML.AddChildElem(_T("Type"),nType);
+	XML.AddChildElem(_T("Speed"),nSpeed);
+	XML.Save(path);
 }

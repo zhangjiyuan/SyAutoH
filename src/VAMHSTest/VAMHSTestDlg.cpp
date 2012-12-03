@@ -447,7 +447,9 @@ void CVAMHSTestDlg::OnBnClickedBnTeachPos()
 	xml.IntoElem();
 	xml.AddChildElem(_T("DeviceID"),nOhtID);
 	xml.AddChildElem(_T("POS"),nPos);
-	xml.AddChildElem(_T("Type"),nType);
+	CString Type;
+	Type.Format(_T("%d"),nType);
+	xml.AddChildElem(_T("Type"),Type);
 	xml.AddChildElem(_T("Speed"),nSpeed);
 	xml.OutOfElem();
 	xml.Save(filePath);
