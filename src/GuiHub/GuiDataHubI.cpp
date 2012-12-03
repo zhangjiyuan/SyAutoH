@@ -9,28 +9,26 @@
 
 GuiDataHubI::GuiDataHubI(void)
 {
-	m_optHanders.insert(std::make_pair("OHT.PosTime", 
+	// for oht
+	m_mapHandles.insert(std::make_pair(GuiHub::OhtPosTime, 
 		&GuiDataHubI::OHT_SetPositionBackTime));
-	m_optHanders.insert(std::make_pair("OHT.StatusTime", 
+	m_mapHandles.insert(std::make_pair(GuiHub::OhtStatusTime, 
 		&GuiDataHubI::OHT_SetStatusBackTime));
-	m_optHanders.insert(std::make_pair("OHT.GetPosTable", 
+	m_mapHandles.insert(std::make_pair(GuiHub::OhtGetPosTable, 
 		&GuiDataHubI::OHT_GetPositionTable));
-	m_optHanders.insert(std::make_pair("OHT.FoupHanding", 
+	m_mapHandles.insert(std::make_pair(GuiHub::OhtFoupHanding, 
 		&GuiDataHubI::OHT_FoupHanding));
 
-	m_optHanders.insert(std::make_pair("OHT.PATHTEST", 
+	m_mapHandles.insert(std::make_pair(GuiHub::OhtPathTest, 
 		&GuiDataHubI::OHT_PathTest));
-	m_optHanders.insert(std::make_pair("OHT.MOVETEST", 
+	m_mapHandles.insert(std::make_pair(GuiHub::OhtMoveTest, 
 		&GuiDataHubI::OHT_MoveTest));
-	m_optHanders.insert(std::make_pair("OHT.FOUPTEST", 
+	m_mapHandles.insert(std::make_pair(GuiHub::OhtFoupTest, 
 		&GuiDataHubI::OHT_FoupTest));
 
-	m_optHanders.insert(std::make_pair("STK.STATUSTIME", 
+	// for stocker
+	m_mapHandles.insert(std::make_pair(GuiHub::StkStatusTime,
 		&GuiDataHubI::STK_SetStatusBackTime));
-
-
-	m_mapHandles.insert(std::make_pair(GUIHUB::OHT::PosTime, 
-		&GuiDataHubI::OHT_SetPositionBackTime));
 }
 
 
@@ -38,14 +36,9 @@ GuiDataHubI::~GuiDataHubI(void)
 {
 }
 
-std::string GuiDataHubI::ReadData(const std::string &,Ice::Int,const Ice::Current &)
+std::string GuiDataHubI::ReadData(MCS::GuiHub::GuiCommand enumCmd, Ice::Int nSession, const Ice::Current &)
 {
-	return "Read";
-}
-
-std::string GuiDataHubI::ReadData2(::Ice::Int, ::Ice::Int, const ::Ice::Current& )
-{
-	return "Read2";
+	return "readData";
 }
 
 void GuiDataHubI::STK_SetStatusBackTime(const std::string& strVal)
@@ -87,7 +80,7 @@ void GuiDataHubI::OHT_GetPositionTable(const std::string&)
 		strVal += ">";
 	}
 
-	UpdateData("OHT.PosTable", strVal);
+	UpdateData(GuiHub::upOhtPosTable, strVal);
 }
 void GuiDataHubI::OHT_FoupTest(const std::string&)
 {
@@ -208,10 +201,11 @@ void GuiDataHubI::OHT_SetPositionBackTime(const std::string& strVal)
 	}
 }
 
-Ice::Int GuiDataHubI::WriteData(const std::string &strTag,const std::string &strVal,Ice::Int,const Ice::Current &)
+Ice::Int GuiDataHubI::WriteData(MCS::GuiHub::GuiCommand enumCmd, 
+	const std::string &strVal, Ice::Int nSession, const Ice::Current &)
 {
-	OPT_MAP::iterator it = m_optHanders.find(strTag);
-	if (it != m_optHanders.end())
+	HANDLE_MAP::iterator it = m_mapHandles.find(enumCmd);
+	if (it != m_mapHandles.end())
 	{
 		(this->*it->second)(strVal);
 		return 0;
@@ -220,11 +214,6 @@ Ice::Int GuiDataHubI::WriteData(const std::string &strTag,const std::string &str
 	{
 		return -1;
 	}
-}
-
-Ice::Int GuiDataHubI::WriteData2(::Ice::Int nCommand, const ::std::string&strVal, ::Ice::Int, const ::Ice::Current& )
-{
-	return 0;
 }
 
 void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Current& /* = ::Ice::Current */)
@@ -258,7 +247,7 @@ void GuiDataHubI::removeUpdater(const ::MCS::GuiDataUpdaterPrx& updater)
 	}
 }
 
-void GuiDataHubI::UpdateData(const std::string &sTag, const std::string &sVal)
+void GuiDataHubI::UpdateData(MCS::GuiHub::PushData nTag, const std::string &sVal)
 {
 	RLock(m_rwUpdaterSet)
 	{
@@ -270,7 +259,7 @@ void GuiDataHubI::UpdateData(const std::string &sTag, const std::string &sVal)
 				cb->client = *p;
 				cb->m_view = this;
 				GuiDataItem item;
-				item.sTag = sTag;
+				item.enumTag =nTag;
 				item.sVal = sVal;
 
 				::Ice::AsyncResultPtr pAsyncCall = (*p)->begin_UpdateData(item,

@@ -63,40 +63,34 @@ const ::Ice::Int OHTStatusfoupmoved = 6;
 
 }
 
-namespace GUIHUB
-{
-
-namespace OHT
+namespace GuiHub
 {
 
 enum GuiCommand
 {
-    PosTime,
-    StatusTime,
-    GetPosTable,
-    FoupHanding,
-    PathTest,
-    MoveTest,
-    FoupTest
+    OhtPosTime,
+    OhtStatusTime,
+    OhtGetPosTable,
+    OhtFoupHanding,
+    OhtPathTest,
+    OhtMoveTest,
+    OhtFoupTest,
+    StkStatusTime
 };
 
 void __write(::IceInternal::BasicStream*, GuiCommand);
 void __read(::IceInternal::BasicStream*, GuiCommand&);
 
-}
-
-namespace STK
+enum PushData
 {
-
-enum Guicommand
-{
-    StatusTime
+    upOhtInfo,
+    upOhtPos,
+    upOhtPosTable,
+    upOhtStatus
 };
 
-void __write(::IceInternal::BasicStream*, Guicommand);
-void __read(::IceInternal::BasicStream*, Guicommand&);
-
-}
+void __write(::IceInternal::BasicStream*, PushData);
+void __read(::IceInternal::BasicStream*, PushData&);
 
 }
 

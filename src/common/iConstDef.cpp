@@ -37,29 +37,29 @@
 #endif
 
 void
-MCS::GUIHUB::OHT::__write(::IceInternal::BasicStream* __os, ::MCS::GUIHUB::OHT::GuiCommand v)
+MCS::GuiHub::__write(::IceInternal::BasicStream* __os, ::MCS::GuiHub::GuiCommand v)
 {
-    __os->write(static_cast< ::Ice::Byte>(v), 7);
+    __os->write(static_cast< ::Ice::Byte>(v), 8);
 }
 
 void
-MCS::GUIHUB::OHT::__read(::IceInternal::BasicStream* __is, ::MCS::GUIHUB::OHT::GuiCommand& v)
+MCS::GuiHub::__read(::IceInternal::BasicStream* __is, ::MCS::GuiHub::GuiCommand& v)
 {
     ::Ice::Byte val;
-    __is->read(val, 7);
-    v = static_cast< ::MCS::GUIHUB::OHT::GuiCommand>(val);
+    __is->read(val, 8);
+    v = static_cast< ::MCS::GuiHub::GuiCommand>(val);
 }
 
 void
-MCS::GUIHUB::STK::__write(::IceInternal::BasicStream* __os, ::MCS::GUIHUB::STK::Guicommand v)
+MCS::GuiHub::__write(::IceInternal::BasicStream* __os, ::MCS::GuiHub::PushData v)
 {
-    __os->write(static_cast< ::Ice::Byte>(v), 1);
+    __os->write(static_cast< ::Ice::Byte>(v), 4);
 }
 
 void
-MCS::GUIHUB::STK::__read(::IceInternal::BasicStream* __is, ::MCS::GUIHUB::STK::Guicommand& v)
+MCS::GuiHub::__read(::IceInternal::BasicStream* __is, ::MCS::GuiHub::PushData& v)
 {
     ::Ice::Byte val;
-    __is->read(val, 1);
-    v = static_cast< ::MCS::GUIHUB::STK::Guicommand>(val);
+    __is->read(val, 4);
+    v = static_cast< ::MCS::GuiHub::PushData>(val);
 }

@@ -24,30 +24,30 @@ module MCS
 		const int	OHTStatusfoupmoved = 6;
 	};
 	
-	module GUIHUB
+	module GuiHub
 	{
-		module OHT
-		{
 			enum GuiCommand
 			{ 
-				PosTime, 
-				StatusTime, 
-				GetPosTable,
-				FoupHanding,
+				OhtPosTime, 
+				OhtStatusTime, 
+				OhtGetPosTable,
+				OhtFoupHanding,
 				
-				PathTest,
-				MoveTest,
-				FoupTest 
+				OhtPathTest,
+				OhtMoveTest,
+				OhtFoupTest,
+				
+				StkStatusTime 
 			};
-		};
-		
-		module STK
-		{
-			enum Guicommand
+			
+			enum PushData
 			{
-				StatusTime
+				upOhtInfo,
+				upOhtPos,
+				upOhtPosTable,
+				upOhtStatus
 			};
-		};
+		
 	};
 
 };

@@ -54,11 +54,11 @@ namespace GuiAccess
             }
         }
 
-        public void Async_WriteData(string strCmd, string sVal, int nSession)
+        public void Async_WriteData(MCS.GuiHub.GuiCommand nCmd, string sVal, int nSession)
         {
             try
             {
-                remote.begin_WriteData(strCmd, sVal, nSession);
+                remote.begin_WriteData(nCmd, sVal, nSession);
             }
             catch (System.Exception /*ex*/)
             {
@@ -66,11 +66,11 @@ namespace GuiAccess
             }
         }
 
-        public void Async_WriteData(string strCmd, string sVal)
+        public void Async_WriteData(MCS.GuiHub.GuiCommand nCmd, string sVal)
         {
             try
             {
-                remote.begin_WriteData(strCmd, sVal, m_nSession);
+                remote.begin_WriteData(nCmd, sVal, m_nSession);
             }
             catch (System.Exception /*ex*/)
             {
@@ -78,12 +78,12 @@ namespace GuiAccess
             }
         }
 
-        public int WriteData(string strCmd, string sVal, int nSession)
+        public int WriteData(MCS.GuiHub.GuiCommand nCmd, string sVal, int nSession)
         {
             int nRet = -1;
             try
             {
-                nRet = remote.WriteData(strCmd, sVal, nSession);
+                nRet = remote.WriteData(nCmd, sVal, nSession);
             }
             catch (System.Exception /*ex*/)
             {
@@ -93,12 +93,12 @@ namespace GuiAccess
             return nRet;
         }
 
-        public int WriteData(string strCmd, string sVal)
+        public int WriteData(MCS.GuiHub.GuiCommand nCmd, string sVal)
         {
             int nRet = -1;
             try
             {
-                nRet = remote.WriteData(strCmd, sVal, m_nSession);
+                nRet = remote.WriteData(nCmd, sVal, m_nSession);
             }
             catch (System.Exception /*ex*/)
             {
@@ -108,12 +108,12 @@ namespace GuiAccess
             return nRet;
         }
 
-        public string ReadData(string strCmd, int nSession)
+        public string ReadData(MCS.GuiHub.GuiCommand nCmd, int nSession)
         {
             string strRet = "";
             try
             {
-                strRet = remote.ReadData(strCmd, nSession);
+                strRet = remote.ReadData(nCmd, nSession);
             }
             catch (System.Exception /*ex*/)
             {

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GuiAccess;
+using MCS.GuiHub;
 namespace UserTest
 {
     
@@ -22,7 +23,7 @@ namespace UserTest
         private string[] RightCollection = 
             new string[] { "NoRight", "Viewer", "Guest", "Operator", "Admin", "SuperAdmin"};
         private UserCli userMge = new UserCli();
-        private MESLink mesLink = new MESLink();
+        private GuiAccess.MESLink mesLink = new GuiAccess.MESLink();
         private DataHubCli dataHubLink = new DataHubCli();
         private int m_nSession = 0;
         private string strUserLogin = "";
@@ -282,9 +283,10 @@ namespace UserTest
             }
            
 
-            string sVal = dataHubLink.ReadData("OHT", m_nSession);
+            //string sVal = dataHubLink.ReadData("OHT", m_nSession);
+            
 
-            int nWRet = dataHubLink.WriteData("OHT.MOVETEST", "MOVE", m_nSession);
+            int nWRet = dataHubLink.WriteData(MCS.GuiHub.GuiCommand.OhtMoveTest, "MOVE", m_nSession);
 
         }
 
@@ -299,11 +301,8 @@ namespace UserTest
 
         private void ProcessGuiData(MCS.GuiDataItem guiData)
         {
-            if (null == guiData.sTag )
-            {
-                return;
-            }
-            if (guiData.sTag.CompareTo("OHT.Info") == 0)
+           
+            if (guiData.enumTag.CompareTo(PushData.upOhtInfo) == 0)
             {
                 string strVal = guiData.sVal;
                 string strSplit = "<>";
@@ -340,7 +339,7 @@ namespace UserTest
                     }
                 }
             }
-            else if (guiData.sTag.CompareTo("OHT.Pos") == 0)
+            else if (guiData.enumTag.CompareTo(PushData.upOhtPos) == 0)
             {
                 string strVal = guiData.sVal;
                 string strSplit = "<>";
@@ -387,7 +386,7 @@ namespace UserTest
 
         private void bnSTK_History_Click(object sender, EventArgs e)
         {
-            int nWret = dataHubLink.WriteData("STK.HISTORY", "GET", m_nSession);
+            //int nWret = dataHubLink.WriteData("STK.HISTORY", "GET", m_nSession);
         }
 
         private void bnSetPosTime_Click(object sender, EventArgs e)
@@ -414,7 +413,7 @@ namespace UserTest
             string strVal;
             strVal = string.Format("<{0}, {1}>", nID, nPosTime);
 
-            int nWRet = dataHubLink.WriteData("OHT.POSTIME", strVal, m_nSession);
+            int nWRet = dataHubLink.WriteData(MCS.GuiHub.GuiCommand.OhtPosTime, strVal, m_nSession);
         }
 
         private void maskedTextBoxPW_KeyPress(object sender, KeyPressEventArgs e)
@@ -445,12 +444,12 @@ namespace UserTest
 
         private void linkOHTMoveToRefresh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            dataHubLink.Async_WriteData("OHT.GetPosTable", "", m_nSession);
+            dataHubLink.Async_WriteData(GuiCommand.OhtGetPosTable, "", m_nSession);
         }
 
         private void bnpath_Click(object sender, EventArgs e)
         {
-            dataHubLink.Async_WriteData("OHT.PATHTEST", "", m_nSession);
+            dataHubLink.Async_WriteData(GuiCommand.OhtPathTest, "", m_nSession);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -477,12 +476,12 @@ namespace UserTest
             string strVal;
             strVal = string.Format("<{0}, {1}>", nID, nTime);
 
-            int nWRet = dataHubLink.WriteData("OHT.STATUSTIME", strVal, m_nSession);
+            int nWRet = dataHubLink.WriteData(GuiCommand.OhtStatusTime, strVal, m_nSession);
         }
 
         private void bnPick_Click(object sender, EventArgs e)
         {
-            dataHubLink.WriteData("OHT.FOUPTEST", "", m_nSession);
+            dataHubLink.WriteData(GuiCommand.OhtFoupTest, "", m_nSession);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -509,7 +508,7 @@ namespace UserTest
             string strVal;
             strVal = string.Format("<{0}, {1}>", nID, nTime);
 
-            int nWRet = dataHubLink.WriteData("STK.STATUSTIME", strVal, m_nSession);
+            int nWRet = dataHubLink.WriteData(GuiCommand.StkStatusTime, strVal, m_nSession);
         }
 
         private void listViewOhtMove_SelectedIndexChanged(object sender, EventArgs e)

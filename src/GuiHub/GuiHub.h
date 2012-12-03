@@ -11,6 +11,7 @@
 #endif
 
 #pragma once
+#include "../common/iConstDef.h"
 
 class UserManagementServer;
 class GuiDataHubServer;
@@ -26,5 +27,5 @@ private:
 public:
 
 	int StartServer(CAMHSDrive* pDrive);
-	void SetData(const char* chTag, const char* chVal);
+	void SetData(MCS::GuiHub::PushData nTag, const char* chVal);
 };

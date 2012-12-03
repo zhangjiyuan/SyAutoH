@@ -71,30 +71,28 @@ namespace MCS
         }
     }
 
-    namespace GUIHUB
+    namespace GuiHub
     {
-        namespace OHT
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public enum GuiCommand
         {
-            [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-            public enum GuiCommand
-            {
-                PosTime,
-                StatusTime,
-                GetPosTable,
-                FoupHanding,
-                PathTest,
-                MoveTest,
-                FoupTest
-            }
+            OhtPosTime,
+            OhtStatusTime,
+            OhtGetPosTable,
+            OhtFoupHanding,
+            OhtPathTest,
+            OhtMoveTest,
+            OhtFoupTest,
+            StkStatusTime
         }
 
-        namespace STK
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public enum PushData
         {
-            [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-            public enum Guicommand
-            {
-                StatusTime
-            }
+            upOhtInfo,
+            upOhtPos,
+            upOhtPosTable,
+            upOhtStatus
         }
     }
 }
@@ -105,14 +103,7 @@ namespace MCS
     {
     }
 
-    namespace GUIHUB
+    namespace GuiHub
     {
-        namespace OHT
-        {
-        }
-
-        namespace STK
-        {
-        }
     }
 }
