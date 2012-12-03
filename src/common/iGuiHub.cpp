@@ -43,10 +43,6 @@ static const ::std::string __MCS__GuiDataHub__ReadData_name = "ReadData";
 
 static const ::std::string __MCS__GuiDataHub__WriteData_name = "WriteData";
 
-static const ::std::string __MCS__GuiDataHub__ReadData2_name = "ReadData2";
-
-static const ::std::string __MCS__GuiDataHub__WriteData2_name = "WriteData2";
-
 static const ::std::string __MCS__GuiDataHub__SetDataUpdater_name = "SetDataUpdater";
 
 static const ::std::string __MCS__UserManagement__Login_name = "Login";
@@ -125,14 +121,14 @@ MCS::__read(::IceInternal::BasicStream* __is, ::MCS::UserManagementPrx& v)
 void
 MCS::GuiDataItem::__write(::IceInternal::BasicStream* __os) const
 {
-    __os->write(sTag);
+    ::MCS::GuiHub::__write(__os, enumTag);
     __os->write(sVal);
 }
 
 void
 MCS::GuiDataItem::__read(::IceInternal::BasicStream* __is)
 {
-    __is->read(sTag);
+    ::MCS::GuiHub::__read(__is, enumTag);
     __is->read(sVal);
 }
 
@@ -296,7 +292,7 @@ IceProxy::MCS::GuiDataUpdater::__newInstance() const
 }
 
 ::std::string
-IceProxy::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::Context* __ctx)
+IceProxy::MCS::GuiDataHub::ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -321,7 +317,7 @@ IceProxy::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int session
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::GuiDataHub::begin_ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::GuiDataHub::begin_ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
     __checkAsyncTwowayOnly(__MCS__GuiDataHub__ReadData_name);
     ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataHub__ReadData_name, __del, __cookie);
@@ -329,7 +325,7 @@ IceProxy::MCS::GuiDataHub::begin_ReadData(const ::std::string& Tag, ::Ice::Int s
     {
         __result->__prepare(__MCS__GuiDataHub__ReadData_name, ::Ice::Idempotent, __ctx);
         ::IceInternal::BasicStream* __os = __result->__getOs();
-        __os->write(Tag);
+        ::MCS::GuiHub::__write(__os, Tag);
         __os->write(session);
         __os->endWriteEncaps();
         __result->__send(true);
@@ -365,7 +361,7 @@ IceProxy::MCS::GuiDataHub::end_ReadData(const ::Ice::AsyncResultPtr& __result)
 }
 
 ::Ice::Int
-IceProxy::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __ctx)
+IceProxy::MCS::GuiDataHub::WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -390,7 +386,7 @@ IceProxy::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::stri
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::GuiDataHub::begin_WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::GuiDataHub::begin_WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
     __checkAsyncTwowayOnly(__MCS__GuiDataHub__WriteData_name);
     ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataHub__WriteData_name, __del, __cookie);
@@ -398,7 +394,7 @@ IceProxy::MCS::GuiDataHub::begin_WriteData(const ::std::string& Tag, const ::std
     {
         __result->__prepare(__MCS__GuiDataHub__WriteData_name, ::Ice::Idempotent, __ctx);
         ::IceInternal::BasicStream* __os = __result->__getOs();
-        __os->write(Tag);
+        ::MCS::GuiHub::__write(__os, Tag);
         __os->write(Val);
         __os->write(session);
         __os->endWriteEncaps();
@@ -415,145 +411,6 @@ IceProxy::MCS::GuiDataHub::begin_WriteData(const ::std::string& Tag, const ::std
 IceProxy::MCS::GuiDataHub::end_WriteData(const ::Ice::AsyncResultPtr& __result)
 {
     ::Ice::AsyncResult::__check(__result, this, __MCS__GuiDataHub__WriteData_name);
-    ::Ice::Int __ret;
-    if(!__result->__wait())
-    {
-        try
-        {
-            __result->__throwUserException();
-        }
-        catch(const ::Ice::UserException& __ex)
-        {
-            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
-        }
-    }
-    ::IceInternal::BasicStream* __is = __result->__getIs();
-    __is->startReadEncaps();
-    __is->read(__ret);
-    __is->endReadEncaps();
-    return __ret;
-}
-
-::std::string
-IceProxy::MCS::GuiDataHub::ReadData2(::Ice::Int Tag, ::Ice::Int session, const ::Ice::Context* __ctx)
-{
-    int __cnt = 0;
-    while(true)
-    {
-        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
-        try
-        {
-            __checkTwowayOnly(__MCS__GuiDataHub__ReadData2_name);
-            __delBase = __getDelegate(false);
-            ::IceDelegate::MCS::GuiDataHub* __del = dynamic_cast< ::IceDelegate::MCS::GuiDataHub*>(__delBase.get());
-            return __del->ReadData2(Tag, session, __ctx);
-        }
-        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
-        {
-            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
-        }
-        catch(const ::Ice::LocalException& __ex)
-        {
-            __handleException(__delBase, __ex, true, __cnt);
-        }
-    }
-}
-
-::Ice::AsyncResultPtr
-IceProxy::MCS::GuiDataHub::begin_ReadData2(::Ice::Int Tag, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
-{
-    __checkAsyncTwowayOnly(__MCS__GuiDataHub__ReadData2_name);
-    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataHub__ReadData2_name, __del, __cookie);
-    try
-    {
-        __result->__prepare(__MCS__GuiDataHub__ReadData2_name, ::Ice::Idempotent, __ctx);
-        ::IceInternal::BasicStream* __os = __result->__getOs();
-        __os->write(Tag);
-        __os->write(session);
-        __os->endWriteEncaps();
-        __result->__send(true);
-    }
-    catch(const ::Ice::LocalException& __ex)
-    {
-        __result->__exceptionAsync(__ex);
-    }
-    return __result;
-}
-
-::std::string
-IceProxy::MCS::GuiDataHub::end_ReadData2(const ::Ice::AsyncResultPtr& __result)
-{
-    ::Ice::AsyncResult::__check(__result, this, __MCS__GuiDataHub__ReadData2_name);
-    ::std::string __ret;
-    if(!__result->__wait())
-    {
-        try
-        {
-            __result->__throwUserException();
-        }
-        catch(const ::Ice::UserException& __ex)
-        {
-            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
-        }
-    }
-    ::IceInternal::BasicStream* __is = __result->__getIs();
-    __is->startReadEncaps();
-    __is->read(__ret);
-    __is->endReadEncaps();
-    return __ret;
-}
-
-::Ice::Int
-IceProxy::MCS::GuiDataHub::WriteData2(::Ice::Int Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __ctx)
-{
-    int __cnt = 0;
-    while(true)
-    {
-        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
-        try
-        {
-            __checkTwowayOnly(__MCS__GuiDataHub__WriteData2_name);
-            __delBase = __getDelegate(false);
-            ::IceDelegate::MCS::GuiDataHub* __del = dynamic_cast< ::IceDelegate::MCS::GuiDataHub*>(__delBase.get());
-            return __del->WriteData2(Tag, Val, session, __ctx);
-        }
-        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
-        {
-            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
-        }
-        catch(const ::Ice::LocalException& __ex)
-        {
-            __handleException(__delBase, __ex, true, __cnt);
-        }
-    }
-}
-
-::Ice::AsyncResultPtr
-IceProxy::MCS::GuiDataHub::begin_WriteData2(::Ice::Int Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
-{
-    __checkAsyncTwowayOnly(__MCS__GuiDataHub__WriteData2_name);
-    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataHub__WriteData2_name, __del, __cookie);
-    try
-    {
-        __result->__prepare(__MCS__GuiDataHub__WriteData2_name, ::Ice::Idempotent, __ctx);
-        ::IceInternal::BasicStream* __os = __result->__getOs();
-        __os->write(Tag);
-        __os->write(Val);
-        __os->write(session);
-        __os->endWriteEncaps();
-        __result->__send(true);
-    }
-    catch(const ::Ice::LocalException& __ex)
-    {
-        __result->__exceptionAsync(__ex);
-    }
-    return __result;
-}
-
-::Ice::Int
-IceProxy::MCS::GuiDataHub::end_WriteData2(const ::Ice::AsyncResultPtr& __result)
-{
-    ::Ice::AsyncResult::__check(__result, this, __MCS__GuiDataHub__WriteData2_name);
     ::Ice::Int __ret;
     if(!__result->__wait())
     {
@@ -1266,13 +1123,13 @@ IceDelegateM::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem& data, co
 }
 
 ::std::string
-IceDelegateM::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateM::MCS::GuiDataHub::ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::Context* __context)
 {
     ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataHub__ReadData_name, ::Ice::Idempotent, __context);
     try
     {
         ::IceInternal::BasicStream* __os = __og.os();
-        __os->write(Tag);
+        ::MCS::GuiHub::__write(__os, Tag);
         __os->write(session);
     }
     catch(const ::Ice::LocalException& __ex)
@@ -1308,98 +1165,13 @@ IceDelegateM::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int ses
 }
 
 ::Ice::Int
-IceDelegateM::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateM::MCS::GuiDataHub::WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __context)
 {
     ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataHub__WriteData_name, ::Ice::Idempotent, __context);
     try
     {
         ::IceInternal::BasicStream* __os = __og.os();
-        __os->write(Tag);
-        __os->write(Val);
-        __os->write(session);
-    }
-    catch(const ::Ice::LocalException& __ex)
-    {
-        __og.abort(__ex);
-    }
-    bool __ok = __og.invoke();
-    ::Ice::Int __ret;
-    try
-    {
-        if(!__ok)
-        {
-            try
-            {
-                __og.throwUserException();
-            }
-            catch(const ::Ice::UserException& __ex)
-            {
-                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
-                throw __uue;
-            }
-        }
-        ::IceInternal::BasicStream* __is = __og.is();
-        __is->startReadEncaps();
-        __is->read(__ret);
-        __is->endReadEncaps();
-        return __ret;
-    }
-    catch(const ::Ice::LocalException& __ex)
-    {
-        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
-    }
-}
-
-::std::string
-IceDelegateM::MCS::GuiDataHub::ReadData2(::Ice::Int Tag, ::Ice::Int session, const ::Ice::Context* __context)
-{
-    ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataHub__ReadData2_name, ::Ice::Idempotent, __context);
-    try
-    {
-        ::IceInternal::BasicStream* __os = __og.os();
-        __os->write(Tag);
-        __os->write(session);
-    }
-    catch(const ::Ice::LocalException& __ex)
-    {
-        __og.abort(__ex);
-    }
-    bool __ok = __og.invoke();
-    ::std::string __ret;
-    try
-    {
-        if(!__ok)
-        {
-            try
-            {
-                __og.throwUserException();
-            }
-            catch(const ::Ice::UserException& __ex)
-            {
-                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
-                throw __uue;
-            }
-        }
-        ::IceInternal::BasicStream* __is = __og.is();
-        __is->startReadEncaps();
-        __is->read(__ret);
-        __is->endReadEncaps();
-        return __ret;
-    }
-    catch(const ::Ice::LocalException& __ex)
-    {
-        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
-    }
-}
-
-::Ice::Int
-IceDelegateM::MCS::GuiDataHub::WriteData2(::Ice::Int Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __context)
-{
-    ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataHub__WriteData2_name, ::Ice::Idempotent, __context);
-    try
-    {
-        ::IceInternal::BasicStream* __os = __og.os();
-        __os->write(Tag);
+        ::MCS::GuiHub::__write(__os, Tag);
         __os->write(Val);
         __os->write(session);
     }
@@ -1820,13 +1592,13 @@ IceDelegateD::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem&, const :
 }
 
 ::std::string
-IceDelegateD::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateD::MCS::GuiDataHub::ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
     public:
 
-        _DirectI(::std::string& __result, const ::std::string& Tag, ::Ice::Int session, const ::Ice::Current& __current) : 
+        _DirectI(::std::string& __result, ::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::Current& __current) : 
             ::IceInternal::Direct(__current),
             _result(__result),
             _m_Tag(Tag),
@@ -1849,7 +1621,7 @@ IceDelegateD::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int ses
     private:
         
         ::std::string& _result;
-        const ::std::string& _m_Tag;
+        ::MCS::GuiHub::GuiCommand _m_Tag;
         ::Ice::Int _m_session;
     };
     
@@ -1890,13 +1662,13 @@ IceDelegateD::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int ses
 }
 
 ::Ice::Int
-IceDelegateD::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateD::MCS::GuiDataHub::WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
     public:
 
-        _DirectI(::Ice::Int& __result, const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Current& __current) : 
+        _DirectI(::Ice::Int& __result, ::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Current& __current) : 
             ::IceInternal::Direct(__current),
             _result(__result),
             _m_Tag(Tag),
@@ -1920,155 +1692,13 @@ IceDelegateD::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::
     private:
         
         ::Ice::Int& _result;
-        const ::std::string& _m_Tag;
+        ::MCS::GuiHub::GuiCommand _m_Tag;
         const ::std::string& _m_Val;
         ::Ice::Int _m_session;
     };
     
     ::Ice::Current __current;
     __initCurrent(__current, __MCS__GuiDataHub__WriteData_name, ::Ice::Idempotent, __context);
-    ::Ice::Int __result;
-    try
-    {
-        _DirectI __direct(__result, Tag, Val, session, __current);
-        try
-        {
-            __direct.servant()->__collocDispatch(__direct);
-        }
-        catch(...)
-        {
-            __direct.destroy();
-            throw;
-        }
-        __direct.destroy();
-    }
-    catch(const ::Ice::SystemException&)
-    {
-        throw;
-    }
-    catch(const ::IceInternal::LocalExceptionWrapper&)
-    {
-        throw;
-    }
-    catch(const ::std::exception& __ex)
-    {
-        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
-    }
-    catch(...)
-    {
-        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
-    }
-    return __result;
-}
-
-::std::string
-IceDelegateD::MCS::GuiDataHub::ReadData2(::Ice::Int Tag, ::Ice::Int session, const ::Ice::Context* __context)
-{
-    class _DirectI : public ::IceInternal::Direct
-    {
-    public:
-
-        _DirectI(::std::string& __result, ::Ice::Int Tag, ::Ice::Int session, const ::Ice::Current& __current) : 
-            ::IceInternal::Direct(__current),
-            _result(__result),
-            _m_Tag(Tag),
-            _m_session(session)
-        {
-        }
-        
-        virtual ::Ice::DispatchStatus
-        run(::Ice::Object* object)
-        {
-            ::MCS::GuiDataHub* servant = dynamic_cast< ::MCS::GuiDataHub*>(object);
-            if(!servant)
-            {
-                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
-            }
-            _result = servant->ReadData2(_m_Tag, _m_session, _current);
-            return ::Ice::DispatchOK;
-        }
-        
-    private:
-        
-        ::std::string& _result;
-        ::Ice::Int _m_Tag;
-        ::Ice::Int _m_session;
-    };
-    
-    ::Ice::Current __current;
-    __initCurrent(__current, __MCS__GuiDataHub__ReadData2_name, ::Ice::Idempotent, __context);
-    ::std::string __result;
-    try
-    {
-        _DirectI __direct(__result, Tag, session, __current);
-        try
-        {
-            __direct.servant()->__collocDispatch(__direct);
-        }
-        catch(...)
-        {
-            __direct.destroy();
-            throw;
-        }
-        __direct.destroy();
-    }
-    catch(const ::Ice::SystemException&)
-    {
-        throw;
-    }
-    catch(const ::IceInternal::LocalExceptionWrapper&)
-    {
-        throw;
-    }
-    catch(const ::std::exception& __ex)
-    {
-        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
-    }
-    catch(...)
-    {
-        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
-    }
-    return __result;
-}
-
-::Ice::Int
-IceDelegateD::MCS::GuiDataHub::WriteData2(::Ice::Int Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __context)
-{
-    class _DirectI : public ::IceInternal::Direct
-    {
-    public:
-
-        _DirectI(::Ice::Int& __result, ::Ice::Int Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Current& __current) : 
-            ::IceInternal::Direct(__current),
-            _result(__result),
-            _m_Tag(Tag),
-            _m_Val(Val),
-            _m_session(session)
-        {
-        }
-        
-        virtual ::Ice::DispatchStatus
-        run(::Ice::Object* object)
-        {
-            ::MCS::GuiDataHub* servant = dynamic_cast< ::MCS::GuiDataHub*>(object);
-            if(!servant)
-            {
-                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
-            }
-            _result = servant->WriteData2(_m_Tag, _m_Val, _m_session, _current);
-            return ::Ice::DispatchOK;
-        }
-        
-    private:
-        
-        ::Ice::Int& _result;
-        ::Ice::Int _m_Tag;
-        const ::std::string& _m_Val;
-        ::Ice::Int _m_session;
-    };
-    
-    ::Ice::Current __current;
-    __initCurrent(__current, __MCS__GuiDataHub__WriteData2_name, ::Ice::Idempotent, __context);
     ::Ice::Int __result;
     try
     {
@@ -2945,9 +2575,9 @@ MCS::GuiDataHub::___ReadData(::IceInternal::Incoming& __inS, const ::Ice::Curren
     __checkMode(::Ice::Idempotent, __current.mode);
     ::IceInternal::BasicStream* __is = __inS.is();
     __is->startReadEncaps();
-    ::std::string Tag;
+    ::MCS::GuiHub::GuiCommand Tag;
     ::Ice::Int session;
-    __is->read(Tag);
+    ::MCS::GuiHub::__read(__is, Tag);
     __is->read(session);
     __is->endReadEncaps();
     ::IceInternal::BasicStream* __os = __inS.os();
@@ -2962,51 +2592,15 @@ MCS::GuiDataHub::___WriteData(::IceInternal::Incoming& __inS, const ::Ice::Curre
     __checkMode(::Ice::Idempotent, __current.mode);
     ::IceInternal::BasicStream* __is = __inS.is();
     __is->startReadEncaps();
-    ::std::string Tag;
+    ::MCS::GuiHub::GuiCommand Tag;
     ::std::string Val;
     ::Ice::Int session;
-    __is->read(Tag);
+    ::MCS::GuiHub::__read(__is, Tag);
     __is->read(Val);
     __is->read(session);
     __is->endReadEncaps();
     ::IceInternal::BasicStream* __os = __inS.os();
     ::Ice::Int __ret = WriteData(Tag, Val, session, __current);
-    __os->write(__ret);
-    return ::Ice::DispatchOK;
-}
-
-::Ice::DispatchStatus
-MCS::GuiDataHub::___ReadData2(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
-{
-    __checkMode(::Ice::Idempotent, __current.mode);
-    ::IceInternal::BasicStream* __is = __inS.is();
-    __is->startReadEncaps();
-    ::Ice::Int Tag;
-    ::Ice::Int session;
-    __is->read(Tag);
-    __is->read(session);
-    __is->endReadEncaps();
-    ::IceInternal::BasicStream* __os = __inS.os();
-    ::std::string __ret = ReadData2(Tag, session, __current);
-    __os->write(__ret);
-    return ::Ice::DispatchOK;
-}
-
-::Ice::DispatchStatus
-MCS::GuiDataHub::___WriteData2(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
-{
-    __checkMode(::Ice::Idempotent, __current.mode);
-    ::IceInternal::BasicStream* __is = __inS.is();
-    __is->startReadEncaps();
-    ::Ice::Int Tag;
-    ::std::string Val;
-    ::Ice::Int session;
-    __is->read(Tag);
-    __is->read(Val);
-    __is->read(session);
-    __is->endReadEncaps();
-    ::IceInternal::BasicStream* __os = __inS.os();
-    ::Ice::Int __ret = WriteData2(Tag, Val, session, __current);
     __os->write(__ret);
     return ::Ice::DispatchOK;
 }
@@ -3027,10 +2621,8 @@ MCS::GuiDataHub::___SetDataUpdater(::IceInternal::Incoming& __inS, const ::Ice::
 static ::std::string __MCS__GuiDataHub_all[] =
 {
     "ReadData",
-    "ReadData2",
     "SetDataUpdater",
     "WriteData",
-    "WriteData2",
     "ice_id",
     "ice_ids",
     "ice_isA",
@@ -3040,7 +2632,7 @@ static ::std::string __MCS__GuiDataHub_all[] =
 ::Ice::DispatchStatus
 MCS::GuiDataHub::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& current)
 {
-    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__GuiDataHub_all, __MCS__GuiDataHub_all + 9, current.operation);
+    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__GuiDataHub_all, __MCS__GuiDataHub_all + 7, current.operation);
     if(r.first == r.second)
     {
         throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
@@ -3054,33 +2646,25 @@ MCS::GuiDataHub::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& c
         }
         case 1:
         {
-            return ___ReadData2(in, current);
+            return ___SetDataUpdater(in, current);
         }
         case 2:
         {
-            return ___SetDataUpdater(in, current);
+            return ___WriteData(in, current);
         }
         case 3:
         {
-            return ___WriteData(in, current);
+            return ___ice_id(in, current);
         }
         case 4:
         {
-            return ___WriteData2(in, current);
+            return ___ice_ids(in, current);
         }
         case 5:
         {
-            return ___ice_id(in, current);
-        }
-        case 6:
-        {
-            return ___ice_ids(in, current);
-        }
-        case 7:
-        {
             return ___ice_isA(in, current);
         }
-        case 8:
+        case 6:
         {
             return ___ice_ping(in, current);
         }

@@ -71,7 +71,7 @@ namespace RailView
 
         private void UpdateOHTPosition(MCS.GuiDataItem guiDataItem)
         {
-                if (guiDataItem.sTag.CompareTo("OHT.Pos") != 0)
+                if (guiDataItem.enumTag.CompareTo(MCS.GuiHub.PushData.upOhtPos) != 0)
                 {
                     return;
                 }

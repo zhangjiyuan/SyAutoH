@@ -80,6 +80,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\common\iConstDef.h" />
     <ClInclude Include="..\common\iGuiHub.h" />
     <ClInclude Include="GuiDataHubI.h" />
     <ClInclude Include="GuiDataHubServer.h" />
@@ -90,6 +91,7 @@
     <ClInclude Include="UserManagementServer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\common\iConstDef.cpp" />
     <ClCompile Include="..\common\iGuiHub.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>

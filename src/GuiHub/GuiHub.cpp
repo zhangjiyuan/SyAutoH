@@ -48,10 +48,10 @@ int CGuiHub::StartServer(CAMHSDrive* pDrive)
 	return 0;
 }
 
-void CGuiHub::SetData(const char* chTag, const char* chVal)
+void CGuiHub::SetData(MCS::GuiHub::PushData nTag, const char* chVal)
 {
 	if (NULL != m_pGuiDataHub)
 	{
-		m_pGuiDataHub->UpdateData(chTag, chVal);
+		m_pGuiDataHub->UpdateData(nTag, chVal);
 	}
 }

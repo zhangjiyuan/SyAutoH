@@ -1,5 +1,6 @@
 #pragma once
 #include "IceBase.h"
+#include "../common/iConstDef.h"
 
 class GuiDataHubI;
 class CAMHSDrive;
@@ -12,7 +13,7 @@ public:
 	virtual void GetProxy();
 
 public:
-	void UpdateData(const string&, const string&);
+	void UpdateData(MCS::GuiHub::PushData, const string&);
 	void SetDrive(CAMHSDrive* pDrive);
 private:
 	GuiDataHubI* m_pGuiHub;

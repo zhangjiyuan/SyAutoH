@@ -22,11 +22,11 @@ void GuiDataHubServer::GetProxy()
 	m_objPtr = m_pGuiHub;
 }
 
-void GuiDataHubServer::UpdateData(const string& sTag, const string& sVal)
+void GuiDataHubServer::UpdateData(MCS::GuiHub::PushData nTag, const string& sVal)
 {
 	if (NULL != m_pGuiHub)
 	{
-		m_pGuiHub->UpdateData(sTag, sVal);
+		m_pGuiHub->UpdateData(nTag, sVal);
 	}
 }
 

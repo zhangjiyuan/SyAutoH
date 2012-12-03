@@ -3,6 +3,7 @@
 #include "../shared/AMHSPacket.h"
 #include "OptCodes.h"
 #include "../shared/Log.h"
+#include "../common/iConstDef.h"
 
 #include <iostream>
 #include <string>
@@ -55,7 +56,7 @@ void MaterialController::Check(void)
 		sprintf_s(buf, 256, "<%d,%d,%d>", it->nID, it->nPOS, it->nHand);
 		strOhtList += buf;
 	}
-	m_GuiHub.SetData("OHT.Pos", strOhtList.c_str());
+	m_GuiHub.SetData(MCS::GuiHub::upOhtPos, strOhtList.c_str());
 
 	strOhtList = "";
 	for (DR_OHT_LIST::iterator it = oht_list.begin(); 
@@ -64,7 +65,7 @@ void MaterialController::Check(void)
 		sprintf_s(buf, 256, "<%d,%s,%u>", it->nID, it->strIp.c_str(), it->uPort);
 		strOhtList += buf;
 	}
-	m_GuiHub.SetData("OHT.Info", strOhtList.c_str());
+	m_GuiHub.SetData(MCS::GuiHub::upOhtInfo, strOhtList.c_str());
 }
 
 

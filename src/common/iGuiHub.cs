@@ -41,7 +41,7 @@ namespace MCS
         #region Slice data members
 
         [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-        public string sTag;
+        public MCS.GuiHub.PushData enumTag;
 
         [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
         public string sVal;
@@ -56,9 +56,9 @@ namespace MCS
         }
 
         [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-        public GuiDataItem(string sTag, string sVal)
+        public GuiDataItem(MCS.GuiHub.PushData enumTag, string sVal)
         {
-            this.sTag = sTag;
+            this.enumTag = enumTag;
             this.sVal = sVal;
         }
 
@@ -80,10 +80,7 @@ namespace MCS
         public override int GetHashCode()
         {
             int h__ = 0;
-            if(sTag != null)
-            {
-                h__ = 5 * h__ + sTag.GetHashCode();
-            }
+            h__ = 5 * h__ + enumTag.GetHashCode();
             if(sVal != null)
             {
                 h__ = 5 * h__ + sVal.GetHashCode();
@@ -107,19 +104,9 @@ namespace MCS
                 return false;
             }
             GuiDataItem o__ = (GuiDataItem)other__;
-            if(sTag == null)
+            if(!enumTag.Equals(o__.enumTag))
             {
-                if(o__.sTag != null)
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                if(!sTag.Equals(o__.sTag))
-                {
-                    return false;
-                }
+                return false;
             }
             if(sVal == null)
             {
@@ -161,14 +148,14 @@ namespace MCS
         [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
         public void write__(IceInternal.BasicStream os__)
         {
-            os__.writeString(sTag);
+            os__.writeByte((byte)enumTag, 4);
             os__.writeString(sVal);
         }
 
         [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
         public void read__(IceInternal.BasicStream is__)
         {
-            sTag = is__.readString();
+            enumTag = (MCS.GuiHub.PushData)is__.readByte(4);
             sVal = is__.readString();
         }
 
@@ -380,12 +367,6 @@ namespace MCS
     public delegate void Callback_GuiDataHub_WriteData(int ret__);
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-    public delegate void Callback_GuiDataHub_ReadData2(string ret__);
-
-    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-    public delegate void Callback_GuiDataHub_WriteData2(int ret__);
-
-    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public delegate void Callback_GuiDataHub_SetDataUpdater();
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -436,49 +417,27 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubPrx : Ice.ObjectPrx
     {
-        string ReadData(string Tag, int session);
-        string ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+        string ReadData(MCS.GuiHub.GuiCommand Tag, int session);
+        string ReadData(MCS.GuiHub.GuiCommand Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData> begin_ReadData(string Tag, int session);
-        Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData> begin_ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
+        Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData> begin_ReadData(MCS.GuiHub.GuiCommand Tag, int session);
+        Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData> begin_ReadData(MCS.GuiHub.GuiCommand Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
 
-        Ice.AsyncResult begin_ReadData(string Tag, int session, Ice.AsyncCallback cb__, object cookie__);
-        Ice.AsyncResult begin_ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_ReadData(MCS.GuiHub.GuiCommand Tag, int session, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_ReadData(MCS.GuiHub.GuiCommand Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
 
         string end_ReadData(Ice.AsyncResult r__);
 
-        int WriteData(string Tag, string Val, int session);
-        int WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+        int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session);
+        int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData> begin_WriteData(string Tag, string Val, int session);
-        Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData> begin_WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
+        Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData> begin_WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session);
+        Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData> begin_WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
 
-        Ice.AsyncResult begin_WriteData(string Tag, string Val, int session, Ice.AsyncCallback cb__, object cookie__);
-        Ice.AsyncResult begin_WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
 
         int end_WriteData(Ice.AsyncResult r__);
-
-        string ReadData2(int Tag, int session);
-        string ReadData2(int Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__);
-
-        Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData2> begin_ReadData2(int Tag, int session);
-        Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData2> begin_ReadData2(int Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
-
-        Ice.AsyncResult begin_ReadData2(int Tag, int session, Ice.AsyncCallback cb__, object cookie__);
-        Ice.AsyncResult begin_ReadData2(int Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
-
-        string end_ReadData2(Ice.AsyncResult r__);
-
-        int WriteData2(int Tag, string Val, int session);
-        int WriteData2(int Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__);
-
-        Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData2> begin_WriteData2(int Tag, string Val, int session);
-        Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData2> begin_WriteData2(int Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
-
-        Ice.AsyncResult begin_WriteData2(int Tag, string Val, int session, Ice.AsyncCallback cb__, object cookie__);
-        Ice.AsyncResult begin_WriteData2(int Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
-
-        int end_WriteData2(Ice.AsyncResult r__);
 
         void SetDataUpdater(MCS.GuiDataUpdaterPrx updater);
         void SetDataUpdater(MCS.GuiDataUpdaterPrx updater, _System.Collections.Generic.Dictionary<string, string> context__);
@@ -602,13 +561,9 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubOperations_
     {
-        string ReadData(string Tag, int session, Ice.Current current__);
+        string ReadData(MCS.GuiHub.GuiCommand Tag, int session, Ice.Current current__);
 
-        int WriteData(string Tag, string Val, int session, Ice.Current current__);
-
-        string ReadData2(int Tag, int session, Ice.Current current__);
-
-        int WriteData2(int Tag, string Val, int session, Ice.Current current__);
+        int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, Ice.Current current__);
 
         void SetDataUpdater(MCS.GuiDataUpdaterPrx updater, Ice.Current current__);
     }
@@ -616,13 +571,9 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubOperationsNC_
     {
-        string ReadData(string Tag, int session);
+        string ReadData(MCS.GuiHub.GuiCommand Tag, int session);
 
-        int WriteData(string Tag, string Val, int session);
-
-        string ReadData2(int Tag, int session);
-
-        int WriteData2(int Tag, string Val, int session);
+        int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session);
 
         void SetDataUpdater(MCS.GuiDataUpdaterPrx updater);
     }
@@ -964,17 +915,17 @@ namespace MCS
     {
         #region Synchronous operations
 
-        public string ReadData(string Tag, int session)
+        public string ReadData(MCS.GuiHub.GuiCommand Tag, int session)
         {
             return ReadData(Tag, session, null, false);
         }
 
-        public string ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        public string ReadData(MCS.GuiHub.GuiCommand Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             return ReadData(Tag, session, context__, true);
         }
 
-        private string ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        private string ReadData(MCS.GuiHub.GuiCommand Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
         {
             if(explicitContext__ && context__ == null)
             {
@@ -990,44 +941,6 @@ namespace MCS
                     delBase__ = getDelegate__(false);
                     GuiDataHubDel_ del__ = (GuiDataHubDel_)delBase__;
                     return del__.ReadData(Tag, session, context__);
-                }
-                catch(IceInternal.LocalExceptionWrapper ex__)
-                {
-                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
-                }
-                catch(Ice.LocalException ex__)
-                {
-                    handleException__(delBase__, ex__, true, ref cnt__);
-                }
-            }
-        }
-
-        public string ReadData2(int Tag, int session)
-        {
-            return ReadData2(Tag, session, null, false);
-        }
-
-        public string ReadData2(int Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__)
-        {
-            return ReadData2(Tag, session, context__, true);
-        }
-
-        private string ReadData2(int Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
-        {
-            if(explicitContext__ && context__ == null)
-            {
-                context__ = emptyContext_;
-            }
-            int cnt__ = 0;
-            while(true)
-            {
-                Ice.ObjectDel_ delBase__ = null;
-                try
-                {
-                    checkTwowayOnly__("ReadData2");
-                    delBase__ = getDelegate__(false);
-                    GuiDataHubDel_ del__ = (GuiDataHubDel_)delBase__;
-                    return del__.ReadData2(Tag, session, context__);
                 }
                 catch(IceInternal.LocalExceptionWrapper ex__)
                 {
@@ -1078,17 +991,17 @@ namespace MCS
             }
         }
 
-        public int WriteData(string Tag, string Val, int session)
+        public int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session)
         {
             return WriteData(Tag, Val, session, null, false);
         }
 
-        public int WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        public int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             return WriteData(Tag, Val, session, context__, true);
         }
 
-        private int WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        private int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
         {
             if(explicitContext__ && context__ == null)
             {
@@ -1116,64 +1029,26 @@ namespace MCS
             }
         }
 
-        public int WriteData2(int Tag, string Val, int session)
-        {
-            return WriteData2(Tag, Val, session, null, false);
-        }
-
-        public int WriteData2(int Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__)
-        {
-            return WriteData2(Tag, Val, session, context__, true);
-        }
-
-        private int WriteData2(int Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
-        {
-            if(explicitContext__ && context__ == null)
-            {
-                context__ = emptyContext_;
-            }
-            int cnt__ = 0;
-            while(true)
-            {
-                Ice.ObjectDel_ delBase__ = null;
-                try
-                {
-                    checkTwowayOnly__("WriteData2");
-                    delBase__ = getDelegate__(false);
-                    GuiDataHubDel_ del__ = (GuiDataHubDel_)delBase__;
-                    return del__.WriteData2(Tag, Val, session, context__);
-                }
-                catch(IceInternal.LocalExceptionWrapper ex__)
-                {
-                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
-                }
-                catch(Ice.LocalException ex__)
-                {
-                    handleException__(delBase__, ex__, true, ref cnt__);
-                }
-            }
-        }
-
         #endregion
 
         #region Asynchronous operations
 
-        public Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData> begin_ReadData(string Tag, int session)
+        public Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData> begin_ReadData(MCS.GuiHub.GuiCommand Tag, int session)
         {
             return begin_ReadData(Tag, session, null, false, null, null);
         }
 
-        public Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData> begin_ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        public Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData> begin_ReadData(MCS.GuiHub.GuiCommand Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
         {
             return begin_ReadData(Tag, session, ctx__, true, null, null);
         }
 
-        public Ice.AsyncResult begin_ReadData(string Tag, int session, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_ReadData(MCS.GuiHub.GuiCommand Tag, int session, Ice.AsyncCallback cb__, object cookie__)
         {
             return begin_ReadData(Tag, session, null, false, cb__, cookie__);
         }
 
-        public Ice.AsyncResult begin_ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_ReadData(MCS.GuiHub.GuiCommand Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
         {
             return begin_ReadData(Tag, session, ctx__, true, cb__, cookie__);
         }
@@ -1203,7 +1078,7 @@ namespace MCS
             return ret__;
         }
 
-        private Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData> begin_ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        private Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData> begin_ReadData(MCS.GuiHub.GuiCommand Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
         {
             checkAsyncTwowayOnly__(__ReadData_name);
             IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_ReadData> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_ReadData>(this, __ReadData_name, ReadData_completed__, cookie__);
@@ -1215,7 +1090,7 @@ namespace MCS
             {
                 result__.prepare__(__ReadData_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
                 IceInternal.BasicStream os__ = result__.ostr__;
-                os__.writeString(Tag);
+                os__.writeByte((byte)Tag, 8);
                 os__.writeInt(session);
                 os__.endWriteEncaps();
                 result__.send__(true);
@@ -1233,96 +1108,6 @@ namespace MCS
             try
             {
                 ret__ = end_ReadData(r__);
-            }
-            catch(Ice.Exception ex__)
-            {
-                if(excb__ != null)
-                {
-                    excb__(ex__);
-                }
-                return;
-            }
-            if(cb__ != null)
-            {
-                cb__(ret__);
-            }
-        }
-
-        public Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData2> begin_ReadData2(int Tag, int session)
-        {
-            return begin_ReadData2(Tag, session, null, false, null, null);
-        }
-
-        public Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData2> begin_ReadData2(int Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
-        {
-            return begin_ReadData2(Tag, session, ctx__, true, null, null);
-        }
-
-        public Ice.AsyncResult begin_ReadData2(int Tag, int session, Ice.AsyncCallback cb__, object cookie__)
-        {
-            return begin_ReadData2(Tag, session, null, false, cb__, cookie__);
-        }
-
-        public Ice.AsyncResult begin_ReadData2(int Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
-        {
-            return begin_ReadData2(Tag, session, ctx__, true, cb__, cookie__);
-        }
-
-        private const string __ReadData2_name = "ReadData2";
-
-        public string end_ReadData2(Ice.AsyncResult r__)
-        {
-            IceInternal.OutgoingAsync outAsync__ = (IceInternal.OutgoingAsync)r__;
-            IceInternal.OutgoingAsync.check__(outAsync__, this, __ReadData2_name);
-            if(!outAsync__.wait__())
-            {
-                try
-                {
-                    outAsync__.throwUserException__();
-                }
-                catch(Ice.UserException ex__)
-                {
-                    throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
-                }
-            }
-            string ret__;
-            IceInternal.BasicStream is__ = outAsync__.istr__;
-            is__.startReadEncaps();
-            ret__ = is__.readString();
-            is__.endReadEncaps();
-            return ret__;
-        }
-
-        private Ice.AsyncResult<MCS.Callback_GuiDataHub_ReadData2> begin_ReadData2(int Tag, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
-        {
-            checkAsyncTwowayOnly__(__ReadData2_name);
-            IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_ReadData2> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_ReadData2>(this, __ReadData2_name, ReadData2_completed__, cookie__);
-            if(cb__ != null)
-            {
-                result__.whenCompletedWithAsyncCallback(cb__);
-            }
-            try
-            {
-                result__.prepare__(__ReadData2_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
-                IceInternal.BasicStream os__ = result__.ostr__;
-                os__.writeInt(Tag);
-                os__.writeInt(session);
-                os__.endWriteEncaps();
-                result__.send__(true);
-            }
-            catch(Ice.LocalException ex__)
-            {
-                result__.exceptionAsync__(ex__);
-            }
-            return result__;
-        }
-
-        private void ReadData2_completed__(Ice.AsyncResult r__, MCS.Callback_GuiDataHub_ReadData2 cb__, Ice.ExceptionCallback excb__)
-        {
-            string ret__;
-            try
-            {
-                ret__ = end_ReadData2(r__);
             }
             catch(Ice.Exception ex__)
             {
@@ -1395,22 +1180,22 @@ namespace MCS
             }
         }
 
-        public Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData> begin_WriteData(string Tag, string Val, int session)
+        public Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData> begin_WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session)
         {
             return begin_WriteData(Tag, Val, session, null, false, null, null);
         }
 
-        public Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData> begin_WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        public Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData> begin_WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
         {
             return begin_WriteData(Tag, Val, session, ctx__, true, null, null);
         }
 
-        public Ice.AsyncResult begin_WriteData(string Tag, string Val, int session, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, Ice.AsyncCallback cb__, object cookie__)
         {
             return begin_WriteData(Tag, Val, session, null, false, cb__, cookie__);
         }
 
-        public Ice.AsyncResult begin_WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
         {
             return begin_WriteData(Tag, Val, session, ctx__, true, cb__, cookie__);
         }
@@ -1440,7 +1225,7 @@ namespace MCS
             return ret__;
         }
 
-        private Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData> begin_WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        private Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData> begin_WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
         {
             checkAsyncTwowayOnly__(__WriteData_name);
             IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_WriteData> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_WriteData>(this, __WriteData_name, WriteData_completed__, cookie__);
@@ -1452,7 +1237,7 @@ namespace MCS
             {
                 result__.prepare__(__WriteData_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
                 IceInternal.BasicStream os__ = result__.ostr__;
-                os__.writeString(Tag);
+                os__.writeByte((byte)Tag, 8);
                 os__.writeString(Val);
                 os__.writeInt(session);
                 os__.endWriteEncaps();
@@ -1471,97 +1256,6 @@ namespace MCS
             try
             {
                 ret__ = end_WriteData(r__);
-            }
-            catch(Ice.Exception ex__)
-            {
-                if(excb__ != null)
-                {
-                    excb__(ex__);
-                }
-                return;
-            }
-            if(cb__ != null)
-            {
-                cb__(ret__);
-            }
-        }
-
-        public Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData2> begin_WriteData2(int Tag, string Val, int session)
-        {
-            return begin_WriteData2(Tag, Val, session, null, false, null, null);
-        }
-
-        public Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData2> begin_WriteData2(int Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
-        {
-            return begin_WriteData2(Tag, Val, session, ctx__, true, null, null);
-        }
-
-        public Ice.AsyncResult begin_WriteData2(int Tag, string Val, int session, Ice.AsyncCallback cb__, object cookie__)
-        {
-            return begin_WriteData2(Tag, Val, session, null, false, cb__, cookie__);
-        }
-
-        public Ice.AsyncResult begin_WriteData2(int Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
-        {
-            return begin_WriteData2(Tag, Val, session, ctx__, true, cb__, cookie__);
-        }
-
-        private const string __WriteData2_name = "WriteData2";
-
-        public int end_WriteData2(Ice.AsyncResult r__)
-        {
-            IceInternal.OutgoingAsync outAsync__ = (IceInternal.OutgoingAsync)r__;
-            IceInternal.OutgoingAsync.check__(outAsync__, this, __WriteData2_name);
-            if(!outAsync__.wait__())
-            {
-                try
-                {
-                    outAsync__.throwUserException__();
-                }
-                catch(Ice.UserException ex__)
-                {
-                    throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
-                }
-            }
-            int ret__;
-            IceInternal.BasicStream is__ = outAsync__.istr__;
-            is__.startReadEncaps();
-            ret__ = is__.readInt();
-            is__.endReadEncaps();
-            return ret__;
-        }
-
-        private Ice.AsyncResult<MCS.Callback_GuiDataHub_WriteData2> begin_WriteData2(int Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
-        {
-            checkAsyncTwowayOnly__(__WriteData2_name);
-            IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_WriteData2> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_WriteData2>(this, __WriteData2_name, WriteData2_completed__, cookie__);
-            if(cb__ != null)
-            {
-                result__.whenCompletedWithAsyncCallback(cb__);
-            }
-            try
-            {
-                result__.prepare__(__WriteData2_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
-                IceInternal.BasicStream os__ = result__.ostr__;
-                os__.writeInt(Tag);
-                os__.writeString(Val);
-                os__.writeInt(session);
-                os__.endWriteEncaps();
-                result__.send__(true);
-            }
-            catch(Ice.LocalException ex__)
-            {
-                result__.exceptionAsync__(ex__);
-            }
-            return result__;
-        }
-
-        private void WriteData2_completed__(Ice.AsyncResult r__, MCS.Callback_GuiDataHub_WriteData2 cb__, Ice.ExceptionCallback excb__)
-        {
-            int ret__;
-            try
-            {
-                ret__ = end_WriteData2(r__);
             }
             catch(Ice.Exception ex__)
             {
@@ -2975,13 +2669,9 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubDel_ : Ice.ObjectDel_
     {
-        string ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+        string ReadData(MCS.GuiHub.GuiCommand Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        int WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__);
-
-        string ReadData2(int Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__);
-
-        int WriteData2(int Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+        int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
         void SetDataUpdater(MCS.GuiDataUpdaterPrx updater, _System.Collections.Generic.Dictionary<string, string> context__);
     }
@@ -3070,7 +2760,7 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public sealed class GuiDataHubDelM_ : Ice.ObjectDelM_, GuiDataHubDel_
     {
-        public string ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        public string ReadData(MCS.GuiHub.GuiCommand Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             IceInternal.Outgoing og__ = handler__.getOutgoing("ReadData", Ice.OperationMode.Idempotent, context__);
             try
@@ -3078,54 +2768,7 @@ namespace MCS
                 try
                 {
                     IceInternal.BasicStream os__ = og__.ostr();
-                    os__.writeString(Tag);
-                    os__.writeInt(session);
-                }
-                catch(Ice.LocalException ex__)
-                {
-                    og__.abort(ex__);
-                }
-                bool ok__ = og__.invoke();
-                try
-                {
-                    if(!ok__)
-                    {
-                        try
-                        {
-                            og__.throwUserException();
-                        }
-                        catch(Ice.UserException ex__)
-                        {
-                            throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
-                        }
-                    }
-                    IceInternal.BasicStream is__ = og__.istr();
-                    is__.startReadEncaps();
-                    string ret__;
-                    ret__ = is__.readString();
-                    is__.endReadEncaps();
-                    return ret__;
-                }
-                catch(Ice.LocalException ex__)
-                {
-                    throw new IceInternal.LocalExceptionWrapper(ex__, false);
-                }
-            }
-            finally
-            {
-                handler__.reclaimOutgoing(og__);
-            }
-        }
-
-        public string ReadData2(int Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__)
-        {
-            IceInternal.Outgoing og__ = handler__.getOutgoing("ReadData2", Ice.OperationMode.Idempotent, context__);
-            try
-            {
-                try
-                {
-                    IceInternal.BasicStream os__ = og__.ostr();
-                    os__.writeInt(Tag);
+                    os__.writeByte((byte)Tag, 8);
                     os__.writeInt(session);
                 }
                 catch(Ice.LocalException ex__)
@@ -3208,7 +2851,7 @@ namespace MCS
             }
         }
 
-        public int WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        public int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             IceInternal.Outgoing og__ = handler__.getOutgoing("WriteData", Ice.OperationMode.Idempotent, context__);
             try
@@ -3216,55 +2859,7 @@ namespace MCS
                 try
                 {
                     IceInternal.BasicStream os__ = og__.ostr();
-                    os__.writeString(Tag);
-                    os__.writeString(Val);
-                    os__.writeInt(session);
-                }
-                catch(Ice.LocalException ex__)
-                {
-                    og__.abort(ex__);
-                }
-                bool ok__ = og__.invoke();
-                try
-                {
-                    if(!ok__)
-                    {
-                        try
-                        {
-                            og__.throwUserException();
-                        }
-                        catch(Ice.UserException ex__)
-                        {
-                            throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
-                        }
-                    }
-                    IceInternal.BasicStream is__ = og__.istr();
-                    is__.startReadEncaps();
-                    int ret__;
-                    ret__ = is__.readInt();
-                    is__.endReadEncaps();
-                    return ret__;
-                }
-                catch(Ice.LocalException ex__)
-                {
-                    throw new IceInternal.LocalExceptionWrapper(ex__, false);
-                }
-            }
-            finally
-            {
-                handler__.reclaimOutgoing(og__);
-            }
-        }
-
-        public int WriteData2(int Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__)
-        {
-            IceInternal.Outgoing og__ = handler__.getOutgoing("WriteData2", Ice.OperationMode.Idempotent, context__);
-            try
-            {
-                try
-                {
-                    IceInternal.BasicStream os__ = og__.ostr();
-                    os__.writeInt(Tag);
+                    os__.writeByte((byte)Tag, 8);
                     os__.writeString(Val);
                     os__.writeInt(session);
                 }
@@ -3716,7 +3311,7 @@ namespace MCS
     public sealed class GuiDataHubDelD_ : Ice.ObjectDelD_, GuiDataHubDel_
     {
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
-        public string ReadData(string Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        public string ReadData(MCS.GuiHub.GuiCommand Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             Ice.Current current__ = new Ice.Current();
             initCurrent__(ref current__, "ReadData", Ice.OperationMode.Idempotent, context__);
@@ -3733,51 +3328,6 @@ namespace MCS
                     throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
                 }
                 result__ = servant__.ReadData(Tag, session, current__);
-                return Ice.DispatchStatus.DispatchOK;
-            };
-            IceInternal.Direct direct__ = null;
-            try
-            {
-                direct__ = new IceInternal.Direct(current__, run__);
-                try
-                {
-                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
-                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
-                }
-                finally
-                {
-                    direct__.destroy();
-                }
-            }
-            catch(Ice.SystemException)
-            {
-                throw;
-            }
-            catch(_System.Exception ex__)
-            {
-                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
-            }
-            return result__;
-        }
-
-        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
-        public string ReadData2(int Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__)
-        {
-            Ice.Current current__ = new Ice.Current();
-            initCurrent__(ref current__, "ReadData2", Ice.OperationMode.Idempotent, context__);
-            string result__ = null;
-            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
-            {
-                GuiDataHub servant__ = null;
-                try
-                {
-                    servant__ = (GuiDataHub)obj__;
-                }
-                catch(_System.InvalidCastException)
-                {
-                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
-                }
-                result__ = servant__.ReadData2(Tag, session, current__);
                 return Ice.DispatchStatus.DispatchOK;
             };
             IceInternal.Direct direct__ = null;
@@ -3849,7 +3399,7 @@ namespace MCS
         }
 
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
-        public int WriteData(string Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        public int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             Ice.Current current__ = new Ice.Current();
             initCurrent__(ref current__, "WriteData", Ice.OperationMode.Idempotent, context__);
@@ -3866,51 +3416,6 @@ namespace MCS
                     throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
                 }
                 result__ = servant__.WriteData(Tag, Val, session, current__);
-                return Ice.DispatchStatus.DispatchOK;
-            };
-            IceInternal.Direct direct__ = null;
-            try
-            {
-                direct__ = new IceInternal.Direct(current__, run__);
-                try
-                {
-                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
-                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
-                }
-                finally
-                {
-                    direct__.destroy();
-                }
-            }
-            catch(Ice.SystemException)
-            {
-                throw;
-            }
-            catch(_System.Exception ex__)
-            {
-                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
-            }
-            return result__;
-        }
-
-        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
-        public int WriteData2(int Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__)
-        {
-            Ice.Current current__ = new Ice.Current();
-            initCurrent__(ref current__, "WriteData2", Ice.OperationMode.Idempotent, context__);
-            int result__ = 0;
-            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
-            {
-                GuiDataHub servant__ = null;
-                try
-                {
-                    servant__ = (GuiDataHub)obj__;
-                }
-                catch(_System.InvalidCastException)
-                {
-                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
-                }
-                result__ = servant__.WriteData2(Tag, Val, session, current__);
                 return Ice.DispatchStatus.DispatchOK;
             };
             IceInternal.Direct direct__ = null;
@@ -4486,33 +3991,19 @@ namespace MCS
     {
         #region Slice operations
 
-        public string ReadData(string Tag, int session)
+        public string ReadData(MCS.GuiHub.GuiCommand Tag, int session)
         {
             return ReadData(Tag, session, Ice.ObjectImpl.defaultCurrent);
         }
 
-        public abstract string ReadData(string Tag, int session, Ice.Current current__);
+        public abstract string ReadData(MCS.GuiHub.GuiCommand Tag, int session, Ice.Current current__);
 
-        public int WriteData(string Tag, string Val, int session)
+        public int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session)
         {
             return WriteData(Tag, Val, session, Ice.ObjectImpl.defaultCurrent);
         }
 
-        public abstract int WriteData(string Tag, string Val, int session, Ice.Current current__);
-
-        public string ReadData2(int Tag, int session)
-        {
-            return ReadData2(Tag, session, Ice.ObjectImpl.defaultCurrent);
-        }
-
-        public abstract string ReadData2(int Tag, int session, Ice.Current current__);
-
-        public int WriteData2(int Tag, string Val, int session)
-        {
-            return WriteData2(Tag, Val, session, Ice.ObjectImpl.defaultCurrent);
-        }
-
-        public abstract int WriteData2(int Tag, string Val, int session, Ice.Current current__);
+        public abstract int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, Ice.Current current__);
 
         public void SetDataUpdater(MCS.GuiDataUpdaterPrx updater)
         {
@@ -4576,8 +4067,8 @@ namespace MCS
             checkMode__(Ice.OperationMode.Idempotent, current__.mode);
             IceInternal.BasicStream is__ = inS__.istr();
             is__.startReadEncaps();
-            string Tag;
-            Tag = is__.readString();
+            MCS.GuiHub.GuiCommand Tag;
+            Tag = (MCS.GuiHub.GuiCommand)is__.readByte(8);
             int session;
             session = is__.readInt();
             is__.endReadEncaps();
@@ -4593,8 +4084,8 @@ namespace MCS
             checkMode__(Ice.OperationMode.Idempotent, current__.mode);
             IceInternal.BasicStream is__ = inS__.istr();
             is__.startReadEncaps();
-            string Tag;
-            Tag = is__.readString();
+            MCS.GuiHub.GuiCommand Tag;
+            Tag = (MCS.GuiHub.GuiCommand)is__.readByte(8);
             string Val;
             Val = is__.readString();
             int session;
@@ -4602,42 +4093,6 @@ namespace MCS
             is__.endReadEncaps();
             IceInternal.BasicStream os__ = inS__.ostr();
             int ret__ = obj__.WriteData(Tag, Val, session, current__);
-            os__.writeInt(ret__);
-            return Ice.DispatchStatus.DispatchOK;
-        }
-
-        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-        public static Ice.DispatchStatus ReadData2___(GuiDataHub obj__, IceInternal.Incoming inS__, Ice.Current current__)
-        {
-            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
-            IceInternal.BasicStream is__ = inS__.istr();
-            is__.startReadEncaps();
-            int Tag;
-            Tag = is__.readInt();
-            int session;
-            session = is__.readInt();
-            is__.endReadEncaps();
-            IceInternal.BasicStream os__ = inS__.ostr();
-            string ret__ = obj__.ReadData2(Tag, session, current__);
-            os__.writeString(ret__);
-            return Ice.DispatchStatus.DispatchOK;
-        }
-
-        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-        public static Ice.DispatchStatus WriteData2___(GuiDataHub obj__, IceInternal.Incoming inS__, Ice.Current current__)
-        {
-            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
-            IceInternal.BasicStream is__ = inS__.istr();
-            is__.startReadEncaps();
-            int Tag;
-            Tag = is__.readInt();
-            string Val;
-            Val = is__.readString();
-            int session;
-            session = is__.readInt();
-            is__.endReadEncaps();
-            IceInternal.BasicStream os__ = inS__.ostr();
-            int ret__ = obj__.WriteData2(Tag, Val, session, current__);
             os__.writeInt(ret__);
             return Ice.DispatchStatus.DispatchOK;
         }
@@ -4658,10 +4113,8 @@ namespace MCS
         private static string[] all__ =
         {
             "ReadData",
-            "ReadData2",
             "SetDataUpdater",
             "WriteData",
-            "WriteData2",
             "ice_id",
             "ice_ids",
             "ice_isA",
@@ -4684,33 +4137,25 @@ namespace MCS
                 }
                 case 1:
                 {
-                    return ReadData2___(this, inS__, current__);
+                    return SetDataUpdater___(this, inS__, current__);
                 }
                 case 2:
                 {
-                    return SetDataUpdater___(this, inS__, current__);
+                    return WriteData___(this, inS__, current__);
                 }
                 case 3:
                 {
-                    return WriteData___(this, inS__, current__);
+                    return ice_id___(this, inS__, current__);
                 }
                 case 4:
                 {
-                    return WriteData2___(this, inS__, current__);
+                    return ice_ids___(this, inS__, current__);
                 }
                 case 5:
                 {
-                    return ice_id___(this, inS__, current__);
-                }
-                case 6:
-                {
-                    return ice_ids___(this, inS__, current__);
-                }
-                case 7:
-                {
                     return ice_isA___(this, inS__, current__);
                 }
-                case 8:
+                case 6:
                 {
                     return ice_ping___(this, inS__, current__);
                 }
