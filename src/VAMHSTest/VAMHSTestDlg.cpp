@@ -96,6 +96,7 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BN_STK_HISTORY, &CVAMHSTestDlg::OnBnClickedBnStkHistory)
 	ON_BN_CLICKED(IDC_BN_OHT_OFF, &CVAMHSTestDlg::OnBnClickedBnOhtOff)
 	ON_BN_CLICKED(IDC_DEL_OHT, &CVAMHSTestDlg::OnBnClickedDelOht)
+	ON_BN_CLICKED(IDC_TeachPOS_Edit, &CVAMHSTestDlg::OnBnClickedTeachposEdit)
 END_MESSAGE_MAP()
 
 
@@ -145,6 +146,7 @@ BOOL CVAMHSTestDlg::OnInitDialog()
 	m_cbOhtTeachType.AddString(L"0x08 减速点");
 	m_cbOhtTeachType.AddString(L"0x10 停止点");
 	m_cbOhtTeachType.AddString(L"0x20 取放点");
+
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -229,7 +231,6 @@ void CVAMHSTestDlg::OnBnClickedBnAddstk()
 {
 	g_pVDev->Stocker_Auth(STOCKER_ID, "192.168.55.10");
 }
-
 
 void CVAMHSTestDlg::OnBnClickedBnStkIn()
 {
@@ -451,7 +452,7 @@ void CVAMHSTestDlg::OnBnClickedBnTeachPos()
 	xml.OutOfElem();
 	xml.Save(filePath);
 	g_pVDev->SetTeachPosition(nOhtID, nPos, nType, nSpeed);
-	m_Dialog.DoModal();
+	//m_Dialog.DoModal();
 }
 
 
@@ -592,4 +593,11 @@ void CVAMHSTestDlg::OnBnClickedDelOht()
 	m_listCtrlOHT.DeleteItem(nId);
 	MAP_ItemOHT::iterator it = g_mapOHTs.find(OHT_ID);
 	g_mapOHTs.erase(it);
+}
+
+
+void CVAMHSTestDlg::OnBnClickedTeachposEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_Dialog.DoModal();
 }
