@@ -451,6 +451,7 @@ void CVAMHSTestDlg::OnBnClickedBnTeachPos()
 	xml.OutOfElem();
 	xml.Save(filePath);
 	g_pVDev->SetTeachPosition(nOhtID, nPos, nType, nSpeed);
+	m_Dialog.DoModal();
 }
 
 

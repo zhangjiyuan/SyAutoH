@@ -7,6 +7,7 @@
 #include "../VirtualAMHS/VirtualAMHS.h"
 #include "../shared/Log.h"
 #include "afxwin.h"
+#include "Child.h"
 
 // CVAMHSTestDlg ¶Ô»°¿ò
 class CVAMHSTestDlg : public CDialogEx
@@ -34,6 +35,7 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
+	Child m_Dialog;
 	afx_msg void OnBnClickedBnOHTonline();
 	afx_msg void OnDestroy();
 	afx_msg void OnBnClickedBnAddstk();
