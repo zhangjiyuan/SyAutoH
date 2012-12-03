@@ -70,11 +70,49 @@ namespace MCS
             public const int value = 6;
         }
     }
+
+    namespace GUIHUB
+    {
+        namespace OHT
+        {
+            [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+            public enum GuiCommand
+            {
+                PosTime,
+                StatusTime,
+                GetPosTable,
+                FoupHanding,
+                PathTest,
+                MoveTest,
+                FoupTest
+            }
+        }
+
+        namespace STK
+        {
+            [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+            public enum Guicommand
+            {
+                StatusTime
+            }
+        }
+    }
 }
 
 namespace MCS
 {
     namespace OHT
     {
+    }
+
+    namespace GUIHUB
+    {
+        namespace OHT
+        {
+        }
+
+        namespace STK
+        {
+        }
     }
 }

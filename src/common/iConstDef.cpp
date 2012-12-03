@@ -20,6 +20,8 @@
 
 #include <stdafx.h>
 #include <iConstDef.h>
+#include <Ice/BasicStream.h>
+#include <Ice/Object.h>
 #include <IceUtil/Iterator.h>
 
 #ifndef ICE_IGNORE_VERSION
@@ -33,3 +35,31 @@
 #       error Ice patch level mismatch!
 #   endif
 #endif
+
+void
+MCS::GUIHUB::OHT::__write(::IceInternal::BasicStream* __os, ::MCS::GUIHUB::OHT::GuiCommand v)
+{
+    __os->write(static_cast< ::Ice::Byte>(v), 7);
+}
+
+void
+MCS::GUIHUB::OHT::__read(::IceInternal::BasicStream* __is, ::MCS::GUIHUB::OHT::GuiCommand& v)
+{
+    ::Ice::Byte val;
+    __is->read(val, 7);
+    v = static_cast< ::MCS::GUIHUB::OHT::GuiCommand>(val);
+}
+
+void
+MCS::GUIHUB::STK::__write(::IceInternal::BasicStream* __os, ::MCS::GUIHUB::STK::Guicommand v)
+{
+    __os->write(static_cast< ::Ice::Byte>(v), 1);
+}
+
+void
+MCS::GUIHUB::STK::__read(::IceInternal::BasicStream* __is, ::MCS::GUIHUB::STK::Guicommand& v)
+{
+    ::Ice::Byte val;
+    __is->read(val, 1);
+    v = static_cast< ::MCS::GUIHUB::STK::Guicommand>(val);
+}

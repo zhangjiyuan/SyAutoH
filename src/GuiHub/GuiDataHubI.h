@@ -35,7 +35,9 @@ public:
 
 public:
 	virtual std::string ReadData(const std::string &,Ice::Int,const Ice::Current &);
+	virtual std::string ReadData2(::Ice::Int, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
 	virtual Ice::Int WriteData(const std::string &,const std::string &,Ice::Int,const Ice::Current &);
+	virtual Ice::Int WriteData2(::Ice::Int, const ::std::string&, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
 	virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Current& /* = ::Ice::Current */);
 
 public:
@@ -52,7 +54,9 @@ private:
 
 	typedef void (GuiDataHubI::*WriteHander)(const std::string&);
 	typedef std::map<std::string, WriteHander> OPT_MAP;
+	typedef std::map<int, WriteHander> HANDLE_MAP;
 	OPT_MAP m_optHanders;
+	HANDLE_MAP m_mapHandles;
 
 private:
 	void OHT_SetPositionBackTime(const std::string&);

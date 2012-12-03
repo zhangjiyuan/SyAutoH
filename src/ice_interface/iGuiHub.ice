@@ -29,6 +29,8 @@ interface GuiDataHub
 {
     idempotent string ReadData(string Tag, int session);
     idempotent int WriteData(string Tag, string Val, int session);
+    idempotent string ReadData2(int Tag, int session);
+    idempotent int WriteData2(int Tag, string Val, int session);
     idempotent void SetDataUpdater(GuiDataUpdater* updater);
 };
 

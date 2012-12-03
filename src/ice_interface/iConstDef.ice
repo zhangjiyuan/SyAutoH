@@ -23,6 +23,32 @@ module MCS
 		const int	OHTStatusfoupmoving = 5;
 		const int	OHTStatusfoupmoved = 6;
 	};
+	
+	module GUIHUB
+	{
+		module OHT
+		{
+			enum GuiCommand
+			{ 
+				PosTime, 
+				StatusTime, 
+				GetPosTable,
+				FoupHanding,
+				
+				PathTest,
+				MoveTest,
+				FoupTest 
+			};
+		};
+		
+		module STK
+		{
+			enum Guicommand
+			{
+				StatusTime
+			};
+		};
+	};
 
 };
 

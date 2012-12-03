@@ -5,6 +5,7 @@
 #include "../shared/Log.h"
 #include "../SqlAceCli/SqlAceCli.h"
 #include "IceUtil/Unicode.h"
+#include "iConstDef.h"
 
 GuiDataHubI::GuiDataHubI(void)
 {
@@ -26,6 +27,10 @@ GuiDataHubI::GuiDataHubI(void)
 
 	m_optHanders.insert(std::make_pair("STK.STATUSTIME", 
 		&GuiDataHubI::STK_SetStatusBackTime));
+
+
+	m_mapHandles.insert(std::make_pair(GUIHUB::OHT::PosTime, 
+		&GuiDataHubI::OHT_SetPositionBackTime));
 }
 
 
@@ -36,6 +41,11 @@ GuiDataHubI::~GuiDataHubI(void)
 std::string GuiDataHubI::ReadData(const std::string &,Ice::Int,const Ice::Current &)
 {
 	return "Read";
+}
+
+std::string GuiDataHubI::ReadData2(::Ice::Int, ::Ice::Int, const ::Ice::Current& )
+{
+	return "Read2";
 }
 
 void GuiDataHubI::STK_SetStatusBackTime(const std::string& strVal)
@@ -210,6 +220,11 @@ Ice::Int GuiDataHubI::WriteData(const std::string &strTag,const std::string &str
 	{
 		return -1;
 	}
+}
+
+Ice::Int GuiDataHubI::WriteData2(::Ice::Int nCommand, const ::std::string&strVal, ::Ice::Int, const ::Ice::Current& )
+{
+	return 0;
 }
 
 void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Current& /* = ::Ice::Current */)

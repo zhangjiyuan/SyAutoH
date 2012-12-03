@@ -108,6 +108,7 @@ namespace RailDraw
             }
             objectEvent.OnLButtonUp(e.Location);
             this.workRegion.pictureBox1.Invalidate();
+            this.workRegion.pictureBox1.Focus();
         }
 
         public void PicMouseMove(object sender, MouseEventArgs e)
@@ -557,6 +558,30 @@ namespace RailDraw
                 this.drawDoc.Delete(num);
                 this.workRegion.pictureBox1.Invalidate();
             }
+        }
+
+        public void WorkRegionKeyMove(Keys key)
+        {
+            BaseRailElement.ObjectBaseEvents.Direction direction = BaseRailElement.ObjectBaseEvents.Direction.Null;
+            switch (key)
+            {
+                case Keys.Up:
+                    direction = BaseRailElement.ObjectBaseEvents.Direction.up;
+                    break;
+                case Keys.Down:
+                    direction = BaseRailElement.ObjectBaseEvents.Direction.down;
+                    break;
+                case Keys.Left:
+                    direction = BaseRailElement.ObjectBaseEvents.Direction.left;
+                    break;
+                case Keys.Right:
+                    direction = BaseRailElement.ObjectBaseEvents.Direction.right;
+                    break;
+                default:
+                    break;
+            }
+            objectEvent.WorkRegionKeyDown(direction);
+            this.workRegion.pictureBox1.Invalidate();
         }
     }
 }

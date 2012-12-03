@@ -25,6 +25,7 @@ namespace RailDraw
             Point sizeTabPage = (Point)this.panel1.Size;
             this.pictureBox1.Size = (Size)sizeTabPage;
             this.pictureBox1.Location = new Point(0);
+            this.KeyPreview = true;
         }
 
         private void WorkRegion_Shown(object sender, EventArgs e)
@@ -121,10 +122,6 @@ namespace RailDraw
         public void ContextMenuStripCreate(bool var)
         {
             contextMenuStripWorkReg.Items.Clear();
-            //contextMenuStripWorkReg.Items.Add("cut");
-            //contextMenuStripWorkReg.Items.Add("copy");
-            //contextMenuStripWorkReg.Items.Add("paste");
-            //contextMenuStripWorkReg.Items.Add("delete");
             contextMenuStripWorkReg.Items.Add("cut", global::RailDraw.Properties.Resources.cut);
             contextMenuStripWorkReg.Items.Add("copy", global::RailDraw.Properties.Resources.Copy);
             contextMenuStripWorkReg.Items.Add("paste", global::RailDraw.Properties.Resources.Paste);
@@ -153,6 +150,14 @@ namespace RailDraw
                     contextMenuStripWorkReg.Items[2].Enabled = false;
                     contextMenuStripWorkReg.Items[3].Enabled = false;
                 }
+            }
+        }
+
+        private void pictureBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (((FatherWindow)this.ParentForm).drawDoc.SelectedDrawObjectList.Count != 0)
+            {
+                ((FatherWindow)this.ParentForm).WorkRegionKeyMove(e.KeyCode);
             }
         }
     }

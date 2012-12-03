@@ -57,7 +57,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sqlncli10.lib;msdasc.lib;CypAce.lib</AdditionalDependencies>
+      <AdditionalDependencies>sqlncli11.lib;msdasc.lib;CypAce.lib</AdditionalDependencies>
       <ImportLibrary>../lib/$(TargetName).lib</ImportLibrary>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
