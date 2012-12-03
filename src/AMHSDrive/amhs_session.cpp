@@ -154,4 +154,5 @@ void amhs_session::handle_write(const boost::system::error_code& error)
 	{
 		room_.leave(shared_from_this());
 	}
+
 }

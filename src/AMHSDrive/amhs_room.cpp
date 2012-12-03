@@ -363,7 +363,7 @@ void amhs_room::Handle_OHT_AckPosBackTime(amhs_participant_ptr participants, AMH
 	uint8 nTime = 0;
 	Packet >> nID;
 	Packet >> nTime;
-
+	 
 	WLock(rwLock_oht_map_)
 	{
 		amhs_oht_map::iterator it = oht_map_.find(nID);

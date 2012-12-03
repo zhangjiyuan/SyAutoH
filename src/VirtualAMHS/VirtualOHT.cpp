@@ -20,7 +20,6 @@ VirtualOHT::VirtualOHT(void)
 		&VirtualOHT::Handle_SetStatusTime));
 	m_optHanders.insert(std::make_pair(OHT_MCS_FOUPHANDING, 
 		&VirtualOHT::Handle_FoupHanding));
-
 	CreateTimer();
 }
 

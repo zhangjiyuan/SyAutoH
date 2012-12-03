@@ -69,7 +69,6 @@ public:
 	{
 
 		append<uint64>(value);
-
 		return *this;
 	}
 	// signed as in 2e complement
@@ -140,9 +139,7 @@ public:
 	}
 	ByteBuffer & operator>>(uint16 & value)
 	{
-
 		value = read<uint16>();
-
 		return *this;
 	}
 	ByteBuffer & operator>>(uint32 & value)
@@ -343,7 +340,6 @@ public:
 				_storage[mask_position] |= (1 << i);
 				*this << ((uint8)(guid & 0xFF));
 			}
-
 			guid >>= 8;
 		}
 	}
