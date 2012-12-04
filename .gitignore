@@ -34,3 +34,6 @@
 /src/obj
 Release
 
+/src\RailDraw\WinFormsUI/bin
+obj
+bin

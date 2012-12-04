@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Data;
 
 namespace BaseRailElement
 {
@@ -19,6 +20,8 @@ namespace BaseRailElement
 
     public class DrawDoc : BaseRailEle
     {
+        public DataSet ds = new DataSet();
+
         private string _name = "";
         [Browsable(false)]
         public string Name
@@ -254,6 +257,16 @@ namespace BaseRailElement
                 chooseObject = false;
                 downPoint = Point.Empty;
                 lastPoint = Point.Empty;
+            }
+        }
+
+        public void DataXmlSave()
+        {
+            ds.Tables.Clear();
+            int num = drawObjectList.Count;
+            for (int i = 0; i < num; i++)
+            {
+                ds.Tables.Add(drawObjectList[i].DataSetXMLSave());
             }
         }
     }

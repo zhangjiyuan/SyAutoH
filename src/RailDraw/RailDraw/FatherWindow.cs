@@ -309,14 +309,18 @@ namespace RailDraw
                 try
                 {
                     string projectpath = sProjectPath;
-                    XmlSerializer mySerializer = new XmlSerializer(typeof(BaseRailElement.DrawDoc));
-                    StreamWriter myWriter = new StreamWriter(projectpath);
-                    mySerializer.Serialize(myWriter, drawDoc);
-                    myWriter.Close();
+                    //XmlSerializer mySerializer = new XmlSerializer(typeof(BaseRailElement.DrawDoc));
+                    //StreamWriter myWriter = new StreamWriter(projectpath);
+                    //mySerializer.Serialize(myWriter, drawDoc);
+                    //myWriter.Close();
+                    string projectpath1 = projectpath;
+                    drawDoc.DataXmlSave();
+                    drawDoc.ds.WriteXml(projectpath1);
                 }
-                catch
+                catch(Exception ex)
                 {
-                    MessageBox.Show("save error");
+                    //MessageBox.Show("save error");
+                    Debug.WriteLine(string.Format("error is: {0}", ex));
                 }
             }
         }
@@ -436,10 +440,13 @@ namespace RailDraw
                 {
                     string projectpath = sFile.FileName;
                     sProjectPath = projectpath;
-                    XmlSerializer mySerializer = new XmlSerializer(typeof(BaseRailElement.DrawDoc));
-                    StreamWriter myWriter = new StreamWriter(projectpath);
-                    mySerializer.Serialize(myWriter, drawDoc);
-                    myWriter.Close();
+                    //XmlSerializer mySerializer = new XmlSerializer(typeof(BaseRailElement.DrawDoc));
+                    //StreamWriter myWriter = new StreamWriter(projectpath);
+                    //mySerializer.Serialize(myWriter, drawDoc);
+                    //myWriter.Close();
+                    string projectpath1 = projectpath;
+                    drawDoc.DataXmlSave();
+                    drawDoc.ds.WriteXml(projectpath1);
                 }
                 catch
                 {

@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Data;
 
 namespace BaseRailElement
 {
@@ -26,6 +27,7 @@ namespace BaseRailElement
         private Point oldSecDot = Point.Empty;
         private Point secDot = Point.Empty;
         private DirectonCurved directionCurved = DirectonCurved.NULL;
+        public DataTable dt = new DataTable();
 
         public enum DirectonCurved
         {
@@ -81,7 +83,24 @@ namespace BaseRailElement
             set { directionCurved = value; }
         }
 
-        public CurvedRailEle() { GraphType = 2; }
+        public CurvedRailEle() 
+        {
+            GraphType = 2;
+            dt.Columns.Add("GraphType", typeof(int));
+            dt.Columns.Add("LocationLock", typeof(bool));
+            dt.Columns.Add("SizeLock", typeof(bool));
+            dt.Columns.Add("Selectable", typeof(bool));
+            dt.Columns.Add("Speed", typeof(float));
+            dt.Columns.Add("SegmentNumber", typeof(Int16));
+            dt.Columns.Add("TagNumber", typeof(int));
+            dt.Columns.Add("StartAngle", typeof(int));
+            dt.Columns.Add("SweepAngle", typeof(int));
+            dt.Columns.Add("Radiu", typeof(int));
+            dt.Columns.Add("Center", typeof(Point));
+            dt.Columns.Add("FirstDot", typeof(Point));
+            dt.Columns.Add("SecDot", typeof(Point));
+            dt.Columns.Add("DirectionCurvedAttribute", typeof(DirectonCurved));
+        }
 
         public CurvedRailEle CreatEle(Point centerDot, Size size, Int16 multiFactor, string text)
         {
@@ -413,6 +432,29 @@ namespace BaseRailElement
                 return true;
             else
                 return false;
+        }
+
+        public override DataTable DataSetXMLSave()
+        {
+            dt.Rows.Clear();
+            DataRow dr = dt.NewRow();
+            dr["GraphType"] = GraphType;
+            dr["LocationLock"] = locationLock;
+            dr["SizeLock"] = sizeLock;
+            dr["Selectable"] = Selectable;
+            dr["Speed"] = Speed;
+            dr["SegmentNumber"] = SegmentNumber;
+            dr["TagNumber"] = TagNumber;
+            dr["StartAngle"] = startAngle;
+            dr["SweepAngle"] = sweepAngle;
+            dr["Radiu"] = radiu;
+            dr["Center"] = center;
+            dr["FirstDot"] = firstDot;
+            dr["SecDot"] = secDot;
+            dr["DirectionCurvedAttribute"] = directionCurved;
+
+            dt.Rows.Add(dr);
+            return dt;
         }
     }
 }
