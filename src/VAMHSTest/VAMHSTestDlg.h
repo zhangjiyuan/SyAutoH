@@ -57,6 +57,6 @@ public:
 	void ReadXML();
 	CStringW GetPath();
 	afx_msg void OnBnClickedBnOhtOff();
-	afx_msg void OnBnClickedDelOht();
 	afx_msg void OnBnClickedTeachposEdit();
+	afx_msg void OnBnClickedOhtDel();
 };

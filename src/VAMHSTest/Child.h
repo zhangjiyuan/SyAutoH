@@ -26,6 +26,7 @@ public:
 	void SaveXML(CString nID,CString nPos,CString nType,CString nSpeed);
 	void InitComBox();
 	void DeleteXMLElem(CString ID,CString pos);
+	CString GetType(int num);
 	CStringW GetXMLPath();
 	CListCtrl m_TeachPos_List;
 	CComboBox m_TeachPosType;
@@ -33,7 +34,6 @@ public:
 	CEdit m_ID;
 	CEdit m_POS;
 	CEdit m_Speed;
-	afx_msg void OnBnClickedCreateButton();
-	afx_msg void OnBnClickedDeleteButton();
-	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedCreatebutton2();
+	afx_msg void OnBnClickedDeletebutton();
 };

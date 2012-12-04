@@ -33,13 +33,10 @@ void Child::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT3, m_Speed);
 }
 
-
 BEGIN_MESSAGE_MAP(Child, CDialogEx)
-	ON_BN_CLICKED(IDC_BUTTON3, &Child::OnBnClickedCreateButton)
-	ON_BN_CLICKED(IDC_BUTTON2, &Child::OnBnClickedDeleteButton)
-	ON_BN_CLICKED(IDC_BUTTON1, &Child::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_CREATEBUTTON2, &Child::OnBnClickedCreatebutton2)
+	ON_BN_CLICKED(IDC_DELETEBUTTON, &Child::OnBnClickedDeletebutton)
 END_MESSAGE_MAP()
-
 
 // Child 消息处理程序
 BOOL Child::OnInitDialog()
@@ -82,35 +79,10 @@ CStringW Child::GetXMLPath()
 	CStringW csw = ws.c_str();
 	return csw;
 }
-void Child::ReadXML()
+CString Child::GetType(int num)
 {
-	CMarkup XML;
-	CString path = GetXMLPath();
-	path += "../Config/TeachPOS.xml";
-	if(!XML.Load(path))
-	{
-		XML.SetDoc(_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"));
-		XML.AddElem(_T("TeachPosList"));
-	}
-	XML.ResetMainPos();
-	int i = 0;
-	while(XML.FindChildElem(_T("TeachPOS")))
-	{
-		XML.IntoElem();
-		XML.FindChildElem(_T("DeviceID"));
-		XML.IntoElem();
-		CString CID = XML.GetData();
-		XML.OutOfElem();
-		XML.FindChildElem(_T("POS"));
-		XML.IntoElem();
-		CString CPOS = XML.GetData();
-		XML.OutOfElem();
-		XML.FindChildElem(_T("Type"));
-		XML.IntoElem();
-		CString CType = XML.GetData();
-		int num = _ttoi(CType);
-		CString Type;
-		switch(num)
+	CString Type;
+	switch(num)
 		{
 		case(0x01):
 			Type = (_T("直道位置点"));
@@ -128,9 +100,41 @@ void Child::ReadXML()
 			Type = (_T("停止点"));
 			break;
 		case(0x20):
-			Type = (_T("存放点"));
+			Type = (_T("取放点"));
 			break;
 		}
+	return Type;
+}
+void Child::ReadXML()
+{
+	CMarkup XML;
+	CString path = GetXMLPath();
+	path += "../Config/OHTandTeachPos.xml";
+	if(!XML.Load(path))
+	{
+		XML.SetDoc(_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"));
+		XML.AddElem(_T("TeachPosList"));
+	}
+	XML.ResetMainPos();
+	XML.FindElem(_T("TeachPosList"));
+	int i = 0;
+	while(XML.FindChildElem(_T("TeachPos")))
+	{
+		XML.IntoElem();
+		XML.FindChildElem(_T("DeviceID"));
+		XML.IntoElem();
+		CString CID = XML.GetData();
+		XML.OutOfElem();
+		XML.FindChildElem(_T("POS"));
+		XML.IntoElem();
+		CString CPOS = XML.GetData();
+		XML.OutOfElem();
+		XML.FindChildElem(_T("Type"));
+		XML.IntoElem();
+		CString CType = XML.GetData();
+		int num = _ttoi(CType);
+		CString Type;
+		Type = GetType(num);
 		XML.OutOfElem();
 		XML.FindChildElem(_T("Speed"));
 		XML.IntoElem();
@@ -149,11 +153,12 @@ void Child::ReadXML()
 void Child::DeleteXMLElem(CString ID,CString pos)
 {
 	CStringW path = GetXMLPath();
-	path += "../Config/TeachPOS.xml";
+	path += "../Config/OHTandTeachPos.xml";
 	CMarkup XML;
 	XML.Load(path);
 	XML.ResetMainPos();
-	while(XML.FindChildElem(_T("TeachPOS")))
+	XML.FindElem(_T("TeachPosList"));
+	while(XML.FindChildElem(_T("TeachPos")))
 	{
 		XML.IntoElem();
 		XML.FindChildElem(_T("DeviceID"));
@@ -171,7 +176,24 @@ void Child::DeleteXMLElem(CString ID,CString pos)
 	XML.Save(path);
 }
 
-void Child::OnBnClickedCreateButton()
+void Child::SaveXML(CString nID,CString nPos,CString nType,CString nSpeed)
+{
+	CStringW path = GetXMLPath();
+	path += "../Config/OHTandTeachPos.xml";
+	CMarkup XML;
+	XML.Load(path);
+	XML.ResetMainPos();
+	XML.FindElem(_T("TeachPosList"));
+	XML.AddChildElem(_T("TeachPos"));
+	XML.IntoElem();
+	XML.AddChildElem(_T("DeviceID"),nID);
+	XML.AddChildElem(_T("POS"),nPos);
+	XML.AddChildElem(_T("Type"),nType);
+	XML.AddChildElem(_T("Speed"),nSpeed);
+	XML.Save(path);
+}
+
+void Child::OnBnClickedCreatebutton2()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CString nPos;
@@ -187,35 +209,28 @@ void Child::OnBnClickedCreateButton()
 	{
 	case 0:
 		nType = 0x01;
-		DType = (_T("直道位置点"));
 		break;
 	case 1:
 		nType = 0x02;
-		DType = (_T("弯道位置点"));
 		break;
 	case 2:
 		nType = 0x04;
-		DType = (_T("道岔位置点"));
 		break;
 	case 3:
 		nType = 0x08;
-		DType = (_T("减速点"));
 		break;
 	case 4:
 		nType = 0x10;
-		DType = (_T("停止点"));
 		break;
 	case 5:
 		nType = 0x20;
-		DType = (_T("存放点"));
 		break;
 	default:
 		nType = 0x01;
-		DType = (_T("直道位置点"));
 		break;
 	}
 	CString Type;
-	Type.Format(_T("%d"),nType);
+	Type = GetType(nType);
 	SaveXML(nID,nPos,Type,nSpeed);
 	CString str;
 	int ncount = m_TeachPos_List.GetItemCount();
@@ -226,7 +241,8 @@ void Child::OnBnClickedCreateButton()
 	m_TeachPos_List.SetItemText(ncount,3,nSpeed);
 }
 
-void Child::OnBnClickedDeleteButton()
+
+void Child::OnBnClickedDeletebutton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CString str;
@@ -234,7 +250,7 @@ void Child::OnBnClickedDeleteButton()
     POSITION pos = m_TeachPos_List.GetFirstSelectedItemPosition();
     if(pos==NULL)
     {
-		MessageBox(_T("请至少选择一项"));
+		MessageBox(_T("请选择一项"));
 		return;
 	}
 	nId=(int)m_TeachPos_List.GetNextSelectedItem(pos);
@@ -242,26 +258,4 @@ void Child::OnBnClickedDeleteButton()
 	CString Pos = m_TeachPos_List.GetItemText(nId,1);
 	DeleteXMLElem(ID,Pos);
 	m_TeachPos_List.DeleteItem(nId);
-}
-void Child::SaveXML(CString nID,CString nPos,CString nType,CString nSpeed)
-{
-	CStringW path = GetXMLPath();
-	path += "../Config/TeachPOS.xml";
-	CMarkup XML;
-	XML.Load(path);
-	XML.ResetMainPos();
-	XML.FindElem();
-	XML.AddChildElem(_T("TeachPOS"));
-	XML.IntoElem();
-	XML.AddChildElem(_T("DeviceID"),nID);
-	XML.AddChildElem(_T("POS"),nPos);
-	XML.AddChildElem(_T("Type"),nType);
-	XML.AddChildElem(_T("Speed"),nSpeed);
-	XML.Save(path);
-}
-
-
-void Child::OnBnClickedButton1()
-{
-	// TODO: 在此添加控件通知处理程序代码
 }

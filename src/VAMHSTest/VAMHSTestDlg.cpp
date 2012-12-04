@@ -95,8 +95,8 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_BN_STK_HISTORY, &CVAMHSTestDlg::OnBnClickedBnStkHistory)
 	ON_BN_CLICKED(IDC_BN_OHT_OFF, &CVAMHSTestDlg::OnBnClickedBnOhtOff)
-	ON_BN_CLICKED(IDC_DEL_OHT, &CVAMHSTestDlg::OnBnClickedDelOht)
 	ON_BN_CLICKED(IDC_TeachPOS_Edit, &CVAMHSTestDlg::OnBnClickedTeachposEdit)
+	ON_BN_CLICKED(IDC_OHT_DEL, &CVAMHSTestDlg::OnBnClickedOhtDel)
 END_MESSAGE_MAP()
 
 
@@ -249,14 +249,19 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 void CVAMHSTestDlg::SaveXML()
 {
 	CStringW filePath = GetPath();
-	filePath += "../Config/OHT.xml";
+	filePath += "../Config/OHTandTeachPos.xml";
 	CMarkup XML;
 	XML.Load(filePath);
 	XML.ResetMainPos();
+	XML.FindElem();
+	XML.FindElem(_T("OHTList"));
+	XML.IntoElem();
 	while(XML.FindChildElem(_T("OHT")))
 	{
 		XML.RemoveChildElem();
 	}
+	XML.OutOfElem();
+	XML.IntoElem();
 	int ncount = m_listCtrlOHT.GetItemCount();
 	for(int i = 0;i < ncount;i++)
 	{
@@ -297,23 +302,29 @@ void CVAMHSTestDlg::SaveXML()
 		}
 		XML.OutOfElem();
 	}
+	XML.OutOfElem();
 	XML.Save(filePath);
 }
 void CVAMHSTestDlg::ReadXML()
 {
 	CStringW filePath = GetPath();
-	filePath += "../Config/OHT.xml";
+	filePath += "../Config/OHTandTeachPos.xml";
 	CMarkup XML;
 	if(!XML.Load(filePath))
 	{
 		XML.SetDoc(_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")); 
-		XML.AddElem(_T("OHTLIST"));
-		XML.OutOfElem();
+		XML.AddElem(_T("OHTandTeachPosList"));
+		XML.IntoElem();
+		XML.AddElem(_T("OHTList"));
+		XML.AddElem(_T("TeachPosList"));
 		XML.Save(filePath);
 		return ;
 	}
 	int item = 0;
 	XML.ResetMainPos();
+	XML.FindElem();
+	XML.FindElem(_T("OHTList"));
+	XML.IntoElem();
 	while(XML.FindChildElem(_T("OHT")))
 	{
 		XML.IntoElem();  //into OHT
@@ -348,6 +359,7 @@ void CVAMHSTestDlg::ReadXML()
 		SetOHTListItemData(pOht, 0);
 		XML.OutOfElem();
 	}
+	XML.OutOfElem();
 }
 CStringW CVAMHSTestDlg::GetPath()
 {
@@ -435,15 +447,17 @@ void CVAMHSTestDlg::OnBnClickedBnTeachPos()
 	int nOhtID = 0;
 	nOhtID = GetSelectOhtID();
 	CStringW filePath = GetPath();
-	filePath += "../Config/TeachPOS.xml";
+	filePath += "../Config/OHTandTeachPos.xml";
 	CMarkup xml;
-	if(!xml.Load(filePath))
-	{
-		xml.SetDoc(_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"));
-		xml.AddElem(_T("TeachPOSList"));
-	}
+	xml.Load(filePath);
+
+	xml.ResetMainPos();
 	xml.FindElem();
-	xml.AddChildElem(_T("TeachPOS"));
+	xml.IntoElem();
+	xml.FindElem(_T("TeachPosList"));
+	xml.IntoElem();
+    xml.AddChildElem(_T("TeachPos"));//add the elem failed 
+
 	xml.IntoElem();
 	xml.AddChildElem(_T("DeviceID"),nOhtID);
 	xml.AddChildElem(_T("POS"),nPos);
@@ -451,6 +465,7 @@ void CVAMHSTestDlg::OnBnClickedBnTeachPos()
 	Type.Format(_T("%d"),nType);
 	xml.AddChildElem(_T("Type"),Type);
 	xml.AddChildElem(_T("Speed"),nSpeed);
+	xml.OutOfElem();
 	xml.OutOfElem();
 	xml.Save(filePath);
 	g_pVDev->SetTeachPosition(nOhtID, nPos, nType, nSpeed);
@@ -578,8 +593,14 @@ void CVAMHSTestDlg::OnBnClickedBnOhtOff()
 		int nAdd = g_pVDev->OHT_Offline(nOHT_ID);
 	}
 }
+void CVAMHSTestDlg::OnBnClickedTeachposEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_Dialog.DoModal();
+}
 
-void CVAMHSTestDlg::OnBnClickedDelOht()
+
+void CVAMHSTestDlg::OnBnClickedOhtDel()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	int OHT_ID = GetSelectOhtID();
@@ -595,11 +616,4 @@ void CVAMHSTestDlg::OnBnClickedDelOht()
 	m_listCtrlOHT.DeleteItem(nId);
 	MAP_ItemOHT::iterator it = g_mapOHTs.find(OHT_ID);
 	g_mapOHTs.erase(it);
-}
-
-
-void CVAMHSTestDlg::OnBnClickedTeachposEdit()
-{
-	// TODO: 在此添加控件通知处理程序代码
-	m_Dialog.DoModal();
 }
