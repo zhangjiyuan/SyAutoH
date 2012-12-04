@@ -17,9 +17,11 @@ namespace MCSControlLib
         private Dictionary<int, OhtInfoData> m_dictOhtInfo = new Dictionary<int, OhtInfoData>();
         private DataTable m_tableOHTInfo = null;
         private DataTable m_tableKeyPos = null;
+        private DataTable m_tablePathView = null;
         private byte m_uIdSelected = 0;
         private delegate void ProcessHandler(ArrayList item);
         private Dictionary<PushData, ProcessHandler> m_dictProcess = new Dictionary<PushData, ProcessHandler>();
+        private int m_nPathPosition = 0;
 
         public OHTInfo()
         {
@@ -303,6 +305,68 @@ namespace MCSControlLib
             {
                 tBOHTID.Text = "254";
             }
+        }
+
+        private void linkLabelSetFrom_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //int nTo = 0;
+            //nTo = TryConver.ToInt32(textBoxPathTo.Text);
+            //if (nTo == m_nPathPosition)
+            //{
+            //    MessageBox.Show("Do not set same point.");
+            //}
+            //else
+            //{
+                this.textBoxPathFrom.Text = m_nPathPosition.ToString();
+            //}
+        }
+
+        private void dataGridViewKeyPos_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridViewSelectedRowCollection rows = dataGridViewKeyPos.SelectedRows;
+            if (rows.Count > 0)
+            {
+                DataGridViewRow row = rows[0];
+                m_nPathPosition = TryConver.ToByte(row.Cells[0].Value.ToString());
+            }
+        }
+
+        private void linkLabelSetTo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //int nFrom = 0;
+            //nFrom = TryConver.ToInt32(textBoxPathFrom.Text);
+            //if (nFrom == m_nPathPosition)
+            //{
+            //    MessageBox.Show("Do not set same point.");
+            //}
+            //else
+            //{
+                this.textBoxPathTo.Text = m_nPathPosition.ToString();
+            //}
+        }
+
+        private void dataGridViewKeyPos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+           
+        }
+
+        private void bnSetPath_Click(object sender, EventArgs e)
+        {
+            m_tablePathView = m_tableKeyPos.Clone();
+            int nFrom = TryConver.ToInt32(textBoxPathFrom.Text);
+            int nTo = TryConver.ToInt32(textBoxPathTo.Text);
+            string strSQL = String.Format("Position >= {0} and Position <= {1}", nFrom, nTo);
+            DataRow[] rows = m_tableKeyPos.Select(strSQL);
+            foreach (DataRow row in rows)
+            {
+                //pathview.Rows.Add(row);
+                DataRow newRow = m_tablePathView.NewRow();
+                newRow.ItemArray = row.ItemArray;
+                m_tablePathView.Rows.Add(newRow);
+            }
+            //int nCount = rows.Length;
+            
+            this.dataGridViewPath.DataSource = m_tablePathView;
         }
     }
 }

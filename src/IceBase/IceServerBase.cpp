@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "IceBase.h"
+#include "../shared/Log.h"
 
 CIceServerBase::CIceServerBase()
 {
@@ -49,6 +50,8 @@ void CIceServerBase::InitIce(void)
 		//MessageBox(NULL, CString(ex.ice_name().c_str()), L"Exception", MB_ICONEXCLAMATION | MB_OK);
 		string strMsg;
 		strMsg = ex.ice_name();
+		//printf("%s \n", strMsg.c_str());
+		LOG_ERROR("%s", strMsg.c_str());
 		return;
 	}
 }

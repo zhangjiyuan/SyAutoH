@@ -58,19 +58,19 @@
             this.linkLabelRefresh = new System.Windows.Forms.LinkLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxPathFrom = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.textBoxPathTo = new System.Windows.Forms.TextBox();
+            this.bnSetPath = new System.Windows.Forms.Button();
+            this.bnMove = new System.Windows.Forms.Button();
+            this.bnPause = new System.Windows.Forms.Button();
+            this.bnStop = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dataGridViewPath = new System.Windows.Forms.DataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.linkLabelSetFrom = new System.Windows.Forms.LinkLabel();
+            this.linkLabelSetTo = new System.Windows.Forms.LinkLabel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOHTInfo)).BeginInit();
             this.groupBox8.SuspendLayout();
@@ -337,6 +337,8 @@
             this.dataGridViewKeyPos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewKeyPos.Size = new System.Drawing.Size(239, 438);
             this.dataGridViewKeyPos.TabIndex = 23;
+            this.dataGridViewKeyPos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewKeyPos_CellContentClick);
+            this.dataGridViewKeyPos.SelectionChanged += new System.EventHandler(this.dataGridViewKeyPos_SelectionChanged);
             // 
             // label2
             // 
@@ -361,7 +363,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.textBoxPathFrom);
             this.groupBox1.Location = new System.Drawing.Point(347, 62);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(131, 51);
@@ -378,17 +380,18 @@
             this.label3.TabIndex = 15;
             this.label3.Text = "Position";
             // 
-            // textBox1
+            // textBoxPathFrom
             // 
-            this.textBox1.Location = new System.Drawing.Point(65, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(58, 21);
-            this.textBox1.TabIndex = 16;
+            this.textBoxPathFrom.Location = new System.Drawing.Point(65, 20);
+            this.textBoxPathFrom.Name = "textBoxPathFrom";
+            this.textBoxPathFrom.ReadOnly = true;
+            this.textBoxPathFrom.Size = new System.Drawing.Size(58, 21);
+            this.textBoxPathFrom.TabIndex = 16;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.textBoxPathTo);
             this.groupBox2.Location = new System.Drawing.Point(347, 119);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(131, 50);
@@ -405,56 +408,58 @@
             this.label4.TabIndex = 15;
             this.label4.Text = "Position";
             // 
-            // textBox2
+            // textBoxPathTo
             // 
-            this.textBox2.Location = new System.Drawing.Point(65, 20);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(58, 21);
-            this.textBox2.TabIndex = 16;
+            this.textBoxPathTo.Location = new System.Drawing.Point(65, 20);
+            this.textBoxPathTo.Name = "textBoxPathTo";
+            this.textBoxPathTo.ReadOnly = true;
+            this.textBoxPathTo.Size = new System.Drawing.Size(58, 21);
+            this.textBoxPathTo.TabIndex = 16;
             // 
-            // button1
+            // bnSetPath
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(28, 266);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 28;
-            this.button1.Text = "Set Path";
-            this.button1.UseVisualStyleBackColor = true;
+            this.bnSetPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.bnSetPath.Location = new System.Drawing.Point(28, 266);
+            this.bnSetPath.Name = "bnSetPath";
+            this.bnSetPath.Size = new System.Drawing.Size(75, 23);
+            this.bnSetPath.TabIndex = 28;
+            this.bnSetPath.Text = "Set Path";
+            this.bnSetPath.UseVisualStyleBackColor = true;
+            this.bnSetPath.Click += new System.EventHandler(this.bnSetPath_Click);
             // 
-            // button2
+            // bnMove
             // 
-            this.button2.Location = new System.Drawing.Point(27, 20);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(51, 23);
-            this.button2.TabIndex = 29;
-            this.button2.Text = "Move";
-            this.button2.UseVisualStyleBackColor = true;
+            this.bnMove.Location = new System.Drawing.Point(27, 20);
+            this.bnMove.Name = "bnMove";
+            this.bnMove.Size = new System.Drawing.Size(51, 23);
+            this.bnMove.TabIndex = 29;
+            this.bnMove.Text = "Move";
+            this.bnMove.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // bnPause
             // 
-            this.button3.Location = new System.Drawing.Point(27, 68);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(51, 23);
-            this.button3.TabIndex = 30;
-            this.button3.Text = "Pause";
-            this.button3.UseVisualStyleBackColor = true;
+            this.bnPause.Location = new System.Drawing.Point(27, 68);
+            this.bnPause.Name = "bnPause";
+            this.bnPause.Size = new System.Drawing.Size(51, 23);
+            this.bnPause.TabIndex = 30;
+            this.bnPause.Text = "Pause";
+            this.bnPause.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // bnStop
             // 
-            this.button4.Location = new System.Drawing.Point(27, 97);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(51, 23);
-            this.button4.TabIndex = 31;
-            this.button4.Text = "Stop";
-            this.button4.UseVisualStyleBackColor = true;
+            this.bnStop.Location = new System.Drawing.Point(27, 97);
+            this.bnStop.Name = "bnStop";
+            this.bnStop.Size = new System.Drawing.Size(51, 23);
+            this.bnStop.TabIndex = 31;
+            this.bnStop.Text = "Stop";
+            this.bnStop.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox3.Controls.Add(this.dataGridViewPath);
-            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Controls.Add(this.bnSetPath);
             this.groupBox3.Location = new System.Drawing.Point(347, 175);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(131, 295);
@@ -493,9 +498,9 @@
             // groupBox4
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox4.Controls.Add(this.button2);
-            this.groupBox4.Controls.Add(this.button3);
-            this.groupBox4.Controls.Add(this.button4);
+            this.groupBox4.Controls.Add(this.bnMove);
+            this.groupBox4.Controls.Add(this.bnPause);
+            this.groupBox4.Controls.Add(this.bnStop);
             this.groupBox4.Location = new System.Drawing.Point(235, 339);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(94, 131);
@@ -503,25 +508,27 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Move Control";
             // 
-            // linkLabel1
+            // linkLabelSetFrom
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(482, 15);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(53, 12);
-            this.linkLabel1.TabIndex = 34;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Set From";
+            this.linkLabelSetFrom.AutoSize = true;
+            this.linkLabelSetFrom.Location = new System.Drawing.Point(482, 15);
+            this.linkLabelSetFrom.Name = "linkLabelSetFrom";
+            this.linkLabelSetFrom.Size = new System.Drawing.Size(53, 12);
+            this.linkLabelSetFrom.TabIndex = 34;
+            this.linkLabelSetFrom.TabStop = true;
+            this.linkLabelSetFrom.Text = "Set From";
+            this.linkLabelSetFrom.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelSetFrom_LinkClicked);
             // 
-            // linkLabel2
+            // linkLabelSetTo
             // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(578, 15);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(41, 12);
-            this.linkLabel2.TabIndex = 35;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "Set To";
+            this.linkLabelSetTo.AutoSize = true;
+            this.linkLabelSetTo.Location = new System.Drawing.Point(578, 15);
+            this.linkLabelSetTo.Name = "linkLabelSetTo";
+            this.linkLabelSetTo.Size = new System.Drawing.Size(41, 12);
+            this.linkLabelSetTo.TabIndex = 35;
+            this.linkLabelSetTo.TabStop = true;
+            this.linkLabelSetTo.Text = "Set To";
+            this.linkLabelSetTo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelSetTo_LinkClicked);
             // 
             // checkBox1
             // 
@@ -539,8 +546,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.linkLabel2);
-            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.linkLabelSetTo);
+            this.Controls.Add(this.linkLabelSetFrom);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label30);
             this.Controls.Add(this.tBOHTID);
@@ -604,19 +611,19 @@
         private System.Windows.Forms.LinkLabel linkLabelRefresh;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxPathFrom;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox textBoxPathTo;
+        private System.Windows.Forms.Button bnSetPath;
+        private System.Windows.Forms.Button bnMove;
+        private System.Windows.Forms.Button bnPause;
+        private System.Windows.Forms.Button bnStop;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.DataGridView dataGridViewPath;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.LinkLabel linkLabelSetFrom;
+        private System.Windows.Forms.LinkLabel linkLabelSetTo;
         private System.Windows.Forms.CheckBox checkBox1;
     }
 }

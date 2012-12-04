@@ -37,10 +37,10 @@ namespace GuiAccess
 
         public int Logout(int nSession)
         {
-            int nRet = -1;
+            int nRet = 0;
             try
             {
-                nRet = remote.Logout(nSession);
+                remote.begin_Logout(nSession);
             }
             catch (System.Exception /*ex*/)
             {

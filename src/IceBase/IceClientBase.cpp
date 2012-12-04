@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "IceBase.h"
 #include <iostream>
+#include "../shared/Log.h"
 
 string GetProcessPath()
 {
@@ -87,6 +88,8 @@ void CIceClientBase::InitIce(void)
 		//MessageBox(NULL, CString(ex.ice_name().c_str()), L"Exception", MB_ICONEXCLAMATION | MB_OK);
 		string strMsg;
 		strMsg = ex.ice_name();
+		//printf("%s \n", strMsg.c_str());
+		LOG_ERROR("%s", strMsg.c_str());
 		return;
 	}
 }

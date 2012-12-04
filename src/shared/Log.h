@@ -3,6 +3,10 @@
 #include "Singleton.h"
 //#include "Mutex.h"
 
+#pragma comment(lib, "shared.lib")
+
+
+
 class Session;
 
 #define TIME_FORMAT "[%m-%d-%Y %H:%M:%S]"
