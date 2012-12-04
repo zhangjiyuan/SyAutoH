@@ -196,6 +196,7 @@ namespace MCSControlLib
 
                 m_tableKeyPos.AcceptChanges();
             }
+            m_tablePathView = m_tableKeyPos.Clone();
         }
 
         private void InitDataTable()
@@ -222,6 +223,7 @@ namespace MCSControlLib
             InitKeyPosTable();
             dataGridViewOHTInfo.DataSource = m_tableOHTInfo;
             dataGridViewKeyPos.DataSource = m_tableKeyPos;
+            dataGridViewPath.DataSource = m_tablePathView;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -352,21 +354,19 @@ namespace MCSControlLib
 
         private void bnSetPath_Click(object sender, EventArgs e)
         {
-            m_tablePathView = m_tableKeyPos.Clone();
             int nFrom = TryConver.ToInt32(textBoxPathFrom.Text);
             int nTo = TryConver.ToInt32(textBoxPathTo.Text);
             string strSQL = String.Format("Position >= {0} and Position <= {1}", nFrom, nTo);
             DataRow[] rows = m_tableKeyPos.Select(strSQL);
+            m_tablePathView.Rows.Clear();
             foreach (DataRow row in rows)
             {
-                //pathview.Rows.Add(row);
                 DataRow newRow = m_tablePathView.NewRow();
                 newRow.ItemArray = row.ItemArray;
                 m_tablePathView.Rows.Add(newRow);
             }
-            //int nCount = rows.Length;
             
-            this.dataGridViewPath.DataSource = m_tablePathView;
+            
         }
     }
 }
