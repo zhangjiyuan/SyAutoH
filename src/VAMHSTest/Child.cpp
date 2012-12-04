@@ -35,8 +35,9 @@ void Child::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(Child, CDialogEx)
-	ON_BN_CLICKED(IDC_BUTTON3, &Child::OnBnClickedButton3)
-	ON_BN_CLICKED(IDC_BUTTON2, &Child::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, &Child::OnBnClickedCreateButton)
+	ON_BN_CLICKED(IDC_BUTTON2, &Child::OnBnClickedDeleteButton)
+	ON_BN_CLICKED(IDC_BUTTON1, &Child::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -111,22 +112,22 @@ void Child::ReadXML()
 		CString Type;
 		switch(num)
 		{
-		case(1):
+		case(0x01):
 			Type = (_T("直道位置点"));
 			break;
-		case(2):
+		case(0x02):
 			Type = (_T("弯道位置点"));
 			break;
-		case(4):
+		case(0x04):
 			Type = (_T("道岔位置点"));
 			break;
-		case(8):
+		case(0x08):
 			Type = (_T("减速点"));
 			break;
-		case(10):
+		case(0x10):
 			Type = (_T("停止点"));
 			break;
-		case(20):
+		case(0x20):
 			Type = (_T("存放点"));
 			break;
 		}
@@ -170,7 +171,7 @@ void Child::DeleteXMLElem(CString ID,CString pos)
 	XML.Save(path);
 }
 
-void Child::OnBnClickedButton3()
+void Child::OnBnClickedCreateButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CString nPos;
@@ -181,28 +182,36 @@ void Child::OnBnClickedButton3()
 	GetDlgItemText(IDC_Speed,nSpeed);
 	int nTypeString =m_TeachPosType.GetCurSel();
 	int nType = 0;
+	CString DType;
 	switch(nTypeString)
 	{
 	case 0:
 		nType = 0x01;
+		DType = (_T("直道位置点"));
 		break;
 	case 1:
 		nType = 0x02;
+		DType = (_T("弯道位置点"));
 		break;
 	case 2:
 		nType = 0x04;
+		DType = (_T("道岔位置点"));
 		break;
 	case 3:
 		nType = 0x08;
+		DType = (_T("减速点"));
 		break;
 	case 4:
 		nType = 0x10;
+		DType = (_T("停止点"));
 		break;
 	case 5:
 		nType = 0x20;
+		DType = (_T("存放点"));
 		break;
 	default:
 		nType = 0x01;
+		DType = (_T("直道位置点"));
 		break;
 	}
 	CString Type;
@@ -213,11 +222,11 @@ void Child::OnBnClickedButton3()
 	m_TeachPos_List.InsertItem(ncount,str);
 	m_TeachPos_List.SetItemText(ncount,0,nID);
 	m_TeachPos_List.SetItemText(ncount,1,nPos);
-	m_TeachPos_List.SetItemText(ncount,2,Type);
+	m_TeachPos_List.SetItemText(ncount,2,DType);
 	m_TeachPos_List.SetItemText(ncount,3,nSpeed);
 }
 
-void Child::OnBnClickedButton2()
+void Child::OnBnClickedDeleteButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CString str;
@@ -249,4 +258,10 @@ void Child::SaveXML(CString nID,CString nPos,CString nType,CString nSpeed)
 	XML.AddChildElem(_T("Type"),nType);
 	XML.AddChildElem(_T("Speed"),nSpeed);
 	XML.Save(path);
+}
+
+
+void Child::OnBnClickedButton1()
+{
+	// TODO: 在此添加控件通知处理程序代码
 }

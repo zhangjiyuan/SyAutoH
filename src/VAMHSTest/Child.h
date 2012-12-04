@@ -3,13 +3,6 @@
 #include "afxwin.h"
 #include "CMarkup.h"
 // Child ¶Ô»°¿ò
-typedef struct
-{
-	int nID;
-	int nPos;
-	int nType;
-	int nSpeed;
-}TeachPos;
 
 class Child : public CDialogEx
 {
@@ -40,6 +33,7 @@ public:
 	CEdit m_ID;
 	CEdit m_POS;
 	CEdit m_Speed;
-	afx_msg void OnBnClickedButton3();
-	afx_msg void OnBnClickedButton2();
+	afx_msg void OnBnClickedCreateButton();
+	afx_msg void OnBnClickedDeleteButton();
+	afx_msg void OnBnClickedButton1();
 };
