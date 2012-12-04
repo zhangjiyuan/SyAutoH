@@ -35,6 +35,7 @@
 #include <Ice/Direct.h>
 #include <IceUtil/ScopedArray.h>
 #include <Ice/StreamF.h>
+#include <iconstDef.h>
 #include <Ice/UndefSysMacros.h>
 
 #ifndef ICE_IGNORE_VERSION
@@ -124,7 +125,7 @@ namespace MCS
 
 struct GuiDataItem
 {
-    ::std::string sTag;
+    ::MCS::GuiHub::PushData enumTag;
     ::std::string sVal;
 
     bool operator==(const GuiDataItem& __rhs) const
@@ -133,7 +134,7 @@ struct GuiDataItem
         {
             return true;
         }
-        if(sTag != __rhs.sTag)
+        if(enumTag != __rhs.enumTag)
         {
             return false;
         }
@@ -150,11 +151,11 @@ struct GuiDataItem
         {
             return false;
         }
-        if(sTag < __rhs.sTag)
+        if(enumTag < __rhs.enumTag)
         {
             return true;
         }
-        else if(__rhs.sTag < sTag)
+        else if(__rhs.enumTag < enumTag)
         {
             return false;
         }
@@ -640,41 +641,41 @@ class GuiDataHub : virtual public ::IceProxy::Ice::Object
 {
 public:
 
-    ::std::string ReadData(const ::std::string& Tag, ::Ice::Int session)
+    ::std::string ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session)
     {
         return ReadData(Tag, session, 0);
     }
-    ::std::string ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::Context& __ctx)
+    ::std::string ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::Context& __ctx)
     {
         return ReadData(Tag, session, &__ctx);
     }
 
-    ::Ice::AsyncResultPtr begin_ReadData(const ::std::string& Tag, ::Ice::Int session)
+    ::Ice::AsyncResultPtr begin_ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session)
     {
         return begin_ReadData(Tag, session, 0, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::Context& __ctx)
+    ::Ice::AsyncResultPtr begin_ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::Context& __ctx)
     {
         return begin_ReadData(Tag, session, &__ctx, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_ReadData(Tag, session, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_ReadData(Tag, session, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_ReadData(const ::std::string& Tag, ::Ice::Int session, const ::MCS::Callback_GuiDataHub_ReadDataPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::MCS::Callback_GuiDataHub_ReadDataPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_ReadData(Tag, session, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataHub_ReadDataPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataHub_ReadDataPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_ReadData(Tag, session, &__ctx, __del, __cookie);
     }
@@ -683,46 +684,46 @@ public:
     
 private:
 
-    ::std::string ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    ::std::string ReadData(::MCS::GuiHub::GuiCommand, ::Ice::Int, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_ReadData(::MCS::GuiHub::GuiCommand, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
 
-    ::Ice::Int WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session)
+    ::Ice::Int WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session)
     {
         return WriteData(Tag, Val, session, 0);
     }
-    ::Ice::Int WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context& __ctx)
+    ::Ice::Int WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context& __ctx)
     {
         return WriteData(Tag, Val, session, &__ctx);
     }
 
-    ::Ice::AsyncResultPtr begin_WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session)
+    ::Ice::AsyncResultPtr begin_WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session)
     {
         return begin_WriteData(Tag, Val, session, 0, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context& __ctx)
+    ::Ice::AsyncResultPtr begin_WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context& __ctx)
     {
         return begin_WriteData(Tag, Val, session, &__ctx, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_WriteData(Tag, Val, session, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_WriteData(Tag, Val, session, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::MCS::Callback_GuiDataHub_WriteDataPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::MCS::Callback_GuiDataHub_WriteDataPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_WriteData(Tag, Val, session, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataHub_WriteDataPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataHub_WriteDataPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
         return begin_WriteData(Tag, Val, session, &__ctx, __del, __cookie);
     }
@@ -731,8 +732,8 @@ public:
     
 private:
 
-    ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    ::Ice::Int WriteData(::MCS::GuiHub::GuiCommand, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_WriteData(::MCS::GuiHub::GuiCommand, const ::std::string&, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
 
@@ -1591,9 +1592,9 @@ class GuiDataHub : virtual public ::IceDelegate::Ice::Object
 {
 public:
 
-    virtual ::std::string ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
+    virtual ::std::string ReadData(::MCS::GuiHub::GuiCommand, ::Ice::Int, const ::Ice::Context*) = 0;
 
-    virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
+    virtual ::Ice::Int WriteData(::MCS::GuiHub::GuiCommand, const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
 
     virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*) = 0;
 };
@@ -1642,9 +1643,9 @@ class GuiDataHub : virtual public ::IceDelegate::MCS::GuiDataHub,
 {
 public:
 
-    virtual ::std::string ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Context*);
+    virtual ::std::string ReadData(::MCS::GuiHub::GuiCommand, ::Ice::Int, const ::Ice::Context*);
 
-    virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
+    virtual ::Ice::Int WriteData(::MCS::GuiHub::GuiCommand, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
     virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*);
 };
@@ -1694,9 +1695,9 @@ class GuiDataHub : virtual public ::IceDelegate::MCS::GuiDataHub,
 {
 public:
 
-    virtual ::std::string ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Context*);
+    virtual ::std::string ReadData(::MCS::GuiHub::GuiCommand, ::Ice::Int, const ::Ice::Context*);
 
-    virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
+    virtual ::Ice::Int WriteData(::MCS::GuiHub::GuiCommand, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
     virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*);
 };
@@ -1782,10 +1783,10 @@ public:
     virtual const ::std::string& ice_id(const ::Ice::Current& = ::Ice::Current()) const;
     static const ::std::string& ice_staticId();
 
-    virtual ::std::string ReadData(const ::std::string&, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
+    virtual ::std::string ReadData(::MCS::GuiHub::GuiCommand, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___ReadData(::IceInternal::Incoming&, const ::Ice::Current&);
 
-    virtual ::Ice::Int WriteData(const ::std::string&, const ::std::string&, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
+    virtual ::Ice::Int WriteData(::MCS::GuiHub::GuiCommand, const ::std::string&, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___WriteData(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Current& = ::Ice::Current()) = 0;

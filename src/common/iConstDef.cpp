@@ -37,15 +37,29 @@
 #endif
 
 void
-MCS::__write(::IceInternal::BasicStream* __os, ::MCS::Fruit v)
+MCS::GuiHub::__write(::IceInternal::BasicStream* __os, ::MCS::GuiHub::GuiCommand v)
 {
-    __os->write(static_cast< ::Ice::Byte>(v), 3);
+    __os->write(static_cast< ::Ice::Byte>(v), 8);
 }
 
 void
-MCS::__read(::IceInternal::BasicStream* __is, ::MCS::Fruit& v)
+MCS::GuiHub::__read(::IceInternal::BasicStream* __is, ::MCS::GuiHub::GuiCommand& v)
 {
     ::Ice::Byte val;
-    __is->read(val, 3);
-    v = static_cast< ::MCS::Fruit>(val);
+    __is->read(val, 8);
+    v = static_cast< ::MCS::GuiHub::GuiCommand>(val);
+}
+
+void
+MCS::GuiHub::__write(::IceInternal::BasicStream* __os, ::MCS::GuiHub::PushData v)
+{
+    __os->write(static_cast< ::Ice::Byte>(v), 4);
+}
+
+void
+MCS::GuiHub::__read(::IceInternal::BasicStream* __is, ::MCS::GuiHub::PushData& v)
+{
+    ::Ice::Byte val;
+    __is->read(val, 4);
+    v = static_cast< ::MCS::GuiHub::PushData>(val);
 }

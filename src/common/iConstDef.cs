@@ -71,18 +71,39 @@ namespace MCS
         }
     }
 
-    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-    public enum Fruit
+    namespace GuiHub
     {
-        Apple,
-        Pear,
-        Orange
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public enum GuiCommand
+        {
+            OhtPosTime,
+            OhtStatusTime,
+            OhtGetPosTable,
+            OhtFoupHanding,
+            OhtPathTest,
+            OhtMoveTest,
+            OhtFoupTest,
+            StkStatusTime
+        }
+
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public enum PushData
+        {
+            upOhtInfo,
+            upOhtPos,
+            upOhtPosTable,
+            upOhtStatus
+        }
     }
 }
 
 namespace MCS
 {
     namespace OHT
+    {
+    }
+
+    namespace GuiHub
     {
     }
 }

@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MCS.GuiHub;
 
 namespace MCSControlLib
 {
@@ -18,7 +19,7 @@ namespace MCSControlLib
         private DataTable m_tableKeyPos = null;
         private byte m_uIdSelected = 0;
         private delegate void ProcessHandler(ArrayList item);
-        private Dictionary<string, ProcessHandler> m_dictProcess = new Dictionary<string, ProcessHandler>();
+        private Dictionary<PushData, ProcessHandler> m_dictProcess = new Dictionary<PushData, ProcessHandler>();
 
         public OHTInfo()
         {
@@ -29,9 +30,9 @@ namespace MCSControlLib
 
         private void InitProcessDictionary()
         {
-            m_dictProcess.Add("OHT.Info", ProcessOHTInfo);
-            m_dictProcess.Add("OHT.Pos", ProcessOHTPos);
-            m_dictProcess.Add("OHT.PosTable", ProcessPosTable);
+            m_dictProcess.Add(PushData.upOhtInfo, ProcessOHTInfo);
+            m_dictProcess.Add(PushData.upOhtPos, ProcessOHTPos);
+            m_dictProcess.Add(PushData.upOhtPosTable, ProcessPosTable);
         }
 
         public GuiAccess.DataHubCli DataHub
@@ -58,7 +59,7 @@ namespace MCSControlLib
         {
             
             ProcessHandler handler = null;
-            bool bGet = m_dictProcess.TryGetValue(guiData.sTag, out handler);
+            bool bGet = m_dictProcess.TryGetValue(guiData.enumTag, out handler);
             if (true == bGet)
             {
                 ArrayList alDatas = GuiAccess.DataHubCli.ConvertToArrayList(guiData.sVal);
@@ -247,7 +248,7 @@ namespace MCSControlLib
             string strVal;
             strVal = string.Format("<{0}, {1}>", m_uIdSelected, nTime);
 
-            int nWRet = m_dataHub.WriteData("OHT.PosTime", strVal);
+            int nWRet = m_dataHub.WriteData(GuiCommand.OhtPosTime, strVal);
         }
 
         private void bnSetStatusTime_Click(object sender, EventArgs e)
@@ -259,7 +260,7 @@ namespace MCSControlLib
             string strVal;
             strVal = string.Format("<{0}, {1}>", m_uIdSelected, nTime);
 
-            int nWRet = m_dataHub.WriteData("OHT.StatusTime", strVal);
+            int nWRet = m_dataHub.WriteData(GuiCommand.OhtStatusTime, strVal);
         }
 
         private byte GetBufID()
@@ -281,7 +282,7 @@ namespace MCSControlLib
         {
             string strVal = "";
             strVal = string.Format("<{0},{1},{2}>", uID, uTarget, uOperation);
-            int nWRet = m_dataHub.WriteData("OHT.FoupHanding", strVal);
+            int nWRet = m_dataHub.WriteData(GuiCommand.OhtFoupHanding, strVal);
         }
 
         private void bnPlace_Click(object sender, EventArgs e)
@@ -293,7 +294,7 @@ namespace MCSControlLib
 
         private void linkLabelRefresh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            m_dataHub.Async_WriteData("OHT.GetPosTable", "");
+            m_dataHub.Async_WriteData(GuiCommand.OhtGetPosTable, "");
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)

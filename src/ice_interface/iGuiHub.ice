@@ -9,6 +9,7 @@
 
 #ifndef MESLink_ICE
 #define MESLink_ICE
+#include "iconstDef.ice"
 
 
 module MCS
@@ -16,7 +17,7 @@ module MCS
 
 struct GuiDataItem
 {
-	string sTag;
+	GuiHub::PushData enumTag;
 	string sVal;
 };
 
@@ -27,8 +28,8 @@ interface GuiDataUpdater
 
 interface GuiDataHub
 {
-    idempotent string ReadData(string Tag, int session);
-    idempotent int WriteData(string Tag, string Val, int session);
+    idempotent string ReadData(GuiHub::GuiCommand Tag, int session);
+    idempotent int WriteData(GuiHub::GuiCommand Tag, string Val, int session);
     idempotent void SetDataUpdater(GuiDataUpdater* updater);
 };
 

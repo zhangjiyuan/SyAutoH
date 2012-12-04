@@ -34,12 +34,12 @@ public:
 	virtual ~GuiDataHubI(void);
 
 public:
-	virtual std::string ReadData(const std::string &,Ice::Int,const Ice::Current &);
-	virtual Ice::Int WriteData(const std::string &,const std::string &,Ice::Int,const Ice::Current &);
+	virtual std::string MCS::GuiDataHub::ReadData(MCS::GuiHub::GuiCommand,Ice::Int,const Ice::Current &);
+	virtual Ice::Int MCS::GuiDataHub::WriteData(MCS::GuiHub::GuiCommand,const std::string &,Ice::Int,const Ice::Current &);
 	virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Current& /* = ::Ice::Current */);
 
 public:
-	void UpdateData(const std::string &, const std::string &);
+	void UpdateData(MCS::GuiHub::PushData, const std::string &);
 	void removeUpdater(const ::MCS::GuiDataUpdaterPrx& updater);
 
 	CAMHSDrive* AMHSDrive() const { return m_pAMHSDrive; }
@@ -52,7 +52,9 @@ private:
 
 	typedef void (GuiDataHubI::*WriteHander)(const std::string&);
 	typedef std::map<std::string, WriteHander> OPT_MAP;
-	OPT_MAP m_optHanders;
+	typedef std::map<int, WriteHander> HANDLE_MAP;
+	//OPT_MAP m_optHanders;
+	HANDLE_MAP m_mapHandles;
 
 private:
 	void OHT_SetPositionBackTime(const std::string&);

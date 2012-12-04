@@ -63,15 +63,36 @@ const ::Ice::Int OHTStatusfoupmoved = 6;
 
 }
 
-enum Fruit
+namespace GuiHub
 {
-    Apple,
-    Pear,
-    Orange
+
+enum GuiCommand
+{
+    OhtPosTime,
+    OhtStatusTime,
+    OhtGetPosTable,
+    OhtFoupHanding,
+    OhtPathTest,
+    OhtMoveTest,
+    OhtFoupTest,
+    StkStatusTime
 };
 
-void __write(::IceInternal::BasicStream*, Fruit);
-void __read(::IceInternal::BasicStream*, Fruit&);
+void __write(::IceInternal::BasicStream*, GuiCommand);
+void __read(::IceInternal::BasicStream*, GuiCommand&);
+
+enum PushData
+{
+    upOhtInfo,
+    upOhtPos,
+    upOhtPosTable,
+    upOhtStatus
+};
+
+void __write(::IceInternal::BasicStream*, PushData);
+void __read(::IceInternal::BasicStream*, PushData&);
+
+}
 
 }
 

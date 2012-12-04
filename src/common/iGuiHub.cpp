@@ -121,14 +121,14 @@ MCS::__read(::IceInternal::BasicStream* __is, ::MCS::UserManagementPrx& v)
 void
 MCS::GuiDataItem::__write(::IceInternal::BasicStream* __os) const
 {
-    __os->write(sTag);
+    ::MCS::GuiHub::__write(__os, enumTag);
     __os->write(sVal);
 }
 
 void
 MCS::GuiDataItem::__read(::IceInternal::BasicStream* __is)
 {
-    __is->read(sTag);
+    ::MCS::GuiHub::__read(__is, enumTag);
     __is->read(sVal);
 }
 
@@ -292,7 +292,7 @@ IceProxy::MCS::GuiDataUpdater::__newInstance() const
 }
 
 ::std::string
-IceProxy::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::Context* __ctx)
+IceProxy::MCS::GuiDataHub::ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -317,7 +317,7 @@ IceProxy::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int session
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::GuiDataHub::begin_ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::GuiDataHub::begin_ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
     __checkAsyncTwowayOnly(__MCS__GuiDataHub__ReadData_name);
     ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataHub__ReadData_name, __del, __cookie);
@@ -325,7 +325,7 @@ IceProxy::MCS::GuiDataHub::begin_ReadData(const ::std::string& Tag, ::Ice::Int s
     {
         __result->__prepare(__MCS__GuiDataHub__ReadData_name, ::Ice::Idempotent, __ctx);
         ::IceInternal::BasicStream* __os = __result->__getOs();
-        __os->write(Tag);
+        ::MCS::GuiHub::__write(__os, Tag);
         __os->write(session);
         __os->endWriteEncaps();
         __result->__send(true);
@@ -361,7 +361,7 @@ IceProxy::MCS::GuiDataHub::end_ReadData(const ::Ice::AsyncResultPtr& __result)
 }
 
 ::Ice::Int
-IceProxy::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __ctx)
+IceProxy::MCS::GuiDataHub::WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -386,7 +386,7 @@ IceProxy::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::stri
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::GuiDataHub::begin_WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::GuiDataHub::begin_WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
     __checkAsyncTwowayOnly(__MCS__GuiDataHub__WriteData_name);
     ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataHub__WriteData_name, __del, __cookie);
@@ -394,7 +394,7 @@ IceProxy::MCS::GuiDataHub::begin_WriteData(const ::std::string& Tag, const ::std
     {
         __result->__prepare(__MCS__GuiDataHub__WriteData_name, ::Ice::Idempotent, __ctx);
         ::IceInternal::BasicStream* __os = __result->__getOs();
-        __os->write(Tag);
+        ::MCS::GuiHub::__write(__os, Tag);
         __os->write(Val);
         __os->write(session);
         __os->endWriteEncaps();
@@ -1123,13 +1123,13 @@ IceDelegateM::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem& data, co
 }
 
 ::std::string
-IceDelegateM::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateM::MCS::GuiDataHub::ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::Context* __context)
 {
     ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataHub__ReadData_name, ::Ice::Idempotent, __context);
     try
     {
         ::IceInternal::BasicStream* __os = __og.os();
-        __os->write(Tag);
+        ::MCS::GuiHub::__write(__os, Tag);
         __os->write(session);
     }
     catch(const ::Ice::LocalException& __ex)
@@ -1165,13 +1165,13 @@ IceDelegateM::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int ses
 }
 
 ::Ice::Int
-IceDelegateM::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateM::MCS::GuiDataHub::WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __context)
 {
     ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataHub__WriteData_name, ::Ice::Idempotent, __context);
     try
     {
         ::IceInternal::BasicStream* __os = __og.os();
-        __os->write(Tag);
+        ::MCS::GuiHub::__write(__os, Tag);
         __os->write(Val);
         __os->write(session);
     }
@@ -1592,13 +1592,13 @@ IceDelegateD::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem&, const :
 }
 
 ::std::string
-IceDelegateD::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateD::MCS::GuiDataHub::ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
     public:
 
-        _DirectI(::std::string& __result, const ::std::string& Tag, ::Ice::Int session, const ::Ice::Current& __current) : 
+        _DirectI(::std::string& __result, ::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session, const ::Ice::Current& __current) : 
             ::IceInternal::Direct(__current),
             _result(__result),
             _m_Tag(Tag),
@@ -1621,7 +1621,7 @@ IceDelegateD::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int ses
     private:
         
         ::std::string& _result;
-        const ::std::string& _m_Tag;
+        ::MCS::GuiHub::GuiCommand _m_Tag;
         ::Ice::Int _m_session;
     };
     
@@ -1662,13 +1662,13 @@ IceDelegateD::MCS::GuiDataHub::ReadData(const ::std::string& Tag, ::Ice::Int ses
 }
 
 ::Ice::Int
-IceDelegateD::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateD::MCS::GuiDataHub::WriteData(::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
     public:
 
-        _DirectI(::Ice::Int& __result, const ::std::string& Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Current& __current) : 
+        _DirectI(::Ice::Int& __result, ::MCS::GuiHub::GuiCommand Tag, const ::std::string& Val, ::Ice::Int session, const ::Ice::Current& __current) : 
             ::IceInternal::Direct(__current),
             _result(__result),
             _m_Tag(Tag),
@@ -1692,7 +1692,7 @@ IceDelegateD::MCS::GuiDataHub::WriteData(const ::std::string& Tag, const ::std::
     private:
         
         ::Ice::Int& _result;
-        const ::std::string& _m_Tag;
+        ::MCS::GuiHub::GuiCommand _m_Tag;
         const ::std::string& _m_Val;
         ::Ice::Int _m_session;
     };
@@ -2575,9 +2575,9 @@ MCS::GuiDataHub::___ReadData(::IceInternal::Incoming& __inS, const ::Ice::Curren
     __checkMode(::Ice::Idempotent, __current.mode);
     ::IceInternal::BasicStream* __is = __inS.is();
     __is->startReadEncaps();
-    ::std::string Tag;
+    ::MCS::GuiHub::GuiCommand Tag;
     ::Ice::Int session;
-    __is->read(Tag);
+    ::MCS::GuiHub::__read(__is, Tag);
     __is->read(session);
     __is->endReadEncaps();
     ::IceInternal::BasicStream* __os = __inS.os();
@@ -2592,10 +2592,10 @@ MCS::GuiDataHub::___WriteData(::IceInternal::Incoming& __inS, const ::Ice::Curre
     __checkMode(::Ice::Idempotent, __current.mode);
     ::IceInternal::BasicStream* __is = __inS.is();
     __is->startReadEncaps();
-    ::std::string Tag;
+    ::MCS::GuiHub::GuiCommand Tag;
     ::std::string Val;
     ::Ice::Int session;
-    __is->read(Tag);
+    ::MCS::GuiHub::__read(__is, Tag);
     __is->read(Val);
     __is->read(session);
     __is->endReadEncaps();
