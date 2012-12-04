@@ -329,7 +329,7 @@ namespace MCSControlLib
             if (rows.Count > 0)
             {
                 DataGridViewRow row = rows[0];
-                m_nPathPosition = TryConver.ToByte(row.Cells[0].Value.ToString());
+                m_nPathPosition = TryConver.ToInt32(row.Cells[0].Value.ToString());
             }
         }
 
@@ -365,7 +365,6 @@ namespace MCSControlLib
                 newRow.ItemArray = row.ItemArray;
                 m_tablePathView.Rows.Add(newRow);
             }
-            
             
         }
     }
