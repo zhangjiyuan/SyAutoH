@@ -23,7 +23,6 @@ VirtualOHT::VirtualOHT(void)
 	CreateTimer();
 }
 
-
 VirtualOHT::~VirtualOHT(void)
 {
 	DestoryTimer();

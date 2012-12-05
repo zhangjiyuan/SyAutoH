@@ -113,10 +113,15 @@ void Child::ReadXML()
 	if(!XML.Load(path))
 	{
 		XML.SetDoc(_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"));
+		XML.AddElem(_T("OHTangTeachPosList"));
+		XML.IntoElem();
+		XML.AddElem(_T("OHTList"));
 		XML.AddElem(_T("TeachPosList"));
 	}
 	XML.ResetMainPos();
-	XML.FindElem(_T("TeachPosList"));
+	XML.FindElem();
+	XML.FindChildElem(_T("TeachPosList"));
+	XML.IntoElem();
 	int i = 0;
 	while(XML.FindChildElem(_T("TeachPos")))
 	{
@@ -149,6 +154,7 @@ void Child::ReadXML()
 		m_TeachPos_List.SetItemText(i,3,CSpeed);
 		i++;
 	}
+	XML.OutOfElem();
 }
 void Child::DeleteXMLElem(CString ID,CString pos)
 {
@@ -157,7 +163,9 @@ void Child::DeleteXMLElem(CString ID,CString pos)
 	CMarkup XML;
 	XML.Load(path);
 	XML.ResetMainPos();
-	XML.FindElem(_T("TeachPosList"));
+	XML.FindElem();
+	XML.FindChildElem(_T("TeachPosList"));
+	XML.IntoElem();
 	while(XML.FindChildElem(_T("TeachPos")))
 	{
 		XML.IntoElem();
@@ -173,6 +181,7 @@ void Child::DeleteXMLElem(CString ID,CString pos)
 		if((xID == ID) && (xPos == xPos))
 			XML.RemoveChildElem();
 	}
+	XML.OutOfElem();
 	XML.Save(path);
 }
 
@@ -183,13 +192,17 @@ void Child::SaveXML(CString nID,CString nPos,CString nType,CString nSpeed)
 	CMarkup XML;
 	XML.Load(path);
 	XML.ResetMainPos();
-	XML.FindElem(_T("TeachPosList"));
+	XML.FindElem();
+	XML.FindChildElem(_T("TeachPosList"));
+	XML.IntoElem();
 	XML.AddChildElem(_T("TeachPos"));
 	XML.IntoElem();
 	XML.AddChildElem(_T("DeviceID"),nID);
 	XML.AddChildElem(_T("POS"),nPos);
 	XML.AddChildElem(_T("Type"),nType);
 	XML.AddChildElem(_T("Speed"),nSpeed);
+	XML.OutOfElem();
+	XML.OutOfElem();
 	XML.Save(path);
 }
 
@@ -229,9 +242,10 @@ void Child::OnBnClickedCreatebutton2()
 		nType = 0x01;
 		break;
 	}
-	CString Type;
-	Type = GetType(nType);
-	SaveXML(nID,nPos,Type,nSpeed);
+	CString sType;
+	sType.Format(_T("%d"),nType);
+	DType = GetType(nType);
+	SaveXML(nID,nPos,sType,nSpeed);
 	CString str;
 	int ncount = m_TeachPos_List.GetItemCount();
 	m_TeachPos_List.InsertItem(ncount,str);

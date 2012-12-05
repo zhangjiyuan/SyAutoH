@@ -254,14 +254,14 @@ void CVAMHSTestDlg::SaveXML()
 	XML.Load(filePath);
 	XML.ResetMainPos();
 	XML.FindElem();
-	XML.FindElem(_T("OHTList"));
+	XML.FindChildElem(_T("OHTList"));
 	XML.IntoElem();
 	while(XML.FindChildElem(_T("OHT")))
 	{
 		XML.RemoveChildElem();
 	}
-	XML.OutOfElem();
-	XML.IntoElem();
+	//XML.OutOfElem();
+	//XML.IntoElem();
 	int ncount = m_listCtrlOHT.GetItemCount();
 	for(int i = 0;i < ncount;i++)
 	{
@@ -323,7 +323,7 @@ void CVAMHSTestDlg::ReadXML()
 	int item = 0;
 	XML.ResetMainPos();
 	XML.FindElem();
-	XML.FindElem(_T("OHTList"));
+	XML.FindChildElem(_T("OHTList"));
 	XML.IntoElem();
 	while(XML.FindChildElem(_T("OHT")))
 	{
@@ -453,8 +453,8 @@ void CVAMHSTestDlg::OnBnClickedBnTeachPos()
 
 	xml.ResetMainPos();
 	xml.FindElem();
-	xml.IntoElem();
-	xml.FindElem(_T("TeachPosList"));
+	//xml.IntoElem();
+	xml.FindChildElem(_T("TeachPosList"));
 	xml.IntoElem();
     xml.AddChildElem(_T("TeachPos"));//add the elem failed 
 
@@ -471,7 +471,6 @@ void CVAMHSTestDlg::OnBnClickedBnTeachPos()
 	g_pVDev->SetTeachPosition(nOhtID, nPos, nType, nSpeed);
 	//m_Dialog.DoModal();
 }
-
 
 void CVAMHSTestDlg::InitListCtrlOHT(void)
 {
