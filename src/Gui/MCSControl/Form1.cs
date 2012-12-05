@@ -19,32 +19,48 @@ namespace MCSControl
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            GuiAccess.UserCli userLink = new GuiAccess.UserCli();
-            userLink.ConnectServer();
-            bool bNeedLogin = true;
-            while (true == bNeedLogin)
-            {
-                LoginForm login = new LoginForm();
-                login.UserManagement = userLink;
-                login.ShowDialog();
-                if (login.IsLogin == false)
+           try
+           {
+                GuiAccess.UserCli userLink = new GuiAccess.UserCli();
+                userLink.ConnectServer();
+                bool bNeedLogin = true;
+                while (true == bNeedLogin)
                 {
-                    this.Close();
-                    bNeedLogin = false;
+                    LoginForm login = new LoginForm();
+                    login.UserManagement = userLink;
+                    login.ShowDialog();
+                    if (login.IsLogin == false)
+                    {
+                        this.Close();
+                        bNeedLogin = false;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            MainForm mainForm = new MainForm();
+                            mainForm.UserName = login.UserName;
+                            mainForm.Session = login.Session;
+                            mainForm.ShowDialog();
+                            userLink.Logout(mainForm.Session);
+                            bNeedLogin = mainForm.NeedLogin;
+                        }
+                        catch (System.Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            MessageBox.Show("System will be restarted.");
+                        }
+                    }
                 }
-                else
-                {
-                    MainForm mainForm = new MainForm();
-                    mainForm.UserName = login.UserName;
-                    mainForm.Session = login.Session;
-                    mainForm.ShowDialog();
-                    userLink.Logout(mainForm.Session);
-                    bNeedLogin = mainForm.NeedLogin;
-                }
-            }
             
-            userLink.Disconnect();
-            this.Close();
+                userLink.Disconnect();
+                this.Close();
+           }
+           catch (System.Exception ex)
+           {
+               MessageBox.Show(ex.Message);
+           }
+           
         }
     }
 }

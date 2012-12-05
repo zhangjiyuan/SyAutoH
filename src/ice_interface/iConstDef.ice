@@ -13,17 +13,6 @@
 
 module MCS
 {
-	module OHT
-	{
-		const int	OHTStatusAlarm = 0;
-		const int	OHTStatusWaitingpath = 1;
-		const int	OHTStatuswaitingcmd = 2;
-		const int	OHTStatusnormalrun = 3;
-		const int	OHTStatustargetinpos = 4;
-		const int	OHTStatusfoupmoving = 5;
-		const int	OHTStatusfoupmoved = 6;
-	};
-	
 	module GuiHub
 	{
 			enum GuiCommand
@@ -32,6 +21,8 @@ module MCS
 				OhtStatusTime, 
 				OhtGetPosTable,
 				OhtFoupHanding,
+				OhtSetPath,
+				OhtMove,
 				
 				OhtPathTest,
 				OhtMoveTest,

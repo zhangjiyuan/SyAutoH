@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Data;
 
 namespace BaseRailElement
 {
@@ -30,6 +31,8 @@ namespace BaseRailElement
         private Int32 thirdDotCoding = -1;
         private string startDot = "first dot";
         private DirectionCross directionOfCross = DirectionCross.NULL;
+        public DataTable dt = new DataTable();
+
         public enum DirectionCross
         {
             first, second, third, four, NULL
@@ -147,7 +150,26 @@ namespace BaseRailElement
             set { directionOfCross = value; }
         }
 
-        public CrossEle() { GraphType = 3; }
+        public CrossEle()
+        {
+            GraphType = 3;
+            dt.Columns.Add("GraphType", typeof(int));
+            dt.Columns.Add("LocationLock", typeof(bool));
+            dt.Columns.Add("SizeLock", typeof(bool));
+            dt.Columns.Add("Selectable", typeof(bool));
+            dt.Columns.Add("Speed", typeof(float));
+            dt.Columns.Add("SegmentNumber", typeof(Int16));
+            dt.Columns.Add("TagNumber", typeof(int));
+            dt.Columns.Add("Mirror", typeof(bool));
+            dt.Columns.Add("FirstPart", typeof(int));
+            dt.Columns.Add("SecPart", typeof(int));
+            dt.Columns.Add("ThPart", typeof(int));
+            dt.Columns.Add("FourPart", typeof(Point));
+            dt.Columns.Add("PointList", typeof(List<Point>));
+            dt.Columns.Add("StartAngle", typeof(int));
+            dt.Columns.Add("RotateAngle", typeof(int));
+            dt.Columns.Add("DirectionOfCross", typeof(DirectionCross));
+        }
 
         public CrossEle CreatEle(Point pt, Size size, Int16 multiFactor, string text)
         {
@@ -514,6 +536,31 @@ namespace BaseRailElement
         public override bool ChosedInRegion(Rectangle rect)
         {
             return objectCrossOp.ChosedInRegion(rect);
+        }
+
+        public override DataTable DataSetXMLSave()
+        {
+            dt.Rows.Clear();
+            DataRow dr = dt.NewRow();
+            dr["GraphType"] = GraphType;
+            dr["LocationLock"] = locationLock;
+            dr["SizeLock"] = sizeLock;
+            dr["Selectable"] = Selectable;
+            dr["Speed"] = Speed;
+            dr["SegmentNumber"] = SegmentNumber;
+            dr["TagNumber"] = TagNumber;
+            dr["Mirror"] = mirror;
+            dr["FirstPart"] = firstPart;
+            dr["SecPart"] = secPart;
+            dr["ThPart"] = thPart;
+            dr["FourPart"] = fourPart;
+            dr["PointList"] = PointList;
+            dr["StartAngle"] = startAngle;
+            dr["RotateAngle"] = rotateAngle;
+            dr["DirectionOfCross"] = directionOfCross;
+
+            dt.Rows.Add(dr);
+            return dt;
         }
     }
 }

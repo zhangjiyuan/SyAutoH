@@ -13,13 +13,20 @@ namespace MCSControlLib
 {
     public partial class OHTInfo : UserControl, IMcsControlBase
     {
+        private const string TKeyP_Pos = "Position";
+        private const string TKeyP_Name = "Name";
+        private const string TKeyP_Type = "Type";
+        private const string TKeyP_Speed = "Speed";
+
         private GuiAccess.DataHubCli m_dataHub = null;
         private Dictionary<int, OhtInfoData> m_dictOhtInfo = new Dictionary<int, OhtInfoData>();
         private DataTable m_tableOHTInfo = null;
         private DataTable m_tableKeyPos = null;
+        private DataTable m_tablePathView = null;
         private byte m_uIdSelected = 0;
         private delegate void ProcessHandler(ArrayList item);
         private Dictionary<PushData, ProcessHandler> m_dictProcess = new Dictionary<PushData, ProcessHandler>();
+        private int m_nPathPosition = 0;
 
         public OHTInfo()
         {
@@ -80,18 +87,18 @@ namespace MCSControlLib
                 DataRow row = m_tableKeyPos.Rows.Find(uPos);
                 if (null != row)
                 {
-                    row["Name"] = item[0].ToString();
-                    row["Type"] = uType;
-                    row["Speed"] = uSpeed;
+                    row[TKeyP_Name] = item[0].ToString();
+                    row[TKeyP_Type] = uType;
+                    row[TKeyP_Speed] = uSpeed;
                     row.AcceptChanges();
                 }
                 else
                 {
                     row = m_tableKeyPos.NewRow();
-                    row["Position"] = uPos;
-                    row["Name"] = item[0].ToString();
-                    row["Type"] = uType;
-                    row["Speed"] = uSpeed;
+                    row[TKeyP_Pos] = uPos;
+                    row[TKeyP_Name] = item[0].ToString();
+                    row[TKeyP_Type] = uType;
+                    row[TKeyP_Speed] = uSpeed;
                     m_tableKeyPos.Rows.Add(row);
                     m_tableKeyPos.AcceptChanges();
                 }
@@ -185,15 +192,16 @@ namespace MCSControlLib
             if (null == m_tableKeyPos)
             {
                 m_tableKeyPos = new DataTable("KeyPos");
-                m_tableKeyPos.Columns.Add("Position", typeof(System.UInt32));
-                m_tableKeyPos.Columns["Position"].AllowDBNull = false;
-                m_tableKeyPos.PrimaryKey = new DataColumn[] { m_tableKeyPos.Columns["Position"] };
-                m_tableKeyPos.Columns.Add("Name", typeof(System.String));
-                m_tableKeyPos.Columns.Add("Type", typeof(System.Byte));
-                m_tableKeyPos.Columns.Add("Speed", typeof(System.Byte));
+                m_tableKeyPos.Columns.Add(TKeyP_Pos, typeof(System.UInt32));
+                m_tableKeyPos.Columns[TKeyP_Pos].AllowDBNull = false;
+                m_tableKeyPos.PrimaryKey = new DataColumn[] { m_tableKeyPos.Columns[TKeyP_Pos] };
+                m_tableKeyPos.Columns.Add(TKeyP_Name, typeof(System.String));
+                m_tableKeyPos.Columns.Add(TKeyP_Type, typeof(System.Byte));
+                m_tableKeyPos.Columns.Add(TKeyP_Speed, typeof(System.Byte));
 
                 m_tableKeyPos.AcceptChanges();
             }
+            m_tablePathView = m_tableKeyPos.Clone();
         }
 
         private void InitDataTable()
@@ -220,6 +228,7 @@ namespace MCSControlLib
             InitKeyPosTable();
             dataGridViewOHTInfo.DataSource = m_tableOHTInfo;
             dataGridViewKeyPos.DataSource = m_tableKeyPos;
+            dataGridViewPath.DataSource = m_tablePathView;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -303,6 +312,102 @@ namespace MCSControlLib
             {
                 tBOHTID.Text = "254";
             }
+        }
+
+        private void linkLabelSetFrom_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //int nTo = 0;
+            //nTo = TryConver.ToInt32(textBoxPathTo.Text);
+            //if (nTo == m_nPathPosition)
+            //{
+            //    MessageBox.Show("Do not set same point.");
+            //}
+            //else
+            //{
+                this.textBoxPathFrom.Text = m_nPathPosition.ToString();
+            //}
+        }
+
+        private void dataGridViewKeyPos_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridViewSelectedRowCollection rows = dataGridViewKeyPos.SelectedRows;
+            if (rows.Count > 0)
+            {
+                DataGridViewRow row = rows[0];
+                m_nPathPosition = TryConver.ToInt32(row.Cells[0].Value.ToString());
+            }
+        }
+
+        private void linkLabelSetTo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //int nFrom = 0;
+            //nFrom = TryConver.ToInt32(textBoxPathFrom.Text);
+            //if (nFrom == m_nPathPosition)
+            //{
+            //    MessageBox.Show("Do not set same point.");
+            //}
+            //else
+            //{
+                this.textBoxPathTo.Text = m_nPathPosition.ToString();
+            //}
+        }
+
+        private void bnSetPath_Click(object sender, EventArgs e)
+        {
+            int nFrom = TryConver.ToInt32(textBoxPathFrom.Text);
+            int nTo = TryConver.ToInt32(textBoxPathTo.Text);
+            string strSQL = String.Format("Position >= {0} and Position <= {1}", nFrom, nTo);
+            DataRow[] rows = m_tableKeyPos.Select(strSQL);
+            m_tablePathView.Rows.Clear();
+            string strPathData = "";
+            foreach (DataRow row in rows)
+            {
+                DataRow newRow = m_tablePathView.NewRow();
+                newRow.ItemArray = row.ItemArray;
+                m_tablePathView.Rows.Add(newRow);
+                string strKeyPoint = "";
+                strKeyPoint = string.Format("<{0},{1},{2}>", newRow[TKeyP_Pos].ToString(),
+                    newRow[TKeyP_Type].ToString(), newRow[TKeyP_Speed].ToString());
+                strPathData += strKeyPoint;
+            }
+
+            string strSetPath = "";
+            int nPathCache = 0;
+            if (checkBoxPathCache.Checked)
+            {
+                nPathCache = 1;
+            }
+            else
+            {
+                nPathCache = 0;
+            }
+            strSetPath = String.Format("<{0},{1}>{2}", m_uIdSelected,
+                nPathCache, strPathData);
+
+
+            m_dataHub.Async_WriteData(GuiCommand.OhtSetPath, strSetPath);
+        }
+
+        private void OHTMove(int nOpt)
+        {
+            string strMove = "";
+            strMove = string.Format("<{0},{1}>", m_uIdSelected, nOpt);
+            m_dataHub.Async_WriteData(GuiCommand.OhtMove, strMove);
+        }
+
+        private void bnMove_Click(object sender, EventArgs e)
+        {
+            OHTMove(0);
+        }
+
+        private void bnPause_Click(object sender, EventArgs e)
+        {
+            OHTMove(1);
+        }
+
+        private void bnStop_Click(object sender, EventArgs e)
+        {
+            OHTMove(2);
         }
     }
 }

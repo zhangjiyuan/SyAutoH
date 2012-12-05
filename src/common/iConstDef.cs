@@ -26,51 +26,6 @@ using _Microsoft = global::Microsoft;
 
 namespace MCS
 {
-    namespace OHT
-    {
-        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-        public abstract class OHTStatusAlarm
-        {
-            public const int value = 0;
-        }
-
-        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-        public abstract class OHTStatusWaitingpath
-        {
-            public const int value = 1;
-        }
-
-        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-        public abstract class OHTStatuswaitingcmd
-        {
-            public const int value = 2;
-        }
-
-        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-        public abstract class OHTStatusnormalrun
-        {
-            public const int value = 3;
-        }
-
-        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-        public abstract class OHTStatustargetinpos
-        {
-            public const int value = 4;
-        }
-
-        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-        public abstract class OHTStatusfoupmoving
-        {
-            public const int value = 5;
-        }
-
-        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
-        public abstract class OHTStatusfoupmoved
-        {
-            public const int value = 6;
-        }
-    }
-
     namespace GuiHub
     {
         [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -80,6 +35,8 @@ namespace MCS
             OhtStatusTime,
             OhtGetPosTable,
             OhtFoupHanding,
+            OhtSetPath,
+            OhtMove,
             OhtPathTest,
             OhtMoveTest,
             OhtFoupTest,
@@ -99,10 +56,6 @@ namespace MCS
 
 namespace MCS
 {
-    namespace OHT
-    {
-    }
-
     namespace GuiHub
     {
     }

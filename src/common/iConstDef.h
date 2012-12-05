@@ -44,25 +44,6 @@
 namespace MCS
 {
 
-namespace OHT
-{
-
-const ::Ice::Int OHTStatusAlarm = 0;
-
-const ::Ice::Int OHTStatusWaitingpath = 1;
-
-const ::Ice::Int OHTStatuswaitingcmd = 2;
-
-const ::Ice::Int OHTStatusnormalrun = 3;
-
-const ::Ice::Int OHTStatustargetinpos = 4;
-
-const ::Ice::Int OHTStatusfoupmoving = 5;
-
-const ::Ice::Int OHTStatusfoupmoved = 6;
-
-}
-
 namespace GuiHub
 {
 
@@ -72,6 +53,8 @@ enum GuiCommand
     OhtStatusTime,
     OhtGetPosTable,
     OhtFoupHanding,
+    OhtSetPath,
+    OhtMove,
     OhtPathTest,
     OhtMoveTest,
     OhtFoupTest,

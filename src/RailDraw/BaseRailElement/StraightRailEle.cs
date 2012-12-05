@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-
+using System.Data;
 
 namespace BaseRailElement
 {
@@ -23,6 +23,7 @@ namespace BaseRailElement
         private Int32 nextCoding = -1;
         private Int32 prevCoding = -1;
         private string startDot = "first dot";
+        public DataTable dt = new DataTable();
 
         [Category("其他")]
         public int Lenght
@@ -84,7 +85,23 @@ namespace BaseRailElement
             set { prevCoding = value; }
         }
 
-        public StraightRailEle() { GraphType = 1; }
+        public StraightRailEle() 
+        { 
+            GraphType = 1;
+            dt.Columns.Add("GraphType", typeof(int));
+            dt.Columns.Add("LocationLock", typeof(bool));
+            dt.Columns.Add("SizeLock", typeof(bool));
+            dt.Columns.Add("Selectable", typeof(bool));
+            dt.Columns.Add("Speed", typeof(float));
+            dt.Columns.Add("SegmentNumber", typeof(Int16));
+            dt.Columns.Add("TagNumber", typeof(int));
+            dt.Columns.Add("StartCoding", typeof(int));
+            dt.Columns.Add("EndCoding", typeof(int));
+            dt.Columns.Add("Lenght", typeof(int));
+            dt.Columns.Add("StartAngle", typeof(int));
+            dt.Columns.Add("PointList", typeof(List<Point>));
+            dt.Columns.Add("StartDot", typeof(string));
+        }
 
         public StraightRailEle CreatEle(Point pt, Size size, Int16 multiFactor, string text)
         {
@@ -247,6 +264,27 @@ namespace BaseRailElement
         public override bool ChosedInRegion(Rectangle rect)
         {
             return objectStaightOp.ChosedInRegion(rect);
+        }
+
+        public override DataTable DataSetXMLSave()
+        {
+            dt.Rows.Clear();
+            DataRow dr = dt.NewRow();
+            dr["GraphType"] = GraphType;
+            dr["LocationLock"] = locationLock;
+            dr["SizeLock"] = sizeLock;
+            dr["Selectable"] = Selectable;
+            dr["Speed"] = Speed;
+            dr["SegmentNumber"] = SegmentNumber;
+            dr["TagNumber"] = TagNumber;
+            dr["StartCoding"] = StartCoding;
+            dr["EndCoding"] = EndCoding;
+            dr["Lenght"] = lenght;
+            dr["StartAngle"] = startAngle;
+            dr["PointList"] = PointList;
+            dr["StartDot"] = startDot;
+            dt.Rows.Add(dr);
+            return dt;
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
+using System.Data;
 
 
 namespace BaseRailElement
@@ -21,6 +22,7 @@ namespace BaseRailElement
         protected bool sizeLock = false;
         private bool selectable = true;
         private float speed = 0;
+        
         private Int16 segmentNumber = 0;
         private Int32 tagNumber = 0;
         private Int16 drawMultiFactor = 1;
@@ -145,6 +147,7 @@ namespace BaseRailElement
         public virtual void DrawEnlargeOrShrink(float draw_multi_factor) { }
         public virtual void ObjectMirror() { }
         public virtual bool ChosedInRegion(Rectangle rect) { return false; }
+        public virtual DataTable DataSetXMLSave() { return null; }
         public event EventHandler Click = null;
     }
 }

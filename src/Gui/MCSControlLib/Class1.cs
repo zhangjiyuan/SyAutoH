@@ -61,5 +61,19 @@ namespace MCSControlLib
             }
             return byteValue;
         }
+
+        static public int ToInt32(string value)
+        {
+            int intValue = 0;
+            try
+            {
+                intValue = System.Convert.ToInt32(value);
+            }
+            catch (System.Exception /*ex*/)
+            {
+                intValue = 0;
+            }
+            return intValue;
+        }
     }
 }
