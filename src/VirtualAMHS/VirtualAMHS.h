@@ -25,9 +25,23 @@ typedef struct
 	int nPosition;
 	int nHandStatus;
 	int nOnline;
+	int nPosTime;
+	int nStatusTime;
 } ItemOHT;
+
+/*
+// replay time added in 12.5 14:53
+typedef struct 
+{
+	int nID;
+	int nPosTime;
+	int nStatusTime;
+} OHTTime;
+*/
 typedef std::list<ItemOHT> LIST_OHT;
+
 typedef std::map<int, ItemOHT*> MAP_ItemOHT;
+//typedef std::list<OHTTime> LIST_OHTTime;
 
 typedef struct
 {
@@ -44,7 +58,8 @@ public:
 	~CVirtualAMHS();
 
 	// device auth
-	int OHT_Auth(int nIndex, DWORD nPos = 0, int nHand = 0);
+	int OHT_Auth(int nIndex,DWORD nPos = 0, int nHand = 0);
+    int OHT_InitTime(int nIndex,int posTime,int statusTime);
 	int Stocker_Auth(int nIndex, const char* sIP);
 
 	int OHT_Offline(int nIndex);
@@ -59,8 +74,10 @@ public:
 	// for OHT
 	LIST_OHT OHT_GetStatus();
 	int SetTeachPosition(int nID, int nPos, int nType, int nSpeedRate);
+	//LIST_OHTTime OHT_GetTimes();
 
 private:
 	MAP_VOHT* m_mapOHT;
 	MAP_VSTK*	 m_mapSTK;
+	//LIST_OHTTime* m_listTime;
 };

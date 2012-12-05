@@ -208,6 +208,7 @@ void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 	if (nOHT_ID >= 0)
 	{
 		int nAdd = g_pVDev->OHT_Auth(nOHT_ID);
+		int nSetTime = g_pVDev->OHT_InitTime(nOHT_ID,50,50);
 	}
 }
 
@@ -267,11 +268,13 @@ void CVAMHSTestDlg::SaveXML()
 	{
 		XML.AddChildElem(_T("OHT"));
 		XML.IntoElem();
+		int nID;
 		for(int j = 0;j < 5;j++)
 		{
 			CString value = m_listCtrlOHT.GetItemText(i,j);
 			if(j == 0)
 			{
+				nID = _ttoi(value);
 				XML.AddChildElem(_T("ID"),value);
 			}
 			if(j == 1)
@@ -300,6 +303,11 @@ void CVAMHSTestDlg::SaveXML()
 				XML.AddChildElem(_T("Online"),online);
 			}
 		}
+		MAP_ItemOHT::iterator it = g_mapOHTs.find(nID);
+		int posTime = it->second->nPosTime;
+		int statusTime = it->second->nStatusTime;
+		XML.AddChildElem(_T("PosTime"),posTime);
+		XML.AddChildElem(_T("StatusTime"),statusTime);
 		XML.OutOfElem();
 	}
 	XML.OutOfElem();
@@ -519,6 +527,8 @@ void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 			itMap->second->nHandStatus = itOht->nHandStatus;
 			itMap->second->nPosition = itOht->nPosition;
 			itMap->second->nOnline = itOht->nOnline;
+			itMap->second->nPosTime = itOht->nPosTime;
+			itMap->second->nStatusTime = itOht->nStatusTime;
 		}
 		++itOht;
 	}
