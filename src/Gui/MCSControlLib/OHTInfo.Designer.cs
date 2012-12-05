@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewOHTInfo = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Position = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,6 +67,7 @@
             this.bnPause = new System.Windows.Forms.Button();
             this.bnStop = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBoxPathCache = new System.Windows.Forms.CheckBox();
             this.dataGridViewPath = new System.Windows.Forms.DataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.linkLabelSetFrom = new System.Windows.Forms.LinkLabel();
@@ -92,14 +93,14 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridViewOHTInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewOHTInfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewOHTInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewOHTInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewOHTInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOHTInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
@@ -319,14 +320,14 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridViewKeyPos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewKeyPos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewKeyPos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewKeyPos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewKeyPos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewKeyPos.Location = new System.Drawing.Point(484, 32);
             this.dataGridViewKeyPos.MultiSelect = false;
@@ -337,7 +338,6 @@
             this.dataGridViewKeyPos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewKeyPos.Size = new System.Drawing.Size(239, 438);
             this.dataGridViewKeyPos.TabIndex = 23;
-            this.dataGridViewKeyPos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewKeyPos_CellContentClick);
             this.dataGridViewKeyPos.SelectionChanged += new System.EventHandler(this.dataGridViewKeyPos_SelectionChanged);
             // 
             // label2
@@ -435,6 +435,7 @@
             this.bnMove.TabIndex = 29;
             this.bnMove.Text = "Move";
             this.bnMove.UseVisualStyleBackColor = true;
+            this.bnMove.Click += new System.EventHandler(this.bnMove_Click);
             // 
             // bnPause
             // 
@@ -444,6 +445,7 @@
             this.bnPause.TabIndex = 30;
             this.bnPause.Text = "Pause";
             this.bnPause.UseVisualStyleBackColor = true;
+            this.bnPause.Click += new System.EventHandler(this.bnPause_Click);
             // 
             // bnStop
             // 
@@ -453,11 +455,13 @@
             this.bnStop.TabIndex = 31;
             this.bnStop.Text = "Stop";
             this.bnStop.UseVisualStyleBackColor = true;
+            this.bnStop.Click += new System.EventHandler(this.bnStop_Click);
             // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox3.Controls.Add(this.checkBoxPathCache);
             this.groupBox3.Controls.Add(this.dataGridViewPath);
             this.groupBox3.Controls.Add(this.bnSetPath);
             this.groupBox3.Location = new System.Drawing.Point(347, 175);
@@ -466,6 +470,17 @@
             this.groupBox3.TabIndex = 32;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Path";
+            // 
+            // checkBoxPathCache
+            // 
+            this.checkBoxPathCache.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxPathCache.AutoSize = true;
+            this.checkBoxPathCache.Location = new System.Drawing.Point(6, 244);
+            this.checkBoxPathCache.Name = "checkBoxPathCache";
+            this.checkBoxPathCache.Size = new System.Drawing.Size(84, 16);
+            this.checkBoxPathCache.TabIndex = 37;
+            this.checkBoxPathCache.Text = "Path Cache";
+            this.checkBoxPathCache.UseVisualStyleBackColor = true;
             // 
             // dataGridViewPath
             // 
@@ -476,14 +491,14 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridViewPath.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewPath.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewPath.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewPath.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewPath.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPath.Location = new System.Drawing.Point(8, 18);
             this.dataGridViewPath.MultiSelect = false;
@@ -492,7 +507,7 @@
             this.dataGridViewPath.RowHeadersVisible = false;
             this.dataGridViewPath.RowTemplate.Height = 23;
             this.dataGridViewPath.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewPath.Size = new System.Drawing.Size(115, 242);
+            this.dataGridViewPath.Size = new System.Drawing.Size(115, 220);
             this.dataGridViewPath.TabIndex = 33;
             // 
             // groupBox4
@@ -575,6 +590,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPath)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -625,5 +641,6 @@
         private System.Windows.Forms.LinkLabel linkLabelSetFrom;
         private System.Windows.Forms.LinkLabel linkLabelSetTo;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxPathCache;
     }
 }
