@@ -15,7 +15,6 @@ CVirtualAMHS::CVirtualAMHS()
 {
 	m_mapOHT = new MAP_VOHT();
 	m_mapSTK = new MAP_VSTK();
-
 	return;
 }
 
@@ -94,7 +93,6 @@ int CVirtualAMHS::OHT_Auth(int nIndex, DWORD nPos, int nHand)
 		}
 	}
 
-	
 	VirtualOHT* oht = new VirtualOHT();
 	oht->DeviceID(nIndex);
 	oht->Connect("127.0.0.1", 9999);

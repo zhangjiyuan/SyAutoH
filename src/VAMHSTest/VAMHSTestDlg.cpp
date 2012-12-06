@@ -303,9 +303,18 @@ void CVAMHSTestDlg::SaveXML()
 				XML.AddChildElem(_T("Online"),online);
 			}
 		}
+		int posTime = 0;
+		int statusTime = 0;
 		MAP_ItemOHT::iterator it = g_mapOHTs.find(nID);
-		int posTime = it->second->nPosTime;
-		int statusTime = it->second->nStatusTime;
+		if(it != g_mapOHTs.end())
+		{
+			CString nnID;
+			nnID.Format(_T("%d"),nID);
+
+			MessageBox(nnID);
+			posTime = it->second->nPosTime;
+			statusTime = it->second->nStatusTime;
+		}
 		XML.AddChildElem(_T("PosTime"),posTime);
 		XML.AddChildElem(_T("StatusTime"),statusTime);
 		XML.OutOfElem();
