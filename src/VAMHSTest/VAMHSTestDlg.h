@@ -50,6 +50,8 @@ public:
 	void InitListCtrlFOUP(void);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	void SetOHTListItemData(ItemOHT* pOHT, int nListIndex);
+	int GetElemData(CMarkup xml,CString tag);
+	//void ResetElem(CMarkup xml,CString tag,CString value);
 	afx_msg void OnBnClickedBnStkHistory();
 	CComboBox m_cbOhtTeachType;
 	int GetSelectOhtID(void);

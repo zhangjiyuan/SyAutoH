@@ -70,7 +70,6 @@ int CVirtualAMHS::Stocker_Auth(int nIndex, const char* sIP)
 	stocker->Connect("127.0.0.1", 9999);
 	stocker->Auth( sIP);
 	(*m_mapSTK)[nIndex] = stocker;
-
 	return 0;
 }
 
