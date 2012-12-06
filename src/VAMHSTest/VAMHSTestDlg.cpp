@@ -204,11 +204,33 @@ HCURSOR CVAMHSTestDlg::OnQueryDragIcon()
 
 void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 {
+	int nPosTime;
+	int nStatusTime;
+	CMarkup XML;
+	CString path;
+	path = GetPath();
+	path += "../Config/OHTandTeachPos.xml";
+	XML.Load(path);
+	XML.FindElem();
+	XML.FindChildElem(_T("OHTList"));
+	XML.IntoElem();
 	int nOHT_ID = GetSelectOhtID();
+	while(XML.FindChildElem(_T("OHT")))
+	{
+		XML.IntoElem();
+		int nID = GetElemData(XML,_T("ID"));
+		if(nID == nOHT_ID)
+		{
+			nPosTime = GetElemData(XML,_T("PosTime"));
+			nStatusTime = GetElemData(XML,_T("StatusTime"));
+		}
+		XML.OutOfElem();
+	}
+	XML.OutOfElem();
 	if (nOHT_ID >= 0)
 	{
 		int nAdd = g_pVDev->OHT_Auth(nOHT_ID);
-		int nSetTime = g_pVDev->OHT_InitTime(nOHT_ID,50,50);
+		int nSetTime = g_pVDev->OHT_InitTime(nOHT_ID,nPosTime,nStatusTime);
 	}
 }
 
@@ -262,10 +284,6 @@ void CVAMHSTestDlg::SaveXML()
 	filePath += "../Config/OHTandTeachPos.xml";
 	CMarkup XML;
 	XML.Load(filePath);
-	//XML.ResetMainPos();
-	//XML.FindElem();
-	//XML.FindChildElem(_T("OHTList"));
-	//XML.IntoElem();
 	MAP_ItemOHT::iterator it;
 	for(it = g_mapOHTs.begin();it != g_mapOHTs.end();it++)
 	{
@@ -286,48 +304,37 @@ void CVAMHSTestDlg::SaveXML()
 			if(xID == nID)
 			{
 				contain = true;
-				XML.FindChildElem(_T("POS"));
-				XML.IntoElem();
-				XML.SetData(it->second->nPosition);
-				XML.OutOfElem();
-				XML.FindChildElem(_T("HAND"));
-				XML.IntoElem();
-				XML.SetData(it->second->nHandStatus);
-				XML.OutOfElem();
-				XML.FindChildElem(_T("Online"));
-				XML.IntoElem();
-				if(it->second->nOnline >= 0)
-				{
-					XML.SetData(it->second->nOnline);
-				}
-				else 
-				{
-					XML.SetData(0);
-				}
-				XML.OutOfElem();
 				XML.FindChildElem(_T("PosTime"));
 				XML.IntoElem();
 				CString CPosTime = XML.GetData();
 				nPosTime = _ttoi(CPosTime);
-		        if(it->second->nPosTime > 0)
-			    {
-					XML.SetData(it->second->nPosTime);
-			    }
-				else if(nPosTime <= 0)
-					XML.SetData(0);
 				XML.OutOfElem();
 				XML.FindChildElem(_T("StatusTime"));
 				XML.IntoElem();
 				CString CStatusTime;
 				CStatusTime = XML.GetData();
 				nStatusTime = _ttoi(CStatusTime);
+				XML.OutOfElem();
+				XML.RemoveChildElem();
+				XML.AddChildElem(_T("OHT"));
+				XML.IntoElem();
+				XML.AddChildElem(_T("ID"),xID);
+				XML.AddChildElem(_T("POS"),it->second->nPosition);
+				XML.AddChildElem(_T("HAND"),it->second->nHandStatus);
+				XML.AddChildElem(_T("Online"),0);
+		        if(it->second->nPosTime > 0)
+			    {
+					XML.AddChildElem(_T("PosTime"),it->second->nPosTime);
+			    }
+				else if(nPosTime <= 0)
+					XML.AddChildElem(_T("PosTime"),nPosTime);
 			    if(it->second->nStatusTime > 0)
 			    {
-					XML.SetData(it->second->nStatusTime);
+					XML.AddChildElem(_T("StatusTime"),it->second->nStatusTime);
 			    }
 				else if(nStatusTime <= 0)
 				{
-					XML.SetData(0);
+					XML.AddChildElem(_T("StatusTime"),nStatusTime);
 				}
 				XML.OutOfElem();
 				XML.OutOfElem();
@@ -353,70 +360,6 @@ void CVAMHSTestDlg::SaveXML()
 			XML.OutOfElem();
 		}
 	}
-	/*
-	while(XML.FindChildElem(_T("OHT")))
-	{
-		XML.RemoveChildElem();
-	}
-	//XML.OutOfElem();
-	//XML.IntoElem();
-	int ncount = m_listCtrlOHT.GetItemCount();
-	for(int i = 0;i < ncount;i++)
-	{
-		XML.AddChildElem(_T("OHT"));
-		XML.IntoElem();
-		int nID;
-		for(int j = 0;j < 5;j++)
-		{
-			CString value = m_listCtrlOHT.GetItemText(i,j);
-			if(j == 0)
-			{
-				nID = _ttoi(value);
-				XML.AddChildElem(_T("ID"),value);
-			}
-			if(j == 1)
-			{
-				XML.AddChildElem(_T("POS"),value);
-			}
-			if(j == 2)
-			{
-				XML.AddChildElem(_T("HAND"),value);
-			}
-			if(j == 3)
-			{
-				XML.AddChildElem(_T("Status"),value);
-			}
-			if(j == 4)
-			{
-				CString online;
-				if(value == "on")
-				{
-					online.Format(_T("%d"),1); 
-				}
-				else
-				{
-					online.Format(_T("%d"),0);
-				}
-				XML.AddChildElem(_T("Online"),online);
-			}
-		}
-		int posTime = 0;
-		int statusTime = 0;
-		MAP_ItemOHT::iterator it = g_mapOHTs.find(nID);
-		if(it != g_mapOHTs.end())
-		{
-			CString nnID;
-			nnID.Format(_T("%d"),nID);
-
-			MessageBox(nnID);
-			posTime = it->second->nPosTime;
-			statusTime = it->second->nStatusTime;
-		}
-		XML.AddChildElem(_T("PosTime"),posTime);
-		XML.AddChildElem(_T("StatusTime"),statusTime);
-		XML.OutOfElem();
-	}
-	*/
 	XML.OutOfElem();
 	XML.Save(filePath);
 }
@@ -463,6 +406,28 @@ void CVAMHSTestDlg::ReadXML()
 		XML.OutOfElem();
 	}
 	XML.OutOfElem();
+}
+void CVAMHSTestDlg::DeleteElem(int nID)
+{
+	CMarkup XML;
+	CString path;
+	path = GetPath();
+	path += "../Config/OHTandTeachPos.xml";
+	XML.Load(path);
+	XML.FindElem();
+	XML.FindChildElem(_T("OHTList"));
+	XML.IntoElem();
+	while(XML.FindChildElem(_T("OHT")))
+	{
+		XML.IntoElem();
+		int xID = GetElemData(XML,_T("ID"));
+		if(xID == nID)
+		{
+			XML.OutOfElem();
+			XML.RemoveChildElem();
+		}
+	}
+	XML.Save(path);
 }
 CStringW CVAMHSTestDlg::GetPath()
 {
@@ -600,7 +565,6 @@ void CVAMHSTestDlg::InitListCtrlFOUP(void)
 	dwStyle = m_listCtrlFOUP.GetStyle();  //取得样式
 	dwStyle = LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT ;   //添加样式
 	m_listCtrlFOUP.SetExtendedStyle(dwStyle);     //重新设置
-
 	m_listCtrlFOUP.InsertColumn(0, _T("ID"), LVCFMT_CENTER, 100);
 	m_listCtrlFOUP.InsertColumn(1, _T("Location"), LVCFMT_CENTER, 80);
 	m_listCtrlFOUP.InsertColumn(2, _T("Status"), LVCFMT_CENTER, 50);
@@ -720,4 +684,5 @@ void CVAMHSTestDlg::OnBnClickedOhtDel()
 	m_listCtrlOHT.DeleteItem(nId);
 	MAP_ItemOHT::iterator it = g_mapOHTs.find(OHT_ID);
 	g_mapOHTs.erase(it);
+	DeleteElem(OHT_ID);
 }
