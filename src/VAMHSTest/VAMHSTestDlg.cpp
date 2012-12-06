@@ -426,6 +426,7 @@ void CVAMHSTestDlg::DeleteElem(int nID)
 			XML.OutOfElem();
 			XML.RemoveChildElem();
 		}
+		XML.OutOfElem();
 	}
 	XML.Save(path);
 }
