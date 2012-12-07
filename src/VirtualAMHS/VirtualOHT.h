@@ -19,6 +19,7 @@ private:
 	void Handle_SetPosTime(AMHSPacket& );
 	void Handle_SetStatusTime(AMHSPacket& );
 	void Handle_FoupHanding(AMHSPacket& );
+	void Handle_SetPath(AMHSPacket& );
 	
 private:
 	typedef void (VirtualOHT::*CommandHander)(AMHSPacket& packet);

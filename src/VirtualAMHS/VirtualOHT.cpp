@@ -20,6 +20,8 @@ VirtualOHT::VirtualOHT(void)
 		&VirtualOHT::Handle_SetStatusTime));
 	m_optHanders.insert(std::make_pair(OHT_MCS_FOUPHANDING, 
 		&VirtualOHT::Handle_FoupHanding));
+	m_optHanders.insert(std::make_pair(OHT_MCS_PATH,
+		&VirtualOHT::Handle_SetPath));
 	CreateTimer();
 }
 
@@ -133,7 +135,10 @@ void VirtualOHT::Handle_SetPosTime(AMHSPacket&  packet)
 	authPacket<< uint8(nPosTime);	
 	SendPacket(authPacket);
 }
+void VirtualOHT::Handle_SetPath(AMHSPacket& packet)
+{
 
+}
 void VirtualOHT::Handle_Auth(AMHSPacket& packet)
 {
 	uint8 nID = 0;
@@ -172,7 +177,6 @@ void VirtualOHT::DestoryTimer(void)
 void CALLBACK VirtualOHT::TimerHandler(UINT id, UINT msg, DWORD dwUser, DWORD dw1, DWORD dw2)
 {
 	VirtualOHT *pOht = (VirtualOHT*)dwUser;
-	
 	pOht->OnTimer();
 }
 
@@ -184,7 +188,6 @@ void VirtualOHT::OnTimer(void)
 	{
 		m_nPos = 0;
 	}
-	
 	// 
 	m_nTimeCounter++;
 	if ((m_nPosUpdateTimeSet > 0) 
