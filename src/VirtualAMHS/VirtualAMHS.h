@@ -29,19 +29,9 @@ typedef struct
 	int nStatusTime;
 } ItemOHT;
 
-/*
-// replay time added in 12.5 14:53
-typedef struct 
-{
-	int nID;
-	int nPosTime;
-	int nStatusTime;
-} OHTTime;
-*/
 typedef std::list<ItemOHT> LIST_OHT;
 
 typedef std::map<int, ItemOHT*> MAP_ItemOHT;
-//typedef std::list<OHTTime> LIST_OHTTime;
 
 typedef struct
 {

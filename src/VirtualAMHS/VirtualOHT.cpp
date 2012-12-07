@@ -10,7 +10,8 @@ VirtualOHT::VirtualOHT(void)
 	m_nPosUpdateTimeSet(0),
 	m_nStatusUpdateTimeSet(0),
 	m_nTimerID(0),
-	m_nTimeCounter(0)
+	m_nTimeCounter(0),
+	isSetPath(false)
 {
 	m_optHanders.insert(std::make_pair(OHT_MCS_ACK_AUTH, 
 		&VirtualOHT::Handle_Auth));
@@ -137,7 +138,32 @@ void VirtualOHT::Handle_SetPosTime(AMHSPacket&  packet)
 }
 void VirtualOHT::Handle_SetPath(AMHSPacket& packet)
 {
-
+	uint8 nID = 0;
+	uint8 nEType = 0;
+	uint32 nStartPos = 0;
+	uint32 nEndPos = 0;
+	uint8 nKeyPosNum = 0;
+	uint32 nKeyPos = 0;
+	uint8 nKeyPosType = 0;
+	uint8 nKeyPosSpeed = 0;
+	packet >> nID;
+	packet >> nEType;
+	packet >> nStartPos;
+	packet >> nEndPos;
+	packet >> nKeyPosNum;
+	for(int i = 1;i <= nKeyPosNum;i++)
+	{
+		PathInfo *Item = new  PathInfo;
+		packet >> nKeyPos;
+		packet >> nKeyPosType;
+		packet >> nKeyPosSpeed;
+		Item->nposition = nKeyPos;
+		Item->nType = nKeyPosType;
+		Item->nSpeed = nKeyPosSpeed;
+		m_mapPath.insert(std::make_pair(i,Item));
+	}
+	isSetPath = true;
+	m_nPos = nStartPos;
 }
 void VirtualOHT::Handle_Auth(AMHSPacket& packet)
 {
@@ -163,7 +189,6 @@ void VirtualOHT::CreateTimer(void)
 	printf("ID: %u TimerID: %d\n", DeviceID(), m_nTimerID);
 }
 
-
 void VirtualOHT::DestoryTimer(void)
 {
 	if (m_nTimerID > 0)
@@ -182,6 +207,24 @@ void CALLBACK VirtualOHT::TimerHandler(UINT id, UINT msg, DWORD dwUser, DWORD dw
 
 void VirtualOHT::OnTimer(void)
 {
+	/*
+	if(isSetPath)
+	{
+		int nKeyPos1,nKeyPos2;
+		int nEndPos;
+		int nSpeed;
+		PATH_SET_MAP::iterator it = m_mapPath.begin();
+		nKeyPos1 = it->second->nposition;
+		nSpeed = it->second->nSpeed;
+		it++;
+		nKeyPos2 = it->second->nposition;
+		if(m_nPos <= nKeyPos2)
+		{
+
+		}
+		m_nTimeCounter++;
+	}
+	*/
 	// 
 	m_nPos += 1;
 	if (m_nPos > 12400)
@@ -195,7 +238,7 @@ void VirtualOHT::OnTimer(void)
 	{
 		UpdatePos();
 	}
-	if ((m_nStatusUpdateTimeSet > 0 )
+	if ((m_nStatusUpdateTimeSet > 0)
 		&& (m_nTimeCounter % m_nStatusUpdateTimeSet == 0))
 	{
 		UpdateStatus();

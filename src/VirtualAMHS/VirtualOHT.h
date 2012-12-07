@@ -1,5 +1,12 @@
 #pragma once
 #include "VirtualAMHSDevice.h"
+typedef struct 
+{
+	int nposition;
+	int nType;
+	int nSpeed;
+} PathInfo;
+typedef std::map<int,PathInfo*> PATH_SET_MAP;
 class VirtualOHT : public VirtualAMHSDevice
 {
 public:
@@ -25,8 +32,10 @@ private:
 	typedef void (VirtualOHT::*CommandHander)(AMHSPacket& packet);
 	typedef std::map<int, CommandHander> OPT_MAP;
 	OPT_MAP m_optHanders;
+	PATH_SET_MAP m_mapPath;
 
 public:
+	bool isSetPath;
 	int m_nHand;
 	DWORD m_nPos;
 	int m_nPosUpdateTimeSet;
