@@ -59,7 +59,7 @@ public:
 
 	// device auth
 	int OHT_Auth(int nIndex,DWORD nPos = 0, int nHand = 0);
-    int OHT_InitTime(int nIndex,int posTime,int statusTime);
+    int OHT_Init(int nIndex,int posTime,int statusTime);
 	int Stocker_Auth(int nIndex, const char* sIP);
 
 	int OHT_Offline(int nIndex);

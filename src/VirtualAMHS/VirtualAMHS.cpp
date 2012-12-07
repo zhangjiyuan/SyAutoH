@@ -96,13 +96,14 @@ int CVirtualAMHS::OHT_Auth(int nIndex, DWORD nPos, int nHand)
 	oht->DeviceID(nIndex);
 	oht->Connect("127.0.0.1", 9999);
 	oht->Auth(nPos, nHand);
+	oht->m_nHand = nHand;
 	WLock(g_rwLOHT)
 	{
 		(*m_mapOHT)[nIndex] = oht;
 	}
 	return 0;
 }
-int CVirtualAMHS::OHT_InitTime(int nIndex,int posTime,int statusTime)
+int CVirtualAMHS::OHT_Init(int nIndex,int posTime,int statusTime)
 {
 	MAP_VOHT::iterator it;
 	it = m_mapOHT->find(nIndex);
@@ -204,26 +205,6 @@ LIST_OHT CVirtualAMHS::OHT_GetStatus()
 	
 	return list;
 }
-/*
-LIST_OHTTime CVirtualAMHS::OHT_GetTimes()
-{
-	LIST_OHTTime list;
-	RLock(g_rwLOHT)
-	{
-		for (MAP_VOHT::iterator it = m_mapOHT->begin(); 
-			it != m_mapOHT->end(); ++it)
-		{
-			VirtualOHT *vOht = it->second;
-			OHTTime item;
-			item.nID = vOht->DeviceID();
-			item.nPosTime = vOht->m_nPosUpdateTimeSet;
-			item.nStatusTime = vOht->m_nStatusUpdateTimeSet;
-			list.push_back(item);
-		}
-	}
-	return list;
-}
-*/
 
 int CVirtualAMHS::STK_History(int nStocker)
 {

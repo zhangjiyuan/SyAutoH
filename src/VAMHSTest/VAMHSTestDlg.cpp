@@ -63,6 +63,11 @@ CVAMHSTestDlg::CVAMHSTestDlg(CWnd* pParent /*=NULL*/)
 CVAMHSTestDlg::~CVAMHSTestDlg()
 {
 	MAP_ItemOHT::iterator it;
+	for(it = g_mapOHTs.begin();it != g_mapOHTs.end();it++)
+	{
+		it->second->nOnline = 0;
+	}
+	SaveXML();
 	it = g_mapOHTs.begin();
 	while(it != g_mapOHTs.end())
 	{
@@ -97,6 +102,7 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BN_OHT_OFF, &CVAMHSTestDlg::OnBnClickedBnOhtOff)
 	ON_BN_CLICKED(IDC_TeachPOS_Edit, &CVAMHSTestDlg::OnBnClickedTeachposEdit)
 	ON_BN_CLICKED(IDC_OHT_DEL, &CVAMHSTestDlg::OnBnClickedOhtDel)
+	ON_BN_CLICKED(IDC_SENDALL_BUTTON, &CVAMHSTestDlg::OnBnClickedSendallButton)
 END_MESSAGE_MAP()
 
 
@@ -200,12 +206,13 @@ HCURSOR CVAMHSTestDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-
-
 void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 {
+	int nOHT_ID = GetSelectOhtID();
 	int nPosTime;
+	int nPosition;
 	int nStatusTime;
+	int nHand;
 	CMarkup XML;
 	CString path;
 	path = GetPath();
@@ -214,13 +221,14 @@ void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 	XML.FindElem();
 	XML.FindChildElem(_T("OHTList"));
 	XML.IntoElem();
-	int nOHT_ID = GetSelectOhtID();
 	while(XML.FindChildElem(_T("OHT")))
 	{
 		XML.IntoElem();
 		int nID = GetElemData(XML,_T("ID"));
 		if(nID == nOHT_ID)
 		{
+			nPosition = GetElemData(XML,_T("POS"));
+			nHand = GetElemData(XML,_T("HAND"));
 			nPosTime = GetElemData(XML,_T("PosTime"));
 			nStatusTime = GetElemData(XML,_T("StatusTime"));
 		}
@@ -229,8 +237,8 @@ void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 	XML.OutOfElem();
 	if (nOHT_ID >= 0)
 	{
-		int nAdd = g_pVDev->OHT_Auth(nOHT_ID);
-		int nSetTime = g_pVDev->OHT_InitTime(nOHT_ID,nPosTime,nStatusTime);
+		int nAdd = g_pVDev->OHT_Auth(nOHT_ID,nPosition,nHand);
+		int nInit = g_pVDev->OHT_Init(nOHT_ID,nPosTime,nStatusTime);
 	}
 }
 
@@ -241,6 +249,7 @@ void CVAMHSTestDlg::OnDestroy()
 
 	// TODO: 在此处添加消息处理程序代码
 	//SaveXML();
+
 	if (g_pVDev != NULL)
 	{
 		delete g_pVDev;
@@ -321,7 +330,7 @@ void CVAMHSTestDlg::SaveXML()
 				XML.AddChildElem(_T("ID"),xID);
 				XML.AddChildElem(_T("POS"),it->second->nPosition);
 				XML.AddChildElem(_T("HAND"),it->second->nHandStatus);
-				XML.AddChildElem(_T("Online"),0);
+				XML.AddChildElem(_T("Online"),it->second->nOnline);
 		        if(it->second->nPosTime > 0)
 			    {
 					XML.AddChildElem(_T("PosTime"),it->second->nPosTime);
@@ -477,6 +486,13 @@ void CVAMHSTestDlg::OnBnClickedBnOhtAdd()
 void CVAMHSTestDlg::OnBnClickedBnSethand()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	int hand_Set = GetDlgItemInt(IDC_EDIT_OHT_HAND);
+	if((hand_Set != 0) && (hand_Set != 1))
+		MessageBox(_T("Set the wrong hand,it should be 0 or 1 !"));
+	int nOHT_ID = GetSelectOhtID();
+	MAP_ItemOHT::iterator it = g_mapOHTs.find(nOHT_ID);
+	it->second->nHandStatus = hand_Set;
+	SaveXML();
 }
 
 
@@ -555,7 +571,6 @@ void CVAMHSTestDlg::InitListCtrlOHT(void)
 	m_listCtrlOHT.InsertColumn(3, _T("Status"), LVCFMT_CENTER, 50);
 	m_listCtrlOHT.InsertColumn(4, _T("Online"), LVCFMT_CENTER, 50);
 	ReadXML();
-	
 }
 
 
@@ -686,4 +701,41 @@ void CVAMHSTestDlg::OnBnClickedOhtDel()
 	MAP_ItemOHT::iterator it = g_mapOHTs.find(OHT_ID);
 	g_mapOHTs.erase(it);
 	DeleteElem(OHT_ID);
+}
+
+
+void CVAMHSTestDlg::OnBnClickedSendallButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	bool isFind = false;
+	int OHT_ID = GetSelectOhtID();
+	if(OHT_ID < 0)
+	{
+		MessageBox(_T("Please select the OHT!"));
+		return ; 
+	}
+	CString path = GetPath();
+	path += "../Config/OHTandTeachPos.xml";
+	CMarkup xml;
+	xml.Load(path);
+	xml.FindElem();
+	xml.FindChildElem(_T("TeachPosList"));
+	xml.IntoElem();
+	while(xml.FindChildElem(_T("TeachPos")))
+	{
+		xml.IntoElem();
+		int ID = GetElemData(xml,_T("DeviceID"));
+		if(ID == OHT_ID)
+		{
+			isFind = true;
+			int nPos = GetElemData(xml,_T("POS"));
+			int nType = GetElemData(xml,_T("Type"));
+			int nSpeed = GetElemData(xml,_T("Speed"));
+			g_pVDev->SetTeachPosition(ID, nPos, nType, nSpeed);
+		}
+		xml.OutOfElem();
+	}
+	xml.OutOfElem();
+	if(!isFind)
+		MessageBox(_T("The OHT selected has no TeachPos,please send them after edited!"));
 }

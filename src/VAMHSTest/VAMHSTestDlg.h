@@ -62,4 +62,5 @@ public:
 	afx_msg void OnBnClickedBnOhtOff();
 	afx_msg void OnBnClickedTeachposEdit();
 	afx_msg void OnBnClickedOhtDel();
+	afx_msg void OnBnClickedSendallButton();
 };
