@@ -35,7 +35,7 @@ int amhs_dev_server::GetConnectCount()
 	return room_.GetCount();
 }
 
-amhs_oht_set amhs_dev_server::OHT_GetDataSet()
+amhs_oht_vec amhs_dev_server::OHT_GetDataSet()
 {
 	return room_.GetOhtDataSet();
 }

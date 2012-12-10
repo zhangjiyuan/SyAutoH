@@ -65,7 +65,7 @@ namespace GuiAccess
             }
         }
 
-        public void Disconnect()
+        public virtual void Disconnect()
         {
             if (null != communicator)
             {

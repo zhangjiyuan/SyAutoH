@@ -65,6 +65,7 @@ namespace MCSControl
         {
             m_dictMcsControl.Add("nodeOHTInfo", new OHTInfo() );
             m_dictMcsControl.Add("nodeMesCommand", new MesCommand() );
+            m_dictMcsControl.Add("nodeSTKInfo", new STKInfo());
         }
 
         private void logoutToolStripMenuItem_Click(object sender, EventArgs e)

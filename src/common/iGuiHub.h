@@ -352,6 +352,9 @@ typedef ::IceUtil::Handle< Callback_GuiDataHub_WriteData_Base> Callback_GuiDataH
 class Callback_GuiDataHub_SetDataUpdater_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_GuiDataHub_SetDataUpdater_Base> Callback_GuiDataHub_SetDataUpdaterPtr;
 
+class Callback_GuiDataHub_EraseDataUpdater_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_GuiDataHub_EraseDataUpdater_Base> Callback_GuiDataHub_EraseDataUpdaterPtr;
+
 class Callback_UserManagement_Login_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_UserManagement_Login_Base> Callback_UserManagement_LoginPtr;
 
@@ -782,6 +785,54 @@ private:
 
     void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*);
     ::Ice::AsyncResultPtr begin_SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    
+public:
+
+    void EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater)
+    {
+        EraseDataUpdater(updater, 0);
+    }
+    void EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context& __ctx)
+    {
+        EraseDataUpdater(updater, &__ctx);
+    }
+
+    ::Ice::AsyncResultPtr begin_EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater)
+    {
+        return begin_EraseDataUpdater(updater, 0, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context& __ctx)
+    {
+        return begin_EraseDataUpdater(updater, &__ctx, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_EraseDataUpdater(updater, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_EraseDataUpdater(updater, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::Callback_GuiDataHub_EraseDataUpdaterPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_EraseDataUpdater(updater, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataHub_EraseDataUpdaterPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_EraseDataUpdater(updater, &__ctx, __del, __cookie);
+    }
+
+    void end_EraseDataUpdater(const ::Ice::AsyncResultPtr&);
+    
+private:
+
+    void EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
     
@@ -1597,6 +1648,8 @@ public:
     virtual ::Ice::Int WriteData(::MCS::GuiHub::GuiCommand, const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
 
     virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*) = 0;
+
+    virtual void EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*) = 0;
 };
 
 class UserManagement : virtual public ::IceDelegate::Ice::Object
@@ -1648,6 +1701,8 @@ public:
     virtual ::Ice::Int WriteData(::MCS::GuiHub::GuiCommand, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
     virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*);
+
+    virtual void EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*);
 };
 
 class UserManagement : virtual public ::IceDelegate::MCS::UserManagement,
@@ -1700,6 +1755,8 @@ public:
     virtual ::Ice::Int WriteData(::MCS::GuiHub::GuiCommand, const ::std::string&, ::Ice::Int, const ::Ice::Context*);
 
     virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*);
+
+    virtual void EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Context*);
 };
 
 class UserManagement : virtual public ::IceDelegate::MCS::UserManagement,
@@ -1791,6 +1848,9 @@ public:
 
     virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___SetDataUpdater(::IceInternal::Incoming&, const ::Ice::Current&);
+
+    virtual void EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Current& = ::Ice::Current()) = 0;
+    ::Ice::DispatchStatus ___EraseDataUpdater(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual ::Ice::DispatchStatus __dispatch(::IceInternal::Incoming&, const ::Ice::Current&);
 
@@ -2271,6 +2331,88 @@ template<class T, typename CT> Callback_GuiDataHub_SetDataUpdaterPtr
 newCallback_GuiDataHub_SetDataUpdater(T* instance, void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
     return new Callback_GuiDataHub_SetDataUpdater<T, CT>(instance, 0, excb, sentcb);
+}
+
+template<class T>
+class CallbackNC_GuiDataHub_EraseDataUpdater : public Callback_GuiDataHub_EraseDataUpdater_Base, public ::IceInternal::OnewayCallbackNC<T>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception&);
+    typedef void (T::*Sent)(bool);
+    typedef void (T::*Response)();
+
+    CallbackNC_GuiDataHub_EraseDataUpdater(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::OnewayCallbackNC<T>(obj, cb, excb, sentcb)
+    {
+    }
+};
+
+template<class T> Callback_GuiDataHub_EraseDataUpdaterPtr
+newCallback_GuiDataHub_EraseDataUpdater(const IceUtil::Handle<T>& instance, void (T::*cb)(), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_EraseDataUpdater<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_GuiDataHub_EraseDataUpdaterPtr
+newCallback_GuiDataHub_EraseDataUpdater(const IceUtil::Handle<T>& instance, void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_EraseDataUpdater<T>(instance, 0, excb, sentcb);
+}
+
+template<class T> Callback_GuiDataHub_EraseDataUpdaterPtr
+newCallback_GuiDataHub_EraseDataUpdater(T* instance, void (T::*cb)(), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_EraseDataUpdater<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_GuiDataHub_EraseDataUpdaterPtr
+newCallback_GuiDataHub_EraseDataUpdater(T* instance, void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_EraseDataUpdater<T>(instance, 0, excb, sentcb);
+}
+
+template<class T, typename CT>
+class Callback_GuiDataHub_EraseDataUpdater : public Callback_GuiDataHub_EraseDataUpdater_Base, public ::IceInternal::OnewayCallback<T, CT>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
+    typedef void (T::*Sent)(bool , const CT&);
+    typedef void (T::*Response)(const CT&);
+
+    Callback_GuiDataHub_EraseDataUpdater(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::OnewayCallback<T, CT>(obj, cb, excb, sentcb)
+    {
+    }
+};
+
+template<class T, typename CT> Callback_GuiDataHub_EraseDataUpdaterPtr
+newCallback_GuiDataHub_EraseDataUpdater(const IceUtil::Handle<T>& instance, void (T::*cb)(const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_EraseDataUpdater<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_GuiDataHub_EraseDataUpdaterPtr
+newCallback_GuiDataHub_EraseDataUpdater(const IceUtil::Handle<T>& instance, void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_EraseDataUpdater<T, CT>(instance, 0, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_GuiDataHub_EraseDataUpdaterPtr
+newCallback_GuiDataHub_EraseDataUpdater(T* instance, void (T::*cb)(const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_EraseDataUpdater<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_GuiDataHub_EraseDataUpdaterPtr
+newCallback_GuiDataHub_EraseDataUpdater(T* instance, void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_EraseDataUpdater<T, CT>(instance, 0, excb, sentcb);
 }
 
 template<class T>
