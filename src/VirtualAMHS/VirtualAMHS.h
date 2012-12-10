@@ -51,6 +51,7 @@ public:
 	int OHT_Auth(int nIndex,DWORD nPos = 0, int nHand = 0);
     int OHT_Init(int nIndex,int posTime,int statusTime);
 	int Stocker_Auth(int nIndex, const char* sIP);
+	int OHT_AskPath(int nIndex);
 
 	int OHT_Offline(int nIndex);
 	int Stocker_Offline(int nIndex);

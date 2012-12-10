@@ -113,6 +113,15 @@ int CVirtualAMHS::OHT_Init(int nIndex,int posTime,int statusTime)
 	it->second->m_nStatusUpdateTimeSet = statusTime;
 	return 0;
 }
+int CVirtualAMHS::OHT_AskPath(int nIndex)
+{
+	MAP_VOHT::iterator it;
+	it = m_mapOHT->find(nIndex);
+	if(it == m_mapOHT->end())
+		return 0;
+	it->second->AskPath();
+	return 0;
+}
 int CVirtualAMHS::OHT_Offline(int nIndex)
 {
 	MAP_VOHT::iterator it;
@@ -202,7 +211,6 @@ LIST_OHT CVirtualAMHS::OHT_GetStatus()
 			list.push_back(item);
 		}
 	}
-	
 	return list;
 }
 

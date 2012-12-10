@@ -103,6 +103,7 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_TeachPOS_Edit, &CVAMHSTestDlg::OnBnClickedTeachposEdit)
 	ON_BN_CLICKED(IDC_OHT_DEL, &CVAMHSTestDlg::OnBnClickedOhtDel)
 	ON_BN_CLICKED(IDC_SENDALL_BUTTON, &CVAMHSTestDlg::OnBnClickedSendallButton)
+	ON_BN_CLICKED(IDC_ASK_FOR_PATH, &CVAMHSTestDlg::OnBnClickedAskForPath)
 END_MESSAGE_MAP()
 
 
@@ -738,4 +739,17 @@ void CVAMHSTestDlg::OnBnClickedSendallButton()
 	xml.OutOfElem();
 	if(!isFind)
 		MessageBox(_T("The OHT selected has no TeachPos,please send them after edited!"));
+}
+
+
+void CVAMHSTestDlg::OnBnClickedAskForPath()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	int OHT_ID = GetSelectOhtID();
+	if(OHT_ID < 0)
+	{
+		MessageBox(_T("Please select the OHT!"));
+		return ; 
+	}
+	int askPath = g_pVDev->OHT_AskPath(OHT_ID);
 }

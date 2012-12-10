@@ -11,7 +11,9 @@ VirtualOHT::VirtualOHT(void)
 	m_nStatusUpdateTimeSet(0),
 	m_nTimerID(0),
 	m_nTimeCounter(0),
-	isSetPath(false)
+	isSetPath(false),
+	isMove(false),
+	isStop(false)
 {
 	m_optHanders.insert(std::make_pair(OHT_MCS_ACK_AUTH, 
 		&VirtualOHT::Handle_Auth));
@@ -23,6 +25,8 @@ VirtualOHT::VirtualOHT(void)
 		&VirtualOHT::Handle_FoupHanding));
 	m_optHanders.insert(std::make_pair(OHT_MCS_PATH,
 		&VirtualOHT::Handle_SetPath));
+	m_optHanders.insert(std::make_pair(OHT_MCS_MOVE,
+		&VirtualOHT::Handle_Move));
 	CreateTimer();
 }
 
@@ -40,7 +44,13 @@ int VirtualOHT::SetTeachPosition(uint32 nPos, uint8 nType, uint8 nSpeedRate)
 	teachPos << uint8(nSpeedRate);
 
 	SendPacket(teachPos);
-
+	return 0;
+}
+int VirtualOHT::AskPath()
+{
+	AMHSPacket askForPath(OHT_TEACH_PATH,1);
+	askForPath << uint8(DeviceID());
+	SendPacket(askForPath);
 	return 0;
 }
 
@@ -153,17 +163,32 @@ void VirtualOHT::Handle_SetPath(AMHSPacket& packet)
 	packet >> nKeyPosNum;
 	for(int i = 1;i <= nKeyPosNum;i++)
 	{
-		PathInfo *Item = new  PathInfo;
+		PathInfo Item;
 		packet >> nKeyPos;
 		packet >> nKeyPosType;
 		packet >> nKeyPosSpeed;
-		Item->nposition = nKeyPos;
-		Item->nType = nKeyPosType;
-		Item->nSpeed = nKeyPosSpeed;
-		m_mapPath.insert(std::make_pair(i,Item));
+		Item.nposition = nKeyPos;
+		Item.nType = nKeyPosType;
+		Item.nSpeed = nKeyPosSpeed;
+		m_listPath.push_back(Item);
 	}
-	isSetPath = true;
-	m_nPos = nStartPos;
+	if(nEType == 0)
+		isMove = true;
+	AMHSPacket authPacket(OHT_ACK_PATH, 2);
+	if(!m_listPath.empty())
+	{
+		isSetPath = true;
+		m_nPos = nStartPos;
+		authPacket << uint8(DeviceID());
+		authPacket << uint8(0);
+		isStop = false;
+	}
+	else
+	{
+		authPacket << uint8(DeviceID());
+		authPacket << uint8(1);
+	}
+	SendPacket(authPacket);
 }
 void VirtualOHT::Handle_Auth(AMHSPacket& packet)
 {
@@ -172,8 +197,49 @@ void VirtualOHT::Handle_Auth(AMHSPacket& packet)
 	packet >> nID;
 	packet >> nAuthRes;
 	m_isOnline = nAuthRes > 0 ? true : false;
-	
 	printf("OHT %d Auth %d\n", nID, nAuthRes);
+}
+void VirtualOHT::Handle_Move(AMHSPacket& packet)
+{
+	uint8 nID = 0;
+	uint8 nMoveID = 0;
+	AMHSPacket authPacket(OHT_ACK_MOVE,3);
+	packet >> nID;
+	packet >> nMoveID;
+	switch(nMoveID)
+	{
+	case(0):
+		isMove = true;
+		if(isStop == true)
+		{
+			authPacket << uint8(DeviceID());
+			authPacket << uint8(3);
+			authPacket << uint8(2);
+			SendPacket(authPacket);
+		}
+		else
+		{
+			authPacket << uint8(DeviceID());
+			authPacket << uint8(0);
+			authPacket << uint8(0);
+			SendPacket(authPacket);
+		}
+		break;
+	case(1):
+		isMove = false;
+		authPacket << uint8(DeviceID());
+		authPacket << uint8(1);
+		authPacket << uint8(0);
+		SendPacket(authPacket);
+		break;
+	case(2):
+		isStop = true;
+		authPacket << uint8(DeviceID());
+		authPacket << uint8(2);
+		authPacket << uint8(0);
+		SendPacket(authPacket);
+		break;
+	}
 }
 
 void VirtualOHT::CreateTimer(void)
@@ -207,40 +273,60 @@ void CALLBACK VirtualOHT::TimerHandler(UINT id, UINT msg, DWORD dwUser, DWORD dw
 
 void VirtualOHT::OnTimer(void)
 {
-	/*
-	if(isSetPath)
-	{
-		int nKeyPos1,nKeyPos2;
-		int nEndPos;
-		int nSpeed;
-		PATH_SET_MAP::iterator it = m_mapPath.begin();
-		nKeyPos1 = it->second->nposition;
-		nSpeed = it->second->nSpeed;
-		it++;
-		nKeyPos2 = it->second->nposition;
-		if(m_nPos <= nKeyPos2)
-		{
-
-		}
-		m_nTimeCounter++;
-	}
-	*/
-	// 
-	m_nPos += 1;
-	if (m_nPos > 12400)
-	{
-		m_nPos = 0;
-	}
-	// 
 	m_nTimeCounter++;
-	if ((m_nPosUpdateTimeSet > 0) 
-		&& (m_nTimeCounter % m_nPosUpdateTimeSet == 0))
+	if(isStop)
 	{
-		UpdatePos();
+		return;
 	}
-	if ((m_nStatusUpdateTimeSet > 0)
-		&& (m_nTimeCounter % m_nStatusUpdateTimeSet == 0))
-	{
-		UpdateStatus();
-	}
+	if(isMove)
+	{	
+		if(isSetPath)
+		{
+			DWORD nEndPos;
+			int nSpeed;
+			PATH_SET_LIST::iterator it = m_listPath.begin();
+			it = m_listPath.end();
+			it--;
+			nEndPos = it->nposition;
+			if(m_nPos < nEndPos)
+			{
+				for(it = m_listPath.begin();it != m_listPath.end();)
+				{
+					if((m_nPos >= (DWORD)it->nposition) && (m_nPos < (DWORD)(++it)->nposition))
+					{		
+						it--;		
+						nSpeed = it->nSpeed;
+						if(nSpeed == 0)
+							nSpeed = (++it)->nSpeed;
+						if(m_nTimeCounter % (1000 / nSpeed) == 0)
+							m_nPos++;		
+						break;	
+					}
+				}	
+			}	
+			else
+			{	
+				m_nPos = nEndPos;
+				isMove = false;	
+			}
+		}
+		else
+		{
+			m_nPos += 1;
+			if (m_nPos > 12400)
+			{
+				m_nPos = 0;	
+			}	
+		}
+     }
+		if ((m_nPosUpdateTimeSet > 0) 
+			&& (m_nTimeCounter % m_nPosUpdateTimeSet == 0))
+		{
+			UpdatePos();
+		}
+		if ((m_nStatusUpdateTimeSet > 0)
+			&& (m_nTimeCounter % m_nStatusUpdateTimeSet == 0))
+		{
+			UpdateStatus();
+		}
 }
