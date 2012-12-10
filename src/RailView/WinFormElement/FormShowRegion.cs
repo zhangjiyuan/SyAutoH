@@ -7,6 +7,8 @@ using System.Drawing.Drawing2D;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Windows.Forms;
+using System.Data;
+using System.Diagnostics;
 
 namespace WinFormElement
 {
@@ -17,200 +19,376 @@ namespace WinFormElement
 
         public bool ReadRailSaveFile()
         {
-            XmlDocument xmlDoc = new XmlDocument();
+            //XmlDocument xmlDoc = new XmlDocument();
+            //try
+            //{
+            //    xmlDoc.Load("..//config//rails.xml");
+            //    //xmlDoc.Load("3.xml");
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("文件不存在，请打开组态软件进行配置");
+            //    return false;
+            //}
+            //XmlNode root = xmlDoc.SelectSingleNode("DrawDoc");
+            //XmlNodeList rootNodeList = xmlDoc.SelectSingleNode("DrawDoc").ChildNodes;
+            //foreach (XmlNode rxn in rootNodeList)
+            //{
+            //    XmlElement rxe = (XmlElement)rxn;
+            //    if (rxe.Name == "DrawObjectList")
+            //    {
+            //        XmlNodeList childNodeList = rxe.ChildNodes;
+            //        foreach (XmlNode cxn in childNodeList)
+            //        {
+            //            XmlElement cxe = (XmlElement)cxn;
+            //            XmlNodeList cTwoNodeList = null;
+            //            XmlNodeList cThNodeList = null;
+            //            XmlNodeList cFNodeList = null;
+            //            Point pt = Point.Empty;
+            //            switch (cxe.GetAttribute("xsi:type"))
+            //            {
+            //                case "StraightRailEle":
+            //                    StraightEle strTemp = new StraightEle();
+            //                    cTwoNodeList = cxe.ChildNodes;
+            //                    foreach (XmlNode ctwoxn in cTwoNodeList)
+            //                    {
+            //                        XmlElement ctwoxe = (XmlElement)ctwoxn;
+            //                        if (ctwoxe.Name == "GraphType")
+            //                            strTemp.graphType = int.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "Speed")
+            //                            strTemp.speed = float.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "SegmentNumber")
+            //                            strTemp.segmentNumber = Int16.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "TagNumber")
+            //                            strTemp.tagNumber = Convert.ToInt16(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "Lenght")
+            //                            strTemp.lenght = int.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "StartAngle")
+            //                            strTemp.startAngle = int.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "StartDot")
+            //                            strTemp.startDot = ctwoxe.InnerText;
+            //                        else if (ctwoxe.Name == "PointList")
+            //                        {
+            //                            cThNodeList = ctwoxe.ChildNodes;
+            //                            foreach (XmlNode cthxn in cThNodeList)
+            //                            {
+            //                                XmlElement cthxe = (XmlElement)cthxn;
+            //                                if (cthxe.Name == "Point")
+            //                                {
+            //                                    cFNodeList = cthxe.ChildNodes;
+            //                                    foreach (XmlNode cfxn in cFNodeList)
+            //                                    {
+            //                                        XmlElement cfxe = (XmlElement)cfxn;
+            //                                        if (cfxe.Name == "X")
+            //                                            pt.X = int.Parse(cfxe.InnerText);
+            //                                        else if (cfxe.Name == "Y")
+            //                                            pt.Y = int.Parse(cfxe.InnerText);
+            //                                    }
+            //                                    strTemp.pointList.Add(pt);
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //                    railInfoEleList.Add(strTemp);
+            //                    break;
+            //                case "CurvedRailEle":
+            //                    CurvedEle curTemp = new CurvedEle();
+            //                    cTwoNodeList = cxn.ChildNodes;
+            //                    foreach (XmlNode ctwoxn in cTwoNodeList)
+            //                    {
+            //                        XmlElement ctwoxe = (XmlElement)ctwoxn;
+            //                        if (ctwoxe.Name == "GraphType")
+            //                            curTemp.graphType = int.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "speed")
+            //                            curTemp.speed = float.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "SegmentNumber")
+            //                            curTemp.segmentNumber = Convert.ToInt16(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "TagNumber")
+            //                            curTemp.tagNumber = Int16.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "StartAngle")
+            //                            curTemp.startAngle = int.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "SweepAngle")
+            //                            curTemp.sweepAngle = int.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "Radiu")
+            //                            curTemp.radiu = int.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "Center")
+            //                        {
+            //                            cThNodeList = ctwoxe.ChildNodes;
+            //                            foreach (XmlNode cthxn in cThNodeList)
+            //                            {
+            //                                XmlElement cthxe = (XmlElement)cthxn;
+            //                                if (cthxe.Name == "X")
+            //                                    curTemp.center.X = int.Parse(cthxe.InnerText);
+            //                                else if (cthxe.Name == "Y")
+            //                                    curTemp.center.Y = int.Parse(cthxe.InnerText);
+            //                            }
+            //                        }
+            //                        else if (ctwoxn.Name == "FirstDot")
+            //                        {
+            //                            cThNodeList = ctwoxn.ChildNodes;
+            //                            foreach (XmlNode cthxn in cThNodeList)
+            //                            {
+            //                                XmlElement cthxe = (XmlElement)cthxn;
+            //                                if (cthxe.Name == "X")
+            //                                    curTemp.firstDot.X = int.Parse(cthxe.InnerText);
+            //                                else if (cthxe.Name == "Y")
+            //                                    curTemp.firstDot.Y = int.Parse(cthxe.InnerText);
+            //                            }
+            //                        }
+            //                        else if (ctwoxn.Name == "SecDot")
+            //                        {
+            //                            cThNodeList = ctwoxn.ChildNodes;
+            //                            foreach (XmlNode cthxn in cThNodeList)
+            //                            {
+            //                                XmlElement cthxe = (XmlElement)cthxn;
+            //                                if (cthxe.Name == "X")
+            //                                    curTemp.secDot.X = int.Parse(cthxe.InnerText);
+            //                                else if (cthxe.Name == "Y")
+            //                                    curTemp.secDot.Y = int.Parse(cthxe.InnerText);
+            //                            }
+            //                        }
+            //                    }
+            //                    railInfoEleList.Add(curTemp);
+            //                    break;
+            //                case "CrossEle":
+            //                    CrossEle croTemp = new CrossEle();
+            //                    cTwoNodeList = cxn.ChildNodes;
+            //                    foreach (XmlNode ctwoxn in cTwoNodeList)
+            //                    {
+            //                        XmlElement ctwoxe = (XmlElement)ctwoxn;
+            //                        if (ctwoxe.Name == "GraphType")
+            //                            croTemp.graphType = int.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "Speed")
+            //                            croTemp.speed = float.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "SegmentNumber")
+            //                            croTemp.segmentNumber = Convert.ToInt16(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "TagNumber")
+            //                            croTemp.tagNumber = Int16.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "FirstPart")
+            //                            croTemp.firstPart = int.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "SecPart")
+            //                            croTemp.secPart = int.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "ThPart")
+            //                            croTemp.thPart = int.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "StartAngle")
+            //                            croTemp.startAngle = int.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "RotateAngle")
+            //                            croTemp.rotateAngle = int.Parse(ctwoxe.InnerText);
+            //                        else if (ctwoxe.Name == "FourPart")
+            //                        {
+            //                            cThNodeList = ctwoxe.ChildNodes;
+            //                            foreach (XmlNode cthxn in cThNodeList)
+            //                            {
+            //                                XmlElement cthxe = (XmlElement)cthxn;
+            //                                if (cthxe.Name == "X")
+            //                                    croTemp.fourPart.X = int.Parse(cthxe.InnerText);
+            //                                else if (cthxe.Name == "Y")
+            //                                    croTemp.fourPart.Y = int.Parse(cthxe.InnerText);
+            //                            }
+            //                        }
+            //                        else if (ctwoxe.Name == "PointList")
+            //                        {
+            //                            cThNodeList = ctwoxe.ChildNodes;
+            //                            foreach (XmlNode cthxn in cThNodeList)
+            //                            {
+            //                                XmlElement cthxe = (XmlElement)cthxn;
+            //                                if (cthxe.Name == "Point")
+            //                                {
+            //                                    cFNodeList = cthxe.ChildNodes;
+            //                                    foreach (XmlNode cfxn in cFNodeList)
+            //                                    {
+            //                                        XmlElement cfxe = (XmlElement)cfxn;
+            //                                        if (cfxe.Name == "X")
+            //                                            pt.X = int.Parse(cfxe.InnerText);
+            //                                        else if (cfxe.Name == "Y")
+            //                                            pt.Y = int.Parse(cfxe.InnerText);
+            //                                    }
+            //                                    croTemp.pointList.Add(pt);
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //                    railInfoEleList.Add(croTemp);
+            //                    break;
+            //                default:
+            //                    break;
+            //            }
+            //        }
+            //    }
+            //}
+            DataSet ds = new DataSet();
             try
             {
-                xmlDoc.Load("..//config//rails.xml");
-                //xmlDoc.Load("3.xml");
+                ds.ReadXml("..//config//rails.xml");
             }
-            catch
+            catch(Exception exp)
             {
-                MessageBox.Show("文件不存在，请打开组态软件进行配置");
-                return false;
+                Debug.WriteLine(string.Format("read xml error is {0}", exp));
             }
-            XmlNode root = xmlDoc.SelectSingleNode("DrawDoc");
-            XmlNodeList rootNodeList = xmlDoc.SelectSingleNode("DrawDoc").ChildNodes;
-            foreach (XmlNode rxn in rootNodeList)
+            foreach (DataTable dt in ds.Tables)
             {
-                XmlElement rxe = (XmlElement)rxn;
-                if (rxe.Name == "DrawObjectList")
+                DataColumn dc = dt.Columns[0];
+                if(dc.ColumnName=="GraphType")
                 {
-                    XmlNodeList childNodeList = rxe.ChildNodes;
-                    foreach (XmlNode cxn in childNodeList)
+                    switch (dt.Rows[0][0].ToString())
                     {
-                        XmlElement cxe = (XmlElement)cxn;
-                        XmlNodeList cTwoNodeList = null;
-                        XmlNodeList cThNodeList = null;
-                        XmlNodeList cFNodeList = null;
-                        Point pt = Point.Empty;
-                        switch (cxe.GetAttribute("xsi:type"))
-                        {
-                            case "StraightRailEle":
-                                StraightEle strTemp = new StraightEle();
-                                cTwoNodeList = cxe.ChildNodes;
-                                foreach (XmlNode ctwoxn in cTwoNodeList)
+                        case "1":
+                            StraightEle strTemp = new StraightEle();
+                            Int16 pointListVolStr = 0;
+                            for (int i = 0; i < dt.Columns.Count; i++)
+                            {
+                                switch (dt.Columns[i].ColumnName)
                                 {
-                                    XmlElement ctwoxe = (XmlElement)ctwoxn;
-                                    if (ctwoxe.Name == "GraphType")
-                                        strTemp.graphType = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "Speed")
-                                        strTemp.speed = float.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "SegmentNumber")
-                                        strTemp.segmentNumber = Int16.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "TagNumber")
-                                        strTemp.tagNumber = Convert.ToInt16(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "Lenght")
-                                        strTemp.lenght = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "StartAngle")
-                                        strTemp.startAngle = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "StartDot")
-                                        strTemp.startDot = ctwoxe.InnerText;
-                                    else if (ctwoxe.Name == "PointList")
-                                    {
-                                        cThNodeList = ctwoxe.ChildNodes;
-                                        foreach (XmlNode cthxn in cThNodeList)
+                                    case "GraphType":
+                                        strTemp.graphType = Convert.ToInt32(dt.Rows[0][i]);
+                                        break;
+                                    case "Speed":
+                                        strTemp.speed = Convert.ToSingle(dt.Rows[0][i]);
+                                        break;
+                                    case "SegmentNumber":
+                                        strTemp.segmentNumber = Convert.ToInt16(dt.Rows[0][i]);
+                                        break;
+                                    case "TagNumber":
+                                        strTemp.tagNumber = Convert.ToInt16(dt.Rows[0][i]);
+                                        break;
+                                    case "Lenght":
+                                        strTemp.lenght = Convert.ToInt32(dt.Rows[0][i]);
+                                        break;
+                                    case "StartAngle":
+                                        strTemp.startAngle = Convert.ToInt32(dt.Rows[0][i]);
+                                        break;
+                                    case "StartDot":
+                                        strTemp.startDot = Convert.ToString(dt.Rows[0][i]);
+                                        break;
+                                    case "PointListVol":
+                                        pointListVolStr = Convert.ToInt16(dt.Rows[0][i]);
+                                        for (int j = 0; j < pointListVolStr; j++)
                                         {
-                                            XmlElement cthxe = (XmlElement)cthxn;
-                                            if (cthxe.Name == "Point")
-                                            {
-                                                cFNodeList = cthxe.ChildNodes;
-                                                foreach (XmlNode cfxn in cFNodeList)
-                                                {
-                                                    XmlElement cfxe = (XmlElement)cfxn;
-                                                    if (cfxe.Name == "X")
-                                                        pt.X = int.Parse(cfxe.InnerText);
-                                                    else if (cfxe.Name == "Y")
-                                                        pt.Y = int.Parse(cfxe.InnerText);
-                                                }
-                                                strTemp.pointList.Add(pt);
-                                            }
+                                            string str = dt.Rows[0][i + j + 1].ToString();
+                                            str = str.Substring(1, str.Length - 2);
+                                            string[] strPointArray = str.Split(',');
+                                            Point ptTemp = new Point() { X = int.Parse(strPointArray[0].Substring(2)), Y = int.Parse(strPointArray[1].Substring(2)) };
+                                            strTemp.pointList.Add(ptTemp);
                                         }
-                                    }
+                                        break;
                                 }
-                                railInfoEleList.Add(strTemp);
-                                break;
-                            case "CurvedRailEle":
-                                CurvedEle curTemp = new CurvedEle();
-                                cTwoNodeList = cxn.ChildNodes;
-                                foreach (XmlNode ctwoxn in cTwoNodeList)
+                            }
+                            railInfoEleList.Add(strTemp);
+                            break;
+                        case "2":
+                            CurvedEle curTemp = new CurvedEle();
+                            string strcur="";
+                            string[] strPointArrayCur={};
+                            Point ptcur=Point.Empty;
+                            for (int i = 0; i < dt.Columns.Count; i++)
+                            {
+                                switch (dt.Columns[i].ColumnName)
                                 {
-                                    XmlElement ctwoxe = (XmlElement)ctwoxn;
-                                    if (ctwoxe.Name == "GraphType")
-                                        curTemp.graphType = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "speed")
-                                        curTemp.speed = float.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "SegmentNumber")
-                                        curTemp.segmentNumber = Convert.ToInt16(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "TagNumber")
-                                        curTemp.tagNumber = Int16.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "StartAngle")
-                                        curTemp.startAngle = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "SweepAngle")
-                                        curTemp.sweepAngle = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "Radiu")
-                                        curTemp.radiu = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "Center")
-                                    {
-                                        cThNodeList = ctwoxe.ChildNodes;
-                                        foreach (XmlNode cthxn in cThNodeList)
-                                        {
-                                            XmlElement cthxe = (XmlElement)cthxn;
-                                            if (cthxe.Name == "X")
-                                                curTemp.center.X = int.Parse(cthxe.InnerText);
-                                            else if (cthxe.Name == "Y")
-                                                curTemp.center.Y = int.Parse(cthxe.InnerText);
-                                        }
-                                    }
-                                    else if (ctwoxn.Name == "FirstDot")
-                                    {
-                                        cThNodeList = ctwoxn.ChildNodes;
-                                        foreach (XmlNode cthxn in cThNodeList)
-                                        {
-                                            XmlElement cthxe = (XmlElement)cthxn;
-                                            if (cthxe.Name == "X")
-                                                curTemp.firstDot.X = int.Parse(cthxe.InnerText);
-                                            else if (cthxe.Name == "Y")
-                                                curTemp.firstDot.Y = int.Parse(cthxe.InnerText);
-                                        }
-                                    }
-                                    else if (ctwoxn.Name == "SecDot")
-                                    {
-                                        cThNodeList = ctwoxn.ChildNodes;
-                                        foreach (XmlNode cthxn in cThNodeList)
-                                        {
-                                            XmlElement cthxe = (XmlElement)cthxn;
-                                            if (cthxe.Name == "X")
-                                                curTemp.secDot.X = int.Parse(cthxe.InnerText);
-                                            else if (cthxe.Name == "Y")
-                                                curTemp.secDot.Y = int.Parse(cthxe.InnerText);
-                                        }
-                                    }
+                                    case "GraphType":
+                                        curTemp.graphType = Convert.ToInt32(dt.Rows[0][i]);
+                                        break;
+                                    case "Speed":
+                                        curTemp.speed = Convert.ToSingle(dt.Rows[0][i]);
+                                        break;
+                                    case "SegmentNumber":
+                                        curTemp.segmentNumber = Convert.ToInt16(dt.Rows[0][i]);
+                                        break;
+                                    case "TagNumber":
+                                        curTemp.tagNumber = Convert.ToInt16(dt.Rows[0][i]);
+                                        break;
+                                    case "StartAngle":
+                                        curTemp.startAngle = Convert.ToInt32(dt.Rows[0][i]);
+                                        break;
+                                    case "SweepAngle":
+                                        curTemp.sweepAngle = Convert.ToInt32(dt.Rows[0][i]);
+                                        break;
+                                    case "Radiu":
+                                        curTemp.radiu = Convert.ToInt32(dt.Rows[0][i]);
+                                        break;
+                                    case "Center":
+                                        strcur = dt.Rows[0][i].ToString();
+                                        strcur = strcur.Substring(1, strcur.Length - 2);
+                                        strPointArrayCur = strcur.Split(',');
+                                        ptcur = new Point() { X = int.Parse(strPointArrayCur[0].Substring(2)), Y = int.Parse(strPointArrayCur[1].Substring(2)) };
+                                        curTemp.center = ptcur;
+                                        break;
+                                    case "FirstDot":
+                                        strcur = dt.Rows[0][i].ToString();
+                                        strcur = strcur.Substring(1, strcur.Length - 2);
+                                        strPointArrayCur = strcur.Split(',');
+                                        ptcur = new Point() { X = int.Parse(strPointArrayCur[0].Substring(2)), Y = int.Parse(strPointArrayCur[1].Substring(2)) };
+                                        curTemp.firstDot = ptcur;
+                                        break;
+                                    case "SecDot":
+                                        strcur = dt.Rows[0][i].ToString();
+                                        strcur = strcur.Substring(1, strcur.Length - 2);
+                                        strPointArrayCur = strcur.Split(',');
+                                        ptcur = new Point() { X = int.Parse(strPointArrayCur[0].Substring(2)), Y = int.Parse(strPointArrayCur[1].Substring(2)) };
+                                        curTemp.secDot = ptcur;
+                                        break;
                                 }
-                                railInfoEleList.Add(curTemp);
-                                break;
-                            case "CrossEle":
-                                CrossEle croTemp = new CrossEle();
-                                cTwoNodeList = cxn.ChildNodes;
-                                foreach (XmlNode ctwoxn in cTwoNodeList)
+                            }
+                            railInfoEleList.Add(curTemp);
+                            break;
+                        case "3":
+                            CrossEle croTemp = new CrossEle();
+                            string strcro="";
+                            string[] strPointArrayCro={};
+                            Point ptcro=Point.Empty;
+                            Int16 pointListVolCro = 0;
+                            for (int i = 0; i < dt.Columns.Count; i++)
+                            {
+                                switch (dt.Columns[i].ColumnName)
                                 {
-                                    XmlElement ctwoxe = (XmlElement)ctwoxn;
-                                    if (ctwoxe.Name == "GraphType")
-                                        croTemp.graphType = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "Speed")
-                                        croTemp.speed = float.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "SegmentNumber")
-                                        croTemp.segmentNumber = Convert.ToInt16(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "TagNumber")
-                                        croTemp.tagNumber = Int16.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "FirstPart")
-                                        croTemp.firstPart = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "SecPart")
-                                        croTemp.secPart = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "ThPart")
-                                        croTemp.thPart = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "StartAngle")
-                                        croTemp.startAngle = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "RotateAngle")
-                                        croTemp.rotateAngle = int.Parse(ctwoxe.InnerText);
-                                    else if (ctwoxe.Name == "FourPart")
-                                    {
-                                        cThNodeList = ctwoxe.ChildNodes;
-                                        foreach (XmlNode cthxn in cThNodeList)
+                                    case "GraphType":
+                                        croTemp.graphType = Convert.ToInt32(dt.Rows[0][i]);
+                                        break;
+                                    case "Speed":
+                                        croTemp.speed = Convert.ToSingle(dt.Rows[0][i]);
+                                        break;
+                                    case "SegmentNumber":
+                                        croTemp.segmentNumber = Convert.ToInt16(dt.Rows[0][i]);
+                                        break;
+                                    case "TagNumber":
+                                        croTemp.tagNumber = Convert.ToInt16(dt.Rows[0][i]);
+                                        break;
+                                    case "FirstPart":
+                                        croTemp.firstPart = Convert.ToInt32(dt.Rows[0][i]);
+                                        break;
+                                    case "SecPart":
+                                        croTemp.secPart = Convert.ToInt32(dt.Rows[0][i]);
+                                        break;
+                                    case "ThPart":
+                                        croTemp.thPart = Convert.ToInt32(dt.Rows[0][i]);
+                                        break;
+                                    case "FourPart":
+                                        strcro = dt.Rows[0][i].ToString();
+                                        strcro = strcro.Substring(1, strcro.Length - 2);
+                                        strPointArrayCro = strcro.Split(',');
+                                        ptcro = new Point() { X = int.Parse(strPointArrayCro[0].Substring(2)), Y = int.Parse(strPointArrayCro[1].Substring(2)) };
+                                        croTemp.fourPart = ptcro;
+                                        break;
+                                    case "StartAngle":
+                                        croTemp.startAngle = Convert.ToInt32(dt.Rows[0][i]);
+                                        break;
+                                    case "RotateAngle":
+                                        croTemp.rotateAngle = Convert.ToInt32(dt.Rows[0][i]);
+                                        break;
+                                    case "PointListVol":
+                                        pointListVolCro = Convert.ToInt16(dt.Rows[0][i]);
+                                        for (Int16 j = 0; j < pointListVolCro; j++)
                                         {
-                                            XmlElement cthxe = (XmlElement)cthxn;
-                                            if (cthxe.Name == "X")
-                                                croTemp.fourPart.X = int.Parse(cthxe.InnerText);
-                                            else if (cthxe.Name == "Y")
-                                                croTemp.fourPart.Y = int.Parse(cthxe.InnerText);
+                                            strcro = dt.Rows[0][i + j + 1].ToString();
+                                            strcro = strcro.Substring(1, strcro.Length - 2);
+                                            strPointArrayCro = strcro.Split(',');
+                                            ptcro = new Point() { X = int.Parse(strPointArrayCro[0].Substring(2)), Y = int.Parse(strPointArrayCro[1].Substring(2)) };
+                                            croTemp.pointList.Add(ptcro);
                                         }
-                                    }
-                                    else if (ctwoxe.Name == "PointList")
-                                    {
-                                        cThNodeList = ctwoxe.ChildNodes;
-                                        foreach (XmlNode cthxn in cThNodeList)
-                                        {
-                                            XmlElement cthxe = (XmlElement)cthxn;
-                                            if (cthxe.Name == "Point")
-                                            {
-                                                cFNodeList = cthxe.ChildNodes;
-                                                foreach (XmlNode cfxn in cFNodeList)
-                                                {
-                                                    XmlElement cfxe = (XmlElement)cfxn;
-                                                    if (cfxe.Name == "X")
-                                                        pt.X = int.Parse(cfxe.InnerText);
-                                                    else if (cfxe.Name == "Y")
-                                                        pt.Y = int.Parse(cfxe.InnerText);
-                                                }
-                                                croTemp.pointList.Add(pt);
-                                            }
-                                        }
-                                    }
+                                        break;
                                 }
-                                railInfoEleList.Add(croTemp);
-                                break;
-                            default:
-                                break;
-                        }
+                            }
+                            railInfoEleList.Add(croTemp);
+                            break;
                     }
                 }
             }
@@ -219,8 +397,8 @@ namespace WinFormElement
 
         public void InitRailList()
         {
-            List<RailEle> tempList = GetStrEle(railInfoEleList);
-            railCodingEleList = ArrangeStrEle(tempList);
+ //           List<RailEle> tempList = GetStrEle(railInfoEleList);
+ //           railCodingEleList = ArrangeStrEle(tempList);
         }
 
         public void DrawRailInfo(Graphics canvas)
