@@ -85,18 +85,18 @@ void amhs_room::leave(amhs_participant_ptr participant)
 	participants_.erase(participant);
 }
 
-amhs_oht_set amhs_room::GetOhtDataSet()
+amhs_oht_vec amhs_room::GetOhtDataSet()
 {
-	amhs_oht_set oht_set;
+	amhs_oht_vec oht_vec;
 	RLock(rwLock_oht_map_)
 	{
 		for (amhs_oht_map::iterator it = oht_map_.begin();
 			it != oht_map_.end(); ++it)
 		{
-			oht_set.insert(it->second);
+			oht_vec.push_back(it->second);
 		}
 	}
-	return oht_set;
+	return oht_vec;
 }
 
 void amhs_room::SendPacket(int nID, int nType, AMHSPacket& packet)
@@ -182,6 +182,22 @@ void amhs_room::SendPacket(amhs_participant_ptr participants, AMHSPacket &packet
 			participants->deliver(msg);
 		}
 	}
+}
+
+void amhs_room::Handle_OHT_NeedPath(amhs_participant_ptr, AMHSPacket& Packet)
+{
+	uint8 ohtID = 0;
+	Packet >> ohtID;
+
+	WLock(rwLock_oht_map_)
+	{
+		amhs_oht_map::iterator it = oht_map_.find(ohtID);
+		if (it != oht_map_.end())
+		{
+			it->second->bNeedPath = true;
+		}
+	}
+
 }
 
 void amhs_room::Handle_OHT_TeachPath(amhs_participant_ptr, AMHSPacket& Packet)

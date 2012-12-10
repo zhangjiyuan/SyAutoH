@@ -18,7 +18,8 @@ enum Optcodes
 	OHT_AUTH													= 0x0816,
 	OHT_POSITION												= 0x0817,
 	OHT_STATUS												= 0x0818,
-	OHT_TEACH_PATH										= 0x0819,
+	OHT_NEED_PATH											= 0x0819,
+	OHT_TEACH_PATH										= 0x081A,
 
 	// defines for Stocker
 	STK_MCS_FOUP											= 0x0807,

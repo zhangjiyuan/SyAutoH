@@ -70,6 +70,12 @@ namespace BaseRailElement
             get { return startDot; }
             set { startDot = value; }
         }
+        [Browsable(false)]
+        public Int32 RotateAngle
+        {
+            get { return rotateAngle; }
+            set { rotateAngle = value; }
+        }
         [XmlIgnore]
         [Browsable(false)]
         public Int32 NextCoding
@@ -88,19 +94,6 @@ namespace BaseRailElement
         public StraightRailEle() 
         { 
             GraphType = 1;
-            dt.Columns.Add("GraphType", typeof(int));
-            dt.Columns.Add("LocationLock", typeof(bool));
-            dt.Columns.Add("SizeLock", typeof(bool));
-            dt.Columns.Add("Selectable", typeof(bool));
-            dt.Columns.Add("Speed", typeof(float));
-            dt.Columns.Add("SegmentNumber", typeof(Int16));
-            dt.Columns.Add("TagNumber", typeof(int));
-            dt.Columns.Add("StartCoding", typeof(int));
-            dt.Columns.Add("EndCoding", typeof(int));
-            dt.Columns.Add("Lenght", typeof(int));
-            dt.Columns.Add("StartAngle", typeof(int));
-            dt.Columns.Add("PointList", typeof(List<Point>));
-            dt.Columns.Add("StartDot", typeof(string));
         }
 
         public StraightRailEle CreatEle(Point pt, Size size, Int16 multiFactor, string text)
@@ -269,6 +262,34 @@ namespace BaseRailElement
         public override DataTable DataSetXMLSave()
         {
             dt.Rows.Clear();
+            dt.Columns.Clear();
+
+            dt.Columns.Add("GraphType", typeof(int));
+            dt.Columns.Add("LocationLock", typeof(bool));
+            dt.Columns.Add("SizeLock", typeof(bool));
+            dt.Columns.Add("Selectable", typeof(bool));
+            dt.Columns.Add("Speed", typeof(float));
+            dt.Columns.Add("SegmentNumber", typeof(Int16));
+            dt.Columns.Add("TagNumber", typeof(int));
+            dt.Columns.Add("StartCoding", typeof(int));
+            dt.Columns.Add("EndCoding", typeof(int));
+            dt.Columns.Add("Lenght", typeof(int));
+            dt.Columns.Add("StartAngle", typeof(int));
+            dt.Columns.Add("StartDot", typeof(string));
+            dt.Columns.Add("PointListVol", typeof(Int16));
+            for (int i = 0; i < PointList.Count; i++)
+            {
+                dt.Columns.Add("PointList" + i.ToString(), typeof(string));
+            }
+
+            dt.Columns.Add("DrawMultiFactor", typeof(Int16));
+            dt.Columns.Add("startPoint", typeof(string));
+            dt.Columns.Add("endPoint", typeof(string));
+            dt.Columns.Add("railText", typeof(string));
+            dt.Columns.Add("rotateAngle", typeof(int));
+            dt.Columns.Add("nextCoding", typeof(int));
+            dt.Columns.Add("prevCoding", typeof(int));
+
             DataRow dr = dt.NewRow();
             dr["GraphType"] = GraphType;
             dr["LocationLock"] = locationLock;
@@ -281,8 +302,21 @@ namespace BaseRailElement
             dr["EndCoding"] = EndCoding;
             dr["Lenght"] = lenght;
             dr["StartAngle"] = startAngle;
-            dr["PointList"] = PointList;
             dr["StartDot"] = startDot;
+            dr["PointListVol"] = PointList.Count;
+            for (int i = 0; i < PointList.Count; i++)
+            {
+                dr["PointList" + i.ToString()] = PointList[i].ToString();
+            }
+
+            dr["DrawMultiFactor"] = DrawMultiFactor;
+            dr["startPoint"] = StartPoint.ToString();
+            dr["endPoint"] = EndPoint.ToString(); 
+            dr["railText"] = railText;
+            dr["rotateAngle"] = rotateAngle;
+            dr["nextCoding"] = nextCoding;
+            dr["prevCoding"] = prevCoding;
+
             dt.Rows.Add(dr);
             return dt;
         }

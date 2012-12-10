@@ -18,7 +18,6 @@ namespace RailView
         public Form1()
         {
             InitializeComponent();
-           
         }
 
         private DataHubCli dataHubLink = new DataHubCli();
@@ -30,7 +29,8 @@ namespace RailView
             formOperation.FormShowRegionInit();
             //test using, finally delete
             TestRailDrawCoor();
-            this.Invalidate();
+            this.showPic.Invalidate();
+          //  this.Invalidate();
         }
 
         private void showPic_Paint(object sender, PaintEventArgs e)

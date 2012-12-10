@@ -37,6 +37,7 @@ public:
 	virtual std::string MCS::GuiDataHub::ReadData(MCS::GuiHub::GuiCommand,Ice::Int,const Ice::Current &);
 	virtual Ice::Int MCS::GuiDataHub::WriteData(MCS::GuiHub::GuiCommand,const std::string &,Ice::Int,const Ice::Current &);
 	virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Current& /* = ::Ice::Current */);
+	virtual void EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Current& /* = ::Ice::Current */);
 
 public:
 	void UpdateData(MCS::GuiHub::PushData, const std::string &);
