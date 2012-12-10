@@ -276,6 +276,7 @@ void VirtualOHT::OnTimer(void)
 	m_nTimeCounter++;
 	if(isStop)
 	{
+		m_listPath.clear();
 		return;
 	}
 	if(isMove)
@@ -284,14 +285,21 @@ void VirtualOHT::OnTimer(void)
 		{
 			DWORD nEndPos;
 			int nSpeed;
-			PATH_SET_LIST::iterator it = m_listPath.begin();
+			PATH_SET_LIST::iterator it;
 			it = m_listPath.end();
 			it--;
 			nEndPos = it->nposition;
-			if(m_nPos < nEndPos)
+			if(m_nPos != nEndPos)
 			{
 				for(it = m_listPath.begin();it != m_listPath.end();)
 				{
+					if((it->nposition) > ((++it)->nposition))
+					{
+						if(m_nTimeCounter % 2000 == 0)
+							m_nPos = it->nposition;
+						break;
+					}
+					it--;
 					if((m_nPos >= (DWORD)it->nposition) && (m_nPos < (DWORD)(++it)->nposition))
 					{		
 						it--;		
