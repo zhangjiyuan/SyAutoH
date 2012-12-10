@@ -75,6 +75,11 @@ void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const 
 	}
 }
 
+void GuiDataHubI::EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Current& )
+{
+	removeUpdater(updater);
+}
+
 void GuiDataHubI::removeUpdater(const ::MCS::GuiDataUpdaterPrx& updater)
 {
 	WLock(m_rwUpdaterSet)
@@ -107,7 +112,7 @@ void GuiDataHubI::UpdateData(MCS::GuiHub::PushData nTag, const std::string &sVal
 				item.enumTag =nTag;
 				item.sVal = sVal;
 
-				::Ice::AsyncResultPtr pAsyncCall = (*p)->begin_UpdateData(item,
+				(*p)->begin_UpdateData(item,
 					newCallback_GuiDataUpdater_UpdateData(cb, &UpdateCallback::response, 
 					&UpdateCallback::exception));
 			}

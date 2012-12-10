@@ -18,13 +18,13 @@ namespace BaseRailElement
         private int startAngle = 0;
         private int sweepAngle = 90;
         private int rotateAngle = 90;
-        private int oldRadiu = 50;
+        public int oldRadiu = 50;
         private int radiu = 50;
-        private Point oldCenter = new Point();
+        public Point oldCenter = new Point();
         private Point center = new Point();
-        private Point oldFirstDot = Point.Empty;
+        public Point oldFirstDot = Point.Empty;
         private Point firstDot = Point.Empty;
-        private Point oldSecDot = Point.Empty;
+        public Point oldSecDot = Point.Empty;
         private Point secDot = Point.Empty;
         private DirectonCurved directionCurved = DirectonCurved.NULL;
         public DataTable dt = new DataTable();
@@ -47,7 +47,7 @@ namespace BaseRailElement
             set { sweepAngle = value; }
         }
         [Browsable(false)]
-        private int RotateAngle
+        public int RotateAngle
         {
             get { return rotateAngle; }
             set { rotateAngle = value; }
@@ -86,20 +86,6 @@ namespace BaseRailElement
         public CurvedRailEle() 
         {
             GraphType = 2;
-            dt.Columns.Add("GraphType", typeof(int));
-            dt.Columns.Add("LocationLock", typeof(bool));
-            dt.Columns.Add("SizeLock", typeof(bool));
-            dt.Columns.Add("Selectable", typeof(bool));
-            dt.Columns.Add("Speed", typeof(float));
-            dt.Columns.Add("SegmentNumber", typeof(Int16));
-            dt.Columns.Add("TagNumber", typeof(int));
-            dt.Columns.Add("StartAngle", typeof(int));
-            dt.Columns.Add("SweepAngle", typeof(int));
-            dt.Columns.Add("Radiu", typeof(int));
-            dt.Columns.Add("Center", typeof(Point));
-            dt.Columns.Add("FirstDot", typeof(Point));
-            dt.Columns.Add("SecDot", typeof(Point));
-            dt.Columns.Add("DirectionCurvedAttribute", typeof(DirectonCurved));
         }
 
         public CurvedRailEle CreatEle(Point centerDot, Size size, Int16 multiFactor, string text)
@@ -437,6 +423,35 @@ namespace BaseRailElement
         public override DataTable DataSetXMLSave()
         {
             dt.Rows.Clear();
+            dt.Columns.Clear();
+
+            dt.Columns.Add("GraphType", typeof(int));
+            dt.Columns.Add("LocationLock", typeof(bool));
+            dt.Columns.Add("SizeLock", typeof(bool));
+            dt.Columns.Add("Selectable", typeof(bool));
+            dt.Columns.Add("Speed", typeof(float));
+            dt.Columns.Add("SegmentNumber", typeof(Int16));
+            dt.Columns.Add("TagNumber", typeof(int));
+            dt.Columns.Add("StartAngle", typeof(int));
+            dt.Columns.Add("SweepAngle", typeof(int));
+            dt.Columns.Add("Radiu", typeof(int));
+            dt.Columns.Add("Center", typeof(string));
+            dt.Columns.Add("FirstDot", typeof(string));
+            dt.Columns.Add("SecDot", typeof(string));
+            dt.Columns.Add("DirectionCurvedAttribute", typeof(int));
+
+            dt.Columns.Add("drawMultiFactor", typeof(Int16));
+            dt.Columns.Add("startPoint", typeof(string));
+            dt.Columns.Add("endPoint", typeof(string));
+            dt.Columns.Add("startCoding", typeof(Int32));
+            dt.Columns.Add("endCoding", typeof(Int32));
+            dt.Columns.Add("railText", typeof(string));
+            dt.Columns.Add("rotateAngle", typeof(Int32));
+            dt.Columns.Add("oldRadiu", typeof(Int32));
+            dt.Columns.Add("oldCenter", typeof(string));
+            dt.Columns.Add("oldFirstDot", typeof(string));
+            dt.Columns.Add("oldSecDot", typeof(string));
+
             DataRow dr = dt.NewRow();
             dr["GraphType"] = GraphType;
             dr["LocationLock"] = locationLock;
@@ -448,10 +463,22 @@ namespace BaseRailElement
             dr["StartAngle"] = startAngle;
             dr["SweepAngle"] = sweepAngle;
             dr["Radiu"] = radiu;
-            dr["Center"] = center;
-            dr["FirstDot"] = firstDot;
-            dr["SecDot"] = secDot;
+            dr["Center"] = center.ToString();
+            dr["FirstDot"] = firstDot.ToString();
+            dr["SecDot"] = secDot.ToString();
             dr["DirectionCurvedAttribute"] = directionCurved;
+
+            dr["drawMultiFactor"] = DrawMultiFactor;
+            dr["startPoint"] = StartPoint.ToString(); 
+            dr["endPoint"] = EndPoint.ToString(); 
+            dr["startCoding"] = StartCoding;
+            dr["endCoding"] = EndCoding;
+            dr["railText"] = railText;
+            dr["rotateAngle"] = rotateAngle;
+            dr["oldRadiu"] = oldRadiu;
+            dr["oldCenter"] = oldCenter.ToString();
+            dr["oldFirstDot"] = oldFirstDot.ToString();
+            dr["oldSecDot"] = oldSecDot.ToString();
 
             dt.Rows.Add(dr);
             return dt;

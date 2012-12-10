@@ -31,6 +31,12 @@ namespace GuiAccess
             ProxyKey = "DataHub";
         }
 
+        public override void Disconnect()
+        {
+            remote.begin_EraseDataUpdater(dataCallback);
+            base.Disconnect();
+        }
+
         public override void GetProxy()
         {
             remote = GuiDataHubPrxHelper.uncheckedCast(m_objectPrx);

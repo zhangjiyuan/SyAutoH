@@ -29,8 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("OHT Info");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Mes Command");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("OHT Info");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("STK ID: 23");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Stocker Info", new System.Windows.Forms.TreeNode[] {
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Mes Command");
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLable_Status = new System.Windows.Forms.ToolStripStatusLabel();
@@ -134,14 +137,18 @@
             this.treeView1.LineColor = System.Drawing.Color.DodgerBlue;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            treeNode7.Name = "nodeOHTInfo";
-            treeNode7.Text = "OHT Info";
-            treeNode8.Name = "nodeMesCommand";
-            treeNode8.Text = "Mes Command";
+            treeNode1.Name = "nodeOHTInfo";
+            treeNode1.Text = "OHT Info";
+            treeNode2.Name = "snodeSTK23";
+            treeNode2.Text = "STK ID: 23";
+            treeNode3.Name = "nodeSTKInfo";
+            treeNode3.Text = "Stocker Info";
+            treeNode4.Name = "nodeMesCommand";
+            treeNode4.Text = "Mes Command";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode8});
-            this.treeView1.ShowRootLines = false;
+            treeNode1,
+            treeNode3,
+            treeNode4});
             this.treeView1.Size = new System.Drawing.Size(133, 499);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);

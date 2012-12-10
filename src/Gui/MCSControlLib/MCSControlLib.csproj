@@ -74,6 +74,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="STKInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="STKInfo.Designer.cs">
+      <DependentUpon>STKInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockerOpt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StockerOpt.Designer.cs">
+      <DependentUpon>StockerOpt.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="LoginForm.resx">
@@ -91,6 +103,12 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="STKInfo.resx">
+      <DependentUpon>STKInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockerOpt.resx">
+      <DependentUpon>StockerOpt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

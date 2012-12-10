@@ -44,6 +44,12 @@ namespace BaseRailElement
             get { return mirror; }
             set { mirror = value; }
         }
+        [Browsable(false)]
+        public int LenghtOfStrai
+        {
+            get { return lenghtOfStrai; }
+            set { lenghtOfStrai = value; }
+        }
         [Category("轨道长度")]
         public int FirstPart
         {
@@ -153,22 +159,6 @@ namespace BaseRailElement
         public CrossEle()
         {
             GraphType = 3;
-            dt.Columns.Add("GraphType", typeof(int));
-            dt.Columns.Add("LocationLock", typeof(bool));
-            dt.Columns.Add("SizeLock", typeof(bool));
-            dt.Columns.Add("Selectable", typeof(bool));
-            dt.Columns.Add("Speed", typeof(float));
-            dt.Columns.Add("SegmentNumber", typeof(Int16));
-            dt.Columns.Add("TagNumber", typeof(int));
-            dt.Columns.Add("Mirror", typeof(bool));
-            dt.Columns.Add("FirstPart", typeof(int));
-            dt.Columns.Add("SecPart", typeof(int));
-            dt.Columns.Add("ThPart", typeof(int));
-            dt.Columns.Add("FourPart", typeof(Point));
-            dt.Columns.Add("PointList", typeof(List<Point>));
-            dt.Columns.Add("StartAngle", typeof(int));
-            dt.Columns.Add("RotateAngle", typeof(int));
-            dt.Columns.Add("DirectionOfCross", typeof(DirectionCross));
         }
 
         public CrossEle CreatEle(Point pt, Size size, Int16 multiFactor, string text)
@@ -533,6 +523,7 @@ namespace BaseRailElement
             }
             Debug.WriteLine(string.Format("first is {0},sec is {1},th is {2}", firstPart, secPart, thPart));
         }
+
         public override bool ChosedInRegion(Rectangle rect)
         {
             return objectCrossOp.ChosedInRegion(rect);
@@ -541,6 +532,41 @@ namespace BaseRailElement
         public override DataTable DataSetXMLSave()
         {
             dt.Rows.Clear();
+            dt.Columns.Clear();
+
+            dt.Columns.Add("GraphType", typeof(int));
+            dt.Columns.Add("LocationLock", typeof(bool));
+            dt.Columns.Add("SizeLock", typeof(bool));
+            dt.Columns.Add("Selectable", typeof(bool));
+            dt.Columns.Add("Speed", typeof(float));
+            dt.Columns.Add("SegmentNumber", typeof(Int16));
+            dt.Columns.Add("TagNumber", typeof(int));
+            dt.Columns.Add("Mirror", typeof(bool));
+            dt.Columns.Add("FirstPart", typeof(int));
+            dt.Columns.Add("SecPart", typeof(int));
+            dt.Columns.Add("ThPart", typeof(int));
+            dt.Columns.Add("FourPart", typeof(string));
+            dt.Columns.Add("StartAngle", typeof(int));
+            dt.Columns.Add("RotateAngle", typeof(int));
+            dt.Columns.Add("DirectionOfCross", typeof(int));
+            dt.Columns.Add("PointListVol", typeof(Int16));
+            for (int i=0; i < PointList.Count; i++)
+            {
+                dt.Columns.Add("PointList" + i.ToString(), typeof(string));
+            }
+
+            dt.Columns.Add("drawMultiFactor", typeof(Int16));
+            dt.Columns.Add("startPoint", typeof(string));
+            dt.Columns.Add("endPoint", typeof(string));
+            dt.Columns.Add("startCoding", typeof(Int32));
+            dt.Columns.Add("endCoding", typeof(Int32));
+            dt.Columns.Add("railText", typeof(string));
+            dt.Columns.Add("lenghtOfStrai", typeof(Int32));
+            dt.Columns.Add("nextCoding", typeof(Int32));
+            dt.Columns.Add("prevCoding", typeof(Int32));
+            dt.Columns.Add("thirdDotCoding", typeof(Int32));
+            dt.Columns.Add("startDot", typeof(string));
+
             DataRow dr = dt.NewRow();
             dr["GraphType"] = GraphType;
             dr["LocationLock"] = locationLock;
@@ -553,11 +579,27 @@ namespace BaseRailElement
             dr["FirstPart"] = firstPart;
             dr["SecPart"] = secPart;
             dr["ThPart"] = thPart;
-            dr["FourPart"] = fourPart;
-            dr["PointList"] = PointList;
+            dr["FourPart"] = fourPart.ToString(); ;
             dr["StartAngle"] = startAngle;
             dr["RotateAngle"] = rotateAngle;
             dr["DirectionOfCross"] = directionOfCross;
+            dr["PointListVol"] = PointList.Count;
+            for (int i = 0; i < PointList.Count; i++)
+            {
+                dr["PointList" + i.ToString()] = PointList[i];
+            }
+
+            dr["drawMultiFactor"] = DrawMultiFactor;
+            dr["startPoint"] = StartPoint.ToString();
+            dr["endPoint"] = EndPoint.ToString();
+            dr["startCoding"] = StartCoding;
+            dr["endCoding"] = EndCoding;
+            dr["railText"] = railText;
+            dr["lenghtOfStrai"] = lenghtOfStrai;
+            dr["nextCoding"] = nextCoding;
+            dr["prevCoding"] = prevCoding;
+            dr["thirdDotCoding"] = thirdDotCoding;
+            dr["startDot"] = startDot;
 
             dt.Rows.Add(dr);
             return dt;
