@@ -54,9 +54,9 @@ void CopyOHTStruct(driveOHT& target, amhs_oht_ptr& src)
 DR_OHT_LIST CAMHSDrive::GetOhtList()
 {
 	DR_OHT_LIST list;
-	amhs_oht_set oht_set = sAmhsServer.GetServer()->OHT_GetDataSet();
-	for (amhs_oht_set::iterator it = oht_set.begin(); 
-		it != oht_set.end(); ++it)
+	amhs_oht_vec oht_vec = sAmhsServer.GetServer()->OHT_GetDataSet();
+	for (amhs_oht_vec::iterator it = oht_vec.begin(); 
+		it != oht_vec.end(); ++it)
 	{
 		amhs_oht_ptr sp_oht = *it;
 		driveOHT dOht;

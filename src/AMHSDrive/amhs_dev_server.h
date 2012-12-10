@@ -61,6 +61,7 @@ typedef struct sData_OHT
 typedef boost::shared_ptr<amhs_OHT> amhs_oht_ptr;
 typedef std::map<int, amhs_oht_ptr> amhs_oht_map;
 typedef std::set<amhs_oht_ptr> amhs_oht_set;
+typedef std::vector<amhs_oht_ptr> amhs_oht_vec;
 
 typedef struct sPath_KeyPoint
 {
@@ -88,7 +89,7 @@ public:
 	void join(amhs_participant_ptr participant);
 	void leave(amhs_participant_ptr participant);
 
-	amhs_oht_set GetOhtDataSet();
+	amhs_oht_vec GetOhtDataSet();
 	void SendPacket(amhs_participant_ptr participants, AMHSPacket &ack);
 	void SendPacket(int nID, int nType, AMHSPacket& packet);
 	int DecodePacket(amhs_participant_ptr participants, AMHSPacket& Packet);
@@ -104,6 +105,7 @@ private:
 	void Handle_OHT_Auth(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_Pos(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_Status(amhs_participant_ptr, AMHSPacket&);
+	void Handle_OHT_NeedPath(amhs_participant_ptr, AMHSPacket&);
 	void Handle_OHT_TeachPath(amhs_participant_ptr, AMHSPacket&);
 
 	void Handle_STK_AckFoup(amhs_participant_ptr, AMHSPacket&);
@@ -170,7 +172,7 @@ public:
 public:
 	int GetConnectCount();
 
-	amhs_oht_set OHT_GetDataSet();
+	amhs_oht_vec OHT_GetDataSet();
 	void OHT_Set_StatusBackTime(int nID, int ms);
 	void OHT_Set_PosBackTime(int nID, int ms);
 	void OHT_Move(int nID, int nControl);
