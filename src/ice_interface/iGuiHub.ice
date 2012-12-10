@@ -31,6 +31,7 @@ interface GuiDataHub
     idempotent string ReadData(GuiHub::GuiCommand Tag, int session);
     idempotent int WriteData(GuiHub::GuiCommand Tag, string Val, int session);
     idempotent void SetDataUpdater(GuiDataUpdater* updater);
+    idempotent void EraseDataUpdater(GuiDataUpdater* updater);
 };
 
 struct User

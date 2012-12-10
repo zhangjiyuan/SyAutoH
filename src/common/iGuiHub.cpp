@@ -45,6 +45,8 @@ static const ::std::string __MCS__GuiDataHub__WriteData_name = "WriteData";
 
 static const ::std::string __MCS__GuiDataHub__SetDataUpdater_name = "SetDataUpdater";
 
+static const ::std::string __MCS__GuiDataHub__EraseDataUpdater_name = "EraseDataUpdater";
+
 static const ::std::string __MCS__UserManagement__Login_name = "Login";
 
 static const ::std::string __MCS__UserManagement__Logout_name = "Logout";
@@ -478,6 +480,56 @@ void
 IceProxy::MCS::GuiDataHub::end_SetDataUpdater(const ::Ice::AsyncResultPtr& __result)
 {
     __end(__result, __MCS__GuiDataHub__SetDataUpdater_name);
+}
+
+void
+IceProxy::MCS::GuiDataHub::EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context* __ctx)
+{
+    int __cnt = 0;
+    while(true)
+    {
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
+        {
+            __delBase = __getDelegate(false);
+            ::IceDelegate::MCS::GuiDataHub* __del = dynamic_cast< ::IceDelegate::MCS::GuiDataHub*>(__delBase.get());
+            __del->EraseDataUpdater(updater, __ctx);
+            return;
+        }
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
+    }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MCS::GuiDataHub::begin_EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+{
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataHub__EraseDataUpdater_name, __del, __cookie);
+    try
+    {
+        __result->__prepare(__MCS__GuiDataHub__EraseDataUpdater_name, ::Ice::Idempotent, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(::Ice::ObjectPrx(::IceInternal::upCast(updater.get())));
+        __os->endWriteEncaps();
+        __result->__send(true);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __result->__exceptionAsync(__ex);
+    }
+    return __result;
+}
+
+void
+IceProxy::MCS::GuiDataHub::end_EraseDataUpdater(const ::Ice::AsyncResultPtr& __result)
+{
+    __end(__result, __MCS__GuiDataHub__EraseDataUpdater_name);
 }
 
 const ::std::string&
@@ -1246,6 +1298,45 @@ IceDelegateM::MCS::GuiDataHub::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& up
     }
 }
 
+void
+IceDelegateM::MCS::GuiDataHub::EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context* __context)
+{
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataHub__EraseDataUpdater_name, ::Ice::Idempotent, __context);
+    try
+    {
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(::Ice::ObjectPrx(::IceInternal::upCast(updater.get())));
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __og.abort(__ex);
+    }
+    bool __ok = __og.invoke();
+    if(!__og.is()->b.empty())
+    {
+        try
+        {
+            if(!__ok)
+            {
+                try
+                {
+                    __og.throwUserException();
+                }
+                catch(const ::Ice::UserException& __ex)
+                {
+                    ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                    throw __uue;
+                }
+            }
+            __og.is()->skipEmptyEncaps();
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+        }
+    }
+}
+
 ::Ice::Int
 IceDelegateM::MCS::UserManagement::Login(const ::std::string& user, const ::std::string& pass, const ::Ice::Context* __context)
 {
@@ -1765,6 +1856,70 @@ IceDelegateD::MCS::GuiDataHub::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& up
     
     ::Ice::Current __current;
     __initCurrent(__current, __MCS__GuiDataHub__SetDataUpdater_name, ::Ice::Idempotent, __context);
+    try
+    {
+        _DirectI __direct(updater, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
+}
+
+void
+IceDelegateD::MCS::GuiDataHub::EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _m_updater(updater)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::MCS::GuiDataHub* servant = dynamic_cast< ::MCS::GuiDataHub*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            servant->EraseDataUpdater(_m_updater, _current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        const ::MCS::GuiDataUpdaterPrx& _m_updater;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __MCS__GuiDataHub__EraseDataUpdater_name, ::Ice::Idempotent, __context);
     try
     {
         _DirectI __direct(updater, __current);
@@ -2618,8 +2773,22 @@ MCS::GuiDataHub::___SetDataUpdater(::IceInternal::Incoming& __inS, const ::Ice::
     return ::Ice::DispatchOK;
 }
 
+::Ice::DispatchStatus
+MCS::GuiDataHub::___EraseDataUpdater(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Idempotent, __current.mode);
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::MCS::GuiDataUpdaterPrx updater;
+    ::MCS::__read(__is, updater);
+    __is->endReadEncaps();
+    EraseDataUpdater(updater, __current);
+    return ::Ice::DispatchOK;
+}
+
 static ::std::string __MCS__GuiDataHub_all[] =
 {
+    "EraseDataUpdater",
     "ReadData",
     "SetDataUpdater",
     "WriteData",
@@ -2632,7 +2801,7 @@ static ::std::string __MCS__GuiDataHub_all[] =
 ::Ice::DispatchStatus
 MCS::GuiDataHub::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& current)
 {
-    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__GuiDataHub_all, __MCS__GuiDataHub_all + 7, current.operation);
+    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__GuiDataHub_all, __MCS__GuiDataHub_all + 8, current.operation);
     if(r.first == r.second)
     {
         throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
@@ -2642,29 +2811,33 @@ MCS::GuiDataHub::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& c
     {
         case 0:
         {
-            return ___ReadData(in, current);
+            return ___EraseDataUpdater(in, current);
         }
         case 1:
         {
-            return ___SetDataUpdater(in, current);
+            return ___ReadData(in, current);
         }
         case 2:
         {
-            return ___WriteData(in, current);
+            return ___SetDataUpdater(in, current);
         }
         case 3:
         {
-            return ___ice_id(in, current);
+            return ___WriteData(in, current);
         }
         case 4:
         {
-            return ___ice_ids(in, current);
+            return ___ice_id(in, current);
         }
         case 5:
         {
-            return ___ice_isA(in, current);
+            return ___ice_ids(in, current);
         }
         case 6:
+        {
+            return ___ice_isA(in, current);
+        }
+        case 7:
         {
             return ___ice_ping(in, current);
         }
