@@ -97,6 +97,7 @@ int CVirtualAMHS::OHT_Auth(int nIndex, DWORD nPos, int nHand)
 	oht->Connect("127.0.0.1", 9999);
 	oht->Auth(nPos, nHand);
 	oht->m_nHand = nHand;
+	oht->m_nPos = nPos;
 	WLock(g_rwLOHT)
 	{
 		(*m_mapOHT)[nIndex] = oht;
