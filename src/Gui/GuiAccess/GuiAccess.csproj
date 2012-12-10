@@ -33,7 +33,7 @@
   <ItemGroup>
     <Reference Include="Ice, Version=3.4.2.0, Culture=neutral, PublicKeyToken=cdd571ade22f2f16, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\Third4CS\Ice.dll</HintPath>
+      <HintPath>..\..\..\bin\Third4CS\Ice.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
