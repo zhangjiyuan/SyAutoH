@@ -48,7 +48,7 @@ int VirtualOHT::SetTeachPosition(uint32 nPos, uint8 nType, uint8 nSpeedRate)
 }
 int VirtualOHT::AskPath()
 {
-	AMHSPacket askForPath(OHT_TEACH_PATH,1);
+	AMHSPacket askForPath(OHT_NEED_PATH,1);
 	askForPath << uint8(DeviceID());
 	SendPacket(askForPath);
 	return 0;
