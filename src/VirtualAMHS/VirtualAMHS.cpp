@@ -114,15 +114,6 @@ int CVirtualAMHS::OHT_Init(int nIndex, int posTime, int statusTime)
 	it->second->m_nStatusUpdateTimeSet = statusTime;
 	return 0;
 }
-int CVirtualAMHS::OHT_AskPath(int nIndex)
-{
-	MAP_VOHT::iterator it;
-	it = m_mapOHT->find(nIndex);
-	if(it == m_mapOHT->end())
-		return 0;
-	it->second->AskPath();
-	return 0;
-}
 int CVirtualAMHS::OHT_SetConstSpeed(int nSpeed)
 {
 	MAP_VOHT::iterator it;
