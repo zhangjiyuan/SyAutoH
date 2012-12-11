@@ -817,7 +817,6 @@ void CVAMHSTestDlg::OnBnClickedBnAllohtonline()
 	       {
 			   int nAdd = g_pVDev->OHT_Auth(nOHT_ID,nPosition,nHand);
 		       int nInit = g_pVDev->OHT_Init(nOHT_ID,nPosTime,nStatusTime);
-
 	           int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed);
 	       }
 		} 

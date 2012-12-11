@@ -250,7 +250,6 @@ int CVirtualAMHS::Stocker_ManualInputFoup(int nStocker, const TCHAR* sFoupID)
 		printf("Stocker %d is offline \n", nStocker);
 		return -1;
 	}
-
 	return 0;
 }
 
