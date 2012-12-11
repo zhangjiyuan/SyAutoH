@@ -106,6 +106,7 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_SENDALL_BUTTON, &CVAMHSTestDlg::OnBnClickedSendallButton)
 	ON_BN_CLICKED(IDC_ASK_FOR_PATH, &CVAMHSTestDlg::OnBnClickedAskForPath)
 	ON_BN_CLICKED(IDC_SPEED_SET_BUTTON, &CVAMHSTestDlg::OnBnClickedSpeedSetButton)
+	ON_BN_CLICKED(IDC_BN_ALLOHTOnLine, &CVAMHSTestDlg::OnBnClickedBnAllohtonline)
 END_MESSAGE_MAP()
 
 
@@ -768,4 +769,10 @@ void CVAMHSTestDlg::OnBnClickedSpeedSetButton()
 	}
 	int nSpeed = GetDlgItemInt(IDC_SPEED_SET_EDIT);
 	int speedSet = g_pVDev->OHT_SetConstSpeed(OHT_ID,nSpeed);
+}
+
+
+void CVAMHSTestDlg::OnBnClickedBnAllohtonline()
+{
+	// TODO: 在此添加控件通知处理程序代码
 }
