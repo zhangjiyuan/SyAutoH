@@ -123,14 +123,14 @@ int CVirtualAMHS::OHT_AskPath(int nIndex)
 	it->second->AskPath();
 	return 0;
 }
-int CVirtualAMHS::OHT_SetConstSpeed(int nIndex,int nSpeed)
+int CVirtualAMHS::OHT_SetConstSpeed(int nSpeed)
 {
 	MAP_VOHT::iterator it;
-	it = m_mapOHT->find(nIndex);
-	if(it == m_mapOHT->end())
+	for(it = m_mapOHT->begin();it != m_mapOHT->end();it++)
+	{
+		it->second->m_nSpeed = nSpeed;
+	}
 		return 0;
-	it->second->m_nSpeed = nSpeed;
-	return 0;
 }
 int CVirtualAMHS::OHT_Offline(int nIndex)
 {
@@ -250,7 +250,6 @@ int CVirtualAMHS::Stocker_ManualInputFoup(int nStocker, const TCHAR* sFoupID)
 		printf("Stocker %d is offline \n", nStocker);
 		return -1;
 	}
-
 	return 0;
 }
 
