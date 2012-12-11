@@ -242,6 +242,8 @@ void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 	{
 		int nAdd = g_pVDev->OHT_Auth(nOHT_ID,nPosition,nHand);
 		int nInit = g_pVDev->OHT_Init(nOHT_ID,nPosTime,nStatusTime);
+		int nSpeed = GetDlgItemInt(IDC_SPEED_SET_EDIT);
+	    int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed);
 	}
 }
 
@@ -760,12 +762,6 @@ void CVAMHSTestDlg::OnBnClickedAskForPath()
 void CVAMHSTestDlg::OnBnClickedSpeedSetButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	int OHT_ID = GetSelectOhtID();
-	if(OHT_ID < 0)
-	{
-		MessageBox(_T("Please select the OHT!"));
-		return ; 
-	}
 	int nSpeed = GetDlgItemInt(IDC_SPEED_SET_EDIT);
-	int speedSet = g_pVDev->OHT_SetConstSpeed(OHT_ID,nSpeed);
+	int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed);
 }
