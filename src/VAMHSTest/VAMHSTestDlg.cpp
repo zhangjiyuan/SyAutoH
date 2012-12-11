@@ -83,6 +83,7 @@ void CVAMHSTestDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LIST_OHT, m_listCtrlOHT);
 	DDX_Control(pDX, IDC_LIST_FOUP, m_listCtrlFOUP);
 	DDX_Control(pDX, IDC_COMBO_OHT_TeachPOSType, m_cbOhtTeachType);
+	DDX_Control(pDX, IDC_EDIT1, m_ConstSpeed);
 }
 
 BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
@@ -104,6 +105,7 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_OHT_DEL, &CVAMHSTestDlg::OnBnClickedOhtDel)
 	ON_BN_CLICKED(IDC_SENDALL_BUTTON, &CVAMHSTestDlg::OnBnClickedSendallButton)
 	ON_BN_CLICKED(IDC_ASK_FOR_PATH, &CVAMHSTestDlg::OnBnClickedAskForPath)
+	ON_BN_CLICKED(IDC_SPEED_SET_BUTTON, &CVAMHSTestDlg::OnBnClickedSpeedSetButton)
 END_MESSAGE_MAP()
 
 
@@ -752,4 +754,18 @@ void CVAMHSTestDlg::OnBnClickedAskForPath()
 		return ; 
 	}
 	int askPath = g_pVDev->OHT_AskPath(OHT_ID);
+}
+
+
+void CVAMHSTestDlg::OnBnClickedSpeedSetButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	int OHT_ID = GetSelectOhtID();
+	if(OHT_ID < 0)
+	{
+		MessageBox(_T("Please select the OHT!"));
+		return ; 
+	}
+	int nSpeed = GetDlgItemInt(IDC_SPEED_SET_EDIT);
+	int speedSet = g_pVDev->OHT_SetConstSpeed(OHT_ID,nSpeed);
 }

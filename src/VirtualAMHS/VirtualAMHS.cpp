@@ -123,6 +123,15 @@ int CVirtualAMHS::OHT_AskPath(int nIndex)
 	it->second->AskPath();
 	return 0;
 }
+int CVirtualAMHS::OHT_SetConstSpeed(int nIndex,int nSpeed)
+{
+	MAP_VOHT::iterator it;
+	it = m_mapOHT->find(nIndex);
+	if(it == m_mapOHT->end())
+		return 0;
+	it->second->m_nSpeed = nSpeed;
+	return 0;
+}
 int CVirtualAMHS::OHT_Offline(int nIndex)
 {
 	MAP_VOHT::iterator it;

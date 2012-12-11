@@ -9,6 +9,7 @@ VirtualOHT::VirtualOHT(void)
 	m_nHand(0),
 	m_nPosUpdateTimeSet(0),
 	m_nStatusUpdateTimeSet(0),
+	m_nSpeed(100),
 	m_nTimerID(0),
 	m_nTimeCounter(0),
 	isSetPath(false),
@@ -306,7 +307,8 @@ void VirtualOHT::OnTimer(void)
 						nSpeed = it->nSpeed;
 						if(nSpeed == 0)
 							nSpeed = (++it)->nSpeed;
-						if(m_nTimeCounter % (1000 / nSpeed) == 0)
+						int speed = (nSpeed * m_nSpeed) / 100;
+						if(m_nTimeCounter % (1000 / speed) == 0)
 							m_nPos++;		
 						break;	
 					}

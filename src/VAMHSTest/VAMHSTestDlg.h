@@ -64,4 +64,6 @@ public:
 	afx_msg void OnBnClickedOhtDel();
 	afx_msg void OnBnClickedSendallButton();
 	afx_msg void OnBnClickedAskForPath();
+	CEdit m_ConstSpeed;
+	afx_msg void OnBnClickedSpeedSetButton();
 };
