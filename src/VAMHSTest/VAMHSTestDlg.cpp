@@ -212,6 +212,12 @@ HCURSOR CVAMHSTestDlg::OnQueryDragIcon()
 
 void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 {
+	int nSpeed = GetDlgItemInt(IDC_SPEED_SET_EDIT);
+	if(nSpeed <= 0)
+	{
+		MessageBox(_T("please set the speed first!"));
+	    return;
+	}
 	int nOHT_ID = GetSelectOhtID();
 	int nPosTime;
 	int nPosition;
@@ -243,7 +249,6 @@ void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 	{
 		int nAdd = g_pVDev->OHT_Auth(nOHT_ID,nPosition,nHand);
 		int nInit = g_pVDev->OHT_Init(nOHT_ID,nPosTime,nStatusTime);
-		int nSpeed = GetDlgItemInt(IDC_SPEED_SET_EDIT);
 	    int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed);
 	}
 }
@@ -767,8 +772,54 @@ void CVAMHSTestDlg::OnBnClickedSpeedSetButton()
 	int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed);
 }
 
-
 void CVAMHSTestDlg::OnBnClickedBnAllohtonline()
 {
 	// TODO: 在此添加控件通知处理程序代码
+    int nSpeed = GetDlgItemInt(IDC_SPEED_SET_EDIT);
+	if(nSpeed <= 0)
+	{
+		MessageBox(_T("please set the speed first!"));
+		return;
+	}
+	MAP_ItemOHT::iterator it;
+	for(it = g_mapOHTs.begin();it != g_mapOHTs.end();it++)
+	{
+		if(it->second->nOnline != 1)
+		{
+			int nOHT_ID = it->second->nID;
+			int nPosTime;
+	        int nPosition;
+	        int nStatusTime;
+	        int nHand;
+	        CMarkup XML;
+	        CString path;
+	        path = GetPath();
+	        path += "../Config/OHTandTeachPos.xml";
+	        XML.Load(path);
+	        XML.FindElem();
+	        XML.FindChildElem(_T("OHTList"));
+	        XML.IntoElem();
+	        while(XML.FindChildElem(_T("OHT")))
+			{
+				XML.IntoElem();
+				int nID = GetElemData(XML,_T("ID"));
+		        if(nID == nOHT_ID)
+				{
+					nPosition = GetElemData(XML,_T("POS"));
+			        nHand = GetElemData(XML,_T("HAND"));
+			        nPosTime = GetElemData(XML,_T("PosTime"));
+			        nStatusTime = GetElemData(XML,_T("StatusTime"));
+		        }
+	        	XML.OutOfElem();
+	       }
+	       XML.OutOfElem();
+	       if (nOHT_ID >= 0)
+	       {
+			   int nAdd = g_pVDev->OHT_Auth(nOHT_ID,nPosition,nHand);
+		       int nInit = g_pVDev->OHT_Init(nOHT_ID,nPosTime,nStatusTime);
+
+	           int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed);
+	       }
+		} 
+	}
 }
