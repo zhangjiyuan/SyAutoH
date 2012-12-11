@@ -26,7 +26,7 @@ namespace RailView
         private void InitForm()
         {
             //ComponentLocChanged();        
-            formOperation.FormShowRegionInit();
+            formOperation.FormShowRegionInit(this.showPic.Size);
             //test using, finally delete
             TestRailDrawCoor();
             this.showPic.Invalidate();
@@ -190,6 +190,11 @@ namespace RailView
                 this.screenToolStripMenuItem.Text = "Normal Screen";
                 this.screenToolStripMenuItem.Image = global::RailView.Properties.Resources.normal_screen2;
             }
+        }
+
+        private void showPic_Resize(object sender, EventArgs e)
+        {
+            formOperation.AdjustCanvasSize(this.showPic.Size);
         }
     }   
 }

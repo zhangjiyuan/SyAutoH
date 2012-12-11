@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
@@ -21,19 +22,29 @@ namespace WinFormElement
         {
         }
 
-        public void FormShowRegionInit()
+        public void FormShowRegionInit(Size showPicSz)
         {
             if (formShowRegion.ReadRailSaveFile())
             {
                 formShowRegion.InitRailList();
+                AdjustCanvasSize(showPicSz);
             }
+        }
+
+        public void AdjustCanvasSize(Size showPicSz)
+        {
+            formShowRegion.AdjustRailSize(showPicSz);
         }
 
         public void ShowRegion(Graphics canvas)
         {
             //RemoveLencyOHT();
+//            GraphicsContainer showContainer = canvas.BeginContainer();
+            canvas.ScaleTransform(formShowRegion.xScale, formShowRegion.yScale);
+            canvas.TranslateTransform(formShowRegion.ptTranslate.X, formShowRegion.ptTranslate.Y);
             formShowRegion.DrawRailInfo(canvas);
             formShowRegion.DrawVehicleInfo(canvas, dictVechiles);
+//            canvas.EndContainer(showContainer);
         }
 
         public void RemoveLencyOHT()

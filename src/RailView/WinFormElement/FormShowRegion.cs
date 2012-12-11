@@ -17,8 +17,9 @@ namespace WinFormElement
         public List<RailEle> railInfoEleList = new List<RailEle>();
         public List<RailEle> railCodingEleList = new List<RailEle>();
 
-        public float xScale = 0;
-        public float yScale = 0;
+        public float xScale = 1;
+        public float yScale = 1;
+        public Point ptTranslate = Point.Empty;
 
         public bool ReadRailSaveFile()
         {
@@ -379,7 +380,7 @@ namespace WinFormElement
             return temp;
         }
 
-        private void AdjustRailSize()
+        public void AdjustRailSize(Size showPicSz)
         {
             Point ptTempMaxX = Point.Empty;
             Point ptTempMinX = Point.Empty;
@@ -529,7 +530,20 @@ namespace WinFormElement
                     ptMinY = ptTempMinY;
                 }
             }
-
+            int railWidth = ptMaxX.X - ptMinX.X;
+            int railHeight = ptMaxY.Y - ptMinY.Y;
+            xScale = Convert.ToSingle((showPicSz.Width - 20) * 1.0 / railWidth);
+            yScale = Convert.ToSingle((showPicSz.Height - 20) * 1.0 / railHeight);
+            if (xScale < yScale)
+            {
+                yScale = xScale;
+            }
+            else
+            {
+                xScale = yScale;
+            }
+            ptTranslate = Point.Empty;
+            ptTranslate.Offset(Convert.ToInt32(showPicSz.Width / 2 - (ptMinX.X + railWidth / 2) * xScale), Convert.ToInt32(showPicSz.Height / 2 - (ptMinY.Y + railHeight / 2) * xScale));
         }
     }
 
