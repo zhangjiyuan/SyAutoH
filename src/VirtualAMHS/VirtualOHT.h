@@ -40,6 +40,7 @@ public:
 	bool isMove;
 	bool isSetPath;
 	int m_nHand;
+	int m_nSpeed;
 	DWORD m_nPos;
 	int m_nPosUpdateTimeSet;
 	int m_nStatusUpdateTimeSet;
