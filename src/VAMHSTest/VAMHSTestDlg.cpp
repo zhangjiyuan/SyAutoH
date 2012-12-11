@@ -10,6 +10,7 @@
 #include "../VirtualAMHS/VirtualAMHS.h"
 #include "CMarkup.h"
 #include <iostream>
+#include "DlgAddOht.h"
 using namespace std;
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -463,9 +464,10 @@ CStringW CVAMHSTestDlg::GetPath()
 
 void CVAMHSTestDlg::OnBnClickedBnOhtAdd()
 {
-	int nOHT_ID = GetDlgItemInt(IDC_EDIT_OHTID);
-	if (nOHT_ID >= 0 && nOHT_ID < 254)
+	CDlgAddOht dlgAddOht;
+	if(dlgAddOht.DoModal() == IDOK)
 	{
+		int nOHT_ID = dlgAddOht.OhtID();
 		MAP_ItemOHT::iterator it = g_mapOHTs.find(nOHT_ID);
 		MAP_ItemOHT::iterator itEnd = g_mapOHTs.end();
 		if (it != g_mapOHTs.end())
@@ -486,10 +488,6 @@ void CVAMHSTestDlg::OnBnClickedBnOhtAdd()
 			m_listCtrlOHT.InsertItem(0, str);
 			SetOHTListItemData(pOht, 0);
 		}
-	}
-	else
-	{
-		MessageBox(_T("不合理的OHT ID值, 应在0至253之间."));
 	}
 }
 

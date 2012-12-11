@@ -212,6 +212,7 @@ void VirtualOHT::Handle_Move(AMHSPacket& packet)
 	switch(nMoveID)
 	{
 	case(0):
+
 		isMove = true;
 		if(isStop == true)
 		{

@@ -104,7 +104,7 @@ int CVirtualAMHS::OHT_Auth(int nIndex, DWORD nPos, int nHand)
 	}
 	return 0;
 }
-int CVirtualAMHS::OHT_Init(int nIndex,int posTime,int statusTime)
+int CVirtualAMHS::OHT_Init(int nIndex, int posTime, int statusTime)
 {
 	MAP_VOHT::iterator it;
 	it = m_mapOHT->find(nIndex);
