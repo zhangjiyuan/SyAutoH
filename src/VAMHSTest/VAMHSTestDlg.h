@@ -7,6 +7,7 @@
 #include "../VirtualAMHS/VirtualAMHS.h"
 #include "../shared/Log.h"
 #include "afxwin.h"
+#include "Child.h"
 
 // CVAMHSTestDlg ¶Ô»°¿ò
 class CVAMHSTestDlg : public CDialogEx
@@ -34,6 +35,7 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
+	Child m_Dialog;
 	afx_msg void OnBnClickedBnOHTonline();
 	afx_msg void OnDestroy();
 	afx_msg void OnBnClickedBnAddstk();
@@ -48,6 +50,9 @@ public:
 	void InitListCtrlFOUP(void);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	void SetOHTListItemData(ItemOHT* pOHT, int nListIndex);
+	void DeleteElem(int nID);
+	int GetElemData(CMarkup xml,CString tag);
+	//void ResetElem(CMarkup xml,CString tag,CString value);
 	afx_msg void OnBnClickedBnStkHistory();
 	CComboBox m_cbOhtTeachType;
 	int GetSelectOhtID(void);
@@ -55,5 +60,11 @@ public:
 	void ReadXML();
 	CStringW GetPath();
 	afx_msg void OnBnClickedBnOhtOff();
-	afx_msg void OnBnClickedDelOht();
+	afx_msg void OnBnClickedTeachposEdit();
+	afx_msg void OnBnClickedOhtDel();
+	afx_msg void OnBnClickedSendallButton();
+	afx_msg void OnBnClickedAskForPath();
+	CEdit m_ConstSpeed;
+	afx_msg void OnBnClickedSpeedSetButton();
+	afx_msg void OnBnClickedBnAllohtonline();
 };

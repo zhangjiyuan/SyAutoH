@@ -142,7 +142,6 @@ void CAMHSDrive::STKStatusBackTime(int nID, int ms)
 
 int CAMHSDrive::SetOHTLocation(int nPoint)
 {
-
 	return 0;
 }
 

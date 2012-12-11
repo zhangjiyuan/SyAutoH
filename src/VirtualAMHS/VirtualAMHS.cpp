@@ -15,7 +15,6 @@ CVirtualAMHS::CVirtualAMHS()
 {
 	m_mapOHT = new MAP_VOHT();
 	m_mapSTK = new MAP_VSTK();
-
 	return;
 }
 
@@ -71,7 +70,6 @@ int CVirtualAMHS::Stocker_Auth(int nIndex, const char* sIP)
 	stocker->Connect("127.0.0.1", 9999);
 	stocker->Auth( sIP);
 	(*m_mapSTK)[nIndex] = stocker;
-
 	return 0;
 }
 
@@ -94,19 +92,46 @@ int CVirtualAMHS::OHT_Auth(int nIndex, DWORD nPos, int nHand)
 		}
 	}
 
-	
 	VirtualOHT* oht = new VirtualOHT();
 	oht->DeviceID(nIndex);
 	oht->Connect("127.0.0.1", 9999);
 	oht->Auth(nPos, nHand);
+	oht->m_nHand = nHand;
+	oht->m_nPos = nPos;
 	WLock(g_rwLOHT)
 	{
 		(*m_mapOHT)[nIndex] = oht;
 	}
-
 	return 0;
 }
-
+int CVirtualAMHS::OHT_Init(int nIndex,int posTime,int statusTime)
+{
+	MAP_VOHT::iterator it;
+	it = m_mapOHT->find(nIndex);
+	if(it == m_mapOHT->end())
+		return 0;
+	it->second->m_nPosUpdateTimeSet = posTime;
+	it->second->m_nStatusUpdateTimeSet = statusTime;
+	return 0;
+}
+int CVirtualAMHS::OHT_AskPath(int nIndex)
+{
+	MAP_VOHT::iterator it;
+	it = m_mapOHT->find(nIndex);
+	if(it == m_mapOHT->end())
+		return 0;
+	it->second->AskPath();
+	return 0;
+}
+int CVirtualAMHS::OHT_SetConstSpeed(int nIndex,int nSpeed)
+{
+	MAP_VOHT::iterator it;
+	it = m_mapOHT->find(nIndex);
+	if(it == m_mapOHT->end())
+		return 0;
+	it->second->m_nSpeed = nSpeed;
+	return 0;
+}
 int CVirtualAMHS::OHT_Offline(int nIndex)
 {
 	MAP_VOHT::iterator it;
@@ -191,10 +216,11 @@ LIST_OHT CVirtualAMHS::OHT_GetStatus()
 			}
 			item.nHandStatus = vOht->m_nHand;
 			item.nPosition = vOht->m_nPos;
+			item.nPosTime = vOht->m_nPosUpdateTimeSet;
+			item.nStatusTime = vOht->m_nStatusUpdateTimeSet;
 			list.push_back(item);
 		}
 	}
-	
 	return list;
 }
 
