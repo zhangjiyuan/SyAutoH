@@ -231,6 +231,7 @@ GuiDataItem GuiDataHubI::Push_OHT_Position()
 	GuiDataItem item;
 	//DWORD dwTime = timeGetTime();
 	//LOG_BASIC("Time: %d", dwTime);
+	printf(".");
 	DR_OHT_LIST oht_list = m_pAMHSDrive->GetOhtList();
 	string strOhtList = "";
 	char buf[256] ="";

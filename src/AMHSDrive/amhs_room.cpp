@@ -171,7 +171,7 @@ void amhs_room::SendPacket(amhs_participant_ptr participants, AMHSPacket &packet
 		msg.IsRespond(false);
 		memcpy(msg.body(), packet.contents() + (i*szLimit), msg.body_length());
 		msg.encode_header();
-		packet.hexlike();
+		//packet.hexlike();
 
 		if (NULL == participants)
 		{
@@ -588,7 +588,7 @@ int amhs_room::DecodePacket(amhs_participant_ptr participants, AMHSPacket& Packe
 	OPT_MAP::iterator it = m_optHanders.find(mOpcode);
 	if (it != m_optHanders.end())
 	{
-		Packet.hexlike();
+		//Packet.hexlike();
 		(this->*it->second)(participants, Packet);
 		return 0;
 	}

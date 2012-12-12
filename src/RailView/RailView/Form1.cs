@@ -45,14 +45,14 @@ namespace RailView
         public void TestRailDrawCoor()
         {
             System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Elapsed += new ElapsedEventHandler(StartTimer);
+            timer.Elapsed += new ElapsedEventHandler(OnTimer);
             timer.Interval = 200;
             timer.AutoReset = true;
             timer.Enabled = true;
         }
 
         //test using, finally delete
-        public void StartTimer(object source, System.Timers.ElapsedEventArgs e)
+        public void OnTimer(object source, System.Timers.ElapsedEventArgs e)
         {
             ProcessGuiDataBuf();
             this.showPic.Invalidate();
@@ -103,7 +103,10 @@ namespace RailView
                     }
                 }
 
-                formOperation.UpdateOHTPos(listOht);
+           
+               formOperation.UpdateOHTPos(listOht);
+          
+               
         }
 
         private void baseInfoTreeView_MouseUp(object sender, MouseEventArgs e)
@@ -155,6 +158,8 @@ namespace RailView
             dataHubLink.ConnectServer();
             dataHubLink.DataUpdater += new DataUpdaterHander(GuiDataUpdate);
             dataHubLink.Async_SetCallBack();
+            MCS.GuiHub.PushData[] cmds = new MCS.GuiHub.PushData[] { MCS.GuiHub.PushData.upOhtPos };
+            dataHubLink.Async_SetPushCmdList(cmds);
         }
 
         private void GuiDataUpdate(long lTime, MCS.GuiDataItem guiData)
