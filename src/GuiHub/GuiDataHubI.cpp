@@ -61,6 +61,16 @@ Ice::Int GuiDataHubI::WriteData(MCS::GuiHub::GuiCommand enumCmd,
 	}
 }
 
+int GuiDataHubI::SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Current& )
+{
+	return 0;
+}
+
+int GuiDataHubI::SetPushTimer(::Ice::Int, ::Ice::Int, const ::Ice::Current& )
+{
+	return 0;
+}
+
 void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Current& /* = ::Ice::Current */)
 {
 	WLock(m_rwUpdaterSet)

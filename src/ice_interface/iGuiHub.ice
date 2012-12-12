@@ -28,6 +28,8 @@ interface GuiDataUpdater
 
 interface GuiDataHub
 {
+		idempotent int SetPushCmd(GuiDataUpdater* updater, GuiHub::GuiCmdList cmds, int session);
+		idempotent int SetPushTimer(int period, int session);
     idempotent string ReadData(GuiHub::GuiCommand Tag, int session);
     idempotent int WriteData(GuiHub::GuiCommand Tag, string Val, int session);
     idempotent void SetDataUpdater(GuiDataUpdater* updater);

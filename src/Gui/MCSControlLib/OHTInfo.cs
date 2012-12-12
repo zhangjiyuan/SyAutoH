@@ -13,6 +13,8 @@ namespace MCSControlLib
 {
     public partial class OHTInfo : UserControl, IMcsControlBase
     {
+        public event DataChangeHander DataChange;
+
         private const string TKeyP_Pos = "Position";
         private const string TKeyP_Name = "Name";
         private const string TKeyP_Type = "Type";
@@ -33,6 +35,11 @@ namespace MCSControlLib
             InitializeComponent();
 
             InitProcessDictionary();
+
+            if (null != this.DataChange)
+            {
+                this.DataChange(this, 0);
+            }
         }
 
         private void InitProcessDictionary()

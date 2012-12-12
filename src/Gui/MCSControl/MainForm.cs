@@ -61,6 +61,15 @@ namespace MCSControl
             this.timer1.Start();
         }
 
+        private void OnDataChange(object sender, int index)
+        {
+            if (index == 23)
+            {
+                string strStk;
+                strStk = "stockerinfo";
+            }
+        }
+
         private void InitMcsControlDictionary()
         {
             m_dictMcsControl.Add("nodeOHTInfo", new OHTInfo() );
@@ -87,8 +96,14 @@ namespace MCSControl
 
             if (null != _ctrl)
             {
+                if (null != m_ctrlBase)
+                {
+                    m_ctrlBase.DataChange -= new DataChangeHander(OnDataChange);
+                }
+             
                 m_ctrlBase = _ctrl as IMcsControlBase;
-                m_ctrlBase.DataHub = m_dataHub;
+                m_ctrlBase.DataHub = m_dataHub;   
+                m_ctrlBase.DataChange += new DataChangeHander(OnDataChange);
                 _ctrl.Location = new Point(10, 10);
                 _ctrl.Size = new Size(10, 10);
                 this.splitContainer1.Panel2.Controls.Clear();

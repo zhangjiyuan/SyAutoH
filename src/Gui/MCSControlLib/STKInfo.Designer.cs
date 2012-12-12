@@ -50,7 +50,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(3, 15);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(365, 411);
+            this.dataGridView1.Size = new System.Drawing.Size(469, 411);
             this.dataGridView1.TabIndex = 1;
             // 
             // STKInfo
@@ -71,5 +71,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
+
     }
 }

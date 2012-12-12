@@ -343,6 +343,12 @@ namespace MCS
 class Callback_GuiDataUpdater_UpdateData_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_GuiDataUpdater_UpdateData_Base> Callback_GuiDataUpdater_UpdateDataPtr;
 
+class Callback_GuiDataHub_SetPushCmd_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_GuiDataHub_SetPushCmd_Base> Callback_GuiDataHub_SetPushCmdPtr;
+
+class Callback_GuiDataHub_SetPushTimer_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_GuiDataHub_SetPushTimer_Base> Callback_GuiDataHub_SetPushTimerPtr;
+
 class Callback_GuiDataHub_ReadData_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_GuiDataHub_ReadData_Base> Callback_GuiDataHub_ReadDataPtr;
 
@@ -642,6 +648,102 @@ private:
 
 class GuiDataHub : virtual public ::IceProxy::Ice::Object
 {
+public:
+
+    ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session)
+    {
+        return SetPushCmd(updater, cmds, session, 0);
+    }
+    ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context& __ctx)
+    {
+        return SetPushCmd(updater, cmds, session, &__ctx);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session)
+    {
+        return begin_SetPushCmd(updater, cmds, session, 0, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context& __ctx)
+    {
+        return begin_SetPushCmd(updater, cmds, session, &__ctx, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetPushCmd(updater, cmds, session, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetPushCmd(updater, cmds, session, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::MCS::Callback_GuiDataHub_SetPushCmdPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetPushCmd(updater, cmds, session, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataHub_SetPushCmdPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetPushCmd(updater, cmds, session, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::Int end_SetPushCmd(const ::Ice::AsyncResultPtr&);
+    
+private:
+
+    ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    
+public:
+
+    ::Ice::Int SetPushTimer(::Ice::Int period, ::Ice::Int session)
+    {
+        return SetPushTimer(period, session, 0);
+    }
+    ::Ice::Int SetPushTimer(::Ice::Int period, ::Ice::Int session, const ::Ice::Context& __ctx)
+    {
+        return SetPushTimer(period, session, &__ctx);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetPushTimer(::Ice::Int period, ::Ice::Int session)
+    {
+        return begin_SetPushTimer(period, session, 0, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetPushTimer(::Ice::Int period, ::Ice::Int session, const ::Ice::Context& __ctx)
+    {
+        return begin_SetPushTimer(period, session, &__ctx, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetPushTimer(::Ice::Int period, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetPushTimer(period, session, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetPushTimer(::Ice::Int period, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetPushTimer(period, session, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetPushTimer(::Ice::Int period, ::Ice::Int session, const ::MCS::Callback_GuiDataHub_SetPushTimerPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetPushTimer(period, session, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetPushTimer(::Ice::Int period, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataHub_SetPushTimerPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetPushTimer(period, session, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::Int end_SetPushTimer(const ::Ice::AsyncResultPtr&);
+    
+private:
+
+    ::Ice::Int SetPushTimer(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_SetPushTimer(::Ice::Int, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    
 public:
 
     ::std::string ReadData(::MCS::GuiHub::GuiCommand Tag, ::Ice::Int session)
@@ -1643,6 +1745,10 @@ class GuiDataHub : virtual public ::IceDelegate::Ice::Object
 {
 public:
 
+    virtual ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Context*) = 0;
+
+    virtual ::Ice::Int SetPushTimer(::Ice::Int, ::Ice::Int, const ::Ice::Context*) = 0;
+
     virtual ::std::string ReadData(::MCS::GuiHub::GuiCommand, ::Ice::Int, const ::Ice::Context*) = 0;
 
     virtual ::Ice::Int WriteData(::MCS::GuiHub::GuiCommand, const ::std::string&, ::Ice::Int, const ::Ice::Context*) = 0;
@@ -1695,6 +1801,10 @@ class GuiDataHub : virtual public ::IceDelegate::MCS::GuiDataHub,
                    virtual public ::IceDelegateM::Ice::Object
 {
 public:
+
+    virtual ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Context*);
+
+    virtual ::Ice::Int SetPushTimer(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::std::string ReadData(::MCS::GuiHub::GuiCommand, ::Ice::Int, const ::Ice::Context*);
 
@@ -1749,6 +1859,10 @@ class GuiDataHub : virtual public ::IceDelegate::MCS::GuiDataHub,
                    virtual public ::IceDelegateD::Ice::Object
 {
 public:
+
+    virtual ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Context*);
+
+    virtual ::Ice::Int SetPushTimer(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::std::string ReadData(::MCS::GuiHub::GuiCommand, ::Ice::Int, const ::Ice::Context*);
 
@@ -1839,6 +1953,12 @@ public:
     virtual ::std::vector< ::std::string> ice_ids(const ::Ice::Current& = ::Ice::Current()) const;
     virtual const ::std::string& ice_id(const ::Ice::Current& = ::Ice::Current()) const;
     static const ::std::string& ice_staticId();
+
+    virtual ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
+    ::Ice::DispatchStatus ___SetPushCmd(::IceInternal::Incoming&, const ::Ice::Current&);
+
+    virtual ::Ice::Int SetPushTimer(::Ice::Int, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
+    ::Ice::DispatchStatus ___SetPushTimer(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual ::std::string ReadData(::MCS::GuiHub::GuiCommand, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___ReadData(::IceInternal::Incoming&, const ::Ice::Current&);
@@ -2017,6 +2137,238 @@ template<class T, typename CT> Callback_GuiDataUpdater_UpdateDataPtr
 newCallback_GuiDataUpdater_UpdateData(T* instance, void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
     return new Callback_GuiDataUpdater_UpdateData<T, CT>(instance, 0, excb, sentcb);
+}
+
+template<class T>
+class CallbackNC_GuiDataHub_SetPushCmd : public Callback_GuiDataHub_SetPushCmd_Base, public ::IceInternal::TwowayCallbackNC<T>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception&);
+    typedef void (T::*Sent)(bool);
+    typedef void (T::*Response)(::Ice::Int);
+
+    CallbackNC_GuiDataHub_SetPushCmd(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
+    {
+    }
+
+    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
+    {
+        ::MCS::GuiDataHubPrx __proxy = ::MCS::GuiDataHubPrx::uncheckedCast(__result->getProxy());
+        ::Ice::Int __ret;
+        try
+        {
+            __ret = __proxy->end_SetPushCmd(__result);
+        }
+        catch(::Ice::Exception& ex)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            __exception(__result, ex);
+#else
+            ::IceInternal::CallbackNC<T>::__exception(__result, ex);
+#endif
+            return;
+        }
+        if(response)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            (callback.get()->*response)(__ret);
+#else
+            (::IceInternal::CallbackNC<T>::callback.get()->*response)(__ret);
+#endif
+        }
+    }
+
+    Response response;
+};
+
+template<class T> Callback_GuiDataHub_SetPushCmdPtr
+newCallback_GuiDataHub_SetPushCmd(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_SetPushCmd<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_GuiDataHub_SetPushCmdPtr
+newCallback_GuiDataHub_SetPushCmd(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_SetPushCmd<T>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT>
+class Callback_GuiDataHub_SetPushCmd : public Callback_GuiDataHub_SetPushCmd_Base, public ::IceInternal::TwowayCallback<T, CT>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
+    typedef void (T::*Sent)(bool , const CT&);
+    typedef void (T::*Response)(::Ice::Int, const CT&);
+
+    Callback_GuiDataHub_SetPushCmd(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
+    {
+    }
+
+    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
+    {
+        ::MCS::GuiDataHubPrx __proxy = ::MCS::GuiDataHubPrx::uncheckedCast(__result->getProxy());
+        ::Ice::Int __ret;
+        try
+        {
+            __ret = __proxy->end_SetPushCmd(__result);
+        }
+        catch(::Ice::Exception& ex)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            __exception(__result, ex);
+#else
+            ::IceInternal::Callback<T, CT>::__exception(__result, ex);
+#endif
+            return;
+        }
+        if(response)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            (callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
+#else
+            (::IceInternal::Callback<T, CT>::callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
+#endif
+        }
+    }
+
+    Response response;
+};
+
+template<class T, typename CT> Callback_GuiDataHub_SetPushCmdPtr
+newCallback_GuiDataHub_SetPushCmd(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_SetPushCmd<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_GuiDataHub_SetPushCmdPtr
+newCallback_GuiDataHub_SetPushCmd(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_SetPushCmd<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T>
+class CallbackNC_GuiDataHub_SetPushTimer : public Callback_GuiDataHub_SetPushTimer_Base, public ::IceInternal::TwowayCallbackNC<T>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception&);
+    typedef void (T::*Sent)(bool);
+    typedef void (T::*Response)(::Ice::Int);
+
+    CallbackNC_GuiDataHub_SetPushTimer(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::TwowayCallbackNC<T>(obj, cb != 0, excb, sentcb), response(cb)
+    {
+    }
+
+    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
+    {
+        ::MCS::GuiDataHubPrx __proxy = ::MCS::GuiDataHubPrx::uncheckedCast(__result->getProxy());
+        ::Ice::Int __ret;
+        try
+        {
+            __ret = __proxy->end_SetPushTimer(__result);
+        }
+        catch(::Ice::Exception& ex)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            __exception(__result, ex);
+#else
+            ::IceInternal::CallbackNC<T>::__exception(__result, ex);
+#endif
+            return;
+        }
+        if(response)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            (callback.get()->*response)(__ret);
+#else
+            (::IceInternal::CallbackNC<T>::callback.get()->*response)(__ret);
+#endif
+        }
+    }
+
+    Response response;
+};
+
+template<class T> Callback_GuiDataHub_SetPushTimerPtr
+newCallback_GuiDataHub_SetPushTimer(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_SetPushTimer<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_GuiDataHub_SetPushTimerPtr
+newCallback_GuiDataHub_SetPushTimer(T* instance, void (T::*cb)(::Ice::Int), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_GuiDataHub_SetPushTimer<T>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT>
+class Callback_GuiDataHub_SetPushTimer : public Callback_GuiDataHub_SetPushTimer_Base, public ::IceInternal::TwowayCallback<T, CT>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
+    typedef void (T::*Sent)(bool , const CT&);
+    typedef void (T::*Response)(::Ice::Int, const CT&);
+
+    Callback_GuiDataHub_SetPushTimer(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::TwowayCallback<T, CT>(obj, cb != 0, excb, sentcb), response(cb)
+    {
+    }
+
+    virtual void __completed(const ::Ice::AsyncResultPtr& __result) const
+    {
+        ::MCS::GuiDataHubPrx __proxy = ::MCS::GuiDataHubPrx::uncheckedCast(__result->getProxy());
+        ::Ice::Int __ret;
+        try
+        {
+            __ret = __proxy->end_SetPushTimer(__result);
+        }
+        catch(::Ice::Exception& ex)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            __exception(__result, ex);
+#else
+            ::IceInternal::Callback<T, CT>::__exception(__result, ex);
+#endif
+            return;
+        }
+        if(response)
+        {
+#if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
+            (callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
+#else
+            (::IceInternal::Callback<T, CT>::callback.get()->*response)(__ret, CT::dynamicCast(__result->getCookie()));
+#endif
+        }
+    }
+
+    Response response;
+};
+
+template<class T, typename CT> Callback_GuiDataHub_SetPushTimerPtr
+newCallback_GuiDataHub_SetPushTimer(const IceUtil::Handle<T>& instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_SetPushTimer<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_GuiDataHub_SetPushTimerPtr
+newCallback_GuiDataHub_SetPushTimer(T* instance, void (T::*cb)(::Ice::Int, const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_GuiDataHub_SetPushTimer<T, CT>(instance, cb, excb, sentcb);
 }
 
 template<class T>

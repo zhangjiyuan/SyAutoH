@@ -361,6 +361,12 @@ namespace MCS
     public delegate void Callback_GuiDataUpdater_UpdateData();
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public delegate void Callback_GuiDataHub_SetPushCmd(int ret__);
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+    public delegate void Callback_GuiDataHub_SetPushTimer(int ret__);
+
+    [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public delegate void Callback_GuiDataHub_ReadData(string ret__);
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -420,6 +426,28 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubPrx : Ice.ObjectPrx
     {
+        int SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session);
+        int SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        Ice.AsyncResult<MCS.Callback_GuiDataHub_SetPushCmd> begin_SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session);
+        Ice.AsyncResult<MCS.Callback_GuiDataHub_SetPushCmd> begin_SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
+
+        Ice.AsyncResult begin_SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+
+        int end_SetPushCmd(Ice.AsyncResult r__);
+
+        int SetPushTimer(int period, int session);
+        int SetPushTimer(int period, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        Ice.AsyncResult<MCS.Callback_GuiDataHub_SetPushTimer> begin_SetPushTimer(int period, int session);
+        Ice.AsyncResult<MCS.Callback_GuiDataHub_SetPushTimer> begin_SetPushTimer(int period, int session, _System.Collections.Generic.Dictionary<string, string> ctx__);
+
+        Ice.AsyncResult begin_SetPushTimer(int period, int session, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_SetPushTimer(int period, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+
+        int end_SetPushTimer(Ice.AsyncResult r__);
+
         string ReadData(MCS.GuiHub.GuiCommand Tag, int session);
         string ReadData(MCS.GuiHub.GuiCommand Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
@@ -575,6 +603,10 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubOperations_
     {
+        int SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, Ice.Current current__);
+
+        int SetPushTimer(int period, int session, Ice.Current current__);
+
         string ReadData(MCS.GuiHub.GuiCommand Tag, int session, Ice.Current current__);
 
         int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, Ice.Current current__);
@@ -587,6 +619,10 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubOperationsNC_
     {
+        int SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session);
+
+        int SetPushTimer(int period, int session);
+
         string ReadData(MCS.GuiHub.GuiCommand Tag, int session);
 
         int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session);
@@ -1047,6 +1083,82 @@ namespace MCS
             }
         }
 
+        public int SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session)
+        {
+            return SetPushCmd(updater, cmds, session, null, false);
+        }
+
+        public int SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            return SetPushCmd(updater, cmds, session, context__, true);
+        }
+
+        private int SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        {
+            if(explicitContext__ && context__ == null)
+            {
+                context__ = emptyContext_;
+            }
+            int cnt__ = 0;
+            while(true)
+            {
+                Ice.ObjectDel_ delBase__ = null;
+                try
+                {
+                    checkTwowayOnly__("SetPushCmd");
+                    delBase__ = getDelegate__(false);
+                    GuiDataHubDel_ del__ = (GuiDataHubDel_)delBase__;
+                    return del__.SetPushCmd(updater, cmds, session, context__);
+                }
+                catch(IceInternal.LocalExceptionWrapper ex__)
+                {
+                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    handleException__(delBase__, ex__, true, ref cnt__);
+                }
+            }
+        }
+
+        public int SetPushTimer(int period, int session)
+        {
+            return SetPushTimer(period, session, null, false);
+        }
+
+        public int SetPushTimer(int period, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            return SetPushTimer(period, session, context__, true);
+        }
+
+        private int SetPushTimer(int period, int session, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        {
+            if(explicitContext__ && context__ == null)
+            {
+                context__ = emptyContext_;
+            }
+            int cnt__ = 0;
+            while(true)
+            {
+                Ice.ObjectDel_ delBase__ = null;
+                try
+                {
+                    checkTwowayOnly__("SetPushTimer");
+                    delBase__ = getDelegate__(false);
+                    GuiDataHubDel_ del__ = (GuiDataHubDel_)delBase__;
+                    return del__.SetPushTimer(period, session, context__);
+                }
+                catch(IceInternal.LocalExceptionWrapper ex__)
+                {
+                    handleExceptionWrapperRelaxed__(delBase__, ex__, true, ref cnt__);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    handleException__(delBase__, ex__, true, ref cnt__);
+                }
+            }
+        }
+
         public int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session)
         {
             return WriteData(Tag, Val, session, null, false);
@@ -1290,6 +1402,198 @@ namespace MCS
             if(cb__ != null)
             {
                 cb__();
+            }
+        }
+
+        public Ice.AsyncResult<MCS.Callback_GuiDataHub_SetPushCmd> begin_SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session)
+        {
+            return begin_SetPushCmd(updater, cmds, session, null, false, null, null);
+        }
+
+        public Ice.AsyncResult<MCS.Callback_GuiDataHub_SetPushCmd> begin_SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        {
+            return begin_SetPushCmd(updater, cmds, session, ctx__, true, null, null);
+        }
+
+        public Ice.AsyncResult begin_SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_SetPushCmd(updater, cmds, session, null, false, cb__, cookie__);
+        }
+
+        public Ice.AsyncResult begin_SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_SetPushCmd(updater, cmds, session, ctx__, true, cb__, cookie__);
+        }
+
+        private const string __SetPushCmd_name = "SetPushCmd";
+
+        public int end_SetPushCmd(Ice.AsyncResult r__)
+        {
+            IceInternal.OutgoingAsync outAsync__ = (IceInternal.OutgoingAsync)r__;
+            IceInternal.OutgoingAsync.check__(outAsync__, this, __SetPushCmd_name);
+            if(!outAsync__.wait__())
+            {
+                try
+                {
+                    outAsync__.throwUserException__();
+                }
+                catch(Ice.UserException ex__)
+                {
+                    throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                }
+            }
+            int ret__;
+            IceInternal.BasicStream is__ = outAsync__.istr__;
+            is__.startReadEncaps();
+            ret__ = is__.readInt();
+            is__.endReadEncaps();
+            return ret__;
+        }
+
+        private Ice.AsyncResult<MCS.Callback_GuiDataHub_SetPushCmd> begin_SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            checkAsyncTwowayOnly__(__SetPushCmd_name);
+            IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_SetPushCmd> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_SetPushCmd>(this, __SetPushCmd_name, SetPushCmd_completed__, cookie__);
+            if(cb__ != null)
+            {
+                result__.whenCompletedWithAsyncCallback(cb__);
+            }
+            try
+            {
+                result__.prepare__(__SetPushCmd_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
+                IceInternal.BasicStream os__ = result__.ostr__;
+                MCS.GuiDataUpdaterPrxHelper.write__(os__, updater);
+                if(cmds == null)
+                {
+                    os__.writeSize(0);
+                }
+                else
+                {
+                    os__.writeSize(cmds.Length);
+                    for(int ix__ = 0; ix__ < cmds.Length; ++ix__)
+                    {
+                        os__.writeByte((byte)cmds[ix__], 10);
+                    }
+                }
+                os__.writeInt(session);
+                os__.endWriteEncaps();
+                result__.send__(true);
+            }
+            catch(Ice.LocalException ex__)
+            {
+                result__.exceptionAsync__(ex__);
+            }
+            return result__;
+        }
+
+        private void SetPushCmd_completed__(Ice.AsyncResult r__, MCS.Callback_GuiDataHub_SetPushCmd cb__, Ice.ExceptionCallback excb__)
+        {
+            int ret__;
+            try
+            {
+                ret__ = end_SetPushCmd(r__);
+            }
+            catch(Ice.Exception ex__)
+            {
+                if(excb__ != null)
+                {
+                    excb__(ex__);
+                }
+                return;
+            }
+            if(cb__ != null)
+            {
+                cb__(ret__);
+            }
+        }
+
+        public Ice.AsyncResult<MCS.Callback_GuiDataHub_SetPushTimer> begin_SetPushTimer(int period, int session)
+        {
+            return begin_SetPushTimer(period, session, null, false, null, null);
+        }
+
+        public Ice.AsyncResult<MCS.Callback_GuiDataHub_SetPushTimer> begin_SetPushTimer(int period, int session, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        {
+            return begin_SetPushTimer(period, session, ctx__, true, null, null);
+        }
+
+        public Ice.AsyncResult begin_SetPushTimer(int period, int session, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_SetPushTimer(period, session, null, false, cb__, cookie__);
+        }
+
+        public Ice.AsyncResult begin_SetPushTimer(int period, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            return begin_SetPushTimer(period, session, ctx__, true, cb__, cookie__);
+        }
+
+        private const string __SetPushTimer_name = "SetPushTimer";
+
+        public int end_SetPushTimer(Ice.AsyncResult r__)
+        {
+            IceInternal.OutgoingAsync outAsync__ = (IceInternal.OutgoingAsync)r__;
+            IceInternal.OutgoingAsync.check__(outAsync__, this, __SetPushTimer_name);
+            if(!outAsync__.wait__())
+            {
+                try
+                {
+                    outAsync__.throwUserException__();
+                }
+                catch(Ice.UserException ex__)
+                {
+                    throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                }
+            }
+            int ret__;
+            IceInternal.BasicStream is__ = outAsync__.istr__;
+            is__.startReadEncaps();
+            ret__ = is__.readInt();
+            is__.endReadEncaps();
+            return ret__;
+        }
+
+        private Ice.AsyncResult<MCS.Callback_GuiDataHub_SetPushTimer> begin_SetPushTimer(int period, int session, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        {
+            checkAsyncTwowayOnly__(__SetPushTimer_name);
+            IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_SetPushTimer> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_GuiDataHub_SetPushTimer>(this, __SetPushTimer_name, SetPushTimer_completed__, cookie__);
+            if(cb__ != null)
+            {
+                result__.whenCompletedWithAsyncCallback(cb__);
+            }
+            try
+            {
+                result__.prepare__(__SetPushTimer_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
+                IceInternal.BasicStream os__ = result__.ostr__;
+                os__.writeInt(period);
+                os__.writeInt(session);
+                os__.endWriteEncaps();
+                result__.send__(true);
+            }
+            catch(Ice.LocalException ex__)
+            {
+                result__.exceptionAsync__(ex__);
+            }
+            return result__;
+        }
+
+        private void SetPushTimer_completed__(Ice.AsyncResult r__, MCS.Callback_GuiDataHub_SetPushTimer cb__, Ice.ExceptionCallback excb__)
+        {
+            int ret__;
+            try
+            {
+                ret__ = end_SetPushTimer(r__);
+            }
+            catch(Ice.Exception ex__)
+            {
+                if(excb__ != null)
+                {
+                    excb__(ex__);
+                }
+                return;
+            }
+            if(cb__ != null)
+            {
+                cb__(ret__);
             }
         }
 
@@ -2782,6 +3086,10 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataHubDel_ : Ice.ObjectDel_
     {
+        int SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+
+        int SetPushTimer(int period, int session, _System.Collections.Generic.Dictionary<string, string> context__);
+
         string ReadData(MCS.GuiHub.GuiCommand Tag, int session, _System.Collections.Generic.Dictionary<string, string> context__);
 
         int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__);
@@ -3002,6 +3310,112 @@ namespace MCS
                     {
                         throw new IceInternal.LocalExceptionWrapper(ex__, false);
                     }
+                }
+            }
+            finally
+            {
+                handler__.reclaimOutgoing(og__);
+            }
+        }
+
+        public int SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            IceInternal.Outgoing og__ = handler__.getOutgoing("SetPushCmd", Ice.OperationMode.Idempotent, context__);
+            try
+            {
+                try
+                {
+                    IceInternal.BasicStream os__ = og__.ostr();
+                    MCS.GuiDataUpdaterPrxHelper.write__(os__, updater);
+                    if(cmds == null)
+                    {
+                        os__.writeSize(0);
+                    }
+                    else
+                    {
+                        os__.writeSize(cmds.Length);
+                        for(int ix__ = 0; ix__ < cmds.Length; ++ix__)
+                        {
+                            os__.writeByte((byte)cmds[ix__], 10);
+                        }
+                    }
+                    os__.writeInt(session);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    og__.abort(ex__);
+                }
+                bool ok__ = og__.invoke();
+                try
+                {
+                    if(!ok__)
+                    {
+                        try
+                        {
+                            og__.throwUserException();
+                        }
+                        catch(Ice.UserException ex__)
+                        {
+                            throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                        }
+                    }
+                    IceInternal.BasicStream is__ = og__.istr();
+                    is__.startReadEncaps();
+                    int ret__;
+                    ret__ = is__.readInt();
+                    is__.endReadEncaps();
+                    return ret__;
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    throw new IceInternal.LocalExceptionWrapper(ex__, false);
+                }
+            }
+            finally
+            {
+                handler__.reclaimOutgoing(og__);
+            }
+        }
+
+        public int SetPushTimer(int period, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            IceInternal.Outgoing og__ = handler__.getOutgoing("SetPushTimer", Ice.OperationMode.Idempotent, context__);
+            try
+            {
+                try
+                {
+                    IceInternal.BasicStream os__ = og__.ostr();
+                    os__.writeInt(period);
+                    os__.writeInt(session);
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    og__.abort(ex__);
+                }
+                bool ok__ = og__.invoke();
+                try
+                {
+                    if(!ok__)
+                    {
+                        try
+                        {
+                            og__.throwUserException();
+                        }
+                        catch(Ice.UserException ex__)
+                        {
+                            throw new Ice.UnknownUserException(ex__.ice_name(), ex__);
+                        }
+                    }
+                    IceInternal.BasicStream is__ = og__.istr();
+                    is__.startReadEncaps();
+                    int ret__;
+                    ret__ = is__.readInt();
+                    is__.endReadEncaps();
+                    return ret__;
+                }
+                catch(Ice.LocalException ex__)
+                {
+                    throw new IceInternal.LocalExceptionWrapper(ex__, false);
                 }
             }
             finally
@@ -3601,6 +4015,96 @@ namespace MCS
         }
 
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
+        public int SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            Ice.Current current__ = new Ice.Current();
+            initCurrent__(ref current__, "SetPushCmd", Ice.OperationMode.Idempotent, context__);
+            int result__ = 0;
+            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
+            {
+                GuiDataHub servant__ = null;
+                try
+                {
+                    servant__ = (GuiDataHub)obj__;
+                }
+                catch(_System.InvalidCastException)
+                {
+                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+                }
+                result__ = servant__.SetPushCmd(updater, cmds, session, current__);
+                return Ice.DispatchStatus.DispatchOK;
+            };
+            IceInternal.Direct direct__ = null;
+            try
+            {
+                direct__ = new IceInternal.Direct(current__, run__);
+                try
+                {
+                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
+                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
+                }
+                finally
+                {
+                    direct__.destroy();
+                }
+            }
+            catch(Ice.SystemException)
+            {
+                throw;
+            }
+            catch(_System.Exception ex__)
+            {
+                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
+            }
+            return result__;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
+        public int SetPushTimer(int period, int session, _System.Collections.Generic.Dictionary<string, string> context__)
+        {
+            Ice.Current current__ = new Ice.Current();
+            initCurrent__(ref current__, "SetPushTimer", Ice.OperationMode.Idempotent, context__);
+            int result__ = 0;
+            IceInternal.Direct.RunDelegate run__ = delegate(Ice.Object obj__)
+            {
+                GuiDataHub servant__ = null;
+                try
+                {
+                    servant__ = (GuiDataHub)obj__;
+                }
+                catch(_System.InvalidCastException)
+                {
+                    throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
+                }
+                result__ = servant__.SetPushTimer(period, session, current__);
+                return Ice.DispatchStatus.DispatchOK;
+            };
+            IceInternal.Direct direct__ = null;
+            try
+            {
+                direct__ = new IceInternal.Direct(current__, run__);
+                try
+                {
+                    Ice.DispatchStatus status__ = direct__.servant().collocDispatch__(direct__);
+                    _System.Diagnostics.Debug.Assert(status__ == Ice.DispatchStatus.DispatchOK);
+                }
+                finally
+                {
+                    direct__.destroy();
+                }
+            }
+            catch(Ice.SystemException)
+            {
+                throw;
+            }
+            catch(_System.Exception ex__)
+            {
+                IceInternal.LocalExceptionWrapper.throwWrapper(ex__);
+            }
+            return result__;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
         public int WriteData(MCS.GuiHub.GuiCommand Tag, string Val, int session, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             Ice.Current current__ = new Ice.Current();
@@ -4193,6 +4697,20 @@ namespace MCS
     {
         #region Slice operations
 
+        public int SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session)
+        {
+            return SetPushCmd(updater, cmds, session, Ice.ObjectImpl.defaultCurrent);
+        }
+
+        public abstract int SetPushCmd(MCS.GuiDataUpdaterPrx updater, MCS.GuiHub.GuiCommand[] cmds, int session, Ice.Current current__);
+
+        public int SetPushTimer(int period, int session)
+        {
+            return SetPushTimer(period, session, Ice.ObjectImpl.defaultCurrent);
+        }
+
+        public abstract int SetPushTimer(int period, int session, Ice.Current current__);
+
         public string ReadData(MCS.GuiHub.GuiCommand Tag, int session)
         {
             return ReadData(Tag, session, Ice.ObjectImpl.defaultCurrent);
@@ -4271,6 +4789,49 @@ namespace MCS
         #region Operation dispatch
 
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+        public static Ice.DispatchStatus SetPushCmd___(GuiDataHub obj__, IceInternal.Incoming inS__, Ice.Current current__)
+        {
+            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
+            IceInternal.BasicStream is__ = inS__.istr();
+            is__.startReadEncaps();
+            MCS.GuiDataUpdaterPrx updater;
+            updater = MCS.GuiDataUpdaterPrxHelper.read__(is__);
+            MCS.GuiHub.GuiCommand[] cmds;
+            {
+                int szx__ = is__.readAndCheckSeqSize(1);
+                cmds = new MCS.GuiHub.GuiCommand[szx__];
+                for(int ix__ = 0; ix__ < szx__; ++ix__)
+                {
+                    cmds[ix__] = (MCS.GuiHub.GuiCommand)is__.readByte(10);
+                }
+            }
+            int session;
+            session = is__.readInt();
+            is__.endReadEncaps();
+            IceInternal.BasicStream os__ = inS__.ostr();
+            int ret__ = obj__.SetPushCmd(updater, cmds, session, current__);
+            os__.writeInt(ret__);
+            return Ice.DispatchStatus.DispatchOK;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+        public static Ice.DispatchStatus SetPushTimer___(GuiDataHub obj__, IceInternal.Incoming inS__, Ice.Current current__)
+        {
+            checkMode__(Ice.OperationMode.Idempotent, current__.mode);
+            IceInternal.BasicStream is__ = inS__.istr();
+            is__.startReadEncaps();
+            int period;
+            period = is__.readInt();
+            int session;
+            session = is__.readInt();
+            is__.endReadEncaps();
+            IceInternal.BasicStream os__ = inS__.ostr();
+            int ret__ = obj__.SetPushTimer(period, session, current__);
+            os__.writeInt(ret__);
+            return Ice.DispatchStatus.DispatchOK;
+        }
+
+        [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
         public static Ice.DispatchStatus ReadData___(GuiDataHub obj__, IceInternal.Incoming inS__, Ice.Current current__)
         {
             checkMode__(Ice.OperationMode.Idempotent, current__.mode);
@@ -4337,6 +4898,8 @@ namespace MCS
             "EraseDataUpdater",
             "ReadData",
             "SetDataUpdater",
+            "SetPushCmd",
+            "SetPushTimer",
             "WriteData",
             "ice_id",
             "ice_ids",
@@ -4368,21 +4931,29 @@ namespace MCS
                 }
                 case 3:
                 {
-                    return WriteData___(this, inS__, current__);
+                    return SetPushCmd___(this, inS__, current__);
                 }
                 case 4:
                 {
-                    return ice_id___(this, inS__, current__);
+                    return SetPushTimer___(this, inS__, current__);
                 }
                 case 5:
                 {
-                    return ice_ids___(this, inS__, current__);
+                    return WriteData___(this, inS__, current__);
                 }
                 case 6:
                 {
-                    return ice_isA___(this, inS__, current__);
+                    return ice_id___(this, inS__, current__);
                 }
                 case 7:
+                {
+                    return ice_ids___(this, inS__, current__);
+                }
+                case 8:
+                {
+                    return ice_isA___(this, inS__, current__);
+                }
+                case 9:
                 {
                     return ice_ping___(this, inS__, current__);
                 }
