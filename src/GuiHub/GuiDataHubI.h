@@ -90,6 +90,8 @@ private:
 private:
 	GuiDataItem Push_OHT_DevInfo();
 	GuiDataItem Push_OHT_Position();
+
+	GuiDataItem Push_STK_DevInfo();
 };
 
 class UpdateCallback : public IceUtil::Shared

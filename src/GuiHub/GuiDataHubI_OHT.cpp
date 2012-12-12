@@ -220,6 +220,7 @@ GuiDataItem GuiDataHubI::Push_OHT_DevInfo()
 		sprintf_s(buf, 256, "<%d,%s,%u>", it->nID, it->strIp.c_str(), it->uPort);
 		strOhtList += buf;
 	}
+
 	item.enumTag = MCS::GuiHub::upOhtInfo;
 	item.sVal = strOhtList;
 
@@ -231,7 +232,7 @@ GuiDataItem GuiDataHubI::Push_OHT_Position()
 	GuiDataItem item;
 	//DWORD dwTime = timeGetTime();
 	//LOG_BASIC("Time: %d", dwTime);
-	printf(".");
+	//printf(".");
 	DR_OHT_LIST oht_list = m_pAMHSDrive->GetOhtList();
 	string strOhtList = "";
 	char buf[256] ="";
@@ -241,6 +242,7 @@ GuiDataItem GuiDataHubI::Push_OHT_Position()
 		sprintf_s(buf, 256, "<%d,%d,%d>", it->nID, it->nPOS, it->nHand);
 		strOhtList += buf;
 	}
+
 	item.enumTag = MCS::GuiHub::upOhtPos;
 	item.sVal = strOhtList;
 

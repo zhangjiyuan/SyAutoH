@@ -9,11 +9,10 @@ using System.Windows.Forms;
 
 namespace MCSControlLib
 {
-    public partial class MesCommand : UserControl, IMcsControlBase
+    public partial class pageMesCommand : baseControlPage, IMcsControlBase
     {
         public event DataChangeHander DataChange;
-        private GuiAccess.DataHubCli m_dataHub = null;
-        public MesCommand()
+        public pageMesCommand()
         {
             InitializeComponent();
 
@@ -21,28 +20,6 @@ namespace MCSControlLib
             {
                 this.DataChange(this, 0);
             }
-        }
-
-        public GuiAccess.DataHubCli DataHub
-        {
-            set
-            {
-                m_dataHub = value;
-            }
-            get
-            {
-                return m_dataHub;
-            }
-        }
-
-        public void PageInit()
-        {
-
-        }
-
-        public void PageExit()
-        {
-
         }
 
         public void ProcessGuiData(List<MCS.GuiDataItem> list)

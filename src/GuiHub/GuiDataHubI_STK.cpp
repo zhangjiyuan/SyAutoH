@@ -7,6 +7,14 @@
 #include "IceUtil/Unicode.h"
 #include "iConstDef.h"
 
+GuiDataItem GuiDataHubI::Push_STK_DevInfo()
+{
+	GuiDataItem item;
+	item.enumTag = GuiHub::upStkInfo;
+
+	return item;
+}
+
 void GuiDataHubI::STK_SetStatusBackTime(const std::string& strVal)
 {
 	STR_VEC vecStr = GetVecStrings(strVal);

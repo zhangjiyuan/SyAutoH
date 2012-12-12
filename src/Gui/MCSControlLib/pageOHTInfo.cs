@@ -11,7 +11,7 @@ using MCS.GuiHub;
 
 namespace MCSControlLib
 {
-    public partial class OHTInfo : UserControl, IMcsControlBase
+    public partial class pageOHTInfo : baseControlPage, IMcsControlBase
     {
         public event DataChangeHander DataChange;
 
@@ -20,7 +20,7 @@ namespace MCSControlLib
         private const string TKeyP_Type = "Type";
         private const string TKeyP_Speed = "Speed";
 
-        private GuiAccess.DataHubCli m_dataHub = null;
+       
         private Dictionary<int, OhtInfoData> m_dictOhtInfo = new Dictionary<int, OhtInfoData>();
         private DataTable m_tableOHTInfo = null;
         private DataTable m_tableKeyPos = null;
@@ -30,7 +30,7 @@ namespace MCSControlLib
         private Dictionary<PushData, ProcessHandler> m_dictProcess = new Dictionary<PushData, ProcessHandler>();
         private int m_nPathPosition = 0;
 
-        public OHTInfo()
+        public pageOHTInfo()
         {
             InitializeComponent();
 
@@ -47,18 +47,6 @@ namespace MCSControlLib
             m_dictProcess.Add(PushData.upOhtInfo, ProcessOHTInfo);
             m_dictProcess.Add(PushData.upOhtPos, ProcessOHTPos);
             m_dictProcess.Add(PushData.upOhtPosTable, ProcessPosTable);
-        }
-
-        public GuiAccess.DataHubCli DataHub
-        {
-            set
-            {
-                m_dataHub = value;
-            }
-            get
-            {
-                return m_dataHub;
-            }
         }
 
         public  void ProcessGuiData(List<MCS.GuiDataItem> list)
@@ -417,16 +405,12 @@ namespace MCSControlLib
             OHTMove(2);
         }
 
-        public void PageInit()
+        public override void PageInit()
         {
             PushData[] cmds = new PushData[] {PushData.upOhtInfo, PushData.upOhtPos };
             m_dataHub.Async_SetPushCmdList(cmds);
         }
 
-        public void PageExit()
-        {
-            PushData[] cmds = new PushData[] {  };
-            m_dataHub.Async_SetPushCmdList(cmds);
-        }
+   
     }
 }

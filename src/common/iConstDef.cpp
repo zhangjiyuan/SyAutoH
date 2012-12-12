@@ -53,14 +53,14 @@ MCS::GuiHub::__read(::IceInternal::BasicStream* __is, ::MCS::GuiHub::GuiCommand&
 void
 MCS::GuiHub::__write(::IceInternal::BasicStream* __os, ::MCS::GuiHub::PushData v)
 {
-    __os->write(static_cast< ::Ice::Byte>(v), 4);
+    __os->write(static_cast< ::Ice::Byte>(v), 5);
 }
 
 void
 MCS::GuiHub::__read(::IceInternal::BasicStream* __is, ::MCS::GuiHub::PushData& v)
 {
     ::Ice::Byte val;
-    __is->read(val, 4);
+    __is->read(val, 5);
     v = static_cast< ::MCS::GuiHub::PushData>(val);
 }
 

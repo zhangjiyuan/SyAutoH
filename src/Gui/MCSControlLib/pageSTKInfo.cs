@@ -6,43 +6,30 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MCS.GuiHub;
 
 namespace MCSControlLib
 {
-    public partial class StockerOpt : UserControl, IMcsControlBase
+    public partial class pageSTKInfo : baseControlPage, IMcsControlBase
     {
-        public event DataChangeHander DataChange;
-        public StockerOpt()
+       
+
+        public pageSTKInfo()
         {
             InitializeComponent();
 
             if (null != this.DataChange)
             {
-                this.DataChange(this, 24);
+                this.DataChange(this, 23);
             }
         }
 
-        private GuiAccess.DataHubCli m_dataHub = null;
-        public GuiAccess.DataHubCli DataHub
+        public event DataChangeHander DataChange;
+
+        public override void PageInit()
         {
-            set
-            {
-                m_dataHub = value;
-            }
-            get
-            {
-                return m_dataHub;
-            }
-        }
-
-        public void PageInit()
-        {
-
-        }
-
-        public void PageExit()
-        {
-
+            PushData[] cmds = new PushData[] { PushData.upStkInfo };
+            m_dataHub.Async_SetPushCmdList(cmds);
         }
 
         public void ProcessGuiData(List<MCS.GuiDataItem> list)

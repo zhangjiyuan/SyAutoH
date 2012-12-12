@@ -69,7 +69,8 @@ enum PushData
     upOhtInfo,
     upOhtPos,
     upOhtPosTable,
-    upOhtStatus
+    upOhtStatus,
+    upStkInfo
 };
 
 void __write(::IceInternal::BasicStream*, PushData);

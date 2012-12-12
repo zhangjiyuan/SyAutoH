@@ -51,6 +51,12 @@ void CopyOHTStruct(driveOHT& target, amhs_oht_ptr& src)
 	target.uPort = src->p_participant->uPort_;
 }
 
+DR_STK_LIST CAMHSDrive::GetStkList()
+{
+	DR_STK_LIST list;
+	return list;
+}
+
 DR_OHT_LIST CAMHSDrive::GetOhtList()
 {
 	DR_OHT_LIST list;
