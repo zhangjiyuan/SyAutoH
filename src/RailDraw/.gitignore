@@ -33,12 +33,4 @@
 *.filters
 /src/obj
 Release
-
-/src\RailDraw\WinFormsUI/bin
-obj
-bin
-*.lastbuildstate
-*.idb
-*.intermediate.manifest
-*.embed.manifest
-*.unsuccessfulbuild
+Debug

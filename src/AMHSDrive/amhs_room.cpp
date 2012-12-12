@@ -85,6 +85,20 @@ void amhs_room::leave(amhs_participant_ptr participant)
 	participants_.erase(participant);
 }
 
+amhs_stocker_vec amhs_room::GetStkDataSet()
+{
+	amhs_stocker_vec stk_vec;
+	RLock(rwLock_stocker_map_)
+	{
+		for (amhs_stocker_map::iterator it = stocker_map_.begin();
+			it != stocker_map_.end(); ++it)
+		{
+			stk_vec.push_back(it->second);
+		}
+	}
+	return stk_vec;
+}
+
 amhs_oht_vec amhs_room::GetOhtDataSet()
 {
 	amhs_oht_vec oht_vec;

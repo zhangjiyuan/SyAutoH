@@ -11,20 +11,10 @@ namespace MCSControlLib
 {
     public partial class pageMesCommand : baseControlPage, IMcsControlBase
     {
-        public event DataChangeHander DataChange;
+
         public pageMesCommand()
         {
             InitializeComponent();
-
-            if (null != this.DataChange)
-            {
-                this.DataChange(this, 0);
-            }
-        }
-
-        public void ProcessGuiData(List<MCS.GuiDataItem> list)
-        {
-
         }
 
         private void button1_Click(object sender, EventArgs e)

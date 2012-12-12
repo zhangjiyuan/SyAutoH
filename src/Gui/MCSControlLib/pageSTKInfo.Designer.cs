@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.dataGridView_Stocker = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Stocker)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -42,26 +42,27 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Stocker List:";
             // 
-            // dataGridView1
+            // dataGridView_Stocker
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataGridView_Stocker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 15);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(469, 411);
-            this.dataGridView1.TabIndex = 1;
+            this.dataGridView_Stocker.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Stocker.Location = new System.Drawing.Point(3, 15);
+            this.dataGridView_Stocker.Name = "dataGridView_Stocker";
+            this.dataGridView_Stocker.RowTemplate.Height = 23;
+            this.dataGridView_Stocker.Size = new System.Drawing.Size(469, 411);
+            this.dataGridView_Stocker.TabIndex = 1;
             // 
-            // STKInfo
+            // pageSTKInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridView_Stocker);
             this.Controls.Add(this.label1);
-            this.Name = "STKInfo";
+            this.Name = "pageSTKInfo";
             this.Size = new System.Drawing.Size(672, 429);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.pageSTKInfo_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Stocker)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -70,7 +71,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView_Stocker;
 
     }
 }

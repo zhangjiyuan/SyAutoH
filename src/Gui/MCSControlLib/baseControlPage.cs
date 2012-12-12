@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -9,8 +10,26 @@ namespace MCSControlLib
 {
     public partial class baseControlPage : UserControl
     {
+        public event DataChangeHander DataChange;
         protected GuiAccess.DataHubCli m_dataHub = null;
-        
+        protected delegate void ProcessHandler(ArrayList item);
+        protected Dictionary<PushData, ProcessHandler> m_dictProcess = new Dictionary<PushData, ProcessHandler>();
+
+        public baseControlPage()
+        {
+            InitProcessDictionary(); 
+            
+            if (null != this.DataChange)
+            {
+                this.DataChange(this, 0);
+            }
+        }
+
+        protected virtual void InitProcessDictionary()
+        {
+
+        }
+
         public GuiAccess.DataHubCli DataHub
         {
             set
@@ -32,6 +51,28 @@ namespace MCSControlLib
         {
             PushData[] cmds = new PushData[] { };
             m_dataHub.Async_SetPushCmdList(cmds);
+        }
+
+        public void ProcessGuiData(List<MCS.GuiDataItem> list)
+        {
+            foreach (MCS.GuiDataItem item in list)
+            {
+                ProcessGuiDataItem(item);
+            }
+        }
+
+        private void ProcessGuiDataItem(MCS.GuiDataItem guiData)
+        {
+            ProcessHandler handler = null;
+            bool bGet = m_dictProcess.TryGetValue(guiData.enumTag, out handler);
+            if (true == bGet)
+            {
+                ArrayList alDatas = GuiAccess.DataHubCli.ConvertToArrayList(guiData.sVal);
+                foreach (ArrayList item in alDatas)
+                {
+                    handler(item);
+                }
+            }
         }
     }
 }

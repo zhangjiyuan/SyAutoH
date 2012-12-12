@@ -11,23 +11,9 @@ namespace MCSControlLib
 {
     public partial class pageStockerOpt : baseControlPage, IMcsControlBase
     {
-        public event DataChangeHander DataChange;
         public pageStockerOpt()
         {
             InitializeComponent();
-
-            if (null != this.DataChange)
-            {
-                this.DataChange(this, 24);
-            }
-        }
-
-        public void ProcessGuiData(List<MCS.GuiDataItem> list)
-        {
-            foreach (MCS.GuiDataItem item in list)
-            {
-                //ProcessGuiDataItem(item);
-            }
         }
     }
 }

@@ -69,6 +69,7 @@ namespace MCSControl
             {
                 string strStk;
                 strStk = "stockerinfo";
+                strStk = strStk.ToUpper();
             }
         }
 
