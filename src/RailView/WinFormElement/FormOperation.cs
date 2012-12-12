@@ -18,6 +18,8 @@ namespace WinFormElement
         [DllImport("kernel32.dll")]
         private static extern int GetTickCount();
 
+        public Int16 canvasOffset = 10;
+
         public FormOperation()
         {
         }
@@ -39,12 +41,11 @@ namespace WinFormElement
         public void ShowRegion(Graphics canvas)
         {
             //RemoveLencyOHT();
-//            GraphicsContainer showContainer = canvas.BeginContainer();
             canvas.ScaleTransform(formShowRegion.xScale, formShowRegion.yScale);
-            canvas.TranslateTransform(formShowRegion.ptTranslate.X, formShowRegion.ptTranslate.Y);
+            canvas.TranslateTransform(formShowRegion.ptTranslate.X + formShowRegion.canvasMoveX, formShowRegion.ptTranslate.Y + formShowRegion.canvasMoveY);
+            
             formShowRegion.DrawRailInfo(canvas);
             formShowRegion.DrawVehicleInfo(canvas, dictVechiles);
-//            canvas.EndContainer(showContainer);
         }
 
         public void RemoveLencyOHT()
@@ -103,5 +104,10 @@ namespace WinFormElement
 
         public void DeleteVehicleNode(TreeView tempTreeView)
         { }
+
+        public void BtnCanvasMove(string str)
+        {
+            formShowRegion.CanvasTranslate(str, canvasOffset);
+        }
     }
 }

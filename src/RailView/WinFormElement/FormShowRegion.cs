@@ -20,6 +20,8 @@ namespace WinFormElement
         public float xScale = 1;
         public float yScale = 1;
         public Point ptTranslate = Point.Empty;
+        public Int16 canvasMoveX = 0;
+        public Int16 canvasMoveY = 0;
 
         public bool ReadRailSaveFile()
         {
@@ -545,6 +547,31 @@ namespace WinFormElement
             ptTranslate = Point.Empty;
             ptTranslate.Offset(Convert.ToInt32(showPicSz.Width / 2 - (ptMinX.X + railWidth / 2) * xScale), Convert.ToInt32(showPicSz.Height / 2 - (ptMinY.Y + railHeight / 2) * xScale));
         }
+
+        public void CanvasTranslate(string direction,Int16 canvasOffset)
+        {
+            switch (direction)
+            {
+                case "up":
+                    canvasMoveY -= canvasOffset;
+                    break;
+                case "down":
+                    canvasMoveY += canvasOffset;
+                    break;
+                case "left":
+                    canvasMoveX -= canvasOffset;
+                    break;
+                case "right":
+                    canvasMoveX += canvasOffset;
+                    break;
+                case "center":
+                    canvasMoveX = 0;
+                    canvasMoveY = 0;
+                    break;
+            }
+        }
+
+
     }
 
 
