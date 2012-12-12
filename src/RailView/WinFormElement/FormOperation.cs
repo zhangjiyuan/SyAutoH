@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
@@ -17,21 +18,32 @@ namespace WinFormElement
         [DllImport("kernel32.dll")]
         private static extern int GetTickCount();
 
+        public Int16 canvasOffset = 10;
+
         public FormOperation()
         {
         }
 
-        public void FormShowRegionInit()
+        public void FormShowRegionInit(Size showPicSz)
         {
             if (formShowRegion.ReadRailSaveFile())
             {
                 formShowRegion.InitRailList();
+                AdjustCanvasSize(showPicSz);
             }
+        }
+
+        public void AdjustCanvasSize(Size showPicSz)
+        {
+            formShowRegion.AdjustRailSize(showPicSz);
         }
 
         public void ShowRegion(Graphics canvas)
         {
             //RemoveLencyOHT();
+            canvas.ScaleTransform(formShowRegion.xScale, formShowRegion.yScale);
+            canvas.TranslateTransform(formShowRegion.ptTranslate.X + formShowRegion.canvasMoveX, formShowRegion.ptTranslate.Y + formShowRegion.canvasMoveY);
+            
             formShowRegion.DrawRailInfo(canvas);
             formShowRegion.DrawVehicleInfo(canvas, dictVechiles);
         }
@@ -92,5 +104,10 @@ namespace WinFormElement
 
         public void DeleteVehicleNode(TreeView tempTreeView)
         { }
+
+        public void BtnCanvasMove(string str)
+        {
+            formShowRegion.CanvasTranslate(str, canvasOffset);
+        }
     }
 }

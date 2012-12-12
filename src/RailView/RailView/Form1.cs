@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -26,7 +27,7 @@ namespace RailView
         private void InitForm()
         {
             //ComponentLocChanged();        
-            formOperation.FormShowRegionInit();
+            formOperation.FormShowRegionInit(this.showPic.Size);
             //test using, finally delete
             TestRailDrawCoor();
             this.showPic.Invalidate();
@@ -191,5 +192,165 @@ namespace RailView
                 this.screenToolStripMenuItem.Image = global::RailView.Properties.Resources.normal_screen2;
             }
         }
+
+        private void showPic_Resize(object sender, EventArgs e)
+        {
+            formOperation.AdjustCanvasSize(this.showPic.Size);
+        }
+        #region //set navigation keys
+
+        private void btn_up_Layout(object sender, LayoutEventArgs e)
+        {
+            GraphicsPath gp = new GraphicsPath();
+            List<Point> arrPoints = new List<Point>();
+            arrPoints.Add(new Point(1, 18));
+            arrPoints.Add(new Point(19, 18));
+            arrPoints.Add(new Point(10, 9));
+            gp.AddLines(arrPoints.ToArray());
+            gp.CloseFigure();
+            btn_up.Region = new Region(gp);
+            this.btn_up.BackColor = Color.Gray;
+        }
+
+        private void btn_down_Layout(object sender, LayoutEventArgs e)
+        {
+            GraphicsPath gp = new GraphicsPath();
+            List<Point> arrPoints = new List<Point>();
+            arrPoints.Add(new Point(1, 2));
+            arrPoints.Add(new Point(19, 2));
+            arrPoints.Add(new Point(10, 11));
+            gp.AddLines(arrPoints.ToArray());
+            gp.CloseFigure();
+            btn_down.Region = new Region(gp);
+            this.btn_down.BackColor = Color.Gray;
+        }
+
+        private void btn_left_Layout(object sender, LayoutEventArgs e)
+        {
+            GraphicsPath gp = new GraphicsPath();
+            List<Point> arrPoints = new List<Point>();
+            arrPoints.Add(new Point(18, 1));
+            arrPoints.Add(new Point(18, 19));
+            arrPoints.Add(new Point(9, 9));
+            gp.AddLines(arrPoints.ToArray());
+            gp.CloseFigure();
+            btn_left.Region = new Region(gp);
+            this.btn_left.BackColor = Color.Gray;
+        }
+
+        private void btn_right_Layout(object sender, LayoutEventArgs e)
+        {
+            GraphicsPath gp = new GraphicsPath();
+            List<Point> arrPoints = new List<Point>();
+            arrPoints.Add(new Point(2, 1));
+            arrPoints.Add(new Point(2, 19));
+            arrPoints.Add(new Point(11, 10));
+            gp.AddLines(arrPoints.ToArray());
+            gp.CloseFigure();
+            btn_right.Region = new Region(gp);
+            this.btn_right.BackColor = Color.Gray;
+        }
+
+        private void btn_center_Layout(object sender, LayoutEventArgs e)
+        {
+            GraphicsPath gp = new GraphicsPath();
+            List<Point> arrPoints = new List<Point>();
+            arrPoints.Add(new Point(2, 2));
+            arrPoints.Add(new Point(2, 18));
+            arrPoints.Add(new Point(18, 18));
+            arrPoints.Add(new Point(18, 2));
+            gp.AddLines(arrPoints.ToArray());
+            gp.CloseFigure();
+            btn_center.Region = new Region(gp);
+            this.btn_center.BackColor = Color.Gray;
+        }
+
+        private void btn_up_MouseEnter(object sender, EventArgs e)
+        {
+            this.btn_up.BackColor = SystemColors.ActiveBorder;
+        }
+
+        private void btn_up_MouseLeave(object sender, EventArgs e)
+        {
+            this.btn_up.BackColor = Color.Gray;
+        }
+
+        private void btn_down_MouseEnter(object sender, EventArgs e)
+        {
+            this.btn_down.BackColor = SystemColors.ActiveBorder;
+        }
+
+        private void btn_down_MouseLeave(object sender, EventArgs e)
+        {
+            this.btn_down.BackColor = Color.Gray;
+        }
+
+        private void btn_left_MouseEnter(object sender, EventArgs e)
+        {
+            this.btn_left.BackColor = SystemColors.ActiveBorder;
+        }
+
+        private void btn_left_MouseLeave(object sender, EventArgs e)
+        {
+            this.btn_left.BackColor = Color.Gray;
+        }
+
+        private void btn_right_MouseEnter(object sender, EventArgs e)
+        {
+            this.btn_right.BackColor = SystemColors.ActiveBorder;
+        }
+
+        private void btn_right_MouseLeave(object sender, EventArgs e)
+        {
+            this.btn_right.BackColor = Color.Gray;
+        }
+
+        private void btn_center_MouseEnter(object sender, EventArgs e)
+        {
+            this.btn_center.BackColor = SystemColors.ActiveBorder;
+        }
+
+        private void btn_center_MouseLeave(object sender, EventArgs e)
+        {
+            this.btn_center.BackColor = Color.Gray;
+        }
+
+        #endregion
+
+
+        #region // navigation keys operation
+
+
+        private void btn_up_MouseClick(object sender, MouseEventArgs e)
+        {
+            formOperation.BtnCanvasMove("up");
+            this.showPic.Invalidate();
+        }
+
+        private void btn_down_MouseClick(object sender, MouseEventArgs e)
+        {
+            formOperation.BtnCanvasMove("down");
+            this.showPic.Invalidate();
+        }
+
+        private void btn_left_MouseClick(object sender, MouseEventArgs e)
+        {
+            formOperation.BtnCanvasMove("left");
+            this.showPic.Invalidate();
+        }
+
+        private void btn_right_MouseClick(object sender, MouseEventArgs e)
+        {
+            formOperation.BtnCanvasMove("right");
+            this.showPic.Invalidate();
+        }
+
+        private void btn_center_MouseClick(object sender, MouseEventArgs e)
+        {
+            formOperation.BtnCanvasMove("center");
+            this.showPic.Invalidate();
+        }
+
+        #endregion
     }   
 }
