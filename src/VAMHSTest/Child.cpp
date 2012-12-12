@@ -44,7 +44,7 @@ BOOL Child::OnInitDialog()
 	CDialogEx::OnInitDialog();
 	InitList();
 	InitComBox();
-	ReadXML();
+	ReadOHTXML();
 	return true;
 
 }
@@ -105,7 +105,7 @@ CString Child::GetType(int num)
 		}
 	return Type;
 }
-void Child::ReadXML()
+void Child::ReadOHTXML()
 {
 	CMarkup XML;
 	CString path = GetXMLPath();
@@ -185,7 +185,7 @@ void Child::DeleteXMLElem(CString ID,CString pos)
 	XML.Save(path);
 }
 
-void Child::SaveXML(CString nID,CString nPos,CString nType,CString nSpeed)
+void Child::SaveOHTXML(CString nID,CString nPos,CString nType,CString nSpeed)
 {
 	CStringW path = GetXMLPath();
 	path += "../Config/OHTandTeachPos.xml";
@@ -245,7 +245,7 @@ void Child::OnBnClickedCreatebutton2()
 	CString sType;
 	sType.Format(_T("%d"),nType);
 	DType = GetType(nType);
-	SaveXML(nID,nPos,sType,nSpeed);
+	SaveOHTXML(nID,nPos,sType,nSpeed);
 	CString str;
 	int ncount = m_TeachPos_List.GetItemCount();
 	m_TeachPos_List.InsertItem(ncount,str);

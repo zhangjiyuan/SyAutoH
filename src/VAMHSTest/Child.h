@@ -22,8 +22,8 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	void InitList();
-	void ReadXML();
-	void SaveXML(CString nID,CString nPos,CString nType,CString nSpeed);
+	void ReadOHTXML();
+	void SaveOHTXML(CString nID,CString nPos,CString nType,CString nSpeed);
 	void InitComBox();
 	void DeleteXMLElem(CString ID,CString pos);
 	CString GetType(int num);
