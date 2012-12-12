@@ -39,6 +39,10 @@
 
 static const ::std::string __MCS__GuiDataUpdater__UpdateData_name = "UpdateData";
 
+static const ::std::string __MCS__GuiDataHub__SetPushCmd_name = "SetPushCmd";
+
+static const ::std::string __MCS__GuiDataHub__SetPushTimer_name = "SetPushTimer";
+
 static const ::std::string __MCS__GuiDataHub__ReadData_name = "ReadData";
 
 static const ::std::string __MCS__GuiDataHub__WriteData_name = "WriteData";
@@ -188,7 +192,7 @@ IceAsync::MCS::AMD_GuiDataUpdater_UpdateData::ice_response()
 }
 
 void
-IceProxy::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem& data, const ::Ice::Context* __ctx)
+IceProxy::MCS::GuiDataUpdater::UpdateData(::Ice::Long time, const ::MCS::GuiDataItem& data, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -198,7 +202,7 @@ IceProxy::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem& data, const 
         {
             __delBase = __getDelegate(false);
             ::IceDelegate::MCS::GuiDataUpdater* __del = dynamic_cast< ::IceDelegate::MCS::GuiDataUpdater*>(__delBase.get());
-            __del->UpdateData(data, __ctx);
+            __del->UpdateData(time, data, __ctx);
             return;
         }
         catch(const ::IceInternal::LocalExceptionWrapper& __ex)
@@ -213,13 +217,14 @@ IceProxy::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem& data, const 
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::GuiDataUpdater::begin_UpdateData(const ::MCS::GuiDataItem& data, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::GuiDataUpdater::begin_UpdateData(::Ice::Long time, const ::MCS::GuiDataItem& data, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
     ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataUpdater__UpdateData_name, __del, __cookie);
     try
     {
         __result->__prepare(__MCS__GuiDataUpdater__UpdateData_name, ::Ice::Idempotent, __ctx);
         ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(time);
         data.__write(__os);
         __os->endWriteEncaps();
         __result->__send(true);
@@ -238,7 +243,7 @@ IceProxy::MCS::GuiDataUpdater::end_UpdateData(const ::Ice::AsyncResultPtr& __res
 }
 
 bool
-IceProxy::MCS::GuiDataUpdater::UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr& __cb, const ::MCS::GuiDataItem& data)
+IceProxy::MCS::GuiDataUpdater::UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr& __cb, ::Ice::Long time, const ::MCS::GuiDataItem& data)
 {
     ::IceInternal::CallbackBasePtr __del;
     if(dynamic_cast< ::Ice::AMISentCallback*>(__cb.get()))
@@ -249,12 +254,12 @@ IceProxy::MCS::GuiDataUpdater::UpdateData_async(const ::MCS::AMI_GuiDataUpdater_
     {
          __del = ::MCS::newCallback_GuiDataUpdater_UpdateData(__cb, &::MCS::AMI_GuiDataUpdater_UpdateData::__response, &::MCS::AMI_GuiDataUpdater_UpdateData::__exception);
     }
-    ::Ice::AsyncResultPtr __ar = begin_UpdateData(data, 0, __del);
+    ::Ice::AsyncResultPtr __ar = begin_UpdateData(time, data, 0, __del);
     return __ar->sentSynchronously();
 }
 
 bool
-IceProxy::MCS::GuiDataUpdater::UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr& __cb, const ::MCS::GuiDataItem& data, const ::Ice::Context& __ctx)
+IceProxy::MCS::GuiDataUpdater::UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr& __cb, ::Ice::Long time, const ::MCS::GuiDataItem& data, const ::Ice::Context& __ctx)
 {
     ::IceInternal::CallbackBasePtr __del;
     if(dynamic_cast< ::Ice::AMISentCallback*>(__cb.get()))
@@ -265,7 +270,7 @@ IceProxy::MCS::GuiDataUpdater::UpdateData_async(const ::MCS::AMI_GuiDataUpdater_
     {
          __del = ::MCS::newCallback_GuiDataUpdater_UpdateData(__cb, &::MCS::AMI_GuiDataUpdater_UpdateData::__response, &::MCS::AMI_GuiDataUpdater_UpdateData::__exception);
     }
-    ::Ice::AsyncResultPtr __ar = begin_UpdateData(data, &__ctx, __del);
+    ::Ice::AsyncResultPtr __ar = begin_UpdateData(time, data, &__ctx, __del);
     return __ar->sentSynchronously();
 }
 
@@ -291,6 +296,152 @@ IceProxy::MCS::GuiDataUpdater::__createDelegateD()
 IceProxy::MCS::GuiDataUpdater::__newInstance() const
 {
     return new GuiDataUpdater;
+}
+
+::Ice::Int
+IceProxy::MCS::GuiDataHub::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context* __ctx)
+{
+    int __cnt = 0;
+    while(true)
+    {
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
+        {
+            __checkTwowayOnly(__MCS__GuiDataHub__SetPushCmd_name);
+            __delBase = __getDelegate(false);
+            ::IceDelegate::MCS::GuiDataHub* __del = dynamic_cast< ::IceDelegate::MCS::GuiDataHub*>(__delBase.get());
+            return __del->SetPushCmd(updater, cmds, session, __ctx);
+        }
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
+    }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MCS::GuiDataHub::begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+{
+    __checkAsyncTwowayOnly(__MCS__GuiDataHub__SetPushCmd_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataHub__SetPushCmd_name, __del, __cookie);
+    try
+    {
+        __result->__prepare(__MCS__GuiDataHub__SetPushCmd_name, ::Ice::Idempotent, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(::Ice::ObjectPrx(::IceInternal::upCast(updater.get())));
+        if(cmds.size() == 0)
+        {
+            __os->writeSize(0);
+        }
+        else
+        {
+            ::MCS::GuiHub::__writeGuiCmdList(__os, &cmds[0], &cmds[0] + cmds.size());
+        }
+        __os->write(session);
+        __os->endWriteEncaps();
+        __result->__send(true);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __result->__exceptionAsync(__ex);
+    }
+    return __result;
+}
+
+::Ice::Int
+IceProxy::MCS::GuiDataHub::end_SetPushCmd(const ::Ice::AsyncResultPtr& __result)
+{
+    ::Ice::AsyncResult::__check(__result, this, __MCS__GuiDataHub__SetPushCmd_name);
+    ::Ice::Int __ret;
+    if(!__result->__wait())
+    {
+        try
+        {
+            __result->__throwUserException();
+        }
+        catch(const ::Ice::UserException& __ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
+        }
+    }
+    ::IceInternal::BasicStream* __is = __result->__getIs();
+    __is->startReadEncaps();
+    __is->read(__ret);
+    __is->endReadEncaps();
+    return __ret;
+}
+
+::Ice::Int
+IceProxy::MCS::GuiDataHub::SetPushTimer(::Ice::Int period, ::Ice::Int session, const ::Ice::Context* __ctx)
+{
+    int __cnt = 0;
+    while(true)
+    {
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
+        {
+            __checkTwowayOnly(__MCS__GuiDataHub__SetPushTimer_name);
+            __delBase = __getDelegate(false);
+            ::IceDelegate::MCS::GuiDataHub* __del = dynamic_cast< ::IceDelegate::MCS::GuiDataHub*>(__delBase.get());
+            return __del->SetPushTimer(period, session, __ctx);
+        }
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapperRelaxed(__delBase, __ex, true, __cnt);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
+    }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::MCS::GuiDataHub::begin_SetPushTimer(::Ice::Int period, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+{
+    __checkAsyncTwowayOnly(__MCS__GuiDataHub__SetPushTimer_name);
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataHub__SetPushTimer_name, __del, __cookie);
+    try
+    {
+        __result->__prepare(__MCS__GuiDataHub__SetPushTimer_name, ::Ice::Idempotent, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(period);
+        __os->write(session);
+        __os->endWriteEncaps();
+        __result->__send(true);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __result->__exceptionAsync(__ex);
+    }
+    return __result;
+}
+
+::Ice::Int
+IceProxy::MCS::GuiDataHub::end_SetPushTimer(const ::Ice::AsyncResultPtr& __result)
+{
+    ::Ice::AsyncResult::__check(__result, this, __MCS__GuiDataHub__SetPushTimer_name);
+    ::Ice::Int __ret;
+    if(!__result->__wait())
+    {
+        try
+        {
+            __result->__throwUserException();
+        }
+        catch(const ::Ice::UserException& __ex)
+        {
+            throw ::Ice::UnknownUserException(__FILE__, __LINE__, __ex.ice_name());
+        }
+    }
+    ::IceInternal::BasicStream* __is = __result->__getIs();
+    __is->startReadEncaps();
+    __is->read(__ret);
+    __is->endReadEncaps();
+    return __ret;
 }
 
 ::std::string
@@ -1136,12 +1287,13 @@ IceProxy::MCS::UserManagement::__newInstance() const
 }
 
 void
-IceDelegateM::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem& data, const ::Ice::Context* __context)
+IceDelegateM::MCS::GuiDataUpdater::UpdateData(::Ice::Long time, const ::MCS::GuiDataItem& data, const ::Ice::Context* __context)
 {
     ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataUpdater__UpdateData_name, ::Ice::Idempotent, __context);
     try
     {
         ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(time);
         data.__write(__os);
     }
     catch(const ::Ice::LocalException& __ex)
@@ -1171,6 +1323,98 @@ IceDelegateM::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem& data, co
         {
             throw ::IceInternal::LocalExceptionWrapper(__ex, false);
         }
+    }
+}
+
+::Ice::Int
+IceDelegateM::MCS::GuiDataHub::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context* __context)
+{
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataHub__SetPushCmd_name, ::Ice::Idempotent, __context);
+    try
+    {
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(::Ice::ObjectPrx(::IceInternal::upCast(updater.get())));
+        if(cmds.size() == 0)
+        {
+            __os->writeSize(0);
+        }
+        else
+        {
+            ::MCS::GuiHub::__writeGuiCmdList(__os, &cmds[0], &cmds[0] + cmds.size());
+        }
+        __os->write(session);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __og.abort(__ex);
+    }
+    bool __ok = __og.invoke();
+    ::Ice::Int __ret;
+    try
+    {
+        if(!__ok)
+        {
+            try
+            {
+                __og.throwUserException();
+            }
+            catch(const ::Ice::UserException& __ex)
+            {
+                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                throw __uue;
+            }
+        }
+        ::IceInternal::BasicStream* __is = __og.is();
+        __is->startReadEncaps();
+        __is->read(__ret);
+        __is->endReadEncaps();
+        return __ret;
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+    }
+}
+
+::Ice::Int
+IceDelegateM::MCS::GuiDataHub::SetPushTimer(::Ice::Int period, ::Ice::Int session, const ::Ice::Context* __context)
+{
+    ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataHub__SetPushTimer_name, ::Ice::Idempotent, __context);
+    try
+    {
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(period);
+        __os->write(session);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __og.abort(__ex);
+    }
+    bool __ok = __og.invoke();
+    ::Ice::Int __ret;
+    try
+    {
+        if(!__ok)
+        {
+            try
+            {
+                __og.throwUserException();
+            }
+            catch(const ::Ice::UserException& __ex)
+            {
+                ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                throw __uue;
+            }
+        }
+        ::IceInternal::BasicStream* __is = __og.is();
+        __is->startReadEncaps();
+        __is->read(__ret);
+        __is->endReadEncaps();
+        return __ret;
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(__ex, false);
     }
 }
 
@@ -1677,9 +1921,151 @@ IceDelegateM::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCo
 }
 
 void
-IceDelegateD::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem&, const ::Ice::Context*)
+IceDelegateD::MCS::GuiDataUpdater::UpdateData(::Ice::Long, const ::MCS::GuiDataItem&, const ::Ice::Context*)
 {
     throw ::Ice::CollocationOptimizationException(__FILE__, __LINE__);
+}
+
+::Ice::Int
+IceDelegateD::MCS::GuiDataHub::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(::Ice::Int& __result, const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _result(__result),
+            _m_updater(updater),
+            _m_cmds(cmds),
+            _m_session(session)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::MCS::GuiDataHub* servant = dynamic_cast< ::MCS::GuiDataHub*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            _result = servant->SetPushCmd(_m_updater, _m_cmds, _m_session, _current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        ::Ice::Int& _result;
+        const ::MCS::GuiDataUpdaterPrx& _m_updater;
+        const ::MCS::GuiHub::GuiCmdList& _m_cmds;
+        ::Ice::Int _m_session;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __MCS__GuiDataHub__SetPushCmd_name, ::Ice::Idempotent, __context);
+    ::Ice::Int __result;
+    try
+    {
+        _DirectI __direct(__result, updater, cmds, session, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
+    return __result;
+}
+
+::Ice::Int
+IceDelegateD::MCS::GuiDataHub::SetPushTimer(::Ice::Int period, ::Ice::Int session, const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(::Ice::Int& __result, ::Ice::Int period, ::Ice::Int session, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _result(__result),
+            _m_period(period),
+            _m_session(session)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::MCS::GuiDataHub* servant = dynamic_cast< ::MCS::GuiDataHub*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            _result = servant->SetPushTimer(_m_period, _m_session, _current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        ::Ice::Int& _result;
+        ::Ice::Int _m_period;
+        ::Ice::Int _m_session;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __MCS__GuiDataHub__SetPushTimer_name, ::Ice::Idempotent, __context);
+    ::Ice::Int __result;
+    try
+    {
+        _DirectI __direct(__result, period, session, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
+    return __result;
 }
 
 ::std::string
@@ -2561,13 +2947,15 @@ MCS::GuiDataUpdater::___UpdateData(::IceInternal::Incoming& __inS, const ::Ice::
     __checkMode(::Ice::Idempotent, __current.mode);
     ::IceInternal::BasicStream* __is = __inS.is();
     __is->startReadEncaps();
+    ::Ice::Long time;
     ::MCS::GuiDataItem data;
+    __is->read(time);
     data.__read(__is);
     __is->endReadEncaps();
     ::MCS::AMD_GuiDataUpdater_UpdateDataPtr __cb = new IceAsync::MCS::AMD_GuiDataUpdater_UpdateData(__inS);
     try
     {
-        UpdateData_async(__cb, data, __current);
+        UpdateData_async(__cb, time, data, __current);
     }
     catch(const ::std::exception& __ex)
     {
@@ -2725,6 +3113,42 @@ MCS::GuiDataHub::ice_staticId()
 }
 
 ::Ice::DispatchStatus
+MCS::GuiDataHub::___SetPushCmd(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Idempotent, __current.mode);
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::MCS::GuiDataUpdaterPrx updater;
+    ::MCS::GuiHub::GuiCmdList cmds;
+    ::Ice::Int session;
+    ::MCS::__read(__is, updater);
+    ::MCS::GuiHub::__readGuiCmdList(__is, cmds);
+    __is->read(session);
+    __is->endReadEncaps();
+    ::IceInternal::BasicStream* __os = __inS.os();
+    ::Ice::Int __ret = SetPushCmd(updater, cmds, session, __current);
+    __os->write(__ret);
+    return ::Ice::DispatchOK;
+}
+
+::Ice::DispatchStatus
+MCS::GuiDataHub::___SetPushTimer(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Idempotent, __current.mode);
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::Ice::Int period;
+    ::Ice::Int session;
+    __is->read(period);
+    __is->read(session);
+    __is->endReadEncaps();
+    ::IceInternal::BasicStream* __os = __inS.os();
+    ::Ice::Int __ret = SetPushTimer(period, session, __current);
+    __os->write(__ret);
+    return ::Ice::DispatchOK;
+}
+
+::Ice::DispatchStatus
 MCS::GuiDataHub::___ReadData(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
 {
     __checkMode(::Ice::Idempotent, __current.mode);
@@ -2791,6 +3215,8 @@ static ::std::string __MCS__GuiDataHub_all[] =
     "EraseDataUpdater",
     "ReadData",
     "SetDataUpdater",
+    "SetPushCmd",
+    "SetPushTimer",
     "WriteData",
     "ice_id",
     "ice_ids",
@@ -2801,7 +3227,7 @@ static ::std::string __MCS__GuiDataHub_all[] =
 ::Ice::DispatchStatus
 MCS::GuiDataHub::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& current)
 {
-    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__GuiDataHub_all, __MCS__GuiDataHub_all + 8, current.operation);
+    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__MCS__GuiDataHub_all, __MCS__GuiDataHub_all + 10, current.operation);
     if(r.first == r.second)
     {
         throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
@@ -2823,21 +3249,29 @@ MCS::GuiDataHub::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& c
         }
         case 3:
         {
-            return ___WriteData(in, current);
+            return ___SetPushCmd(in, current);
         }
         case 4:
         {
-            return ___ice_id(in, current);
+            return ___SetPushTimer(in, current);
         }
         case 5:
         {
-            return ___ice_ids(in, current);
+            return ___WriteData(in, current);
         }
         case 6:
         {
-            return ___ice_isA(in, current);
+            return ___ice_id(in, current);
         }
         case 7:
+        {
+            return ___ice_ids(in, current);
+        }
+        case 8:
+        {
+            return ___ice_isA(in, current);
+        }
+        case 9:
         {
             return ___ice_ping(in, current);
         }

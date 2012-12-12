@@ -16,8 +16,14 @@ namespace MCSControlLib
         public STKInfo()
         {
             InitializeComponent();
+
+            if (null != this.DataChange)
+            {
+                this.DataChange(this, 23);
+            }
         }
- 
+
+        public event DataChangeHander DataChange;
         private GuiAccess.DataHubCli m_dataHub = null;
         public GuiAccess.DataHubCli DataHub
         {

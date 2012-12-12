@@ -47,7 +47,11 @@ namespace MCSControl
                         }
                         catch (System.Exception ex)
                         {
-                            MessageBox.Show(ex.Message);
+                            string strEx;
+                            strEx = ex.Message;
+                            strEx += "\r\n";
+                            strEx += ex.StackTrace;
+                            MessageBox.Show(strEx);
                             MessageBox.Show("System will be restarted.");
                         }
                     }

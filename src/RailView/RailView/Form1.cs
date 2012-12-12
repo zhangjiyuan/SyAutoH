@@ -157,7 +157,7 @@ namespace RailView
             dataHubLink.Async_SetCallBack();
         }
 
-        private void GuiDataUpdate(MCS.GuiDataItem guiData)
+        private void GuiDataUpdate(long lTime, MCS.GuiDataItem guiData)
         {
             lock (quGuiData)
             {

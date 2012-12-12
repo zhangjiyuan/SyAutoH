@@ -52,7 +52,7 @@ public:
     int OHT_Init(int nIndex,int posTime,int statusTime);
 	int Stocker_Auth(int nIndex, const char* sIP);
 	int OHT_AskPath(int nIndex);
-	int OHT_SetConstSpeed(int nIndex,int nSpeed);
+	int OHT_SetConstSpeed(int nSpeed);
 
 	int OHT_Offline(int nIndex);
 	int Stocker_Offline(int nIndex);

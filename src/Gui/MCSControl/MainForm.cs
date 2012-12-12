@@ -31,6 +31,7 @@ namespace MCSControl
 
         private GuiAccess.DataHubCli m_dataHub = new GuiAccess.DataHubCli();
         private Queue<MCS.GuiDataItem> buf = new Queue<MCS.GuiDataItem>();
+        private long m_ltime64 = 0;
         private int m_nSession = -1;
         private Dictionary<string, UserControl> m_dictMcsControl = new Dictionary<string, UserControl>();
         private UserControl _ctrl = null;
@@ -41,11 +42,12 @@ namespace MCSControl
             InitializeComponent();
         }
 
-        private void GuiDataUpdate(MCS.GuiDataItem item)
+        private void GuiDataUpdate(long lTime, MCS.GuiDataItem item)
         {
             lock (buf)
             {
                 buf.Enqueue(item);
+                m_ltime64 = lTime;
             }
         }
 
@@ -59,6 +61,15 @@ namespace MCSControl
 
             InitMcsControlDictionary();
             this.timer1.Start();
+        }
+
+        private void OnDataChange(object sender, int index)
+        {
+            if (index == 23)
+            {
+                string strStk;
+                strStk = "stockerinfo";
+            }
         }
 
         private void InitMcsControlDictionary()
@@ -87,8 +98,14 @@ namespace MCSControl
 
             if (null != _ctrl)
             {
+                if (null != m_ctrlBase)
+                {
+                    m_ctrlBase.DataChange -= new DataChangeHander(OnDataChange);
+                }
+             
                 m_ctrlBase = _ctrl as IMcsControlBase;
-                m_ctrlBase.DataHub = m_dataHub;
+                m_ctrlBase.DataHub = m_dataHub;   
+                m_ctrlBase.DataChange += new DataChangeHander(OnDataChange);
                 _ctrl.Location = new Point(10, 10);
                 _ctrl.Size = new Size(10, 10);
                 this.splitContainer1.Panel2.Controls.Clear();
@@ -102,6 +119,11 @@ namespace MCSControl
             List<MCS.GuiDataItem> listGuiData = new List<MCS.GuiDataItem>();
             lock (buf)
             {
+                DateTime dt = DateTime.MinValue;
+                dt = dt.AddYears(1969);
+                dt = dt.AddSeconds(m_ltime64);
+                dt = dt.ToLocalTime();
+                this.toolStripStatusLabel_PushTime.Text = "Last Push: " + dt.ToString() + " ";
                 while (buf.Count != 0)
                 {
                     MCS.GuiDataItem item = buf.Dequeue();

@@ -7,7 +7,7 @@ using MCS;
 
 namespace GuiAccess
 {
-    public delegate void DataUpdaterHander(GuiDataItem item);
+    public delegate void DataUpdaterHander(long lTime, GuiDataItem item);
     public class DataHubCli : IceNet
     {
         private GuiDataHubPrx remote = null;
@@ -51,12 +51,15 @@ namespace GuiAccess
                                            adapter.createProxy(Communicator.stringToIdentity("callbackReceiver")));
         }
 
-        public void CallBack(GuiDataItem item)
+        public void CallBack(long lTime, GuiDataItem item)
         {
             if (null != this.DataUpdater)
             {
                 m_updateTime = DateTime.Now;
-                this.DataUpdater(item);
+                //m_updateTime = m_updateTime.AddYears(1969);
+                //m_updateTime = m_updateTime.AddSeconds(lTime);
+             
+                this.DataUpdater(lTime, item);
             }
         }
 

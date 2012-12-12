@@ -30,6 +30,7 @@ module MCS
 				
 				StkStatusTime 
 			};
+			sequence<GuiCommand> GuiCmdList;
 			
 			enum PushData
 			{

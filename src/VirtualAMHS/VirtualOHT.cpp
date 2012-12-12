@@ -173,8 +173,10 @@ void VirtualOHT::Handle_SetPath(AMHSPacket& packet)
 		Item.nSpeed = nKeyPosSpeed;
 		m_listPath.push_back(Item);
 	}
+	/*
 	if(nEType == 0)
 		isMove = true;
+	*/
 	AMHSPacket authPacket(OHT_ACK_PATH, 2);
 	if(!m_listPath.empty())
 	{
@@ -210,6 +212,7 @@ void VirtualOHT::Handle_Move(AMHSPacket& packet)
 	switch(nMoveID)
 	{
 	case(0):
+
 		isMove = true;
 		if(isStop == true)
 		{
@@ -282,44 +285,46 @@ void VirtualOHT::OnTimer(void)
 	}
 	if(isMove)
 	{	
-		if(isSetPath)
+		DWORD nEndPos;
+		int nSpeed;
+		PATH_SET_LIST::iterator it;
+		it = m_listPath.end();
+		it--;
+		nEndPos = it->nposition;
+		if(m_nPos != nEndPos)
 		{
-			DWORD nEndPos;
-			int nSpeed;
-			PATH_SET_LIST::iterator it;
-			it = m_listPath.end();
-			it--;
-			nEndPos = it->nposition;
-			if(m_nPos != nEndPos)
+			for(it = m_listPath.begin();it != m_listPath.end();)
 			{
-				for(it = m_listPath.begin();it != m_listPath.end();)
+				if((it->nposition) > ((++it)->nposition))
 				{
-					if((it->nposition) > ((++it)->nposition))
-					{
-						if(m_nTimeCounter % 2000 == 0)
-							m_nPos = it->nposition;
-						break;
-					}
-					it--;
-					if((m_nPos >= (DWORD)it->nposition) && (m_nPos < (DWORD)(++it)->nposition))
-					{		
-						it--;		
-						nSpeed = it->nSpeed;
-						if(nSpeed == 0)
-							nSpeed = (++it)->nSpeed;
-						int speed = (nSpeed * m_nSpeed) / 100;
-						if(m_nTimeCounter % (1000 / speed) == 0)
-							m_nPos++;		
-						break;	
-					}
-				}	
+					if(m_nTimeCounter % 2000 == 0)
+						m_nPos = it->nposition;
+					break;
+				}
+				it--;
+				if((m_nPos >= (DWORD)it->nposition) && (m_nPos < (DWORD)(++it)->nposition))
+				{		
+					it--;		
+					nSpeed = it->nSpeed;
+					if(nSpeed == 0)
+						nSpeed = (++it)->nSpeed;
+					int speed = (nSpeed * m_nSpeed) / 100;
+					if(speed == 0)
+						speed = 1;
+					if(m_nTimeCounter % (1000 / speed) == 0)
+						m_nPos++;		
+					break;	
+				}
 			}	
-			else
-			{	
-				m_nPos = nEndPos;
-				isMove = false;	
-			}
+		}	
+		else
+		{	
+			m_nPos = nEndPos;
+			isMove = false;	
 		}
+	}
+
+	/*
 		else
 		{
 			m_nPos += 1;
@@ -328,7 +333,7 @@ void VirtualOHT::OnTimer(void)
 				m_nPos = 0;	
 			}	
 		}
-     }
+	*/
 		if ((m_nPosUpdateTimeSet > 0) 
 			&& (m_nTimeCounter % m_nPosUpdateTimeSet == 0))
 		{

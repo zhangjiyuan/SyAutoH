@@ -60,3 +60,43 @@ namespace MCS
     {
     }
 }
+
+namespace MCS
+{
+    namespace GuiHub
+    {
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public sealed class GuiCmdListHelper
+        {
+            public static void write(IceInternal.BasicStream os__, MCS.GuiHub.GuiCommand[] v__)
+            {
+                if(v__ == null)
+                {
+                    os__.writeSize(0);
+                }
+                else
+                {
+                    os__.writeSize(v__.Length);
+                    for(int ix__ = 0; ix__ < v__.Length; ++ix__)
+                    {
+                        os__.writeByte((byte)v__[ix__], 10);
+                    }
+                }
+            }
+
+            public static MCS.GuiHub.GuiCommand[] read(IceInternal.BasicStream is__)
+            {
+                MCS.GuiHub.GuiCommand[] v__;
+                {
+                    int szx__ = is__.readAndCheckSeqSize(1);
+                    v__ = new MCS.GuiHub.GuiCommand[szx__];
+                    for(int ix__ = 0; ix__ < szx__; ++ix__)
+                    {
+                        v__[ix__] = (MCS.GuiHub.GuiCommand)is__.readByte(10);
+                    }
+                }
+                return v__;
+            }
+        }
+    }
+}
