@@ -85,7 +85,7 @@ namespace UserTest
           
         }
 
-        private void GuiDataUpdate(MCS.GuiDataItem item)
+        private void GuiDataUpdate(long lTime, MCS.GuiDataItem item)
         {
             lock(buf)
             {

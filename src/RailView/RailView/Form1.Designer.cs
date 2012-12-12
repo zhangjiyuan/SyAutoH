@@ -32,42 +32,43 @@ namespace RailView
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ContextMenuStrip baseInfoMenu;
-            System.Windows.Forms.TreeNode treeNode177 = new System.Windows.Forms.TreeNode("GEM Communcation:");
-            System.Windows.Forms.TreeNode treeNode178 = new System.Windows.Forms.TreeNode("GEM Control:");
-            System.Windows.Forms.TreeNode treeNode179 = new System.Windows.Forms.TreeNode("MCS System Status:");
-            System.Windows.Forms.TreeNode treeNode180 = new System.Windows.Forms.TreeNode("MCS Availabilty:");
-            System.Windows.Forms.TreeNode treeNode181 = new System.Windows.Forms.TreeNode("Test Mode:");
-            System.Windows.Forms.TreeNode treeNode182 = new System.Windows.Forms.TreeNode("Queued:");
-            System.Windows.Forms.TreeNode treeNode183 = new System.Windows.Forms.TreeNode("Waitting:");
-            System.Windows.Forms.TreeNode treeNode184 = new System.Windows.Forms.TreeNode("Transfering:");
-            System.Windows.Forms.TreeNode treeNode185 = new System.Windows.Forms.TreeNode("Paused:");
-            System.Windows.Forms.TreeNode treeNode186 = new System.Windows.Forms.TreeNode("Canceling:");
-            System.Windows.Forms.TreeNode treeNode187 = new System.Windows.Forms.TreeNode("Aborting:");
-            System.Windows.Forms.TreeNode treeNode188 = new System.Windows.Forms.TreeNode("Transfer Count:", new System.Windows.Forms.TreeNode[] {
-            treeNode182,
-            treeNode183,
-            treeNode184,
-            treeNode185,
-            treeNode186,
-            treeNode187});
-            System.Windows.Forms.TreeNode treeNode189 = new System.Windows.Forms.TreeNode("Auto Transfer Executable:");
-            System.Windows.Forms.TreeNode treeNode190 = new System.Windows.Forms.TreeNode("Transfering:");
-            System.Windows.Forms.TreeNode treeNode191 = new System.Windows.Forms.TreeNode("Stage:");
-            System.Windows.Forms.TreeNode treeNode192 = new System.Windows.Forms.TreeNode("Maintenance:");
-            System.Windows.Forms.TreeNode treeNode193 = new System.Windows.Forms.TreeNode("OFF-LINE:");
-            System.Windows.Forms.TreeNode treeNode194 = new System.Windows.Forms.TreeNode("Removed:");
-            System.Windows.Forms.TreeNode treeNode195 = new System.Windows.Forms.TreeNode("OHT Count:", new System.Windows.Forms.TreeNode[] {
-            treeNode189,
-            treeNode190,
-            treeNode191,
-            treeNode192,
-            treeNode193,
-            treeNode194});
-            System.Windows.Forms.TreeNode treeNode196 = new System.Windows.Forms.TreeNode("ZCU Count:");
-            System.Windows.Forms.TreeNode treeNode197 = new System.Windows.Forms.TreeNode("Error:");
-            System.Windows.Forms.TreeNode treeNode198 = new System.Windows.Forms.TreeNode("Fork Count:", new System.Windows.Forms.TreeNode[] {
-            treeNode197});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("GEM Communcation:");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("GEM Control:");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("MCS System Status:");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("MCS Availabilty:");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Test Mode:");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Queued:");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Waitting:");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Transfering:");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Paused:");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Canceling:");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Aborting:");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Transfer Count:", new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode10,
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Auto Transfer Executable:");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Transfering:");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Stage:");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Maintenance:");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("OFF-LINE:");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Removed:");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("OHT Count:", new System.Windows.Forms.TreeNode[] {
+            treeNode13,
+            treeNode14,
+            treeNode15,
+            treeNode16,
+            treeNode17,
+            treeNode18});
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("ZCU Count:");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Error:");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Fork Count:", new System.Windows.Forms.TreeNode[] {
+            treeNode21});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.systemStatues = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -84,13 +85,17 @@ namespace RailView
             this.baseInfoTreeView = new System.Windows.Forms.TreeView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.btn_center = new System.Windows.Forms.Button();
+            this.btn_down = new System.Windows.Forms.Button();
+            this.btn_right = new System.Windows.Forms.Button();
+            this.btn_left = new System.Windows.Forms.Button();
+            this.btn_up = new System.Windows.Forms.Button();
             this.showPic = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.screenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             baseInfoMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.statusStrip1.SuspendLayout();
             this.systemStatues.SuspendLayout();
@@ -122,6 +127,12 @@ namespace RailView
             this.statusStrip1.Size = new System.Drawing.Size(924, 22);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(44, 17);
+            this.toolStripStatusLabel2.Text = "Ready";
             // 
             // toolStripStatusLabel1
             // 
@@ -209,7 +220,7 @@ namespace RailView
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(748, 222);
+            this.tabPage2.Size = new System.Drawing.Size(748, 214);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "OHT Status";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -219,7 +230,7 @@ namespace RailView
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(748, 222);
+            this.tabPage3.Size = new System.Drawing.Size(748, 214);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Equipment Status";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -233,61 +244,61 @@ namespace RailView
             this.baseInfoTreeView.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(180)))), ((int)(((byte)(209)))));
             this.baseInfoTreeView.Location = new System.Drawing.Point(0, 0);
             this.baseInfoTreeView.Name = "baseInfoTreeView";
-            treeNode177.Name = "GEM Communcation:";
-            treeNode177.Text = "GEM Communcation:";
-            treeNode178.Name = "GEM Control:";
-            treeNode178.Tag = "ONLINE";
-            treeNode178.Text = "GEM Control:";
-            treeNode179.Name = "MCS System Status:";
-            treeNode179.Text = "MCS System Status:";
-            treeNode180.Name = "节点0";
-            treeNode180.Text = "MCS Availabilty:";
-            treeNode181.Name = "Test Mode:";
-            treeNode181.Text = "Test Mode:";
-            treeNode182.Name = "Queued:";
-            treeNode182.Text = "Queued:";
-            treeNode183.Name = "Waitting:";
-            treeNode183.Text = "Waitting:";
-            treeNode184.Name = "Transfering:";
-            treeNode184.Text = "Transfering:";
-            treeNode185.Name = "Paused:";
-            treeNode185.Text = "Paused:";
-            treeNode186.Name = "Canceling:";
-            treeNode186.Text = "Canceling:";
-            treeNode187.Name = "Aborting:";
-            treeNode187.Text = "Aborting:";
-            treeNode188.Name = "Transfer Count:";
-            treeNode188.Text = "Transfer Count:";
-            treeNode189.Name = "Auto Transfer Executable:";
-            treeNode189.Text = "Auto Transfer Executable:";
-            treeNode190.Name = "Transfering:";
-            treeNode190.Text = "Transfering:";
-            treeNode191.Name = "Stage:";
-            treeNode191.Text = "Stage:";
-            treeNode192.Name = "Maintenance:";
-            treeNode192.Text = "Maintenance:";
-            treeNode193.Name = "OFF-LINE:";
-            treeNode193.Text = "OFF-LINE:";
-            treeNode194.Name = "Removed:";
-            treeNode194.Text = "Removed:";
-            treeNode195.Name = "OHT Count:";
-            treeNode195.Text = "OHT Count:";
-            treeNode196.Name = "ZCU Count:";
-            treeNode196.Text = "ZCU Count:";
-            treeNode197.Name = "Error:";
-            treeNode197.Text = "Error:";
-            treeNode198.Name = "Fork Count:";
-            treeNode198.Text = "Fork Count:";
+            treeNode1.Name = "GEM Communcation:";
+            treeNode1.Text = "GEM Communcation:";
+            treeNode2.Name = "GEM Control:";
+            treeNode2.Tag = "ONLINE";
+            treeNode2.Text = "GEM Control:";
+            treeNode3.Name = "MCS System Status:";
+            treeNode3.Text = "MCS System Status:";
+            treeNode4.Name = "节点0";
+            treeNode4.Text = "MCS Availabilty:";
+            treeNode5.Name = "Test Mode:";
+            treeNode5.Text = "Test Mode:";
+            treeNode6.Name = "Queued:";
+            treeNode6.Text = "Queued:";
+            treeNode7.Name = "Waitting:";
+            treeNode7.Text = "Waitting:";
+            treeNode8.Name = "Transfering:";
+            treeNode8.Text = "Transfering:";
+            treeNode9.Name = "Paused:";
+            treeNode9.Text = "Paused:";
+            treeNode10.Name = "Canceling:";
+            treeNode10.Text = "Canceling:";
+            treeNode11.Name = "Aborting:";
+            treeNode11.Text = "Aborting:";
+            treeNode12.Name = "Transfer Count:";
+            treeNode12.Text = "Transfer Count:";
+            treeNode13.Name = "Auto Transfer Executable:";
+            treeNode13.Text = "Auto Transfer Executable:";
+            treeNode14.Name = "Transfering:";
+            treeNode14.Text = "Transfering:";
+            treeNode15.Name = "Stage:";
+            treeNode15.Text = "Stage:";
+            treeNode16.Name = "Maintenance:";
+            treeNode16.Text = "Maintenance:";
+            treeNode17.Name = "OFF-LINE:";
+            treeNode17.Text = "OFF-LINE:";
+            treeNode18.Name = "Removed:";
+            treeNode18.Text = "Removed:";
+            treeNode19.Name = "OHT Count:";
+            treeNode19.Text = "OHT Count:";
+            treeNode20.Name = "ZCU Count:";
+            treeNode20.Text = "ZCU Count:";
+            treeNode21.Name = "Error:";
+            treeNode21.Text = "Error:";
+            treeNode22.Name = "Fork Count:";
+            treeNode22.Text = "Fork Count:";
             this.baseInfoTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode177,
-            treeNode178,
-            treeNode179,
-            treeNode180,
-            treeNode181,
-            treeNode188,
-            treeNode195,
-            treeNode196,
-            treeNode198});
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode12,
+            treeNode19,
+            treeNode20,
+            treeNode22});
             this.baseInfoTreeView.Size = new System.Drawing.Size(160, 691);
             this.baseInfoTreeView.TabIndex = 0;
             this.baseInfoTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.baseInfoTreeView_MouseUp);
@@ -321,6 +332,11 @@ namespace RailView
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.btn_center);
+            this.splitContainer2.Panel1.Controls.Add(this.btn_down);
+            this.splitContainer2.Panel1.Controls.Add(this.btn_right);
+            this.splitContainer2.Panel1.Controls.Add(this.btn_left);
+            this.splitContainer2.Panel1.Controls.Add(this.btn_up);
             this.splitContainer2.Panel1.Controls.Add(this.showPic);
             // 
             // splitContainer2.Panel2
@@ -329,6 +345,66 @@ namespace RailView
             this.splitContainer2.Size = new System.Drawing.Size(758, 693);
             this.splitContainer2.SplitterDistance = 447;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // btn_center
+            // 
+            this.btn_center.Location = new System.Drawing.Point(39, 49);
+            this.btn_center.Name = "btn_center";
+            this.btn_center.Size = new System.Drawing.Size(20, 20);
+            this.btn_center.TabIndex = 5;
+            this.btn_center.UseVisualStyleBackColor = true;
+            this.btn_center.Layout += new System.Windows.Forms.LayoutEventHandler(this.btn_center_Layout);
+            this.btn_center.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btn_center_MouseClick);
+            this.btn_center.MouseEnter += new System.EventHandler(this.btn_center_MouseEnter);
+            this.btn_center.MouseLeave += new System.EventHandler(this.btn_center_MouseLeave);
+            // 
+            // btn_down
+            // 
+            this.btn_down.Location = new System.Drawing.Point(39, 69);
+            this.btn_down.Name = "btn_down";
+            this.btn_down.Size = new System.Drawing.Size(20, 20);
+            this.btn_down.TabIndex = 4;
+            this.btn_down.UseVisualStyleBackColor = true;
+            this.btn_down.Layout += new System.Windows.Forms.LayoutEventHandler(this.btn_down_Layout);
+            this.btn_down.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btn_down_MouseClick);
+            this.btn_down.MouseEnter += new System.EventHandler(this.btn_down_MouseEnter);
+            this.btn_down.MouseLeave += new System.EventHandler(this.btn_down_MouseLeave);
+            // 
+            // btn_right
+            // 
+            this.btn_right.Location = new System.Drawing.Point(59, 49);
+            this.btn_right.Name = "btn_right";
+            this.btn_right.Size = new System.Drawing.Size(20, 20);
+            this.btn_right.TabIndex = 3;
+            this.btn_right.UseVisualStyleBackColor = true;
+            this.btn_right.Layout += new System.Windows.Forms.LayoutEventHandler(this.btn_right_Layout);
+            this.btn_right.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btn_right_MouseClick);
+            this.btn_right.MouseEnter += new System.EventHandler(this.btn_right_MouseEnter);
+            this.btn_right.MouseLeave += new System.EventHandler(this.btn_right_MouseLeave);
+            // 
+            // btn_left
+            // 
+            this.btn_left.Location = new System.Drawing.Point(19, 49);
+            this.btn_left.Name = "btn_left";
+            this.btn_left.Size = new System.Drawing.Size(20, 20);
+            this.btn_left.TabIndex = 2;
+            this.btn_left.UseVisualStyleBackColor = true;
+            this.btn_left.Layout += new System.Windows.Forms.LayoutEventHandler(this.btn_left_Layout);
+            this.btn_left.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btn_left_MouseClick);
+            this.btn_left.MouseEnter += new System.EventHandler(this.btn_left_MouseEnter);
+            this.btn_left.MouseLeave += new System.EventHandler(this.btn_left_MouseLeave);
+            // 
+            // btn_up
+            // 
+            this.btn_up.Location = new System.Drawing.Point(39, 29);
+            this.btn_up.Name = "btn_up";
+            this.btn_up.Size = new System.Drawing.Size(20, 20);
+            this.btn_up.TabIndex = 1;
+            this.btn_up.UseVisualStyleBackColor = true;
+            this.btn_up.Layout += new System.Windows.Forms.LayoutEventHandler(this.btn_up_Layout);
+            this.btn_up.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btn_up_MouseClick);
+            this.btn_up.MouseEnter += new System.EventHandler(this.btn_up_MouseEnter);
+            this.btn_up.MouseLeave += new System.EventHandler(this.btn_up_MouseLeave);
             // 
             // showPic
             // 
@@ -340,6 +416,7 @@ namespace RailView
             this.showPic.TabIndex = 0;
             this.showPic.TabStop = false;
             this.showPic.Paint += new System.Windows.Forms.PaintEventHandler(this.showPic_Paint);
+            this.showPic.Resize += new System.EventHandler(this.showPic_Resize);
             // 
             // menuStrip1
             // 
@@ -361,6 +438,13 @@ namespace RailView
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // quitToolStripMenuItem
+            // 
+            this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.quitToolStripMenuItem.Text = "Quit";
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click_1);
+            // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -369,27 +453,14 @@ namespace RailView
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(47, 21);
             this.viewToolStripMenuItem.Text = "View";
             // 
-            // quitToolStripMenuItem
-            // 
-            this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.quitToolStripMenuItem.Text = "Quit";
-            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click_1);
-            // 
             // screenToolStripMenuItem
             // 
             this.screenToolStripMenuItem.Image = global::RailView.Properties.Resources.full_screen2;
             this.screenToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.screenToolStripMenuItem.Name = "screenToolStripMenuItem";
-            this.screenToolStripMenuItem.Size = new System.Drawing.Size(168, 38);
+            this.screenToolStripMenuItem.Size = new System.Drawing.Size(148, 32);
             this.screenToolStripMenuItem.Text = "Full Screen";
             this.screenToolStripMenuItem.Click += new System.EventHandler(this.screenToolStripMenuItem_Click_1);
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(44, 17);
-            this.toolStripStatusLabel2.Text = "Ready";
             // 
             // Form1
             // 
@@ -450,5 +521,10 @@ namespace RailView
         private ToolStripMenuItem quitToolStripMenuItem;
         private ToolStripMenuItem screenToolStripMenuItem;
         private ToolStripStatusLabel toolStripStatusLabel2;
+        private Button btn_center;
+        private Button btn_down;
+        private Button btn_right;
+        private Button btn_left;
+        private Button btn_up;
     }
 }

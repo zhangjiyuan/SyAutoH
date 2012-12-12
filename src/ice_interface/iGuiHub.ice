@@ -23,11 +23,13 @@ struct GuiDataItem
 
 interface GuiDataUpdater
 {
-		["ami", "amd"] idempotent void UpdateData(GuiDataItem data);
+		["ami", "amd"] idempotent void UpdateData(long time, GuiDataItem data);
 };
 
 interface GuiDataHub
 {
+		idempotent int SetPushCmd(GuiDataUpdater* updater, GuiHub::GuiPushDataList list, int session);
+		idempotent int SetPushTimer(int period, int session);
     idempotent string ReadData(GuiHub::GuiCommand Tag, int session);
     idempotent int WriteData(GuiHub::GuiCommand Tag, string Val, int session);
     idempotent void SetDataUpdater(GuiDataUpdater* updater);

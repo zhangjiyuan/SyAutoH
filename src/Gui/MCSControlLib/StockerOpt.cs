@@ -11,9 +11,15 @@ namespace MCSControlLib
 {
     public partial class StockerOpt : UserControl, IMcsControlBase
     {
+        public event DataChangeHander DataChange;
         public StockerOpt()
         {
             InitializeComponent();
+
+            if (null != this.DataChange)
+            {
+                this.DataChange(this, 24);
+            }
         }
 
         private GuiAccess.DataHubCli m_dataHub = null;
@@ -27,6 +33,16 @@ namespace MCSControlLib
             {
                 return m_dataHub;
             }
+        }
+
+        public void PageInit()
+        {
+
+        }
+
+        public void PageExit()
+        {
+
         }
 
         public void ProcessGuiData(List<MCS.GuiDataItem> list)

@@ -63,3 +63,26 @@ MCS::GuiHub::__read(::IceInternal::BasicStream* __is, ::MCS::GuiHub::PushData& v
     __is->read(val, 4);
     v = static_cast< ::MCS::GuiHub::PushData>(val);
 }
+
+void
+MCS::GuiHub::__writeGuiPushDataList(::IceInternal::BasicStream* __os, const ::MCS::GuiHub::PushData* begin, const ::MCS::GuiHub::PushData* end)
+{
+    ::Ice::Int size = static_cast< ::Ice::Int>(end - begin);
+    __os->writeSize(size);
+    for(int i = 0; i < size; ++i)
+    {
+        ::MCS::GuiHub::__write(__os, begin[i]);
+    }
+}
+
+void
+MCS::GuiHub::__readGuiPushDataList(::IceInternal::BasicStream* __is, ::MCS::GuiHub::GuiPushDataList& v)
+{
+    ::Ice::Int sz;
+    __is->readAndCheckSeqSize(1, sz);
+    v.resize(sz);
+    for(int i = 0; i < sz; ++i)
+    {
+        ::MCS::GuiHub::__read(__is, v[i]);
+    }
+}

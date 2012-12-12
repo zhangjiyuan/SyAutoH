@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("OHT Info");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("STK ID: 23");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Stocker Info", new System.Windows.Forms.TreeNode[] {
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Mes Command");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("OHT Info");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("STK ID: 23");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Stocker Info", new System.Windows.Forms.TreeNode[] {
+            treeNode6});
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Mes Command");
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLable_Status = new System.Windows.Forms.ToolStripStatusLabel();
@@ -46,6 +46,7 @@
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolStripStatusLabel_PushTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -85,6 +86,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLable_Status,
             this.toolStripStatusLabel_NULL,
+            this.toolStripStatusLabel_PushTime,
             this.toolStripStatusLabel_User});
             this.statusStrip1.Location = new System.Drawing.Point(0, 0);
             this.statusStrip1.Name = "statusStrip1";
@@ -101,7 +103,7 @@
             // toolStripStatusLabel_NULL
             // 
             this.toolStripStatusLabel_NULL.Name = "toolStripStatusLabel_NULL";
-            this.toolStripStatusLabel_NULL.Size = new System.Drawing.Size(818, 17);
+            this.toolStripStatusLabel_NULL.Size = new System.Drawing.Size(724, 17);
             this.toolStripStatusLabel_NULL.Spring = true;
             // 
             // toolStripStatusLabel_User
@@ -137,18 +139,18 @@
             this.treeView1.LineColor = System.Drawing.Color.DodgerBlue;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "nodeOHTInfo";
-            treeNode1.Text = "OHT Info";
-            treeNode2.Name = "snodeSTK23";
-            treeNode2.Text = "STK ID: 23";
-            treeNode3.Name = "nodeSTKInfo";
-            treeNode3.Text = "Stocker Info";
-            treeNode4.Name = "nodeMesCommand";
-            treeNode4.Text = "Mes Command";
+            treeNode5.Name = "nodeOHTInfo";
+            treeNode5.Text = "OHT Info";
+            treeNode6.Name = "snodeSTK23";
+            treeNode6.Text = "STK ID: 23";
+            treeNode7.Name = "nodeSTKInfo";
+            treeNode7.Text = "Stocker Info";
+            treeNode8.Name = "nodeMesCommand";
+            treeNode8.Text = "Mes Command";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode3,
-            treeNode4});
+            treeNode5,
+            treeNode7,
+            treeNode8});
             this.treeView1.Size = new System.Drawing.Size(133, 499);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
@@ -194,6 +196,12 @@
             this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // toolStripStatusLabel_PushTime
+            // 
+            this.toolStripStatusLabel_PushTime.Name = "toolStripStatusLabel_PushTime";
+            this.toolStripStatusLabel_PushTime.Size = new System.Drawing.Size(63, 17);
+            this.toolStripStatusLabel_PushTime.Text = "PushTime";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -237,5 +245,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_PushTime;
     }
 }
