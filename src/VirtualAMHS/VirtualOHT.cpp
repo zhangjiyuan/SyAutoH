@@ -299,7 +299,7 @@ void VirtualOHT::OnTimer(void)
 		it = m_listPath.end();
 		it--;
 		nEndPos = it->nposition;
-		if(m_nPos != nEndPos)
+		if(m_nPos < nEndPos)
 		{
 			for(it = m_listPath.begin();it != m_listPath.end();)
 			{

@@ -212,10 +212,10 @@ HCURSOR CVAMHSTestDlg::OnQueryDragIcon()
 
 void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 {
-	int nSpeed = GetDlgItemInt(IDC_SPEED_SET_EDIT);
+	int nSpeed = GetSpeed();
 	if(nSpeed <= 0)
 	{
-		MessageBox(_T("please set the speed first!"));
+		MessageBox(_T("The speed hasn't been set!"));
 	    return;
 	}
 	int nOHT_ID = GetSelectOhtID();
@@ -249,10 +249,9 @@ void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 	{
 		int nAdd = g_pVDev->OHT_Auth(nOHT_ID,nPosition,nHand);
 		int nInit = g_pVDev->OHT_Init(nOHT_ID,nPosTime,nStatusTime);
-	    int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed);
+	    int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed,nOHT_ID);
 	}
 }
-
 
 void CVAMHSTestDlg::OnDestroy()
 {
@@ -268,7 +267,6 @@ void CVAMHSTestDlg::OnDestroy()
 	}
 	FreeConsole();                      // 释放控制台资源
 }
-
 
 void CVAMHSTestDlg::OnBnClickedBnAddstk()
 {
@@ -460,7 +458,25 @@ CStringW CVAMHSTestDlg::GetPath()
 	CStringW csw = ws.c_str();
 	return csw;
 }
-
+int CVAMHSTestDlg::GetSpeed()
+{
+	CMarkup xml;
+	CString path = GetPath();
+	path += "../Config/OHTandTeachPos.xml";
+	xml.Load(path);
+	xml.FindElem();
+	if(xml.FindChildElem(_T("ConstSpeed")))
+	{
+		xml.IntoElem();
+		xml.FindChildElem(_T("Speed"));
+		xml.IntoElem();
+		CString cSpeed = xml.GetData();
+		int nSpeed = _ttoi(cSpeed);
+		return nSpeed;
+	}
+	else 
+		return 0;
+}
 void CVAMHSTestDlg::OnBnClickedBnOhtAdd()
 {
 	CDlgAddOht dlgAddOht;
@@ -490,7 +506,6 @@ void CVAMHSTestDlg::OnBnClickedBnOhtAdd()
 	}
 }
 
-
 void CVAMHSTestDlg::OnBnClickedBnSethand()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -502,7 +517,6 @@ void CVAMHSTestDlg::OnBnClickedBnSethand()
 	it->second->nHandStatus = hand_Set;
 	SaveXML();
 }
-
 
 void CVAMHSTestDlg::OnBnClickedBnTeachPos()
 {
@@ -631,7 +645,6 @@ void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 	CDialogEx::OnTimer(nIDEvent);
 }
 
-
 void CVAMHSTestDlg::SetOHTListItemData(ItemOHT* pOHT, int nListIndex)
 {
 	CString str;
@@ -753,15 +766,29 @@ void CVAMHSTestDlg::OnBnClickedSpeedSetButton()
 	// TODO: 在此添加控件通知处理程序代码
 	int nSpeed = GetDlgItemInt(IDC_SPEED_SET_EDIT);
 	int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed);
+	CMarkup xml;
+	CString path = GetPath();
+	path += "../Config/OHTandTeachPos.xml";
+	xml.Load(path);
+	xml.FindElem();
+	while(xml.FindChildElem(_T("ConstSpeed")))
+	{
+		xml.RemoveChildElem();
+	}
+	xml.AddChildElem(_T("ConstSpeed"));
+	xml.IntoElem();
+	xml.AddChildElem(_T("Speed"),nSpeed);
+	xml.OutOfElem();
+	xml.Save(path);
 }
 
 void CVAMHSTestDlg::OnBnClickedBnAllohtonline()
 {
 	// TODO: 在此添加控件通知处理程序代码
-    int nSpeed = GetDlgItemInt(IDC_SPEED_SET_EDIT);
+    int nSpeed = GetSpeed();
 	if(nSpeed <= 0)
 	{
-		MessageBox(_T("please set the speed first!"));
+		MessageBox(_T("The speed hasn't been set!"));
 		return;
 	}
 	MAP_ItemOHT::iterator it;
@@ -794,14 +821,14 @@ void CVAMHSTestDlg::OnBnClickedBnAllohtonline()
 			        nStatusTime = GetElemData(XML,_T("StatusTime"));
 		        }
 	        	XML.OutOfElem();
-	       }
-	       XML.OutOfElem();
-	       if (nOHT_ID >= 0)
-	       {
-			   int nAdd = g_pVDev->OHT_Auth(nOHT_ID,nPosition,nHand);
-		       int nInit = g_pVDev->OHT_Init(nOHT_ID,nPosTime,nStatusTime);
-	           int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed);
-	       }
+	        }
+	        XML.OutOfElem();
+	        if (nOHT_ID >= 0)
+	        {
+			    int nAdd = g_pVDev->OHT_Auth(nOHT_ID,nPosition,nHand);
+		        int nInit = g_pVDev->OHT_Init(nOHT_ID,nPosTime,nStatusTime);
+	            int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed,nOHT_ID);
+	        }
 		} 
 	}
 }

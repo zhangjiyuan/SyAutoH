@@ -114,14 +114,23 @@ int CVirtualAMHS::OHT_Init(int nIndex, int posTime, int statusTime)
 	it->second->m_nStatusUpdateTimeSet = statusTime;
 	return 0;
 }
-int CVirtualAMHS::OHT_SetConstSpeed(int nSpeed)
+int CVirtualAMHS::OHT_SetConstSpeed(int nSpeed,int nIndex)
 {
 	MAP_VOHT::iterator it;
-	for(it = m_mapOHT->begin();it != m_mapOHT->end();it++)
+	if(nIndex >= 0)
 	{
+		it = m_mapOHT->find(nIndex);
 		it->second->m_nSpeed = nSpeed;
-	}
 		return 0;
+	}
+	else
+	{
+		for(it = m_mapOHT->begin();it != m_mapOHT->end();it++)
+		{
+			it->second->m_nSpeed = nSpeed;
+		}
+		return 0;
+	}
 }
 int CVirtualAMHS::OHT_Offline(int nIndex)
 {

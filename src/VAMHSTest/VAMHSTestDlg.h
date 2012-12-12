@@ -56,6 +56,7 @@ public:
 	afx_msg void OnBnClickedBnStkHistory();
 	CComboBox m_cbOhtTeachType;
 	int GetSelectOhtID(void);
+	int GetSpeed();
 	void SaveXML();
 	void ReadXML();
 	CStringW GetPath();
