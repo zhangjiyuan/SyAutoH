@@ -23,7 +23,7 @@ struct GuiDataItem
 
 interface GuiDataUpdater
 {
-		["ami", "amd"] idempotent void UpdateData(GuiDataItem data);
+		["ami", "amd"] idempotent void UpdateData(long time, GuiDataItem data);
 };
 
 interface GuiDataHub

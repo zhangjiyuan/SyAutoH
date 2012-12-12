@@ -51,6 +51,7 @@ public:
 private:
 	SET_UPDATER m_setUpdater;
 	rwmutex m_rwUpdaterSet;
+	rwmutex m_rwTimerSet;
 	CAMHSDrive* m_pAMHSDrive;
 
 	typedef void (GuiDataHubI::*WriteHander)(const std::string&);

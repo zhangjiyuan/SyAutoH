@@ -192,7 +192,7 @@ IceAsync::MCS::AMD_GuiDataUpdater_UpdateData::ice_response()
 }
 
 void
-IceProxy::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem& data, const ::Ice::Context* __ctx)
+IceProxy::MCS::GuiDataUpdater::UpdateData(::Ice::Long time, const ::MCS::GuiDataItem& data, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -202,7 +202,7 @@ IceProxy::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem& data, const 
         {
             __delBase = __getDelegate(false);
             ::IceDelegate::MCS::GuiDataUpdater* __del = dynamic_cast< ::IceDelegate::MCS::GuiDataUpdater*>(__delBase.get());
-            __del->UpdateData(data, __ctx);
+            __del->UpdateData(time, data, __ctx);
             return;
         }
         catch(const ::IceInternal::LocalExceptionWrapper& __ex)
@@ -217,13 +217,14 @@ IceProxy::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem& data, const 
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::GuiDataUpdater::begin_UpdateData(const ::MCS::GuiDataItem& data, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::GuiDataUpdater::begin_UpdateData(::Ice::Long time, const ::MCS::GuiDataItem& data, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
     ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataUpdater__UpdateData_name, __del, __cookie);
     try
     {
         __result->__prepare(__MCS__GuiDataUpdater__UpdateData_name, ::Ice::Idempotent, __ctx);
         ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(time);
         data.__write(__os);
         __os->endWriteEncaps();
         __result->__send(true);
@@ -242,7 +243,7 @@ IceProxy::MCS::GuiDataUpdater::end_UpdateData(const ::Ice::AsyncResultPtr& __res
 }
 
 bool
-IceProxy::MCS::GuiDataUpdater::UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr& __cb, const ::MCS::GuiDataItem& data)
+IceProxy::MCS::GuiDataUpdater::UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr& __cb, ::Ice::Long time, const ::MCS::GuiDataItem& data)
 {
     ::IceInternal::CallbackBasePtr __del;
     if(dynamic_cast< ::Ice::AMISentCallback*>(__cb.get()))
@@ -253,12 +254,12 @@ IceProxy::MCS::GuiDataUpdater::UpdateData_async(const ::MCS::AMI_GuiDataUpdater_
     {
          __del = ::MCS::newCallback_GuiDataUpdater_UpdateData(__cb, &::MCS::AMI_GuiDataUpdater_UpdateData::__response, &::MCS::AMI_GuiDataUpdater_UpdateData::__exception);
     }
-    ::Ice::AsyncResultPtr __ar = begin_UpdateData(data, 0, __del);
+    ::Ice::AsyncResultPtr __ar = begin_UpdateData(time, data, 0, __del);
     return __ar->sentSynchronously();
 }
 
 bool
-IceProxy::MCS::GuiDataUpdater::UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr& __cb, const ::MCS::GuiDataItem& data, const ::Ice::Context& __ctx)
+IceProxy::MCS::GuiDataUpdater::UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr& __cb, ::Ice::Long time, const ::MCS::GuiDataItem& data, const ::Ice::Context& __ctx)
 {
     ::IceInternal::CallbackBasePtr __del;
     if(dynamic_cast< ::Ice::AMISentCallback*>(__cb.get()))
@@ -269,7 +270,7 @@ IceProxy::MCS::GuiDataUpdater::UpdateData_async(const ::MCS::AMI_GuiDataUpdater_
     {
          __del = ::MCS::newCallback_GuiDataUpdater_UpdateData(__cb, &::MCS::AMI_GuiDataUpdater_UpdateData::__response, &::MCS::AMI_GuiDataUpdater_UpdateData::__exception);
     }
-    ::Ice::AsyncResultPtr __ar = begin_UpdateData(data, &__ctx, __del);
+    ::Ice::AsyncResultPtr __ar = begin_UpdateData(time, data, &__ctx, __del);
     return __ar->sentSynchronously();
 }
 
@@ -1286,12 +1287,13 @@ IceProxy::MCS::UserManagement::__newInstance() const
 }
 
 void
-IceDelegateM::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem& data, const ::Ice::Context* __context)
+IceDelegateM::MCS::GuiDataUpdater::UpdateData(::Ice::Long time, const ::MCS::GuiDataItem& data, const ::Ice::Context* __context)
 {
     ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataUpdater__UpdateData_name, ::Ice::Idempotent, __context);
     try
     {
         ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(time);
         data.__write(__os);
     }
     catch(const ::Ice::LocalException& __ex)
@@ -1919,7 +1921,7 @@ IceDelegateM::MCS::UserManagement::GetUserList(::Ice::Int nBegin, ::Ice::Int nCo
 }
 
 void
-IceDelegateD::MCS::GuiDataUpdater::UpdateData(const ::MCS::GuiDataItem&, const ::Ice::Context*)
+IceDelegateD::MCS::GuiDataUpdater::UpdateData(::Ice::Long, const ::MCS::GuiDataItem&, const ::Ice::Context*)
 {
     throw ::Ice::CollocationOptimizationException(__FILE__, __LINE__);
 }
@@ -2945,13 +2947,15 @@ MCS::GuiDataUpdater::___UpdateData(::IceInternal::Incoming& __inS, const ::Ice::
     __checkMode(::Ice::Idempotent, __current.mode);
     ::IceInternal::BasicStream* __is = __inS.is();
     __is->startReadEncaps();
+    ::Ice::Long time;
     ::MCS::GuiDataItem data;
+    __is->read(time);
     data.__read(__is);
     __is->endReadEncaps();
     ::MCS::AMD_GuiDataUpdater_UpdateDataPtr __cb = new IceAsync::MCS::AMD_GuiDataUpdater_UpdateData(__inS);
     try
     {
-        UpdateData_async(__cb, data, __current);
+        UpdateData_async(__cb, time, data, __current);
     }
     catch(const ::std::exception& __ex)
     {

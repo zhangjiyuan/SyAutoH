@@ -61,13 +61,23 @@ Ice::Int GuiDataHubI::WriteData(MCS::GuiHub::GuiCommand enumCmd,
 	}
 }
 
-int GuiDataHubI::SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Current& )
+int GuiDataHubI::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& guicli, 
+	const ::MCS::GuiHub::GuiCmdList& cmdlist, ::Ice::Int, const ::Ice::Current& )
 {
+	WLock(m_rwUpdaterSet)
+	{
+
+	}
 	return 0;
 }
 
-int GuiDataHubI::SetPushTimer(::Ice::Int, ::Ice::Int, const ::Ice::Current& )
+int GuiDataHubI::SetPushTimer(::Ice::Int nPeriord, ::Ice::Int, const ::Ice::Current& )
 {
+	WLock(m_rwTimerSet)
+	{
+		m_nTimerPeriord = nPeriord;
+	}
+
 	return 0;
 }
 
@@ -121,8 +131,11 @@ void GuiDataHubI::UpdateData(MCS::GuiHub::PushData nTag, const std::string &sVal
 				GuiDataItem item;
 				item.enumTag =nTag;
 				item.sVal = sVal;
+				__time64_t time;
+				_time64(&time);
+				
 
-				(*p)->begin_UpdateData(item,
+				(*p)->begin_UpdateData(time, item,
 					newCallback_GuiDataUpdater_UpdateData(cb, &UpdateCallback::response, 
 					&UpdateCallback::exception));
 			}

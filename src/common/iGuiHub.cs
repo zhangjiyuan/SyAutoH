@@ -408,19 +408,19 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataUpdaterPrx : Ice.ObjectPrx
     {
-        void UpdateData(MCS.GuiDataItem data);
-        void UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__);
+        void UpdateData(long time, MCS.GuiDataItem data);
+        void UpdateData(long time, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(MCS.GuiDataItem data);
-        Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__);
+        Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(long time, MCS.GuiDataItem data);
+        Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(long time, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__);
 
-        Ice.AsyncResult begin_UpdateData(MCS.GuiDataItem data, Ice.AsyncCallback cb__, object cookie__);
-        Ice.AsyncResult begin_UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_UpdateData(long time, MCS.GuiDataItem data, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_UpdateData(long time, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
 
         void end_UpdateData(Ice.AsyncResult r__);
 
-        bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data);
-        bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__);
+        bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, long time, MCS.GuiDataItem data);
+        bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, long time, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -591,13 +591,13 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataUpdaterOperations_
     {
-        void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data, Ice.Current current__);
+        void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, long time, MCS.GuiDataItem data, Ice.Current current__);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataUpdaterOperationsNC_
     {
-        void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data);
+        void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, long time, MCS.GuiDataItem data);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -681,17 +681,17 @@ namespace MCS
     {
         #region Synchronous operations
 
-        public void UpdateData(MCS.GuiDataItem data)
+        public void UpdateData(long time, MCS.GuiDataItem data)
         {
-            UpdateData(data, null, false);
+            UpdateData(time, data, null, false);
         }
 
-        public void UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__)
+        public void UpdateData(long time, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__)
         {
-            UpdateData(data, context__, true);
+            UpdateData(time, data, context__, true);
         }
 
-        private void UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        private void UpdateData(long time, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
         {
             if(explicitContext__ && context__ == null)
             {
@@ -705,7 +705,7 @@ namespace MCS
                 {
                     delBase__ = getDelegate__(false);
                     GuiDataUpdaterDel_ del__ = (GuiDataUpdaterDel_)delBase__;
-                    del__.UpdateData(data, context__);
+                    del__.UpdateData(time, data, context__);
                     return;
                 }
                 catch(IceInternal.LocalExceptionWrapper ex__)
@@ -723,24 +723,24 @@ namespace MCS
 
         #region Asynchronous operations
 
-        public Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(MCS.GuiDataItem data)
+        public Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(long time, MCS.GuiDataItem data)
         {
-            return begin_UpdateData(data, null, false, null, null);
+            return begin_UpdateData(time, data, null, false, null, null);
         }
 
-        public Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        public Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(long time, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__)
         {
-            return begin_UpdateData(data, ctx__, true, null, null);
+            return begin_UpdateData(time, data, ctx__, true, null, null);
         }
 
-        public Ice.AsyncResult begin_UpdateData(MCS.GuiDataItem data, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_UpdateData(long time, MCS.GuiDataItem data, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_UpdateData(data, null, false, cb__, cookie__);
+            return begin_UpdateData(time, data, null, false, cb__, cookie__);
         }
 
-        public Ice.AsyncResult begin_UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_UpdateData(long time, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_UpdateData(data, ctx__, true, cb__, cookie__);
+            return begin_UpdateData(time, data, ctx__, true, cb__, cookie__);
         }
 
         private const string __UpdateData_name = "UpdateData";
@@ -750,7 +750,7 @@ namespace MCS
             end__(r__, __UpdateData_name);
         }
 
-        private Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        private Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> begin_UpdateData(long time, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
         {
             IceInternal.OnewayOutgoingAsync<MCS.Callback_GuiDataUpdater_UpdateData> result__ = new IceInternal.OnewayOutgoingAsync<MCS.Callback_GuiDataUpdater_UpdateData>(this, __UpdateData_name, UpdateData_completed__, cookie__);
             if(cb__ != null)
@@ -761,6 +761,7 @@ namespace MCS
             {
                 result__.prepare__(__UpdateData_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
                 IceInternal.BasicStream os__ = result__.ostr__;
+                os__.writeLong(time);
                 if(data == null)
                 {
                     MCS.GuiDataItem tmp__ = new MCS.GuiDataItem();
@@ -788,9 +789,9 @@ namespace MCS
             }
         }
 
-        public bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data)
+        public bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, long time, MCS.GuiDataItem data)
         {
-            Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> result__ = begin_UpdateData(data);
+            Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> result__ = begin_UpdateData(time, data);
             result__.whenCompleted(cb__.response__, cb__.exception__);
             if(cb__ is Ice.AMISentCallback)
             {
@@ -799,9 +800,9 @@ namespace MCS
             return result__.sentSynchronously();
         }
 
-        public bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        public bool UpdateData_async(MCS.AMI_GuiDataUpdater_UpdateData cb__, long time, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> ctx__)
         {
-            Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> result__ = begin_UpdateData(data, ctx__);
+            Ice.AsyncResult<MCS.Callback_GuiDataUpdater_UpdateData> result__ = begin_UpdateData(time, data, ctx__);
             result__.whenCompleted(cb__.response__, cb__.exception__);
             if(cb__ is Ice.AMISentCallback)
             {
@@ -3080,7 +3081,7 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface GuiDataUpdaterDel_ : Ice.ObjectDel_
     {
-        void UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__);
+        void UpdateData(long time, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -3126,7 +3127,7 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public sealed class GuiDataUpdaterDelM_ : Ice.ObjectDelM_, GuiDataUpdaterDel_
     {
-        public void UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__)
+        public void UpdateData(long time, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             IceInternal.Outgoing og__ = handler__.getOutgoing("UpdateData", Ice.OperationMode.Idempotent, context__);
             try
@@ -3134,6 +3135,7 @@ namespace MCS
                 try
                 {
                     IceInternal.BasicStream os__ = og__.ostr();
+                    os__.writeLong(time);
                     if(data == null)
                     {
                         MCS.GuiDataItem tmp__ = new MCS.GuiDataItem();
@@ -3873,7 +3875,7 @@ namespace MCS
     public sealed class GuiDataUpdaterDelD_ : Ice.ObjectDelD_, GuiDataUpdaterDel_
     {
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
-        public void UpdateData(MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__)
+        public void UpdateData(long time, MCS.GuiDataItem data, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             throw new Ice.CollocationOptimizationException();
         }
@@ -4524,12 +4526,12 @@ namespace MCS
     {
         #region Slice operations
 
-        public void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data)
+        public void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, long time, MCS.GuiDataItem data)
         {
-            UpdateData_async(cb__, data, Ice.ObjectImpl.defaultCurrent);
+            UpdateData_async(cb__, time, data, Ice.ObjectImpl.defaultCurrent);
         }
 
-        public abstract void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, MCS.GuiDataItem data, Ice.Current current__);
+        public abstract void UpdateData_async(MCS.AMD_GuiDataUpdater_UpdateData cb__, long time, MCS.GuiDataItem data, Ice.Current current__);
 
         #endregion
 
@@ -4586,6 +4588,8 @@ namespace MCS
             checkMode__(Ice.OperationMode.Idempotent, current__.mode);
             IceInternal.BasicStream is__ = inS__.istr();
             is__.startReadEncaps();
+            long time;
+            time = is__.readLong();
             MCS.GuiDataItem data;
             data = null;
             if(data == null)
@@ -4597,7 +4601,7 @@ namespace MCS
             AMD_GuiDataUpdater_UpdateData cb__ = new _AMD_GuiDataUpdater_UpdateData(inS__);
             try
             {
-                obj__.UpdateData_async(cb__, data, current__);
+                obj__.UpdateData_async(cb__, time, data, current__);
             }
             catch(_System.Exception ex__)
             {

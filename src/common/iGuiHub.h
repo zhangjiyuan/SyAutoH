@@ -397,55 +397,55 @@ class GuiDataUpdater : virtual public ::IceProxy::Ice::Object
 {
 public:
 
-    void UpdateData(const ::MCS::GuiDataItem& data)
+    void UpdateData(::Ice::Long time, const ::MCS::GuiDataItem& data)
     {
-        UpdateData(data, 0);
+        UpdateData(time, data, 0);
     }
-    void UpdateData(const ::MCS::GuiDataItem& data, const ::Ice::Context& __ctx)
+    void UpdateData(::Ice::Long time, const ::MCS::GuiDataItem& data, const ::Ice::Context& __ctx)
     {
-        UpdateData(data, &__ctx);
-    }
-
-    ::Ice::AsyncResultPtr begin_UpdateData(const ::MCS::GuiDataItem& data)
-    {
-        return begin_UpdateData(data, 0, ::IceInternal::__dummyCallback, 0);
+        UpdateData(time, data, &__ctx);
     }
 
-    ::Ice::AsyncResultPtr begin_UpdateData(const ::MCS::GuiDataItem& data, const ::Ice::Context& __ctx)
+    ::Ice::AsyncResultPtr begin_UpdateData(::Ice::Long time, const ::MCS::GuiDataItem& data)
     {
-        return begin_UpdateData(data, &__ctx, ::IceInternal::__dummyCallback, 0);
+        return begin_UpdateData(time, data, 0, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_UpdateData(const ::MCS::GuiDataItem& data, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_UpdateData(::Ice::Long time, const ::MCS::GuiDataItem& data, const ::Ice::Context& __ctx)
     {
-        return begin_UpdateData(data, 0, __del, __cookie);
+        return begin_UpdateData(time, data, &__ctx, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_UpdateData(const ::MCS::GuiDataItem& data, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_UpdateData(::Ice::Long time, const ::MCS::GuiDataItem& data, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_UpdateData(data, &__ctx, __del, __cookie);
+        return begin_UpdateData(time, data, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_UpdateData(const ::MCS::GuiDataItem& data, const ::MCS::Callback_GuiDataUpdater_UpdateDataPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_UpdateData(::Ice::Long time, const ::MCS::GuiDataItem& data, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_UpdateData(data, 0, __del, __cookie);
+        return begin_UpdateData(time, data, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_UpdateData(const ::MCS::GuiDataItem& data, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataUpdater_UpdateDataPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_UpdateData(::Ice::Long time, const ::MCS::GuiDataItem& data, const ::MCS::Callback_GuiDataUpdater_UpdateDataPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_UpdateData(data, &__ctx, __del, __cookie);
+        return begin_UpdateData(time, data, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_UpdateData(::Ice::Long time, const ::MCS::GuiDataItem& data, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataUpdater_UpdateDataPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_UpdateData(time, data, &__ctx, __del, __cookie);
     }
 
     void end_UpdateData(const ::Ice::AsyncResultPtr&);
     
 private:
 
-    void UpdateData(const ::MCS::GuiDataItem&, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_UpdateData(const ::MCS::GuiDataItem&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    void UpdateData(::Ice::Long, const ::MCS::GuiDataItem&, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_UpdateData(::Ice::Long, const ::MCS::GuiDataItem&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
-    bool UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr&, const ::MCS::GuiDataItem&);
-    bool UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr&, const ::MCS::GuiDataItem&, const ::Ice::Context&);
+    bool UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr&, ::Ice::Long, const ::MCS::GuiDataItem&);
+    bool UpdateData_async(const ::MCS::AMI_GuiDataUpdater_UpdateDataPtr&, ::Ice::Long, const ::MCS::GuiDataItem&, const ::Ice::Context&);
     
     ::IceInternal::ProxyHandle<GuiDataUpdater> ice_context(const ::Ice::Context& __context) const
     {
@@ -1738,7 +1738,7 @@ class GuiDataUpdater : virtual public ::IceDelegate::Ice::Object
 {
 public:
 
-    virtual void UpdateData(const ::MCS::GuiDataItem&, const ::Ice::Context*) = 0;
+    virtual void UpdateData(::Ice::Long, const ::MCS::GuiDataItem&, const ::Ice::Context*) = 0;
 };
 
 class GuiDataHub : virtual public ::IceDelegate::Ice::Object
@@ -1794,7 +1794,7 @@ class GuiDataUpdater : virtual public ::IceDelegate::MCS::GuiDataUpdater,
 {
 public:
 
-    virtual void UpdateData(const ::MCS::GuiDataItem&, const ::Ice::Context*);
+    virtual void UpdateData(::Ice::Long, const ::MCS::GuiDataItem&, const ::Ice::Context*);
 };
 
 class GuiDataHub : virtual public ::IceDelegate::MCS::GuiDataHub,
@@ -1852,7 +1852,7 @@ class GuiDataUpdater : virtual public ::IceDelegate::MCS::GuiDataUpdater,
 {
 public:
 
-    virtual void UpdateData(const ::MCS::GuiDataItem&, const ::Ice::Context*);
+    virtual void UpdateData(::Ice::Long, const ::MCS::GuiDataItem&, const ::Ice::Context*);
 };
 
 class GuiDataHub : virtual public ::IceDelegate::MCS::GuiDataHub,
@@ -1916,7 +1916,7 @@ public:
     virtual const ::std::string& ice_id(const ::Ice::Current& = ::Ice::Current()) const;
     static const ::std::string& ice_staticId();
 
-    virtual void UpdateData_async(const ::MCS::AMD_GuiDataUpdater_UpdateDataPtr&, const ::MCS::GuiDataItem&, const ::Ice::Current& = ::Ice::Current()) = 0;
+    virtual void UpdateData_async(const ::MCS::AMD_GuiDataUpdater_UpdateDataPtr&, ::Ice::Long, const ::MCS::GuiDataItem&, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___UpdateData(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual ::Ice::DispatchStatus __dispatch(::IceInternal::Incoming&, const ::Ice::Current&);
