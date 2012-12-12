@@ -35,6 +35,16 @@ namespace MCSControlLib
             }
         }
 
+        public void PageInit()
+        {
+
+        }
+
+        public void PageExit()
+        {
+
+        }
+
         public void ProcessGuiData(List<MCS.GuiDataItem> list)
         {
             foreach (MCS.GuiDataItem item in list)

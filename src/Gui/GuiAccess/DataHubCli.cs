@@ -102,6 +102,32 @@ namespace GuiAccess
             return nRet;
         }
 
+        public void Async_SetPushCmdList(MCS.GuiHub.PushData[] cmds)
+        {
+            try
+            {
+                remote.begin_SetPushCmd(dataCallback, cmds, m_nSession);
+            }
+            catch (System.Exception /*ex*/)
+            {
+
+            }
+        }
+        public int SetPushCmdList(MCS.GuiHub.PushData[] cmds)
+        {
+            int nRet = -1;
+            try
+            {
+                nRet = remote.SetPushCmd(dataCallback, cmds, m_nSession);
+            }
+            catch (System.Exception /*ex*/)
+            {
+
+            }
+
+            return nRet;
+        }
+
         public int WriteData(MCS.GuiHub.GuiCommand nCmd, string sVal)
         {
             int nRet = -1;

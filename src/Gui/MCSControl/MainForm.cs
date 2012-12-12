@@ -101,6 +101,7 @@ namespace MCSControl
                 if (null != m_ctrlBase)
                 {
                     m_ctrlBase.DataChange -= new DataChangeHander(OnDataChange);
+                    m_ctrlBase.PageExit();
                 }
              
                 m_ctrlBase = _ctrl as IMcsControlBase;
@@ -111,6 +112,7 @@ namespace MCSControl
                 this.splitContainer1.Panel2.Controls.Clear();
                 this.splitContainer1.Panel2.Controls.Add(_ctrl);
                 _ctrl.Dock = DockStyle.Fill;
+                m_ctrlBase.PageInit();
             }
         }
 

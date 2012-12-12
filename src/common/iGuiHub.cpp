@@ -299,7 +299,7 @@ IceProxy::MCS::GuiDataUpdater::__newInstance() const
 }
 
 ::Ice::Int
-IceProxy::MCS::GuiDataHub::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context* __ctx)
+IceProxy::MCS::GuiDataHub::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiPushDataList& list, ::Ice::Int session, const ::Ice::Context* __ctx)
 {
     int __cnt = 0;
     while(true)
@@ -310,7 +310,7 @@ IceProxy::MCS::GuiDataHub::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, c
             __checkTwowayOnly(__MCS__GuiDataHub__SetPushCmd_name);
             __delBase = __getDelegate(false);
             ::IceDelegate::MCS::GuiDataHub* __del = dynamic_cast< ::IceDelegate::MCS::GuiDataHub*>(__delBase.get());
-            return __del->SetPushCmd(updater, cmds, session, __ctx);
+            return __del->SetPushCmd(updater, list, session, __ctx);
         }
         catch(const ::IceInternal::LocalExceptionWrapper& __ex)
         {
@@ -324,7 +324,7 @@ IceProxy::MCS::GuiDataHub::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, c
 }
 
 ::Ice::AsyncResultPtr
-IceProxy::MCS::GuiDataHub::begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+IceProxy::MCS::GuiDataHub::begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiPushDataList& list, ::Ice::Int session, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
 {
     __checkAsyncTwowayOnly(__MCS__GuiDataHub__SetPushCmd_name);
     ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __MCS__GuiDataHub__SetPushCmd_name, __del, __cookie);
@@ -333,13 +333,13 @@ IceProxy::MCS::GuiDataHub::begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& upda
         __result->__prepare(__MCS__GuiDataHub__SetPushCmd_name, ::Ice::Idempotent, __ctx);
         ::IceInternal::BasicStream* __os = __result->__getOs();
         __os->write(::Ice::ObjectPrx(::IceInternal::upCast(updater.get())));
-        if(cmds.size() == 0)
+        if(list.size() == 0)
         {
             __os->writeSize(0);
         }
         else
         {
-            ::MCS::GuiHub::__writeGuiCmdList(__os, &cmds[0], &cmds[0] + cmds.size());
+            ::MCS::GuiHub::__writeGuiPushDataList(__os, &list[0], &list[0] + list.size());
         }
         __os->write(session);
         __os->endWriteEncaps();
@@ -1327,20 +1327,20 @@ IceDelegateM::MCS::GuiDataUpdater::UpdateData(::Ice::Long time, const ::MCS::Gui
 }
 
 ::Ice::Int
-IceDelegateM::MCS::GuiDataHub::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateM::MCS::GuiDataHub::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiPushDataList& list, ::Ice::Int session, const ::Ice::Context* __context)
 {
     ::IceInternal::Outgoing __og(__handler.get(), __MCS__GuiDataHub__SetPushCmd_name, ::Ice::Idempotent, __context);
     try
     {
         ::IceInternal::BasicStream* __os = __og.os();
         __os->write(::Ice::ObjectPrx(::IceInternal::upCast(updater.get())));
-        if(cmds.size() == 0)
+        if(list.size() == 0)
         {
             __os->writeSize(0);
         }
         else
         {
-            ::MCS::GuiHub::__writeGuiCmdList(__os, &cmds[0], &cmds[0] + cmds.size());
+            ::MCS::GuiHub::__writeGuiPushDataList(__os, &list[0], &list[0] + list.size());
         }
         __os->write(session);
     }
@@ -1927,17 +1927,17 @@ IceDelegateD::MCS::GuiDataUpdater::UpdateData(::Ice::Long, const ::MCS::GuiDataI
 }
 
 ::Ice::Int
-IceDelegateD::MCS::GuiDataHub::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context* __context)
+IceDelegateD::MCS::GuiDataHub::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiPushDataList& list, ::Ice::Int session, const ::Ice::Context* __context)
 {
     class _DirectI : public ::IceInternal::Direct
     {
     public:
 
-        _DirectI(::Ice::Int& __result, const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Current& __current) : 
+        _DirectI(::Ice::Int& __result, const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiPushDataList& list, ::Ice::Int session, const ::Ice::Current& __current) : 
             ::IceInternal::Direct(__current),
             _result(__result),
             _m_updater(updater),
-            _m_cmds(cmds),
+            _m_list(list),
             _m_session(session)
         {
         }
@@ -1950,7 +1950,7 @@ IceDelegateD::MCS::GuiDataHub::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& update
             {
                 throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
             }
-            _result = servant->SetPushCmd(_m_updater, _m_cmds, _m_session, _current);
+            _result = servant->SetPushCmd(_m_updater, _m_list, _m_session, _current);
             return ::Ice::DispatchOK;
         }
         
@@ -1958,7 +1958,7 @@ IceDelegateD::MCS::GuiDataHub::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& update
         
         ::Ice::Int& _result;
         const ::MCS::GuiDataUpdaterPrx& _m_updater;
-        const ::MCS::GuiHub::GuiCmdList& _m_cmds;
+        const ::MCS::GuiHub::GuiPushDataList& _m_list;
         ::Ice::Int _m_session;
     };
     
@@ -1967,7 +1967,7 @@ IceDelegateD::MCS::GuiDataHub::SetPushCmd(const ::MCS::GuiDataUpdaterPrx& update
     ::Ice::Int __result;
     try
     {
-        _DirectI __direct(__result, updater, cmds, session, __current);
+        _DirectI __direct(__result, updater, list, session, __current);
         try
         {
             __direct.servant()->__collocDispatch(__direct);
@@ -3119,14 +3119,14 @@ MCS::GuiDataHub::___SetPushCmd(::IceInternal::Incoming& __inS, const ::Ice::Curr
     ::IceInternal::BasicStream* __is = __inS.is();
     __is->startReadEncaps();
     ::MCS::GuiDataUpdaterPrx updater;
-    ::MCS::GuiHub::GuiCmdList cmds;
+    ::MCS::GuiHub::GuiPushDataList list;
     ::Ice::Int session;
     ::MCS::__read(__is, updater);
-    ::MCS::GuiHub::__readGuiCmdList(__is, cmds);
+    ::MCS::GuiHub::__readGuiPushDataList(__is, list);
     __is->read(session);
     __is->endReadEncaps();
     ::IceInternal::BasicStream* __os = __inS.os();
-    ::Ice::Int __ret = SetPushCmd(updater, cmds, session, __current);
+    ::Ice::Int __ret = SetPushCmd(updater, list, session, __current);
     __os->write(__ret);
     return ::Ice::DispatchOK;
 }

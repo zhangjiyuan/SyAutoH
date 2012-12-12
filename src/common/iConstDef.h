@@ -64,10 +64,6 @@ enum GuiCommand
 void __write(::IceInternal::BasicStream*, GuiCommand);
 void __read(::IceInternal::BasicStream*, GuiCommand&);
 
-typedef ::std::vector< ::MCS::GuiHub::GuiCommand> GuiCmdList;
-void __writeGuiCmdList(::IceInternal::BasicStream*, const ::MCS::GuiHub::GuiCommand*, const ::MCS::GuiHub::GuiCommand*);
-void __readGuiCmdList(::IceInternal::BasicStream*, GuiCmdList&);
-
 enum PushData
 {
     upOhtInfo,
@@ -78,6 +74,10 @@ enum PushData
 
 void __write(::IceInternal::BasicStream*, PushData);
 void __read(::IceInternal::BasicStream*, PushData&);
+
+typedef ::std::vector< ::MCS::GuiHub::PushData> GuiPushDataList;
+void __writeGuiPushDataList(::IceInternal::BasicStream*, const ::MCS::GuiHub::PushData*, const ::MCS::GuiHub::PushData*);
+void __readGuiPushDataList(::IceInternal::BasicStream*, GuiPushDataList&);
 
 }
 

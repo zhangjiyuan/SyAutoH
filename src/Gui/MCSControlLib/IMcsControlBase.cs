@@ -12,6 +12,8 @@ namespace MCSControlLib
         event DataChangeHander DataChange;
 
         void ProcessGuiData(List<MCS.GuiDataItem> list);
+        void PageInit();
+        void PageExit();
         GuiAccess.DataHubCli DataHub
         {
             set;

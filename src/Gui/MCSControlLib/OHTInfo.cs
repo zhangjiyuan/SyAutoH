@@ -416,5 +416,17 @@ namespace MCSControlLib
         {
             OHTMove(2);
         }
+
+        public void PageInit()
+        {
+            PushData[] cmds = new PushData[] {PushData.upOhtInfo, PushData.upOhtPos };
+            m_dataHub.Async_SetPushCmdList(cmds);
+        }
+
+        public void PageExit()
+        {
+            PushData[] cmds = new PushData[] {  };
+            m_dataHub.Async_SetPushCmdList(cmds);
+        }
     }
 }
