@@ -57,19 +57,16 @@ namespace WinFormElement
             canvas.ScaleTransform(formShowRegion.xScale, formShowRegion.yScale);
 
             formShowRegion.DrawRailInfo(canvas);
-<<<<<<< HEAD
             formShowRegion.DrawVehicleInfo(canvas, dictVechiles);
 
             canvas.EndContainer(objectContainer);
             canvas.EndContainer(stretchContainer);
             canvas.EndContainer(moveContainer);
-=======
             lock (dictVechiles)
             {
                 formShowRegion.DrawVehicleInfo(canvas, dictVechiles);
             }
            
->>>>>>> 872e0653398bd543f181d61ae5373b8277522705
         }
 
         public void RemoveLencyOHT()
