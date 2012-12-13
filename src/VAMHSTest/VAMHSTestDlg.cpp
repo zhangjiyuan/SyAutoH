@@ -469,6 +469,7 @@ void CVAMHSTestDlg::ReadSTKXML()
 		m_listCtrlSTOCKER.InsertItem(0, str);
 		SetStockerListItemData(item, 0);
 		xml.OutOfElem();
+		xml.OutOfElem();
 	}
 	xml.OutOfElem();
 }
@@ -486,7 +487,7 @@ void CVAMHSTestDlg::SaveSTKXML()
 	    xml.ResetMainPos();
 	    xml.FindElem();
 	    xml.FindChildElem(_T("StockerList"));
-	    xml.IntoElem();
+		xml.IntoElem();
 		while(xml.FindChildElem(_T("Stocker")))
 		{
 			xml.IntoElem();
@@ -498,19 +499,22 @@ void CVAMHSTestDlg::SaveSTKXML()
 			int xID = _ttoi(CID);
 			xml.OutOfElem();
 			xml.OutOfElem();
-			xml.OutOfElem();
-			if(xID == nID)
+			if(xID != nID)
+			{
+				xml.OutOfElem();
+			}
+			else
 			{
 				contain = true;
 				xml.RemoveChildElem();
-				xml.AddChildElem(_T("Stocker"));
-				xml.IntoElem();
 				xml.AddChildElem(_T("StockerInfo"));
 				xml.IntoElem();
 				xml.AddChildElem(_T("ID"),xID);
 				xml.AddChildElem(_T("Status"),it->second->nStatus);
 				xml.AddChildElem(_T("nContain"),it->second->nContain);
 				xml.AddChildElem(_T("Online"),it->second->nOnline);
+				xml.OutOfElem();
+				xml.OutOfElem();
 				xml.OutOfElem();
 			}
 		}
