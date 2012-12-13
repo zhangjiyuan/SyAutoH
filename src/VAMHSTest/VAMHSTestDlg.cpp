@@ -19,6 +19,7 @@ using namespace std;
 CVirtualAMHS* g_pVDev = NULL;
 MAP_ItemOHT g_mapOHTs;
 MAP_ItemStocker g_mapStockers;
+MAP_ItemFoup g_mapFoups;
 const int STOCKER_ID = 24;
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
@@ -70,6 +71,14 @@ CVAMHSTestDlg::~CVAMHSTestDlg()
 		it->second->nOnline = 0;
 	}
 	SaveOHTXML();
+	MAP_ItemStocker::iterator ite;
+	
+	for(ite = g_mapStockers.begin();ite != g_mapStockers.end();ite++)
+	{
+		ite->second->nOnline = 0;
+	}
+	SaveSTKXML();
+	
 	it = g_mapOHTs.begin();
 	while(it != g_mapOHTs.end())
 	{
@@ -77,6 +86,13 @@ CVAMHSTestDlg::~CVAMHSTestDlg()
 		++it;
 	}
 	g_mapOHTs.clear();
+	ite = g_mapStockers.begin();
+	while(ite != g_mapStockers.end())
+	{
+		delete ite->second;
+		++ite;
+	}
+	g_mapStockers.clear();
 }
 
 void CVAMHSTestDlg::DoDataExchange(CDataExchange* pDX)
@@ -111,9 +127,9 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_SPEED_SET_BUTTON, &CVAMHSTestDlg::OnBnClickedSpeedSetButton)
 	ON_BN_CLICKED(IDC_BN_ALLOHTOnLine, &CVAMHSTestDlg::OnBnClickedBnAllohtonline)
 	ON_BN_CLICKED(IDC_ADD_STOCKER_BUTTON, &CVAMHSTestDlg::OnBnClickedAddStockerButton)
-	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST_FOUP2, &CVAMHSTestDlg::OnLvnItemchangedListFoup2)
+	ON_NOTIFY(NM_CLICK, IDC_LIST_FOUP2, &CVAMHSTestDlg::OnNMClickListFoup2)
+	ON_BN_CLICKED(IDC_BN_AddSTK2, &CVAMHSTestDlg::OnBnClickedBnAddstk2)
 END_MESSAGE_MAP()
-
 
 // CVAMHSTestDlg 消息处理程序
 
@@ -219,11 +235,6 @@ HCURSOR CVAMHSTestDlg::OnQueryDragIcon()
 void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 {
 	int nSpeed = GetSpeed();
-	if(nSpeed <= 0)
-	{
-		MessageBox(_T("The speed hasn't been set!"));
-	    return;
-	}
 	int nOHT_ID = GetSelectOhtID();
 	int nPosTime;
 	int nPosition;
@@ -258,6 +269,40 @@ void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 	    int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed,nOHT_ID);
 	}
 }
+void CVAMHSTestDlg::AddFoupXMLElem(int STK_ID,int Foup_ID,ItemFoup* pFoup)
+{
+	CString path = GetPath();
+	path += "../Config/OHTandTeachPos.xml";
+	CMarkup xml;
+	xml.Load(path);
+	xml.FindElem();
+	xml.FindChildElem(_T("StockerList"));
+	xml.IntoElem();
+	while(xml.FindChildElem(_T("Stocker")))
+	{
+		xml.IntoElem();
+	    xml.FindChildElem(_T("StockerInfo"));
+	    xml.IntoElem();
+	    xml.FindChildElem(_T("ID"));
+		xml.IntoElem();
+		CString xSTK_ID = xml.GetData();
+		int nSTK_ID = _ttoi(xSTK_ID);
+		xml.OutOfElem();
+		xml.OutOfElem();
+		if(nSTK_ID != STK_ID)
+			xml.OutOfElem();
+		else
+		{
+			xml.AddChildElem(_T("Foup"));
+	        xml.IntoElem();
+	        xml.AddChildElem(_T("ID"),pFoup->nID);
+	        xml.AddChildElem(_T("Location"),pFoup->nLocation);
+	        xml.AddChildElem(_T("Status"),pFoup->nProcessStatus);
+			xml.Save(path);
+			return;
+		}
+	}
+}
 
 void CVAMHSTestDlg::OnDestroy()
 {
@@ -271,35 +316,89 @@ void CVAMHSTestDlg::OnDestroy()
 		delete g_pVDev;
 		g_pVDev = NULL;
 	}
-	FreeConsole();                      // 释放控制台资源
+	FreeConsole();// 释放控制台资源
 }
 
 void CVAMHSTestDlg::OnBnClickedBnAddstk()
 {
+	int nSTK_ID = GetSelectStockerID();
 	MAP_ItemStocker::iterator it;
-	for(it = g_mapStockers.begin();it != g_mapStockers.end();it++)
+	if(nSTK_ID >= 0)
 	{
-		int nSTOCKER_ID = it->second->nID;
-		if(nSTOCKER_ID > 0)
-		{
-			g_pVDev->Stocker_Auth(nSTOCKER_ID, "192.168.55.10");
+		it = g_mapStockers.find(nSTK_ID);
+		g_pVDev->Stocker_Auth(nSTK_ID,"192.168.55.10");
+		g_pVDev->STK_SetFoupNum(nSTK_ID,it->second->nContain);
+	}
+	else
+	{
+		for(it = g_mapStockers.begin();it != g_mapStockers.end();it++)
+		{	
+			int nSTOCKER_ID = it->second->nID;
+			if(nSTOCKER_ID > 0)
+			{
+				g_pVDev->Stocker_Auth(nSTOCKER_ID, "192.168.55.10");	
+				g_pVDev->STK_SetFoupNum(nSTOCKER_ID,it->second->nContain);
+			}
 		}
 	}
-	return;
+		return;
 }
 
 void CVAMHSTestDlg::OnBnClickedBnStkIn()
 {
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
-	g_pVDev->Stocker_ManualInputFoup(STOCKER_ID, strFoup);
+	int Foup_ID = _ttoi(strFoup);
+	g_pVDev->Stocker_ManualInputFoup(selectSTK, strFoup);
+	MAP_ItemFoup::iterator it;
+	it = g_mapFoups.find(Foup_ID);
+	if(it != g_mapFoups.end())
+	{
+		MessageBox(_T("Foup 已存在！"));
+		return ;
+	}
+	else 
+	{
+		MAP_ItemStocker::iterator it;
+		it = g_mapStockers.find(selectSTK);
+		if(it->second->nOnline == 1)
+		{
+			foupNum++;
+			ItemFoup* item = new ItemFoup;
+            item->nID = Foup_ID;
+		    item->nLocation = 0;
+		    item->nProcessStatus = 0;
+		    g_mapFoups.insert(std::make_pair(Foup_ID,item));
+		    CString str;
+		    m_listCtrlFOUP.InsertItem(0,str);
+		    SetFOUPListItemData(item,0);
+		    AddFoupXMLElem(selectSTK,Foup_ID,item);
+			g_pVDev->STK_SetFoupNum(selectSTK,foupNum);
+		}
+		else 
+			MessageBox(_T("Stocker is not online!"));
+	}
+
 }
 
 void CVAMHSTestDlg::OnBnClickedBnStkOut()
 {
+	int nFoup_ID = GetSelectFoupID();
 	CString strFoup;
-	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
-	g_pVDev->Stocker_ManualOutputFoup(STOCKER_ID, strFoup);
+	strFoup.Format(_T("%d"),nFoup_ID);
+	POSITION pos = m_listCtrlFOUP.GetFirstSelectedItemPosition();
+    if(pos==NULL)
+    {
+		MessageBox(_T("请至少选择一项"));
+		return;
+	}
+	int nId=(int)m_listCtrlFOUP.GetNextSelectedItem(pos);
+	m_listCtrlFOUP.DeleteItem(nId);
+	MAP_ItemFoup::iterator it;
+	it = g_mapFoups.find(nFoup_ID);
+	g_mapFoups.erase(it);
+	g_pVDev->Stocker_ManualOutputFoup(selectSTK, strFoup);
+	DeleteFoupXML(selectSTK,nFoup_ID);
 }
 int CVAMHSTestDlg::GetElemData(CMarkup xml,CString tag)
 {
@@ -458,7 +557,7 @@ void CVAMHSTestDlg::ReadSTKXML()
 		ItemStocker* item = new ItemStocker;
 		int nID = GetElemData(xml,_T("ID"));
 		int nStatus = GetElemData(xml,_T("Status"));
-		int nContain = GetElemData(xml,_T("Contain"));
+		int nContain = GetElemData(xml,_T("nContain"));
 		int nOnline = GetElemData(xml,_T("Online"));
 		item->nID = nID;
 		item->nStatus = nStatus;
@@ -507,7 +606,7 @@ void CVAMHSTestDlg::SaveSTKXML()
 			{
 				contain = true;
 				xml.RemoveChildElem();
-				xml.AddChildElem(_T("StockerInfo"));
+				xml.InsertChildElem(_T("StockerInfo"));
 				xml.IntoElem();
 				xml.AddChildElem(_T("ID"),xID);
 				xml.AddChildElem(_T("Status"),it->second->nStatus);
@@ -535,6 +634,97 @@ void CVAMHSTestDlg::SaveSTKXML()
 	xml.OutOfElem();
 	xml.Save(path);
 }
+void CVAMHSTestDlg::ReadFOUPXML(int STK_ID)
+{
+	foupNum = 0;
+	CMarkup xml;
+	CString path = GetPath();
+	path += "../Config/OHTandTeachPos.xml";
+	xml.Load(path);
+	xml.FindElem();
+	xml.FindChildElem(_T("StockerList"));
+	xml.IntoElem();
+	while(xml.FindChildElem(_T("Stocker")))
+	{
+		xml.IntoElem();
+	    xml.FindChildElem(_T("StockerInfo"));
+	    xml.IntoElem();
+	    xml.FindChildElem(_T("ID"));
+	    xml.IntoElem();
+	    CString CID = xml.GetData();
+	    int nID = _ttoi(CID);
+	    xml.OutOfElem();
+	    xml.OutOfElem();
+		if(nID != STK_ID)
+			xml.OutOfElem();
+		else
+	    {
+			while(xml.FindChildElem(_T("Foup")))
+		    {
+				foupNum++;
+			    xml.IntoElem();
+			    ItemFoup* item = new ItemFoup;
+		        int nID = GetElemData(xml,_T("ID"));
+		        int nLocation = GetElemData(xml,_T("Location"));
+		        int nStatus = GetElemData(xml,_T("Status"));
+			    item->nID = nID;
+			    item->nLocation = nLocation;
+			    item->nProcessStatus = nStatus;
+			    g_mapFoups.insert(std::make_pair(nID,item));
+			    CString str;
+			    m_listCtrlFOUP.InsertItem(0,str);
+			    SetFOUPListItemData(item,0);
+		        xml.OutOfElem();
+		       //xml.OutOfElem();
+			}
+		}
+	}
+	xml.OutOfElem();
+}
+void CVAMHSTestDlg::DeleteFoupXML(int STK_ID,int Foup_ID)
+{
+	CString path = GetPath();
+	path += "../Config/OHTandTeachPos.xml";
+	CMarkup xml;
+	xml.Load(path);
+	xml.FindElem();
+	xml.FindChildElem(_T("StockerList"));
+	xml.IntoElem();
+	while(xml.FindChildElem(_T("Stocker")))
+	{
+		xml.IntoElem();
+		xml.FindChildElem(_T("StockerInfo"));
+		xml.IntoElem();
+		xml.FindChildElem(_T("ID"));
+		xml.IntoElem();
+		CString CSTK_ID = xml.GetData();
+	    int nSTK_ID = _ttoi(CSTK_ID);
+		xml.OutOfElem();
+		xml.OutOfElem();
+		if(nSTK_ID != STK_ID)
+			xml.OutOfElem();
+		else
+		{
+			while(xml.FindChildElem(_T("Foup")))
+			{
+				xml.IntoElem();
+			    xml.FindChildElem(_T("ID"));
+				xml.IntoElem();
+			    CString CFoup_ID = xml.GetData();
+			    int nFoup_ID = _ttoi(CFoup_ID);
+			    xml.OutOfElem();
+				xml.OutOfElem();
+			    if(nFoup_ID == Foup_ID)
+				{
+					xml.RemoveChildElem();
+					xml.Save(path);
+					return;
+				}
+			}
+		}
+	}
+}
+
 void CVAMHSTestDlg::DeleteElem(int nID)
 {
 	CMarkup XML;
@@ -838,6 +1028,16 @@ void CVAMHSTestDlg::SetStockerListItemData(ItemStocker* pStocker,int nListIndex)
 	m_listCtrlSTOCKER.SetItemData(nListIndex,pStocker->nID);
 }
 
+void CVAMHSTestDlg::SetFOUPListItemData(ItemFoup* pFoup,int nListIndex)
+{
+	CString str;
+	str.Format(_T("%d"),pFoup->nID);
+	m_listCtrlFOUP.SetItemText(nListIndex,0,str);
+	str.Format(_T("%d"),pFoup->nLocation);
+	m_listCtrlFOUP.SetItemText(nListIndex,1,str);
+	m_listCtrlFOUP.SetItemText(nListIndex,2,_T("Idle"));
+	m_listCtrlFOUP.SetItemData(nListIndex,pFoup->nID);
+}
 void CVAMHSTestDlg::OnBnClickedBnStkHistory()
 {
 	g_pVDev->STK_History(STOCKER_ID);
@@ -872,7 +1072,20 @@ int CVAMHSTestDlg::GetSelectStockerID(void)
 	}
 	return nRet;
 }
-
+int CVAMHSTestDlg::GetSelectFoupID(void)
+{
+	int nRet = -1;
+	int nItem = m_listCtrlFOUP.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
+	if (nItem >= 0)
+	{
+		nRet = m_listCtrlFOUP.GetItemData(nItem);
+	}
+	else
+	{
+		nRet = -1;
+	}
+	return nRet;
+}
 
 void CVAMHSTestDlg::OnBnClickedBnOhtOff()
 {
@@ -972,11 +1185,6 @@ void CVAMHSTestDlg::OnBnClickedBnAllohtonline()
 {
 	// TODO: 在此添加控件通知处理程序代码
     int nSpeed = GetSpeed();
-	if(nSpeed <= 0)
-	{
-		MessageBox(_T("The speed hasn't been set!"));
-		return;
-	}
 	MAP_ItemOHT::iterator it;
 	for(it = g_mapOHTs.begin();it != g_mapOHTs.end();it++)
 	{
@@ -1046,17 +1254,40 @@ void CVAMHSTestDlg::OnBnClickedAddStockerButton()
 	}
 }
 
-void CVAMHSTestDlg::OnLvnItemchangedListFoup2(NMHDR *pNMHDR, LRESULT *pResult)
+void CVAMHSTestDlg::OnNMClickListFoup2(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	// TODO: 在此添加控件通知处理程序代码
-	if(pNMLV->uChanged==LVIF_STATE)
+	int nListIndex = pNMItemActivate->iItem;
+    int nStockerID = m_listCtrlSTOCKER.GetItemData(nListIndex);	
+	if(nStockerID != selectSTK)	
+	{		
+		selectSTK = nStockerID;	
+		m_listCtrlFOUP.DeleteAllItems();
+		ReadFOUPXML(selectSTK);	
+		CString CID;	
+		CID.Format(_T("%d"),nStockerID);	
+		SetDlgItemText(IDC_SELECT_STK_EDIT,CID);
+	}
+	g_pVDev->STK_SetFoupNum(nStockerID,foupNum);
+	*pResult = 0;
+}
+
+void CVAMHSTestDlg::OnBnClickedBnAddstk2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	int nSTK_ID = GetSelectStockerID();
+	if(nSTK_ID >= 0)
 	{
-		if(pNMLV->uNewState & LVIS_SELECTED)
+		int nOff = g_pVDev->Stocker_Offline(nSTK_ID);
+	}
+	else
+	{
+		MAP_ItemStocker::iterator it;
+		for(it = g_mapStockers.begin();it != g_mapStockers.end();it++)
 		{
-			int nListIndex = pNMLV->iItem;
-			int nStockerID = m_listCtrlSTOCKER.GetItemData(nListIndex);
+			int nOff = g_pVDev->Stocker_Offline(it->second->nID);
 		}
 	}
-	*pResult = 0;
+
 }

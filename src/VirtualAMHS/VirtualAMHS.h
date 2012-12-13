@@ -42,8 +42,10 @@ typedef std::map<int, ItemOHT*> MAP_ItemOHT;
 
 typedef struct
 {
-	TCHAR FoupID[256];
+	//TCHAR FoupID[256];
+	int nID;
 	int nProcessStatus;
+	int nLocation;
 } ItemFoup;
 typedef std::list<ItemFoup> LIST_FOUP;
 //zhang add the code in 2012.10.24
@@ -68,7 +70,7 @@ public:
 	int Stocker_ManualInputFoup(int nStocker, const TCHAR* sFoupID);
 	int Stocker_ManualOutputFoup(int nStocker, const TCHAR* sFoupID);
 	int STK_History(int nStocker);
-
+	int STK_SetFoupNum(int nIndex,int nContain);
 	// for OHT
 	LIST_OHT OHT_GetStatus();
 	LIST_STOCKER Stocker_GetInfo();
