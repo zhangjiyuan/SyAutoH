@@ -212,8 +212,15 @@ void VirtualOHT::Handle_Move(AMHSPacket& packet)
 	switch(nMoveID)
 	{
 	case(0):
-
-		isMove = true;
+		if(m_listPath.empty())
+		{
+			authPacket << uint8(DeviceID());
+			authPacket << uint8(3);
+			authPacket << uint8(2);
+			SendPacket(authPacket);
+			AskPath();
+			return;
+		}
 		if(isStop == true)
 		{
 			authPacket << uint8(DeviceID());
@@ -223,6 +230,7 @@ void VirtualOHT::Handle_Move(AMHSPacket& packet)
 		}
 		else
 		{
+			isMove = true;
 			authPacket << uint8(DeviceID());
 			authPacket << uint8(0);
 			authPacket << uint8(0);
@@ -291,7 +299,7 @@ void VirtualOHT::OnTimer(void)
 		it = m_listPath.end();
 		it--;
 		nEndPos = it->nposition;
-		if(m_nPos != nEndPos)
+		if(m_nPos < nEndPos)
 		{
 			for(it = m_listPath.begin();it != m_listPath.end();)
 			{

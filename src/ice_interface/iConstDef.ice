@@ -30,15 +30,18 @@ module MCS
 				
 				StkStatusTime 
 			};
-			sequence<GuiCommand> GuiCmdList;
+			
 			
 			enum PushData
 			{
 				upOhtInfo,
 				upOhtPos,
 				upOhtPosTable,
-				upOhtStatus
+				upOhtStatus,
+				
+				upStkInfo
 			};
+			sequence<PushData> GuiPushDataList;
 		
 	};
 

@@ -278,6 +278,10 @@ namespace WinFormElement
         private Point ComputeCoordinates(List<RailEle> tempList, uint locationValue)
         {
             Point returnPt = Point.Empty;
+            if (null == tempList)
+            {
+                return Point.Empty;
+            }
             Int32 offsetTemp = 0;
             Int16 section = 0;
             StraightEle strTemp = new StraightEle();
@@ -285,6 +289,10 @@ namespace WinFormElement
             CrossEle croTemp = new CrossEle();
 //            ComputeOffset(locationValue);
             section = ComputeSegmentNumber(locationValue, tempList);
+            if (section < 0)
+            {
+                return Point.Empty;
+            }
             offsetTemp = ComputeSegmentOffset(locationValue, tempList, section);
             switch (tempList[section].graphType)
             {
@@ -362,7 +370,7 @@ namespace WinFormElement
         private Int16 ComputeSegmentNumber(uint value, List<RailEle> paraList)
         {
             Int16 temp = Convert.ToInt16(value);
-            Int16 segNum = 0;
+            Int16 segNum = -1;
             for (Int16 i = 0; i < paraList.Count; i++)
             {
                 if (paraList[i].segmentNumber != 0 && temp < paraList[i].tagNumber)

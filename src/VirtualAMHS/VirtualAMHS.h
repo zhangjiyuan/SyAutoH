@@ -28,9 +28,16 @@ typedef struct
 	int nPosTime;
 	int nStatusTime;
 } ItemOHT;
-
+typedef struct
+{
+	int nID;
+	int nOnline;
+	int nStatus;
+	int nContain;
+} ItemStocker;
 typedef std::list<ItemOHT> LIST_OHT;
-
+typedef std::list<ItemStocker> LIST_STOCKER;
+typedef std::map<int,ItemStocker*> MAP_ItemStocker;
 typedef std::map<int, ItemOHT*> MAP_ItemOHT;
 
 typedef struct
@@ -51,8 +58,7 @@ public:
 	int OHT_Auth(int nIndex,DWORD nPos = 0, int nHand = 0);
     int OHT_Init(int nIndex,int posTime,int statusTime);
 	int Stocker_Auth(int nIndex, const char* sIP);
-	int OHT_AskPath(int nIndex);
-	int OHT_SetConstSpeed(int nSpeed);
+	int OHT_SetConstSpeed(int nSpeed,int nIdex = -1);
 
 	int OHT_Offline(int nIndex);
 	int Stocker_Offline(int nIndex);
@@ -65,6 +71,7 @@ public:
 
 	// for OHT
 	LIST_OHT OHT_GetStatus();
+	LIST_STOCKER Stocker_GetInfo();
 	int SetTeachPosition(int nID, int nPos, int nType, int nSpeedRate);
 	//LIST_OHTTime OHT_GetTimes();
 

@@ -57,51 +57,64 @@ namespace WinFormElement
             canvas.ScaleTransform(formShowRegion.xScale, formShowRegion.yScale);
 
             formShowRegion.DrawRailInfo(canvas);
+<<<<<<< HEAD
             formShowRegion.DrawVehicleInfo(canvas, dictVechiles);
 
             canvas.EndContainer(objectContainer);
             canvas.EndContainer(stretchContainer);
             canvas.EndContainer(moveContainer);
+=======
+            lock (dictVechiles)
+            {
+                formShowRegion.DrawVehicleInfo(canvas, dictVechiles);
+            }
+           
+>>>>>>> 872e0653398bd543f181d61ae5373b8277522705
         }
 
         public void RemoveLencyOHT()
         {
             int nNow = GetTickCount();
-            foreach (KeyValuePair<uint, Vehicle> item in dictVechiles)
+            lock (dictVechiles)
             {
-                Vehicle oht = item.Value;
-                if (nNow - oht.UpdateTime > 10000)
+                foreach (KeyValuePair<uint, Vehicle> item in dictVechiles)
                 {
-                    dictVechiles.Remove(oht.ID);
+                    Vehicle oht = item.Value;
+                    if (nNow - oht.UpdateTime > 10000)
+                    {
+                        dictVechiles.Remove(oht.ID);
+                    }
                 }
             }
+           
         }
 
         public void UpdateOHTPos(List<OhtPos> listOhtPos)
         {
             foreach (OhtPos item in listOhtPos)
             {
-                if (dictVechiles.ContainsKey(item.nID))
+                lock (dictVechiles)
                 {
-                    Vehicle oht;
-                    bool bGet = dictVechiles.TryGetValue(item.nID, out oht);
-                    if (bGet)
+                    if (dictVechiles.ContainsKey(item.nID))
                     {
+                        Vehicle oht;
+                        bool bGet = dictVechiles.TryGetValue(item.nID, out oht);
+                        if (bGet)
+                        {
+                            oht.PosCode = item.nPos;
+                            oht.Hand = item.nHand;
+                            oht.UpdateTime = GetTickCount();
+                        }
+                    }
+                    else
+                    {
+                        Vehicle oht = new Vehicle(item.nID);
                         oht.PosCode = item.nPos;
                         oht.Hand = item.nHand;
                         oht.UpdateTime = GetTickCount();
+                        dictVechiles.Add(item.nID, oht);
                     }
                 }
-                else
-                {
-                    Vehicle oht = new Vehicle(item.nID);
-                    oht.PosCode = item.nPos;
-                    oht.Hand = item.nHand;
-                    oht.UpdateTime = GetTickCount();
-                    dictVechiles.Add(item.nID, oht);
-                }
-
-               
             }
 
 

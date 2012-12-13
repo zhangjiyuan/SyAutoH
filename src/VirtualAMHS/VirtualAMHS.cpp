@@ -20,6 +20,9 @@ CVirtualAMHS::CVirtualAMHS()
 
 rwmutex g_rwLOHT;
 
+
+rwmutex g_rwLStocker;
+
 CVirtualAMHS::~CVirtualAMHS()
 {
 	MAP_VOHT::iterator it;
@@ -68,8 +71,11 @@ int CVirtualAMHS::Stocker_Auth(int nIndex, const char* sIP)
 	VirtualStocker* stocker = new VirtualStocker();
 	stocker->DeviceID(nIndex);
 	stocker->Connect("127.0.0.1", 9999);
-	stocker->Auth( sIP);
-	(*m_mapSTK)[nIndex] = stocker;
+	stocker->Auth(sIP);
+	WLock(g_rwLStocker)
+	{
+		(*m_mapSTK)[nIndex] = stocker;
+	}
 	return 0;
 }
 
@@ -114,23 +120,23 @@ int CVirtualAMHS::OHT_Init(int nIndex, int posTime, int statusTime)
 	it->second->m_nStatusUpdateTimeSet = statusTime;
 	return 0;
 }
-int CVirtualAMHS::OHT_AskPath(int nIndex)
+int CVirtualAMHS::OHT_SetConstSpeed(int nSpeed,int nIndex)
 {
 	MAP_VOHT::iterator it;
-	it = m_mapOHT->find(nIndex);
-	if(it == m_mapOHT->end())
-		return 0;
-	it->second->AskPath();
-	return 0;
-}
-int CVirtualAMHS::OHT_SetConstSpeed(int nSpeed)
-{
-	MAP_VOHT::iterator it;
-	for(it = m_mapOHT->begin();it != m_mapOHT->end();it++)
+	if(nIndex >= 0)
 	{
+		it = m_mapOHT->find(nIndex);
 		it->second->m_nSpeed = nSpeed;
-	}
 		return 0;
+	}
+	else
+	{
+		for(it = m_mapOHT->begin();it != m_mapOHT->end();it++)
+		{
+			it->second->m_nSpeed = nSpeed;
+		}
+		return 0;
+	}
 }
 int CVirtualAMHS::OHT_Offline(int nIndex)
 {
@@ -218,6 +224,31 @@ LIST_OHT CVirtualAMHS::OHT_GetStatus()
 			item.nPosition = vOht->m_nPos;
 			item.nPosTime = vOht->m_nPosUpdateTimeSet;
 			item.nStatusTime = vOht->m_nStatusUpdateTimeSet;
+			list.push_back(item);
+		}
+	}
+	return list;
+}
+LIST_STOCKER CVirtualAMHS::Stocker_GetInfo()
+{
+	LIST_STOCKER list;
+	RLock(g_rwLOHT)
+	{
+		for(MAP_VSTK::iterator it = m_mapSTK->begin();
+			it != m_mapSTK->end();++it)
+		{
+			VirtualStocker *vStocker = it->second;
+			ItemStocker item;
+			item.nID = vStocker->DeviceID();
+			if (vStocker->Online() == true)
+			{
+				item.nOnline = 1;
+			}
+			else
+			{
+				item.nOnline = 0;
+			}
+			item.nContain = vStocker->m_nContain;
 			list.push_back(item);
 		}
 	}

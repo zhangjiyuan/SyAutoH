@@ -650,51 +650,51 @@ class GuiDataHub : virtual public ::IceProxy::Ice::Object
 {
 public:
 
-    ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session)
+    ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiPushDataList& list, ::Ice::Int session)
     {
-        return SetPushCmd(updater, cmds, session, 0);
+        return SetPushCmd(updater, list, session, 0);
     }
-    ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context& __ctx)
+    ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiPushDataList& list, ::Ice::Int session, const ::Ice::Context& __ctx)
     {
-        return SetPushCmd(updater, cmds, session, &__ctx);
-    }
-
-    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session)
-    {
-        return begin_SetPushCmd(updater, cmds, session, 0, ::IceInternal::__dummyCallback, 0);
+        return SetPushCmd(updater, list, session, &__ctx);
     }
 
-    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context& __ctx)
+    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiPushDataList& list, ::Ice::Int session)
     {
-        return begin_SetPushCmd(updater, cmds, session, &__ctx, ::IceInternal::__dummyCallback, 0);
+        return begin_SetPushCmd(updater, list, session, 0, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiPushDataList& list, ::Ice::Int session, const ::Ice::Context& __ctx)
     {
-        return begin_SetPushCmd(updater, cmds, session, 0, __del, __cookie);
+        return begin_SetPushCmd(updater, list, session, &__ctx, ::IceInternal::__dummyCallback, 0);
     }
 
-    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiPushDataList& list, ::Ice::Int session, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_SetPushCmd(updater, cmds, session, &__ctx, __del, __cookie);
+        return begin_SetPushCmd(updater, list, session, 0, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::MCS::Callback_GuiDataHub_SetPushCmdPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiPushDataList& list, ::Ice::Int session, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_SetPushCmd(updater, cmds, session, 0, __del, __cookie);
+        return begin_SetPushCmd(updater, list, session, &__ctx, __del, __cookie);
     }
 
-    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiCmdList& cmds, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataHub_SetPushCmdPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiPushDataList& list, ::Ice::Int session, const ::MCS::Callback_GuiDataHub_SetPushCmdPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
     {
-        return begin_SetPushCmd(updater, cmds, session, &__ctx, __del, __cookie);
+        return begin_SetPushCmd(updater, list, session, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx& updater, const ::MCS::GuiHub::GuiPushDataList& list, ::Ice::Int session, const ::Ice::Context& __ctx, const ::MCS::Callback_GuiDataHub_SetPushCmdPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetPushCmd(updater, list, session, &__ctx, __del, __cookie);
     }
 
     ::Ice::Int end_SetPushCmd(const ::Ice::AsyncResultPtr&);
     
 private:
 
-    ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiPushDataList&, ::Ice::Int, const ::Ice::Context*);
+    ::Ice::AsyncResultPtr begin_SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiPushDataList&, ::Ice::Int, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
 
@@ -1745,7 +1745,7 @@ class GuiDataHub : virtual public ::IceDelegate::Ice::Object
 {
 public:
 
-    virtual ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Context*) = 0;
+    virtual ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiPushDataList&, ::Ice::Int, const ::Ice::Context*) = 0;
 
     virtual ::Ice::Int SetPushTimer(::Ice::Int, ::Ice::Int, const ::Ice::Context*) = 0;
 
@@ -1802,7 +1802,7 @@ class GuiDataHub : virtual public ::IceDelegate::MCS::GuiDataHub,
 {
 public:
 
-    virtual ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Context*);
+    virtual ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiPushDataList&, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::Ice::Int SetPushTimer(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 
@@ -1860,7 +1860,7 @@ class GuiDataHub : virtual public ::IceDelegate::MCS::GuiDataHub,
 {
 public:
 
-    virtual ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Context*);
+    virtual ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiPushDataList&, ::Ice::Int, const ::Ice::Context*);
 
     virtual ::Ice::Int SetPushTimer(::Ice::Int, ::Ice::Int, const ::Ice::Context*);
 
@@ -1954,7 +1954,7 @@ public:
     virtual const ::std::string& ice_id(const ::Ice::Current& = ::Ice::Current()) const;
     static const ::std::string& ice_staticId();
 
-    virtual ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
+    virtual ::Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiPushDataList&, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___SetPushCmd(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual ::Ice::Int SetPushTimer(::Ice::Int, ::Ice::Int, const ::Ice::Current& = ::Ice::Current()) = 0;

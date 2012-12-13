@@ -5,6 +5,7 @@
 VirtualStocker::VirtualStocker(void)
 {
 	m_optHanders[STK_MCS_ACK_AUTH] = &VirtualStocker::Handle_Auth;
+	m_nContain = 100;
 }
 
 
@@ -28,9 +29,7 @@ int VirtualStocker::Auth( const char* sIP)
 	uint32 uIP = 0;
 	uIP = inet_addr(sIP);
 	authPacket << uIP;
-
 	SendPacket(authPacket);
-
 	return 0;
 }
 
@@ -56,9 +55,6 @@ int VirtualStocker::ManualInputFoup(const TCHAR* sFoupID)
 
 		SendPacket(Packet);
 	}
-
-	
-
 	return 0;
 }
 

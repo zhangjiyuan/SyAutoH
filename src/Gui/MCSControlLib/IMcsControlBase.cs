@@ -6,12 +6,14 @@ using GuiAccess;
 
 namespace MCSControlLib
 {
-    public delegate void DataChangeHander(object sender, int nIndex);
+    public delegate void DataChangeHander(object sender, object obData1, object obData2);
     public interface IMcsControlBase
     {
         event DataChangeHander DataChange;
 
         void ProcessGuiData(List<MCS.GuiDataItem> list);
+        void PageInit();
+        void PageExit();
         GuiAccess.DataHubCli DataHub
         {
             set;

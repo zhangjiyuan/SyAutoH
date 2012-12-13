@@ -43,6 +43,7 @@ int MaterialController::Init(void)
 
 void MaterialController::Check(void)
 {
+	return;
 	//m_amhsDrive.Run();
 	//m_amhsDrive.SetOHTBackMessage(24, 200);
 	//m_amhsDrive.Check();
@@ -68,9 +69,27 @@ void MaterialController::Check(void)
 	m_GuiHub.SetData(MCS::GuiHub::upOhtInfo, strOhtList.c_str());
 }
 
-
+const char chLogo[] = 
+"\r\n"
+ " ______                       __\r\n"
+"/\\__  _\\       __          __/\\ \\__\r\n"
+"\\/_/\\ \\/ _ __ /\\_\\    ___ /\\_\\ \\, _\\  __  __\r\n"
+"   \\ \\ \\/\\`'__\\/\\ \\ /' _ `\\/\\ \\ \\ \\/ /\\ \\/\\ \\\r\n"
+"    \\ \\ \\ \\ \\/ \\ \\ \\/\\ \\/\\ \\ \\ \\ \\ \\_\\ \\ \\_\\ \\\r\n"
+"     \\ \\_\\ \\_\\  \\ \\_\\ \\_\\ \\_\\ \\_\\ \\__\\\\/`____ \\\r\n"
+"      \\/_/\\/_/   \\/_/\\/_/\\/_/\\/_/\\/__/ `/___/> \\\r\n"
+"                                 C O R E  /\\___/\r\n"
+"Material Control System V1.0.0.1 \r\n";
 void MaterialController::PrintfInfo(void)
 {
-	Log.outBasic("Material Control System V1.0.0.1 \n\n\n");
-	//LOG_BASIC("Material Control System V1.0.0.1 \n\n\n");
+	string strLogo = 
+		"\r\n"
+		"___                                                               \r\n"
+		"| |\\ \\                                                                \r\n"
+		"| | \\ \\                                                                 \r\n"
+		"| |  \\ \\                                                                \r\n"
+		"|_|   \\_/\\                                                               \r\n"
+		"Material Control System V1.0.0.1 \r\n";
+	//Log.outBasic(chLogo);
+	Log.outBasic(strLogo.c_str());
 }

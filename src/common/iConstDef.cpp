@@ -51,7 +51,21 @@ MCS::GuiHub::__read(::IceInternal::BasicStream* __is, ::MCS::GuiHub::GuiCommand&
 }
 
 void
-MCS::GuiHub::__writeGuiCmdList(::IceInternal::BasicStream* __os, const ::MCS::GuiHub::GuiCommand* begin, const ::MCS::GuiHub::GuiCommand* end)
+MCS::GuiHub::__write(::IceInternal::BasicStream* __os, ::MCS::GuiHub::PushData v)
+{
+    __os->write(static_cast< ::Ice::Byte>(v), 5);
+}
+
+void
+MCS::GuiHub::__read(::IceInternal::BasicStream* __is, ::MCS::GuiHub::PushData& v)
+{
+    ::Ice::Byte val;
+    __is->read(val, 5);
+    v = static_cast< ::MCS::GuiHub::PushData>(val);
+}
+
+void
+MCS::GuiHub::__writeGuiPushDataList(::IceInternal::BasicStream* __os, const ::MCS::GuiHub::PushData* begin, const ::MCS::GuiHub::PushData* end)
 {
     ::Ice::Int size = static_cast< ::Ice::Int>(end - begin);
     __os->writeSize(size);
@@ -62,7 +76,7 @@ MCS::GuiHub::__writeGuiCmdList(::IceInternal::BasicStream* __os, const ::MCS::Gu
 }
 
 void
-MCS::GuiHub::__readGuiCmdList(::IceInternal::BasicStream* __is, ::MCS::GuiHub::GuiCmdList& v)
+MCS::GuiHub::__readGuiPushDataList(::IceInternal::BasicStream* __is, ::MCS::GuiHub::GuiPushDataList& v)
 {
     ::Ice::Int sz;
     __is->readAndCheckSeqSize(1, sz);
@@ -71,18 +85,4 @@ MCS::GuiHub::__readGuiCmdList(::IceInternal::BasicStream* __is, ::MCS::GuiHub::G
     {
         ::MCS::GuiHub::__read(__is, v[i]);
     }
-}
-
-void
-MCS::GuiHub::__write(::IceInternal::BasicStream* __os, ::MCS::GuiHub::PushData v)
-{
-    __os->write(static_cast< ::Ice::Byte>(v), 4);
-}
-
-void
-MCS::GuiHub::__read(::IceInternal::BasicStream* __is, ::MCS::GuiHub::PushData& v)
-{
-    ::Ice::Byte val;
-    __is->read(val, 4);
-    v = static_cast< ::MCS::GuiHub::PushData>(val);
 }

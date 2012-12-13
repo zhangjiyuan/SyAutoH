@@ -11,6 +11,7 @@ private:
 public: 
 	MCS::GuiDataUpdaterPrx client;
 	int nTryCount;
+	MCS::GuiHub::GuiPushDataList m_listPushData;
 	
 	ClientInfo()
 	{
@@ -24,7 +25,8 @@ public:
 	
 };
 
-typedef set<MCS::GuiDataUpdaterPrx> SET_UPDATER;
+//typedef set<MCS::GuiDataUpdaterPrx> SET_UPDATER;
+typedef map<MCS::GuiDataUpdaterPrx, ClientInfo*> MAP_UPDATER;
 
 class CAMHSDrive;
 class GuiDataHubI : public GuiDataHub
@@ -34,7 +36,7 @@ public:
 	virtual ~GuiDataHubI(void);
 
 public:
-	virtual Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiCmdList&, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
+	virtual Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiPushDataList&, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
 	virtual Ice::Int SetPushTimer(::Ice::Int, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
 	virtual std::string MCS::GuiDataHub::ReadData(MCS::GuiHub::GuiCommand,Ice::Int,const Ice::Current &);
 	virtual Ice::Int MCS::GuiDataHub::WriteData(MCS::GuiHub::GuiCommand,const std::string &,Ice::Int,const Ice::Current &);
@@ -49,18 +51,27 @@ public:
 	void AMHSDrive(CAMHSDrive* val) { m_pAMHSDrive = val; }
 
 private:
-	SET_UPDATER m_setUpdater;
+	MAP_UPDATER m_mapUpdater;
 	rwmutex m_rwUpdaterSet;
 	rwmutex m_rwTimerSet;
 	CAMHSDrive* m_pAMHSDrive;
 
 	typedef void (GuiDataHubI::*WriteHander)(const std::string&);
-	typedef std::map<std::string, WriteHander> OPT_MAP;
 	typedef std::map<int, WriteHander> HANDLE_MAP;
-	//OPT_MAP m_optHanders;
 	HANDLE_MAP m_mapHandles;
+	typedef MCS::GuiDataItem (GuiDataHubI::*MakePushData)(void);
+	typedef std::map<MCS::GuiHub::PushData, MakePushData> MAP_MAKEPUSH;
+	MAP_MAKEPUSH m_mapMakePush;
+
 	int m_nTimerID;
 	int m_nTimerPeriord;
+
+private:
+	void SetTimer();
+	void StopTimer();
+	static void CALLBACK TimerHandler(UINT id, UINT msg, DWORD dwUser, DWORD dw1, DWORD dw2);
+	void OnTimer(void);
+	void PushDatatoCli(const ::MCS::GuiDataUpdaterPrx&, MCS::GuiHub::PushData, const std::string &);
 
 private:
 	void OHT_SetPositionBackTime(const std::string&);
@@ -75,6 +86,12 @@ private:
 	void OHT_MoveTest(const std::string&);
 
 	void STK_SetStatusBackTime(const std::string&);
+
+private:
+	GuiDataItem Push_OHT_DevInfo();
+	GuiDataItem Push_OHT_Position();
+
+	GuiDataItem Push_STK_DevInfo();
 };
 
 class UpdateCallback : public IceUtil::Shared

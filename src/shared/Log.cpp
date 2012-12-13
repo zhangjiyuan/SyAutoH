@@ -454,9 +454,9 @@ void oLog::Init(int32 fileLogLevel)
 		fprintf(stderr, "%s: Error opening '%s': %s\n", __FUNCTION__, logNormalFilename, strerror(errno));
 	else
 	{
-		time_t t = time(NULL);
-		tm* aTm = localtime(&t);
-		outBasic("[%-4d-%02d-%02d %02d:%02d:%02d] ", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
+		//time_t t = time(NULL);
+		//tm* aTm = localtime(&t);
+		//outBasic("[%-4d-%02d-%02d %02d:%02d:%02d] ", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
 	}
 
 	m_errorFile = fopen(logErrorFilename, "a");
@@ -464,10 +464,10 @@ void oLog::Init(int32 fileLogLevel)
 		fprintf(stderr, "%s: Error opening '%s': %s\n", __FUNCTION__, logErrorFilename, strerror(errno));
 	else
 	{
-		time_t t = time(NULL);
-		tm* aTm = localtime(&t);
+		//time_t t = time(NULL);
+		//tm* aTm = localtime(&t);
 		// We don't echo time and date again because outBasic above just echoed them.
-		outErrorSilent("[%-4d-%02d-%02d %02d:%02d:%02d] ", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
+		//outErrorSilent("[%-4d-%02d-%02d %02d:%02d:%02d] ", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
 	}
 }
 

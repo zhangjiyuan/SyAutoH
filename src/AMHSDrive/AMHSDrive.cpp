@@ -32,6 +32,11 @@ int CAMHSDrive::Init()
 	return 0;
 }
 
+void CopySTKStruct(driveSTK& target, amhs_stocker_ptr& src)
+{
+	target.nID = src->nID;
+}
+
 void CopyOHTStruct(driveOHT& target, amhs_oht_ptr& src)
 {
 	target.nID = src->nID;
@@ -49,6 +54,21 @@ void CopyOHTStruct(driveOHT& target, amhs_oht_ptr& src)
 	target.bNeedPath = src->bNeedPath;
 	target.strIp = src->p_participant->sIP_;
 	target.uPort = src->p_participant->uPort_;
+}
+
+DR_STK_LIST CAMHSDrive::GetStkList()
+{
+	DR_STK_LIST list;
+	amhs_stocker_vec stk_vec = sAmhsServer.GetServer()->STK_GetDataSet();
+	for (amhs_stocker_vec::iterator it = stk_vec.begin();
+		it != stk_vec.end(); ++it)
+	{
+		amhs_stocker_ptr sp_stk = *it;
+		driveSTK dStk;
+		CopySTKStruct(dStk, sp_stk);
+		list.push_back(dStk);
+	}
+	return list;
 }
 
 DR_OHT_LIST CAMHSDrive::GetOhtList()

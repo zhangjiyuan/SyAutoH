@@ -30,7 +30,7 @@ public:
 	int ManualInputFoup( const TCHAR* sFoupID);
 	int ManualOutputFoup( const TCHAR* sFoupID);
 	int History();
-
+	int m_nContain;
 private:
 	void Handle_Auth(AMHSPacket& packet);
 

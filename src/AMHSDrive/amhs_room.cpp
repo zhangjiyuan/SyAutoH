@@ -85,6 +85,20 @@ void amhs_room::leave(amhs_participant_ptr participant)
 	participants_.erase(participant);
 }
 
+amhs_stocker_vec amhs_room::GetStkDataSet()
+{
+	amhs_stocker_vec stk_vec;
+	RLock(rwLock_stocker_map_)
+	{
+		for (amhs_stocker_map::iterator it = stocker_map_.begin();
+			it != stocker_map_.end(); ++it)
+		{
+			stk_vec.push_back(it->second);
+		}
+	}
+	return stk_vec;
+}
+
 amhs_oht_vec amhs_room::GetOhtDataSet()
 {
 	amhs_oht_vec oht_vec;
@@ -171,7 +185,7 @@ void amhs_room::SendPacket(amhs_participant_ptr participants, AMHSPacket &packet
 		msg.IsRespond(false);
 		memcpy(msg.body(), packet.contents() + (i*szLimit), msg.body_length());
 		msg.encode_header();
-		packet.hexlike();
+		//packet.hexlike();
 
 		if (NULL == participants)
 		{
@@ -588,7 +602,7 @@ int amhs_room::DecodePacket(amhs_participant_ptr participants, AMHSPacket& Packe
 	OPT_MAP::iterator it = m_optHanders.find(mOpcode);
 	if (it != m_optHanders.end())
 	{
-		Packet.hexlike();
+		//Packet.hexlike();
 		(this->*it->second)(participants, Packet);
 		return 0;
 	}
