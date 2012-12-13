@@ -392,12 +392,14 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 		MessageBox(_T("请至少选择一项"));
 		return;
 	}
+	foupNum--;
 	int nId=(int)m_listCtrlFOUP.GetNextSelectedItem(pos);
 	m_listCtrlFOUP.DeleteItem(nId);
 	MAP_ItemFoup::iterator it;
 	it = g_mapFoups.find(nFoup_ID);
 	g_mapFoups.erase(it);
 	g_pVDev->Stocker_ManualOutputFoup(selectSTK, strFoup);
+	g_pVDev->STK_SetFoupNum(selectSTK,foupNum);
 	DeleteFoupXML(selectSTK,nFoup_ID);
 }
 int CVAMHSTestDlg::GetElemData(CMarkup xml,CString tag)
