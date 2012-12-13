@@ -162,7 +162,7 @@ BOOL CVAMHSTestDlg::OnInitDialog()
 	m_cbOhtTeachType.AddString(L"0x08 减速点");
 	m_cbOhtTeachType.AddString(L"0x10 停止点");
 	m_cbOhtTeachType.AddString(L"0x20 取放点");
-
+	DisplaySpeed();
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -408,6 +408,8 @@ void CVAMHSTestDlg::ReadOHTXML()
 		XML.AddElem(_T("OHTList"));
 		XML.AddElem(_T("TeachPosList"));
 		XML.AddElem(_T("StockerList"));
+		XML.AddElem(_T("ConstSpeed"));
+		XML.AddChildElem(_T("Speed"),100);
 		XML.Save(filePath);
 		return ;
 	}
@@ -580,6 +582,13 @@ int CVAMHSTestDlg::GetSpeed()
 	}
 	else 
 		return 0;
+}
+void CVAMHSTestDlg::DisplaySpeed()
+{
+	int speed = GetSpeed();
+	CString CSpeed;
+	CSpeed.Format(_T("%d"),speed);
+    SetDlgItemText(IDC_SPEED_SET_EDIT,CSpeed);
 }
 void CVAMHSTestDlg::OnBnClickedBnOhtAdd()
 {
@@ -952,6 +961,7 @@ void CVAMHSTestDlg::OnBnClickedSpeedSetButton()
 	xml.AddChildElem(_T("Speed"),nSpeed);
 	xml.OutOfElem();
 	xml.Save(path);
+    DisplaySpeed();
 }
 
 void CVAMHSTestDlg::OnBnClickedBnAllohtonline()

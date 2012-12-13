@@ -60,6 +60,7 @@ public:
 	CEdit m_ConstSpeed;
 	CListCtrl m_listCtrlSTOCKER;
 	CEdit m_stockerIDEdit;
+	void DisplaySpeed();
 	void InitListCtrlOHT(void);
 	void InitListCtrlFOUP(void);
 	void InitListCtrlSTOCKER(void);
