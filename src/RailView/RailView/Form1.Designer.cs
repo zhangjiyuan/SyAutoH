@@ -85,16 +85,19 @@ namespace RailView
             this.baseInfoTreeView = new System.Windows.Forms.TreeView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.btn_negative = new System.Windows.Forms.Button();
+            this.btn_plus = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.btn_center = new System.Windows.Forms.Button();
             this.btn_down = new System.Windows.Forms.Button();
             this.btn_right = new System.Windows.Forms.Button();
             this.btn_left = new System.Windows.Forms.Button();
             this.btn_up = new System.Windows.Forms.Button();
-            this.showPic = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showPic = new System.Windows.Forms.PictureBox();
             this.screenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             baseInfoMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.statusStrip1.SuspendLayout();
@@ -108,8 +111,9 @@ namespace RailView
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.showPic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.showPic)).BeginInit();
             this.SuspendLayout();
             // 
             // baseInfoMenu
@@ -332,6 +336,9 @@ namespace RailView
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.btn_negative);
+            this.splitContainer2.Panel1.Controls.Add(this.btn_plus);
+            this.splitContainer2.Panel1.Controls.Add(this.trackBar1);
             this.splitContainer2.Panel1.Controls.Add(this.btn_center);
             this.splitContainer2.Panel1.Controls.Add(this.btn_down);
             this.splitContainer2.Panel1.Controls.Add(this.btn_right);
@@ -345,6 +352,39 @@ namespace RailView
             this.splitContainer2.Size = new System.Drawing.Size(758, 693);
             this.splitContainer2.SplitterDistance = 447;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // btn_negative
+            // 
+            this.btn_negative.BackgroundImage = global::RailView.Properties.Resources.ImageShort;
+            this.btn_negative.Location = new System.Drawing.Point(41, 216);
+            this.btn_negative.Name = "btn_negative";
+            this.btn_negative.Size = new System.Drawing.Size(16, 16);
+            this.btn_negative.TabIndex = 8;
+            this.btn_negative.UseVisualStyleBackColor = true;
+            this.btn_negative.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btn_negative_MouseClick);
+            // 
+            // btn_plus
+            // 
+            this.btn_plus.BackgroundImage = global::RailView.Properties.Resources.ImageLarge;
+            this.btn_plus.Location = new System.Drawing.Point(41, 89);
+            this.btn_plus.Name = "btn_plus";
+            this.btn_plus.Size = new System.Drawing.Size(16, 16);
+            this.btn_plus.TabIndex = 7;
+            this.btn_plus.UseVisualStyleBackColor = true;
+            this.btn_plus.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btn_plus_MouseClick);
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.BackColor = System.Drawing.SystemColors.Window;
+            this.trackBar1.Location = new System.Drawing.Point(39, 95);
+            this.trackBar1.Maximum = 20;
+            this.trackBar1.Minimum = 1;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.Size = new System.Drawing.Size(45, 130);
+            this.trackBar1.TabIndex = 6;
+            this.trackBar1.Value = 10;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // btn_center
             // 
@@ -406,18 +446,6 @@ namespace RailView
             this.btn_up.MouseEnter += new System.EventHandler(this.btn_up_MouseEnter);
             this.btn_up.MouseLeave += new System.EventHandler(this.btn_up_MouseLeave);
             // 
-            // showPic
-            // 
-            this.showPic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.showPic.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.showPic.Location = new System.Drawing.Point(0, 0);
-            this.showPic.Name = "showPic";
-            this.showPic.Size = new System.Drawing.Size(756, 445);
-            this.showPic.TabIndex = 0;
-            this.showPic.TabStop = false;
-            this.showPic.Paint += new System.Windows.Forms.PaintEventHandler(this.showPic_Paint);
-            this.showPic.Resize += new System.EventHandler(this.showPic_Resize);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
@@ -453,6 +481,18 @@ namespace RailView
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(47, 21);
             this.viewToolStripMenuItem.Text = "View";
             // 
+            // showPic
+            // 
+            this.showPic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.showPic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.showPic.Location = new System.Drawing.Point(0, 0);
+            this.showPic.Name = "showPic";
+            this.showPic.Size = new System.Drawing.Size(756, 445);
+            this.showPic.TabIndex = 0;
+            this.showPic.TabStop = false;
+            this.showPic.Paint += new System.Windows.Forms.PaintEventHandler(this.showPic_Paint);
+            this.showPic.Resize += new System.EventHandler(this.showPic_Resize);
+            // 
             // screenToolStripMenuItem
             // 
             this.screenToolStripMenuItem.Image = global::RailView.Properties.Resources.full_screen2;
@@ -485,12 +525,14 @@ namespace RailView
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.showPic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.showPic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -526,5 +568,8 @@ namespace RailView
         private Button btn_right;
         private Button btn_left;
         private Button btn_up;
+        private Button btn_negative;
+        private Button btn_plus;
+        private TrackBar trackBar1;
     }
 }

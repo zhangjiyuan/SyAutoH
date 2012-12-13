@@ -19,6 +19,8 @@ namespace WinFormElement
         private static extern int GetTickCount();
 
         public Int16 canvasOffset = 10;
+        private int traceBaseValue = 10;
+        private float traceRatio = 1;
 
         public FormOperation()
         {
@@ -41,11 +43,25 @@ namespace WinFormElement
         public void ShowRegion(Graphics canvas)
         {
             //RemoveLencyOHT();
+
+            GraphicsContainer moveContainer = canvas.BeginContainer();
+            canvas.TranslateTransform(formShowRegion.canvasMoveX, formShowRegion.canvasMoveY);
+
+            GraphicsContainer stretchContainer = canvas.BeginContainer();
+            canvas.TranslateTransform(formShowRegion.ptCanStrOffset.X, formShowRegion.ptCanStrOffset.Y);
+            canvas.ScaleTransform(traceRatio, traceRatio);
+
+            GraphicsContainer objectContainer = canvas.BeginContainer();
+
+            canvas.TranslateTransform(formShowRegion.ptTranslate.X, formShowRegion.ptTranslate.Y);
             canvas.ScaleTransform(formShowRegion.xScale, formShowRegion.yScale);
-            canvas.TranslateTransform(formShowRegion.ptTranslate.X + formShowRegion.canvasMoveX, formShowRegion.ptTranslate.Y + formShowRegion.canvasMoveY);
-            
+
             formShowRegion.DrawRailInfo(canvas);
             formShowRegion.DrawVehicleInfo(canvas, dictVechiles);
+
+            canvas.EndContainer(objectContainer);
+            canvas.EndContainer(stretchContainer);
+            canvas.EndContainer(moveContainer);
         }
 
         public void RemoveLencyOHT()
@@ -109,5 +125,13 @@ namespace WinFormElement
         {
             formShowRegion.CanvasTranslate(str, canvasOffset);
         }
+
+        public void ChangeCanvasScale(int traceValue)
+        {
+            traceRatio = Convert.ToSingle(traceValue * 1.0 / traceBaseValue);
+            formShowRegion.CanvasStretchOffset(traceRatio);
+        }
+
+
     }
 }

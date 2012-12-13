@@ -67,6 +67,20 @@ namespace RailView.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ImageLarge {
+            get {
+                object obj = ResourceManager.GetObject("ImageLarge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ImageShort {
+            get {
+                object obj = ResourceManager.GetObject("ImageShort", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap normal_screen2 {
             get {
                 object obj = ResourceManager.GetObject("normal_screen2", resourceCulture);

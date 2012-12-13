@@ -352,5 +352,30 @@ namespace RailView
         }
 
         #endregion
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            int trackBarValue = trackBar1.Value;
+            formOperation.ChangeCanvasScale(trackBarValue);
+        }
+
+        private void btn_plus_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (trackBar1.Value < trackBar1.Maximum)
+            {
+                this.trackBar1.Value += 1;
+                formOperation.ChangeCanvasScale(this.trackBar1.Value);
+            }
+
+        }
+
+        private void btn_negative_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (trackBar1.Value > trackBar1.Minimum)
+            {
+                this.trackBar1.Value -= 1;
+                formOperation.ChangeCanvasScale(this.trackBar1.Value);
+            }
+        }
     }   
 }
