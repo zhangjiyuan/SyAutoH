@@ -259,36 +259,36 @@ namespace BaseRailElement
             return objectStaightOp.ChosedInRegion(rect);
         }
 
-        public override DataTable DataSetXMLSave()
+        public override DataRow DataSetXMLSave(DataTable dt)
         {
-            dt.Rows.Clear();
-            dt.Columns.Clear();
+            //dt.Rows.Clear();
+            //dt.Columns.Clear();
 
-            dt.Columns.Add("GraphType", typeof(int));
-            dt.Columns.Add("LocationLock", typeof(bool));
-            dt.Columns.Add("SizeLock", typeof(bool));
-            dt.Columns.Add("Selectable", typeof(bool));
-            dt.Columns.Add("Speed", typeof(float));
-            dt.Columns.Add("SegmentNumber", typeof(Int16));
-            dt.Columns.Add("TagNumber", typeof(int));
-            dt.Columns.Add("StartCoding", typeof(int));
-            dt.Columns.Add("EndCoding", typeof(int));
-            dt.Columns.Add("Lenght", typeof(int));
-            dt.Columns.Add("StartAngle", typeof(int));
-            dt.Columns.Add("StartDot", typeof(string));
-            dt.Columns.Add("PointListVol", typeof(Int16));
-            for (int i = 0; i < PointList.Count; i++)
-            {
-                dt.Columns.Add("PointList" + i.ToString(), typeof(string));
-            }
+            //dt.Columns.Add("GraphType", typeof(int));
+            //dt.Columns.Add("LocationLock", typeof(bool));
+            //dt.Columns.Add("SizeLock", typeof(bool));
+            //dt.Columns.Add("Selectable", typeof(bool));
+            //dt.Columns.Add("Speed", typeof(float));
+            //dt.Columns.Add("SegmentNumber", typeof(Int16));
+            //dt.Columns.Add("TagNumber", typeof(int));
+            //dt.Columns.Add("StartCoding", typeof(int));
+            //dt.Columns.Add("EndCoding", typeof(int));
+            //dt.Columns.Add("Lenght", typeof(int));
+            //dt.Columns.Add("StartAngle", typeof(int));
+            //dt.Columns.Add("StartDot", typeof(string));
+            //dt.Columns.Add("PointListVol", typeof(Int16));
+            //for (int i = 0; i < PointList.Count; i++)
+            //{
+            //    dt.Columns.Add("PointList" + i.ToString(), typeof(string));
+            //}
 
-            dt.Columns.Add("DrawMultiFactor", typeof(Int16));
-            dt.Columns.Add("startPoint", typeof(string));
-            dt.Columns.Add("endPoint", typeof(string));
-            dt.Columns.Add("railText", typeof(string));
-            dt.Columns.Add("rotateAngle", typeof(int));
-            dt.Columns.Add("nextCoding", typeof(int));
-            dt.Columns.Add("prevCoding", typeof(int));
+            //dt.Columns.Add("DrawMultiFactor", typeof(Int16));
+            //dt.Columns.Add("startPoint", typeof(string));
+            //dt.Columns.Add("endPoint", typeof(string));
+            //dt.Columns.Add("railText", typeof(string));
+            //dt.Columns.Add("rotateAngle", typeof(int));
+            //dt.Columns.Add("nextCoding", typeof(int));
+            //dt.Columns.Add("prevCoding", typeof(int));
 
             DataRow dr = dt.NewRow();
             dr["GraphType"] = GraphType;
@@ -318,7 +318,7 @@ namespace BaseRailElement
             dr["prevCoding"] = prevCoding;
 
             dt.Rows.Add(dr);
-            return dt;
+            return dr;
         }
     }
 }

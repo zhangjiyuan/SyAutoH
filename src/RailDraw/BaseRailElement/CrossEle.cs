@@ -529,43 +529,43 @@ namespace BaseRailElement
             return objectCrossOp.ChosedInRegion(rect);
         }
 
-        public override DataTable DataSetXMLSave()
+        public override DataRow DataSetXMLSave(DataTable dt)
         {
-            dt.Rows.Clear();
-            dt.Columns.Clear();
+            //dt.Rows.Clear();
+            //dt.Columns.Clear();
 
-            dt.Columns.Add("GraphType", typeof(int));
-            dt.Columns.Add("LocationLock", typeof(bool));
-            dt.Columns.Add("SizeLock", typeof(bool));
-            dt.Columns.Add("Selectable", typeof(bool));
-            dt.Columns.Add("Speed", typeof(float));
-            dt.Columns.Add("SegmentNumber", typeof(Int16));
-            dt.Columns.Add("TagNumber", typeof(int));
-            dt.Columns.Add("Mirror", typeof(bool));
-            dt.Columns.Add("FirstPart", typeof(int));
-            dt.Columns.Add("SecPart", typeof(int));
-            dt.Columns.Add("ThPart", typeof(int));
-            dt.Columns.Add("FourPart", typeof(string));
-            dt.Columns.Add("StartAngle", typeof(int));
-            dt.Columns.Add("RotateAngle", typeof(int));
-            dt.Columns.Add("DirectionOfCross", typeof(int));
-            dt.Columns.Add("PointListVol", typeof(Int16));
-            for (int i=0; i < PointList.Count; i++)
-            {
-                dt.Columns.Add("PointList" + i.ToString(), typeof(string));
-            }
+            //dt.Columns.Add("GraphType", typeof(int));
+            //dt.Columns.Add("LocationLock", typeof(bool));
+            //dt.Columns.Add("SizeLock", typeof(bool));
+            //dt.Columns.Add("Selectable", typeof(bool));
+            //dt.Columns.Add("Speed", typeof(float));
+            //dt.Columns.Add("SegmentNumber", typeof(Int16));
+            //dt.Columns.Add("TagNumber", typeof(int));
+            //dt.Columns.Add("Mirror", typeof(bool));
+            //dt.Columns.Add("FirstPart", typeof(int));
+            //dt.Columns.Add("SecPart", typeof(int));
+            //dt.Columns.Add("ThPart", typeof(int));
+            //dt.Columns.Add("FourPart", typeof(string));
+            //dt.Columns.Add("StartAngle", typeof(int));
+            //dt.Columns.Add("RotateAngle", typeof(int));
+            //dt.Columns.Add("DirectionOfCross", typeof(int));
+            //dt.Columns.Add("PointListVol", typeof(Int16));
+            //for (int i=0; i < PointList.Count; i++)
+            //{
+            //    dt.Columns.Add("PointList" + i.ToString(), typeof(string));
+            //}
 
-            dt.Columns.Add("drawMultiFactor", typeof(Int16));
-            dt.Columns.Add("startPoint", typeof(string));
-            dt.Columns.Add("endPoint", typeof(string));
-            dt.Columns.Add("startCoding", typeof(Int32));
-            dt.Columns.Add("endCoding", typeof(Int32));
-            dt.Columns.Add("railText", typeof(string));
-            dt.Columns.Add("lenghtOfStrai", typeof(Int32));
-            dt.Columns.Add("nextCoding", typeof(Int32));
-            dt.Columns.Add("prevCoding", typeof(Int32));
-            dt.Columns.Add("thirdDotCoding", typeof(Int32));
-            dt.Columns.Add("startDot", typeof(string));
+            //dt.Columns.Add("drawMultiFactor", typeof(Int16));
+            //dt.Columns.Add("startPoint", typeof(string));
+            //dt.Columns.Add("endPoint", typeof(string));
+            //dt.Columns.Add("startCoding", typeof(Int32));
+            //dt.Columns.Add("endCoding", typeof(Int32));
+            //dt.Columns.Add("railText", typeof(string));
+            //dt.Columns.Add("lenghtOfStrai", typeof(Int32));
+            //dt.Columns.Add("nextCoding", typeof(Int32));
+            //dt.Columns.Add("prevCoding", typeof(Int32));
+            //dt.Columns.Add("thirdDotCoding", typeof(Int32));
+            //dt.Columns.Add("startDot", typeof(string));
 
             DataRow dr = dt.NewRow();
             dr["GraphType"] = GraphType;
@@ -601,8 +601,8 @@ namespace BaseRailElement
             dr["thirdDotCoding"] = thirdDotCoding;
             dr["startDot"] = startDot;
 
-            dt.Rows.Add(dr);
-            return dt;
+           dt.Rows.Add(dr);
+            return dr;
         }
     }
 }

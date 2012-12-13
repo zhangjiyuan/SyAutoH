@@ -21,6 +21,7 @@ namespace BaseRailElement
     public class DrawDoc : BaseRailEle
     {
         public DataSet ds = new DataSet();
+        public DataTable dt = new DataTable("RailEleTable");
 
         private string _name = "";
         [Browsable(false)]
@@ -71,6 +72,55 @@ namespace BaseRailElement
         private bool chooseObject = false;
         private Point downPoint = Point.Empty;
         private Point lastPoint = Point.Empty;
+
+        public DrawDoc()
+        {
+            dt.Columns.Add("GraphType", typeof(int));
+            dt.Columns.Add("LocationLock", typeof(bool));
+            dt.Columns.Add("SizeLock", typeof(bool));
+            dt.Columns.Add("Selectable", typeof(bool));
+            dt.Columns.Add("Speed", typeof(float));
+            dt.Columns.Add("SegmentNumber", typeof(Int16));
+            dt.Columns.Add("TagNumber", typeof(int));
+            dt.Columns.Add("DrawMultiFactor", typeof(Int16));
+            dt.Columns.Add("railText", typeof(string));
+            dt.Columns.Add("StartCoding", typeof(int));
+            dt.Columns.Add("EndCoding", typeof(int));
+            dt.Columns.Add("startPoint", typeof(string));
+            dt.Columns.Add("endPoint", typeof(string));
+            dt.Columns.Add("StartAngle", typeof(int));
+            dt.Columns.Add("SweepAngle", typeof(int));
+            dt.Columns.Add("rotateAngle", typeof(int));
+            dt.Columns.Add("StartDot", typeof(string));
+            dt.Columns.Add("nextCoding", typeof(int));
+            dt.Columns.Add("prevCoding", typeof(int));
+            dt.Columns.Add("thirdDotCoding", typeof(Int32));
+
+            dt.Columns.Add("Lenght", typeof(int));
+            dt.Columns.Add("PointListVol", typeof(Int16));
+            for (int i = 0; i < 8; i++)
+            {
+                dt.Columns.Add("PointList" + i.ToString(), typeof(string));
+            }
+
+            dt.Columns.Add("Radiu", typeof(int));
+            dt.Columns.Add("Center", typeof(string));
+            dt.Columns.Add("FirstDot", typeof(string));
+            dt.Columns.Add("SecDot", typeof(string));
+            dt.Columns.Add("oldRadiu", typeof(Int32));
+            dt.Columns.Add("oldCenter", typeof(string));
+            dt.Columns.Add("oldFirstDot", typeof(string));
+            dt.Columns.Add("oldSecDot", typeof(string));
+            dt.Columns.Add("DirectionCurvedAttribute", typeof(int));
+
+            dt.Columns.Add("Mirror", typeof(bool));
+            dt.Columns.Add("FirstPart", typeof(int));
+            dt.Columns.Add("SecPart", typeof(int));
+            dt.Columns.Add("ThPart", typeof(int));
+            dt.Columns.Add("FourPart", typeof(string));
+            dt.Columns.Add("lenghtOfStrai", typeof(Int32));
+            dt.Columns.Add("DirectionOfCross", typeof(int));
+        }
 
         public override void Draw(Graphics canvas)
         {
@@ -262,12 +312,14 @@ namespace BaseRailElement
 
         public void DataXmlSave()
         {
+            dt.Rows.Clear();
             ds.Tables.Clear();
             int num = drawObjectList.Count;
             for (int i = 0; i < num; i++)
             {
-                ds.Tables.Add(drawObjectList[i].DataSetXMLSave());
+                drawObjectList[i].DataSetXMLSave(dt);
             }
+            ds.Tables.Add(dt);
         }
     }
 }
