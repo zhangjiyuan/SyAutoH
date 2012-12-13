@@ -40,8 +40,6 @@ namespace MCSControlLib
             m_dictProcess.Add(PushData.upOhtPosTable, ProcessPosTable);
         }
 
-       
-
         private void ProcessPosTable(ArrayList item)
         {
             if (4 == item.Count)

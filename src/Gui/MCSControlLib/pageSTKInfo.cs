@@ -33,6 +33,16 @@ namespace MCSControlLib
             m_dictProcess.Add(PushData.upStkInfo, ProcessStkInfo);
         }
 
+        private void NotifyMainStockerChange()
+        {
+            ArrayList stkList = new ArrayList();
+            foreach (DataRow row in m_tableStocker.Rows)
+            {
+                stkList.Add((byte)row[TKey_ID]);
+            }
+            NotifyDataChange(stkList, null);
+        }
+
          private void ProcessStkInfo(ArrayList item)
         {
              if (item.Count > 1)
@@ -50,7 +60,9 @@ namespace MCSControlLib
                      row[TKey_ID] = nID;
                      m_tableStocker.Rows.Add(row);
                      m_tableStocker.AcceptChanges();
+                     NotifyMainStockerChange();
                  }
+
              }
         }
 

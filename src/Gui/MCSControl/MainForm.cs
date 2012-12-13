@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -33,8 +34,9 @@ namespace MCSControl
         private Queue<MCS.GuiDataItem> buf = new Queue<MCS.GuiDataItem>();
         private long m_ltime64 = 0;
         private int m_nSession = -1;
-        private Dictionary<string, UserControl> m_dictMcsControl = new Dictionary<string, UserControl>();
-        private UserControl _ctrl = null;
+        private Dictionary<string, baseControlPage> m_dictMcsControl = 
+            new Dictionary<string, baseControlPage>();
+        private baseControlPage _ctrl = null;
         private IMcsControlBase m_ctrlBase = null;
 
         public MainForm()
@@ -63,13 +65,31 @@ namespace MCSControl
             this.timer1.Start();
         }
 
-        private void OnDataChange(object sender, int index)
+        private void OnDataChange(object sender, object obData1, object obData2)
         {
-            if (index == 23)
+            baseControlPage ctrl = sender as baseControlPage;
+            if (ctrl.Name.CompareTo("pageSTKInfo") == 0)
             {
-                string strStk;
-                strStk = "stockerinfo";
-                strStk = strStk.ToUpper();
+                TreeNode nodeSTK = this.treeViewPage.Nodes["nodeSTKInfo"];
+                if (null != nodeSTK)
+                {
+                    nodeSTK.Nodes.Clear();
+                    ArrayList list = obData1 as ArrayList;
+                    foreach (object item in list)
+                    {
+                        byte nID = (byte)item;
+                        TreeNode node = new TreeNode();
+                        string strNodeName = string.Format("nodeSTKItem_{0}", nID);
+                        node.Name = strNodeName;
+                        node.Text = string.Format("STK_{0}", nID);
+                        nodeSTK.Nodes.Add(node);
+                        baseControlPage tmpCtrl = null;
+                        if (m_dictMcsControl.TryGetValue(strNodeName, out tmpCtrl) == false)
+                        {
+                            m_dictMcsControl.Add(strNodeName, new pageStockerOpt());
+                        }
+                    }
+                }
             }
         }
 

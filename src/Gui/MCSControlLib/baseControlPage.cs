@@ -18,10 +18,13 @@ namespace MCSControlLib
         public baseControlPage()
         {
             InitProcessDictionary(); 
-            
+        }
+
+        protected void NotifyDataChange(object obData1, object obData2)
+        {
             if (null != this.DataChange)
             {
-                this.DataChange(this, 0);
+                this.DataChange(this, obData1, obData2);
             }
         }
 

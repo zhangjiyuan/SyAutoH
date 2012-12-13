@@ -29,24 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("OHT Info");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("STK ID: 23");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Stocker Info", new System.Windows.Forms.TreeNode[] {
-            treeNode6});
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Mes Command");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("OHT Info");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Stocker Info");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Mes Command");
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLable_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_NULL = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel_PushTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_User = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.treeViewPage = new System.Windows.Forms.TreeView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.userToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.toolStripStatusLabel_PushTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -103,8 +101,14 @@
             // toolStripStatusLabel_NULL
             // 
             this.toolStripStatusLabel_NULL.Name = "toolStripStatusLabel_NULL";
-            this.toolStripStatusLabel_NULL.Size = new System.Drawing.Size(724, 17);
+            this.toolStripStatusLabel_NULL.Size = new System.Drawing.Size(755, 17);
             this.toolStripStatusLabel_NULL.Spring = true;
+            // 
+            // toolStripStatusLabel_PushTime
+            // 
+            this.toolStripStatusLabel_PushTime.Name = "toolStripStatusLabel_PushTime";
+            this.toolStripStatusLabel_PushTime.Size = new System.Drawing.Size(63, 17);
+            this.toolStripStatusLabel_PushTime.Text = "PushTime";
             // 
             // toolStripStatusLabel_User
             // 
@@ -120,7 +124,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.treeView1);
+            this.splitContainer1.Panel1.Controls.Add(this.treeViewPage);
             // 
             // splitContainer1.Panel2
             // 
@@ -129,31 +133,29 @@
             this.splitContainer1.SplitterDistance = 133;
             this.splitContainer1.TabIndex = 0;
             // 
-            // treeView1
+            // treeViewPage
             // 
-            this.treeView1.BackColor = System.Drawing.Color.Beige;
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.treeView1.FullRowSelect = true;
-            this.treeView1.HideSelection = false;
-            this.treeView1.LineColor = System.Drawing.Color.DodgerBlue;
-            this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Name = "treeView1";
-            treeNode5.Name = "nodeOHTInfo";
-            treeNode5.Text = "OHT Info";
-            treeNode6.Name = "snodeSTK23";
-            treeNode6.Text = "STK ID: 23";
-            treeNode7.Name = "nodeSTKInfo";
-            treeNode7.Text = "Stocker Info";
-            treeNode8.Name = "nodeMesCommand";
-            treeNode8.Text = "Mes Command";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode7,
-            treeNode8});
-            this.treeView1.Size = new System.Drawing.Size(133, 499);
-            this.treeView1.TabIndex = 0;
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.treeViewPage.BackColor = System.Drawing.Color.Beige;
+            this.treeViewPage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewPage.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.treeViewPage.FullRowSelect = true;
+            this.treeViewPage.HideSelection = false;
+            this.treeViewPage.LineColor = System.Drawing.Color.DodgerBlue;
+            this.treeViewPage.Location = new System.Drawing.Point(0, 0);
+            this.treeViewPage.Name = "treeViewPage";
+            treeNode1.Name = "nodeOHTInfo";
+            treeNode1.Text = "OHT Info";
+            treeNode2.Name = "nodeSTKInfo";
+            treeNode2.Text = "Stocker Info";
+            treeNode3.Name = "nodeMesCommand";
+            treeNode3.Text = "Mes Command";
+            this.treeViewPage.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3});
+            this.treeViewPage.Size = new System.Drawing.Size(133, 499);
+            this.treeViewPage.TabIndex = 0;
+            this.treeViewPage.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // menuStrip1
             // 
@@ -196,12 +198,6 @@
             this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // toolStripStatusLabel_PushTime
-            // 
-            this.toolStripStatusLabel_PushTime.Name = "toolStripStatusLabel_PushTime";
-            this.toolStripStatusLabel_PushTime.Size = new System.Drawing.Size(63, 17);
-            this.toolStripStatusLabel_PushTime.Text = "PushTime";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -243,7 +239,7 @@
         private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView treeViewPage;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_PushTime;
     }
