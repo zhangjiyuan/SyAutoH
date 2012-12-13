@@ -278,7 +278,7 @@ int CVirtualAMHS::STK_History(int nStocker)
 	return 0;
 }
 
-int CVirtualAMHS::Stocker_ManualInputFoup(int nStocker, const TCHAR* sFoupID)
+int CVirtualAMHS::Stocker_ManualInputFoup(int nStocker,const TCHAR* sFoupID)
 {
 	MAP_VSTK::iterator it;
 	it = m_mapSTK->find(nStocker);
@@ -295,7 +295,7 @@ int CVirtualAMHS::Stocker_ManualInputFoup(int nStocker, const TCHAR* sFoupID)
 	return 0;
 }
 
-int CVirtualAMHS::Stocker_ManualOutputFoup(int nStocker, const TCHAR* sFoupID)
+int CVirtualAMHS::Stocker_ManualOutputFoup(int nStocker,const TCHAR* sFoupID)
 {
 	MAP_VSTK::iterator it;
 	it = m_mapSTK->find(nStocker);

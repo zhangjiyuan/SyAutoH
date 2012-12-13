@@ -67,8 +67,8 @@ public:
 
 	// for Stocker
 	LIST_FOUP Stocker_GetFoupsStatus(int nStocker);
-	int Stocker_ManualInputFoup(int nStocker, const TCHAR* sFoupID);
-	int Stocker_ManualOutputFoup(int nStocker, const TCHAR* sFoupID);
+	int Stocker_ManualInputFoup(int nStocker,const TCHAR* sFoupID);
+	int Stocker_ManualOutputFoup(int nStocker,const TCHAR* nFoupID);
 	int STK_History(int nStocker);
 	int STK_SetFoupNum(int nIndex,int nContain);
 	// for OHT
