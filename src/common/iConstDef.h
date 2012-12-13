@@ -75,6 +75,10 @@ enum PushData
 void __write(::IceInternal::BasicStream*, PushData);
 void __read(::IceInternal::BasicStream*, PushData&);
 
+typedef ::std::vector< ::MCS::GuiHub::PushData> GuiPushDataList;
+void __writeGuiPushDataList(::IceInternal::BasicStream*, const ::MCS::GuiHub::PushData*, const ::MCS::GuiHub::PushData*);
+void __readGuiPushDataList(::IceInternal::BasicStream*, GuiPushDataList&);
+
 }
 
 }

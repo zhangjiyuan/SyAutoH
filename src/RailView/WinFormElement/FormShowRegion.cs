@@ -17,205 +17,14 @@ namespace WinFormElement
         public List<RailEle> railInfoEleList = new List<RailEle>();
         public List<RailEle> railCodingEleList = new List<RailEle>();
 
+        public float xScale = 1;
+        public float yScale = 1;
+        public Point ptTranslate = Point.Empty;
+        public Int16 canvasMoveX = 0;
+        public Int16 canvasMoveY = 0;
+
         public bool ReadRailSaveFile()
         {
-            //XmlDocument xmlDoc = new XmlDocument();
-            //try
-            //{
-            //    xmlDoc.Load("..//config//rails.xml");
-            //    //xmlDoc.Load("3.xml");
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("文件不存在，请打开组态软件进行配置");
-            //    return false;
-            //}
-            //XmlNode root = xmlDoc.SelectSingleNode("DrawDoc");
-            //XmlNodeList rootNodeList = xmlDoc.SelectSingleNode("DrawDoc").ChildNodes;
-            //foreach (XmlNode rxn in rootNodeList)
-            //{
-            //    XmlElement rxe = (XmlElement)rxn;
-            //    if (rxe.Name == "DrawObjectList")
-            //    {
-            //        XmlNodeList childNodeList = rxe.ChildNodes;
-            //        foreach (XmlNode cxn in childNodeList)
-            //        {
-            //            XmlElement cxe = (XmlElement)cxn;
-            //            XmlNodeList cTwoNodeList = null;
-            //            XmlNodeList cThNodeList = null;
-            //            XmlNodeList cFNodeList = null;
-            //            Point pt = Point.Empty;
-            //            switch (cxe.GetAttribute("xsi:type"))
-            //            {
-            //                case "StraightRailEle":
-            //                    StraightEle strTemp = new StraightEle();
-            //                    cTwoNodeList = cxe.ChildNodes;
-            //                    foreach (XmlNode ctwoxn in cTwoNodeList)
-            //                    {
-            //                        XmlElement ctwoxe = (XmlElement)ctwoxn;
-            //                        if (ctwoxe.Name == "GraphType")
-            //                            strTemp.graphType = int.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "Speed")
-            //                            strTemp.speed = float.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "SegmentNumber")
-            //                            strTemp.segmentNumber = Int16.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "TagNumber")
-            //                            strTemp.tagNumber = Convert.ToInt16(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "Lenght")
-            //                            strTemp.lenght = int.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "StartAngle")
-            //                            strTemp.startAngle = int.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "StartDot")
-            //                            strTemp.startDot = ctwoxe.InnerText;
-            //                        else if (ctwoxe.Name == "PointList")
-            //                        {
-            //                            cThNodeList = ctwoxe.ChildNodes;
-            //                            foreach (XmlNode cthxn in cThNodeList)
-            //                            {
-            //                                XmlElement cthxe = (XmlElement)cthxn;
-            //                                if (cthxe.Name == "Point")
-            //                                {
-            //                                    cFNodeList = cthxe.ChildNodes;
-            //                                    foreach (XmlNode cfxn in cFNodeList)
-            //                                    {
-            //                                        XmlElement cfxe = (XmlElement)cfxn;
-            //                                        if (cfxe.Name == "X")
-            //                                            pt.X = int.Parse(cfxe.InnerText);
-            //                                        else if (cfxe.Name == "Y")
-            //                                            pt.Y = int.Parse(cfxe.InnerText);
-            //                                    }
-            //                                    strTemp.pointList.Add(pt);
-            //                                }
-            //                            }
-            //                        }
-            //                    }
-            //                    railInfoEleList.Add(strTemp);
-            //                    break;
-            //                case "CurvedRailEle":
-            //                    CurvedEle curTemp = new CurvedEle();
-            //                    cTwoNodeList = cxn.ChildNodes;
-            //                    foreach (XmlNode ctwoxn in cTwoNodeList)
-            //                    {
-            //                        XmlElement ctwoxe = (XmlElement)ctwoxn;
-            //                        if (ctwoxe.Name == "GraphType")
-            //                            curTemp.graphType = int.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "speed")
-            //                            curTemp.speed = float.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "SegmentNumber")
-            //                            curTemp.segmentNumber = Convert.ToInt16(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "TagNumber")
-            //                            curTemp.tagNumber = Int16.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "StartAngle")
-            //                            curTemp.startAngle = int.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "SweepAngle")
-            //                            curTemp.sweepAngle = int.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "Radiu")
-            //                            curTemp.radiu = int.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "Center")
-            //                        {
-            //                            cThNodeList = ctwoxe.ChildNodes;
-            //                            foreach (XmlNode cthxn in cThNodeList)
-            //                            {
-            //                                XmlElement cthxe = (XmlElement)cthxn;
-            //                                if (cthxe.Name == "X")
-            //                                    curTemp.center.X = int.Parse(cthxe.InnerText);
-            //                                else if (cthxe.Name == "Y")
-            //                                    curTemp.center.Y = int.Parse(cthxe.InnerText);
-            //                            }
-            //                        }
-            //                        else if (ctwoxn.Name == "FirstDot")
-            //                        {
-            //                            cThNodeList = ctwoxn.ChildNodes;
-            //                            foreach (XmlNode cthxn in cThNodeList)
-            //                            {
-            //                                XmlElement cthxe = (XmlElement)cthxn;
-            //                                if (cthxe.Name == "X")
-            //                                    curTemp.firstDot.X = int.Parse(cthxe.InnerText);
-            //                                else if (cthxe.Name == "Y")
-            //                                    curTemp.firstDot.Y = int.Parse(cthxe.InnerText);
-            //                            }
-            //                        }
-            //                        else if (ctwoxn.Name == "SecDot")
-            //                        {
-            //                            cThNodeList = ctwoxn.ChildNodes;
-            //                            foreach (XmlNode cthxn in cThNodeList)
-            //                            {
-            //                                XmlElement cthxe = (XmlElement)cthxn;
-            //                                if (cthxe.Name == "X")
-            //                                    curTemp.secDot.X = int.Parse(cthxe.InnerText);
-            //                                else if (cthxe.Name == "Y")
-            //                                    curTemp.secDot.Y = int.Parse(cthxe.InnerText);
-            //                            }
-            //                        }
-            //                    }
-            //                    railInfoEleList.Add(curTemp);
-            //                    break;
-            //                case "CrossEle":
-            //                    CrossEle croTemp = new CrossEle();
-            //                    cTwoNodeList = cxn.ChildNodes;
-            //                    foreach (XmlNode ctwoxn in cTwoNodeList)
-            //                    {
-            //                        XmlElement ctwoxe = (XmlElement)ctwoxn;
-            //                        if (ctwoxe.Name == "GraphType")
-            //                            croTemp.graphType = int.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "Speed")
-            //                            croTemp.speed = float.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "SegmentNumber")
-            //                            croTemp.segmentNumber = Convert.ToInt16(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "TagNumber")
-            //                            croTemp.tagNumber = Int16.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "FirstPart")
-            //                            croTemp.firstPart = int.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "SecPart")
-            //                            croTemp.secPart = int.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "ThPart")
-            //                            croTemp.thPart = int.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "StartAngle")
-            //                            croTemp.startAngle = int.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "RotateAngle")
-            //                            croTemp.rotateAngle = int.Parse(ctwoxe.InnerText);
-            //                        else if (ctwoxe.Name == "FourPart")
-            //                        {
-            //                            cThNodeList = ctwoxe.ChildNodes;
-            //                            foreach (XmlNode cthxn in cThNodeList)
-            //                            {
-            //                                XmlElement cthxe = (XmlElement)cthxn;
-            //                                if (cthxe.Name == "X")
-            //                                    croTemp.fourPart.X = int.Parse(cthxe.InnerText);
-            //                                else if (cthxe.Name == "Y")
-            //                                    croTemp.fourPart.Y = int.Parse(cthxe.InnerText);
-            //                            }
-            //                        }
-            //                        else if (ctwoxe.Name == "PointList")
-            //                        {
-            //                            cThNodeList = ctwoxe.ChildNodes;
-            //                            foreach (XmlNode cthxn in cThNodeList)
-            //                            {
-            //                                XmlElement cthxe = (XmlElement)cthxn;
-            //                                if (cthxe.Name == "Point")
-            //                                {
-            //                                    cFNodeList = cthxe.ChildNodes;
-            //                                    foreach (XmlNode cfxn in cFNodeList)
-            //                                    {
-            //                                        XmlElement cfxe = (XmlElement)cfxn;
-            //                                        if (cfxe.Name == "X")
-            //                                            pt.X = int.Parse(cfxe.InnerText);
-            //                                        else if (cfxe.Name == "Y")
-            //                                            pt.Y = int.Parse(cfxe.InnerText);
-            //                                    }
-            //                                    croTemp.pointList.Add(pt);
-            //                                }
-            //                            }
-            //                        }
-            //                    }
-            //                    railInfoEleList.Add(croTemp);
-            //                    break;
-            //                default:
-            //                    break;
-            //            }
-            //        }
-            //    }
-            //}
             DataSet ds = new DataSet();
             try
             {
@@ -397,8 +206,8 @@ namespace WinFormElement
 
         public void InitRailList()
         {
- //           List<RailEle> tempList = GetStrEle(railInfoEleList);
- //           railCodingEleList = ArrangeStrEle(tempList);
+            List<RailEle> tempList = GetStrEle(railInfoEleList);
+            railCodingEleList = ArrangeStrEle(tempList);
         }
 
         public void DrawRailInfo(Graphics canvas)
@@ -466,6 +275,10 @@ namespace WinFormElement
         private Point ComputeCoordinates(List<RailEle> tempList, uint locationValue)
         {
             Point returnPt = Point.Empty;
+            if (null == tempList)
+            {
+                return Point.Empty;
+            }
             Int32 offsetTemp = 0;
             Int16 section = 0;
             StraightEle strTemp = new StraightEle();
@@ -473,6 +286,10 @@ namespace WinFormElement
             CrossEle croTemp = new CrossEle();
 //            ComputeOffset(locationValue);
             section = ComputeSegmentNumber(locationValue, tempList);
+            if (section < 0)
+            {
+                return Point.Empty;
+            }
             offsetTemp = ComputeSegmentOffset(locationValue, tempList, section);
             switch (tempList[section].graphType)
             {
@@ -550,7 +367,7 @@ namespace WinFormElement
         private Int16 ComputeSegmentNumber(uint value, List<RailEle> paraList)
         {
             Int16 temp = Convert.ToInt16(value);
-            Int16 segNum = 0;
+            Int16 segNum = -1;
             for (Int16 i = 0; i < paraList.Count; i++)
             {
                 if (paraList[i].segmentNumber != 0 && temp < paraList[i].tagNumber)
@@ -572,7 +389,199 @@ namespace WinFormElement
             }
             return temp;
         }
+
+        public void AdjustRailSize(Size showPicSz)
+        {
+            Point ptTempMaxX = Point.Empty;
+            Point ptTempMinX = Point.Empty;
+            Point ptTempMaxY = Point.Empty;
+            Point ptTempMinY = Point.Empty;
+            Point pt = Point.Empty;
+            switch (railInfoEleList[0].graphType)
+            {
+                case 1:
+                    StraightEle strEle = (StraightEle)railInfoEleList[0];
+                    pt = strEle.pointList[0];
+                    break;
+                case 2:
+                    CurvedEle curEle = (CurvedEle)railInfoEleList[0];
+                    pt = curEle.firstDot;
+                    break;
+                case 3:
+                    CrossEle croEle = (CrossEle)railInfoEleList[0];
+                    pt = croEle.pointList[0];
+                    break;
+            }
+
+            Point ptMaxX = pt;
+            Point ptMinX = pt;
+            Point ptMaxY = pt;
+            Point ptMinY = pt;
+            foreach (RailEle obj in railInfoEleList)
+            {
+                switch (obj.graphType)
+                {
+                    case 1:
+                        StraightEle strEle = (StraightEle)obj;
+                        if (strEle.pointList[0].Y == strEle.pointList[1].Y)
+                        {
+                            if (strEle.pointList[0].X < strEle.pointList[1].X)
+                            {
+                                ptTempMinX = strEle.pointList[0];
+                                ptTempMaxX = strEle.pointList[1];
+                            }
+                            else
+                            {
+                                ptTempMinX = strEle.pointList[1];
+                                ptTempMaxX = strEle.pointList[0];
+                            }
+                        }
+                        else if (strEle.pointList[0].X == strEle.pointList[1].X)
+                        {
+                            if (strEle.pointList[0].Y < strEle.pointList[1].Y)
+                            {
+                                ptTempMinY = strEle.pointList[0];
+                                ptTempMaxY = strEle.pointList[1];
+                            }
+                            else
+                            {
+                                ptTempMinY = strEle.pointList[1];
+                                ptTempMaxY = strEle.pointList[0];
+                            }
+                        }
+                        break;
+                    case 2:
+                        CurvedEle curEle = (CurvedEle)obj;
+                        if (curEle.firstDot.X < curEle.secDot.X)
+                        {
+                            ptTempMinX = curEle.firstDot;
+                            ptTempMaxX = curEle.secDot;
+                        }
+                        else if (curEle.firstDot.X > curEle.secDot.X)
+                        {
+                            ptTempMinX = curEle.secDot;
+                            ptTempMaxX = curEle.firstDot;
+                        }
+                        if(curEle.firstDot.Y<curEle.secDot.Y)
+                        {
+                            ptTempMinY = curEle.firstDot;
+                            ptTempMaxY = curEle.secDot;
+                        }
+                        else if (curEle.firstDot.Y > curEle.secDot.Y)
+                        {
+                            ptTempMinY = curEle.secDot;
+                            ptTempMaxY = curEle.firstDot;
+                        }
+                        break;
+                    case 3:
+                        CrossEle croEle = (CrossEle)obj;
+                        if (croEle.pointList[0].Y == croEle.pointList[5].Y)
+                        {
+                            if (croEle.pointList[0].X < croEle.pointList[5].X)
+                            {
+                                ptTempMinX = croEle.pointList[0];
+                                ptTempMaxX = croEle.pointList[5];
+                            }
+                            else if (croEle.pointList[0].X > croEle.pointList[5].X)
+                            {
+                                ptTempMinX = croEle.pointList[5];
+                                ptTempMaxX = croEle.pointList[0];
+                            }
+                            if (croEle.pointList[3].Y < croEle.pointList[7].Y)
+                            {
+                                ptTempMinY = croEle.pointList[3];
+                                ptTempMaxY = croEle.pointList[7];
+                            }
+                            else if (croEle.pointList[3].Y > croEle.pointList[7].Y)
+                            {
+                                ptTempMinY = croEle.pointList[7];
+                                ptTempMaxY = croEle.pointList[3];
+                            }
+                        }
+                        else if (croEle.pointList[0].X == croEle.pointList[5].X)
+                        {
+                            if (croEle.pointList[0].Y < croEle.pointList[5].Y)
+                            {
+                                ptTempMinY = croEle.pointList[0];
+                                ptTempMaxY = croEle.pointList[5];
+                            }
+                            else if (croEle.pointList[0].Y > croEle.pointList[5].Y)
+                            {
+                                ptTempMinY = croEle.pointList[5];
+                                ptTempMaxY = croEle.pointList[0];
+                            }
+                            if (croEle.pointList[3].X < croEle.pointList[7].X)
+                            {
+                                ptTempMinX = croEle.pointList[3];
+                                ptTempMaxX = croEle.pointList[7];
+                            }
+                            else if (croEle.pointList[3].X > croEle.pointList[7].X)
+                            {
+                                ptTempMinX = croEle.pointList[7];
+                                ptTempMaxX = croEle.pointList[3];
+                            }
+                        }
+                        break;
+                }
+                if (ptMaxX.X < ptTempMaxX.X)
+                {
+                    ptMaxX = ptTempMaxX;
+                }
+                if (ptMinX.X > ptTempMinX.X)
+                {
+                    ptMinX = ptTempMinX;
+                }
+                if (ptMaxY.Y < ptTempMaxY.Y)
+                {
+                    ptMaxY = ptTempMaxY;
+                }
+                if (ptMinX.Y > ptTempMinY.Y)
+                {
+                    ptMinY = ptTempMinY;
+                }
+            }
+            int railWidth = ptMaxX.X - ptMinX.X;
+            int railHeight = ptMaxY.Y - ptMinY.Y;
+            xScale = Convert.ToSingle((showPicSz.Width - 20) * 1.0 / railWidth);
+            yScale = Convert.ToSingle((showPicSz.Height - 20) * 1.0 / railHeight);
+            if (xScale < yScale)
+            {
+                yScale = xScale;
+            }
+            else
+            {
+                xScale = yScale;
+            }
+            ptTranslate = Point.Empty;
+            ptTranslate.Offset(Convert.ToInt32(showPicSz.Width / 2 - (ptMinX.X + railWidth / 2) * xScale), Convert.ToInt32(showPicSz.Height / 2 - (ptMinY.Y + railHeight / 2) * xScale));
+        }
+
+        public void CanvasTranslate(string direction,Int16 canvasOffset)
+        {
+            switch (direction)
+            {
+                case "up":
+                    canvasMoveY -= canvasOffset;
+                    break;
+                case "down":
+                    canvasMoveY += canvasOffset;
+                    break;
+                case "left":
+                    canvasMoveX -= canvasOffset;
+                    break;
+                case "right":
+                    canvasMoveX += canvasOffset;
+                    break;
+                case "center":
+                    canvasMoveX = 0;
+                    canvasMoveY = 0;
+                    break;
+            }
+        }
+
+
     }
+
 
     public abstract class RailEle
     {

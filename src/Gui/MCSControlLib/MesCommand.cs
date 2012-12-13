@@ -11,10 +11,16 @@ namespace MCSControlLib
 {
     public partial class MesCommand : UserControl, IMcsControlBase
     {
+        public event DataChangeHander DataChange;
         private GuiAccess.DataHubCli m_dataHub = null;
         public MesCommand()
         {
             InitializeComponent();
+
+            if (null != this.DataChange)
+            {
+                this.DataChange(this, 0);
+            }
         }
 
         public GuiAccess.DataHubCli DataHub
@@ -27,6 +33,16 @@ namespace MCSControlLib
             {
                 return m_dataHub;
             }
+        }
+
+        public void PageInit()
+        {
+
+        }
+
+        public void PageExit()
+        {
+
         }
 
         public void ProcessGuiData(List<MCS.GuiDataItem> list)

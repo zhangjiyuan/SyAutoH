@@ -150,8 +150,8 @@ public:
 		PktHeader.check = hash_xor_body();
 
 		memcpy(data_, &PktHeader, header_length);
-		printf("Encode ");
-		Header_HexLike();
+		//printf("Encode ");
+		//Header_HexLike();
 	}
 	
 	uint8 IsLast() const { return nIsLast; }

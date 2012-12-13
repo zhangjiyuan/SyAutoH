@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
@@ -17,63 +18,83 @@ namespace WinFormElement
         [DllImport("kernel32.dll")]
         private static extern int GetTickCount();
 
+        public Int16 canvasOffset = 10;
+
         public FormOperation()
         {
         }
 
-        public void FormShowRegionInit()
+        public void FormShowRegionInit(Size showPicSz)
         {
             if (formShowRegion.ReadRailSaveFile())
             {
                 formShowRegion.InitRailList();
+                AdjustCanvasSize(showPicSz);
             }
+        }
+
+        public void AdjustCanvasSize(Size showPicSz)
+        {
+            formShowRegion.AdjustRailSize(showPicSz);
         }
 
         public void ShowRegion(Graphics canvas)
         {
             //RemoveLencyOHT();
+            canvas.ScaleTransform(formShowRegion.xScale, formShowRegion.yScale);
+            canvas.TranslateTransform(formShowRegion.ptTranslate.X + formShowRegion.canvasMoveX, formShowRegion.ptTranslate.Y + formShowRegion.canvasMoveY);
+            
             formShowRegion.DrawRailInfo(canvas);
-            formShowRegion.DrawVehicleInfo(canvas, dictVechiles);
+            lock (dictVechiles)
+            {
+                formShowRegion.DrawVehicleInfo(canvas, dictVechiles);
+            }
+           
         }
 
         public void RemoveLencyOHT()
         {
             int nNow = GetTickCount();
-            foreach (KeyValuePair<uint, Vehicle> item in dictVechiles)
+            lock (dictVechiles)
             {
-                Vehicle oht = item.Value;
-                if (nNow - oht.UpdateTime > 10000)
+                foreach (KeyValuePair<uint, Vehicle> item in dictVechiles)
                 {
-                    dictVechiles.Remove(oht.ID);
+                    Vehicle oht = item.Value;
+                    if (nNow - oht.UpdateTime > 10000)
+                    {
+                        dictVechiles.Remove(oht.ID);
+                    }
                 }
             }
+           
         }
 
         public void UpdateOHTPos(List<OhtPos> listOhtPos)
         {
             foreach (OhtPos item in listOhtPos)
             {
-                if (dictVechiles.ContainsKey(item.nID))
+                lock (dictVechiles)
                 {
-                    Vehicle oht;
-                    bool bGet = dictVechiles.TryGetValue(item.nID, out oht);
-                    if (bGet)
+                    if (dictVechiles.ContainsKey(item.nID))
                     {
+                        Vehicle oht;
+                        bool bGet = dictVechiles.TryGetValue(item.nID, out oht);
+                        if (bGet)
+                        {
+                            oht.PosCode = item.nPos;
+                            oht.Hand = item.nHand;
+                            oht.UpdateTime = GetTickCount();
+                        }
+                    }
+                    else
+                    {
+                        Vehicle oht = new Vehicle(item.nID);
                         oht.PosCode = item.nPos;
                         oht.Hand = item.nHand;
                         oht.UpdateTime = GetTickCount();
+                        dictVechiles.Add(item.nID, oht);
                     }
                 }
-                else
-                {
-                    Vehicle oht = new Vehicle(item.nID);
-                    oht.PosCode = item.nPos;
-                    oht.Hand = item.nHand;
-                    oht.UpdateTime = GetTickCount();
-                    dictVechiles.Add(item.nID, oht);
-                }
-
-               
             }
 
 
@@ -92,5 +113,10 @@ namespace WinFormElement
 
         public void DeleteVehicleNode(TreeView tempTreeView)
         { }
+
+        public void BtnCanvasMove(string str)
+        {
+            formShowRegion.CanvasTranslate(str, canvasOffset);
+        }
     }
 }

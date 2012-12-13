@@ -52,8 +52,8 @@ void amhs_session::handle_read_header(const boost::system::error_code& error)
 {
 	if (!error && read_msg_.decode_header())
 	{
-		printf("Decode ");
-		read_msg_.Header_HexLike();
+		//printf("Decode ");
+		//read_msg_.Header_HexLike();
 		boost::asio::async_read(socket_,
 			boost::asio::buffer(read_msg_.body(), read_msg_.max_body_length), //OHT
 			//boost::asio::buffer(read_msg_.body(), read_msg_.body_length()), //STK

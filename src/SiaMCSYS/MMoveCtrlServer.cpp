@@ -103,7 +103,7 @@ void MMoveCtrlServer::Run(int argc, _TCHAR** argv)
 			//wprintf_s(L"MCS Running.\n");
 			MC.Check();
 
-			Sleep(50);
+			Sleep(200);
 		}
 
 		//sLog.outString("Shutting down...");

@@ -6,6 +6,7 @@
 #include "../SqlAceCli/SqlAceCli.h"
 #include "IceUtil/Unicode.h"
 #include "iConstDef.h"
+#include <MMSystem.h>
 
 void GuiDataHubI::OHT_GetPositionTable(const std::string&)
 {
@@ -205,4 +206,43 @@ void GuiDataHubI::OHT_SetPositionBackTime(const std::string& strVal)
 			m_pAMHSDrive->OHTPosBackTime(nID, nTime);
 		}
 	}
+}
+
+GuiDataItem GuiDataHubI::Push_OHT_DevInfo()
+{
+	GuiDataItem item;
+	string strOhtList = "";
+	char buf[256] ="";
+	DR_OHT_LIST oht_list = m_pAMHSDrive->GetOhtList();
+	for (DR_OHT_LIST::iterator it = oht_list.begin(); 
+		it != oht_list.end(); ++it)
+	{
+		sprintf_s(buf, 256, "<%d,%s,%u>", it->nID, it->strIp.c_str(), it->uPort);
+		strOhtList += buf;
+	}
+	item.enumTag = MCS::GuiHub::upOhtInfo;
+	item.sVal = strOhtList;
+
+	return item;
+}
+
+GuiDataItem GuiDataHubI::Push_OHT_Position()
+{
+	GuiDataItem item;
+	//DWORD dwTime = timeGetTime();
+	//LOG_BASIC("Time: %d", dwTime);
+	printf(".");
+	DR_OHT_LIST oht_list = m_pAMHSDrive->GetOhtList();
+	string strOhtList = "";
+	char buf[256] ="";
+	for (DR_OHT_LIST::iterator it = oht_list.begin(); 
+		it != oht_list.end(); ++it)
+	{
+		sprintf_s(buf, 256, "<%d,%d,%d>", it->nID, it->nPOS, it->nHand);
+		strOhtList += buf;
+	}
+	item.enumTag = MCS::GuiHub::upOhtPos;
+	item.sVal = strOhtList;
+
+	return item;
 }
