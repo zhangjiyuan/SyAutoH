@@ -245,7 +245,7 @@ void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 	CMarkup XML;
 	CString path;
 	path = GetPath();
-	path += "../Config/OHTandTeachPos.xml";
+	path += "../Config/VAMHSTest.xml";
 	XML.Load(path);
 	XML.FindElem();
 	XML.FindChildElem(_T("OHTList"));
@@ -274,7 +274,7 @@ void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 void CVAMHSTestDlg::AddFoupXMLElem(int STK_ID,int Foup_ID,ItemFoup* pFoup)
 {
 	CString path = GetPath();
-	path += "../Config/OHTandTeachPos.xml";
+	path += "../Config/VAMHSTest.xml";
 	CMarkup xml;
 	xml.Load(path);
 	xml.FindElem();
@@ -405,7 +405,7 @@ int CVAMHSTestDlg::GetElemData(CMarkup xml,CString tag)
 void CVAMHSTestDlg::SaveOHTXML()
 {
 	CStringW filePath = GetPath();
-	filePath += "../Config/OHTandTeachPos.xml";
+	filePath += "../Config/VAMHSTest.xml";
 	CMarkup XML;
 	XML.Load(filePath);
 	MAP_ItemOHT::iterator it;
@@ -490,12 +490,12 @@ void CVAMHSTestDlg::SaveOHTXML()
 void CVAMHSTestDlg::ReadOHTXML()
 {
 	CStringW filePath = GetPath();
-	filePath += "../Config/OHTandTeachPos.xml";
+	filePath += "../Config/VAMHSTest.xml";
 	CMarkup XML;
 	if(!XML.Load(filePath))
 	{
 		XML.SetDoc(_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")); 
-		XML.AddElem(_T("OHTandTeachPosList"));
+		XML.AddElem(_T("VAMHSTestList"));
 		XML.IntoElem();
 		XML.AddElem(_T("OHTList"));
 		XML.AddElem(_T("TeachPosList"));
@@ -537,7 +537,7 @@ void CVAMHSTestDlg::ReadSTKXML()
 {
 	CMarkup xml;
 	CString path = GetPath();
-	path += "../Config/OHTandTeachPos.xml";
+	path += "../Config/VAMHSTest.xml";
 	xml.Load(path);
 	xml.FindElem();
 	xml.FindChildElem(_T("StockerList"));
@@ -569,7 +569,7 @@ void CVAMHSTestDlg::SaveSTKXML()
 {
 	CMarkup xml;
 	CString path = GetPath();
-	path += "../Config/OHTandTeachPos.xml";
+	path += "../Config/VAMHSTest.xml";
 	xml.Load(path);
 	MAP_ItemStocker::iterator it;
 	for(it = g_mapStockers.begin();it != g_mapStockers.end();it++)
@@ -632,7 +632,7 @@ void CVAMHSTestDlg::ReadFOUPXML(int STK_ID)
 	foupNum = 0;
 	CMarkup xml;
 	CString path = GetPath();
-	path += "../Config/OHTandTeachPos.xml";
+	path += "../Config/VAMHSTest.xml";
 	xml.Load(path);
 	xml.FindElem();
 	xml.FindChildElem(_T("StockerList"));
@@ -677,7 +677,7 @@ void CVAMHSTestDlg::ReadFOUPXML(int STK_ID)
 void CVAMHSTestDlg::DeleteSTKXML(int STK_ID)
 {
 	CString path = GetPath();
-	path += "../Config/OHTandTeachPos.xml";
+	path += "../Config/VAMHSTest.xml";
 	CMarkup xml;
 	xml.Load(path);
 	xml.FindElem();
@@ -706,7 +706,7 @@ void CVAMHSTestDlg::DeleteSTKXML(int STK_ID)
 void CVAMHSTestDlg::DeleteFoupXML(int STK_ID,int Foup_ID)
 {
 	CString path = GetPath();
-	path += "../Config/OHTandTeachPos.xml";
+	path += "../Config/VAMHSTest.xml";
 	CMarkup xml;
 	xml.Load(path);
 	xml.FindElem();
@@ -752,7 +752,7 @@ void CVAMHSTestDlg::DeleteElem(int nID)
 	CMarkup XML;
 	CString path;
 	path = GetPath();
-	path += "../Config/OHTandTeachPos.xml";
+	path += "../Config/VAMHSTest.xml";
 	XML.Load(path);
 	XML.FindElem();
 	XML.FindChildElem(_T("OHTList"));
@@ -784,7 +784,7 @@ int CVAMHSTestDlg::GetSpeed()
 {
 	CMarkup xml;
 	CString path = GetPath();
-	path += "../Config/OHTandTeachPos.xml";
+	path += "../Config/VAMHSTest.xml";
 	xml.Load(path);
 	xml.FindElem();
 	if(xml.FindChildElem(_T("ConstSpeed")))
@@ -884,7 +884,7 @@ void CVAMHSTestDlg::OnBnClickedBnTeachPos()
 	int nOhtID = 0;
 	nOhtID = GetSelectOhtID();
 	CStringW filePath = GetPath();
-	filePath += "../Config/OHTandTeachPos.xml";
+	filePath += "../Config/VAMHSTest.xml";
 	CMarkup xml;
 	xml.Load(filePath);
 	xml.ResetMainPos();
@@ -930,10 +930,11 @@ void CVAMHSTestDlg::InitListCtrlFOUP(void)
 	dwStyle = m_listCtrlFOUP.GetStyle();  //取得样式
 	dwStyle = LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT ;   //添加样式
 	m_listCtrlFOUP.SetExtendedStyle(dwStyle);     //重新设置
-	m_listCtrlFOUP.InsertColumn(0, _T("ID"), LVCFMT_CENTER, 100);
-	m_listCtrlFOUP.InsertColumn(1, _T("Location"), LVCFMT_CENTER, 80);
-	m_listCtrlFOUP.InsertColumn(2, _T("Status"), LVCFMT_CENTER, 50);
-	
+	m_listCtrlFOUP.InsertColumn(0, _T("ID"), LVCFMT_CENTER, 55);
+	m_listCtrlFOUP.InsertColumn(1, _T("Location"), LVCFMT_CENTER, 65);
+	m_listCtrlFOUP.InsertColumn(2, _T("Status"), LVCFMT_CENTER, 65);
+	m_listCtrlFOUP.InsertColumn(3,_T("BatchID"),LVCFMT_CENTER,65);
+	m_listCtrlFOUP.InsertColumn(4,_T("BarCodeID"),LVCFMT_CENTER,70);
 }
 void CVAMHSTestDlg::InitListCtrlSTOCKER(void)
 {
@@ -1036,7 +1037,7 @@ void CVAMHSTestDlg::SetStockerListItemData(ItemStocker* pStocker,int nListIndex)
 	m_listCtrlSTOCKER.SetItemText(nListIndex,0,str);
 	m_listCtrlSTOCKER.SetItemText(nListIndex,1,_T("Idle"));
 	str.Format(_T("%d"),pStocker->nContain);
-	str += "/146";
+	str += "/141";
 	m_listCtrlSTOCKER.SetItemText(nListIndex,2,str);
 	if (pStocker->nOnline > 0)
 	{
@@ -1155,7 +1156,7 @@ void CVAMHSTestDlg::OnBnClickedSendallButton()
 		return ; 
 	}
 	CString path = GetPath();
-	path += "../Config/OHTandTeachPos.xml";
+	path += "../Config/VAMHSTest.xml";
 	CMarkup xml;
 	xml.Load(path);
 	xml.FindElem();
@@ -1187,7 +1188,7 @@ void CVAMHSTestDlg::OnBnClickedSpeedSetButton()
 	int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed);
 	CMarkup xml;
 	CString path = GetPath();
-	path += "../Config/OHTandTeachPos.xml";
+	path += "../Config/VAMHSTest.xml";
 	xml.Load(path);
 	xml.FindElem();
 	while(xml.FindChildElem(_T("ConstSpeed")))
@@ -1219,7 +1220,7 @@ void CVAMHSTestDlg::OnBnClickedBnAllohtonline()
 	        CMarkup XML;
 	        CString path;
 	        path = GetPath();
-	        path += "../Config/OHTandTeachPos.xml";
+	        path += "../Config/VAMHSTest.xml";
 	        XML.Load(path);
 	        XML.FindElem();
 	        XML.FindChildElem(_T("OHTList"));
@@ -1340,6 +1341,7 @@ void CVAMHSTestDlg::OnBnClickedDeleteStkButton()
 	m_listCtrlSTOCKER.DeleteItem(nId);
 	MAP_ItemStocker::iterator it;
 	it = g_mapStockers.find(nSTK_ID);
+	int nOff = g_pVDev->Stocker_Offline(nSTK_ID);
 	g_mapStockers.erase(it);
 	DeleteSTKXML(nSTK_ID);
 	m_listCtrlFOUP.DeleteAllItems();

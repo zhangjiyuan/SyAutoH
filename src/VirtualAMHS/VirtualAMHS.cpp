@@ -168,6 +168,7 @@ int CVirtualAMHS::Stocker_Offline(int nIndex)
 		VirtualStocker* stocker = it->second;
 		if (stocker->Online() == true)
 		{
+			stocker->DestoryTimer();
 			stocker->Close();
 		}
 		else

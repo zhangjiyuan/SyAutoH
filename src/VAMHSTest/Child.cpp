@@ -109,7 +109,7 @@ void Child::ReadOHTXML()
 {
 	CMarkup XML;
 	CString path = GetXMLPath();
-	path += "../Config/OHTandTeachPos.xml";
+	path += "../Config/VAMHSTest.xml";
 	if(!XML.Load(path))
 	{
 		XML.SetDoc(_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"));
@@ -159,7 +159,7 @@ void Child::ReadOHTXML()
 void Child::DeleteXMLElem(CString ID,CString pos)
 {
 	CStringW path = GetXMLPath();
-	path += "../Config/OHTandTeachPos.xml";
+	path += "../Config/VAMHSTest.xml";
 	CMarkup XML;
 	XML.Load(path);
 	XML.ResetMainPos();
@@ -188,7 +188,7 @@ void Child::DeleteXMLElem(CString ID,CString pos)
 void Child::SaveOHTXML(CString nID,CString nPos,CString nType,CString nSpeed)
 {
 	CStringW path = GetXMLPath();
-	path += "../Config/OHTandTeachPos.xml";
+	path += "../Config/VAMHSTest.xml";
 	CMarkup XML;
 	XML.Load(path);
 	XML.ResetMainPos();
