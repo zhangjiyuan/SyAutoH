@@ -26,8 +26,8 @@
 *.ipch
 *.log
 *.suo
-/src\RailDraw\RailDraw/obj
-/src\RailDraw\RailDraw/bin
+obj
+bin
 *.cache
 *.exp
 *.filters

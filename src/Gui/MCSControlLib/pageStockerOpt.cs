@@ -15,5 +15,22 @@ namespace MCSControlLib
         {
             InitializeComponent();
         }
+
+        private void textBox14_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bnAlarmHistory_Click(object sender, EventArgs e)
+        {
+            formSTKAlarmHistory hisAlarm = new formSTKAlarmHistory();
+            hisAlarm.ShowDialog();
+        }
+
+        private void bnFoupHistory_Click(object sender, EventArgs e)
+        {
+            formSTKFoupHistory hisFoup = new formSTKFoupHistory();
+            hisFoup.ShowDialog();
+        }
     }
 }
