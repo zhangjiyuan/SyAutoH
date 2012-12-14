@@ -37,46 +37,47 @@ namespace WinFormElement
             {
                 Debug.WriteLine(string.Format("read xml error is {0}", exp));
             }
-            foreach (DataTable dt in ds.Tables)
+            DataTable dt = ds.Tables[0];
+            for (int i = 0; i < dt.Rows.Count;i++ )
             {
                 DataColumn dc = dt.Columns[0];
-                if(dc.ColumnName=="GraphType")
+                if (dc.ColumnName == "GraphType")
                 {
-                    switch (dt.Rows[0][0].ToString())
+                    switch (dt.Rows[i][0].ToString())
                     {
                         case "1":
                             StraightEle strTemp = new StraightEle();
                             Int16 pointListVolStr = 0;
-                            for (int i = 0; i < dt.Columns.Count; i++)
+                            for (int j = 0; j < dt.Columns.Count; j++)
                             {
-                                switch (dt.Columns[i].ColumnName)
+                                switch (dt.Columns[j].ColumnName)
                                 {
                                     case "GraphType":
-                                        strTemp.graphType = Convert.ToInt32(dt.Rows[0][i]);
+                                        strTemp.graphType = Convert.ToInt32(dt.Rows[i][j]);
                                         break;
                                     case "Speed":
-                                        strTemp.speed = Convert.ToSingle(dt.Rows[0][i]);
+                                        strTemp.speed = Convert.ToSingle(dt.Rows[i][j]);
                                         break;
                                     case "SegmentNumber":
-                                        strTemp.segmentNumber = Convert.ToInt16(dt.Rows[0][i]);
+                                        strTemp.segmentNumber = Convert.ToInt16(dt.Rows[i][j]);
                                         break;
                                     case "TagNumber":
-                                        strTemp.tagNumber = Convert.ToInt16(dt.Rows[0][i]);
+                                        strTemp.tagNumber = Convert.ToInt16(dt.Rows[i][j]);
                                         break;
                                     case "Lenght":
-                                        strTemp.lenght = Convert.ToInt32(dt.Rows[0][i]);
+                                        strTemp.lenght = Convert.ToInt32(dt.Rows[i][j]);
                                         break;
                                     case "StartAngle":
-                                        strTemp.startAngle = Convert.ToInt32(dt.Rows[0][i]);
+                                        strTemp.startAngle = Convert.ToInt32(dt.Rows[i][j]);
                                         break;
                                     case "StartDot":
-                                        strTemp.startDot = Convert.ToString(dt.Rows[0][i]);
+                                        strTemp.startDot = Convert.ToString(dt.Rows[i][j]);
                                         break;
                                     case "PointListVol":
-                                        pointListVolStr = Convert.ToInt16(dt.Rows[0][i]);
-                                        for (int j = 0; j < pointListVolStr; j++)
+                                        pointListVolStr = Convert.ToInt16(dt.Rows[i][j]);
+                                        for (int k = 0; k < pointListVolStr; k++)
                                         {
-                                            string str = dt.Rows[0][i + j + 1].ToString();
+                                            string str = dt.Rows[i][j + k + 1].ToString();
                                             str = str.Substring(1, str.Length - 2);
                                             string[] strPointArray = str.Split(',');
                                             Point ptTemp = new Point() { X = int.Parse(strPointArray[0].Substring(2)), Y = int.Parse(strPointArray[1].Substring(2)) };
@@ -89,50 +90,50 @@ namespace WinFormElement
                             break;
                         case "2":
                             CurvedEle curTemp = new CurvedEle();
-                            string strcur="";
-                            string[] strPointArrayCur={};
-                            Point ptcur=Point.Empty;
-                            for (int i = 0; i < dt.Columns.Count; i++)
+                            string strcur = "";
+                            string[] strPointArrayCur = { };
+                            Point ptcur = Point.Empty;
+                            for (int j = 0; j < dt.Columns.Count; j++)
                             {
-                                switch (dt.Columns[i].ColumnName)
+                                switch (dt.Columns[j].ColumnName)
                                 {
                                     case "GraphType":
-                                        curTemp.graphType = Convert.ToInt32(dt.Rows[0][i]);
+                                        curTemp.graphType = Convert.ToInt32(dt.Rows[i][j]);
                                         break;
                                     case "Speed":
-                                        curTemp.speed = Convert.ToSingle(dt.Rows[0][i]);
+                                        curTemp.speed = Convert.ToSingle(dt.Rows[i][j]);
                                         break;
                                     case "SegmentNumber":
-                                        curTemp.segmentNumber = Convert.ToInt16(dt.Rows[0][i]);
+                                        curTemp.segmentNumber = Convert.ToInt16(dt.Rows[i][j]);
                                         break;
                                     case "TagNumber":
-                                        curTemp.tagNumber = Convert.ToInt16(dt.Rows[0][i]);
+                                        curTemp.tagNumber = Convert.ToInt16(dt.Rows[i][j]);
                                         break;
                                     case "StartAngle":
-                                        curTemp.startAngle = Convert.ToInt32(dt.Rows[0][i]);
+                                        curTemp.startAngle = Convert.ToInt32(dt.Rows[i][j]);
                                         break;
                                     case "SweepAngle":
-                                        curTemp.sweepAngle = Convert.ToInt32(dt.Rows[0][i]);
+                                        curTemp.sweepAngle = Convert.ToInt32(dt.Rows[i][j]);
                                         break;
                                     case "Radiu":
-                                        curTemp.radiu = Convert.ToInt32(dt.Rows[0][i]);
+                                        curTemp.radiu = Convert.ToInt32(dt.Rows[i][j]);
                                         break;
                                     case "Center":
-                                        strcur = dt.Rows[0][i].ToString();
+                                        strcur = dt.Rows[i][j].ToString();
                                         strcur = strcur.Substring(1, strcur.Length - 2);
                                         strPointArrayCur = strcur.Split(',');
                                         ptcur = new Point() { X = int.Parse(strPointArrayCur[0].Substring(2)), Y = int.Parse(strPointArrayCur[1].Substring(2)) };
                                         curTemp.center = ptcur;
                                         break;
                                     case "FirstDot":
-                                        strcur = dt.Rows[0][i].ToString();
+                                        strcur = dt.Rows[i][j].ToString();
                                         strcur = strcur.Substring(1, strcur.Length - 2);
                                         strPointArrayCur = strcur.Split(',');
                                         ptcur = new Point() { X = int.Parse(strPointArrayCur[0].Substring(2)), Y = int.Parse(strPointArrayCur[1].Substring(2)) };
                                         curTemp.firstDot = ptcur;
                                         break;
                                     case "SecDot":
-                                        strcur = dt.Rows[0][i].ToString();
+                                        strcur = dt.Rows[i][j].ToString();
                                         strcur = strcur.Substring(1, strcur.Length - 2);
                                         strPointArrayCur = strcur.Split(',');
                                         ptcur = new Point() { X = int.Parse(strPointArrayCur[0].Substring(2)), Y = int.Parse(strPointArrayCur[1].Substring(2)) };
@@ -144,53 +145,53 @@ namespace WinFormElement
                             break;
                         case "3":
                             CrossEle croTemp = new CrossEle();
-                            string strcro="";
-                            string[] strPointArrayCro={};
-                            Point ptcro=Point.Empty;
+                            string strcro = "";
+                            string[] strPointArrayCro = { };
+                            Point ptcro = Point.Empty;
                             Int16 pointListVolCro = 0;
-                            for (int i = 0; i < dt.Columns.Count; i++)
+                            for (int j = 0; j < dt.Columns.Count; j++)
                             {
-                                switch (dt.Columns[i].ColumnName)
+                                switch (dt.Columns[j].ColumnName)
                                 {
                                     case "GraphType":
-                                        croTemp.graphType = Convert.ToInt32(dt.Rows[0][i]);
+                                        croTemp.graphType = Convert.ToInt32(dt.Rows[i][j]);
                                         break;
                                     case "Speed":
-                                        croTemp.speed = Convert.ToSingle(dt.Rows[0][i]);
+                                        croTemp.speed = Convert.ToSingle(dt.Rows[i][j]);
                                         break;
                                     case "SegmentNumber":
-                                        croTemp.segmentNumber = Convert.ToInt16(dt.Rows[0][i]);
+                                        croTemp.segmentNumber = Convert.ToInt16(dt.Rows[i][j]);
                                         break;
                                     case "TagNumber":
-                                        croTemp.tagNumber = Convert.ToInt16(dt.Rows[0][i]);
+                                        croTemp.tagNumber = Convert.ToInt16(dt.Rows[i][j]);
                                         break;
                                     case "FirstPart":
-                                        croTemp.firstPart = Convert.ToInt32(dt.Rows[0][i]);
+                                        croTemp.firstPart = Convert.ToInt32(dt.Rows[i][j]);
                                         break;
                                     case "SecPart":
-                                        croTemp.secPart = Convert.ToInt32(dt.Rows[0][i]);
+                                        croTemp.secPart = Convert.ToInt32(dt.Rows[i][j]);
                                         break;
                                     case "ThPart":
-                                        croTemp.thPart = Convert.ToInt32(dt.Rows[0][i]);
+                                        croTemp.thPart = Convert.ToInt32(dt.Rows[i][j]);
                                         break;
                                     case "FourPart":
-                                        strcro = dt.Rows[0][i].ToString();
+                                        strcro = dt.Rows[i][j].ToString();
                                         strcro = strcro.Substring(1, strcro.Length - 2);
                                         strPointArrayCro = strcro.Split(',');
                                         ptcro = new Point() { X = int.Parse(strPointArrayCro[0].Substring(2)), Y = int.Parse(strPointArrayCro[1].Substring(2)) };
                                         croTemp.fourPart = ptcro;
                                         break;
                                     case "StartAngle":
-                                        croTemp.startAngle = Convert.ToInt32(dt.Rows[0][i]);
+                                        croTemp.startAngle = Convert.ToInt32(dt.Rows[i][j]);
                                         break;
                                     case "RotateAngle":
-                                        croTemp.rotateAngle = Convert.ToInt32(dt.Rows[0][i]);
+                                        croTemp.rotateAngle = Convert.ToInt32(dt.Rows[i][j]);
                                         break;
                                     case "PointListVol":
-                                        pointListVolCro = Convert.ToInt16(dt.Rows[0][i]);
-                                        for (Int16 j = 0; j < pointListVolCro; j++)
+                                        pointListVolCro = Convert.ToInt16(dt.Rows[i][j]);
+                                        for (Int16 k = 0; k < pointListVolCro; k++)
                                         {
-                                            strcro = dt.Rows[0][i + j + 1].ToString();
+                                            strcro = dt.Rows[i][j + k + 1].ToString();
                                             strcro = strcro.Substring(1, strcro.Length - 2);
                                             strPointArrayCro = strcro.Split(',');
                                             ptcro = new Point() { X = int.Parse(strPointArrayCro[0].Substring(2)), Y = int.Parse(strPointArrayCro[1].Substring(2)) };
