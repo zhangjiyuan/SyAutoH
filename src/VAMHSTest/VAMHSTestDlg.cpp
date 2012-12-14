@@ -129,6 +129,8 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_ADD_STOCKER_BUTTON, &CVAMHSTestDlg::OnBnClickedAddStockerButton)
 	ON_NOTIFY(NM_CLICK, IDC_LIST_FOUP2, &CVAMHSTestDlg::OnNMClickListFoup2)
 	ON_BN_CLICKED(IDC_BN_AddSTK2, &CVAMHSTestDlg::OnBnClickedBnAddstk2)
+	ON_BN_CLICKED(IDC_STK_ALL_ONLINE_BUTTON, &CVAMHSTestDlg::OnBnClickedStkAllOnlineButton)
+	ON_BN_CLICKED(IDC_DELETE_STK_BUTTON, &CVAMHSTestDlg::OnBnClickedDeleteStkButton)
 END_MESSAGE_MAP()
 
 // CVAMHSTestDlg 消息处理程序
@@ -329,18 +331,7 @@ void CVAMHSTestDlg::OnBnClickedBnAddstk()
 		g_pVDev->Stocker_Auth(nSTK_ID,"192.168.55.10");
 		g_pVDev->STK_SetFoupNum(nSTK_ID,it->second->nContain);
 	}
-	else
-	{
-		for(it = g_mapStockers.begin();it != g_mapStockers.end();it++)
-		{	
-			int nSTOCKER_ID = it->second->nID;
-			if(nSTOCKER_ID > 0)
-			{
-				g_pVDev->Stocker_Auth(nSTOCKER_ID, "192.168.55.10");	
-				g_pVDev->STK_SetFoupNum(nSTOCKER_ID,it->second->nContain);
-			}
-		}
-	}
+		
 		return;
 }
 
@@ -682,6 +673,35 @@ void CVAMHSTestDlg::ReadFOUPXML(int STK_ID)
 		}
 	}
 	xml.OutOfElem();
+}
+void CVAMHSTestDlg::DeleteSTKXML(int STK_ID)
+{
+	CString path = GetPath();
+	path += "../Config/OHTandTeachPos.xml";
+	CMarkup xml;
+	xml.Load(path);
+	xml.FindElem();
+	xml.FindChildElem(_T("StockerList"));
+	xml.IntoElem();
+	while(xml.FindChildElem(_T("Stocker")))
+	{
+		xml.IntoElem();
+		xml.FindChildElem(_T("StockerInfo"));
+		xml.IntoElem();
+		xml.FindChildElem(_T("ID"));
+		xml.IntoElem();
+		CString CID = xml.GetData();
+		int nID = _ttoi(CID);
+		xml.OutOfElem();
+		xml.OutOfElem();
+		xml.OutOfElem();
+		if(nID == STK_ID)
+		{
+			xml.RemoveChildElem();
+			xml.Save(path);
+			return ; 
+		}
+	}
 }
 void CVAMHSTestDlg::DeleteFoupXML(int STK_ID,int Foup_ID)
 {
@@ -1108,7 +1128,6 @@ void CVAMHSTestDlg::OnBnClickedOhtDel()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	int OHT_ID = GetSelectOhtID();
-	CString str;
     int nId;
     POSITION pos = m_listCtrlOHT.GetFirstSelectedItemPosition();
     if(pos==NULL)
@@ -1261,17 +1280,20 @@ void CVAMHSTestDlg::OnNMClickListFoup2(NMHDR *pNMHDR, LRESULT *pResult)
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	// TODO: 在此添加控件通知处理程序代码
 	int nListIndex = pNMItemActivate->iItem;
-    int nStockerID = m_listCtrlSTOCKER.GetItemData(nListIndex);	
-	if(nStockerID != selectSTK)	
-	{		
-		selectSTK = nStockerID;	
-		m_listCtrlFOUP.DeleteAllItems();
-		ReadFOUPXML(selectSTK);	
-		CString CID;	
-		CID.Format(_T("%d"),nStockerID);	
-		SetDlgItemText(IDC_SELECT_STK_EDIT,CID);
+	if(nListIndex >= 0)
+	{
+		int nStockerID = m_listCtrlSTOCKER.GetItemData(nListIndex);	
+	    if(nStockerID != selectSTK)	
+	    {		
+			selectSTK = nStockerID;	
+		    m_listCtrlFOUP.DeleteAllItems();
+		    ReadFOUPXML(selectSTK);	
+		    CString CID;	
+		    CID.Format(_T("%d"),nStockerID);	
+		    SetDlgItemText(IDC_SELECT_STK_EDIT,CID);
+	    }
+	    g_pVDev->STK_SetFoupNum(nStockerID,foupNum);
 	}
-	g_pVDev->STK_SetFoupNum(nStockerID,foupNum);
 	*pResult = 0;
 }
 
@@ -1283,13 +1305,42 @@ void CVAMHSTestDlg::OnBnClickedBnAddstk2()
 	{
 		int nOff = g_pVDev->Stocker_Offline(nSTK_ID);
 	}
-	else
-	{
-		MAP_ItemStocker::iterator it;
-		for(it = g_mapStockers.begin();it != g_mapStockers.end();it++)
+}
+
+
+void CVAMHSTestDlg::OnBnClickedStkAllOnlineButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	MAP_ItemStocker::iterator it;
+	for(it = g_mapStockers.begin();it != g_mapStockers.end();it++)
+	{	
+		int nSTOCKER_ID = it->second->nID;
+		if(nSTOCKER_ID > 0)
 		{
-			int nOff = g_pVDev->Stocker_Offline(it->second->nID);
+			g_pVDev->Stocker_Auth(nSTOCKER_ID, "192.168.55.10");	
+			g_pVDev->STK_SetFoupNum(nSTOCKER_ID,it->second->nContain);
 		}
 	}
+	return ;
+}
 
+
+void CVAMHSTestDlg::OnBnClickedDeleteStkButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	int nSTK_ID = GetSelectStockerID();
+	int nId;
+    POSITION pos = m_listCtrlSTOCKER.GetFirstSelectedItemPosition();
+    if(pos == NULL)
+    {
+		MessageBox(_T("请至少选择一项"));
+		return;
+	}
+	nId=(int)m_listCtrlSTOCKER.GetNextSelectedItem(pos);
+	m_listCtrlSTOCKER.DeleteItem(nId);
+	MAP_ItemStocker::iterator it;
+	it = g_mapStockers.find(nSTK_ID);
+	g_mapStockers.erase(it);
+	DeleteSTKXML(nSTK_ID);
+	m_listCtrlFOUP.DeleteAllItems();
 }
