@@ -12,6 +12,8 @@
 
 #pragma  once
 // 此类是从 AMHSDrive.dll 导出的
+#include <vector>
+#include <map>
 
 typedef struct  sVec_OHT
 {
@@ -31,9 +33,14 @@ typedef struct  sVec_OHT
 	string strIp;
 	unsigned int uPort;
 } driveOHT;
-#include <vector>
-#include <map>
+
 typedef std::vector<driveOHT> DR_OHT_LIST;
+
+typedef struct sVec_STK
+{
+	int nID;
+} driveSTK;
+typedef std::vector<driveSTK> DR_STK_LIST;
 
 typedef struct sPathKeyPoint
 {
@@ -60,6 +67,7 @@ public:
 	void OHTFoup(int nID, int nDevBuf, int nOperation);
 	void OHTSetPath(int nID, int nType, int nStart, int nTarget, PATH_POINT_LIST& KeyPoints);
 
+	DR_STK_LIST GetStkList();
 	void STKFoup(int nID, int nOpt, int nMode, int nData);
 	void STKStatusBackTime(int nID, int ms);
 

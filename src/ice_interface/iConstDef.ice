@@ -37,7 +37,9 @@ module MCS
 				upOhtInfo,
 				upOhtPos,
 				upOhtPosTable,
-				upOhtStatus
+				upOhtStatus,
+				
+				upStkInfo
 			};
 			sequence<PushData> GuiPushDataList;
 		

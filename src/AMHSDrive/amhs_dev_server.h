@@ -79,6 +79,8 @@ typedef struct sData_Stocker
 }amhs_Stocker;
 typedef boost::shared_ptr<amhs_Stocker> amhs_stocker_ptr;
 typedef std::map<int, amhs_stocker_ptr> amhs_stocker_map;
+typedef std::set<amhs_stocker_ptr> amhs_stocker_set;
+typedef std::vector<amhs_stocker_ptr> amhs_stocker_vec;
 
 //----------------------------------------------------------------------
 
@@ -89,12 +91,16 @@ public:
 	void join(amhs_participant_ptr participant);
 	void leave(amhs_participant_ptr participant);
 
-	amhs_oht_vec GetOhtDataSet();
+	
 	void SendPacket(amhs_participant_ptr participants, AMHSPacket &ack);
 	void SendPacket(int nID, int nType, AMHSPacket& packet);
 	int DecodePacket(amhs_participant_ptr participants, AMHSPacket& Packet);
 	void deliver_all(const amhs_message& msg);
 	int GetCount();
+
+public:
+	amhs_oht_vec GetOhtDataSet();
+	amhs_stocker_vec GetStkDataSet();
 
 private:
 	void Handle_OHT_AckStatusBackTime(amhs_participant_ptr, AMHSPacket&);
@@ -179,6 +185,7 @@ public:
 	void OHT_Foup(int nID, int nDevBuf, int nOperation);
 	void OHT_SetPath(int nID, int nType, int nStart, int nTarget, amhs_keypoint_vec& KeyPoints);
 
+	amhs_stocker_vec STK_GetDataSet();
 	void STK_FOUP(int nID, int nMode, int nPick, int nFoupData);
 	void STK_Status(int nID);
 	void STK_Room(int nID);

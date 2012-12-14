@@ -48,6 +48,10 @@ GuiDataHubI::GuiDataHubI(void)
 	m_mapMakePush.insert(std::make_pair(GuiHub::upOhtPos,
 		&GuiDataHubI::Push_OHT_Position));
 
+	// for stocker
+	m_mapMakePush.insert(std::make_pair(GuiHub::upStkInfo,
+		&GuiDataHubI::Push_STK_DevInfo));
+
 	SetTimer();
 }
 

@@ -22,6 +22,9 @@ namespace WinFormElement
         public Point ptTranslate = Point.Empty;
         public Int16 canvasMoveX = 0;
         public Int16 canvasMoveY = 0;
+        public Point ptCanStrOffset = Point.Empty;
+        public Rectangle rcRailEle = Rectangle.Empty;
+        private Size szShowPic = Size.Empty;
 
         public bool ReadRailSaveFile()
         {
@@ -397,6 +400,7 @@ namespace WinFormElement
             Point ptTempMaxY = Point.Empty;
             Point ptTempMinY = Point.Empty;
             Point pt = Point.Empty;
+            szShowPic = showPicSz;
             switch (railInfoEleList[0].graphType)
             {
                 case 1:
@@ -554,6 +558,10 @@ namespace WinFormElement
             }
             ptTranslate = Point.Empty;
             ptTranslate.Offset(Convert.ToInt32(showPicSz.Width / 2 - (ptMinX.X + railWidth / 2) * xScale), Convert.ToInt32(showPicSz.Height / 2 - (ptMinY.Y + railHeight / 2) * xScale));
+            rcRailEle.X = ptMinX.X+ptTranslate.X;
+            rcRailEle.Y = ptMinY.Y+ptTranslate.Y;
+            rcRailEle.Width = Convert.ToInt32(railWidth * xScale);
+            rcRailEle.Height = Convert.ToInt32(railHeight * yScale);
         }
 
         public void CanvasTranslate(string direction,Int16 canvasOffset)
@@ -579,7 +587,19 @@ namespace WinFormElement
             }
         }
 
-
+        public void CanvasStretchOffset(float ratio)
+        {
+            Rectangle rc = new Rectangle();
+            Point rcCenter = Point.Empty;
+            ptCanStrOffset = Point.Empty;
+            rc.X = Convert.ToInt32(rcRailEle.X * ratio);
+            rc.Y = Convert.ToInt32(rcRailEle.Y * ratio);
+            rc.Width = Convert.ToInt32(rcRailEle.Width * ratio);
+            rc.Height = Convert.ToInt32(rcRailEle.Height * ratio);
+            rcCenter.X = rc.X + rc.Width / 2;
+            rcCenter.Y = rc.Y + rc.Height / 2;
+            ptCanStrOffset.Offset(szShowPic.Width / 2 - rcCenter.X, szShowPic.Height / 2 - rcCenter.Y);
+        }
     }
 
 

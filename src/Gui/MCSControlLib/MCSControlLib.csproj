@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="baseControlPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="IMcsControlBase.cs" />
     <Compile Include="LoginForm.cs">
@@ -56,17 +59,17 @@
     <Compile Include="MCSMessageBox.Designer.cs">
       <DependentUpon>MCSMessageBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="MesCommand.cs">
+    <Compile Include="pageMesCommand.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MesCommand.Designer.cs">
-      <DependentUpon>MesCommand.cs</DependentUpon>
+    <Compile Include="pageMesCommand.Designer.cs">
+      <DependentUpon>pageMesCommand.cs</DependentUpon>
     </Compile>
-    <Compile Include="OHTInfo.cs">
+    <Compile Include="pageOHTInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="OHTInfo.Designer.cs">
-      <DependentUpon>OHTInfo.cs</DependentUpon>
+    <Compile Include="pageOHTInfo.Designer.cs">
+      <DependentUpon>pageOHTInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -74,17 +77,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="STKInfo.cs">
+    <Compile Include="pageSTKInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="STKInfo.Designer.cs">
-      <DependentUpon>STKInfo.cs</DependentUpon>
+    <Compile Include="pageSTKInfo.Designer.cs">
+      <DependentUpon>pageSTKInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="StockerOpt.cs">
+    <Compile Include="pageStockerOpt.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StockerOpt.Designer.cs">
-      <DependentUpon>StockerOpt.cs</DependentUpon>
+    <Compile Include="pageStockerOpt.Designer.cs">
+      <DependentUpon>pageStockerOpt.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -94,21 +97,21 @@
     <EmbeddedResource Include="MCSMessageBox.resx">
       <DependentUpon>MCSMessageBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MesCommand.resx">
-      <DependentUpon>MesCommand.cs</DependentUpon>
+    <EmbeddedResource Include="pageMesCommand.resx">
+      <DependentUpon>pageMesCommand.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OHTInfo.resx">
-      <DependentUpon>OHTInfo.cs</DependentUpon>
+    <EmbeddedResource Include="pageOHTInfo.resx">
+      <DependentUpon>pageOHTInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="STKInfo.resx">
-      <DependentUpon>STKInfo.cs</DependentUpon>
+    <EmbeddedResource Include="pageSTKInfo.resx">
+      <DependentUpon>pageSTKInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StockerOpt.resx">
-      <DependentUpon>StockerOpt.cs</DependentUpon>
+    <EmbeddedResource Include="pageStockerOpt.resx">
+      <DependentUpon>pageStockerOpt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -147,7 +147,7 @@ namespace BaseRailElement
         public virtual void DrawEnlargeOrShrink(float draw_multi_factor) { }
         public virtual void ObjectMirror() { }
         public virtual bool ChosedInRegion(Rectangle rect) { return false; }
-        public virtual DataTable DataSetXMLSave() { return null; }
+        public virtual DataRow DataSetXMLSave(DataTable dt) { return null; }
         public event EventHandler Click = null;
     }
 }

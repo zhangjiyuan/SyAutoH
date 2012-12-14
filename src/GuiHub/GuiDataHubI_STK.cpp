@@ -7,6 +7,26 @@
 #include "IceUtil/Unicode.h"
 #include "iConstDef.h"
 
+GuiDataItem GuiDataHubI::Push_STK_DevInfo()
+{
+	GuiDataItem item;
+	item.enumTag = GuiHub::upStkInfo;
+
+	DR_STK_LIST stk_list = m_pAMHSDrive->GetStkList();
+	string strGuiData = "";
+	char buf[256] ="";
+	for (DR_STK_LIST::iterator it = stk_list.begin(); 
+		it != stk_list.end(); ++it)
+	{
+		sprintf_s(buf, 256, "<%d,%d,%d>", it->nID, 0, 0);
+		strGuiData += buf;
+	}
+
+	item.sVal = strGuiData;
+
+	return item;
+}
+
 void GuiDataHubI::STK_SetStatusBackTime(const std::string& strVal)
 {
 	STR_VEC vecStr = GetVecStrings(strVal);

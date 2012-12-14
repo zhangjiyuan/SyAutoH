@@ -11,77 +11,33 @@ using MCS.GuiHub;
 
 namespace MCSControlLib
 {
-    public partial class OHTInfo : UserControl, IMcsControlBase
+    public partial class pageOHTInfo : baseControlPage, IMcsControlBase
     {
-        public event DataChangeHander DataChange;
+        
 
         private const string TKeyP_Pos = "Position";
         private const string TKeyP_Name = "Name";
         private const string TKeyP_Type = "Type";
         private const string TKeyP_Speed = "Speed";
 
-        private GuiAccess.DataHubCli m_dataHub = null;
+       
         private Dictionary<int, OhtInfoData> m_dictOhtInfo = new Dictionary<int, OhtInfoData>();
         private DataTable m_tableOHTInfo = null;
         private DataTable m_tableKeyPos = null;
         private DataTable m_tablePathView = null;
         private byte m_uIdSelected = 0;
-        private delegate void ProcessHandler(ArrayList item);
-        private Dictionary<PushData, ProcessHandler> m_dictProcess = new Dictionary<PushData, ProcessHandler>();
         private int m_nPathPosition = 0;
 
-        public OHTInfo()
+        public pageOHTInfo()
         {
             InitializeComponent();
-
-            InitProcessDictionary();
-
-            if (null != this.DataChange)
-            {
-                this.DataChange(this, 0);
-            }
         }
 
-        private void InitProcessDictionary()
+        protected override void InitProcessDictionary()
         {
             m_dictProcess.Add(PushData.upOhtInfo, ProcessOHTInfo);
             m_dictProcess.Add(PushData.upOhtPos, ProcessOHTPos);
             m_dictProcess.Add(PushData.upOhtPosTable, ProcessPosTable);
-        }
-
-        public GuiAccess.DataHubCli DataHub
-        {
-            set
-            {
-                m_dataHub = value;
-            }
-            get
-            {
-                return m_dataHub;
-            }
-        }
-
-        public  void ProcessGuiData(List<MCS.GuiDataItem> list)
-        {
-            foreach (MCS.GuiDataItem item in list)
-            {
-                ProcessGuiDataItem(item);
-            }
-        }
-
-        private void ProcessGuiDataItem(MCS.GuiDataItem guiData)
-        {
-            
-            ProcessHandler handler = null;
-            bool bGet = m_dictProcess.TryGetValue(guiData.enumTag, out handler);
-            if (true == bGet)
-            {
-                ArrayList alDatas = GuiAccess.DataHubCli.ConvertToArrayList(guiData.sVal);
-                foreach (ArrayList item in alDatas)
-                {
-                    handler(item);
-                }
-            }
         }
 
         private void ProcessPosTable(ArrayList item)
@@ -417,16 +373,12 @@ namespace MCSControlLib
             OHTMove(2);
         }
 
-        public void PageInit()
+        public override void PageInit()
         {
             PushData[] cmds = new PushData[] {PushData.upOhtInfo, PushData.upOhtPos };
             m_dataHub.Async_SetPushCmdList(cmds);
         }
 
-        public void PageExit()
-        {
-            PushData[] cmds = new PushData[] {  };
-            m_dataHub.Async_SetPushCmdList(cmds);
-        }
+   
     }
 }
