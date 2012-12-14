@@ -8,7 +8,7 @@
 #include "iConstDef.h"
 #include <MMSystem.h>
 
-void GuiDataHubI::OHT_GetPositionTable(const std::string&)
+void GuiDataHubI::OHT_GetPositionTable(const std::string&, const ::Ice::Current& current)
 {
 	LOG_DEBUG("");
 	//boost::thread();
@@ -30,20 +30,20 @@ void GuiDataHubI::OHT_GetPositionTable(const std::string&)
 		strVal += ">";
 	}
 
-	UpdateData(GuiHub::upOhtPosTable, strVal);
+	UpdateDataOne(current.con, GuiHub::upOhtPosTable, strVal);
 }
-void GuiDataHubI::OHT_FoupTest(const std::string&)
+void GuiDataHubI::OHT_FoupTest(const std::string&, const ::Ice::Current&)
 {
 	m_pAMHSDrive->OHTFoup(1, 100, 0);
 	Sleep(100);
 	m_pAMHSDrive->OHTFoup(1, 100, 1);
 }
-void GuiDataHubI::OHT_MoveTest(const std::string&)
+void GuiDataHubI::OHT_MoveTest(const std::string&, const ::Ice::Current&)
 {
 	m_pAMHSDrive->OHTMove(1, 1);
 }
 
-void GuiDataHubI::OHT_PathTest(const std::string&)
+void GuiDataHubI::OHT_PathTest(const std::string&, const ::Ice::Current&)
 {
 	PATH_POINT_LIST list;
 	keyPoint pt;
@@ -100,7 +100,7 @@ void GuiDataHubI::OHT_PathTest(const std::string&)
 	Sleep(nSleep);
 	m_pAMHSDrive->OHTMove(1, 1);
 }
-void GuiDataHubI::OHT_SetStatusBackTime(const std::string& strVal)
+void GuiDataHubI::OHT_SetStatusBackTime(const std::string& strVal, const ::Ice::Current&)
 {
 	STR_VEC vecStr = GetVecStrings(strVal);
 	for(STR_VEC::iterator it = vecStr.begin();
@@ -117,7 +117,7 @@ void GuiDataHubI::OHT_SetStatusBackTime(const std::string& strVal)
 	}
 }
 
-void GuiDataHubI::OHT_SetPath(const std::string& strVal)
+void GuiDataHubI::OHT_SetPath(const std::string& strVal, const ::Ice::Current&)
 {
 	PATH_POINT_LIST list;
 	keyPoint pt;
@@ -153,7 +153,7 @@ void GuiDataHubI::OHT_SetPath(const std::string& strVal)
 	m_pAMHSDrive->OHTSetPath(uID, uType, nStart, nEnd, list);
 }
 
-void GuiDataHubI::OHT_Move(const std::string& strVal)
+void GuiDataHubI::OHT_Move(const std::string& strVal, const ::Ice::Current&)
 {
 	uint8 uID = 0;
 	uint8 uType = 0;
@@ -174,7 +174,7 @@ void GuiDataHubI::OHT_Move(const std::string& strVal)
 	m_pAMHSDrive->OHTMove(uID, uType);
 }
 
-void GuiDataHubI::OHT_FoupHanding(const std::string& strVal)
+void GuiDataHubI::OHT_FoupHanding(const std::string& strVal, const ::Ice::Current&)
 {
 	STR_VEC vecStr = GetVecStrings(strVal);
 	for(STR_VEC::iterator it = vecStr.begin();
@@ -191,7 +191,7 @@ void GuiDataHubI::OHT_FoupHanding(const std::string& strVal)
 		}
 	}
 }
-void GuiDataHubI::OHT_SetPositionBackTime(const std::string& strVal)
+void GuiDataHubI::OHT_SetPositionBackTime(const std::string& strVal, const ::Ice::Current&)
 {
 	STR_VEC vecStr = GetVecStrings(strVal);
 	for(STR_VEC::iterator it = vecStr.begin();

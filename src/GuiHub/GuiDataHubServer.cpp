@@ -26,7 +26,7 @@ void GuiDataHubServer::UpdateData(MCS::GuiHub::PushData nTag, const string& sVal
 {
 	if (NULL != m_pGuiHub)
 	{
-		m_pGuiHub->UpdateData(nTag, sVal);
+		m_pGuiHub->UpdateDataAll(nTag, sVal);
 	}
 }
 
