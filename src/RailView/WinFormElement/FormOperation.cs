@@ -57,15 +57,15 @@ namespace WinFormElement
             canvas.ScaleTransform(formShowRegion.xScale, formShowRegion.yScale);
 
             formShowRegion.DrawRailInfo(canvas);
-            formShowRegion.DrawVehicleInfo(canvas, dictVechiles);
-
-            canvas.EndContainer(objectContainer);
-            canvas.EndContainer(stretchContainer);
-            canvas.EndContainer(moveContainer);
             lock (dictVechiles)
             {
                 formShowRegion.DrawVehicleInfo(canvas, dictVechiles);
             }
+
+            canvas.EndContainer(objectContainer);
+            canvas.EndContainer(stretchContainer);
+            canvas.EndContainer(moveContainer);
+            
            
         }
 
