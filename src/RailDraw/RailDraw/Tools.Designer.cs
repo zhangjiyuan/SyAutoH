@@ -62,7 +62,7 @@
             this.eleBtn.Name = "eleBtn";
             this.eleBtn.Size = new System.Drawing.Size(284, 23);
             this.eleBtn.TabIndex = 1;
-            this.eleBtn.Text = "element";
+            this.eleBtn.Text = "track";
             this.eleBtn.UseVisualStyleBackColor = true;
             this.eleBtn.Click += new System.EventHandler(this.eleBtn_Click);
             // 
@@ -73,7 +73,7 @@
             this.others.Name = "others";
             this.others.Size = new System.Drawing.Size(284, 23);
             this.others.TabIndex = 2;
-            this.others.Text = "others";
+            this.others.Text = "device";
             this.others.UseVisualStyleBackColor = true;
             this.others.Click += new System.EventHandler(this.others_Click);
             // 
@@ -85,6 +85,7 @@
             this.Controls.Add(this.others);
             this.Controls.Add(this.eleBtn);
             this.Controls.Add(this.listView1);
+            this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Tools";

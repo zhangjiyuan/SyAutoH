@@ -135,6 +135,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\devicebig.bmp" />
     <None Include="Resources\draw.cur" />
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +197,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\object.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\newfile.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\devicesmall.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -17,7 +17,7 @@ namespace BaseRailElement
     public class CrossEle : BaseRailEle
     {
         ObjectCrossOp objectCrossOp = new ObjectCrossOp();
-        private Pen pen = new Pen(Color.Black, 1);
+        
         private bool mirror = false;
         private int lenghtOfStrai = 100;
         private int firstPart = 30;
@@ -32,6 +32,8 @@ namespace BaseRailElement
         private string startDot = "first dot";
         private DirectionCross directionOfCross = DirectionCross.NULL;
         public DataTable dt = new DataTable();
+        private PenStyle crossPen = new PenStyle();
+        private Pen pen = new Pen(Color.Black, 1);
 
         public enum DirectionCross
         {
@@ -155,13 +157,34 @@ namespace BaseRailElement
             get { return directionOfCross; }
             set { directionOfCross = value; }
         }
+        [Category("线属性")]
+        public Color PenColor
+        {
+            get { return crossPen.Color; }
+            set { crossPen.Color = value; pen.Color = value; }
+        }
+        [Category("线属性")]
+        public float PenWidth
+        {
+            get { return crossPen.Width; }
+            set { crossPen.Width = value; pen.Width = value; }
+        }
+        [Category("线属性")]
+        public DashStyle PenDashStyle
+        {
+            get { return crossPen.DashStyle; }
+            set { crossPen.DashStyle = value; pen.DashStyle = value; }
+        }
 
         public CrossEle()
         {
             GraphType = 3;
+            pen.Color = crossPen.Color;
+            pen.Width = crossPen.Width;
+            pen.DashStyle = crossPen.DashStyle;
         }
 
-        public CrossEle CreatEle(Point pt, Size size, Int16 multiFactor, string text)
+        public CrossEle CreateEle(Point pt, Size size, Int16 multiFactor, string text)
         {
             Point[] pts = new Point[8];
             DrawMultiFactor = multiFactor;
@@ -377,6 +400,7 @@ namespace BaseRailElement
             cl.FourPart = fourPart;
             cl.mirror = mirror;
             cl.railText = railText;
+            cl.pen = pen;
             return cl;
         }
 
@@ -530,43 +554,7 @@ namespace BaseRailElement
         }
 
         public override DataRow DataSetXMLSave(DataTable dt)
-        {
-            //dt.Rows.Clear();
-            //dt.Columns.Clear();
-
-            //dt.Columns.Add("GraphType", typeof(int));
-            //dt.Columns.Add("LocationLock", typeof(bool));
-            //dt.Columns.Add("SizeLock", typeof(bool));
-            //dt.Columns.Add("Selectable", typeof(bool));
-            //dt.Columns.Add("Speed", typeof(float));
-            //dt.Columns.Add("SegmentNumber", typeof(Int16));
-            //dt.Columns.Add("TagNumber", typeof(int));
-            //dt.Columns.Add("Mirror", typeof(bool));
-            //dt.Columns.Add("FirstPart", typeof(int));
-            //dt.Columns.Add("SecPart", typeof(int));
-            //dt.Columns.Add("ThPart", typeof(int));
-            //dt.Columns.Add("FourPart", typeof(string));
-            //dt.Columns.Add("StartAngle", typeof(int));
-            //dt.Columns.Add("RotateAngle", typeof(int));
-            //dt.Columns.Add("DirectionOfCross", typeof(int));
-            //dt.Columns.Add("PointListVol", typeof(Int16));
-            //for (int i=0; i < PointList.Count; i++)
-            //{
-            //    dt.Columns.Add("PointList" + i.ToString(), typeof(string));
-            //}
-
-            //dt.Columns.Add("drawMultiFactor", typeof(Int16));
-            //dt.Columns.Add("startPoint", typeof(string));
-            //dt.Columns.Add("endPoint", typeof(string));
-            //dt.Columns.Add("startCoding", typeof(Int32));
-            //dt.Columns.Add("endCoding", typeof(Int32));
-            //dt.Columns.Add("railText", typeof(string));
-            //dt.Columns.Add("lenghtOfStrai", typeof(Int32));
-            //dt.Columns.Add("nextCoding", typeof(Int32));
-            //dt.Columns.Add("prevCoding", typeof(Int32));
-            //dt.Columns.Add("thirdDotCoding", typeof(Int32));
-            //dt.Columns.Add("startDot", typeof(string));
-
+        {            
             DataRow dr = dt.NewRow();
             dr["GraphType"] = GraphType;
             dr["LocationLock"] = locationLock;
@@ -600,6 +588,10 @@ namespace BaseRailElement
             dr["prevCoding"] = prevCoding;
             dr["thirdDotCoding"] = thirdDotCoding;
             dr["startDot"] = startDot;
+
+            dr["Color"] = ColorTranslator.ToHtml(pen.Color);
+            dr["DashStyle"] = pen.DashStyle;
+            dr["PenWidth"] = pen.Width;
 
            dt.Rows.Add(dr);
             return dr;

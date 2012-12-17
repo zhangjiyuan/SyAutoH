@@ -65,11 +65,17 @@ namespace RailDraw
             TreeNode node = tempTree.SelectedNode;
             if (node != null && MouseButtons.Right == e.Button && node.Text != ((FatherWindow)this.ParentForm).workRegion.Text)
             {
-                switch (node.Text)
+                string str = node.Text;
+                int lenght = str.IndexOf('_');
+                if (-1 != lenght)
                 {
-                    case "直轨":
-                    case "弯轨":
-                    case "叉轨":
+                    str = str.Substring(0, lenght);
+                }
+                switch(str)
+                {
+                    case "Line":
+                    case "Curve":
+                    case "Cross":
                         contextMenuStrip1.Items.Clear();
                         contextMenuStrip1.Items.Add("delete");
                         for (Int16 i = 0; i < contextMenuStrip1.Items.Count; i++)

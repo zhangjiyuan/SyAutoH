@@ -116,6 +116,20 @@ namespace RailDraw.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap devicebig {
+            get {
+                object obj = ResourceManager.GetObject("devicebig", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap devicesmall {
+            get {
+                object obj = ResourceManager.GetObject("devicesmall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap drap {
             get {
                 object obj = ResourceManager.GetObject("drap", resourceCulture);
@@ -147,6 +161,13 @@ namespace RailDraw.Properties {
         internal static System.Drawing.Bitmap line {
             get {
                 object obj = ResourceManager.GetObject("line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap newfile {
+            get {
+                object obj = ResourceManager.GetObject("newfile", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -189,6 +210,13 @@ namespace RailDraw.Properties {
         internal static System.Drawing.Bitmap shrink {
             get {
                 object obj = ResourceManager.GetObject("shrink", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text {
+            get {
+                object obj = ResourceManager.GetObject("text", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
