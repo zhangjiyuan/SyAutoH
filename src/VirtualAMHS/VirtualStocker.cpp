@@ -12,6 +12,13 @@ VirtualStocker::VirtualStocker(void)
 	m_nMoveStatus = 0;
 	m_nMoveStatusTimeSet = 0;
 	m_nFoupInfoTimeSet = 0;
+	ItemRoom InitRoom;
+	InitRoom.nFoupID = 0;
+	InitRoom.nStatus = 0;
+	for(int i = 0;i < 142;i++)
+	{
+		m_mapRooms.insert(std::make_pair(i,InitRoom));
+	}
 	m_optHanders.insert(std::make_pair(STK_MCS_ACK_AUTH,
 		 &VirtualStocker::Handle_Auth));
 	m_optHanders.insert(std::make_pair(STK_MCS_FOUP,
@@ -84,7 +91,7 @@ int VirtualStocker::UpdateFoupInfo()
 	{
 		StoragePacket << (uint8)(it->second.nID);
 		StoragePacket << (uint16)(it->second.nBatchID);
-		StoragePacket << (uint16)(it->second.nBarCodeID);
+		StoragePacket << (uint16)(it->second.nRoomID);
 	}
 	SendPacket(StoragePacket);
 	return 0;
@@ -97,11 +104,12 @@ int VirtualStocker::ManualInputFoup(const TCHAR* sFoupID)
 	it = m_mapFoups.find(nFoupID);
 	if (it == m_mapFoups.end())
 	{
+		/*
 		VirtualFoup foup;
 		foup.nID = nFoupID;
 		foup.nStatus = 0;
 		m_mapFoups.insert(std::make_pair(nFoupID, foup));
-
+		*/
 		AMHSPacket Packet(STK_FOUP_EVENT, 8);
 		Packet << uint8(DeviceID());
 		Packet << uint8(0); // input
@@ -192,7 +200,7 @@ void VirtualStocker::Handle_RoomQuery(AMHSPacket& packet)
 	MAP_VROOM::iterator it;
 	for(it = m_mapRooms.begin();it != m_mapRooms.end();it++)
 	{
-		RoomPacket << (uint8)(it->second);
+		RoomPacket << (uint8)(it->second.nStatus);
 	}
 	SendPacket(RoomPacket);
 	return;
@@ -326,30 +334,90 @@ int VirtualStocker::GetRoomStatus()
 		nStatus = 0;
 	return nStatus;
 }
+int VirtualStocker::GetRoomID(int nFoupID)
+{
+	MAP_VFOUP::iterator it;
+	int nRoomID;
+	it = m_mapFoups.find(nFoupID);
+	if(it != m_mapFoups.end())
+	{
+		nRoomID = it->second.nRoomID;
+		return nRoomID;
+	}
+	else 
+		return -1;
+}
+int VirtualStocker::InitRoom(int nFoupID,int nBatchID,int nRoomID)
+{
+	MAP_VFOUP::iterator it;
+	it = m_mapFoups.find(nFoupID);
+	if(it == m_mapFoups.end())
+	{
+		m_nContain++;
+		VirtualFoup pFoup;
+		pFoup.nBatchID = nBatchID;
+		pFoup.nID = nFoupID;
+		pFoup.nRoomID = nRoomID;
+		pFoup.nStatus = 0;
+		m_mapFoups.insert(std::make_pair(nFoupID,pFoup));
+		ItemRoom item;
+		item.nFoupID = nFoupID;
+		item.nStatus = 1;
+		MAP_VROOM::iterator ite;
+		ite = m_mapRooms.find(nRoomID);
+		ite->second = item;
+	}
+	return 0;
+}
 int VirtualStocker::FoupIntoRoom(int nID,int nBatchID)
 {
-	int usingRoom = m_mapFoups.size();
-	if(usingRoom == 141)
+	MAP_VFOUP::iterator it;
+	it = m_mapFoups.find(nID);
+	if(it != m_mapFoups.end())
+		return 0;
+	if(m_nContain == 141)
 	{
 		printf("%s","the Room in Stocker is full!");
 		return 0;
 	}
-	if(usingRoom == 0)
+	if(m_nContain == 0)
 	{
 		VirtualFoup pFoup;
 		pFoup.nID = nID;
 		pFoup.nBatchID = nBatchID;
 		pFoup.nRoomID = 0;
-		m_mapFoups.insert(std::make_pair(0,pFoup));
+		m_mapFoups.insert(std::make_pair(nID,pFoup));
+		ItemRoom item;
+		item.nFoupID = nID;
+		item.nStatus = 1;
+		MAP_VROOM::iterator it;
+		it = m_mapRooms.find(0);
+		it->second = item;
+		m_nContain++;
 		return 1;
 	}
 	else
 	{
+		MAP_VROOM::iterator it;
 		VirtualFoup pFoup;
+		ItemRoom item;
+		item.nFoupID = nID;
+		item.nStatus = 1;
+		for(it = m_mapRooms.begin();it != m_mapRooms.end();it++)
+		{
+			if(it->second.nStatus == 0)
+			{
+				int nRoomID = it->first;
+				it->second = item;
+				pFoup.nRoomID = it->first;
+				break;
+			}
+			
+		}
 		pFoup.nID = nID;
 		pFoup.nBatchID = nBatchID;
-		pFoup.nRoomID = usingRoom;
-		m_mapFoups.insert(std::make_pair(usingRoom,pFoup));
+		m_mapFoups.insert(std::make_pair(nID,pFoup));
+		m_nContain++;
 		return 1;
 	}
 }

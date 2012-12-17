@@ -71,8 +71,11 @@ public:
 	LIST_FOUP Stocker_GetFoupsStatus(int nStocker);
 	int Stocker_ManualInputFoup(int nStocker,const TCHAR* sFoupID);
 	int Stocker_ManualOutputFoup(int nStocker,const TCHAR* nFoupID);
+	int STK_FoupInitRoom(int nStockerID,ItemFoup *pFoup);
 	int STK_History(int nStocker);
-	int STK_SetFoupNum(int nIndex,int nContain);
+	//int STK_SetFoupNum(int nIndex,int nContain);
+	int STK_GetFoup(int nSTK_ID,int nFoupID,int nBatchID);
+	int STK_GetRoomID(int nSTK_ID,int nFoupID);
 	// for OHT
 	LIST_OHT OHT_GetStatus();
 	LIST_STOCKER Stocker_GetInfo();

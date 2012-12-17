@@ -256,6 +256,7 @@ LIST_STOCKER CVirtualAMHS::Stocker_GetInfo()
 	}
 	return list;
 }
+/*
 int CVirtualAMHS::STK_SetFoupNum(int nIndex,int nContain)
 {
 	MAP_VSTK::iterator it;
@@ -265,6 +266,29 @@ int CVirtualAMHS::STK_SetFoupNum(int nIndex,int nContain)
 		it->second->m_nContain = nContain;
 	}
 	return 0;
+}
+*/
+int CVirtualAMHS::STK_GetFoup(int nSTK_ID,int nFoupID,int nBatchID)
+{
+	MAP_VSTK::iterator it;
+	it = m_mapSTK->find(nSTK_ID);
+	if(it != m_mapSTK->end())
+	{
+		it->second->FoupIntoRoom(nFoupID,nBatchID);
+	}
+	return 0;
+}
+int CVirtualAMHS::STK_GetRoomID(int nSTK_ID,int nFoupID)
+{
+	MAP_VSTK::iterator it;
+	it = m_mapSTK->find(nSTK_ID);
+	if(it != m_mapSTK->end())
+	{
+		int roomID = it->second->GetRoomID(nFoupID);
+		return roomID;
+	}
+	else
+		return -1;
 }
 
 int CVirtualAMHS::STK_History(int nStocker)
@@ -309,6 +333,16 @@ int CVirtualAMHS::Stocker_ManualOutputFoup(int nStocker,const TCHAR* sFoupID)
 	{
 		printf("Stocker %d is offline \n", nStocker);
 		return -1;
+	}
+	return 0;
+}
+int CVirtualAMHS::STK_FoupInitRoom(int nStockerID,ItemFoup *pFoup)
+{
+	MAP_VSTK::iterator it;
+	it = m_mapSTK->find(nStockerID);
+	if(it != m_mapSTK->end())
+	{
+		it->second->InitRoom(pFoup->nID,pFoup->nBatchID,pFoup->nRoomID);
 	}
 	return 0;
 }

@@ -300,6 +300,8 @@ void CVAMHSTestDlg::AddFoupXMLElem(int STK_ID,int Foup_ID,ItemFoup* pFoup)
 	        xml.AddChildElem(_T("ID"),pFoup->nID);
 	        xml.AddChildElem(_T("Location"),pFoup->nLocation);
 	        xml.AddChildElem(_T("Status"),pFoup->nProcessStatus);
+			xml.AddChildElem(_T("BatchID"),pFoup->nBatchID);
+			xml.AddChildElem(_T("RoomID"),pFoup->nRoomID);
 			xml.Save(path);
 			return;
 		}
@@ -329,7 +331,9 @@ void CVAMHSTestDlg::OnBnClickedBnAddstk()
 	{
 		it = g_mapStockers.find(nSTK_ID);
 		g_pVDev->Stocker_Auth(nSTK_ID,"192.168.55.10");
-		g_pVDev->STK_SetFoupNum(nSTK_ID,it->second->nContain);
+		m_listCtrlFOUP.DeleteAllItems();
+		ReadFOUPXML(nSTK_ID);
+		//g_pVDev->STK_SetFoupNum(nSTK_ID,it->second->nContain);
 	}
 		
 		return;
@@ -340,7 +344,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
 	int Foup_ID = _ttoi(strFoup);
-	g_pVDev->Stocker_ManualInputFoup(selectSTK, strFoup);
+	
 	MAP_ItemFoup::iterator it;
 	it = g_mapFoups.find(Foup_ID);
 	if(it != g_mapFoups.end())
@@ -354,22 +358,27 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 		it = g_mapStockers.find(selectSTK);
 		if(it->second->nOnline == 1)
 		{
-			foupNum++;
+			//foupNum++;
+			g_pVDev->Stocker_ManualInputFoup(selectSTK, strFoup);
+			g_pVDev->STK_GetFoup(selectSTK,Foup_ID,0);
+			//g_pVDev->STK_SetFoupNum(selectSTK,foupNum);
+			int nRoomID = g_pVDev->STK_GetRoomID(selectSTK,Foup_ID);
 			ItemFoup* item = new ItemFoup;
             item->nID = Foup_ID;
 		    item->nLocation = 0;
 		    item->nProcessStatus = 0;
+			item->nBatchID = 0;
+			item->nRoomID = nRoomID;
 		    g_mapFoups.insert(std::make_pair(Foup_ID,item));
 		    CString str;
 		    m_listCtrlFOUP.InsertItem(0,str);
 		    SetFOUPListItemData(item,0);
 		    AddFoupXMLElem(selectSTK,Foup_ID,item);
-			g_pVDev->STK_SetFoupNum(selectSTK,foupNum);
+			
 		}
 		else 
 			MessageBox(_T("Stocker is not online!"));
 	}
-
 }
 
 void CVAMHSTestDlg::OnBnClickedBnStkOut()
@@ -383,14 +392,14 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 		MessageBox(_T("请至少选择一项"));
 		return;
 	}
-	foupNum--;
+	//foupNum--;
 	int nId=(int)m_listCtrlFOUP.GetNextSelectedItem(pos);
 	m_listCtrlFOUP.DeleteItem(nId);
 	MAP_ItemFoup::iterator it;
 	it = g_mapFoups.find(nFoup_ID);
 	g_mapFoups.erase(it);
 	g_pVDev->Stocker_ManualOutputFoup(selectSTK, strFoup);
-	g_pVDev->STK_SetFoupNum(selectSTK,foupNum);
+	//g_pVDev->STK_SetFoupNum(selectSTK,foupNum);
 	DeleteFoupXML(selectSTK,nFoup_ID);
 }
 int CVAMHSTestDlg::GetElemData(CMarkup xml,CString tag)
@@ -629,7 +638,7 @@ void CVAMHSTestDlg::SaveSTKXML()
 }
 void CVAMHSTestDlg::ReadFOUPXML(int STK_ID)
 {
-	foupNum = 0;
+	//foupNum = 0;
 	CMarkup xml;
 	CString path = GetPath();
 	path += "../Config/VAMHSTest.xml";
@@ -654,16 +663,21 @@ void CVAMHSTestDlg::ReadFOUPXML(int STK_ID)
 	    {
 			while(xml.FindChildElem(_T("Foup")))
 		    {
-				foupNum++;
+				//foupNum++;
 			    xml.IntoElem();
 			    ItemFoup* item = new ItemFoup;
 		        int nID = GetElemData(xml,_T("ID"));
 		        int nLocation = GetElemData(xml,_T("Location"));
 		        int nStatus = GetElemData(xml,_T("Status"));
+				int nBatchID = GetElemData(xml,_T("BatchID"));
+				int nRoomID = GetElemData(xml,_T("RoomID"));
 			    item->nID = nID;
 			    item->nLocation = nLocation;
 			    item->nProcessStatus = nStatus;
+				item->nBatchID = nBatchID;
+				item->nRoomID = nRoomID;
 			    g_mapFoups.insert(std::make_pair(nID,item));
+				g_pVDev->STK_FoupInitRoom(selectSTK,item);
 			    CString str;
 			    m_listCtrlFOUP.InsertItem(0,str);
 			    SetFOUPListItemData(item,0);
@@ -934,7 +948,7 @@ void CVAMHSTestDlg::InitListCtrlFOUP(void)
 	m_listCtrlFOUP.InsertColumn(1, _T("Location"), LVCFMT_CENTER, 65);
 	m_listCtrlFOUP.InsertColumn(2, _T("Status"), LVCFMT_CENTER, 65);
 	m_listCtrlFOUP.InsertColumn(3,_T("BatchID"),LVCFMT_CENTER,65);
-	m_listCtrlFOUP.InsertColumn(4,_T("BarCodeID"),LVCFMT_CENTER,70);
+	m_listCtrlFOUP.InsertColumn(4,_T("RoomID"),LVCFMT_CENTER,70);
 }
 void CVAMHSTestDlg::InitListCtrlSTOCKER(void)
 {
@@ -1059,6 +1073,10 @@ void CVAMHSTestDlg::SetFOUPListItemData(ItemFoup* pFoup,int nListIndex)
 	str.Format(_T("%d"),pFoup->nLocation);
 	m_listCtrlFOUP.SetItemText(nListIndex,1,str);
 	m_listCtrlFOUP.SetItemText(nListIndex,2,_T("Idle"));
+	str.Format(_T("%d"),pFoup->nBatchID);
+	m_listCtrlFOUP.SetItemText(nListIndex,3,str);
+	str.Format(_T("%d"),pFoup->nRoomID);
+	m_listCtrlFOUP.SetItemText(nListIndex,4,str);
 	m_listCtrlFOUP.SetItemData(nListIndex,pFoup->nID);
 }
 void CVAMHSTestDlg::OnBnClickedBnStkHistory()
@@ -1285,15 +1303,15 @@ void CVAMHSTestDlg::OnNMClickListFoup2(NMHDR *pNMHDR, LRESULT *pResult)
 	{
 		int nStockerID = m_listCtrlSTOCKER.GetItemData(nListIndex);	
 	    if(nStockerID != selectSTK)	
-	    {		
-			selectSTK = nStockerID;	
+	    {	
+			selectSTK = nStockerID;
 		    m_listCtrlFOUP.DeleteAllItems();
 		    ReadFOUPXML(selectSTK);	
 		    CString CID;	
 		    CID.Format(_T("%d"),nStockerID);	
 		    SetDlgItemText(IDC_SELECT_STK_EDIT,CID);
 	    }
-	    g_pVDev->STK_SetFoupNum(nStockerID,foupNum);
+	   // g_pVDev->STK_SetFoupNum(nStockerID,foupNum);
 	}
 	*pResult = 0;
 }
@@ -1318,8 +1336,10 @@ void CVAMHSTestDlg::OnBnClickedStkAllOnlineButton()
 		int nSTOCKER_ID = it->second->nID;
 		if(nSTOCKER_ID > 0)
 		{
-			g_pVDev->Stocker_Auth(nSTOCKER_ID, "192.168.55.10");	
-			g_pVDev->STK_SetFoupNum(nSTOCKER_ID,it->second->nContain);
+			g_pVDev->Stocker_Auth(nSTOCKER_ID, "192.168.55.10");
+			m_listCtrlFOUP.DeleteAllItems();
+			ReadFOUPXML(nSTOCKER_ID);
+//			g_pVDev->STK_SetFoupNum(nSTOCKER_ID,it->second->nContain);
 		}
 	}
 	return ;

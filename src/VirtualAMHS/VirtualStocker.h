@@ -22,9 +22,10 @@ typedef struct
 {
 	int nStatus;
 	int nFoupID;
-};
+}ItemRoom;
+
 typedef std::map<int, VirtualFoup> MAP_VFOUP;
-typedef std::map<int,uint8> MAP_VROOM;
+typedef std::map<int,ItemRoom> MAP_VROOM;
 
 class VirtualStocker : public VirtualAMHSDevice
 {
@@ -39,6 +40,9 @@ public:
 	int Auth( const char* sIP);
 	int ManualInputFoup( const TCHAR* sFoupID);
 	int ManualOutputFoup( const TCHAR* sFoupID);
+	int FoupIntoRoom(int nID,int nBatchID);
+	int InitRoom(int nFoupID,int nBatchID,int nRoomID);
+	int GetRoomID(int nFoupID);
 	int UpdateStatus();
 	int UpdateFoupInfo();
 	void CreateTimer(void);
@@ -70,7 +74,7 @@ private:
 	typedef void (VirtualStocker::*CommandHander)(AMHSPacket& packet);
 	typedef std::map<int, CommandHander> OPT_MAP;
 	int GetRoomStatus();
-	int FoupIntoRoom(int nID,int nBatchID);
+	
 	OPT_MAP m_optHanders;
 	MAP_VFOUP m_mapFoups;
 	MAP_VROOM m_mapRooms;
