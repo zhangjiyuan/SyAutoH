@@ -38,9 +38,10 @@ public:
 
 public:
 	int Auth( const char* sIP);
-	int ManualInputFoup( const TCHAR* sFoupID);
+	int ManualInputFoup( const TCHAR* sFoupID,int nBatchID);
 	int ManualOutputFoup( const TCHAR* sFoupID);
 	int FoupIntoRoom(int nID,int nBatchID);
+	int FoupOutRoom(int nID);
 	int InitRoom(int nFoupID,int nBatchID,int nRoomID);
 	int GetRoomID(int nFoupID);
 	int UpdateStatus();

@@ -359,8 +359,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 		if(it->second->nOnline == 1)
 		{
 			//foupNum++;
-			g_pVDev->Stocker_ManualInputFoup(selectSTK, strFoup);
-			g_pVDev->STK_GetFoup(selectSTK,Foup_ID,0);
+			g_pVDev->Stocker_ManualInputFoup(selectSTK, strFoup,0);
 			//g_pVDev->STK_SetFoupNum(selectSTK,foupNum);
 			int nRoomID = g_pVDev->STK_GetRoomID(selectSTK,Foup_ID);
 			ItemFoup* item = new ItemFoup;
@@ -394,13 +393,24 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 	}
 	//foupNum--;
 	int nId=(int)m_listCtrlFOUP.GetNextSelectedItem(pos);
-	m_listCtrlFOUP.DeleteItem(nId);
-	MAP_ItemFoup::iterator it;
-	it = g_mapFoups.find(nFoup_ID);
-	g_mapFoups.erase(it);
-	g_pVDev->Stocker_ManualOutputFoup(selectSTK, strFoup);
-	//g_pVDev->STK_SetFoupNum(selectSTK,foupNum);
-	DeleteFoupXML(selectSTK,nFoup_ID);
+
+	MAP_ItemStocker::iterator it;
+	it = g_mapStockers.find(selectSTK);
+	if(it->second->nOnline == 1)
+	{
+	
+		m_listCtrlFOUP.DeleteItem(nId);
+	    MAP_ItemFoup::iterator it;
+	    it = g_mapFoups.find(nFoup_ID);
+	    g_mapFoups.erase(it);
+	    g_pVDev->Stocker_ManualOutputFoup(selectSTK, strFoup);
+	    //g_pVDev->STK_SetFoupNum(selectSTK,foupNum);
+	    DeleteFoupXML(selectSTK,nFoup_ID);
+	}
+	else
+	{
+		MessageBox(_T("Stocker selected is not online!"));
+	}
 }
 int CVAMHSTestDlg::GetElemData(CMarkup xml,CString tag)
 {

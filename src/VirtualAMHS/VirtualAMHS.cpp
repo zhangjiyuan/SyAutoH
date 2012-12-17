@@ -267,7 +267,7 @@ int CVirtualAMHS::STK_SetFoupNum(int nIndex,int nContain)
 	}
 	return 0;
 }
-*/
+
 int CVirtualAMHS::STK_GetFoup(int nSTK_ID,int nFoupID,int nBatchID)
 {
 	MAP_VSTK::iterator it;
@@ -278,6 +278,7 @@ int CVirtualAMHS::STK_GetFoup(int nSTK_ID,int nFoupID,int nBatchID)
 	}
 	return 0;
 }
+*/
 int CVirtualAMHS::STK_GetRoomID(int nSTK_ID,int nFoupID)
 {
 	MAP_VSTK::iterator it;
@@ -303,14 +304,14 @@ int CVirtualAMHS::STK_History(int nStocker)
 	return 0;
 }
 
-int CVirtualAMHS::Stocker_ManualInputFoup(int nStocker,const TCHAR* sFoupID)
+int CVirtualAMHS::Stocker_ManualInputFoup(int nStocker,const TCHAR* sFoupID,int nBatchID)
 {
 	MAP_VSTK::iterator it;
 	it = m_mapSTK->find(nStocker);
 	if (it != m_mapSTK->end())
 	{
 		VirtualStocker* stocker = it->second;
-		stocker->ManualInputFoup(sFoupID);
+		stocker->ManualInputFoup(sFoupID,nBatchID);
 	}
 	else
 	{

@@ -97,13 +97,14 @@ int VirtualStocker::UpdateFoupInfo()
 	return 0;
 }
 
-int VirtualStocker::ManualInputFoup(const TCHAR* sFoupID)
+int VirtualStocker::ManualInputFoup(const TCHAR* sFoupID,int nBatchID)
 {
 	int nFoupID = _wtoi(sFoupID);
 	MAP_VFOUP::iterator it;
 	it = m_mapFoups.find(nFoupID);
 	if (it == m_mapFoups.end())
 	{
+		FoupIntoRoom(nFoupID,nBatchID);
 		/*
 		VirtualFoup foup;
 		foup.nID = nFoupID;
@@ -140,6 +141,8 @@ int VirtualStocker::History()
 int VirtualStocker::ManualOutputFoup(const TCHAR* sFoupID)
 {
 	int nFoupID = _wtoi(sFoupID);
+
+	FoupOutRoom(nFoupID);
 	AMHSPacket Packet(STK_FOUP_EVENT, 8);
 	Packet << uint8(DeviceID());
 	Packet << uint8(1); // output
@@ -366,6 +369,26 @@ int VirtualStocker::InitRoom(int nFoupID,int nBatchID,int nRoomID)
 		MAP_VROOM::iterator ite;
 		ite = m_mapRooms.find(nRoomID);
 		ite->second = item;
+	}
+	return 0;
+}
+
+int VirtualStocker::FoupOutRoom(int nID)
+{
+	MAP_VFOUP::iterator it;
+	int nRoomID;
+	it = m_mapFoups.find(nID);
+	if(it != m_mapFoups.end())
+	{
+		nRoomID = it->second.nRoomID;
+		m_mapFoups.erase(it);
+		ItemRoom item;
+		item.nFoupID = 0;
+		item.nStatus = 0;
+		MAP_VROOM::iterator ite;
+		ite = m_mapRooms.find(nRoomID);
+		ite->second = item;
+		m_nContain--;
 	}
 	return 0;
 }
