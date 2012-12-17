@@ -18,6 +18,11 @@ public:
 
 	}
 };
+typedef struct
+{
+	int nStatus;
+	int nFoupID;
+};
 typedef std::map<int, VirtualFoup> MAP_VFOUP;
 typedef std::map<int,uint8> MAP_VROOM;
 
