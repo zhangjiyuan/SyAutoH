@@ -335,7 +335,6 @@ void CVAMHSTestDlg::OnBnClickedBnAddstk()
 		ReadFOUPXML(nSTK_ID);
 		//g_pVDev->STK_SetFoupNum(nSTK_ID,it->second->nContain);
 	}
-		
 		return;
 }
 
@@ -373,7 +372,6 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 		    m_listCtrlFOUP.InsertItem(0,str);
 		    SetFOUPListItemData(item,0);
 		    AddFoupXMLElem(selectSTK,Foup_ID,item);
-			
 		}
 		else 
 			MessageBox(_T("Stocker is not online!"));

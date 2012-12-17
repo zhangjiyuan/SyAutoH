@@ -19,7 +19,7 @@ VirtualStocker::VirtualStocker(void)
 	{
 		m_mapRooms.insert(std::make_pair(i,InitRoom));
 	}
-	m_optHanders.insert(std::make_pair(STK_MCS_ACK_AUTH,
+	m_optHanders.insert(std::make_pair(STK_AUTH,
 		 &VirtualStocker::Handle_Auth));
 	m_optHanders.insert(std::make_pair(STK_MCS_FOUP,
 		&VirtualStocker::Handle_FoupOperate));
