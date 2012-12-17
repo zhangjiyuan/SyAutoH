@@ -67,12 +67,12 @@ std::string GuiDataHubI::ReadData(MCS::GuiHub::GuiCommand enumCmd, Ice::Int nSes
 }
 
 Ice::Int GuiDataHubI::WriteData(MCS::GuiHub::GuiCommand enumCmd, 
-	const std::string &strVal, Ice::Int nSession, const Ice::Current &)
+	const std::string &strVal, Ice::Int nSession, const Ice::Current & current)
 {
 	HANDLE_MAP::iterator it = m_mapHandles.find(enumCmd);
 	if (it != m_mapHandles.end())
 	{
-		(this->*it->second)(strVal);
+		(this->*it->second)(strVal, current);
 		return 0;
 	}
 	else
@@ -163,7 +163,7 @@ void GuiDataHubI::OnTimer()
 	}
 }
 
-void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Current& /* = ::Ice::Current */)
+void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const ::Ice::Current& current/* = ::Ice::Current */)
 {
 	WLock(m_rwUpdaterSet)
 	{
@@ -175,6 +175,7 @@ void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const 
 
 		ClientInfo* pInfo = new ClientInfo();
 		pInfo->client = updater;
+		pInfo->m_ptrCon = current.con;
 		m_mapUpdater.insert(std::make_pair(updater, pInfo));
 	}
 }
@@ -224,13 +225,27 @@ void GuiDataHubI::PushDatatoCli(const ::MCS::GuiDataUpdaterPrx& guicli, MCS::Gui
 	}
 }
 
-void GuiDataHubI::UpdateData(MCS::GuiHub::PushData nTag, const std::string &sVal)
+void GuiDataHubI::UpdateDataAll(MCS::GuiHub::PushData nTag, const std::string &sVal)
 {
 	RLock(m_rwUpdaterSet)
 	{
 		for(MAP_UPDATER::iterator p = m_mapUpdater.begin(); p != m_mapUpdater.end(); ++p)
 		{
 			PushDatatoCli(p->second->client, nTag, sVal);
+		}
+	}
+}
+
+void GuiDataHubI::UpdateDataOne(const Ice::ConnectionPtr ptrCon, MCS::GuiHub::PushData nTag, const std::string &sVal)
+{
+	RLock(m_rwUpdaterSet)
+	{
+		for(MAP_UPDATER::iterator p = m_mapUpdater.begin(); p != m_mapUpdater.end(); ++p)
+		{
+			if (p->second->m_ptrCon.get() == ptrCon.get())
+			{
+				PushDatatoCli(p->second->client, nTag, sVal);
+			}
 		}
 	}
 }

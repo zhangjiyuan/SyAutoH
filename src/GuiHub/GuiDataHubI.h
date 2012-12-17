@@ -12,6 +12,7 @@ public:
 	MCS::GuiDataUpdaterPrx client;
 	int nTryCount;
 	MCS::GuiHub::GuiPushDataList m_listPushData;
+	Ice::ConnectionPtr m_ptrCon;
 	
 	ClientInfo()
 	{
@@ -38,13 +39,13 @@ public:
 public:
 	virtual Ice::Int SetPushCmd(const ::MCS::GuiDataUpdaterPrx&, const ::MCS::GuiHub::GuiPushDataList&, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
 	virtual Ice::Int SetPushTimer(::Ice::Int, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
-	virtual std::string MCS::GuiDataHub::ReadData(MCS::GuiHub::GuiCommand,Ice::Int,const Ice::Current &);
-	virtual Ice::Int MCS::GuiDataHub::WriteData(MCS::GuiHub::GuiCommand,const std::string &,Ice::Int,const Ice::Current &);
+	virtual std::string MCS::GuiDataHub::ReadData(MCS::GuiHub::GuiCommand, Ice::Int, const Ice::Current &);
+	virtual Ice::Int MCS::GuiDataHub::WriteData(MCS::GuiHub::GuiCommand, const std::string &, Ice::Int, const Ice::Current &);
 	virtual void SetDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Current& /* = ::Ice::Current */);
 	virtual void EraseDataUpdater(const ::MCS::GuiDataUpdaterPrx&, const ::Ice::Current& /* = ::Ice::Current */);
 
 public:
-	void UpdateData(MCS::GuiHub::PushData, const std::string &);
+	void UpdateDataAll(MCS::GuiHub::PushData, const std::string &);
 	void removeUpdater(const ::MCS::GuiDataUpdaterPrx& updater);
 
 	CAMHSDrive* AMHSDrive() const { return m_pAMHSDrive; }
@@ -56,12 +57,13 @@ private:
 	rwmutex m_rwTimerSet;
 	CAMHSDrive* m_pAMHSDrive;
 
-	typedef void (GuiDataHubI::*WriteHander)(const std::string&);
+	typedef void (GuiDataHubI::*WriteHander)(const std::string&, const ::Ice::Current&);
 	typedef std::map<int, WriteHander> HANDLE_MAP;
 	HANDLE_MAP m_mapHandles;
 	typedef MCS::GuiDataItem (GuiDataHubI::*MakePushData)(void);
 	typedef std::map<MCS::GuiHub::PushData, MakePushData> MAP_MAKEPUSH;
 	MAP_MAKEPUSH m_mapMakePush;
+	void UpdateDataOne(const Ice::ConnectionPtr, MCS::GuiHub::PushData, const std::string &);
 
 	int m_nTimerID;
 	int m_nTimerPeriord;
@@ -74,18 +76,18 @@ private:
 	void PushDatatoCli(const ::MCS::GuiDataUpdaterPrx&, MCS::GuiHub::PushData, const std::string &);
 
 private:
-	void OHT_SetPositionBackTime(const std::string&);
-	void OHT_SetStatusBackTime(const std::string&);
-	void OHT_GetPositionTable(const std::string&);
-	void OHT_FoupHanding(const std::string&);
-	void OHT_SetPath(const std::string&);
-	void OHT_Move(const std::string&);
+	void OHT_SetPositionBackTime(const std::string&, const ::Ice::Current&);
+	void OHT_SetStatusBackTime(const std::string&, const ::Ice::Current&);
+	void OHT_GetPositionTable(const std::string&, const ::Ice::Current&);
+	void OHT_FoupHanding(const std::string&, const ::Ice::Current&);
+	void OHT_SetPath(const std::string&, const ::Ice::Current&);
+	void OHT_Move(const std::string&, const ::Ice::Current&);
 	
-	void OHT_PathTest(const std::string&);
-	void OHT_FoupTest(const std::string&);
-	void OHT_MoveTest(const std::string&);
+	void OHT_PathTest(const std::string&, const ::Ice::Current&);
+	void OHT_FoupTest(const std::string&, const ::Ice::Current&);
+	void OHT_MoveTest(const std::string&, const ::Ice::Current&);
 
-	void STK_SetStatusBackTime(const std::string&);
+	void STK_SetStatusBackTime(const std::string&, const ::Ice::Current&);
 
 private:
 	GuiDataItem Push_OHT_DevInfo();
