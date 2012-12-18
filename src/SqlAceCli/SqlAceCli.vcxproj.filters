@@ -14,4 +14,58 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DBFoup.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DBKeyPoints.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DBSession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DBUserAce.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SqlAceCli.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TKeyPoints.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TLinkSession.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TMcsUser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SqlAceCli.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TFoup.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SqlAceCli.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
 </Project>
