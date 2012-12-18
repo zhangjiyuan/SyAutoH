@@ -44,30 +44,31 @@ int MaterialController::Init(void)
 
 void MaterialController::Check(void)
 {
+	m_pathFinder.Test();
 	return;
-	//m_amhsDrive.Run();
-	//m_amhsDrive.SetOHTBackMessage(24, 200);
-	//m_amhsDrive.Check();
+	////m_amhsDrive.Run();
+	////m_amhsDrive.SetOHTBackMessage(24, 200);
+	////m_amhsDrive.Check();
 
-	DR_OHT_LIST oht_list = m_amhsDrive.GetOhtList();
-	string strOhtList = "";
-	char buf[256] ="";
-	for (DR_OHT_LIST::iterator it = oht_list.begin(); 
-		it != oht_list.end(); ++it)
-	{
-		sprintf_s(buf, 256, "<%d,%d,%d>", it->nID, it->nPOS, it->nHand);
-		strOhtList += buf;
-	}
-	m_GuiHub.SetData(MCS::GuiHub::upOhtPos, strOhtList.c_str());
+	//DR_OHT_LIST oht_list = m_amhsDrive.GetOhtList();
+	//string strOhtList = "";
+	//char buf[256] ="";
+	//for (DR_OHT_LIST::iterator it = oht_list.begin(); 
+	//	it != oht_list.end(); ++it)
+	//{
+	//	sprintf_s(buf, 256, "<%d,%d,%d>", it->nID, it->nPOS, it->nHand);
+	//	strOhtList += buf;
+	//}
+	//m_GuiHub.SetData(MCS::GuiHub::upOhtPos, strOhtList.c_str());
 
-	strOhtList = "";
-	for (DR_OHT_LIST::iterator it = oht_list.begin(); 
-		it != oht_list.end(); ++it)
-	{
-		sprintf_s(buf, 256, "<%d,%s,%u>", it->nID, it->strIp.c_str(), it->uPort);
-		strOhtList += buf;
-	}
-	m_GuiHub.SetData(MCS::GuiHub::upOhtInfo, strOhtList.c_str());
+	//strOhtList = "";
+	//for (DR_OHT_LIST::iterator it = oht_list.begin(); 
+	//	it != oht_list.end(); ++it)
+	//{
+	//	sprintf_s(buf, 256, "<%d,%s,%u>", it->nID, it->strIp.c_str(), it->uPort);
+	//	strOhtList += buf;
+	//}
+	//m_GuiHub.SetData(MCS::GuiHub::upOhtInfo, strOhtList.c_str());
 }
 
 const char chLogo[] = 

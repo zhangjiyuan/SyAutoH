@@ -12,8 +12,8 @@
 #endif
 
 #pragma once
-#include <list>
-typedef std::list<int> INT_LIST;
+#include <vector>
+typedef std::vector<int> INT_LIST;
 
 class CPathProductor;
 // 此类是从 PathFinder.dll 导出的
