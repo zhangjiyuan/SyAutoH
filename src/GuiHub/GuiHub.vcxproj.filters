@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\common\iConstDef.cpp" />
+    <ClCompile Include="..\common\iGuiHub.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="GuiDataHubI.cpp" />
+    <ClCompile Include="GuiDataHubI_OHT.cpp" />
+    <ClCompile Include="GuiDataHubI_STK.cpp" />
+    <ClCompile Include="GuiDataHubServer.cpp" />
+    <ClCompile Include="GuiHub.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="UserManagementI.cpp" />
+    <ClCompile Include="UserManagementServer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="UserManagementI.h" />
+    <ClInclude Include="UserManagementServer.h" />
+    <ClInclude Include="GuiDataHubI.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiDataHubServer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiHub.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\iConstDef.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\iGuiHub.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{a1e77a32-2112-44fd-93e0-3230fdee9468}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

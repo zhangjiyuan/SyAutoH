@@ -30,7 +30,6 @@
 /src\RailDraw\RailDraw/bin
 *.cache
 *.exp
-*.filters
 /src/obj
 Release
 
