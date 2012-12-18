@@ -32,5 +32,10 @@ namespace MCSControlLib
             formSTKFoupHistory hisFoup = new formSTKFoupHistory();
             hisFoup.ShowDialog();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

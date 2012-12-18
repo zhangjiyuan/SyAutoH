@@ -44,7 +44,6 @@ VirtualStocker::VirtualStocker(void)
 	CreateTimer();
 }
 
-
 VirtualStocker::~VirtualStocker(void)
 {
 	DestoryTimer();
