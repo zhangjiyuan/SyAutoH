@@ -61,11 +61,15 @@ void VirtualStocker::HandleCommand(AMHSPacket& packet)
 
 int VirtualStocker::Auth( const char* sIP)
 {
-	AMHSPacket authPacket(STK_AUTH, 4);
-	authPacket<< uint8(DeviceID());		// stokcer id
+	AMHSPacket authPacket(STK_AUTH, 8);
+	authPacket<< (uint8)(DeviceID());		// stokcer id
 	uint32 uIP = 0;
 	uIP = inet_addr(sIP);
-	authPacket << uIP;
+	authPacket << (uint32)uIP;
+	authPacket << (uint8)(142);
+	authPacket << (uint8)(5);
+	authPacket << (uint8)(5);
+
 	SendPacket(authPacket);
 	return 0;
 }
@@ -75,14 +79,14 @@ int VirtualStocker::UpdateStatus()
 	AMHSPacket StatusPacket(STK_ACK_STATUS,2);
 	StatusPacket << uint8(DeviceID());
 	StatusPacket << uint8(m_nMoveStatus);
-	SendPacket(StatusPacket);
 
+	SendPacket(StatusPacket);
 	return 0;
 }
 
 int VirtualStocker::UpdateFoupInfo()
 {
-	int nBityNum = m_nContain * 5;
+	int nBityNum = m_nContain * 5 + 2;
 	AMHSPacket StoragePacket(STK_ACK_STORAGE,nBityNum);
 	StoragePacket << (uint8)(DeviceID());
 	StoragePacket << (uint8)(m_nContain);
@@ -114,7 +118,7 @@ int VirtualStocker::ManualInputFoup(const TCHAR* sFoupID,int nBatchID)
 		AMHSPacket Packet(STK_FOUP_EVENT, 8);
 		Packet << uint8(DeviceID());
 		Packet << uint8(0); // input
-		Packet << uint8(0); // slot ID
+		Packet << uint8(GetRoomID(nFoupID)); // slot ID
 		Packet << uint16(0); // lot ID
 		Packet << uint16(nFoupID); // foup ID
 		Packet << uint8(5); // manual input 1
@@ -142,17 +146,16 @@ int VirtualStocker::ManualOutputFoup(const TCHAR* sFoupID)
 {
 	int nFoupID = _wtoi(sFoupID);
 
-	FoupOutRoom(nFoupID);
 	AMHSPacket Packet(STK_FOUP_EVENT, 8);
 	Packet << uint8(DeviceID());
 	Packet << uint8(1); // output
-	Packet << uint8(0);
+	Packet << uint8(GetRoomID(nFoupID));
 	Packet << uint16(23); // lot
 	Packet << uint16(nFoupID); // foup
 	Packet << uint8(5); // manual input 1
 
 	SendPacket(Packet);
-
+	FoupOutRoom(nFoupID);
 	return 0;
 }
 
@@ -172,26 +175,33 @@ void VirtualStocker::Handle_Auth(AMHSPacket& packet)
 	_ctime64_s(timebuf, 256, &tTime);
 	printf("Stocker %d Auth %d SysTime: %s\n", nID, nAuthRes, timebuf);
 }
+
 void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 {
 	uint8 nID = 0;
 	uint8 nMode = 0;
 	uint8 nPick = 0;
-	uint64 nFoupData1 = 0;
-	uint16 nFoupData2 = 0;
+	uint8 nRoomID = 0;
+	uint16 nBatchID = 0;
+	uint16 nBarCodeID = 0;
+	uint16 nFoupData = 0;
 	packet >> nID;
 	packet >> nMode;
 	packet >> nPick;
-	packet >> nFoupData1;
-	packet >> nFoupData2;
+	packet >> nRoomID;
+	packet >> nBatchID;
+	packet >> nBarCodeID;
+	packet >> nFoupData;
 
 }
+
 void VirtualStocker::Handle_StatusQuery(AMHSPacket& packet)
 {
 	uint8 nID = 0;
 	packet >> nID;
 	UpdateStatus();
 }
+
 void VirtualStocker::Handle_RoomQuery(AMHSPacket& packet)
 {
 	uint8 nID = 0;
@@ -205,9 +215,11 @@ void VirtualStocker::Handle_RoomQuery(AMHSPacket& packet)
 	{
 		RoomPacket << (uint8)(it->second.nStatus);
 	}
+
 	SendPacket(RoomPacket);
 	return;
 }
+
 void VirtualStocker::Handle_StorageQuery(AMHSPacket& packet)
 {
 	uint8 nID = 0;
@@ -215,6 +227,7 @@ void VirtualStocker::Handle_StorageQuery(AMHSPacket& packet)
 	UpdateFoupInfo();
 	return;
 }
+
 void VirtualStocker::Handle_InputStatus(AMHSPacket& packet)
 {
 	uint8 nID = 0;
@@ -223,57 +236,99 @@ void VirtualStocker::Handle_InputStatus(AMHSPacket& packet)
 	InputPacket << (uint8)(DeviceID());
 	InputPacket << (uint8)(0);
 	InputPacket << (uint8)(0);
+
 	SendPacket(InputPacket);
 	return ;
 }
+
 void VirtualStocker::Handle_History(AMHSPacket& packet)
 {
-	uint8 nID;
+	uint8 nID = 0;
+	uint64 nTime1 = 0;
+	uint64 nTime2 = 0;
 	packet >> nID;
-	//AMHSPacket HistoryPacket(STK_ACK_HISTORY,
+	packet >> nTime1;
+	packet >> nTime2;
+	AMHSPacket HistoryPacket(STK_ACK_HISTORY,5*4);
+	HistoryPacket << (uint8)(DeviceID());
+	HistoryPacket << (uint32)(3);
+	for(int i = 0;i < 3;i++)
+	{
+		HistoryPacket << (uint8)(i);
+		HistoryPacket << (uint16)(0);
+		HistoryPacket << (uint16)(i);
+	}
+
+	SendPacket(HistoryPacket);
+	return;
 }
+
 void VirtualStocker::Handle_Alarms(AMHSPacket& packet)
 {
-	uint8 nID;
+	uint8 nID = 0;
+	uint64 nTime1 = 0;
+	uint64 nTime2 = 0;
 	packet >> nID;
+	packet >> nTime1;
+	packet >> nTime2;
+	AMHSPacket AlarmPacket(STK_ACK_ALARMS,23);
+	AlarmPacket << (uint8)(DeviceID());
+	AlarmPacket << (uint32)(2);
+	for(int i = 0;i < 6;)
+	{
+		AlarmPacket << (uint16)(2012);
+		AlarmPacket << (uint8)(12);
+		AlarmPacket << (uint8)(18);
+		AlarmPacket << (uint8)(10);
+		AlarmPacket << (uint8)(40);
+		AlarmPacket << (uint8)(i);
+		AlarmPacket << (uint8)(i);
+		i += 5;
+	}
 
+	SendPacket(AlarmPacket);
 }
+
 void VirtualStocker::Handle_StatusBackTime(AMHSPacket& packet)
 {
-	uint8 nID;
-	uint64 nStatusTime;
+	uint8 nID = 0;
+	uint64 nStatusTime = 0;
 	packet >> nID;
 	packet >> nStatusTime;
 	m_nMoveStatusTimeSet = nStatusTime;
 	AMHSPacket StatusTimePacket(STK_ACK_STATUS_TIME,2);
 	StatusTimePacket << (uint8)(DeviceID());
 	StatusTimePacket << (uint8)(0);
+
 	SendPacket(StatusTimePacket);
 	return ;
 }
+
 void VirtualStocker::Handle_FoupBackTime(AMHSPacket& packet)
 {
-	uint8 nID;
-	uint64 nFoupTime;
+	uint8 nID = 0;
+	uint64 nFoupTime = 0;
 	packet >> nID;
 	packet >> nFoupTime;
 	m_nFoupInfoTimeSet = nFoupTime;
 	AMHSPacket FoupTimePacket(STK_ACK_FOUP_TIME,2);
 	FoupTimePacket << (uint8)(DeviceID());
 	FoupTimePacket << (uint8)(0);
+
 	SendPacket(FoupTimePacket);
 	return;
 }
+
 void VirtualStocker::Handle_AuthBack(AMHSPacket& packet)
 {
-	uint8 nID;
-	uint8 nResult;
-	uint16 nYear;
-	uint8 nMonth;
-	uint8 nDay;
-	uint8 nHour;
-	uint8 nMinute;
-	uint8 nSecond;
+	uint8 nID = 0;
+	uint8 nResult = 0;
+	uint16 nYear = 0;
+	uint8 nMonth = 0;
+	uint8 nDay = 0;
+	uint8 nHour = 0;
+	uint8 nMinute = 0; 
+	uint8 nSecond = 0;
 	packet >> nID;
 	packet >> nResult;
 	packet >> nYear;
@@ -284,13 +339,14 @@ void VirtualStocker::Handle_AuthBack(AMHSPacket& packet)
 	packet >> nSecond;
 	if(nResult == 0)
 	{
-		printf("STOCKER ID: %d authed successful at %d:%d:%d %d-%d-%d",nID,nHour,nMinute,nSecond,nDay,nMonth,nYear);
+		printf("STOCKER ID: %d authed successful at %d:%d:%d %d-%d-%d\n",nID,nHour,nMinute,nSecond,nDay,nMonth,nYear);
 	}
 	else
 	{
-		printf("STOCKER ID: %d authed failed at %d:%d:%d %d-%d-%d",nID,nHour,nMinute,nSecond,nDay,nMonth,nYear);
+		printf("STOCKER ID: %d authed failed at %d:%d:%d %d-%d-%d\n",nID,nHour,nMinute,nSecond,nDay,nMonth,nYear);
 	}
 }
+
 void VirtualStocker::CreateTimer(void)
 {
 	timeBeginPeriod(1);
@@ -302,6 +358,7 @@ void VirtualStocker::CreateTimer(void)
 		TIME_PERIODIC);
 	printf("ID: %u TimerID: %d\n", DeviceID(), m_nTimerID);
 }
+
 void VirtualStocker::DestoryTimer(void)
 {
 	if (m_nTimerID > 0)
@@ -311,21 +368,22 @@ void VirtualStocker::DestoryTimer(void)
 		m_nTimerID = 0;
 	}
 }
+
 void CALLBACK VirtualStocker::TimerHandler(UINT id, UINT msg, DWORD dwUser, DWORD dw1, DWORD dw2)
 {
 	VirtualStocker *pStocker = (VirtualStocker*)dwUser;
 	pStocker->OnTimer();
 }
+
 void VirtualStocker::OnTimer()
 {
 	m_nTimeCounter++;
-	/*
-	if(m_nTimeCounter % (m_nMoveStatusTimeSet * 1000) == 0)
+	if(m_nMoveStatusTimeSet > 0 && m_nTimeCounter % (m_nMoveStatusTimeSet * 1000) == 0)
 		UpdateStatus();
-	if(m_nTimeCounter % (m_nFoupInfoTimeSet * 1000) == 0)
+	if(m_nFoupInfoTimeSet > 0 && m_nTimeCounter % (m_nFoupInfoTimeSet * 1000) == 0)
 		UpdateFoupInfo();
-    */
 }
+
 int VirtualStocker::GetRoomStatus()
 {
 	int nStatus;
@@ -337,6 +395,7 @@ int VirtualStocker::GetRoomStatus()
 		nStatus = 0;
 	return nStatus;
 }
+
 int VirtualStocker::GetRoomID(int nFoupID)
 {
 	MAP_VFOUP::iterator it;
@@ -350,6 +409,7 @@ int VirtualStocker::GetRoomID(int nFoupID)
 	else 
 		return -1;
 }
+
 int VirtualStocker::InitRoom(int nFoupID,int nBatchID,int nRoomID)
 {
 	MAP_VFOUP::iterator it;
@@ -392,6 +452,7 @@ int VirtualStocker::FoupOutRoom(int nID)
 	}
 	return 0;
 }
+
 int VirtualStocker::FoupIntoRoom(int nID,int nBatchID)
 {
 	MAP_VFOUP::iterator it;
@@ -435,7 +496,6 @@ int VirtualStocker::FoupIntoRoom(int nID,int nBatchID)
 				pFoup.nRoomID = it->first;
 				break;
 			}
-			
 		}
 		pFoup.nID = nID;
 		pFoup.nBatchID = nBatchID;

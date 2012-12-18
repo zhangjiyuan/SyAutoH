@@ -1280,6 +1280,11 @@ void CVAMHSTestDlg::OnBnClickedAddStockerButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	int nStocker_ID = GetDlgItemInt(IDC_STOCKER_ID_EDIT);
+	if(nStocker_ID > 253 || nStocker_ID < 0)
+	{
+		MessageBox(_T("Stocker ID 应在0~253之间!"));
+		return ;
+	}
 	MAP_ItemStocker::iterator it = g_mapStockers.find(nStocker_ID);
 	MAP_ItemStocker::iterator itEnd = g_mapStockers.end();
 	if (it != g_mapStockers.end())
