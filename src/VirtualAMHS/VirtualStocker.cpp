@@ -5,7 +5,7 @@
 VirtualStocker::VirtualStocker(void)
 {
 	m_optHanders[STK_MCS_ACK_AUTH] = &VirtualStocker::Handle_Auth;
-	m_nContain = 100;
+	m_nContain = 0;
 }
 
 

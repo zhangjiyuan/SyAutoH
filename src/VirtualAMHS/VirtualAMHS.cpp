@@ -156,7 +156,6 @@ int CVirtualAMHS::OHT_Offline(int nIndex)
 			return 0;
 		}
 	}
-
 	return 0;
 }
 
@@ -183,6 +182,7 @@ int CVirtualAMHS::Stocker_Offline(int nIndex)
 LIST_FOUP CVirtualAMHS::Stocker_GetFoupsStatus(int nStocker)
 {
 	LIST_FOUP list;
+	
 
 	return list;
 }
@@ -240,6 +240,7 @@ LIST_STOCKER CVirtualAMHS::Stocker_GetInfo()
 			VirtualStocker *vStocker = it->second;
 			ItemStocker item;
 			item.nID = vStocker->DeviceID();
+			item.nContain = vStocker->m_nContain;
 			if (vStocker->Online() == true)
 			{
 				item.nOnline = 1;
@@ -253,6 +254,16 @@ LIST_STOCKER CVirtualAMHS::Stocker_GetInfo()
 		}
 	}
 	return list;
+}
+int CVirtualAMHS::STK_SetFoupNum(int nIndex,int nContain)
+{
+	MAP_VSTK::iterator it;
+	it = m_mapSTK->find(nIndex);
+	if(it != m_mapSTK->end())
+	{
+		it->second->m_nContain = nContain;
+	}
+	return 0;
 }
 
 int CVirtualAMHS::STK_History(int nStocker)

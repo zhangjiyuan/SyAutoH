@@ -27,7 +27,7 @@ GuiDataItem GuiDataHubI::Push_STK_DevInfo()
 	return item;
 }
 
-void GuiDataHubI::STK_SetStatusBackTime(const std::string& strVal)
+void GuiDataHubI::STK_SetStatusBackTime(const std::string& strVal, const ::Ice::Current&)
 {
 	STR_VEC vecStr = GetVecStrings(strVal);
 	for(STR_VEC::iterator it = vecStr.begin();
