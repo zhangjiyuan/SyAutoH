@@ -8,18 +8,26 @@
 #define PATHFINDER_API __declspec(dllexport)
 #else
 #define PATHFINDER_API __declspec(dllimport)
+#pragma comment(lib, "pathfinder.lib")
 #endif
 
 #pragma once
 #include <list>
-
 typedef std::list<int> INT_LIST;
 
-
+class CPathProductor;
 // 此类是从 PathFinder.dll 导出的
-class PATHFINDER_API CPathFinder {
+class PATHFINDER_API CPathFinder 
+{
 public:
 	CPathFinder(void);
-	// TODO: 在此添加您的方法。
+	~CPathFinder();
+
 	INT_LIST GetPath(int nFrom, int nTo);
+	void Init();
+
+private: 
+	CPathProductor* m_pProductor;
+public:
+	void Test(void);
 };

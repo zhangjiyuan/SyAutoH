@@ -10,8 +10,8 @@
 //=======================================================================
 //
 
-
-#include <boost/graph/astar_search.hpp>
+#include "stdafx.h"
+#include "boost/graph/astar_search.hpp"
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/random.hpp>
 #include <boost/random.hpp>
@@ -109,8 +109,8 @@ private:
   Vertex m_goal;
 };
 
-
-int main(int argc, char **argv)
+int _tmain(int argc, _TCHAR* argv[])
+//int main(int argc, char **argv)
 {
   
   // specify some types

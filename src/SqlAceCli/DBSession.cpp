@@ -23,7 +23,7 @@ int DBSession::GetLoginSession(int nUserID, int nRight,
 	int nSession = 0;
 	CoInitialize(NULL);
 	HRESULT hr;
-	CLinkSessionTable linkSession;
+	CTableLinkSession linkSession;
 	hr = linkSession.OpenAll();
 	if (FAILED(hr))
 	{
@@ -76,7 +76,7 @@ int DBSession::LoginOut(int nSession)
 	int nRetrun = -1;
 	CoInitialize(NULL);
 	HRESULT hr;
-	CLinkSessionTable linkSession;
+	CTableLinkSession linkSession;
 	hr = linkSession.OpenDataSource();
 	if (FAILED(hr))
 	{
@@ -118,7 +118,7 @@ int DBSession::SetRealRight(int nSession, int nRealRight)
 	int nRetrun = -1;
 	CoInitialize(NULL);
 	HRESULT hr;
-	CLinkSessionTable linkSession;
+	CTableLinkSession linkSession;
 	hr = linkSession.OpenDataSource();
 	if (FAILED(hr))
 	{
@@ -167,7 +167,7 @@ int DBSession::GetRealRight(int nSession)
 	{
 		CoInitialize(NULL);
 		HRESULT hr;
-		CLinkSessionTable linkSession;
+		CTableLinkSession linkSession;
 		hr = linkSession.OpenDataSource();
 		if (FAILED(hr))
 		{

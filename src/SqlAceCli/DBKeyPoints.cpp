@@ -18,7 +18,7 @@ VEC_KEYPOINT DBKeyPoints::GetKeyPointsTable()
 
 	CoInitialize(NULL);
 	HRESULT hr;
-	CKeyPoints table;
+	CTableKeyPoints table;
 	hr = table.OpenAll();
 	if (FAILED(hr))
 	{
@@ -52,7 +52,7 @@ int DBKeyPoints::SetKeyPointbyOHTTeach(int nOHT_ID, int nPOS, int nType, int nSp
 	HRESULT hr;
 	int nFoup = 0;
 
-	CKeyPoints table;
+	CTableKeyPoints table;
 	hr = table.OpenDataSource();
 	if (FAILED(hr))
 	{

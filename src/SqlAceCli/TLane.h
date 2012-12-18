@@ -1,19 +1,22 @@
-// TLinkSession2.h : CLinkSessionTable2 的声明
+// TLane.h : CTableLane 的声明
 
 #pragma once
 
-// 代码生成在 2012年9月19日, 15:47
+// 代码生成在 2012年12月18日, 16:44
 
-class CTableLinkSessionAccessor
+class CTableLaneAccessor
 {
 public:
-	LONG m_SessionID;
-	LONG m_UserID;
-	LONG m_RealRight;
-	LONG m_OrginRight;
-	DBTIMESTAMP m_AccessTime;
-	TCHAR m_ConnectInfo[201];
-	LONG m_UserStatus;
+	LONG m_id;
+	LONG m_Start;
+	LONG m_Finish;
+	LONG m_Prev;
+	LONG m_Next;
+	LONG m_Next_Frok;
+	LONG m_Length;
+	LONG m_MapID;
+	BYTE m_Type;
+	VARIANT_BOOL m_Enable;
 
 	// 以下向导生成的数据成员包含
 	//列映射中相应字段的状态值。
@@ -24,26 +27,32 @@ public:
 	//“向导生成的访问器中的字段状态数据成员”。
 	// 注意: 在设置/插入数据前必须初始化这些字段!
 
-	DBSTATUS m_dwSessionIDStatus;
-	DBSTATUS m_dwUserIDStatus;
-	DBSTATUS m_dwRealRightStatus;
-	DBSTATUS m_dwOrginRightStatus;
-	DBSTATUS m_dwAccessTimeStatus;
-	DBSTATUS m_dwConnectInfoStatus;
-	DBSTATUS m_dwUserStatusStatus;
+	DBSTATUS m_dwidStatus;
+	DBSTATUS m_dwStartStatus;
+	DBSTATUS m_dwFinishStatus;
+	DBSTATUS m_dwPrevStatus;
+	DBSTATUS m_dwNextStatus;
+	DBSTATUS m_dwNext_FrokStatus;
+	DBSTATUS m_dwLengthStatus;
+	DBSTATUS m_dwMapIDStatus;
+	DBSTATUS m_dwTypeStatus;
+	DBSTATUS m_dwEnableStatus;
 
 	// 以下向导生成的数据成员包含
 	//列映射中相应字段的长度值。
 	// 注意: 对变长列，在设置/插入
 	//       数据前必须初始化这些字段!
 
-	DBLENGTH m_dwSessionIDLength;
-	DBLENGTH m_dwUserIDLength;
-	DBLENGTH m_dwRealRightLength;
-	DBLENGTH m_dwOrginRightLength;
-	DBLENGTH m_dwAccessTimeLength;
-	DBLENGTH m_dwConnectInfoLength;
-	DBLENGTH m_dwUserStatusLength;
+	DBLENGTH m_dwidLength;
+	DBLENGTH m_dwStartLength;
+	DBLENGTH m_dwFinishLength;
+	DBLENGTH m_dwPrevLength;
+	DBLENGTH m_dwNextLength;
+	DBLENGTH m_dwNext_FrokLength;
+	DBLENGTH m_dwLengthLength;
+	DBLENGTH m_dwMapIDLength;
+	DBLENGTH m_dwTypeLength;
+	DBLENGTH m_dwEnableLength;
 
 
 	void GetRowsetProperties(CDBPropSet* pPropSet)
@@ -86,33 +95,39 @@ public:
 
 	CSession m_session;
 
-	DEFINE_COMMAND_EX(CTableLinkSessionAccessor, L" \
+	DEFINE_COMMAND_EX(CTableLaneAccessor, L" \
 	SELECT \
-		SessionID, \
-		UserID, \
-		RealRight, \
-		OrginRight, \
-		AccessTime, \
-		ConnectInfo, \
-		UserStatus \
-		FROM dbo.LinkSession")
+		id, \
+		Start, \
+		Finish, \
+		Prev, \
+		Next, \
+		Next_Frok, \
+		Length, \
+		MapID, \
+		Type, \
+		Enable \
+		FROM dbo.Lane")
 
 
 	// 为解决某些提供程序的若干问题，以下代码可能以
 	// 不同于提供程序所报告的顺序来绑定列
 
-	BEGIN_COLUMN_MAP(CTableLinkSessionAccessor)
-		COLUMN_ENTRY_LENGTH_STATUS(1, m_SessionID, m_dwSessionIDLength, m_dwSessionIDStatus)
-		COLUMN_ENTRY_LENGTH_STATUS(2, m_UserID, m_dwUserIDLength, m_dwUserIDStatus)
-		COLUMN_ENTRY_LENGTH_STATUS(3, m_RealRight, m_dwRealRightLength, m_dwRealRightStatus)
-		COLUMN_ENTRY_LENGTH_STATUS(4, m_OrginRight, m_dwOrginRightLength, m_dwOrginRightStatus)
-		COLUMN_ENTRY_LENGTH_STATUS(5, m_AccessTime, m_dwAccessTimeLength, m_dwAccessTimeStatus)
-		COLUMN_ENTRY_LENGTH_STATUS(6, m_ConnectInfo, m_dwConnectInfoLength, m_dwConnectInfoStatus)
-		COLUMN_ENTRY_LENGTH_STATUS(7, m_UserStatus, m_dwUserStatusLength, m_dwUserStatusStatus)
+	BEGIN_COLUMN_MAP(CTableLaneAccessor)
+		COLUMN_ENTRY_LENGTH_STATUS(1, m_id, m_dwidLength, m_dwidStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(2, m_Start, m_dwStartLength, m_dwStartStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(3, m_Finish, m_dwFinishLength, m_dwFinishStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(4, m_Prev, m_dwPrevLength, m_dwPrevStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(5, m_Next, m_dwNextLength, m_dwNextStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(6, m_Next_Frok, m_dwNext_FrokLength, m_dwNext_FrokStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(7, m_Length, m_dwLengthLength, m_dwLengthStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(8, m_MapID, m_dwMapIDLength, m_dwMapIDStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(9, m_Type, m_dwTypeLength, m_dwTypeStatus)
+		_COLUMN_ENTRY_CODE(10, DBTYPE_BOOL, _SIZE_TYPE(m_Enable), 0, 0, offsetbuf(m_Enable), offsetbuf(m_dwEnableLength), offsetbuf(m_dwEnableStatus))
 	END_COLUMN_MAP()
 };
 
-class CTableLinkSession : public CCommand<CAccessor<CTableLinkSessionAccessor> >
+class CTableLane : public CCommand<CAccessor<CTableLaneAccessor> >
 {
 public:
 	HRESULT OpenAll()
