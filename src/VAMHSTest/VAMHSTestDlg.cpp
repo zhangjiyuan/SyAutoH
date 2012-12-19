@@ -1026,6 +1026,34 @@ void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 			SetStockerListItemData(pStocker, i);
 		}
 	}
+	int nChangeType = g_pVDev->STK_FoupChangeType(selectSTK);
+	if(nChangeType != 0)
+	{
+		ItemFoup FoupItem;
+		if(nChangeType == 1)
+		{
+			FoupItem = g_pVDev->STK_GetChangedFoup(selectSTK);
+			g_mapFoups.insert(std::make_pair(FoupItem.nID,FoupItem));
+			CString str;
+			m_listCtrlFOUP.InsertItem(0,str);
+			SetFOUPListItemData(&FoupItem,0);
+			AddFoupXMLElem(selectSTK,FoupItem.nID,&FoupItem);
+		}
+		if(nChangeType == 2)
+		{
+			FoupItem = g_pVDev->STK_GetChangedFoup(selectSTK);
+			MAP_ItemFoup::iterator it;
+			it = g_mapFoups.find(FoupItem.nID);
+			if(it != g_mapFoups.end())
+			{
+				int item;
+				for(item = 0;FoupItem.nID != m_listCtrlFOUP.GetItemData(item);item++);
+				m_listCtrlFOUP.DeleteItem(item);
+				DeleteFoupXML(selectSTK,FoupItem.nID);
+				g_mapFoups.erase(it);
+			}
+		}
+	}
 	SaveOHTXML();
 	SaveSTKXML();
 	CDialogEx::OnTimer(nIDEvent);

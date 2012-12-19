@@ -6,6 +6,7 @@ VirtualStocker::VirtualStocker(void)
 {
 	//m_optHanders[STK_MCS_ACK_AUTH] = &VirtualStocker::Handle_Auth;
 	m_nContain = 0;
+	m_nFoupChange = 0;
     m_nWholeRoomStatus = 0;
 	m_nTimerID = 0;
 	m_nTimeCounter = 0;
@@ -191,7 +192,58 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 	packet >> nBatchID;
 	packet >> nBarCodeID;
 	packet >> nFoupData;
-
+	if(nMode == 0)
+	{
+		MAP_VFOUP::iterator it;
+		MAP_VROOM::iterator ite;
+		ite = m_mapRooms.find(nRoomID);
+		it = m_mapFoups.find(nBarCodeID);
+		if(it == m_mapFoups.end() && ite->second.nStatus == 0)
+		{
+			m_nFoupChange = 1;
+			VirtualFoup pFoup;
+			CFoup.nBatchID = pFoup.nBatchID = nBatchID;
+			CFoup.nID = pFoup.nID = nBarCodeID;
+			CFoup.nRoomID = pFoup.nRoomID = nRoomID;
+			CFoup.nStatus = pFoup.nStatus = 0;
+			m_mapFoups.insert(std::make_pair(nBarCodeID,pFoup));
+			ItemRoom item;
+			item.nFoupID = nBarCodeID;
+			item.nStatus = 1;
+			ite->second = item;
+			AMHSPacket FoupPacket(STK_ACK_FOUP,2);
+			FoupPacket << (uint8)(DeviceID());
+			FoupPacket << (uint8)(0);
+			SendPacket(FoupPacket);
+		}
+		else
+		{
+			AMHSPacket FoupPacket(STK_ACK_FOUP,2);
+			FoupPacket << (uint8)(DeviceID());
+			FoupPacket << (uint8)(5);
+			SendPacket(FoupPacket);
+		}
+	}
+	else
+	{
+		m_nFoupChange = 2;
+		CFoup.nBatchID = nBatchID;
+		CFoup.nID = nBarCodeID;
+		CFoup.nRoomID = nRoomID;
+		CFoup.nStatus = 0;
+		MAP_VFOUP::iterator it;
+		it = m_mapFoups.find(nBarCodeID);
+		if(it != m_mapFoups.end())
+		{
+			m_mapFoups.erase(it);
+		}
+		MAP_VROOM::iterator ite;
+		ite = m_mapRooms.find(nRoomID);
+		if(ite != m_mapRooms.end())
+		{
+			m_mapRooms.erase(ite);
+		}
+	}
 }
 
 void VirtualStocker::Handle_StatusQuery(AMHSPacket& packet)
@@ -345,7 +397,17 @@ void VirtualStocker::Handle_AuthBack(AMHSPacket& packet)
 		printf("STOCKER ID: %d authed failed at %d:%d:%d %d-%d-%d\n",nID,nHour,nMinute,nSecond,nDay,nMonth,nYear);
 	}
 }
-
+void VirtualStocker::Handle_FoupEvent(AMHSPacket& packet)
+{
+	uint8 nID;
+	uint8 nResult;
+	packet >> nID;
+	packet >> nResult;
+	if(nResult == 0)
+		printf("Foup authed successful!\n");
+	else
+		printf("Foup authed failed!\n");
+}
 void VirtualStocker::CreateTimer(void)
 {
 	timeBeginPeriod(1);

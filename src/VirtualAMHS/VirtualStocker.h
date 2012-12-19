@@ -56,8 +56,10 @@ public:
 	int m_nTimerID;
 	int m_nTimeCounter;
 	int m_nMoveStatus;
+	int m_nFoupChange;
 	uint64 m_nMoveStatusTimeSet;
 	uint64 m_nFoupInfoTimeSet;
+	VirtualFoup CFoup;
 private:
 	void Handle_Auth(AMHSPacket& packet);
 	void Handle_FoupOperate(AMHSPacket& packet);
@@ -70,6 +72,7 @@ private:
 	void Handle_StatusBackTime(AMHSPacket& packet);
 	void Handle_FoupBackTime(AMHSPacket& packet);
 	void Handle_AuthBack(AMHSPacket& packet);
+	void Handle_FoupEvent(AMHSPacket& packet);
 
 private:
 	typedef void (VirtualStocker::*CommandHander)(AMHSPacket& packet);
@@ -79,5 +82,6 @@ private:
 	OPT_MAP m_optHanders;
 	MAP_VFOUP m_mapFoups;
 	MAP_VROOM m_mapRooms;
+
 };
 

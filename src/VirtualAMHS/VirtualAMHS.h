@@ -76,6 +76,8 @@ public:
 	//int STK_SetFoupNum(int nIndex,int nContain);
 	//int STK_GetFoup(int nSTK_ID,int nFoupID,int nBatchID);
 	int STK_GetRoomID(int nSTK_ID,int nFoupID);
+	int STK_FoupChangeType(int nStockerID); 
+	ItemFoup STK_GetChangedFoup(int nStockerID);
 	// for OHT
 	LIST_OHT OHT_GetStatus();
 	LIST_STOCKER Stocker_GetInfo();
@@ -84,6 +86,6 @@ public:
 
 private:
 	MAP_VOHT* m_mapOHT;
-	MAP_VSTK*	 m_mapSTK;
+	MAP_VSTK*	 m_mapSTK; 
 	//LIST_OHTTime* m_listTime;
 };

@@ -292,6 +292,33 @@ int CVirtualAMHS::STK_GetRoomID(int nSTK_ID,int nFoupID)
 		return -1;
 }
 
+int CVirtualAMHS::STK_FoupChangeType(int nStockerID)
+{
+	MAP_VSTK::iterator it;
+	it = m_mapSTK->find(nStockerID);
+	if(it != m_mapSTK->end())
+	{
+		int nType = it->second->m_nFoupChange;
+		return nType;
+	}
+	else
+		return 0;
+}
+ItemFoup CVirtualAMHS::STK_GetChangedFoup(int nStockerID)
+{
+	MAP_VSTK::iterator it;
+	it = m_mapSTK->find(nStockerID);
+	if(it != m_mapSTK->end())
+	{
+		ItemFoup item;
+		item.nID = it->second->CFoup.nID;
+		item.nBatchID = it->second->CFoup.nBatchID;
+		item.nLocation = 0;
+		item.nProcessStatus = 0;
+		item.nRoomID = it->second->CFoup.nRoomID;
+		return item;
+	}
+}
 int CVirtualAMHS::STK_History(int nStocker)
 {
 	MAP_VSTK::iterator it;
