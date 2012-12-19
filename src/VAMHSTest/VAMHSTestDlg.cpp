@@ -958,6 +958,7 @@ void CVAMHSTestDlg::InitListCtrlFOUP(void)
 	m_listCtrlFOUP.InsertColumn(3,_T("BatchID"),LVCFMT_CENTER,65);
 	m_listCtrlFOUP.InsertColumn(4,_T("RoomID"),LVCFMT_CENTER,70);
 }
+
 void CVAMHSTestDlg::InitListCtrlSTOCKER(void)
 {
 	DWORD dwStyle;
@@ -1004,28 +1005,7 @@ void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 			SetOHTListItemData(pOht, i);
 		}
 	}
-	LIST_STOCKER::iterator itStocker = stockers.begin();
-	while(itStocker != stockers.end())
-	{
-		MAP_ItemStocker::iterator itMap = g_mapStockers.find(itStocker->nID);
-		if(itMap != g_mapStockers.end())
-		{
-			itMap->second->nContain = itStocker->nContain;
-			itMap->second->nOnline = itStocker->nOnline;
-		}
-		++itStocker;
-	}
-	int nSTKCount = m_listCtrlSTOCKER.GetItemCount();
-	for (int i=0; i<nSTKCount; i++)
-	{
-		int nStocker = m_listCtrlSTOCKER.GetItemData(i);
-		MAP_ItemStocker::iterator it = g_mapStockers.find(nStocker);
-		if (it != g_mapStockers.end())
-		{
-			ItemStocker* pStocker = it->second;
-			SetStockerListItemData(pStocker, i);
-		}
-	}
+	
 	int nChangeType = g_pVDev->STK_FoupChangeType(selectSTK);
 	if(nChangeType != 0)
 	{
@@ -1055,6 +1035,30 @@ void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 			}
 		}
 	}
+
+	LIST_STOCKER::iterator itStocker = stockers.begin();
+	while(itStocker != stockers.end())
+	{
+		MAP_ItemStocker::iterator itMap = g_mapStockers.find(itStocker->nID);
+		if(itMap != g_mapStockers.end())
+		{
+			itMap->second->nContain = itStocker->nContain;
+			itMap->second->nOnline = itStocker->nOnline;
+		}
+		++itStocker;
+	}
+	int nSTKCount = m_listCtrlSTOCKER.GetItemCount();
+	for (int i=0; i<nSTKCount; i++)
+	{
+		int nStocker = m_listCtrlSTOCKER.GetItemData(i);
+		MAP_ItemStocker::iterator it = g_mapStockers.find(nStocker);
+		if (it != g_mapStockers.end())
+		{
+			ItemStocker* pStocker = it->second;
+			SetStockerListItemData(pStocker, i);
+		}
+	}
+
 	SaveOHTXML();
 	SaveSTKXML();
 	CDialogEx::OnTimer(nIDEvent);
@@ -1238,9 +1242,6 @@ void CVAMHSTestDlg::OnBnClickedSendallButton()
 
 void CVAMHSTestDlg::OnBnClickedSpeedSetButton()
 {
-
-	g_pVDev->STK_Test(selectSTK);
-
 	// TODO: 在此添加控件通知处理程序代码
 	int nSpeed = GetDlgItemInt(IDC_SPEED_SET_EDIT);
 	int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed);

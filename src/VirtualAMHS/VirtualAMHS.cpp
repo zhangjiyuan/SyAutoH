@@ -323,25 +323,7 @@ ItemFoup CVirtualAMHS::STK_GetChangedFoup(int nStockerID)
 	item.nBatchID = 0;
 	return item;
 }
-int CVirtualAMHS::STK_Test(int nID)
-{
-	MAP_VSTK::iterator it;
-	it = m_mapSTK->find(nID);
-	if(it != m_mapSTK->end())
-	{
-		AMHSPacket TestPacket;
-		TestPacket << (uint8)(1);
-		TestPacket << (uint8)(1);
-		TestPacket << (uint8)(1);
-		TestPacket << (uint8)(101);
-		TestPacket << (uint16)(0);
-		TestPacket << (uint16)(31);
-		TestPacket << (uint8)(0);
-		TestPacket << (uint32)(0);
-		it->second->Handle_FoupOperate(TestPacket);
-	}
-	return 0;
-}
+
 int CVirtualAMHS::STK_History(int nStocker)
 {
 	MAP_VSTK::iterator it;

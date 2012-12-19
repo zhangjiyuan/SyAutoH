@@ -78,9 +78,6 @@ public:
 	int STK_GetRoomID(int nSTK_ID,int nFoupID);
 	int STK_FoupChangeType(int nStockerID); 
 	ItemFoup STK_GetChangedFoup(int nStockerID);
-
-
-	int STK_Test(int nID);
 	// for OHT
 	LIST_OHT OHT_GetStatus();
 	LIST_STOCKER Stocker_GetInfo();
