@@ -184,14 +184,16 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 	uint8 nRoomID = 0;
 	uint16 nBatchID = 0;
 	uint16 nBarCodeID = 0;
-	uint16 nFoupData = 0;
+	uint8 nFoupData1 = 0;
+	uint32 nFoupData2 = 0;
 	packet >> nID;
 	packet >> nMode;
 	packet >> nPick;
 	packet >> nRoomID;
 	packet >> nBatchID;
 	packet >> nBarCodeID;
-	packet >> nFoupData;
+	packet >> nFoupData1;
+	packet >> nFoupData2;
 	if(nMode == 0)
 	{
 		MAP_VFOUP::iterator it;
@@ -200,6 +202,7 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 		it = m_mapFoups.find(nBarCodeID);
 		if(it == m_mapFoups.end() && ite->second.nStatus == 0)
 		{
+			m_nContain++;
 			m_nFoupChange = 1;
 			VirtualFoup pFoup;
 			CFoup.nBatchID = pFoup.nBatchID = nBatchID;
@@ -226,6 +229,7 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 	}
 	else
 	{
+		m_nContain--;
 		m_nFoupChange = 2;
 		CFoup.nBatchID = nBatchID;
 		CFoup.nID = nBarCodeID;

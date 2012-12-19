@@ -299,6 +299,7 @@ int CVirtualAMHS::STK_FoupChangeType(int nStockerID)
 	if(it != m_mapSTK->end())
 	{
 		int nType = it->second->m_nFoupChange;
+		it->second->m_nFoupChange = 0;
 		return nType;
 	}
 	else
@@ -308,9 +309,10 @@ ItemFoup CVirtualAMHS::STK_GetChangedFoup(int nStockerID)
 {
 	MAP_VSTK::iterator it;
 	it = m_mapSTK->find(nStockerID);
+	ItemFoup item;
 	if(it != m_mapSTK->end())
 	{
-		ItemFoup item;
+		
 		item.nID = it->second->CFoup.nID;
 		item.nBatchID = it->second->CFoup.nBatchID;
 		item.nLocation = 0;
@@ -318,6 +320,27 @@ ItemFoup CVirtualAMHS::STK_GetChangedFoup(int nStockerID)
 		item.nRoomID = it->second->CFoup.nRoomID;
 		return item;
 	}
+	item.nBatchID = 0;
+	return item;
+}
+int CVirtualAMHS::STK_Test(int nID)
+{
+	MAP_VSTK::iterator it;
+	it = m_mapSTK->find(nID);
+	if(it != m_mapSTK->end())
+	{
+		AMHSPacket TestPacket;
+		TestPacket << (uint8)(1);
+		TestPacket << (uint8)(1);
+		TestPacket << (uint8)(1);
+		TestPacket << (uint8)(101);
+		TestPacket << (uint16)(0);
+		TestPacket << (uint16)(31);
+		TestPacket << (uint8)(0);
+		TestPacket << (uint32)(0);
+		it->second->Handle_FoupOperate(TestPacket);
+	}
+	return 0;
 }
 int CVirtualAMHS::STK_History(int nStocker)
 {

@@ -1033,7 +1033,8 @@ void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 		if(nChangeType == 1)
 		{
 			FoupItem = g_pVDev->STK_GetChangedFoup(selectSTK);
-			g_mapFoups.insert(std::make_pair(FoupItem.nID,FoupItem));
+			//ItemFoup* FoupItem1 = &FoupItem;
+			g_mapFoups.insert(std::make_pair(FoupItem.nID,&FoupItem));
 			CString str;
 			m_listCtrlFOUP.InsertItem(0,str);
 			SetFOUPListItemData(&FoupItem,0);
@@ -1237,6 +1238,9 @@ void CVAMHSTestDlg::OnBnClickedSendallButton()
 
 void CVAMHSTestDlg::OnBnClickedSpeedSetButton()
 {
+
+	g_pVDev->STK_Test(selectSTK);
+
 	// TODO: 在此添加控件通知处理程序代码
 	int nSpeed = GetDlgItemInt(IDC_SPEED_SET_EDIT);
 	int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed);

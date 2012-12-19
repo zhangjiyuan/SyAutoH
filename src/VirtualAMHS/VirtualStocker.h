@@ -60,9 +60,10 @@ public:
 	uint64 m_nMoveStatusTimeSet;
 	uint64 m_nFoupInfoTimeSet;
 	VirtualFoup CFoup;
+	void Handle_FoupOperate(AMHSPacket& packet);
 private:
 	void Handle_Auth(AMHSPacket& packet);
-	void Handle_FoupOperate(AMHSPacket& packet);
+	
 	void Handle_StatusQuery(AMHSPacket& packet);
 	void Handle_RoomQuery(AMHSPacket& packet);
 	void Handle_StorageQuery(AMHSPacket& packet);
