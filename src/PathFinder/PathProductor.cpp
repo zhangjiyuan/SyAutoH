@@ -95,6 +95,8 @@ int CPathProductor::AStarFind(void)
 		weightmap[e] = m_arrayWeights[j];
 	}
 
+	lane_vertex start = -1;
+	lane_vertex goal = -1;
 	// from will be the first element
 	int nIndexFrom = 0;
 	for (auto it = m_arrayBarCode.cbegin();
@@ -102,7 +104,7 @@ int CPathProductor::AStarFind(void)
 	{
 		if (*it == m_nFrom)
 		{
-			nIndexFrom;
+			start = nIndexFrom;
 			break;
 		}
 	}
@@ -115,16 +117,20 @@ int CPathProductor::AStarFind(void)
 		if (*it == m_nTo)
 		{
 			--nIndexTo;
+			goal = nIndexTo;
 			break;
 		}
 	}
 
-	lane_vertex start = nIndexFrom;
-	lane_vertex goal = nIndexTo;
+	if (start < 0 || goal < 0)
+	{
+		cout<< "Can not find Vetex for path." << endl;
+		return 0;
+	}
 
 
-	cout << "Start vertex: " << m_arrayBarCode[start] << endl;
-	cout << "Goal vertex: " << m_arrayBarCode[goal] << endl;
+	//cout << "Start vertex: " << m_arrayBarCode[start] << endl;
+	//cout << "Goal vertex: " << m_arrayBarCode[goal] << endl;
 
 	vector<mygraph_t::vertex_descriptor> p(num_vertices(g));
 	vector<cost> d(num_vertices(g));
@@ -149,22 +155,12 @@ int CPathProductor::AStarFind(void)
 				break;
 		}
 
-		int nBCStart = m_arrayBarCode[start];
-		int nBCGoal = m_arrayBarCode[goal];
-		cout << "Shortest path from " << nBCStart << " to "
-			<< nBCGoal << ": ";
-		auto spi = shortest_path.begin();
-		
-		cout << nBCStart;
-		m_arrayPath.push_back(nBCStart);
-		for(++spi; spi != shortest_path.end(); ++spi)
+		for(auto spi = shortest_path.begin(); spi != shortest_path.end(); ++spi)
 		{
 			int nBarCode = m_arrayBarCode[*spi];
-			cout << " -> " << nBarCode;
+			m_arrayPath.push_back(nBarCode);
 		}
-		m_arrayPath.push_back(nBCGoal);
 		
-		//getchar();
 		int nTotalTravel = (int)d[goal];
 		cout << endl << "Total travel time: " << nTotalTravel << endl;
 		return nTotalTravel;
