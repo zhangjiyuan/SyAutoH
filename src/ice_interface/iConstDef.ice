@@ -28,7 +28,16 @@ module MCS
 				OhtMoveTest,
 				OhtFoupTest,
 				
-				StkStatusTime 
+				StkHandFoup,
+				StkInquiryStatus,
+				StkInquiryPlace,
+				StkInquiryFoup,
+				StkInquiryEntryStatus,
+				StkFoupHistory,
+				StkAlarmHistory,
+				StkSetStatusBackTime, 
+				StkSetFoupInfoBackTime,
+				
 			};
 			
 			
@@ -39,7 +48,8 @@ module MCS
 				upOhtPosTable,
 				upOhtStatus,
 				
-				upStkInfo
+				upStkInfo,
+				upFoupsTable
 			};
 			sequence<PushData> GuiPushDataList;
 		

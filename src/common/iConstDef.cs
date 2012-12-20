@@ -40,7 +40,15 @@ namespace MCS
             OhtPathTest,
             OhtMoveTest,
             OhtFoupTest,
-            StkStatusTime
+            StkHandFoup,
+            StkInquiryStatus,
+            StkInquiryPlace,
+            StkInquiryFoup,
+            StkInquiryEntryStatus,
+            StkFoupHistory,
+            StkAlarmHistory,
+            StkSetStatusBackTime,
+            StkSetFoupInfoBackTime
         }
 
         [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -50,7 +58,8 @@ namespace MCS
             upOhtPos,
             upOhtPosTable,
             upOhtStatus,
-            upStkInfo
+            upStkInfo,
+            upFoupsTable
         }
     }
 }
@@ -80,7 +89,7 @@ namespace MCS
                     os__.writeSize(v__.Length);
                     for(int ix__ = 0; ix__ < v__.Length; ++ix__)
                     {
-                        os__.writeByte((byte)v__[ix__], 5);
+                        os__.writeByte((byte)v__[ix__], 6);
                     }
                 }
             }
@@ -93,7 +102,7 @@ namespace MCS
                     v__ = new MCS.GuiHub.PushData[szx__];
                     for(int ix__ = 0; ix__ < szx__; ++ix__)
                     {
-                        v__[ix__] = (MCS.GuiHub.PushData)is__.readByte(5);
+                        v__[ix__] = (MCS.GuiHub.PushData)is__.readByte(6);
                     }
                 }
                 return v__;
