@@ -12,7 +12,7 @@ public:
 	BYTE m_SpeedRate;
 	BYTE m_TeachMode;
 	BYTE m_OHT_ID;
-	BYTE m_Rail_ID;
+	BYTE m_Lane_ID;
 	LONG m_Prev;
 	LONG m_Next;
 	TCHAR m_Name[51];
@@ -31,7 +31,7 @@ public:
 	DBSTATUS m_dwSpeedRateStatus;
 	DBSTATUS m_dwTeachModeStatus;
 	DBSTATUS m_dwOHT_IDStatus;
-	DBSTATUS m_dwRail_IDStatus;
+	DBSTATUS m_dwLane_IDStatus;
 	DBSTATUS m_dwPrevStatus;
 	DBSTATUS m_dwNextStatus;
 	DBSTATUS m_dwNameStatus;
@@ -46,7 +46,7 @@ public:
 	DBLENGTH m_dwSpeedRateLength;
 	DBLENGTH m_dwTeachModeLength;
 	DBLENGTH m_dwOHT_IDLength;
-	DBLENGTH m_dwRail_IDLength;
+	DBLENGTH m_dwLane_IDLength;
 	DBLENGTH m_dwPrevLength;
 	DBLENGTH m_dwNextLength;
 	DBLENGTH m_dwNameLength;
@@ -99,7 +99,7 @@ public:
 		SpeedRate, \
 		TeachMode, \
 		OHT_ID, \
-		Rail_ID, \
+		Lane_ID, \
 		Prev, \
 		Next, \
 		Name \
@@ -115,7 +115,7 @@ public:
 		COLUMN_ENTRY_LENGTH_STATUS(3, m_SpeedRate, m_dwSpeedRateLength, m_dwSpeedRateStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(4, m_TeachMode, m_dwTeachModeLength, m_dwTeachModeStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(5, m_OHT_ID, m_dwOHT_IDLength, m_dwOHT_IDStatus)
-		COLUMN_ENTRY_LENGTH_STATUS(6, m_Rail_ID, m_dwRail_IDLength, m_dwRail_IDStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(6, m_Lane_ID, m_dwLane_IDLength, m_dwLane_IDStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(7, m_Prev, m_dwPrevLength, m_dwPrevStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(8, m_Next, m_dwNextLength, m_dwNextStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(9, m_Name, m_dwNameLength, m_dwNameStatus)
