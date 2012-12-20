@@ -3,7 +3,7 @@
 #pragma once
 
 
-class CMcsUserTableAccessor
+class CTableMcsUserAccessor
 {
 public:
 	LONG m_id;
@@ -76,7 +76,7 @@ public:
 
 	CSession m_session;
 
-	DEFINE_COMMAND_EX(CMcsUserTableAccessor, L" \
+	DEFINE_COMMAND_EX(CTableMcsUserAccessor, L" \
 	SELECT \
 		id, \
 		Name, \
@@ -88,7 +88,7 @@ public:
 	// 为解决某些提供程序的若干问题，以下代码可能以
 	// 不同于提供程序所报告的顺序来绑定列
 
-	BEGIN_COLUMN_MAP(CMcsUserTableAccessor)
+	BEGIN_COLUMN_MAP(CTableMcsUserAccessor)
 		COLUMN_ENTRY_LENGTH_STATUS(1, m_id, m_dwidLength, m_dwidStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(2, m_Name, m_dwNameLength, m_dwNameStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(3, m_Password, m_dwPasswordLength, m_dwPasswordStatus)
@@ -96,7 +96,7 @@ public:
 	END_COLUMN_MAP()
 };
 
-class CMcsUserTable : public CCommand<CAccessor<CMcsUserTableAccessor> >
+class CTableMcsUser : public CCommand<CAccessor<CTableMcsUserAccessor> >
 {
 public:
 	HRESULT OpenAll()

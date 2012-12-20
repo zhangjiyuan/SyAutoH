@@ -26,19 +26,6 @@
 *.ipch
 *.log
 *.suo
-/src\RailDraw\RailDraw/obj
-/src\RailDraw\RailDraw/bin
 *.cache
 *.exp
-*.filters
-/src/obj
-Release
 
-/src\RailDraw\WinFormsUI/bin
-obj
-bin
-*.lastbuildstate
-*.idb
-*.intermediate.manifest
-*.embed.manifest
-*.unsuccessfulbuild

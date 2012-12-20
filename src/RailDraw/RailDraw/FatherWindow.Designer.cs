@@ -604,6 +604,7 @@ namespace RailDraw
             this.IsMdiContainer = true;
             this.Name = "FatherWindow";
             this.Text = "RailDraw";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FatherWindow_FormClosing);
             this.Load += new System.EventHandler(this.FatherWindow_Load);
             this.menuStrip1.ResumeLayout(false);

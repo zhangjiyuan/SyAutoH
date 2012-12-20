@@ -4,7 +4,7 @@
 
 // 代码生成在 2012年11月16日, 15:21
 
-class CKeyPointsAccessor
+class CTableKeyPointsAccessor
 {
 public:
 	LONG m_Position;
@@ -92,7 +92,7 @@ public:
 
 	CSession m_session;
 
-	DEFINE_COMMAND_EX(CKeyPointsAccessor, L" \
+	DEFINE_COMMAND_EX(CTableKeyPointsAccessor, L" \
 	SELECT \
 		Position, \
 		Type, \
@@ -109,7 +109,7 @@ public:
 	// 为解决某些提供程序的若干问题，以下代码可能以
 	// 不同于提供程序所报告的顺序来绑定列
 
-	BEGIN_COLUMN_MAP(CKeyPointsAccessor)
+	BEGIN_COLUMN_MAP(CTableKeyPointsAccessor)
 		COLUMN_ENTRY_LENGTH_STATUS(1, m_Position, m_dwPositionLength, m_dwPositionStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(2, m_Type, m_dwTypeLength, m_dwTypeStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(3, m_SpeedRate, m_dwSpeedRateLength, m_dwSpeedRateStatus)
@@ -122,7 +122,7 @@ public:
 	END_COLUMN_MAP()
 };
 
-class CKeyPoints : public CCommand<CAccessor<CKeyPointsAccessor> >
+class CTableKeyPoints : public CCommand<CAccessor<CTableKeyPointsAccessor> >
 {
 public:
 	HRESULT OpenAll()

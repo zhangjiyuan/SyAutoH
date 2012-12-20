@@ -4,7 +4,7 @@
 
 // 代码生成在 2012年9月14日, 14:43
 
-class CFoupTableAccessor
+class CTableFoupAccessor
 {
 public:
 	LONG m_ID;
@@ -83,7 +83,7 @@ public:
 
 	CSession m_session;
 
-	DEFINE_COMMAND_EX(CFoupTableAccessor, L" \
+	DEFINE_COMMAND_EX(CTableFoupAccessor, L" \
 	SELECT \
 		ID, \
 		Local, \
@@ -97,7 +97,7 @@ public:
 	// 为解决某些提供程序的若干问题，以下代码可能以
 	// 不同于提供程序所报告的顺序来绑定列
 
-	BEGIN_COLUMN_MAP(CFoupTableAccessor)
+	BEGIN_COLUMN_MAP(CTableFoupAccessor)
 		COLUMN_ENTRY_LENGTH_STATUS(1, m_ID, m_dwIDLength, m_dwIDStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(2, m_Local, m_dwLocalLength, m_dwLocalStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(3, m_Type, m_dwTypeLength, m_dwTypeStatus)
@@ -107,7 +107,7 @@ public:
 	END_COLUMN_MAP()
 };
 
-class CFoupTable : public CCommand<CAccessor<CFoupTableAccessor> >
+class CTableFoup : public CCommand<CAccessor<CTableFoupAccessor> >
 {
 public:
 	HRESULT OpenAll()

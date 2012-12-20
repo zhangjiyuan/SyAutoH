@@ -17,7 +17,7 @@ int DBFoup::AddFoup(const WCHAR* sFoupID, const WCHAR* sLot, int nLocal, int nTy
 	HRESULT hr;
 	int nFoup = 0;
 
-	CFoupTable tableFoup;
+	CTableFoup tableFoup;
 	hr = tableFoup.OpenDataSource();
 	if (FAILED(hr))
 	{
@@ -89,7 +89,7 @@ int DBFoup::FindFoup(const WCHAR* sFoupID)
 	HRESULT hr;
 	int nFoup = 0;
 
-	CFoupTable tableFoup;
+	CTableFoup tableFoup;
 	hr = tableFoup.OpenDataSource();
 	if (FAILED(hr))
 	{
@@ -122,7 +122,7 @@ int DBFoup::SetFoupLocation(int nFoup, int nLocal, int nType)
 	CoInitialize(NULL);
 	HRESULT hr;
 
-	CFoupTable tableFoup;
+	CTableFoup tableFoup;
 	hr = tableFoup.OpenDataSource();
 	if (FAILED(hr))
 	{
@@ -155,7 +155,7 @@ int DBFoup::GetFoupLocation(int nFoup, int &nLocal, int &nType)
 	CoInitialize(NULL);
 	HRESULT hr;
 
-	CFoupTable tableFoup;
+	CTableFoup tableFoup;
 	hr = tableFoup.OpenDataSource();
 	if (FAILED(hr))
 	{
