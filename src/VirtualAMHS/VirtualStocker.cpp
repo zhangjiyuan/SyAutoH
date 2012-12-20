@@ -237,16 +237,25 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 		CFoup.nStatus = 0;
 		MAP_VFOUP::iterator it;
 		it = m_mapFoups.find(nBarCodeID);
-		if(it != m_mapFoups.end())
-		{
-			m_mapFoups.erase(it);
-		}
 		MAP_VROOM::iterator ite;
 		ite = m_mapRooms.find(nRoomID);
-		if(ite != m_mapRooms.end())
+		if(it != m_mapFoups.end() && ite != m_mapRooms.end())
 		{
-			m_mapRooms.erase(ite);
-		}
+			if(it->second.nRoomID == nRoomID)
+			{
+				m_mapFoups.erase(it);
+				m_mapRooms.erase(ite);
+			    AMHSPacket FoupPacket(STK_ACK_FOUP,2);
+			    FoupPacket << (uint8)(DeviceID());
+			    FoupPacket << (uint8)(0);
+			    SendPacket(FoupPacket);
+				return ;
+			}
+		}	
+		AMHSPacket FoupPacket(STK_ACK_FOUP,2);
+		FoupPacket << (uint8)(DeviceID());
+		FoupPacket << (uint8)(5);
+		SendPacket(FoupPacket);
 	}
 }
 
