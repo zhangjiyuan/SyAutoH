@@ -4,7 +4,7 @@
 
 // 代码生成在 2012年11月16日, 15:21
 
-class CKeyPointsAccessor
+class CTableKeyPointsAccessor
 {
 public:
 	LONG m_Position;
@@ -12,7 +12,7 @@ public:
 	BYTE m_SpeedRate;
 	BYTE m_TeachMode;
 	BYTE m_OHT_ID;
-	BYTE m_Rail_ID;
+	BYTE m_Lane_ID;
 	LONG m_Prev;
 	LONG m_Next;
 	TCHAR m_Name[51];
@@ -31,7 +31,7 @@ public:
 	DBSTATUS m_dwSpeedRateStatus;
 	DBSTATUS m_dwTeachModeStatus;
 	DBSTATUS m_dwOHT_IDStatus;
-	DBSTATUS m_dwRail_IDStatus;
+	DBSTATUS m_dwLane_IDStatus;
 	DBSTATUS m_dwPrevStatus;
 	DBSTATUS m_dwNextStatus;
 	DBSTATUS m_dwNameStatus;
@@ -46,7 +46,7 @@ public:
 	DBLENGTH m_dwSpeedRateLength;
 	DBLENGTH m_dwTeachModeLength;
 	DBLENGTH m_dwOHT_IDLength;
-	DBLENGTH m_dwRail_IDLength;
+	DBLENGTH m_dwLane_IDLength;
 	DBLENGTH m_dwPrevLength;
 	DBLENGTH m_dwNextLength;
 	DBLENGTH m_dwNameLength;
@@ -92,14 +92,14 @@ public:
 
 	CSession m_session;
 
-	DEFINE_COMMAND_EX(CKeyPointsAccessor, L" \
+	DEFINE_COMMAND_EX(CTableKeyPointsAccessor, L" \
 	SELECT \
 		Position, \
 		Type, \
 		SpeedRate, \
 		TeachMode, \
 		OHT_ID, \
-		Rail_ID, \
+		Lane_ID, \
 		Prev, \
 		Next, \
 		Name \
@@ -109,20 +109,20 @@ public:
 	// 为解决某些提供程序的若干问题，以下代码可能以
 	// 不同于提供程序所报告的顺序来绑定列
 
-	BEGIN_COLUMN_MAP(CKeyPointsAccessor)
+	BEGIN_COLUMN_MAP(CTableKeyPointsAccessor)
 		COLUMN_ENTRY_LENGTH_STATUS(1, m_Position, m_dwPositionLength, m_dwPositionStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(2, m_Type, m_dwTypeLength, m_dwTypeStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(3, m_SpeedRate, m_dwSpeedRateLength, m_dwSpeedRateStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(4, m_TeachMode, m_dwTeachModeLength, m_dwTeachModeStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(5, m_OHT_ID, m_dwOHT_IDLength, m_dwOHT_IDStatus)
-		COLUMN_ENTRY_LENGTH_STATUS(6, m_Rail_ID, m_dwRail_IDLength, m_dwRail_IDStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(6, m_Lane_ID, m_dwLane_IDLength, m_dwLane_IDStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(7, m_Prev, m_dwPrevLength, m_dwPrevStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(8, m_Next, m_dwNextLength, m_dwNextStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(9, m_Name, m_dwNameLength, m_dwNameStatus)
 	END_COLUMN_MAP()
 };
 
-class CKeyPoints : public CCommand<CAccessor<CKeyPointsAccessor> >
+class CTableKeyPoints : public CCommand<CAccessor<CTableKeyPointsAccessor> >
 {
 public:
 	HRESULT OpenAll()

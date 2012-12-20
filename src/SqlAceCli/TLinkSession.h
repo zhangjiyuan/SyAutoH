@@ -4,7 +4,7 @@
 
 // 代码生成在 2012年9月19日, 15:47
 
-class CLinkSessionTableAccessor
+class CTableLinkSessionAccessor
 {
 public:
 	LONG m_SessionID;
@@ -86,7 +86,7 @@ public:
 
 	CSession m_session;
 
-	DEFINE_COMMAND_EX(CLinkSessionTableAccessor, L" \
+	DEFINE_COMMAND_EX(CTableLinkSessionAccessor, L" \
 	SELECT \
 		SessionID, \
 		UserID, \
@@ -101,7 +101,7 @@ public:
 	// 为解决某些提供程序的若干问题，以下代码可能以
 	// 不同于提供程序所报告的顺序来绑定列
 
-	BEGIN_COLUMN_MAP(CLinkSessionTableAccessor)
+	BEGIN_COLUMN_MAP(CTableLinkSessionAccessor)
 		COLUMN_ENTRY_LENGTH_STATUS(1, m_SessionID, m_dwSessionIDLength, m_dwSessionIDStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(2, m_UserID, m_dwUserIDLength, m_dwUserIDStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(3, m_RealRight, m_dwRealRightLength, m_dwRealRightStatus)
@@ -112,7 +112,7 @@ public:
 	END_COLUMN_MAP()
 };
 
-class CLinkSessionTable : public CCommand<CAccessor<CLinkSessionTableAccessor> >
+class CTableLinkSession : public CCommand<CAccessor<CTableLinkSessionAccessor> >
 {
 public:
 	HRESULT OpenAll()
