@@ -11,6 +11,13 @@ namespace BaseRailElement
     {
    //     private Bitmap image = new Bitmap(
         public Point deviceLocation = Point.Empty;
+        private Int32 deviceCoding = -1;
+
+        public Int32 DeviceCoding
+        {
+            get { return deviceCoding; }
+            set { deviceCoding = value; }
+        }
 
         public Device()
         {
@@ -28,7 +35,7 @@ namespace BaseRailElement
 
         public override void Draw(Graphics canvas)
         {
-            canvas.DrawImage(
+   //         canvas.DrawImage(
         }
 
         public override void DrawTracker(Graphics canvas) 
