@@ -65,7 +65,7 @@ enum GuiCommand
     StkInquiryEntryStatus,
     StkFoupHistory,
     StkAlarmHistory,
-    StkSetStatusBackTime,
+    StkStatusTime,
     StkSetFoupInfoBackTime
 };
 

@@ -47,7 +47,7 @@ namespace MCS
             StkInquiryEntryStatus,
             StkFoupHistory,
             StkAlarmHistory,
-            StkSetStatusBackTime,
+            StkStatusTime,
             StkSetFoupInfoBackTime
         }
 

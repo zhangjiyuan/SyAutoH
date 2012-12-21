@@ -13,6 +13,8 @@ namespace MCSControlLib
 {
     public partial class pageStockerOpt : baseControlPage, IMcsControlBase
     {
+        private byte stockorId = 0;
+
         private const string TKey_ID = "ID";
         private const string TKey_BarCode = "BarCode";
         private const string TKey_Lot = "Lot";
@@ -20,9 +22,10 @@ namespace MCSControlLib
 
         private DataTable m_tableFoupsInfo = null;
 
-        public pageStockerOpt()
+        public pageStockerOpt(byte id)
         {
             InitializeComponent();
+            stockorId = id;
         }
 
         private void pageStockerOpt_Load(object sender, EventArgs e)
@@ -106,26 +109,26 @@ namespace MCSControlLib
         {
             string strTime = tBBackTimeStatus.Text;
 
-            byte nID = 0;
+            byte nID = stockorId;
 
             Int32 nTime=0;
             nTime=TryConver.ToInt32(strTime);
             string strVal;
             strVal = string.Format("<{0},{1}>", nID, nTime);
-            int nWRet = m_dataHub.WriteData(GuiCommand.StkSetStatusBackTime, strVal);
+            int nWRet = m_dataHub.WriteData(GuiCommand.StkStatusTime, strVal);
         }
 
         private void btnBackTimeFoups_Click(object sender, EventArgs e)
         {
             string strTime = tBBackTimeFoups.Text;
 
-            byte nID = 0;
+            byte nID = stockorId;
 
             Int32 nTime = 0;
             nTime = TryConver.ToInt32(strTime);
             string strVal;
             strVal = string.Format("<{0},{1}>", nID, nTime);
-            int nWRet = m_dataHub.WriteData(GuiCommand.StkSetStatusBackTime, strVal);
+            int nWRet = m_dataHub.WriteData(GuiCommand.StkStatusTime, strVal);
         }
 
         

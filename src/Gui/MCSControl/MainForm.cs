@@ -86,7 +86,7 @@ namespace MCSControl
                         baseControlPage tmpCtrl = null;
                         if (m_dictMcsControl.TryGetValue(strNodeName, out tmpCtrl) == false)
                         {
-                            m_dictMcsControl.Add(strNodeName, new pageStockerOpt());
+                            m_dictMcsControl.Add(strNodeName, new pageStockerOpt(nID));
                         }
                     }
                 }
