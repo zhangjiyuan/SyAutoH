@@ -221,6 +221,7 @@
             this.lLStkInfoStatus.TabIndex = 12;
             this.lLStkInfoStatus.TabStop = true;
             this.lLStkInfoStatus.Text = "Status";
+            this.lLStkInfoStatus.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lLStkInfoStatus_LinkClicked);
             // 
             // tBStkInfoStatus
             // 

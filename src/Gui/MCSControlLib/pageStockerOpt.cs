@@ -131,6 +131,11 @@ namespace MCSControlLib
             int nWRet = m_dataHub.WriteData(GuiCommand.StkStatusTime, strVal);
         }
 
+        private void lLStkInfoStatus_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
         
     }
 }
