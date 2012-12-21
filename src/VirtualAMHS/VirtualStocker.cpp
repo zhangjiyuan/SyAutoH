@@ -356,7 +356,7 @@ void VirtualStocker::Handle_Alarms(AMHSPacket& packet)
 void VirtualStocker::Handle_StatusBackTime(AMHSPacket& packet)
 {
 	uint8 nID = 0;
-	uint64 nStatusTime = 0;
+	uint32 nStatusTime = 0;
 	packet >> nID;
 	packet >> nStatusTime;
 	m_nMoveStatusTimeSet = nStatusTime;
@@ -371,7 +371,7 @@ void VirtualStocker::Handle_StatusBackTime(AMHSPacket& packet)
 void VirtualStocker::Handle_FoupBackTime(AMHSPacket& packet)
 {
 	uint8 nID = 0;
-	uint64 nFoupTime = 0;
+	uint32 nFoupTime = 0;
 	packet >> nID;
 	packet >> nFoupTime;
 	m_nFoupInfoTimeSet = nFoupTime;
