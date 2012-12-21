@@ -91,6 +91,10 @@ private:
 	void STK_SetFoupInfoBackTime(const std::string&, const ::Ice::Current&);
 	void STK_FoupHanding(const std::string&, const ::Ice::Current&);
 	void STK_StockerStatus(const std::string&, const ::Ice::Current&);
+	void STK_StockerRoom(const std::string&, const ::Ice::Current&);
+	void STK_StockerFoupStorage(const std::string&, const ::Ice::Current&);
+	void STK_InputStatus(const std::string&, const ::Ice::Current&);
+	void STK_History(const std::string&, const ::Ice::Current&);
 
 private:
 	GuiDataItem Push_OHT_DevInfo();

@@ -30,9 +30,9 @@ module MCS
 				
 				StkHandFoup,
 				StkInquiryStatus,
-				StkInquiryPlace,
-				StkInquiryFoup,
-				StkInquiryEntryStatus,
+				StkInquiryRoom,
+				StkInquiryStorage,
+				StkInquiryInputStatus,
 				StkFoupHistory,
 				StkAlarmHistory,
 				StkStatusTime, 
