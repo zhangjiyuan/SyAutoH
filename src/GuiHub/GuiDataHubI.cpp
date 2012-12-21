@@ -38,6 +38,8 @@ GuiDataHubI::GuiDataHubI(void)
 	// for stocker
 	m_mapHandles.insert(std::make_pair(GuiHub::StkStatusTime,
 		&GuiDataHubI::STK_SetStatusBackTime));
+	m_mapHandles.insert(std::make_pair(GuiHub::StkSetFoupInfoBackTime,
+		&GuiDataHubI::STK_SetFoupInfoBackTime));
 
 	//////////////////////////////////////////////////////////////////////////
 	// Push Data
