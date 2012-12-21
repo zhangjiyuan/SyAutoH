@@ -178,84 +178,155 @@ void VirtualStocker::Handle_Auth(AMHSPacket& packet)
 
 void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 {
-	uint8 nID = 0;
+ 	uint8 nID = 0;
 	uint8 nMode = 0;
 	uint8 nPick = 0;
-	uint8 nRoomID = 0;
-	uint16 nBatchID = 0;
-	uint16 nBarCodeID = 0;
-	uint8 nFoupData1 = 0;
-	uint32 nFoupData2 = 0;
+	uint64 nFoupData1;
+	uint16 nFoupData2;
 	packet >> nID;
 	packet >> nMode;
 	packet >> nPick;
-	packet >> nRoomID;
-	packet >> nBatchID;
-	packet >> nBarCodeID;
 	packet >> nFoupData1;
 	packet >> nFoupData2;
 	if(nMode == 0)
 	{
 		MAP_VFOUP::iterator it;
 		MAP_VROOM::iterator ite;
-		ite = m_mapRooms.find(nRoomID);
-		it = m_mapFoups.find(nBarCodeID);
-		if(it == m_mapFoups.end() && ite->second.nStatus == 0)
+		if(nPick == 0)
 		{
-			m_nContain++;
-			m_nFoupChange = 1;
-			VirtualFoup pFoup;
-			CFoup.nBatchID = pFoup.nBatchID = nBatchID;
-			CFoup.nID = pFoup.nID = nBarCodeID;
-			CFoup.nRoomID = pFoup.nRoomID = nRoomID;
-			CFoup.nStatus = pFoup.nStatus = 0;
-			m_mapFoups.insert(std::make_pair(nBarCodeID,pFoup));
-			ItemRoom item;
-			item.nFoupID = nBarCodeID;
-			item.nStatus = 1;
-			ite->second = item;
+			ite = m_mapRooms.find(nFoupData1);
+			if(ite->second.nStatus == 0)
+			{
+				m_nContain++;
+				m_nFoupChange = 1;
+			    VirtualFoup pFoup;
+				int nID = 0;
+				for(it = m_mapFoups.begin();it != m_mapFoups.end();it++)
+				{
+					
+					if(nID <= it->first)
+					{
+						nID = it->first;
+					}
+				}
+				CFoup.nBatchID = pFoup.nBatchID = 0;
+			    CFoup.nID = pFoup.nID = nID + 1;
+			    CFoup.nRoomID = pFoup.nRoomID = nFoupData1;
+			    CFoup.nStatus = pFoup.nStatus = 0;
+			    m_mapFoups.insert(std::make_pair(nID + 1,pFoup));
+			    ItemRoom item;
+			    item.nFoupID = nID + 1;
+			    item.nStatus = 1;
+			    ite->second = item;
+			    AMHSPacket FoupPacket(STK_ACK_FOUP,2);
+			    FoupPacket << (uint8)(DeviceID());
+			    FoupPacket << (uint8)(0);
+			    SendPacket(FoupPacket);
+			}
+		    else
+			{
+				AMHSPacket FoupPacket(STK_ACK_FOUP,2);
+				FoupPacket << (uint8)(DeviceID());
+			    FoupPacket << (uint8)(5);
+			    SendPacket(FoupPacket);
+		    }
+		}
+		else if(nPick == 1)
+		{
 			AMHSPacket FoupPacket(STK_ACK_FOUP,2);
 			FoupPacket << (uint8)(DeviceID());
 			FoupPacket << (uint8)(0);
 			SendPacket(FoupPacket);
 		}
-		else
+		else if(nPick == 2)
+		{
+			it = m_mapFoups.find(nFoupData1);
+			if(it == m_mapFoups.end())
+			{
+				m_nFoupChange = 1;
+				FoupIntoRoom(nFoupData1,0);
+				it = m_mapFoups.find(nFoupData1);
+				CFoup = it->second;
+				AMHSPacket FoupPacket(STK_ACK_FOUP,2);
+			    FoupPacket << (uint8)(DeviceID());
+			    FoupPacket << (uint8)(0);
+			    SendPacket(FoupPacket);
+			}
+			else
+			{
+				AMHSPacket FoupPacket(STK_ACK_FOUP,2);
+				FoupPacket << (uint8)(DeviceID());
+			    FoupPacket << (uint8)(5);
+			    SendPacket(FoupPacket);
+			}
+		}
+		else if(nPick == 3)
 		{
 			AMHSPacket FoupPacket(STK_ACK_FOUP,2);
-			FoupPacket << (uint8)(DeviceID());
-			FoupPacket << (uint8)(5);
+		    FoupPacket << (uint8)(DeviceID());
+			FoupPacket << (uint8)(0);
 			SendPacket(FoupPacket);
 		}
 	}
 	else
 	{
-		m_nContain--;
-		m_nFoupChange = 2;
-		CFoup.nBatchID = nBatchID;
-		CFoup.nID = nBarCodeID;
-		CFoup.nRoomID = nRoomID;
-		CFoup.nStatus = 0;
 		MAP_VFOUP::iterator it;
-		it = m_mapFoups.find(nBarCodeID);
 		MAP_VROOM::iterator ite;
-		ite = m_mapRooms.find(nRoomID);
-		if(it != m_mapFoups.end() && ite != m_mapRooms.end())
+		if(nPick == 0)
 		{
-			if(it->second.nRoomID == nRoomID)
+			ite = m_mapRooms.find(nFoupData1);
+			if(ite != m_mapRooms.end())
 			{
+				m_nContain--;
+		        m_nFoupChange = 2;
+				int nID = ite->second.nFoupID;
+				it = m_mapFoups.find(nID);
+				CFoup = it->second;
+		        if(it != m_mapFoups.end())
+		        {
+					ite->second.nStatus = 0;
+					ite->second.nFoupID = 0;
+					m_mapFoups.erase(it);
+			        AMHSPacket FoupPacket(STK_ACK_FOUP,2);
+			        FoupPacket << (uint8)(DeviceID());
+			        FoupPacket << (uint8)(0);
+			        SendPacket(FoupPacket);
+				    return ;
+			    }
+		     }
+		}
+		else if(nPick == 1)
+		{
+			 AMHSPacket FoupPacket(STK_ACK_FOUP,2);
+			 FoupPacket << (uint8)(DeviceID());
+			 FoupPacket << (uint8)(0);
+			 SendPacket(FoupPacket);
+	         return ;
+		}
+		else if(nPick == 2)
+		{
+			it = m_mapFoups.find(nFoupData1);
+			if(it != m_mapFoups.end())
+			{
+				CFoup = it->second;
+				m_nFoupChange = 2;
+				m_nContain--;
+				int nRoomID = it->second.nRoomID;
+				ite = m_mapRooms.find(nRoomID);
+				ite->second.nFoupID = 0;
+				ite->second.nStatus = 0;
 				m_mapFoups.erase(it);
-				m_mapRooms.erase(ite);
-			    AMHSPacket FoupPacket(STK_ACK_FOUP,2);
+				AMHSPacket FoupPacket(STK_ACK_FOUP,2);
 			    FoupPacket << (uint8)(DeviceID());
 			    FoupPacket << (uint8)(0);
 			    SendPacket(FoupPacket);
 				return ;
 			}
-		}	
+		}
 		AMHSPacket FoupPacket(STK_ACK_FOUP,2);
-		FoupPacket << (uint8)(DeviceID());
+	    FoupPacket << (uint8)(DeviceID());
 		FoupPacket << (uint8)(5);
-		SendPacket(FoupPacket);
+	    SendPacket(FoupPacket);
 	}
 }
 
