@@ -75,7 +75,23 @@ void GuiDataHubI::STK_FoupHanding(const std::string& strVal, const ::Ice::Curren
 			int nOpt=atoi(Params[1].c_str());
 			int nMode=atoi(Params[2].c_str());
 			int nData=atoi(Params[3].c_str());
-			m_pAMHSDrive->STKFoup(nID, nOpt, nMode, nData);
+			m_pAMHSDrive->STKFoupHand(nID, nOpt, nMode, nData);
+		}
+	}
+}
+
+void GuiDataHubI::STK_StockerStatus(const std::string& strVal, const ::Ice::Current&)
+{
+	STR_VEC vecStr=GetVecStrings(strVal);
+	for(STR_VEC::iterator it=vecStr.begin();
+		it!=vecStr.end();++it)
+	{
+		string strE = *it;
+		STR_VEC Params=SplitString(*it,",");
+		if(Params.size()==1)
+		{
+			int nID=atoi(Params[0].c_str());
+			m_pAMHSDrive->STKStockerStatus(nID);
 		}
 	}
 }

@@ -42,6 +42,8 @@ GuiDataHubI::GuiDataHubI(void)
 		&GuiDataHubI::STK_SetFoupInfoBackTime));
 	m_mapHandles.insert(std::make_pair(GuiHub::StkHandFoup,
 		&GuiDataHubI::STK_FoupHanding));
+	m_mapHandles.insert(std::make_pair(GuiHub::StkInquiryStatus,
+		&GuiDataHubI::STK_StockerStatus));
 
 	//////////////////////////////////////////////////////////////////////////
 	// Push Data

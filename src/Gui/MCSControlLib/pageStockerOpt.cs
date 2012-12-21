@@ -131,7 +131,10 @@ namespace MCSControlLib
 
         private void lLStkInfoStatus_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            byte nID = stockorId;
+            string strVal = string.Format("<{0}>", nID);
 
+            int nWRet = m_dataHub.WriteData(GuiCommand.StkInquiryStatus, strVal);
         }
 
         private void btnFoupMoveIn_Click(object sender, EventArgs e)

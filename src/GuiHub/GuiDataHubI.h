@@ -90,6 +90,7 @@ private:
 	void STK_SetStatusBackTime(const std::string&, const ::Ice::Current&);
 	void STK_SetFoupInfoBackTime(const std::string&, const ::Ice::Current&);
 	void STK_FoupHanding(const std::string&, const ::Ice::Current&);
+	void STK_StockerStatus(const std::string&, const ::Ice::Current&);
 
 private:
 	GuiDataItem Push_OHT_DevInfo();
