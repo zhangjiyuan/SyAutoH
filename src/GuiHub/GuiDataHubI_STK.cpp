@@ -60,3 +60,8 @@ void GuiDataHubI::STK_SetFoupInfoBackTime(const std::string& strVal, const ::Ice
 		}
 	}
 }
+
+void STK_FoupHanding(const std::string&, const ::Ice::Current&);
+{
+
+}

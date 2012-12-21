@@ -128,7 +128,7 @@ namespace MCSControlLib
             nTime = TryConver.ToInt32(strTime);
             string strVal;
             strVal = string.Format("<{0},{1}>", nID, nTime);
-            int nWRet = m_dataHub.WriteData(GuiCommand.StkStatusTime, strVal);
+            int nWRet = m_dataHub.WriteData(GuiCommand.StkSetFoupInfoBackTime, strVal);
         }
 
         private void lLStkInfoStatus_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
