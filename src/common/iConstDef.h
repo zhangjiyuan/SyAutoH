@@ -58,7 +58,15 @@ enum GuiCommand
     OhtPathTest,
     OhtMoveTest,
     OhtFoupTest,
-    StkStatusTime
+    StkHandFoup,
+    StkInquiryStatus,
+    StkInquiryPlace,
+    StkInquiryFoup,
+    StkInquiryEntryStatus,
+    StkFoupHistory,
+    StkAlarmHistory,
+    StkStatusTime,
+    StkSetFoupInfoBackTime
 };
 
 void __write(::IceInternal::BasicStream*, GuiCommand);
@@ -70,7 +78,8 @@ enum PushData
     upOhtPos,
     upOhtPosTable,
     upOhtStatus,
-    upStkInfo
+    upStkInfo,
+    upFoupsTable
 };
 
 void __write(::IceInternal::BasicStream*, PushData);

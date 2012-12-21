@@ -47,6 +47,7 @@
     <Compile Include="ColorConverter.cs" />
     <Compile Include="CrossEle.cs" />
     <Compile Include="CurvedRailEle.cs" />
+    <Compile Include="Device.cs" />
     <Compile Include="DrawDoc.cs" />
     <Compile Include="ObjectBaseEvents.cs" />
     <Compile Include="ObjectCrossOp.cs" />

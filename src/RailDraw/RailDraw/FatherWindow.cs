@@ -31,6 +31,9 @@ namespace RailDraw
         private const Int16 CONST_MULTI_FACTOR = 1;
         private Int16 multiFactor = 1;
         private Point workSize = Point.Empty;
+        private Int16 lineNumber = 0;
+        private Int16 curveNumber = 0;
+        private Int16 CrossNumber = 0;
 
         //using for test
         SaveCodingRail saveCodingRail = new SaveCodingRail();
@@ -45,30 +48,23 @@ namespace RailDraw
             BaseRailElement.ObjectBaseEvents.Document = drawDoc;
             Rectangle screen = Screen.PrimaryScreen.WorkingArea;
             this.Size = (Size)new Point(screen.Width, screen.Height);
+            
+            workSize = new Point(((Point)this.ClientSize).X - 4, ((Point)this.ClientSize).Y - this.menuStrip1.Height - this.toolStrip1.Height);
+
             this.Location = new Point(0, 0);
-            Point size = (Point)this.ClientSize;
-            int menuHeight = this.menuStrip1.Height;
-            int toolHeight = this.toolStrip1.Height;
-            int statusHeight = this.statusStrip1.Height;
-            workSize = new Point(size.X - 4, size.Y - menuHeight - toolHeight - statusHeight - 4);
-            Debug.WriteLine(string.Format("size {0} menuH {1} toolH {2} statusH {3}", size, menuHeight, toolHeight, statusHeight));
 
             proRegion.Show(this.dockPanel1);
             proRegion.DockTo(this.dockPanel1, DockStyle.Left);
-            Debug.WriteLine(string.Format("programRegion location {0} size {1}", proRegion.Location, proRegion.Size));
 
             proPage.Show(this.dockPanel1);
             proPage.DockTo(this.dockPanel1, DockStyle.Left);
-            Debug.WriteLine(string.Format("proPage location {0} size {1}", proPage.Location, proPage.Size));
 
             workRegion.Size = (Size)new Point(workSize.X / 6 * 4, workSize.Y);
             workRegion.Show(this.dockPanel1);
             workRegion.DockTo(this.dockPanel1, DockStyle.Fill);
-            Debug.WriteLine(string.Format("workRegion location {0} size {1}", workRegion.Location, workRegion.Size));
 
             tools.Show(this.dockPanel1);
             tools.DockTo(this.dockPanel1, DockStyle.Right);
-            Debug.WriteLine(string.Format("tools location {0} size {1}", tools.Location, tools.Size));
 
             drawregOrigSize.Width = this.workRegion.pictureBox1.Width;
             drawregOrigSize.Height = this.workRegion.pictureBox1.Height;
@@ -429,7 +425,10 @@ namespace RailDraw
         private void addtext_Click(object sender, EventArgs e)
         {
             BaseRailElement.RailLabal railLalal = new BaseRailElement.RailLabal();
-            this.drawDoc.DrawObjectList.Add(railLalal.CreatEle(multiFactor, this.tools.itemSelected.Text));
+    //        railLalal.CreatEle(multiFactor, this.tools.itemSelected.Text);
+    //        railLalal.CreatEle(multiFactor, null);
+    //        this.drawDoc.DrawObjectList.Add(railLalal.CreatEle(multiFactor, this.tools.itemSelected.Text));
+            this.drawDoc.DrawObjectList.Add(railLalal.CreatEle(multiFactor, null));
             drawDoc.SelectOne(railLalal);
             proRegion.AddElementNode(this.workRegion.Text, railLalal.railText);
             this.workRegion.pictureBox1.Invalidate();
@@ -537,6 +536,15 @@ namespace RailDraw
                                             break;
                                         case "prevCoding":
                                             strTemp.PrevCoding = Convert.ToInt32(dt.Rows[i][j]);
+                                            break;
+                                        case "Color":
+                                            strTemp.PenColor = ColorTranslator.FromHtml(dt.Rows[i][j].ToString());
+                                            break;
+                                        case "DashStyle":
+                                            strTemp.PenDashStyle = (System.Drawing.Drawing2D.DashStyle)(Convert.ToInt32(dt.Rows[i][j]));
+                                            break;
+                                        case "PenWidth":
+                                            strTemp.PenWidth = Convert.ToSingle(dt.Rows[i][j]);
                                             break;
                                     }
                                 }
@@ -646,6 +654,15 @@ namespace RailDraw
                                             ptcur = new Point() { X = int.Parse(strPointArrayCur[0].Substring(2)), Y = int.Parse(strPointArrayCur[1].Substring(2)) };
                                             curTemp.oldSecDot = ptcur;
                                             break;
+                                        case "Color":
+                                            curTemp.PenColor = ColorTranslator.FromHtml(dt.Rows[i][j].ToString());
+                                            break;
+                                        case "DashStyle":
+                                            curTemp.PenDashStyle = (System.Drawing.Drawing2D.DashStyle)(Convert.ToInt32(dt.Rows[i][j]));
+                                            break;
+                                        case "PenWidth":
+                                            curTemp.PenWidth = Convert.ToSingle(dt.Rows[i][j]);
+                                            break;
                                     }
                                 }
                                 AddElement(curTemp);
@@ -752,6 +769,15 @@ namespace RailDraw
                                         case "startDot":
                                             croTemp.StartDot = dt.Rows[i][j].ToString();
                                             break;
+                                        case "Color":
+                                            croTemp.PenColor = ColorTranslator.FromHtml(dt.Rows[i][j].ToString());
+                                            break;
+                                        case "DashStyle":
+                                            croTemp.PenDashStyle = (System.Drawing.Drawing2D.DashStyle)(Convert.ToInt32(dt.Rows[i][j]));
+                                            break;
+                                        case "PenWidth":
+                                            croTemp.PenWidth = Convert.ToSingle(dt.Rows[i][j]);
+                                            break;
                                     }
                                 }
                                 AddElement(croTemp);
@@ -792,34 +818,62 @@ namespace RailDraw
 
         public void CreateElement(Point mousePt, Size workRegionSize)
         {
+            string str = this.tools.itemSelected.Text;
             switch (this.tools.itemSelected.Text)
             {
-                case "直轨":
+                case "Line":
                     BaseRailElement.StraightRailEle strRailEle = new BaseRailElement.StraightRailEle();
-                    strRailEle.CreatEle(mousePt, workRegionSize, multiFactor, this.tools.itemSelected.Text);
+                    if (++lineNumber < 10)
+                    {
+                        str += "_" + "00" + lineNumber.ToString();
+                    }
+                    else if (++lineNumber < 100 && ++lineNumber >= 10)
+                    {
+                        str += "_" + "0" + lineNumber.ToString();
+                    }
+                    strRailEle.CreateEle(mousePt, workRegionSize, multiFactor, str);
                     AddElement(strRailEle);
                     drawDoc.SelectOne(strRailEle);
                     workRegion.pictureBox1.Invalidate();
                     proPage.propertyGrid1.SelectedObject = strRailEle;
                     proPage.propertyGrid1.Refresh();
                     break;
-                case "弯轨":
+                case "Curve":
                     BaseRailElement.CurvedRailEle curRailEle = new BaseRailElement.CurvedRailEle();
-                    curRailEle.CreatEle(mousePt, workRegionSize, multiFactor, this.tools.itemSelected.Text);
+                    if (++curveNumber < 10)
+                    {
+                        str += "_" + "00" + curveNumber.ToString();
+                    }
+                    else if (++curveNumber < 100 && ++curveNumber >= 10)
+                    {
+                        str += "_" + "0" + curveNumber.ToString();
+                    }
+                    curRailEle.CreateEle(mousePt, workRegionSize, multiFactor, str);
                     AddElement(curRailEle);
                     drawDoc.SelectOne(curRailEle);
                     workRegion.pictureBox1.Invalidate();
                     proPage.propertyGrid1.SelectedObject = curRailEle;
                     proPage.propertyGrid1.Refresh();
                     break;
-                case "叉轨":
+                case "Cross":
                     BaseRailElement.CrossEle croRailEle = new BaseRailElement.CrossEle();
-                    croRailEle.CreatEle(mousePt, workRegionSize, multiFactor, this.tools.itemSelected.Text);
+                    if (++CrossNumber < 10)
+                    {
+                        str += "_" + "00" + CrossNumber.ToString();
+                    }
+                    else if (++CrossNumber < 100 && ++CrossNumber >= 10)
+                    {
+                        str += "_" + "0" + CrossNumber.ToString();
+                    }
+                    croRailEle.CreateEle(mousePt, workRegionSize, multiFactor, str);
                     AddElement(croRailEle);
                     drawDoc.SelectOne(croRailEle);
                     workRegion.pictureBox1.Invalidate();
                     proPage.propertyGrid1.SelectedObject = croRailEle;
                     proPage.propertyGrid1.Refresh();
+                    break;
+                case "Device":
+                    MessageBox.Show("a");
                     break;
                 default:
                     break;
@@ -829,19 +883,25 @@ namespace RailDraw
 
         private void AddElement(BaseRailEle baseRailEle)
         {
-            switch (baseRailEle.railText)
+            string str = baseRailEle.railText;
+            int lenght = str.IndexOf('_');
+            if (-1!=lenght)
             {
-                case "直轨":
+                str = str.Substring(0,lenght);
+            }
+            switch(str)
+            {
+                case "Line":
                     BaseRailElement.StraightRailEle strRailEle = (BaseRailElement.StraightRailEle)baseRailEle;
                     drawDoc.DrawObjectList.Add(strRailEle);
                     proRegion.AddElementNode(this.workRegion.Text, strRailEle.railText);
                     break;
-                case "弯轨":
+                case "Curve":
                     BaseRailElement.CurvedRailEle curRailEle = (BaseRailElement.CurvedRailEle)baseRailEle;
                     drawDoc.DrawObjectList.Add(curRailEle);
                     proRegion.AddElementNode(this.workRegion.Text, curRailEle.railText);
                     break;
-                case "叉轨":
+                case "Cross":
                     BaseRailElement.CrossEle croRailEle = (BaseRailElement.CrossEle)baseRailEle;
                     drawDoc.DrawObjectList.Add(croRailEle);
                     proRegion.AddElementNode(this.workRegion.Text, croRailEle.railText);

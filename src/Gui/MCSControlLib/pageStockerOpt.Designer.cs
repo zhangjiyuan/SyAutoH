@@ -29,26 +29,26 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewFoupsInStocker = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.tBSelStatus = new System.Windows.Forms.TextBox();
+            this.tBSelLot = new System.Windows.Forms.TextBox();
+            this.tBSelBarCode = new System.Windows.Forms.TextBox();
+            this.tBSelFoupID = new System.Windows.Forms.TextBox();
+            this.lStatus = new System.Windows.Forms.Label();
+            this.lLot = new System.Windows.Forms.Label();
+            this.lBarCode = new System.Windows.Forms.Label();
+            this.lFoupID = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.lLStkInfoStatus = new System.Windows.Forms.LinkLabel();
+            this.tBStkInfoStatus = new System.Windows.Forms.TextBox();
+            this.lLStkFoupRefresh = new System.Windows.Forms.LinkLabel();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.btnFoupMoveOut = new System.Windows.Forms.Button();
+            this.btnFoupMoveIn = new System.Windows.Forms.Button();
+            this.cBFoupMove = new System.Windows.Forms.ComboBox();
+            this.tBFoupMove = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -59,36 +59,36 @@
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.button5 = new System.Windows.Forms.Button();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.btnBackTimeFoups = new System.Windows.Forms.Button();
+            this.tBBackTimeFoups = new System.Windows.Forms.TextBox();
+            this.lBackTimeFoups = new System.Windows.Forms.Label();
+            this.btnBackTimeStatus = new System.Windows.Forms.Button();
+            this.tBBackTimeStatus = new System.Windows.Forms.TextBox();
+            this.lBackTimeStatus = new System.Windows.Forms.Label();
             this.bnFoupHistory = new System.Windows.Forms.Button();
             this.bnAlarmHistory = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.textBox16 = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.labelLastFoupManu = new System.Windows.Forms.Label();
+            this.tBLastFoupManu = new System.Windows.Forms.TextBox();
+            this.labelLastFoupAuto = new System.Windows.Forms.Label();
+            this.tBLastFoupAuto = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.textBox14 = new System.Windows.Forms.TextBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.tBLastLot = new System.Windows.Forms.TextBox();
+            this.lLastFoupID = new System.Windows.Forms.Label();
+            this.tBLastBarCode = new System.Windows.Forms.TextBox();
+            this.lLastBarCode = new System.Windows.Forms.Label();
+            this.tBLastFoupID = new System.Windows.Forms.TextBox();
+            this.lLastLot = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label22 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFoupsInStocker)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -109,27 +109,27 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Foups in Stocker:";
             // 
-            // dataGridView1
+            // dataGridViewFoupsInStocker
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataGridViewFoupsInStocker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 15);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(345, 311);
-            this.dataGridView1.TabIndex = 1;
+            this.dataGridViewFoupsInStocker.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewFoupsInStocker.Location = new System.Drawing.Point(3, 15);
+            this.dataGridViewFoupsInStocker.Name = "dataGridViewFoupsInStocker";
+            this.dataGridViewFoupsInStocker.RowTemplate.Height = 23;
+            this.dataGridViewFoupsInStocker.Size = new System.Drawing.Size(345, 311);
+            this.dataGridViewFoupsInStocker.TabIndex = 1;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox4);
-            this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.tBSelStatus);
+            this.groupBox1.Controls.Add(this.tBSelLot);
+            this.groupBox1.Controls.Add(this.tBSelBarCode);
+            this.groupBox1.Controls.Add(this.tBSelFoupID);
+            this.groupBox1.Controls.Add(this.lStatus);
+            this.groupBox1.Controls.Add(this.lLot);
+            this.groupBox1.Controls.Add(this.lBarCode);
+            this.groupBox1.Controls.Add(this.lFoupID);
             this.groupBox1.Location = new System.Drawing.Point(354, 70);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(200, 136);
@@ -137,74 +137,74 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Selected Foup";
             // 
-            // textBox4
+            // tBSelStatus
             // 
-            this.textBox4.Location = new System.Drawing.Point(81, 101);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 21);
-            this.textBox4.TabIndex = 7;
+            this.tBSelStatus.Location = new System.Drawing.Point(81, 101);
+            this.tBSelStatus.Name = "tBSelStatus";
+            this.tBSelStatus.Size = new System.Drawing.Size(100, 21);
+            this.tBSelStatus.TabIndex = 7;
             // 
-            // textBox3
+            // tBSelLot
             // 
-            this.textBox3.Location = new System.Drawing.Point(81, 74);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 21);
-            this.textBox3.TabIndex = 6;
+            this.tBSelLot.Location = new System.Drawing.Point(81, 74);
+            this.tBSelLot.Name = "tBSelLot";
+            this.tBSelLot.Size = new System.Drawing.Size(100, 21);
+            this.tBSelLot.TabIndex = 6;
             // 
-            // textBox2
+            // tBSelBarCode
             // 
-            this.textBox2.Location = new System.Drawing.Point(81, 47);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 21);
-            this.textBox2.TabIndex = 5;
+            this.tBSelBarCode.Location = new System.Drawing.Point(81, 47);
+            this.tBSelBarCode.Name = "tBSelBarCode";
+            this.tBSelBarCode.Size = new System.Drawing.Size(100, 21);
+            this.tBSelBarCode.TabIndex = 5;
             // 
-            // textBox1
+            // tBSelFoupID
             // 
-            this.textBox1.Location = new System.Drawing.Point(81, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
-            this.textBox1.TabIndex = 4;
+            this.tBSelFoupID.Location = new System.Drawing.Point(81, 20);
+            this.tBSelFoupID.Name = "tBSelFoupID";
+            this.tBSelFoupID.Size = new System.Drawing.Size(100, 21);
+            this.tBSelFoupID.TabIndex = 4;
             // 
-            // label5
+            // lStatus
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 104);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 12);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Status";
+            this.lStatus.AutoSize = true;
+            this.lStatus.Location = new System.Drawing.Point(17, 104);
+            this.lStatus.Name = "lStatus";
+            this.lStatus.Size = new System.Drawing.Size(41, 12);
+            this.lStatus.TabIndex = 3;
+            this.lStatus.Text = "Status";
             // 
-            // label4
+            // lLot
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 77);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(23, 12);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Lot";
+            this.lLot.AutoSize = true;
+            this.lLot.Location = new System.Drawing.Point(17, 77);
+            this.lLot.Name = "lLot";
+            this.lLot.Size = new System.Drawing.Size(23, 12);
+            this.lLot.TabIndex = 2;
+            this.lLot.Text = "Lot";
             // 
-            // label3
+            // lBarCode
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 50);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 12);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "BarCode";
+            this.lBarCode.AutoSize = true;
+            this.lBarCode.Location = new System.Drawing.Point(17, 50);
+            this.lBarCode.Name = "lBarCode";
+            this.lBarCode.Size = new System.Drawing.Size(47, 12);
+            this.lBarCode.TabIndex = 1;
+            this.lBarCode.Text = "BarCode";
             // 
-            // label2
+            // lFoupID
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 23);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 12);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Foup ID";
+            this.lFoupID.AutoSize = true;
+            this.lFoupID.Location = new System.Drawing.Point(17, 23);
+            this.lFoupID.Name = "lFoupID";
+            this.lFoupID.Size = new System.Drawing.Size(47, 12);
+            this.lFoupID.TabIndex = 0;
+            this.lFoupID.Text = "Foup ID";
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.linkLabel3);
-            this.groupBox2.Controls.Add(this.textBox5);
+            this.groupBox2.Controls.Add(this.lLStkInfoStatus);
+            this.groupBox2.Controls.Add(this.tBStkInfoStatus);
             this.groupBox2.Location = new System.Drawing.Point(354, 15);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(200, 49);
@@ -212,32 +212,33 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Stocker Info";
             // 
-            // linkLabel3
+            // lLStkInfoStatus
             // 
-            this.linkLabel3.AutoSize = true;
-            this.linkLabel3.Location = new System.Drawing.Point(28, 21);
-            this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(41, 12);
-            this.linkLabel3.TabIndex = 12;
-            this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "Status";
+            this.lLStkInfoStatus.AutoSize = true;
+            this.lLStkInfoStatus.Location = new System.Drawing.Point(28, 21);
+            this.lLStkInfoStatus.Name = "lLStkInfoStatus";
+            this.lLStkInfoStatus.Size = new System.Drawing.Size(41, 12);
+            this.lLStkInfoStatus.TabIndex = 12;
+            this.lLStkInfoStatus.TabStop = true;
+            this.lLStkInfoStatus.Text = "Status";
             // 
-            // textBox5
+            // tBStkInfoStatus
             // 
-            this.textBox5.Location = new System.Drawing.Point(81, 18);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 21);
-            this.textBox5.TabIndex = 8;
+            this.tBStkInfoStatus.Location = new System.Drawing.Point(81, 18);
+            this.tBStkInfoStatus.Name = "tBStkInfoStatus";
+            this.tBStkInfoStatus.Size = new System.Drawing.Size(100, 21);
+            this.tBStkInfoStatus.TabIndex = 8;
             // 
-            // linkLabel1
+            // lLStkFoupRefresh
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(301, 0);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(47, 12);
-            this.linkLabel1.TabIndex = 4;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Refresh";
+            this.lLStkFoupRefresh.AutoSize = true;
+            this.lLStkFoupRefresh.Location = new System.Drawing.Point(301, 0);
+            this.lLStkFoupRefresh.Name = "lLStkFoupRefresh";
+            this.lLStkFoupRefresh.Size = new System.Drawing.Size(47, 12);
+            this.lLStkFoupRefresh.TabIndex = 4;
+            this.lLStkFoupRefresh.TabStop = true;
+            this.lLStkFoupRefresh.Text = "Refresh";
+            this.lLStkFoupRefresh.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelStkFoupRefresh_LinkClicked);
             // 
             // label6
             // 
@@ -250,10 +251,10 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.button2);
-            this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Controls.Add(this.comboBox1);
-            this.groupBox3.Controls.Add(this.textBox8);
+            this.groupBox3.Controls.Add(this.btnFoupMoveOut);
+            this.groupBox3.Controls.Add(this.btnFoupMoveIn);
+            this.groupBox3.Controls.Add(this.cBFoupMove);
+            this.groupBox3.Controls.Add(this.tBFoupMove);
             this.groupBox3.Location = new System.Drawing.Point(354, 212);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(200, 114);
@@ -261,40 +262,39 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Foup Move";
             // 
-            // button2
+            // btnFoupMoveOut
             // 
-            this.button2.Location = new System.Drawing.Point(106, 61);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "Out";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnFoupMoveOut.Location = new System.Drawing.Point(106, 61);
+            this.btnFoupMoveOut.Name = "btnFoupMoveOut";
+            this.btnFoupMoveOut.Size = new System.Drawing.Size(75, 23);
+            this.btnFoupMoveOut.TabIndex = 11;
+            this.btnFoupMoveOut.Text = "Out";
+            this.btnFoupMoveOut.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnFoupMoveIn
             // 
-            this.button1.Location = new System.Drawing.Point(10, 61);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "In";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnFoupMoveIn.Location = new System.Drawing.Point(10, 61);
+            this.btnFoupMoveIn.Name = "btnFoupMoveIn";
+            this.btnFoupMoveIn.Size = new System.Drawing.Size(75, 23);
+            this.btnFoupMoveIn.TabIndex = 10;
+            this.btnFoupMoveIn.Text = "In";
+            this.btnFoupMoveIn.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // cBFoupMove
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(10, 21);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(65, 20);
-            this.comboBox1.TabIndex = 9;
+            this.cBFoupMove.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cBFoupMove.FormattingEnabled = true;
+            this.cBFoupMove.Location = new System.Drawing.Point(10, 21);
+            this.cBFoupMove.Name = "cBFoupMove";
+            this.cBFoupMove.Size = new System.Drawing.Size(65, 20);
+            this.cBFoupMove.TabIndex = 9;
             // 
-            // textBox8
+            // tBFoupMove
             // 
-            this.textBox8.Location = new System.Drawing.Point(81, 21);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(100, 21);
-            this.textBox8.TabIndex = 8;
+            this.tBFoupMove.Location = new System.Drawing.Point(81, 21);
+            this.tBFoupMove.Name = "tBFoupMove";
+            this.tBFoupMove.Size = new System.Drawing.Size(100, 21);
+            this.tBFoupMove.TabIndex = 8;
             // 
             // label8
             // 
@@ -384,12 +384,12 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.button5);
-            this.groupBox5.Controls.Add(this.textBox10);
-            this.groupBox5.Controls.Add(this.label11);
-            this.groupBox5.Controls.Add(this.button4);
-            this.groupBox5.Controls.Add(this.textBox9);
-            this.groupBox5.Controls.Add(this.label7);
+            this.groupBox5.Controls.Add(this.btnBackTimeFoups);
+            this.groupBox5.Controls.Add(this.tBBackTimeFoups);
+            this.groupBox5.Controls.Add(this.lBackTimeFoups);
+            this.groupBox5.Controls.Add(this.btnBackTimeStatus);
+            this.groupBox5.Controls.Add(this.tBBackTimeStatus);
+            this.groupBox5.Controls.Add(this.lBackTimeStatus);
             this.groupBox5.Location = new System.Drawing.Point(354, 337);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(200, 85);
@@ -397,55 +397,57 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Set Back Time";
             // 
-            // button5
+            // btnBackTimeFoups
             // 
-            this.button5.Location = new System.Drawing.Point(137, 48);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(46, 23);
-            this.button5.TabIndex = 15;
-            this.button5.Text = "Set";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnBackTimeFoups.Location = new System.Drawing.Point(137, 48);
+            this.btnBackTimeFoups.Name = "btnBackTimeFoups";
+            this.btnBackTimeFoups.Size = new System.Drawing.Size(46, 23);
+            this.btnBackTimeFoups.TabIndex = 15;
+            this.btnBackTimeFoups.Text = "Set";
+            this.btnBackTimeFoups.UseVisualStyleBackColor = true;
+            this.btnBackTimeFoups.Click += new System.EventHandler(this.btnBackTimeFoups_Click);
             // 
-            // textBox10
+            // tBBackTimeFoups
             // 
-            this.textBox10.Location = new System.Drawing.Point(58, 50);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(73, 21);
-            this.textBox10.TabIndex = 14;
+            this.tBBackTimeFoups.Location = new System.Drawing.Point(58, 50);
+            this.tBBackTimeFoups.Name = "tBBackTimeFoups";
+            this.tBBackTimeFoups.Size = new System.Drawing.Size(73, 21);
+            this.tBBackTimeFoups.TabIndex = 14;
             // 
-            // label11
+            // lBackTimeFoups
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(11, 53);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(35, 12);
-            this.label11.TabIndex = 13;
-            this.label11.Text = "Foups";
+            this.lBackTimeFoups.AutoSize = true;
+            this.lBackTimeFoups.Location = new System.Drawing.Point(11, 53);
+            this.lBackTimeFoups.Name = "lBackTimeFoups";
+            this.lBackTimeFoups.Size = new System.Drawing.Size(35, 12);
+            this.lBackTimeFoups.TabIndex = 13;
+            this.lBackTimeFoups.Text = "Foups";
             // 
-            // button4
+            // btnBackTimeStatus
             // 
-            this.button4.Location = new System.Drawing.Point(137, 18);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(46, 23);
-            this.button4.TabIndex = 12;
-            this.button4.Text = "Set";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnBackTimeStatus.Location = new System.Drawing.Point(137, 18);
+            this.btnBackTimeStatus.Name = "btnBackTimeStatus";
+            this.btnBackTimeStatus.Size = new System.Drawing.Size(46, 23);
+            this.btnBackTimeStatus.TabIndex = 12;
+            this.btnBackTimeStatus.Text = "Set";
+            this.btnBackTimeStatus.UseVisualStyleBackColor = true;
+            this.btnBackTimeStatus.Click += new System.EventHandler(this.btnBackTimeStatus_Click);
             // 
-            // textBox9
+            // tBBackTimeStatus
             // 
-            this.textBox9.Location = new System.Drawing.Point(58, 20);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(73, 21);
-            this.textBox9.TabIndex = 9;
+            this.tBBackTimeStatus.Location = new System.Drawing.Point(58, 20);
+            this.tBBackTimeStatus.Name = "tBBackTimeStatus";
+            this.tBBackTimeStatus.Size = new System.Drawing.Size(73, 21);
+            this.tBBackTimeStatus.TabIndex = 9;
             // 
-            // label7
+            // lBackTimeStatus
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 23);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(41, 12);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "Status";
+            this.lBackTimeStatus.AutoSize = true;
+            this.lBackTimeStatus.Location = new System.Drawing.Point(11, 23);
+            this.lBackTimeStatus.Name = "lBackTimeStatus";
+            this.lBackTimeStatus.Size = new System.Drawing.Size(41, 12);
+            this.lBackTimeStatus.TabIndex = 8;
+            this.lBackTimeStatus.Text = "Status";
             // 
             // bnFoupHistory
             // 
@@ -474,18 +476,18 @@
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox6.Controls.Add(this.label19);
             this.groupBox6.Controls.Add(this.label18);
-            this.groupBox6.Controls.Add(this.label17);
-            this.groupBox6.Controls.Add(this.textBox16);
-            this.groupBox6.Controls.Add(this.label16);
-            this.groupBox6.Controls.Add(this.textBox15);
+            this.groupBox6.Controls.Add(this.labelLastFoupManu);
+            this.groupBox6.Controls.Add(this.tBLastFoupManu);
+            this.groupBox6.Controls.Add(this.labelLastFoupAuto);
+            this.groupBox6.Controls.Add(this.tBLastFoupAuto);
             this.groupBox6.Controls.Add(this.label15);
             this.groupBox6.Controls.Add(this.textBox14);
-            this.groupBox6.Controls.Add(this.textBox11);
-            this.groupBox6.Controls.Add(this.label14);
-            this.groupBox6.Controls.Add(this.textBox12);
-            this.groupBox6.Controls.Add(this.label13);
-            this.groupBox6.Controls.Add(this.textBox13);
-            this.groupBox6.Controls.Add(this.label12);
+            this.groupBox6.Controls.Add(this.tBLastLot);
+            this.groupBox6.Controls.Add(this.lLastFoupID);
+            this.groupBox6.Controls.Add(this.tBLastBarCode);
+            this.groupBox6.Controls.Add(this.lLastBarCode);
+            this.groupBox6.Controls.Add(this.tBLastFoupID);
+            this.groupBox6.Controls.Add(this.lLastLot);
             this.groupBox6.Location = new System.Drawing.Point(5, 334);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(343, 110);
@@ -511,37 +513,37 @@
             this.label18.TabIndex = 16;
             this.label18.Text = "Port:";
             // 
-            // label17
+            // labelLastFoupManu
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(248, 53);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(29, 12);
-            this.label17.TabIndex = 18;
-            this.label17.Text = "Manu";
+            this.labelLastFoupManu.AutoSize = true;
+            this.labelLastFoupManu.Location = new System.Drawing.Point(248, 53);
+            this.labelLastFoupManu.Name = "labelLastFoupManu";
+            this.labelLastFoupManu.Size = new System.Drawing.Size(29, 12);
+            this.labelLastFoupManu.TabIndex = 18;
+            this.labelLastFoupManu.Text = "Manu";
             // 
-            // textBox16
+            // tBLastFoupManu
             // 
-            this.textBox16.Location = new System.Drawing.Point(283, 50);
-            this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(42, 21);
-            this.textBox16.TabIndex = 19;
+            this.tBLastFoupManu.Location = new System.Drawing.Point(283, 50);
+            this.tBLastFoupManu.Name = "tBLastFoupManu";
+            this.tBLastFoupManu.Size = new System.Drawing.Size(42, 21);
+            this.tBLastFoupManu.TabIndex = 19;
             // 
-            // label16
+            // labelLastFoupAuto
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(248, 27);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(29, 12);
-            this.label16.TabIndex = 16;
-            this.label16.Text = "Auto";
+            this.labelLastFoupAuto.AutoSize = true;
+            this.labelLastFoupAuto.Location = new System.Drawing.Point(248, 27);
+            this.labelLastFoupAuto.Name = "labelLastFoupAuto";
+            this.labelLastFoupAuto.Size = new System.Drawing.Size(29, 12);
+            this.labelLastFoupAuto.TabIndex = 16;
+            this.labelLastFoupAuto.Text = "Auto";
             // 
-            // textBox15
+            // tBLastFoupAuto
             // 
-            this.textBox15.Location = new System.Drawing.Point(283, 24);
-            this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(42, 21);
-            this.textBox15.TabIndex = 17;
+            this.tBLastFoupAuto.Location = new System.Drawing.Point(283, 24);
+            this.tBLastFoupAuto.Name = "tBLastFoupAuto";
+            this.tBLastFoupAuto.Size = new System.Drawing.Size(42, 21);
+            this.tBLastFoupAuto.TabIndex = 17;
             // 
             // label15
             // 
@@ -560,53 +562,53 @@
             this.textBox14.TabIndex = 15;
             this.textBox14.TextChanged += new System.EventHandler(this.textBox14_TextChanged);
             // 
-            // textBox11
+            // tBLastLot
             // 
-            this.textBox11.Location = new System.Drawing.Point(59, 73);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(69, 21);
-            this.textBox11.TabIndex = 13;
+            this.tBLastLot.Location = new System.Drawing.Point(59, 73);
+            this.tBLastLot.Name = "tBLastLot";
+            this.tBLastLot.Size = new System.Drawing.Size(69, 21);
+            this.tBLastLot.TabIndex = 13;
             // 
-            // label14
+            // lLastFoupID
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 22);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(47, 12);
-            this.label14.TabIndex = 8;
-            this.label14.Text = "Foup ID";
+            this.lLastFoupID.AutoSize = true;
+            this.lLastFoupID.Location = new System.Drawing.Point(6, 22);
+            this.lLastFoupID.Name = "lLastFoupID";
+            this.lLastFoupID.Size = new System.Drawing.Size(47, 12);
+            this.lLastFoupID.TabIndex = 8;
+            this.lLastFoupID.Text = "Foup ID";
             // 
-            // textBox12
+            // tBLastBarCode
             // 
-            this.textBox12.Location = new System.Drawing.Point(59, 46);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(69, 21);
-            this.textBox12.TabIndex = 12;
+            this.tBLastBarCode.Location = new System.Drawing.Point(59, 46);
+            this.tBLastBarCode.Name = "tBLastBarCode";
+            this.tBLastBarCode.Size = new System.Drawing.Size(69, 21);
+            this.tBLastBarCode.TabIndex = 12;
             // 
-            // label13
+            // lLastBarCode
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 49);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(47, 12);
-            this.label13.TabIndex = 9;
-            this.label13.Text = "BarCode";
+            this.lLastBarCode.AutoSize = true;
+            this.lLastBarCode.Location = new System.Drawing.Point(6, 49);
+            this.lLastBarCode.Name = "lLastBarCode";
+            this.lLastBarCode.Size = new System.Drawing.Size(47, 12);
+            this.lLastBarCode.TabIndex = 9;
+            this.lLastBarCode.Text = "BarCode";
             // 
-            // textBox13
+            // tBLastFoupID
             // 
-            this.textBox13.Location = new System.Drawing.Point(59, 19);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(69, 21);
-            this.textBox13.TabIndex = 11;
+            this.tBLastFoupID.Location = new System.Drawing.Point(59, 19);
+            this.tBLastFoupID.Name = "tBLastFoupID";
+            this.tBLastFoupID.Size = new System.Drawing.Size(69, 21);
+            this.tBLastFoupID.TabIndex = 11;
             // 
-            // label12
+            // lLastLot
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 76);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(23, 12);
-            this.label12.TabIndex = 10;
-            this.label12.Text = "Lot";
+            this.lLastLot.AutoSize = true;
+            this.lLastLot.Location = new System.Drawing.Point(6, 76);
+            this.lLastLot.Name = "lLastLot";
+            this.lLastLot.Size = new System.Drawing.Size(23, 12);
+            this.lLastLot.TabIndex = 10;
+            this.lLastLot.Text = "Lot";
             // 
             // pictureBox1
             // 
@@ -682,14 +684,15 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.lLStkFoupRefresh);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridViewFoupsInStocker);
             this.Controls.Add(this.label1);
             this.Name = "pageStockerOpt";
             this.Size = new System.Drawing.Size(857, 457);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.pageStockerOpt_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFoupsInStocker)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -713,26 +716,26 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewFoupsInStocker;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tBSelStatus;
+        private System.Windows.Forms.TextBox tBSelLot;
+        private System.Windows.Forms.TextBox tBSelBarCode;
+        private System.Windows.Forms.TextBox tBSelFoupID;
+        private System.Windows.Forms.Label lStatus;
+        private System.Windows.Forms.Label lLot;
+        private System.Windows.Forms.Label lBarCode;
+        private System.Windows.Forms.Label lFoupID;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel lLStkFoupRefresh;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.LinkLabel linkLabel3;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.LinkLabel lLStkInfoStatus;
+        private System.Windows.Forms.TextBox tBStkInfoStatus;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Button btnFoupMoveOut;
+        private System.Windows.Forms.Button btnFoupMoveIn;
+        private System.Windows.Forms.ComboBox cBFoupMove;
+        private System.Windows.Forms.TextBox tBFoupMove;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.ListView listView1;
@@ -743,29 +746,29 @@
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnBackTimeStatus;
+        private System.Windows.Forms.TextBox tBBackTimeStatus;
+        private System.Windows.Forms.Label lBackTimeStatus;
+        private System.Windows.Forms.Button btnBackTimeFoups;
+        private System.Windows.Forms.TextBox tBBackTimeFoups;
+        private System.Windows.Forms.Label lBackTimeFoups;
         private System.Windows.Forms.Button bnFoupHistory;
         private System.Windows.Forms.Button bnAlarmHistory;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox textBox14;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox12;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox13;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox tBLastLot;
+        private System.Windows.Forms.Label lLastFoupID;
+        private System.Windows.Forms.TextBox tBLastBarCode;
+        private System.Windows.Forms.Label lLastBarCode;
+        private System.Windows.Forms.TextBox tBLastFoupID;
+        private System.Windows.Forms.Label lLastLot;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBox16;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox textBox15;
+        private System.Windows.Forms.Label labelLastFoupManu;
+        private System.Windows.Forms.TextBox tBLastFoupManu;
+        private System.Windows.Forms.Label labelLastFoupAuto;
+        private System.Windows.Forms.TextBox tBLastFoupAuto;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;

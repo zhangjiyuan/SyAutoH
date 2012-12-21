@@ -15,6 +15,7 @@ namespace BaseRailElement
     public class CurvedRailEle : BaseRailEle
     {
         private ObjectCurvedOp objectCurvedOp = new ObjectCurvedOp();
+        
         private int startAngle = 0;
         private int sweepAngle = 90;
         private int rotateAngle = 90;
@@ -28,6 +29,8 @@ namespace BaseRailElement
         private Point secDot = Point.Empty;
         private DirectonCurved directionCurved = DirectonCurved.NULL;
         public DataTable dt = new DataTable();
+        private PenStyle curvePen = new PenStyle();
+        private Pen pen = new Pen(Color.Black, 1);
 
         public enum DirectonCurved
         {
@@ -82,13 +85,34 @@ namespace BaseRailElement
             get { return directionCurved; }
             set { directionCurved = value; }
         }
+        [Category("线属性")]
+        public Color PenColor
+        {
+            get { return curvePen.Color; }
+            set { curvePen.Color = value; pen.Color = value; }
+        }
+        [Category("线属性")]
+        public float PenWidth
+        {
+            get { return curvePen.Width; }
+            set { curvePen.Width = value; pen.Width = value; }
+        }
+        [Category("线属性")]
+        public DashStyle PenDashStyle
+        {
+            get { return curvePen.DashStyle; }
+            set { curvePen.DashStyle = value; pen.DashStyle = value; }
+        }
 
         public CurvedRailEle() 
         {
             GraphType = 2;
+            pen.Color = curvePen.Color;
+            pen.Width = curvePen.Width;
+            pen.DashStyle = curvePen.DashStyle;
         }
 
-        public CurvedRailEle CreatEle(Point centerDot, Size size, Int16 multiFactor, string text)
+        public CurvedRailEle CreateEle(Point centerDot, Size size, Int16 multiFactor, string text)
         {
             DrawMultiFactor = multiFactor;
             objectCurvedOp.DrawMultiFactor = DrawMultiFactor;
@@ -121,9 +145,8 @@ namespace BaseRailElement
             rc.Height = radiu * 2 * DrawMultiFactor;
             GraphicsPath gp = new GraphicsPath();
             gp.AddArc(rc, startAngle, sweepAngle);
-            Pen pen = new Pen(Color.Black, 1);
+            
             canvas.DrawPath(pen, gp);
-            pen.Dispose();
             gp.Dispose();
         }
 
@@ -299,6 +322,7 @@ namespace BaseRailElement
         {
             CurvedRailEle cl = new CurvedRailEle();
             Point pt = new Point();
+            cl.pen = pen;
             pt = center;
             pt.Offset(20, 20);
             cl.center = pt;
@@ -422,36 +446,6 @@ namespace BaseRailElement
 
         public override DataRow DataSetXMLSave(DataTable dt)
         {
-            //dt.Rows.Clear();
-            //dt.Columns.Clear();
-
-            //dt.Columns.Add("GraphType", typeof(int));
-            //dt.Columns.Add("LocationLock", typeof(bool));
-            //dt.Columns.Add("SizeLock", typeof(bool));
-            //dt.Columns.Add("Selectable", typeof(bool));
-            //dt.Columns.Add("Speed", typeof(float));
-            //dt.Columns.Add("SegmentNumber", typeof(Int16));
-            //dt.Columns.Add("TagNumber", typeof(int));
-            //dt.Columns.Add("StartAngle", typeof(int));
-            //dt.Columns.Add("SweepAngle", typeof(int));
-            //dt.Columns.Add("Radiu", typeof(int));
-            //dt.Columns.Add("Center", typeof(string));
-            //dt.Columns.Add("FirstDot", typeof(string));
-            //dt.Columns.Add("SecDot", typeof(string));
-            //dt.Columns.Add("DirectionCurvedAttribute", typeof(int));
-
-            //dt.Columns.Add("drawMultiFactor", typeof(Int16));
-            //dt.Columns.Add("startPoint", typeof(string));
-            //dt.Columns.Add("endPoint", typeof(string));
-            //dt.Columns.Add("startCoding", typeof(Int32));
-            //dt.Columns.Add("endCoding", typeof(Int32));
-            //dt.Columns.Add("railText", typeof(string));
-            //dt.Columns.Add("rotateAngle", typeof(Int32));
-            //dt.Columns.Add("oldRadiu", typeof(Int32));
-            //dt.Columns.Add("oldCenter", typeof(string));
-            //dt.Columns.Add("oldFirstDot", typeof(string));
-            //dt.Columns.Add("oldSecDot", typeof(string));
-
             DataRow dr = dt.NewRow();
             dr["GraphType"] = GraphType;
             dr["LocationLock"] = locationLock;
@@ -479,6 +473,10 @@ namespace BaseRailElement
             dr["oldCenter"] = oldCenter.ToString();
             dr["oldFirstDot"] = oldFirstDot.ToString();
             dr["oldSecDot"] = oldSecDot.ToString();
+
+            dr["Color"] = ColorTranslator.ToHtml(pen.Color);
+            dr["DashStyle"] = pen.DashStyle;
+            dr["PenWidth"] = pen.Width;
 
             dt.Rows.Add(dr);
             return dr;

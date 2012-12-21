@@ -120,6 +120,10 @@ namespace BaseRailElement
             dt.Columns.Add("FourPart", typeof(string));
             dt.Columns.Add("lenghtOfStrai", typeof(Int32));
             dt.Columns.Add("DirectionOfCross", typeof(int));
+
+            dt.Columns.Add("Color", typeof(string));
+            dt.Columns.Add("DashStyle", typeof(DashStyle));
+            dt.Columns.Add("PenWidth", typeof(float));
         }
 
         public override void Draw(Graphics canvas)

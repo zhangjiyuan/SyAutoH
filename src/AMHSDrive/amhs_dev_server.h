@@ -72,9 +72,21 @@ typedef struct sPath_KeyPoint
 } amhs_keyPoint;
 typedef std::vector<amhs_keyPoint> amhs_keypoint_vec;
 
+typedef struct sData_Foup
+{
+	uint8 nID;
+	uint16 nBarCode;
+	uint16 nLot;
+	uint16 nStatus;
+} amhs_Foup;
+typedef boost::shared_ptr<amhs_Foup> amhs_foup_ptr;
+typedef std::map<int, amhs_foup_ptr> amhs_foup_map;
+typedef std::vector<amhs_foup_ptr> amhs_foup_vec;
+
 typedef struct sData_Stocker
 {
 	int nID;
+	amhs_foup_vec vec_foup;
 	amhs_participant_ptr p_participant;
 }amhs_Stocker;
 typedef boost::shared_ptr<amhs_Stocker> amhs_stocker_ptr;

@@ -8,6 +8,7 @@
 #define SQLACECLI_API __declspec(dllexport)
 #else
 #define SQLACECLI_API __declspec(dllimport)
+#pragma comment(lib, "sqlAceCli.lib")
 #endif
 
 #pragma once
@@ -96,4 +97,27 @@ public:
 	~DBKeyPoints(void);
 	int SetKeyPointbyOHTTeach(int nOHT_ID, int nPOS, int nType, int nSpeedRate);
 	VEC_KEYPOINT GetKeyPointsTable();
+};
+
+typedef struct  
+{
+	int nID;
+	int nStart;
+	int nEnd;
+	int nPrevLane;
+	int nNextLane;
+	int nNextFork;
+	int nLength;
+	int nType;
+	bool bEnable;
+}ItemLane;
+typedef std::vector<ItemLane> VEC_LANE;
+class SQLACECLI_API DBLane
+{
+public:
+	DBLane(void);
+	~DBLane(void);
+
+public:
+	VEC_LANE GetLaneTable(int nMapID);
 };

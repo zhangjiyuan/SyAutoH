@@ -23,7 +23,7 @@ namespace WinFormElement
         public Int16 canvasMoveX = 0;
         public Int16 canvasMoveY = 0;
         public Point ptCanStrOffset = Point.Empty;
-        public Rectangle rcRailEle = Rectangle.Empty;
+        public Rectangle rcRailEle = Rectangle.Empty;   //using for storing adjust rail rectangle
         private Size szShowPic = Size.Empty;
 
         public bool ReadRailSaveFile()
@@ -559,8 +559,8 @@ namespace WinFormElement
             }
             ptTranslate = Point.Empty;
             ptTranslate.Offset(Convert.ToInt32(showPicSz.Width / 2 - (ptMinX.X + railWidth / 2) * xScale), Convert.ToInt32(showPicSz.Height / 2 - (ptMinY.Y + railHeight / 2) * xScale));
-            rcRailEle.X = ptMinX.X+ptTranslate.X;
-            rcRailEle.Y = ptMinY.Y+ptTranslate.Y;
+            rcRailEle.X = Convert.ToInt32(ptMinX.X * xScale + ptTranslate.X);//this is a error
+            rcRailEle.Y = Convert.ToInt32(ptMinY.Y * yScale + ptTranslate.Y);//this is a error
             rcRailEle.Width = Convert.ToInt32(railWidth * xScale);
             rcRailEle.Height = Convert.ToInt32(railHeight * yScale);
         }

@@ -16,7 +16,6 @@ namespace BaseRailElement
     public class StraightRailEle : BaseRailEle
     {
         private ObjectStraightOp objectStaightOp = new ObjectStraightOp();
-        private Pen pen = new Pen(Color.Black, 1);
         private int lenght = 100;
         private int startAngle = 0;
         private int rotateAngle = 90;
@@ -24,6 +23,8 @@ namespace BaseRailElement
         private Int32 prevCoding = -1;
         private string startDot = "first dot";
         public DataTable dt = new DataTable();
+        private PenStyle linePen = new PenStyle();
+        private Pen pen = new Pen(Color.Black, 1);
 
         [Category("其他")]
         public int Lenght
@@ -90,13 +91,34 @@ namespace BaseRailElement
             get { return prevCoding; }
             set { prevCoding = value; }
         }
+        [Category("线属性")]
+        public Color PenColor
+        {
+            get { return linePen.Color; }
+            set { linePen.Color = value; pen.Color = value; }
+        }
+        [Category("线属性")]
+        public float PenWidth
+        {
+            get { return linePen.Width; }
+            set { linePen.Width = value; pen.Width = value; }
+        }
+        [Category("线属性")]
+        public DashStyle PenDashStyle
+        {
+            get { return linePen.DashStyle; }
+            set { linePen.DashStyle = value; pen.DashStyle = value; }
+        }
 
         public StraightRailEle() 
         { 
             GraphType = 1;
+            pen.Color = linePen.Color;
+            pen.Width = linePen.Width;
+            pen.DashStyle = linePen.DashStyle;
         }
 
-        public StraightRailEle CreatEle(Point pt, Size size, Int16 multiFactor, string text)
+        public StraightRailEle CreateEle(Point pt, Size size, Int16 multiFactor, string text)
         {
             Point[] pts = new Point[2];
             DrawMultiFactor = multiFactor;
@@ -261,35 +283,6 @@ namespace BaseRailElement
 
         public override DataRow DataSetXMLSave(DataTable dt)
         {
-            //dt.Rows.Clear();
-            //dt.Columns.Clear();
-
-            //dt.Columns.Add("GraphType", typeof(int));
-            //dt.Columns.Add("LocationLock", typeof(bool));
-            //dt.Columns.Add("SizeLock", typeof(bool));
-            //dt.Columns.Add("Selectable", typeof(bool));
-            //dt.Columns.Add("Speed", typeof(float));
-            //dt.Columns.Add("SegmentNumber", typeof(Int16));
-            //dt.Columns.Add("TagNumber", typeof(int));
-            //dt.Columns.Add("StartCoding", typeof(int));
-            //dt.Columns.Add("EndCoding", typeof(int));
-            //dt.Columns.Add("Lenght", typeof(int));
-            //dt.Columns.Add("StartAngle", typeof(int));
-            //dt.Columns.Add("StartDot", typeof(string));
-            //dt.Columns.Add("PointListVol", typeof(Int16));
-            //for (int i = 0; i < PointList.Count; i++)
-            //{
-            //    dt.Columns.Add("PointList" + i.ToString(), typeof(string));
-            //}
-
-            //dt.Columns.Add("DrawMultiFactor", typeof(Int16));
-            //dt.Columns.Add("startPoint", typeof(string));
-            //dt.Columns.Add("endPoint", typeof(string));
-            //dt.Columns.Add("railText", typeof(string));
-            //dt.Columns.Add("rotateAngle", typeof(int));
-            //dt.Columns.Add("nextCoding", typeof(int));
-            //dt.Columns.Add("prevCoding", typeof(int));
-
             DataRow dr = dt.NewRow();
             dr["GraphType"] = GraphType;
             dr["LocationLock"] = locationLock;
@@ -316,6 +309,10 @@ namespace BaseRailElement
             dr["rotateAngle"] = rotateAngle;
             dr["nextCoding"] = nextCoding;
             dr["prevCoding"] = prevCoding;
+
+            dr["Color"] = ColorTranslator.ToHtml(pen.Color);
+            dr["DashStyle"] = pen.DashStyle;
+            dr["PenWidth"] = pen.Width;
 
             dt.Rows.Add(dr);
             return dr;

@@ -107,18 +107,18 @@ void oLog::outFile(FILE* file, char* msg, const char* source)
 	}
 	if(source != NULL)
 	{
-		printf("%s%s: %s\n", time_buffer, source, msg);
+		printf("%s %s: %s\n", time_buffer, source, msg);
 		if (file != NULL)
 		{
-			fprintf(file, "%s%s: %s\n", time_buffer, source, msg);
+			fprintf(file, "%s %s: %s\n", time_buffer, source, msg);
 		}
 	}
 	else
 	{
-		printf("%s%s\n", time_buffer, msg);
+		printf("%s %s\n", time_buffer, msg);
 		if (file != NULL)
 		{
-			fprintf(file, "%s%s\n", time_buffer, msg);
+			fprintf(file, "%s %s\n", time_buffer, msg);
 		}
 	}
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY |FOREGROUND_RED |

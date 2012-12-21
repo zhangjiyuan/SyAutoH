@@ -22,8 +22,7 @@ namespace RailDraw
 
         private void WorkRegion_Load(object sender, EventArgs e)
         {
-            Point sizeTabPage = (Point)this.panel1.Size;
-            this.pictureBox1.Size = (Size)sizeTabPage;
+            this.pictureBox1.Size = this.Size;
             this.pictureBox1.Location = new Point(0);
             this.KeyPreview = true;
         }

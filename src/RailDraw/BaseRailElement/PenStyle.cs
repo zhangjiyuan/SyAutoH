@@ -27,8 +27,8 @@ namespace BaseRailElement
             set { _color = ColorTranslator.FromHtml(value); }
         }
 
-        private int _width = 1;
-        public int Width
+        private float _width = 1;
+        public float Width
         {
             get { return _width; }
             set { _width = value; }

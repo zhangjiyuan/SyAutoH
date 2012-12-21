@@ -18,7 +18,7 @@ VEC_KEYPOINT DBKeyPoints::GetKeyPointsTable()
 
 	CoInitialize(NULL);
 	HRESULT hr;
-	CKeyPoints table;
+	CTableKeyPoints table;
 	hr = table.OpenAll();
 	if (FAILED(hr))
 	{
@@ -34,7 +34,7 @@ VEC_KEYPOINT DBKeyPoints::GetKeyPointsTable()
 		item.uSpeedRate = table.m_SpeedRate;
 		item.uTeachMode = table.m_TeachMode;
 		item.uOHT_ID = table.m_OHT_ID;
-		item.uRail_ID = table.m_Rail_ID;
+		item.uRail_ID = table.m_Lane_ID;
 		item.uPrev = table.m_Prev;
 		item.uNext = table.m_Next;
 		item.strName = table.m_Name;
@@ -52,7 +52,7 @@ int DBKeyPoints::SetKeyPointbyOHTTeach(int nOHT_ID, int nPOS, int nType, int nSp
 	HRESULT hr;
 	int nFoup = 0;
 
-	CKeyPoints table;
+	CTableKeyPoints table;
 	hr = table.OpenDataSource();
 	if (FAILED(hr))
 	{
@@ -114,7 +114,7 @@ int DBKeyPoints::SetKeyPointbyOHTTeach(int nOHT_ID, int nPOS, int nType, int nSp
 	table.m_SpeedRate = nSpeedRate;
 	table.m_TeachMode = 1;
 	table.m_OHT_ID = nOHT_ID;
-	table.m_Rail_ID = 0;
+	table.m_Lane_ID = 0;
 	table.m_Prev = 0;
 	table.m_Next = 0;
 
@@ -123,7 +123,7 @@ int DBKeyPoints::SetKeyPointbyOHTTeach(int nOHT_ID, int nPOS, int nType, int nSp
 	table.m_dwSpeedRateStatus = DBSTATUS_S_OK;
 	table.m_dwTeachModeStatus = DBSTATUS_S_OK;
 	table.m_dwOHT_IDStatus = DBSTATUS_S_OK;
-	table.m_dwRail_IDStatus = DBSTATUS_S_OK;
+	table.m_dwLane_IDStatus = DBSTATUS_S_OK;
 	table.m_dwPrevStatus = DBSTATUS_S_OK;
 	table.m_dwNextStatus = DBSTATUS_S_OK;
 	table.m_dwNameStatus = DBSTATUS_S_IGNORE;

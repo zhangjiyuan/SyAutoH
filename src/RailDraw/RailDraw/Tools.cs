@@ -27,6 +27,7 @@ namespace RailDraw
             toolImageList.Images.Add("line", Properties.Resources.line);
             toolImageList.Images.Add("curve", Properties.Resources.curve);
             toolImageList.Images.Add("cross", Properties.Resources.cross);
+            toolImageList.Images.Add("device", Properties.Resources.devicebig);
             eleBtn_Click(sender, e);
         }
 
@@ -85,19 +86,19 @@ namespace RailDraw
             listView1.Clear();
 
             ListViewItem item = new ListViewItem();
-            item.Text = "直轨";
+            item.Text = "Line";
             item.ImageKey = "line";
             listView1.Items.Add(item);
 
             ListViewItem item1 = new ListViewItem();
-            item1.Text = "弯轨";
+            item1.Text = "Curve";
             item1.ImageKey = "curve";
             listView1.Items.Add(item1);
 
             ListViewItem item2 = new ListViewItem();
-            item2.Text = "叉轨";
+            item2.Text = "Cross";
             item2.ImageKey = "cross";
-            listView1.Items.Add(item2);
+            listView1.Items.Add(item2);  
         }
 
         private void others_Click(object sender, EventArgs e)
@@ -108,6 +109,11 @@ namespace RailDraw
             listView1.BringToFront();
             listView1.Dock = DockStyle.Fill;
             listView1.Clear();
+
+            ListViewItem item3 = new ListViewItem();
+            item3.Text = "Device";
+            item3.ImageKey = "device";
+            listView1.Items.Add(item3);
         }
 
         EventHandlerList toolsEventList = new EventHandlerList();

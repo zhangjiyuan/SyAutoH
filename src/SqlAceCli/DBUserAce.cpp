@@ -25,7 +25,7 @@ int DBUserAce::Login(const ::std::string& sName, const ::std::string& sHash)
 
 	CoInitialize(NULL);
 	HRESULT hr;
-	CMcsUserTable dbUser;
+	CTableMcsUser dbUser;
 
 	hr = dbUser.OpenDataSource();
 	if (FAILED(hr))
@@ -73,7 +73,7 @@ int DBUserAce::CreateUser(const ::std::string& sName,
 
 	CoInitialize(NULL);
 	HRESULT hr;
-	CMcsUserTable dbUser;
+	CTableMcsUser dbUser;
 
 	hr = dbUser.OpenDataSource();
 	if (FAILED(hr))
@@ -129,7 +129,7 @@ int DBUserAce::DeleteUser(int nID)
 {
 	CoInitialize(NULL);
 	HRESULT hr;
-	CMcsUserTable dbUser;
+	CTableMcsUser dbUser;
 
 	hr = dbUser.OpenDataSource();
 	if (FAILED(hr))
@@ -166,7 +166,7 @@ int DBUserAce::SetUserPW(int nID, const ::std::string& sPassWord)
 {
 	CoInitialize(NULL);
 	HRESULT hr;
-	CMcsUserTable dbUser;
+	CTableMcsUser dbUser;
 
 	hr = dbUser.OpenDataSource();
 	if (FAILED(hr))
@@ -205,7 +205,7 @@ int DBUserAce::SetUserRight(int nID, int nRight)
 {
 	CoInitialize(NULL);
 	HRESULT hr;
-	CMcsUserTable dbUser;
+	CTableMcsUser dbUser;
 
 	hr = dbUser.OpenDataSource();
 	if (FAILED(hr))
@@ -241,7 +241,7 @@ int DBUserAce::GetUserCount()
 {
 	CoInitialize(NULL);
 	HRESULT hr;
-	CMcsUserTable dbUser;
+	CTableMcsUser dbUser;
 
 	hr = dbUser.OpenAll();
 	if (FAILED(hr))
@@ -268,7 +268,7 @@ UserData DBUserAce::GetUserDatabyName(const ::std::string& sName)
 
 	CoInitialize(NULL);
 	HRESULT hr;
-	CMcsUserTable dbUser;
+	CTableMcsUser dbUser;
 
 	hr = dbUser.OpenDataSource();
 	if (FAILED(hr))
@@ -307,7 +307,7 @@ UserData DBUserAce::GetUserDatabyID(int nUserID)
 
 	CoInitialize(NULL);
 	HRESULT hr;
-	CMcsUserTable dbUser;
+	CTableMcsUser dbUser;
 
 	hr = dbUser.OpenDataSource();
 	if (FAILED(hr))
@@ -343,7 +343,7 @@ UserDataList DBUserAce::GetUserList(int nStartID, int nCount)
 	UserDataList list;
 	CoInitialize(NULL);
 	HRESULT hr;
-	CMcsUserTable dbUser;
+	CTableMcsUser dbUser;
 
 	hr = dbUser.OpenDataSource();
 	if (FAILED(hr))
