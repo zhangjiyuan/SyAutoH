@@ -61,7 +61,21 @@ void GuiDataHubI::STK_SetFoupInfoBackTime(const std::string& strVal, const ::Ice
 	}
 }
 
-void STK_FoupHanding(const std::string&, const ::Ice::Current&)
+void GuiDataHubI::STK_FoupHanding(const std::string& strVal, const ::Ice::Current&)
 {
-
+	STR_VEC vecStr=GetVecStrings(strVal);
+	for(STR_VEC::iterator it=vecStr.begin();
+		it!=vecStr.end();++it)
+	{
+		string strE = *it;
+		STR_VEC Params=SplitString(*it,",");
+		if(Params.size()==4)
+		{
+			int nID=atoi(Params[0].c_str());
+			int nOpt=atoi(Params[1].c_str());
+			int nMode=atoi(Params[2].c_str());
+			int nData=atoi(Params[3].c_str());
+			m_pAMHSDrive->STKFoup(nID, nOpt, nMode, nData);
+		}
+	}
 }
