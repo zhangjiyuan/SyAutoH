@@ -160,6 +160,26 @@ void CAMHSDrive::STKStockerStatus(int nID)
 	sAmhsServer.GetServer()->STK_Status(nID);
 }
 
+void CAMHSDrive::STKStockerRoom(int nID)
+{
+	sAmhsServer.GetServer()->STK_Room(nID);
+}
+
+void CAMHSDrive::STKFoupStorage(int nID)
+{
+	sAmhsServer.GetServer()->STK_Storage(nID);
+}
+
+void CAMHSDrive::STKInputStatus(int nID)
+{
+	sAmhsServer.GetServer()->STK_InputStatus(nID);
+}
+
+void CAMHSDrive::STKHistory(int nID, const SYSTEMTIME &timeStart, const SYSTEMTIME &timeEnd)
+{
+	sAmhsServer.GetServer()->STK_History(nID, timeStart, timeEnd);
+}
+
 void CAMHSDrive::STKStatusBackTime(int nID, int ms)
 {
 	sAmhsServer.GetServer()->STK_Set_StatusBackTime(nID, ms);

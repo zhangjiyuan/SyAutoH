@@ -70,6 +70,10 @@ public:
 	DR_STK_LIST GetStkList();
 	void STKFoupHand(int nID, int nOpt, int nMode, int nData);
 	void STKStockerStatus(int nID);
+	void STKStockerRoom(int nID);
+	void STKFoupStorage(int nID);
+	void STKInputStatus(int nID);
+	void STKHistory(int nID, const SYSTEMTIME &timeStart, const SYSTEMTIME &timeEnd);
 	void STKStatusBackTime(int nID, int ms);
 	void STKFoupInfoBackTime(int nID,int ms);
 

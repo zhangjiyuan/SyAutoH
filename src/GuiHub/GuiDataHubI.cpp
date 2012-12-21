@@ -44,6 +44,14 @@ GuiDataHubI::GuiDataHubI(void)
 		&GuiDataHubI::STK_FoupHanding));
 	m_mapHandles.insert(std::make_pair(GuiHub::StkInquiryStatus,
 		&GuiDataHubI::STK_StockerStatus));
+	m_mapHandles.insert(std::make_pair(GuiHub::StkInquiryRoom,
+		&GuiDataHubI::STK_StockerRoom));
+	m_mapHandles.insert(std::make_pair(GuiHub::StkInquiryStorage,
+		&GuiDataHubI::STK_StockerFoupStorage));
+	m_mapHandles.insert(std::make_pair(GuiHub::StkInquiryInputStatus,
+		&GuiDataHubI::STK_InputStatus));
+	m_mapHandles.insert(std::make_pair(GuiHub::StkFoupHistory,
+		&GuiDataHubI::STK_History))
 
 	//////////////////////////////////////////////////////////////////////////
 	// Push Data
