@@ -108,32 +108,47 @@ namespace MCSControlLib
         private void btnBackTimeStatus_Click(object sender, EventArgs e)
         {
             string strTime = tBBackTimeStatus.Text;
-
             byte nID = stockorId;
-
             Int32 nTime=0;
             nTime=TryConver.ToInt32(strTime);
             string strVal;
             strVal = string.Format("<{0},{1}>", nID, nTime);
+
             int nWRet = m_dataHub.WriteData(GuiCommand.StkStatusTime, strVal);
         }
 
         private void btnBackTimeFoups_Click(object sender, EventArgs e)
         {
             string strTime = tBBackTimeFoups.Text;
-
             byte nID = stockorId;
-
             Int32 nTime = 0;
             nTime = TryConver.ToInt32(strTime);
             string strVal;
             strVal = string.Format("<{0},{1}>", nID, nTime);
+
             int nWRet = m_dataHub.WriteData(GuiCommand.StkSetFoupInfoBackTime, strVal);
         }
 
         private void lLStkInfoStatus_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
 
+        }
+
+        private void btnFoupMoveIn_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            byte nID = stockorId;
+            byte nOpt = 2;
+            if (btn.Name == "btnFoupMoveIn")
+                nOpt = 0;
+            else if (btn.Name == "btnFoupMoveOut")
+                nOpt = 1;
+            byte nMode = TryConver.ToByte(cBFoupMove.SelectedIndex.ToString());
+            int nData = Convert.ToInt32(tBFoupMove.Text);
+            string strVal;
+            strVal = string.Format("<{0},{1},{2},{3}>", nID, nOpt, nMode, nData);
+
+            int nWRet = m_dataHub.WriteData(GuiCommand.StkHandFoup, strVal);
         }
 
         

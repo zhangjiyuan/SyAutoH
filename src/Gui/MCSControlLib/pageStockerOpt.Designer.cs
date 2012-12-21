@@ -271,6 +271,7 @@
             this.btnFoupMoveOut.TabIndex = 11;
             this.btnFoupMoveOut.Text = "Out";
             this.btnFoupMoveOut.UseVisualStyleBackColor = true;
+            this.btnFoupMoveOut.Click += new System.EventHandler(this.btnFoupMoveIn_Click);
             // 
             // btnFoupMoveIn
             // 
@@ -280,11 +281,17 @@
             this.btnFoupMoveIn.TabIndex = 10;
             this.btnFoupMoveIn.Text = "In";
             this.btnFoupMoveIn.UseVisualStyleBackColor = true;
+            this.btnFoupMoveIn.Click += new System.EventHandler(this.btnFoupMoveIn_Click);
             // 
             // cBFoupMove
             // 
             this.cBFoupMove.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBFoupMove.FormattingEnabled = true;
+            this.cBFoupMove.Items.AddRange(new object[] {
+            "棚位号",
+            "批次号",
+            "条形码",
+            "任意Foup"});
             this.cBFoupMove.Location = new System.Drawing.Point(10, 21);
             this.cBFoupMove.Name = "cBFoupMove";
             this.cBFoupMove.Size = new System.Drawing.Size(65, 20);
