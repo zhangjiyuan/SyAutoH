@@ -70,6 +70,7 @@ public:
 	DR_STK_LIST GetStkList();
 	void STKFoup(int nID, int nOpt, int nMode, int nData);
 	void STKStatusBackTime(int nID, int ms);
+	void STKFoupInfoBackTime(int nID,int ms);
 
 	int SetOHTLocation(int nPoint);
 };

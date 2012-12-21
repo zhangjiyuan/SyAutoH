@@ -160,6 +160,11 @@ void CAMHSDrive::STKStatusBackTime(int nID, int ms)
 	sAmhsServer.GetServer()->STK_Set_StatusBackTime(nID, ms);
 }
 
+void CAMHSDrive::STKFoupInfoBackTime(int nID,int ms)
+{
+	sAmhsServer.GetServer()->STK_Set_FoupBackTime(nID,ms);
+}
+
 int CAMHSDrive::SetOHTLocation(int nPoint)
 {
 	return 0;

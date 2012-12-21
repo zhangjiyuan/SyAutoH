@@ -88,6 +88,7 @@ private:
 	void OHT_MoveTest(const std::string&, const ::Ice::Current&);
 
 	void STK_SetStatusBackTime(const std::string&, const ::Ice::Current&);
+	void STK_SetFoupInfoBackTime(const std::string&, const ::Ice::Current&);
 
 private:
 	GuiDataItem Push_OHT_DevInfo();
