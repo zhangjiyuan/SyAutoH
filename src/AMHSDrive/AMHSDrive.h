@@ -68,7 +68,8 @@ public:
 	void OHTSetPath(int nID, int nType, int nStart, int nTarget, PATH_POINT_LIST& KeyPoints);
 
 	DR_STK_LIST GetStkList();
-	void STKFoup(int nID, int nOpt, int nMode, int nData);
+	void STKFoupHand(int nID, int nOpt, int nMode, int nData);
+	void STKStockerStatus(int nID);
 	void STKStatusBackTime(int nID, int ms);
 	void STKFoupInfoBackTime(int nID,int ms);
 

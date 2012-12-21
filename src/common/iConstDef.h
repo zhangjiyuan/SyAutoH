@@ -79,7 +79,8 @@ enum PushData
     upOhtPosTable,
     upOhtStatus,
     upStkInfo,
-    upFoupsTable
+    upFoupsTable,
+    upStkStockerStatus
 };
 
 void __write(::IceInternal::BasicStream*, PushData);
