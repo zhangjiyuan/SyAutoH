@@ -394,7 +394,6 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 	it = g_mapStockers.find(selectSTK);
 	if(it->second->nOnline == 1)
 	{
-	
 		m_listCtrlFOUP.DeleteItem(nId);
 	    MAP_ItemFoup::iterator it;
 	    it = g_mapFoups.find(nFoup_ID);
@@ -406,7 +405,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 	else
 	{
 		MessageBox(_T("Stocker selected is not online!"));
-	}
+	} 
 }
 int CVAMHSTestDlg::GetElemData(CMarkup xml,CString tag)
 {
@@ -1081,7 +1080,7 @@ void CVAMHSTestDlg::SetOHTListItemData(ItemOHT* pOHT, int nListIndex)
 	m_listCtrlOHT.SetItemData(nListIndex, pOHT->nID);
 }
 void CVAMHSTestDlg::SetStockerListItemData(ItemStocker* pStocker,int nListIndex)
-{
+{ 
 	CString str;
 	str.Format(_T("%d"),pStocker->nID);
 	m_listCtrlSTOCKER.SetItemText(nListIndex,0,str);
