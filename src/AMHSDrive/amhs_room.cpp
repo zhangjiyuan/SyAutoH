@@ -364,7 +364,6 @@ void amhs_room::Handle_STK_AckAlarms(amhs_participant_ptr, AMHSPacket& Packet)
 
 void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-	//Log.Warning("amhs_room", "Packet handle not implemented\n");
 	uint8 nID = 0;
 	uint8 nChaned = 0;
 	uint8 foupRoom = 0;
@@ -379,7 +378,7 @@ void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPack
 	Packet >> nInput;
 
 
-	printf("Foup Auth  ---> stockerID: %u, ChangeStatus: %u, foupRoom: %u\n", nID, nChaned, foupRoom);
+	printf("Foup Event  ---> stockerID: %u, ChangeStatus: %u, foupRoom: %u\n", nID, nChaned, foupRoom);
 
 	uint8 nAuthAck = 0;
 	WLock(rwLock_foup_map_)
