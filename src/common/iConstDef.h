@@ -79,7 +79,7 @@ enum PushData
     upOhtPosTable,
     upOhtStatus,
     upStkInfo,
-    upFoupsTable,
+    upStkFoupsInfo,
     upStkStockerStatus
 };
 

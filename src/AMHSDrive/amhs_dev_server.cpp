@@ -45,6 +45,11 @@ amhs_stocker_vec amhs_dev_server::STK_GetDataSet()
 	return room_.GetStkDataSet();
 }
 
+amhs_foup_vec amhs_dev_server::STK_GetFoupDataSet(int nID)
+{
+	return room_.GetStkFoupDataSet(nID);
+}
+
 void amhs_dev_server::OHT_Set_StatusBackTime(int nID, int ms)
 {
 	AMHSPacket packet(OHT_MCS_STATUS_BACK_TIME, 2);

@@ -74,19 +74,22 @@ typedef std::vector<amhs_keyPoint> amhs_keypoint_vec;
 
 typedef struct sData_Foup
 {
-	uint8 nID;
+	uint8 nChaned;
+	uint8 nfoupRoom;
 	uint16 nBarCode;
 	uint16 nLot;
-	uint16 nStatus;
+	uint8 nInput;
+
+	amhs_participant_ptr p_participant;
 } amhs_Foup;
 typedef boost::shared_ptr<amhs_Foup> amhs_foup_ptr;
-typedef std::map<int, amhs_foup_ptr> amhs_foup_map;
+typedef std::map<uint16, amhs_foup_ptr> amhs_foup_map;
 typedef std::vector<amhs_foup_ptr> amhs_foup_vec;
 
 typedef struct sData_Stocker
 {
 	int nID;
-	amhs_foup_vec vec_foup;
+	amhs_foup_map foup_map;
 	amhs_participant_ptr p_participant;
 }amhs_Stocker;
 typedef boost::shared_ptr<amhs_Stocker> amhs_stocker_ptr;
@@ -113,6 +116,7 @@ public:
 public:
 	amhs_oht_vec GetOhtDataSet();
 	amhs_stocker_vec GetStkDataSet();
+	amhs_foup_vec GetStkFoupDataSet(int nID);
 
 private:
 	void Handle_OHT_AckStatusBackTime(amhs_participant_ptr, AMHSPacket&);
@@ -146,6 +150,7 @@ private:
 	amhs_stocker_map stocker_map_;
 	rwmutex rwLock_oht_map_;
 	rwmutex rwLock_stocker_map_;
+	rwmutex rwLock_foup_map_;
 
 	typedef void (amhs_room::*HANDLE_OPT)(amhs_participant_ptr, AMHSPacket& packet);
 	typedef std::map<int, HANDLE_OPT> OPT_MAP;
@@ -198,6 +203,7 @@ public:
 	void OHT_SetPath(int nID, int nType, int nStart, int nTarget, amhs_keypoint_vec& KeyPoints);
 
 	amhs_stocker_vec STK_GetDataSet();
+	amhs_foup_vec STK_GetFoupDataSet(int nID);
 	void STK_FOUP(int nID, int nMode, int nPick, int nFoupData);
 	void STK_Status(int nID);
 	void STK_Room(int nID);
