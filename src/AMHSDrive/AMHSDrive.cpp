@@ -180,6 +180,11 @@ void CAMHSDrive::STKHistory(int nID, const SYSTEMTIME &timeStart, const SYSTEMTI
 	sAmhsServer.GetServer()->STK_History(nID, timeStart, timeEnd);
 }
 
+void CAMHSDrive::STKAlarms(int nID, const SYSTEMTIME &timeStart, const SYSTEMTIME &timeEnd)
+{
+	sAmhsServer.GetServer()->STK_Alarms(nID, timeStart, timeEnd);
+}
+
 void CAMHSDrive::STKStatusBackTime(int nID, int ms)
 {
 	sAmhsServer.GetServer()->STK_Set_StatusBackTime(nID, ms);

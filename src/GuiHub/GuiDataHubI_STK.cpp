@@ -83,64 +83,40 @@ void GuiDataHubI::STK_FoupHanding(const std::string& strVal, const ::Ice::Curren
 void GuiDataHubI::STK_StockerStatus(const std::string& strVal, const ::Ice::Current&)
 {
 	STR_VEC vecStr=GetVecStrings(strVal);
-	for(STR_VEC::iterator it=vecStr.begin();
-		it!=vecStr.end();++it)
+	if(vecStr.size()==1)
 	{
-		string strE = *it;
-		STR_VEC Params=SplitString(*it,",");
-		if(Params.size()==1)
-		{
-			int nID=atoi(Params[0].c_str());
-			m_pAMHSDrive->STKStockerStatus(nID);
-		}
+		int nID=atoi(vecStr[0].c_str());
+		m_pAMHSDrive->STKStockerStatus(nID);
 	}
 }
 
 void GuiDataHubI::STK_StockerRoom(const std::string& strVal, const ::Ice::Current&)
 {
 	STR_VEC vecStr=GetVecStrings(strVal);
-	for(STR_VEC::iterator it=vecStr.begin();
-		it!=vecStr.end();++it)
+	if(vecStr.size()==1)
 	{
-		string strE = *it;
-		STR_VEC Params=SplitString(*it,",");
-		if(Params.size()==1)
-		{
-			int nID=atoi(Params[0].c_str());
-			m_pAMHSDrive->STKStockerRoom(nID);
-		}
+		int nID=atoi(vecStr[0].c_str());
+		m_pAMHSDrive->STKStockerRoom(nID);
 	}
 }
 
 void GuiDataHubI::STK_StockerFoupStorage(const std::string& strVal, const ::Ice::Current&)
 {
 	STR_VEC vecStr=GetVecStrings(strVal);
-	for(STR_VEC::iterator it=vecStr.begin();
-		it!=vecStr.end();++it)
+	if(vecStr.size()==1)
 	{
-		string strE = *it;
-		STR_VEC Params=SplitString(*it,",");
-		if(Params.size()==1)
-		{
-			int nID=atoi(Params[0].c_str());
-			m_pAMHSDrive->STKFoupStorage(nID);
-		}
+		int nID=atoi(vecStr[0].c_str());
+		m_pAMHSDrive->STKFoupStorage(nID);
 	}
 }
 
 void GuiDataHubI::STK_InputStatus(const std::string& strVal, const ::Ice::Current&)
 {
 	STR_VEC vecStr=GetVecStrings(strVal);
-	for(STR_VEC::iterator it=vecStr.begin();
-		it!=vecStr.end();++it)
+	if(vecStr.size()==1)
 	{
-		string strE = *it;
-		STR_VEC Params=SplitString(*it,",");
-		if(Params.size()==1)
-		{
-			int nID=atoi(Params[0].c_str());
-			m_pAMHSDrive->STKInputStatus(nID);
-		}
+		int nID=atoi(vecStr[0].c_str());
+		m_pAMHSDrive->STKInputStatus(nID);
 	}
 }
 
@@ -155,7 +131,49 @@ void GuiDataHubI::STK_History(const std::string& strVal, const ::Ice::Current&)
 		if(Params.size()==3)
 		{
 			int nID=atoi(Params[0].c_str());
-	//		SYSTEMTIME & timeStart=(SYSTEMTIME &)(atoi(Params[0].c_str()));
+			SYSTEMTIME timeStart=ToTime(Params[1]);
+			SYSTEMTIME timeEnd=ToTime(Params[2]);
+			m_pAMHSDrive->STKHistory(nID,timeStart,timeEnd);
 		}
 	}
+}
+
+void GuiDataHubI::STK_Alarms(const std::string& strVal, const ::Ice::Current&)
+{
+	STR_VEC vecStr=GetVecStrings(strVal);
+	for(STR_VEC::iterator it=vecStr.begin();
+		it!=vecStr.end();++it)
+	{
+		string strE= *it;
+		STR_VEC Params=SplitString(*it,",");
+		if(Params.size()==3)
+		{
+			int nID=atoi(Params[0].c_str());
+			SYSTEMTIME timeStart=ToTime(Params[1]);
+			SYSTEMTIME timeEnd=ToTime(Params[2]);
+			m_pAMHSDrive->STKAlarms(nID, timeStart, timeEnd);
+		}
+	}
+}
+
+SYSTEMTIME GuiDataHubI::ToTime(std::string& strVal)
+{
+	std::string strTime=strVal;
+	SYSTEMTIME time;
+	int nYear=0;
+	int nMonth=0;
+	int nDay=0;
+	int nHour=0;
+	int nMin=0;
+	int nSec=0;
+
+	sscanf(strVal.c_str(),"%d-%d-%d %d:%d:%d",&nYear,&nMonth,&nDay,&nHour,&nMin,&nSec);
+
+	time.wYear=nYear;
+	time.wMonth=nMonth;
+	time.wDay=nDay;
+	time.wHour=nHour;
+	time.wMinute=nMin;
+	time.wSecond=nSec;
+	return time;
 }
