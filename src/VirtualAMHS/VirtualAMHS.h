@@ -46,6 +46,7 @@ typedef struct
 	int nID;
 	int nProcessStatus;
 	int nLocation;
+	int nBatchID;
 } ItemFoup;
 typedef std::list<ItemFoup> LIST_FOUP;
 //zhang add the code in 2012.10.24
@@ -67,10 +68,15 @@ public:
 
 	// for Stocker
 	LIST_FOUP Stocker_GetFoupsStatus(int nStocker);
-	int Stocker_ManualInputFoup(int nStocker, const TCHAR* sFoupID);
-	int Stocker_ManualOutputFoup(int nStocker, const TCHAR* sFoupID);
+	int Stocker_ManualInputFoup(int nStocker,const TCHAR* sFoupID,int nBatchID);
+	int Stocker_ManualOutputFoup(int nStocker,const TCHAR* nFoupID);
+	int STK_FoupInitRoom(int nStockerID,ItemFoup *pFoup);
 	int STK_History(int nStocker);
-	int STK_SetFoupNum(int nIndex,int nContain);
+	//int STK_SetFoupNum(int nIndex,int nContain);
+	//int STK_GetFoup(int nSTK_ID,int nFoupID,int nBatchID);
+	int STK_GetRoomID(int nSTK_ID,int nFoupID);
+	int STK_FoupChangeType(int nStockerID); 
+	ItemFoup STK_GetChangedFoup(int nStockerID);
 	// for OHT
 	LIST_OHT OHT_GetStatus();
 	LIST_STOCKER Stocker_GetInfo();
@@ -79,6 +85,6 @@ public:
 
 private:
 	MAP_VOHT* m_mapOHT;
-	MAP_VSTK*	 m_mapSTK;
+	MAP_VSTK*	 m_mapSTK; 
 	//LIST_OHTTime* m_listTime;
 };

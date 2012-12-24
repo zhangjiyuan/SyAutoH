@@ -596,7 +596,7 @@ void amhs_room::Handle_STK_Auth(amhs_participant_ptr participants, AMHSPacket& P
 		amhs_stocker_map::iterator it = stocker_map_.find(stockerID);
 		if (it != stocker_map_.end())
 		{
-			nAuthAck = 0;
+			nAuthAck = 1;
 		}
 		else
 		{
@@ -604,7 +604,7 @@ void amhs_room::Handle_STK_Auth(amhs_participant_ptr participants, AMHSPacket& P
 			pStocker->nID = stockerID;
 			pStocker->p_participant = participants;
 			stocker_map_.insert(std::make_pair(stockerID, pStocker));
-			nAuthAck = 1;
+			nAuthAck = 0;
 		}
 	}
 
