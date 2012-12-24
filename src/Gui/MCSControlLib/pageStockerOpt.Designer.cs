@@ -53,10 +53,10 @@
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.listView1 = new System.Windows.Forms.ListView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.btnGetPortStatus = new System.Windows.Forms.Button();
+            this.tBPortStatusManu = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.tBPortStatusAuto = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.btnBackTimeFoups = new System.Windows.Forms.Button();
@@ -337,10 +337,10 @@
             // groupBox4
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox4.Controls.Add(this.button3);
-            this.groupBox4.Controls.Add(this.textBox7);
+            this.groupBox4.Controls.Add(this.btnGetPortStatus);
+            this.groupBox4.Controls.Add(this.tBPortStatusManu);
             this.groupBox4.Controls.Add(this.label10);
-            this.groupBox4.Controls.Add(this.textBox6);
+            this.groupBox4.Controls.Add(this.tBPortStatusAuto);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Location = new System.Drawing.Point(560, 333);
             this.groupBox4.Name = "groupBox4";
@@ -349,21 +349,22 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Port Status";
             // 
-            // button3
+            // btnGetPortStatus
             // 
-            this.button3.Location = new System.Drawing.Point(32, 77);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(64, 23);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "Get";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnGetPortStatus.Location = new System.Drawing.Point(32, 77);
+            this.btnGetPortStatus.Name = "btnGetPortStatus";
+            this.btnGetPortStatus.Size = new System.Drawing.Size(64, 23);
+            this.btnGetPortStatus.TabIndex = 12;
+            this.btnGetPortStatus.Text = "Get";
+            this.btnGetPortStatus.UseVisualStyleBackColor = true;
+            this.btnGetPortStatus.Click += new System.EventHandler(this.btnGetPortStatus_Click);
             // 
-            // textBox7
+            // tBPortStatusManu
             // 
-            this.textBox7.Location = new System.Drawing.Point(63, 47);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(57, 21);
-            this.textBox7.TabIndex = 11;
+            this.tBPortStatusManu.Location = new System.Drawing.Point(63, 47);
+            this.tBPortStatusManu.Name = "tBPortStatusManu";
+            this.tBPortStatusManu.Size = new System.Drawing.Size(57, 21);
+            this.tBPortStatusManu.TabIndex = 11;
             // 
             // label10
             // 
@@ -374,12 +375,12 @@
             this.label10.TabIndex = 10;
             this.label10.Text = "Manu";
             // 
-            // textBox6
+            // tBPortStatusAuto
             // 
-            this.textBox6.Location = new System.Drawing.Point(63, 20);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(57, 21);
-            this.textBox6.TabIndex = 9;
+            this.tBPortStatusAuto.Location = new System.Drawing.Point(63, 20);
+            this.tBPortStatusAuto.Name = "tBPortStatusAuto";
+            this.tBPortStatusAuto.Size = new System.Drawing.Size(57, 21);
+            this.tBPortStatusAuto.TabIndex = 9;
             // 
             // label9
             // 
@@ -748,10 +749,10 @@
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Button btnGetPortStatus;
+        private System.Windows.Forms.TextBox tBPortStatusManu;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox tBPortStatusAuto;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button btnBackTimeStatus;
