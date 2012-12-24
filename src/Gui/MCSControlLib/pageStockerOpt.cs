@@ -15,12 +15,19 @@ namespace MCSControlLib
     {
         private byte stockorId = 0;
 
+        //public byte StockerID
+        //{
+        //    get { return stockorId; }
+        //}
+
         private const string TKey_ID = "ID";
         private const string TKey_BarCode = "BarCode";
         private const string TKey_Lot = "Lot";
         private const string TKey_Status = "Status";
 
         private DataTable m_tableFoupsInfo = null;
+
+        formSTKAlarmHistory hisAlarm;
 
         public pageStockerOpt(byte id)
         {
@@ -90,8 +97,16 @@ namespace MCSControlLib
 
         private void bnAlarmHistory_Click(object sender, EventArgs e)
         {
-            formSTKAlarmHistory hisAlarm = new formSTKAlarmHistory();
+            hisAlarm = new formSTKAlarmHistory();
             hisAlarm.ShowDialog();
+        }
+
+        public void AlarmHistorySendData(string str)
+        {
+            byte nID = stockorId;
+            string strVal = string.Format("<{0},{1}>", nID, str);
+
+            int nWRet = m_dataHub.WriteData(GuiCommand.StkAlarmHistory, strVal);
         }
 
         private void bnFoupHistory_Click(object sender, EventArgs e)
@@ -152,6 +167,14 @@ namespace MCSControlLib
             strVal = string.Format("<{0},{1},{2},{3}>", nID, nOpt, nMode, nData);
 
             int nWRet = m_dataHub.WriteData(GuiCommand.StkHandFoup, strVal);
+        }
+
+        private void btnGetPortStatus_Click(object sender, EventArgs e)
+        {
+            byte nID = stockorId;
+            string strVal = string.Format("<{0}>", nID);
+
+            int nWRet = m_dataHub.WriteData(GuiCommand.StkInquiryInputStatus, strVal);
         }
 
         

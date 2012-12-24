@@ -15,5 +15,21 @@ namespace MCSControlLib
         {
             InitializeComponent();
         }
+
+        private void btnStkAlarmQuery_Click(object sender, EventArgs e)
+        {
+            if (dateTimePickerAlarmET.Value < dateTimePickerAlarmST.Value)
+            {
+                MessageBox.Show("please choose End Time again");
+                return;
+            }
+            DateTime startTime = dateTimePickerAlarmST.Value;
+            DateTime endTime = dateTimePickerAlarmET.Value;
+            string strStart = TryConver.ToString(startTime);
+            string strEnd = TryConver.ToString(endTime);
+            string strVal = strStart + "," + strEnd;
+
+            
+        }
     }
 }
