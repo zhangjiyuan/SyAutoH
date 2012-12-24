@@ -315,9 +315,8 @@ ItemFoup CVirtualAMHS::STK_GetChangedFoup(int nStockerID)
 		
 		item.nID = it->second->CFoup.nID;
 		item.nBatchID = it->second->CFoup.nBatchID;
-		item.nLocation = 0;
+		item.nLocation = it->second->CFoup.nRoomID;
 		item.nProcessStatus = 0;
-		item.nRoomID = it->second->CFoup.nRoomID;
 		return item;
 	}
 	item.nBatchID = 0;
@@ -375,7 +374,7 @@ int CVirtualAMHS::STK_FoupInitRoom(int nStockerID,ItemFoup *pFoup)
 	it = m_mapSTK->find(nStockerID);
 	if(it != m_mapSTK->end())
 	{
-		it->second->InitRoom(pFoup->nID,pFoup->nBatchID,pFoup->nRoomID);
+		it->second->InitRoom(pFoup->nID,pFoup->nBatchID,pFoup->nLocation);
 	}
 	return 0;
 }

@@ -298,10 +298,9 @@ void CVAMHSTestDlg::AddFoupXMLElem(int STK_ID,int Foup_ID,ItemFoup* pFoup)
 			xml.AddChildElem(_T("Foup"));
 	        xml.IntoElem();
 	        xml.AddChildElem(_T("ID"),pFoup->nID);
-	        xml.AddChildElem(_T("Location"),pFoup->nLocation);
+			xml.AddChildElem(_T("Location"),pFoup->nLocation);
 	        xml.AddChildElem(_T("Status"),pFoup->nProcessStatus);
 			xml.AddChildElem(_T("BatchID"),pFoup->nBatchID);
-			xml.AddChildElem(_T("RoomID"),pFoup->nRoomID);
 			xml.Save(path);
 			return;
 		}
@@ -363,10 +362,9 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 			int nRoomID = g_pVDev->STK_GetRoomID(selectSTK,Foup_ID);
 			ItemFoup* item = new ItemFoup;
             item->nID = Foup_ID;
-		    item->nLocation = 0;
+		    item->nLocation = nRoomID;
 		    item->nProcessStatus = 0;
 			item->nBatchID = 0;
-			item->nRoomID = nRoomID;
 		    g_mapFoups.insert(std::make_pair(Foup_ID,item));
 		    CString str;
 		    m_listCtrlFOUP.InsertItem(0,str);
@@ -678,12 +676,10 @@ void CVAMHSTestDlg::ReadFOUPXML(int STK_ID)
 		        int nLocation = GetElemData(xml,_T("Location"));
 		        int nStatus = GetElemData(xml,_T("Status"));
 				int nBatchID = GetElemData(xml,_T("BatchID"));
-				int nRoomID = GetElemData(xml,_T("RoomID"));
 			    item->nID = nID;
 			    item->nLocation = nLocation;
 			    item->nProcessStatus = nStatus;
 				item->nBatchID = nBatchID;
-				item->nRoomID = nRoomID;
 			    g_mapFoups.insert(std::make_pair(nID,item));
 				g_pVDev->STK_FoupInitRoom(selectSTK,item);
 			    CString str;
@@ -953,10 +949,9 @@ void CVAMHSTestDlg::InitListCtrlFOUP(void)
 	dwStyle = LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT ;   //添加样式
 	m_listCtrlFOUP.SetExtendedStyle(dwStyle);     //重新设置
 	m_listCtrlFOUP.InsertColumn(0, _T("ID"), LVCFMT_CENTER, 55);
-	m_listCtrlFOUP.InsertColumn(1, _T("Location"), LVCFMT_CENTER, 65);
+	m_listCtrlFOUP.InsertColumn(1, _T("Lot"), LVCFMT_CENTER, 65);
 	m_listCtrlFOUP.InsertColumn(2, _T("Status"), LVCFMT_CENTER, 65);
 	m_listCtrlFOUP.InsertColumn(3,_T("BatchID"),LVCFMT_CENTER,65);
-	m_listCtrlFOUP.InsertColumn(4,_T("RoomID"),LVCFMT_CENTER,70);
 }
 
 void CVAMHSTestDlg::InitListCtrlSTOCKER(void)
@@ -1116,8 +1111,6 @@ void CVAMHSTestDlg::SetFOUPListItemData(ItemFoup* pFoup,int nListIndex)
 	m_listCtrlFOUP.SetItemText(nListIndex,2,_T("Idle"));
 	str.Format(_T("%d"),pFoup->nBatchID);
 	m_listCtrlFOUP.SetItemText(nListIndex,3,str);
-	str.Format(_T("%d"),pFoup->nRoomID);
-	m_listCtrlFOUP.SetItemText(nListIndex,4,str);
 	m_listCtrlFOUP.SetItemData(nListIndex,pFoup->nID);
 }
 void CVAMHSTestDlg::OnBnClickedBnStkHistory()

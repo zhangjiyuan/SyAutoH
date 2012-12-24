@@ -47,7 +47,6 @@ typedef struct
 	int nProcessStatus;
 	int nLocation;
 	int nBatchID;
-	int nRoomID;
 } ItemFoup;
 typedef std::list<ItemFoup> LIST_FOUP;
 //zhang add the code in 2012.10.24
