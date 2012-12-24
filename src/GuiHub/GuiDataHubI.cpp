@@ -52,6 +52,8 @@ GuiDataHubI::GuiDataHubI(void)
 		&GuiDataHubI::STK_InputStatus));
 	m_mapHandles.insert(std::make_pair(GuiHub::StkFoupHistory,
 		&GuiDataHubI::STK_History));
+	m_mapHandles.insert(std::make_pair(GuiHub::StkAlarmHistory,
+		&GuiDataHubI::STK_Alarms));
 
 	//////////////////////////////////////////////////////////////////////////
 	// Push Data

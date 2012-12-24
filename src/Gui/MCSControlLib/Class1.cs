@@ -75,5 +75,26 @@ namespace MCSControlLib
             }
             return intValue;
         }
+
+        static public string ToString(System.DateTime datatime)
+        {
+            string strTime = null;
+            int nYear = datatime.Year;
+            int nMonth = datatime.Month;
+            int nDay = datatime.Day;
+            int nHour = datatime.Hour;
+            int nMin = datatime.Minute;
+            int nSec = datatime.Second;
+
+            strTime = nYear.ToString() + "-"
+                + nMonth.ToString() + "-"
+                + nDay.ToString() + " "
+                + nHour.ToString() + ":"
+                + nMin.ToString() + ":"
+                + nSec.ToString();
+            return strTime;
+        }
+
+        
     }
 }

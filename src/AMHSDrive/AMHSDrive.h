@@ -74,6 +74,7 @@ public:
 	void STKFoupStorage(int nID);
 	void STKInputStatus(int nID);
 	void STKHistory(int nID, const SYSTEMTIME &timeStart, const SYSTEMTIME &timeEnd);
+	void STKAlarms(int nID, const SYSTEMTIME &timeStart, const SYSTEMTIME &timeEnd);
 	void STKStatusBackTime(int nID, int ms);
 	void STKFoupInfoBackTime(int nID,int ms);
 

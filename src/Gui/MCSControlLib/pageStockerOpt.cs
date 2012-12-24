@@ -109,8 +109,8 @@ namespace MCSControlLib
         {
             string strTime = tBBackTimeStatus.Text;
             byte nID = stockorId;
-            Int32 nTime=0;
-            nTime=TryConver.ToInt32(strTime);
+            Int32 nTime = 0;
+            nTime = TryConver.ToInt32(strTime);
             string strVal;
             strVal = string.Format("<{0},{1}>", nID, nTime);
 

@@ -95,12 +95,16 @@ private:
 	void STK_StockerFoupStorage(const std::string&, const ::Ice::Current&);
 	void STK_InputStatus(const std::string&, const ::Ice::Current&);
 	void STK_History(const std::string&, const ::Ice::Current&);
+	void STK_Alarms(const std::string&, const ::Ice::Current&);
 
 private:
 	GuiDataItem Push_OHT_DevInfo();
 	GuiDataItem Push_OHT_Position();
 
 	GuiDataItem Push_STK_DevInfo();
+
+private:
+	SYSTEMTIME ToTime(std::string&);
 };
 
 class UpdateCallback : public IceUtil::Shared
