@@ -119,6 +119,7 @@
             this.dataGridViewFoupsInStocker.RowTemplate.Height = 23;
             this.dataGridViewFoupsInStocker.Size = new System.Drawing.Size(345, 311);
             this.dataGridViewFoupsInStocker.TabIndex = 1;
+            this.dataGridViewFoupsInStocker.SelectionChanged += new System.EventHandler(this.dataGridViewFoupsInStocker_SelectionChanged);
             // 
             // groupBox1
             // 

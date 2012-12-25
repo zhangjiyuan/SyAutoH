@@ -184,6 +184,19 @@ namespace MCSControlLib
             int nWRet = m_dataHub.WriteData(GuiCommand.StkInquiryInputStatus, strVal);
         }
 
+        private void dataGridViewFoupsInStocker_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridViewSelectedRowCollection rows = dataGridViewFoupsInStocker.SelectedRows;
+            if (rows.Count > 0)
+            {
+                DataGridViewRow row = rows[0];
+                tBSelBarCode.Text = row.Cells[0].Value.ToString();
+                tBSelFoupID.Text = row.Cells[1].Value.ToString();
+                tBSelLot.Text = row.Cells[2].Value.ToString();
+                tBSelStatus.Text = row.Cells[3].Value.ToString();
+            }
+        }
+
         
     }
 }
