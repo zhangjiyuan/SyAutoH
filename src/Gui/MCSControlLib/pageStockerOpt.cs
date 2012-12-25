@@ -15,8 +15,8 @@ namespace MCSControlLib
     {
         private byte stockorId = 0;
 
-        private const string TKey_ID = "ID";
         private const string TKey_BarCode = "BarCode";
+        private const string TKey_FoupRoom = "FoupRoom";
         private const string TKey_Lot = "Lot";
         private const string TKey_Status = "Status";
 
@@ -52,10 +52,10 @@ namespace MCSControlLib
             if (null == m_tableFoupsInfo)
             {
                 m_tableFoupsInfo = new DataTable("Foups");
-                m_tableFoupsInfo.Columns.Add(TKey_ID, typeof(System.Byte));
-                m_tableFoupsInfo.Columns[TKey_ID].AllowDBNull = false;
-                m_tableFoupsInfo.PrimaryKey = new DataColumn[] { m_tableFoupsInfo.Columns["ID"] };
                 m_tableFoupsInfo.Columns.Add(TKey_BarCode, typeof(System.UInt16));
+                m_tableFoupsInfo.Columns[TKey_BarCode].AllowDBNull = false;
+                m_tableFoupsInfo.PrimaryKey = new DataColumn[] { m_tableFoupsInfo.Columns[TKey_BarCode] };
+                m_tableFoupsInfo.Columns.Add(TKey_FoupRoom, typeof(UInt16));
                 m_tableFoupsInfo.Columns.Add(TKey_Lot, typeof(System.UInt16));
                 m_tableFoupsInfo.Columns.Add(TKey_Status, typeof(System.UInt16));
 
@@ -68,25 +68,31 @@ namespace MCSControlLib
             if (item.Count > 1)
             {
                 byte nID = Convert.ToByte(item[0]);
-                UInt16 nBarCode = Convert.ToUInt16(item[1]);
-                UInt16 nLot = Convert.ToUInt16(item[2]);
-                UInt16 nStatus = Convert.ToUInt16(item[3]);
-                DataRow row = m_tableFoupsInfo.Rows.Find(nID);
-                if (null != row)
+                if (nID == stockorId)
                 {
-                    row[TKey_BarCode] = nBarCode;
-                    row[TKey_Lot] = nLot;
-                    row[TKey_Status] = nStatus;
-                    row.AcceptChanges();
-                }
-                else
-                {
-                    row = m_tableFoupsInfo.NewRow();
-                    row[TKey_ID] = nID;
-                    row[TKey_BarCode] = nBarCode;
-                    row[TKey_Lot] = nLot;
-                    row[TKey_Status] = nStatus;
-                    row.AcceptChanges();
+                    UInt16 nBarCode = Convert.ToUInt16(item[1]);
+                    UInt16 nFoupRoom = Convert.ToUInt16(item[2]);
+                    UInt16 nLot = Convert.ToUInt16(item[3]);
+                    UInt16 nStatus = Convert.ToUInt16(item[4]);
+                    DataRow row = m_tableFoupsInfo.Rows.Find(nBarCode);
+                    if (null != row)
+                    {
+                        row[TKey_BarCode] = nBarCode;
+                        row[TKey_FoupRoom] = nFoupRoom;
+                        row[TKey_Lot] = nLot;
+                        row[TKey_Status] = nStatus;
+                        row.AcceptChanges();
+                    }
+                    else
+                    {
+                        row = m_tableFoupsInfo.NewRow();
+                        row[TKey_BarCode] = nBarCode;
+                        row[TKey_FoupRoom] = nFoupRoom;
+                        row[TKey_Lot] = nLot;
+                        row[TKey_Status] = nStatus;
+                        m_tableFoupsInfo.Rows.Add(row);
+                        m_tableFoupsInfo.AcceptChanges();
+                    }
                 }
             }
         }
