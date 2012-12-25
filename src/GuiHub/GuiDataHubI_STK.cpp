@@ -40,9 +40,10 @@ GuiDataItem GuiDataHubI::Push_STK_FoupInfo()
 	{
 		DR_FOUP_LIST foup_list=m_pAMHSDrive->GetStkFoupList(it->nID);
 		for(DR_FOUP_LIST::iterator itFoup = foup_list.begin();
-			itFoup != foup_list.end(); ++it)
+			itFoup != foup_list.end(); ++itFoup)
 		{
-			sprintf_s(buf, 256, "<%d,%d>",it->nID,itFoup->nBarCode);
+			sprintf_s(buf, 256, "<%d,%d,%d,%d,%d>",
+				it->nID,itFoup->nBarCode, itFoup->nfoupRoom, itFoup->nLot, itFoup->nChaned);
 			strGuiData += buf;
 		}
 	}
