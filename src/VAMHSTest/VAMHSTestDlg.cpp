@@ -1,5 +1,3 @@
-
-
 // VAMHSTestDlg.cpp : 实现文件
 //
 
