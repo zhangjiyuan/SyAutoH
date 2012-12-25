@@ -45,7 +45,7 @@ typedef struct
 	//TCHAR FoupID[256];
 	int nID;
 	int nProcessStatus;
-	int nLocation;
+	int nRoomID;
 	int nBatchID;
 } ItemFoup;
 typedef std::list<ItemFoup> LIST_FOUP;

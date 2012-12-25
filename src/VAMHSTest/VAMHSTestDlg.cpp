@@ -271,6 +271,7 @@ void CVAMHSTestDlg::OnBnClickedBnOHTonline()
 	    int speedSet = g_pVDev->OHT_SetConstSpeed(nSpeed,nOHT_ID);
 	}
 }
+
 void CVAMHSTestDlg::AddFoupXMLElem(int STK_ID,int Foup_ID,ItemFoup* pFoup)
 {
 	CString path = GetPath();
@@ -298,7 +299,7 @@ void CVAMHSTestDlg::AddFoupXMLElem(int STK_ID,int Foup_ID,ItemFoup* pFoup)
 			xml.AddChildElem(_T("Foup"));
 	        xml.IntoElem();
 	        xml.AddChildElem(_T("ID"),pFoup->nID);
-			xml.AddChildElem(_T("Location"),pFoup->nLocation);
+			xml.AddChildElem(_T("Location"),pFoup->nRoomID);
 	        xml.AddChildElem(_T("Status"),pFoup->nProcessStatus);
 			xml.AddChildElem(_T("BatchID"),pFoup->nBatchID);
 			xml.Save(path);
@@ -362,7 +363,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 			int nRoomID = g_pVDev->STK_GetRoomID(selectSTK,Foup_ID);
 			ItemFoup* item = new ItemFoup;
             item->nID = Foup_ID;
-		    item->nLocation = nRoomID;
+		    item->nRoomID = nRoomID;
 		    item->nProcessStatus = 0;
 			item->nBatchID = 0;
 		    g_mapFoups.insert(std::make_pair(Foup_ID,item));
@@ -407,6 +408,7 @@ void CVAMHSTestDlg::OnBnClickedBnStkOut()
 		MessageBox(_T("Stocker selected is not online!"));
 	} 
 }
+
 int CVAMHSTestDlg::GetElemData(CMarkup xml,CString tag)
 {
 	xml.FindChildElem(tag);
@@ -416,6 +418,7 @@ int CVAMHSTestDlg::GetElemData(CMarkup xml,CString tag)
 	xml.OutOfElem();
 	return value;
 }
+
 void CVAMHSTestDlg::SaveOHTXML()
 {
 	CStringW filePath = GetPath();
@@ -501,6 +504,7 @@ void CVAMHSTestDlg::SaveOHTXML()
 	XML.OutOfElem();
 	XML.Save(filePath);
 }
+
 void CVAMHSTestDlg::ReadOHTXML()
 {
 	CStringW filePath = GetPath();
@@ -547,6 +551,7 @@ void CVAMHSTestDlg::ReadOHTXML()
 	}
 	XML.OutOfElem();
 }
+
 void CVAMHSTestDlg::ReadSTKXML()
 {
 	CMarkup xml;
@@ -579,6 +584,7 @@ void CVAMHSTestDlg::ReadSTKXML()
 	}
 	xml.OutOfElem();
 }
+
 void CVAMHSTestDlg::SaveSTKXML()
 {
 	CMarkup xml;
@@ -641,6 +647,7 @@ void CVAMHSTestDlg::SaveSTKXML()
 	xml.OutOfElem();
 	xml.Save(path);
 }
+
 void CVAMHSTestDlg::ReadFOUPXML(int STK_ID)
 {
 	//foupNum = 0;
@@ -672,11 +679,11 @@ void CVAMHSTestDlg::ReadFOUPXML(int STK_ID)
 			    xml.IntoElem();
 			    ItemFoup* item = new ItemFoup;
 		        int nID = GetElemData(xml,_T("ID"));
-		        int nLocation = GetElemData(xml,_T("Location"));
+		        int nRoomID = GetElemData(xml,_T("Location"));
 		        int nStatus = GetElemData(xml,_T("Status"));
 				int nBatchID = GetElemData(xml,_T("BatchID"));
 			    item->nID = nID;
-			    item->nLocation = nLocation;
+			    item->nRoomID = nRoomID;
 			    item->nProcessStatus = nStatus;
 				item->nBatchID = nBatchID;
 			    g_mapFoups.insert(std::make_pair(nID,item));
@@ -691,6 +698,7 @@ void CVAMHSTestDlg::ReadFOUPXML(int STK_ID)
 	}
 	xml.OutOfElem();
 }
+
 void CVAMHSTestDlg::DeleteSTKXML(int STK_ID)
 {
 	CString path = GetPath();
@@ -720,6 +728,7 @@ void CVAMHSTestDlg::DeleteSTKXML(int STK_ID)
 		}
 	}
 }
+
 void CVAMHSTestDlg::DeleteFoupXML(int STK_ID,int Foup_ID)
 {
 	CString path = GetPath();
@@ -787,6 +796,7 @@ void CVAMHSTestDlg::DeleteElem(int nID)
 	}
 	XML.Save(path);
 }
+
 CStringW CVAMHSTestDlg::GetPath()
 {
 	TCHAR path[200];
@@ -797,6 +807,7 @@ CStringW CVAMHSTestDlg::GetPath()
 	CStringW csw = ws.c_str();
 	return csw;
 }
+
 int CVAMHSTestDlg::GetSpeed()
 {
 	CMarkup xml;
@@ -816,6 +827,7 @@ int CVAMHSTestDlg::GetSpeed()
 	else 
 		return 0;
 }
+
 void CVAMHSTestDlg::DisplaySpeed()
 {
 	int speed = GetSpeed();
@@ -823,6 +835,7 @@ void CVAMHSTestDlg::DisplaySpeed()
 	CSpeed.Format(_T("%d"),speed);
     SetDlgItemText(IDC_SPEED_SET_EDIT,CSpeed);
 }
+
 void CVAMHSTestDlg::OnBnClickedBnOhtAdd()
 {
 	CDlgAddOht dlgAddOht;
@@ -948,9 +961,9 @@ void CVAMHSTestDlg::InitListCtrlFOUP(void)
 	dwStyle = LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT ;   //添加样式
 	m_listCtrlFOUP.SetExtendedStyle(dwStyle);     //重新设置
 	m_listCtrlFOUP.InsertColumn(0, _T("ID"), LVCFMT_CENTER, 55);
-	m_listCtrlFOUP.InsertColumn(1, _T("Lot"), LVCFMT_CENTER, 65);
+	m_listCtrlFOUP.InsertColumn(1, _T("RoomID"), LVCFMT_CENTER, 65);
 	m_listCtrlFOUP.InsertColumn(2, _T("Status"), LVCFMT_CENTER, 65);
-	m_listCtrlFOUP.InsertColumn(3,_T("BatchID"),LVCFMT_CENTER,65);
+	m_listCtrlFOUP.InsertColumn(3,_T("Lot"),LVCFMT_CENTER,65);
 }
 
 void CVAMHSTestDlg::InitListCtrlSTOCKER(void)
@@ -1105,7 +1118,7 @@ void CVAMHSTestDlg::SetFOUPListItemData(ItemFoup* pFoup,int nListIndex)
 	CString str;
 	str.Format(_T("%d"),pFoup->nID);
 	m_listCtrlFOUP.SetItemText(nListIndex,0,str);
-	str.Format(_T("%d"),pFoup->nLocation);
+	str.Format(_T("%d"),pFoup->nRoomID);
 	m_listCtrlFOUP.SetItemText(nListIndex,1,str);
 	m_listCtrlFOUP.SetItemText(nListIndex,2,_T("Idle"));
 	str.Format(_T("%d"),pFoup->nBatchID);
