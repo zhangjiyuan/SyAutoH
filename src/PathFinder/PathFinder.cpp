@@ -29,19 +29,45 @@ void CPathFinder::Init()
 	
 	sPathProductor.GetLaneData();
 
-	int nFrom = 400;
-	int nTo = 100;
-	auto path = GetPath(nFrom, nTo);
-	cout<< "Start: " << nFrom << " To: " << nTo << endl;
-	cout << "Path: " << endl;
-	auto it = path.cbegin();
-	cout << *it;
-	for (++it;
-		it != path.cend(); ++it)
 	{
-		cout<< "->" << *it;
+		int nFrom = 50;
+		int nTo = 1050;
+		auto path = GetPath(nFrom, nTo);
+		cout<< "Start: " << nFrom << " To: " << nTo << endl;
+		cout << "Path: " << endl;
+		auto it = path.cbegin();
+		if (it != path.cend())
+		{
+			cout << *it;
+			for (++it;
+				it != path.cend(); ++it)
+			{
+				cout<< "->" << *it;
+			}
+			cout<< endl;
+		}
 	}
-	cout<< endl;
+
+	{
+		int nFrom = 1050;
+		int nTo = 50;
+		auto path = GetPath(nFrom, nTo);
+		cout<< "Start: " << nFrom << " To: " << nTo << endl;
+		cout << "Path: " << endl;
+		auto it = path.cbegin();
+		if (it != path.cend())
+		{
+			cout << *it;
+			for (++it;
+				it != path.cend(); ++it)
+			{
+				cout<< "->" << *it;
+			}
+			cout<< endl;
+		}
+	}
+	
+	
 }
 
 void CPathFinder::Test(void)
