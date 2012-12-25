@@ -17,6 +17,7 @@ void CPathProductor::GetLaneData(void)
 {
 	DBLane dbLane;
 	auto vecLane = dbLane.GetLaneTable(1);
+	set<int> setPoint;
 
 	for (auto it = vecLane.cbegin();
 		it != vecLane.cend(); ++it)
@@ -24,13 +25,63 @@ void CPathProductor::GetLaneData(void)
 		printf("Lane: %d, s: %d e: %d, p: %d n: %d, f: %d, t: %d, l: %d\r\n",
 			it->nID, it->nStart, it->nEnd, it->nPrevLane, it->nNextLane, it->nNextFork, it->nType, 
 			it->nLength);
+		setPoint.insert(it->nStart);
+		setPoint.insert(it->nEnd);
+		mapLane[it->nID] = *it;
+	}
+
+	m_arrayBarCode.clear();
+	m_arrayLocation.clear();
+
+	int nIndex = 0;
+	for(auto it = setPoint.cbegin();
+		it != setPoint.cend(); ++it)
+	{
+		int nBarCode = *it;
+		m_arrayBarCode.push_back(nBarCode);
+		location loc;
+		loc.x = nBarCode;
+		loc.y = 10;
+		m_arrayLocation.push_back(loc);
+		mapPoint[nBarCode] = nIndex;
+		nIndex++;
+	}
+	
+	m_arrayEdge.clear();
+	m_arrayWeights.clear();
+	int nLoopNodeStart = -1;
+	int nLoopNodeEnd = -1;
+	for (auto it = vecLane.cbegin();
+		it != vecLane.cend(); ++it)
+	{
+		int nIndexStart = 0;
+		int nIndexEnd = 0;
+
+		auto ms = mapPoint.find(it->nStart);
+		auto me = mapPoint.find(it->nEnd);
+		if (ms != mapPoint.cend() && me != mapPoint.cend())
+		{
+			nIndexStart = ms->second;
+			nIndexEnd = me->second;
+			m_arrayEdge.push_back(lane_edge(nIndexStart, nIndexEnd));
+			m_arrayWeights.push_back(it->nLength);
+			// todo: find nLoopNodeStart, nLoopNodeEnd
+
+		}
+	}
+
+	if (nLoopNodeStart > 0 && nLoopNodeEnd > 0)
+	{
+		m_arrayEdge.push_back(lane_edge(nLoopNodeStart, nLoopNodeEnd));
+		m_arrayWeights.push_back(0);
 	}
 }
 
 
 void CPathProductor::InitGraph(void)
 {
-	const int N = 14;
+
+	/*const int N = 14;
 	int nBarCodeBegin = 100;
 	int nBarCodeEnd = 1000;
 
@@ -52,7 +103,8 @@ void CPathProductor::InitGraph(void)
 	}
 
 	m_arrayEdge.push_back(lane_edge(13, 0));
-	m_arrayWeights.push_back(0);
+	m_arrayWeights.push_back(0);*/
+
 }
 
 vec_int CPathProductor::ProductPath(int nFrom, int nTo)

@@ -15,11 +15,6 @@ namespace MCSControlLib
     {
         private byte stockorId = 0;
 
-        //public byte StockerID
-        //{
-        //    get { return stockorId; }
-        //}
-
         private const string TKey_ID = "ID";
         private const string TKey_BarCode = "BarCode";
         private const string TKey_Lot = "Lot";
@@ -35,6 +30,12 @@ namespace MCSControlLib
             stockorId = id;
         }
 
+        public override void PageInit()
+        {
+            PushData[] cmds = new PushData[] { PushData.upStkFoupsInfo};
+            m_dataHub.Async_SetPushCmdList(cmds);
+        }
+
         private void pageStockerOpt_Load(object sender, EventArgs e)
         {
             InitFoupsInfoTable();
@@ -43,7 +44,7 @@ namespace MCSControlLib
 
         protected override void InitProcessDictionary()
         {
-            m_dictProcess.Add(PushData.upFoupsTable, ProcessFoupsTable);
+            m_dictProcess.Add(PushData.upStkFoupsInfo, ProcessFoupsTable);
         }
 
         private void InitFoupsInfoTable()

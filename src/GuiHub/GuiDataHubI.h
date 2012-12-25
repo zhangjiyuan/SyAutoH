@@ -102,6 +102,7 @@ private:
 	GuiDataItem Push_OHT_Position();
 
 	GuiDataItem Push_STK_DevInfo();
+	GuiDataItem Push_STK_FoupInfo();
 
 private:
 	SYSTEMTIME ToTime(std::string&);

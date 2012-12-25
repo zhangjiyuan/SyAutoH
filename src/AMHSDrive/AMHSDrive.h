@@ -36,10 +36,22 @@ typedef struct  sVec_OHT
 
 typedef std::vector<driveOHT> DR_OHT_LIST;
 
+typedef struct sVec_Foup
+{
+	int nChaned;
+	int nfoupRoom;
+	int nBarCode;
+	int nLot;
+	int nInput;
+} driveFOUP;
+
+typedef std::vector<driveFOUP> DR_FOUP_LIST;
+
 typedef struct sVec_STK
 {
 	int nID;
 } driveSTK;
+
 typedef std::vector<driveSTK> DR_STK_LIST;
 
 typedef struct sPathKeyPoint
@@ -68,6 +80,7 @@ public:
 	void OHTSetPath(int nID, int nType, int nStart, int nTarget, PATH_POINT_LIST& KeyPoints);
 
 	DR_STK_LIST GetStkList();
+	DR_FOUP_LIST GetStkFoupList(int nID);
 	void STKFoupHand(int nID, int nOpt, int nMode, int nData);
 	void STKStockerStatus(int nID);
 	void STKStockerRoom(int nID);

@@ -49,7 +49,7 @@ module MCS
 				upOhtStatus,
 				
 				upStkInfo,
-				upFoupsTable,
+				upStkFoupsInfo,
 				upStkStockerStatus
 			};
 			sequence<PushData> GuiPushDataList;

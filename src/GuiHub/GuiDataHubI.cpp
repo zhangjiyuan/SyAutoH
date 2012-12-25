@@ -67,6 +67,8 @@ GuiDataHubI::GuiDataHubI(void)
 	// for stocker
 	m_mapMakePush.insert(std::make_pair(GuiHub::upStkInfo,
 		&GuiDataHubI::Push_STK_DevInfo));
+	m_mapMakePush.insert(std::make_pair(GuiHub::upStkFoupsInfo,
+		&GuiDataHubI::Push_STK_FoupInfo));
 
 	SetTimer();
 }

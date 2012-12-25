@@ -59,7 +59,7 @@ namespace MCS
             upOhtPosTable,
             upOhtStatus,
             upStkInfo,
-            upFoupsTable,
+            upStkFoupsInfo,
             upStkStockerStatus
         }
     }

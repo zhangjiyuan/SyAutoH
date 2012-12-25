@@ -113,6 +113,20 @@ amhs_oht_vec amhs_room::GetOhtDataSet()
 	return oht_vec;
 }
 
+amhs_foup_vec amhs_room::GetStkFoupDataSet(int nID)
+{
+	amhs_foup_vec foup_vec;
+	RLock(rwLock_foup_map_)
+	{
+		for(amhs_foup_map::iterator it = stocker_map_[nID]->foup_map.begin();
+			it != stocker_map_[nID]->foup_map.end(); ++it)
+		{
+			foup_vec.push_back(it->second);
+		}
+	}
+	return foup_vec;
+}
+
 void amhs_room::SendPacket(int nID, int nType, AMHSPacket& packet)
 {
 	amhs_participant_ptr pClient;
@@ -350,7 +364,6 @@ void amhs_room::Handle_STK_AckAlarms(amhs_participant_ptr, AMHSPacket& Packet)
 
 void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-	//Log.Warning("amhs_room", "Packet handle not implemented\n");
 	uint8 nID = 0;
 	uint8 nChaned = 0;
 	uint8 foupRoom = 0;
@@ -363,6 +376,41 @@ void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPack
 	Packet >> foupLot;
 	Packet >> foupBarCode;
 	Packet >> nInput;
+
+
+	printf("Foup Event  ---> stockerID: %u, ChangeStatus: %u, foupRoom: %u\n", nID, nChaned, foupRoom);
+
+	uint8 nAuthAck = 0;
+	WLock(rwLock_foup_map_)
+	{
+		amhs_stocker_map::iterator itStocker=stocker_map_.find(nID);
+		if (itStocker != stocker_map_.end())
+		{
+			nAuthAck = 0;
+		}
+		else
+		{
+			amhs_foup_map::iterator itFoup=stocker_map_[nID]->foup_map.find(foupBarCode);
+			if(itFoup != stocker_map_[nID]->foup_map.end())
+			{
+				nAuthAck=0;
+			}
+			else
+			{
+				amhs_foup_ptr pFoup = amhs_foup_ptr(new amhs_Foup());
+				pFoup->nChaned=nChaned;
+				pFoup->nfoupRoom=foupRoom;
+				pFoup->nLot=foupLot;
+				pFoup->nBarCode=foupBarCode;
+				pFoup->nLot=foupLot;
+				pFoup->nInput=nInput;
+				pFoup->p_participant = participants;
+				stocker_map_[nID]->foup_map.insert(std::make_pair(foupBarCode,pFoup));
+				nAuthAck = 1;
+			}
+		}
+	}
+
 
 	AMHSPacket ack(STK_MCS_ACK_FOUP_EVENT, 2);
 	ack << uint8(nID);
