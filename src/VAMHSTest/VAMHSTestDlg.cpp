@@ -377,6 +377,13 @@ void CVAMHSTestDlg::OnBnClickedBnStkIn()
 
 void CVAMHSTestDlg::OnBnClickedBnStkOut()
 {
+	CString str;
+	GetDlgItemText(IDC_SELECT_STK_EDIT,str);
+	if(str == "")
+	{
+		MessageBox(_T("Please Select the Stocker first!"));
+		return ;
+	}
 	int nFoup_ID = GetSelectFoupID();
 	CString strFoup;
 	strFoup.Format(_T("%d"),nFoup_ID);
