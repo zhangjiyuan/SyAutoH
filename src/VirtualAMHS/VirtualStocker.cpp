@@ -632,7 +632,8 @@ int VirtualStocker::FoupIntoRoom(int nID,int nBatchID)
 		ItemRoom item;
 		item.nFoupID = nID;
 		item.nStatus = 1;
-		for(it = m_mapRooms.begin();it != m_mapRooms.end();it++)
+		for(it = m_mapRooms.begin(); 
+		    it != m_mapRooms.end();it++)
 		{
 			if(it->second.nStatus == 0)
 			{

@@ -685,7 +685,7 @@ void CVAMHSTestDlg::ReadFOUPXML(int STK_ID)
 			    item->nProcessStatus = nStatus;
 				item->nBatchID = nBatchID;
 			    g_mapFoups.insert(std::make_pair(nID,item));
-				g_pVDev->STK_FoupInitRoom(selectSTK,item);
+				g_pVDev->STK_FoupInitRoom(STK_ID,item);
 			    CString str;
 			    m_listCtrlFOUP.InsertItem(0,str);
 			    SetFOUPListItemData(item,0);
