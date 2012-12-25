@@ -130,6 +130,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogWinClientCS", "logger\LogWinClientCS\LogWinClientCS.csproj", "{8B4D720A-A323-47E2-A215-B57DDCA254AB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "McsLogService", "logger\McsLogService\McsLogService.vcxproj", "{03B46C27-B63D-42B6-AEFA-C84B9857442A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{45248CA9-B633-414A-997B-A017462A7F7B} = {45248CA9-B633-414A-997B-A017462A7F7B}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "McsLogServicePS", "logger\McsLogService\McsLogServicePS.vcxproj", "{F7347B95-26DF-4E4F-AF05-1294CE28A396}"
 	ProjectSection(ProjectDependencies) = postProject
