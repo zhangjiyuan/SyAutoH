@@ -365,7 +365,6 @@ void amhs_room::Handle_STK_AckAlarms(amhs_participant_ptr, AMHSPacket& Packet)
 
 void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-	//Log.Warning("amhs_room", "Packet handle not implemented\n");
 	uint8 nID = 0;
 	uint8 nChaned = 0;
 	uint8 foupRoom = 0;
@@ -380,7 +379,7 @@ void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPack
 	Packet >> nInput;
 
 
-	printf("Foup Auth  ---> stockerID: %u, ChangeStatus: %u, foupRoom: %u\n", nID, nChaned, foupRoom);
+	printf("Foup Event  ---> stockerID: %u, ChangeStatus: %u, foupRoom: %u\n", nID, nChaned, foupRoom);
 
 	uint8 nAuthAck = 0;
 	WLock(rwLock_foup_map_)
@@ -597,7 +596,7 @@ void amhs_room::Handle_STK_Auth(amhs_participant_ptr participants, AMHSPacket& P
 		amhs_stocker_map::iterator it = stocker_map_.find(stockerID);
 		if (it != stocker_map_.end())
 		{
-			nAuthAck = 0;
+			nAuthAck = 1;
 		}
 		else
 		{
@@ -605,7 +604,7 @@ void amhs_room::Handle_STK_Auth(amhs_participant_ptr participants, AMHSPacket& P
 			pStocker->nID = stockerID;
 			pStocker->p_participant = participants;
 			stocker_map_.insert(std::make_pair(stockerID, pStocker));
-			nAuthAck = 1;
+			nAuthAck = 0;
 		}
 	}
 

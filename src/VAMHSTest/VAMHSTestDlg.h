@@ -78,10 +78,13 @@ public:
 	void ReadSTKXML();
 	void ReadFOUPXML(int STK_ID);
 	void DeleteFoupXML(int STK_ID,int Foup_ID);
+	void DeleteSTKXML(int STK_ID);
 	void AddFoupXMLElem(int STK_ID,int Foup_ID,ItemFoup* pFoup);
 	CStringW GetPath();
 	int selectSTK;
-	int foupNum;
+	//int foupNum;
 	afx_msg void OnNMClickListFoup2(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnClickedBnAddstk2();
+	afx_msg void OnBnClickedStkAllOnlineButton();
+	afx_msg void OnBnClickedDeleteStkButton();
 };

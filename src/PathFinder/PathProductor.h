@@ -10,7 +10,7 @@
 #include <vector>
 #include <list>
 #include <math.h>    // for sqrt
-
+#include <set>
 using namespace boost;
 using namespace std;
 
@@ -76,20 +76,18 @@ typedef vector<location> vec_location;
 typedef vector<lane_edge> vec_edge;
 typedef vector<cost> vec_cost;
 
+
 class CPathProductor;
 class CPathProductor  : public Singleton<CPathProductor>
 {
-	
-	
-
-	
-
 public:
 	CPathProductor(void);
 	~CPathProductor(void);
+
 private:
 	VEC_LANE m_vecLane;
-	map<int, ItemLane> m_mapLane;
+	map<int, ItemLane> mapLane;
+	map<int, int> mapPoint;
 
 	vec_int m_arrayBarCode;
 	vec_location m_arrayLocation;
