@@ -89,6 +89,10 @@ typedef std::vector<amhs_foup_ptr> amhs_foup_vec;
 typedef struct sData_Stocker
 {
 	int nID;
+	int nStatus;
+	int nAuto;
+	int nManu;
+	amhs_foup_vec last_opt_foup_vec;
 	amhs_foup_map foup_map;
 	amhs_participant_ptr p_participant;
 }amhs_Stocker;
@@ -115,8 +119,10 @@ public:
 
 public:
 	amhs_oht_vec GetOhtDataSet();
+
 	amhs_stocker_vec GetStkDataSet();
 	amhs_foup_vec GetStkFoupDataSet(int nID);
+	amhs_foup_vec GetStkLastOptFoup(int nID);
 
 private:
 	void Handle_OHT_AckStatusBackTime(amhs_participant_ptr, AMHSPacket&);
@@ -204,6 +210,8 @@ public:
 
 	amhs_stocker_vec STK_GetDataSet();
 	amhs_foup_vec STK_GetFoupDataSet(int nID);
+	amhs_foup_vec STK_GetLastOptFoup(int nID);
+
 	void STK_FOUP(int nID, int nMode, int nPick, int nFoupData);
 	void STK_Status(int nID);
 	void STK_Room(int nID);

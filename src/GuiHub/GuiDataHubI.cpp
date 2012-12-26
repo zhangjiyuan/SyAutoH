@@ -69,6 +69,12 @@ GuiDataHubI::GuiDataHubI(void)
 		&GuiDataHubI::Push_STK_DevInfo));
 	m_mapMakePush.insert(std::make_pair(GuiHub::upStkFoupsInfo,
 		&GuiDataHubI::Push_STK_FoupInfo));
+	m_mapMakePush.insert(std::make_pair(GuiHub::upStkLastOptFoup,
+		&GuiDataHubI::Push_STK_LastOptFoup));
+	m_mapMakePush.insert(std::make_pair(GuiHub::upStkStatus,
+		&GuiDataHubI::Push_STK_Status));
+	m_mapMakePush.insert(std::make_pair(GuiHub::upStkInputStatus,
+		&GuiDataHubI::Push_STK_InputStatus));
 
 	SetTimer();
 }

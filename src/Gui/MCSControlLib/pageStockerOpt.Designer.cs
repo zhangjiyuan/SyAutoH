@@ -75,7 +75,7 @@
             this.labelLastFoupAuto = new System.Windows.Forms.Label();
             this.tBLastFoupAuto = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.tBLastFoupEventDir = new System.Windows.Forms.TextBox();
             this.tBLastLot = new System.Windows.Forms.TextBox();
             this.lLastFoupID = new System.Windows.Forms.Label();
             this.tBLastBarCode = new System.Windows.Forms.TextBox();
@@ -491,7 +491,7 @@
             this.groupBox6.Controls.Add(this.labelLastFoupAuto);
             this.groupBox6.Controls.Add(this.tBLastFoupAuto);
             this.groupBox6.Controls.Add(this.label15);
-            this.groupBox6.Controls.Add(this.textBox14);
+            this.groupBox6.Controls.Add(this.tBLastFoupEventDir);
             this.groupBox6.Controls.Add(this.tBLastLot);
             this.groupBox6.Controls.Add(this.lLastFoupID);
             this.groupBox6.Controls.Add(this.tBLastBarCode);
@@ -564,13 +564,13 @@
             this.label15.TabIndex = 14;
             this.label15.Text = "Dir";
             // 
-            // textBox14
+            // tBLastFoupEventDir
             // 
-            this.textBox14.Location = new System.Drawing.Point(167, 49);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(48, 21);
-            this.textBox14.TabIndex = 15;
-            this.textBox14.TextChanged += new System.EventHandler(this.textBox14_TextChanged);
+            this.tBLastFoupEventDir.Location = new System.Drawing.Point(167, 49);
+            this.tBLastFoupEventDir.Name = "tBLastFoupEventDir";
+            this.tBLastFoupEventDir.Size = new System.Drawing.Size(48, 21);
+            this.tBLastFoupEventDir.TabIndex = 15;
+            this.tBLastFoupEventDir.TextChanged += new System.EventHandler(this.textBox14_TextChanged);
             // 
             // tBLastLot
             // 
@@ -766,7 +766,7 @@
         private System.Windows.Forms.Button bnAlarmHistory;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.TextBox tBLastFoupEventDir;
         private System.Windows.Forms.TextBox tBLastLot;
         private System.Windows.Forms.Label lLastFoupID;
         private System.Windows.Forms.TextBox tBLastBarCode;

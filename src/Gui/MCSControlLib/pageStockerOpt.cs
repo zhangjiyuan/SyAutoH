@@ -32,7 +32,7 @@ namespace MCSControlLib
 
         public override void PageInit()
         {
-            PushData[] cmds = new PushData[] { PushData.upStkFoupsInfo};
+            PushData[] cmds = new PushData[] { PushData.upStkFoupsInfo, PushData.upStkLastOptFoup, PushData.upStkStatus, PushData.upStkInputStatus };
             m_dataHub.Async_SetPushCmdList(cmds);
         }
 
@@ -45,6 +45,9 @@ namespace MCSControlLib
         protected override void InitProcessDictionary()
         {
             m_dictProcess.Add(PushData.upStkFoupsInfo, ProcessFoupsTable);
+            m_dictProcess.Add(PushData.upStkLastOptFoup, ProcessLastOptFoup);
+            m_dictProcess.Add(PushData.upStkStatus, ProcessStkStatus);
+            m_dictProcess.Add(PushData.upStkInputStatus, ProcessStkInputStatus);
         }
 
         private void InitFoupsInfoTable()
@@ -67,7 +70,7 @@ namespace MCSControlLib
         {
             if (item.Count > 1)
             {
-                byte nID = Convert.ToByte(item[0]);
+                byte nID = TryConver.ToByte(item[0].ToString());
                 if (nID == stockorId)
                 {
                     UInt16 nBarCode = Convert.ToUInt16(item[1]);
@@ -92,6 +95,130 @@ namespace MCSControlLib
                         row[TKey_Status] = nStatus;
                         m_tableFoupsInfo.Rows.Add(row);
                         m_tableFoupsInfo.AcceptChanges();
+                    }
+                }
+            }
+        }
+
+        private void ProcessLastOptFoup(ArrayList item)
+        {
+            if (item.Count > 1)
+            {
+                byte nID = TryConver.ToByte(item[0].ToString());
+                if (nID == stockorId)
+                {
+                    tBLastBarCode.Text = item[1].ToString();
+                    tBLastFoupID.Text = item[2].ToString();
+                    tBLastLot.Text = item[3].ToString();
+                    tBLastFoupEventDir.Text = item[4].ToString();
+                    UInt16 nInput=Convert.ToUInt16(item[5].ToString());
+                    if (1 == nInput)
+                    {
+                        tBLastFoupAuto.Text = "1";
+                        tBLastFoupManu.Text = "0";
+                    }
+                    else if (2 == nInput)
+                    {
+                        tBLastFoupAuto.Text = "2";
+                        tBLastFoupManu.Text = "0";
+                    }
+                    else if (3 == nInput)
+                    {
+                        tBLastFoupAuto.Text = "3";
+                        tBLastFoupManu.Text = "0";
+                    }
+                    else if (4 == nInput)
+                    {
+                        tBLastFoupAuto.Text = "4";
+                        tBLastFoupManu.Text = "0";
+                    }
+                    else if (5 == nInput)
+                    {
+                        tBLastFoupAuto.Text = "0";
+                        tBLastFoupManu.Text = "1";
+                    }
+                    else if (6 == nInput)
+                    {
+                        tBLastFoupAuto.Text = "0";
+                        tBLastFoupManu.Text = "2";
+                    }
+                    else if (7 == nInput)
+                    {
+                        tBLastFoupAuto.Text = "0";
+                        tBLastFoupManu.Text = "3";
+                    }
+                    else if (8 == nInput)
+                    {
+                        tBLastFoupAuto.Text = "0";
+                        tBLastFoupManu.Text = "4";
+                    }
+                }
+            }
+        }
+
+        private void ProcessStkStatus(ArrayList item)
+        {
+            if (item.Count == 2)
+            {
+                byte nID = TryConver.ToByte(item[0].ToString());
+                if (nID == stockorId)
+                {
+                    tBStkInfoStatus.Text = item[1].ToString();
+                    switch (Convert.ToInt16(item[1]))
+                    {
+                        case 0:
+                            tBStkInfoStatus.Text = "正常运行";
+                            break;
+                        case 1:
+                            tBStkInfoStatus.Text = "报警运行";
+                            break;
+                        case 2:
+                            tBStkInfoStatus.Text = "故障停机";
+                            break;
+                        default:
+                            tBStkInfoStatus.Text = "";
+                            break;
+                    }
+                }
+            }
+        }
+
+        private void ProcessStkInputStatus(ArrayList item)
+        {
+            if (item.Count > 1)
+            {
+                byte nID = TryConver.ToByte(item[0].ToString());
+                if (nID == stockorId)
+                {
+                    switch (Convert.ToInt16(item[1]))
+                    {
+                        case 0:
+                            tBPortStatusAuto.Text = "空闲";
+                            break;
+                        case 1:
+                            tBPortStatusAuto.Text = "繁忙";
+                            break;
+                        case 2:
+                            tBPortStatusAuto.Text = "故障";
+                            break;
+                        default:
+                            tBPortStatusAuto.Text = "";
+                            break;
+                    }
+                    switch (Convert.ToInt16(item[2]))
+                    {
+                        case 0:
+                            tBPortStatusManu.Text = "空闲";
+                            break;
+                        case 1:
+                            tBPortStatusManu.Text = "繁忙";
+                            break;
+                        case 2:
+                            tBPortStatusManu.Text = "故障";
+                            break;
+                        default:
+                            tBPortStatusManu.Text = "";
+                            break;
                     }
                 }
             }
@@ -169,11 +296,12 @@ namespace MCSControlLib
             else if (btn.Name == "btnFoupMoveOut")
                 nOpt = 1;
             byte nMode = TryConver.ToByte(cBFoupMove.SelectedIndex.ToString());
-            int nData = Convert.ToInt32(tBFoupMove.Text);
+            int nData =TryConver.ToInt32(tBFoupMove.Text);
             string strVal;
             strVal = string.Format("<{0},{1},{2},{3}>", nID, nOpt, nMode, nData);
 
             int nWRet = m_dataHub.WriteData(GuiCommand.StkHandFoup, strVal);
+
         }
 
         private void btnGetPortStatus_Click(object sender, EventArgs e)

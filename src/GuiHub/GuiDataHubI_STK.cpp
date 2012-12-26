@@ -51,6 +51,66 @@ GuiDataItem GuiDataHubI::Push_STK_FoupInfo()
 	return item;
 }
 
+GuiDataItem GuiDataHubI::Push_STK_LastOptFoup()
+{
+	GuiDataItem item;
+	item.enumTag=GuiHub::upStkLastOptFoup;
+	string strGuiData="";
+	char buf[256]="";
+
+	DR_STK_LIST stk_list = m_pAMHSDrive->GetStkList();
+	for (DR_STK_LIST::iterator it = stk_list.begin(); 
+		it != stk_list.end(); ++it)
+	{
+		DR_FOUP_LIST foup_list=m_pAMHSDrive->GetStkLastOptFoup(it->nID);
+		for(DR_FOUP_LIST::iterator itFoup = foup_list.begin();
+			itFoup != foup_list.end(); ++itFoup)
+		{
+			sprintf_s(buf, 256, "<%d,%d,%d,%d,%d,%d>",
+				it->nID,itFoup->nBarCode, itFoup->nfoupRoom, itFoup->nLot, itFoup->nChaned, itFoup->nInput);
+			strGuiData += buf;
+		}
+	}
+	item.sVal=strGuiData;
+	return item;
+}
+
+GuiDataItem GuiDataHubI::Push_STK_Status()
+{
+	GuiDataItem item;
+	item.enumTag = GuiHub::upStkStatus;
+	string strGuiData="";
+	char buf[256]="";
+
+	DR_STK_LIST stk_list = m_pAMHSDrive->GetStkList();
+	for (DR_STK_LIST::iterator it = stk_list.begin(); 
+		it != stk_list.end(); ++it)
+	{
+		sprintf_s(buf, 256, "<%d,%d>", it->nID, it->nStatus);
+		strGuiData += buf;
+	}
+	item.sVal = strGuiData;
+	return item;
+}
+
+GuiDataItem GuiDataHubI::Push_STK_InputStatus()
+{
+	GuiDataItem item;
+	item.enumTag=GuiHub::upStkInputStatus;
+	string strGuiData="";
+	char buf[256]="";
+
+	DR_STK_LIST stk_list = m_pAMHSDrive->GetStkList();
+	for (DR_STK_LIST::iterator it = stk_list.begin(); 
+		it != stk_list.end(); ++it)
+	{
+		sprintf_s(buf, 256, "<%d,%d,%d>", it->nID, it->nAuto, it->nManu);
+		strGuiData += buf;
+	}
+	item.sVal = strGuiData;
+	return item;
+}
+
 void GuiDataHubI::STK_SetStatusBackTime(const std::string& strVal, const ::Ice::Current&)
 {
 	STR_VEC vecStr = GetVecStrings(strVal);

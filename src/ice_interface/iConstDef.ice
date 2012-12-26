@@ -50,7 +50,10 @@ module MCS
 				
 				upStkInfo,
 				upStkFoupsInfo,
-				upStkStockerStatus
+				upStkStockerStatus,
+				upStkLastOptFoup,
+				upStkStatus,
+				upStkInputStatus
 			};
 			sequence<PushData> GuiPushDataList;
 		
