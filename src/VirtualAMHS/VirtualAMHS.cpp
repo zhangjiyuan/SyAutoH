@@ -368,6 +368,7 @@ int CVirtualAMHS::Stocker_ManualOutputFoup(int nStocker,const TCHAR* sFoupID)
 	}
 	return 0;
 }
+
 int CVirtualAMHS::STK_FoupInitRoom(int nStockerID,ItemFoup *pFoup)
 {
 	MAP_VSTK::iterator it;

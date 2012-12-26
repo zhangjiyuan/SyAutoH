@@ -203,7 +203,6 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 				int nID = 0;
 				for(it = m_mapFoups.begin();it != m_mapFoups.end();it++)
 				{
-					
 					if(nID <= it->first)
 					{
 						nID = it->first;
