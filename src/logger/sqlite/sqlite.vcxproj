@@ -58,7 +58,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ImportLibrary>../lib/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>../../lib/$(TargetName).lib</ImportLibrary>
       <ModuleDefinitionFile>sqlite3.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
@@ -85,10 +85,10 @@
     <ClCompile Include="sqlite3.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\sqlite3.h" />
+    <None Include="sqlite3.def" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="sqlite3.def" />
+    <ClInclude Include="..\..\include\sqlite3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
