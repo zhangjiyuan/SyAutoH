@@ -603,7 +603,7 @@ namespace RailDraw
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.Name = "FatherWindow";
-            this.Text = "RailDraw";
+            this.Text = "Rails Map Editor";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FatherWindow_FormClosing);
             this.Load += new System.EventHandler(this.FatherWindow_Load);

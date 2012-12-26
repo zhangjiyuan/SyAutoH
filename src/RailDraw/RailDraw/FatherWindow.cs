@@ -289,6 +289,8 @@ namespace RailDraw
                     ds.ReadXml(projectpath);
                     if (OpenXmlFile(ds))
                         BaseRailElement.ObjectBaseEvents.Document = drawDoc;
+                    sProjectPath = projectpath;
+                    this.Text = sProjectPath + "  -  Rails Map Editor";
                 }
                 catch
                 {
