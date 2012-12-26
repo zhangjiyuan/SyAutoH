@@ -6,6 +6,7 @@
 MESLink.Endpoints=tcp -p 21200
 UserAce.Endpoints=tcp -p 21210
 DataHub.Endpoints=tcp -p 21220
+ICLog.Endpoints=tcp -p 21240
 
 #
 # Warn about connection exceptions

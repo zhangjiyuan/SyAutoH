@@ -22,9 +22,9 @@ void CPathProductor::GetLaneData(void)
 	for (auto it = vecLane.cbegin();
 		it != vecLane.cend(); ++it)
 	{
-		printf("Lane: %d, s: %d e: %d, p: %d n: %d, f: %d, t: %d, l: %d\r\n",
-			it->nID, it->nStart, it->nEnd, it->nPrevLane, it->nNextLane, it->nNextFork, it->nType, 
-			it->nLength);
+		//printf("Lane: %d, s: %d e: %d, p: %d n: %d, f: %d, t: %d, l: %d\r\n",
+		//	it->nID, it->nStart, it->nEnd, it->nPrevLane, it->nNextLane, it->nNextFork, it->nType, 
+		//	it->nLength);
 		setPoint.insert(it->nStart);
 		setPoint.insert(it->nEnd);
 		mapLane[it->nID] = *it;
@@ -66,11 +66,26 @@ void CPathProductor::GetLaneData(void)
 			m_arrayEdge.push_back(lane_edge(nIndexStart, nIndexEnd));
 			m_arrayWeights.push_back(it->nLength);
 			// todo: find nLoopNodeStart, nLoopNodeEnd
-
+			auto itNextLane = mapLane.find(it->nNextLane);
+			if ( itNextLane != mapLane.cend())
+			{
+				// the end point of the last lane don't equal the start point of the first lane.
+				// but the two points will be the same point.
+				if (it->nEnd != itNextLane->second.nStart) 
+				{
+					nLoopNodeStart = nIndexEnd;
+				}
+				// the first lane have not prev lane, the prevlane id is -1
+				else if(it->nPrevLane == -1) 
+				{
+					nLoopNodeEnd = nIndexStart;
+				}
+			}
 		}
 	}
 
-	if (nLoopNodeStart > 0 && nLoopNodeEnd > 0)
+	// add virtual lane to complete the rail to a loop
+	if (nLoopNodeStart >= 0 && nLoopNodeEnd >= 0)
 	{
 		m_arrayEdge.push_back(lane_edge(nLoopNodeStart, nLoopNodeEnd));
 		m_arrayWeights.push_back(0);
@@ -80,30 +95,6 @@ void CPathProductor::GetLaneData(void)
 
 void CPathProductor::InitGraph(void)
 {
-
-	/*const int N = 14;
-	int nBarCodeBegin = 100;
-	int nBarCodeEnd = 1000;
-
-	for (int i=0; i<N; i++)
-	{
-		m_arrayBarCode.push_back(nBarCodeBegin);
-		nBarCodeBegin += 100;
-
-		location loc;
-		loc.x = nBarCodeBegin;
-		loc.y = 10;
-		m_arrayLocation.push_back(loc);
-
-		if (i<N-1)
-		{
-			m_arrayEdge.push_back(lane_edge(i, i+1));
-			m_arrayWeights.push_back(nBarCodeBegin);
-		}
-	}
-
-	m_arrayEdge.push_back(lane_edge(13, 0));
-	m_arrayWeights.push_back(0);*/
 
 }
 
