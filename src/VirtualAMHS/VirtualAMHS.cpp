@@ -342,7 +342,8 @@ int CVirtualAMHS::Stocker_ManualInputFoup(int nStocker,const TCHAR* sFoupID,int 
 	if (it != m_mapSTK->end())
 	{
 		VirtualStocker* stocker = it->second;
-		stocker->ManualInputFoup(sFoupID,nBatchID);
+		int nFoupID = _wtoi(sFoupID);
+		stocker->ManualInputFoup(nFoupID,nBatchID);
 	}
 	else
 	{
@@ -359,7 +360,8 @@ int CVirtualAMHS::Stocker_ManualOutputFoup(int nStocker,const TCHAR* sFoupID)
 	if (it != m_mapSTK->end())
 	{
 		VirtualStocker* stocker = it->second;
-		stocker->ManualOutputFoup(sFoupID);
+		int nFoupID = _wtoi(sFoupID);
+		stocker->ManualOutputFoup(nFoupID);
 	}
 	else
 	{

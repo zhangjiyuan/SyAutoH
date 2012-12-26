@@ -101,9 +101,8 @@ int VirtualStocker::UpdateFoupInfo()
 	return 0;
 }
 
-int VirtualStocker::ManualInputFoup(const TCHAR* sFoupID,int nBatchID)
+int VirtualStocker::ManualInputFoup(int nFoupID,int nBatchID)
 {
-	int nFoupID = _wtoi(sFoupID);
 	MAP_VFOUP::iterator it;
 	it = m_mapFoups.find(nFoupID);
 	if (it == m_mapFoups.end())
@@ -142,10 +141,8 @@ int VirtualStocker::History()
 	return 0;
 }
 
-int VirtualStocker::ManualOutputFoup(const TCHAR* sFoupID)
+int VirtualStocker::ManualOutputFoup(int nFoupID)
 {
-	int nFoupID = _wtoi(sFoupID);
-
 	AMHSPacket Packet(STK_FOUP_EVENT, 8);
 	Packet << uint8(DeviceID());
 	Packet << uint8(1); // output
@@ -221,6 +218,8 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 			    FoupPacket << (uint8)(DeviceID());
 			    FoupPacket << (uint8)(0);
 			    SendPacket(FoupPacket);
+				ManualInputFoup(CFoup.nID,CFoup.nBatchID);
+				
 			}
 		    else
 			{
@@ -250,6 +249,7 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 			    FoupPacket << (uint8)(DeviceID());
 			    FoupPacket << (uint8)(0);
 			    SendPacket(FoupPacket);
+				ManualInputFoup(CFoup.nID,CFoup.nBatchID);
 			}
 			else
 			{
@@ -290,6 +290,7 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 			        FoupPacket << (uint8)(DeviceID());
 			        FoupPacket << (uint8)(0);
 			        SendPacket(FoupPacket);
+					ManualOutputFoup(CFoup.nID);
 				    return ;
 			    }
 		     }
@@ -319,6 +320,7 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 			    FoupPacket << (uint8)(DeviceID());
 			    FoupPacket << (uint8)(0);
 			    SendPacket(FoupPacket);
+				ManualOutputFoup(CFoup.nID);
 				return ;
 			}
 		}
