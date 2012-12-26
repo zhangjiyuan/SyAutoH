@@ -1,0 +1,18 @@
+// McsLogService.idl : McsLogService 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(McsLogService.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(370D5E92-F8A2-4084-882E-C678A81F4A01),
+	version(1.0),
+]
+library McsLogServiceLib
+{
+	importlib("stdole2.tlb");
+};
+

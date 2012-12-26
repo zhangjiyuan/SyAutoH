@@ -8,6 +8,7 @@
 #include "../MesLink/MesLink.h"
 #include "../SqlAceCli/SqlAceCli.h"
 #include "../GuiHub/GuiHub.h"
+#include "logclient.h"
 
 using namespace std;
 
@@ -46,7 +47,7 @@ void MMoveCtrlServer::Run(int argc, _TCHAR** argv)
 		cout<< "MCS Init failed." << endl;
 		return;
 	}
-
+	LogS(10, LogType::Info, "MCS", "MCS Started.");
 	
 
 	//if(authsockcreated && intersockcreated)

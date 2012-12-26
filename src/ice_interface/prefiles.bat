@@ -11,4 +11,7 @@ slice2cs ../ice_interface/iGuiHub.ice  --output-dir ../common
 slice2cpp ../ice_interface/iConstDef.ice --add-header "stdafx.h" --output-dir ../common
 slice2cs ../ice_interface/iConstDef.ice  --output-dir ../common
 
+slice2cpp ../ice_interface/iLog.ice --add-header "stdafx.h" --output-dir ../common
+slice2cs ../ice_interface/iLog.ice  --output-dir ../common
+
 pause
