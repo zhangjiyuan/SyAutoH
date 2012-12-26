@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -62,6 +63,8 @@ namespace RailDraw
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+     
+
             ((FatherWindow)this.ParentForm).drawDoc.Draw(e.Graphics);
             g.ResetTransform();
             base.OnPaint(e);

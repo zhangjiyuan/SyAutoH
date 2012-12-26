@@ -153,6 +153,7 @@ namespace RailDraw
             saveFile.Title = "另存为文件";
             saveFile.FileName = "";
             SaveFile(saveFile);
+            UpdateFormTitle();
         }
 
         private void menuClose_Click(object sender, EventArgs e)
@@ -243,6 +244,7 @@ namespace RailDraw
                         saveFile.Title = "存储文件";
                         saveFile.FileName = "";
                         SaveFile(saveFile);
+                        UpdateFormTitle();
                         drawDoc.DrawObjectList.Clear();
                         drawDoc.SelectedDrawObjectList.Clear();
                         proRegion.treeNodeList.Clear();
@@ -260,6 +262,10 @@ namespace RailDraw
                         break;
                 }
             }
+        }
+        private void UpdateFormTitle()
+        {
+            this.Text = sProjectPath + "  -  Rails Map Editor";
         }
 
         private void open_Click(object sender, EventArgs e)
@@ -290,7 +296,7 @@ namespace RailDraw
                     if (OpenXmlFile(ds))
                         BaseRailElement.ObjectBaseEvents.Document = drawDoc;
                     sProjectPath = projectpath;
-                    this.Text = sProjectPath + "  -  Rails Map Editor";
+                    UpdateFormTitle();
                 }
                 catch
                 {
@@ -448,6 +454,8 @@ namespace RailDraw
                     string projectpath = sFile.FileName;
                     drawDoc.DataXmlSave();
                     drawDoc.ds.WriteXml(projectpath);
+                    sProjectPath = projectpath;
+                    UpdateFormTitle();
                 }
                 catch
                 {

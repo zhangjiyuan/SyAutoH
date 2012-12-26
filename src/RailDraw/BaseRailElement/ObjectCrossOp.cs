@@ -53,8 +53,8 @@ namespace BaseRailElement
         {
             if (canvas == null)
                 throw new Exception("Graphics对象Canvas不能为空");
-            Pen pen = new Pen(Color.White, 2);
-            SolidBrush bsh = new SolidBrush(Color.Black);
+            Pen pen = new Pen(Color.Blue, 1);
+            //SolidBrush bsh = new SolidBrush(Color.Blue);
             Point[] pts = new Point[4];
             pts[0] = pointList[0];
             pts[1] = pointList[3];
@@ -69,12 +69,12 @@ namespace BaseRailElement
             }
             for (int i = 0; i < 4; i++)
             {
-                Rectangle rc = new Rectangle(pts[i].X - 2, pts[i].Y - 2, 4, 4);
+                Rectangle rc = new Rectangle(pts[i].X - 4, pts[i].Y - 4, 8, 8);
                 canvas.DrawRectangle(pen, rc);
-                canvas.FillRectangle(bsh, rc);
+                //canvas.FillRectangle(bsh, rc);
             }
             pen.Dispose();
-            bsh.Dispose();
+            //bsh.Dispose();
         }
 
         public int HitTest(

@@ -128,6 +128,11 @@ namespace BaseRailElement
 
         public override void Draw(Graphics canvas)
         {
+            // setting smoothing mode
+            canvas.SmoothingMode = SmoothingMode.HighQuality;
+            canvas.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+
+
             int n = drawObjectList.Count;
             for (int i = 0; i < n; i++)
             {

@@ -22,8 +22,8 @@ namespace BaseRailElement
             Point center = new Point(centerDot.X * drawMultiFactor, centerDot.Y * drawMultiFactor);
             int radiu = radiuArc * drawMultiFactor;
             Point[] points = new Point[4];
-            Pen pen = new Pen(Color.White, 2);
-            SolidBrush bsh = new SolidBrush(Color.Black);
+            Pen pen = new Pen(Color.Blue, 1);
+            //SolidBrush bsh = new SolidBrush(Color.Black);
             switch (direction)
             {
                 case CurvedRailEle.DirectonCurved.first:
@@ -55,12 +55,12 @@ namespace BaseRailElement
             }
             for (int i = 0; i < 4; i++)
             {
-                Rectangle rc = new Rectangle(points[i].X - 2, points[i].Y - 2, 4, 4);
+                Rectangle rc = new Rectangle(points[i].X - 4, points[i].Y - 4, 8, 8);
                 canvas.DrawRectangle(pen, rc);
-                canvas.FillRectangle(bsh, rc);
+                //canvas.FillRectangle(bsh, rc);
             }
             pen.Dispose();
-            bsh.Dispose();
+            //bsh.Dispose();
         }
 
         public int HitTest(

@@ -24,7 +24,7 @@ namespace BaseRailElement
         private string startDot = "first dot";
         public DataTable dt = new DataTable();
         private PenStyle linePen = new PenStyle();
-        private Pen pen = new Pen(Color.Black, 1);
+        private Pen pen = new Pen(Color.Black, 3);
 
         [Category("其他")]
         public int Lenght
@@ -113,9 +113,11 @@ namespace BaseRailElement
         public StraightRailEle() 
         { 
             GraphType = 1;
+            linePen.Width = 3.0f;
             pen.Color = linePen.Color;
             pen.Width = linePen.Width;
             pen.DashStyle = linePen.DashStyle;
+            pen.EndCap = LineCap.ArrowAnchor;
         }
 
         public StraightRailEle CreateEle(Point pt, Size size, Int16 multiFactor, string text)
@@ -174,6 +176,7 @@ namespace BaseRailElement
             }
             for (int i = 0; i < n; i++)
                 pts[i].Offset(pts[i].X * (DrawMultiFactor - 1), pts[i].Y * (DrawMultiFactor - 1));
+            
             canvas.DrawLines(pen, pts);
         }
 

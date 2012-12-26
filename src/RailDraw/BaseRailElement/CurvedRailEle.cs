@@ -107,9 +107,11 @@ namespace BaseRailElement
         public CurvedRailEle() 
         {
             GraphType = 2;
+            curvePen.Width = 3.0f;
             pen.Color = curvePen.Color;
             pen.Width = curvePen.Width;
             pen.DashStyle = curvePen.DashStyle;
+            pen.EndCap = LineCap.ArrowAnchor;
         }
 
         public CurvedRailEle CreateEle(Point centerDot, Size size, Int16 multiFactor, string text)

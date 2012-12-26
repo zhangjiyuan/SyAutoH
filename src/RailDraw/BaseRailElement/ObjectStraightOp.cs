@@ -30,19 +30,19 @@ namespace BaseRailElement
             int n = pointList.Count;
             Point[] pts = new Point[n];
             pointList.CopyTo(pts);
-            Pen pen = new Pen(Color.White);
-            pen.Width = 2;
-            SolidBrush bsh = new SolidBrush(Color.Black);
+            Pen pen = new Pen(Color.Blue);
+            pen.Width = 1;
+            //SolidBrush bsh = new SolidBrush(Color.White);
             for (int i = 0; i < n; i++)
             {
                 Point pt = pts[i];
                 pt.Offset(pt.X * (drawMultiFactor - 1), pt.Y * (drawMultiFactor - 1));
-                Rectangle rc = new Rectangle(pt.X - 2, pt.Y - 2, 4, 4);
+                Rectangle rc = new Rectangle(pt.X - 4, pt.Y - 4, 8, 8);
                 canvas.DrawRectangle(pen, rc);
-                canvas.FillRectangle(bsh, rc);
+                //canvas.FillRectangle(bsh, rc);
             }
             pen.Dispose();
-            bsh.Dispose();
+            //bsh.Dispose();
         }
 
         public int HitTest(Point point, bool isSelected)

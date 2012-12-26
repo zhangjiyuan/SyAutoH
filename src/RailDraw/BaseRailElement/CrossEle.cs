@@ -179,6 +179,7 @@ namespace BaseRailElement
         public CrossEle()
         {
             GraphType = 3;
+            crossPen.Width = 3.0f;
             pen.Color = crossPen.Color;
             pen.Width = crossPen.Width;
             pen.DashStyle = crossPen.DashStyle;
