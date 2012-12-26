@@ -1125,7 +1125,7 @@ void CVAMHSTestDlg::SetFOUPListItemData(ItemFoup* pFoup,int nListIndex)
 	m_listCtrlFOUP.SetItemText(nListIndex,0,str);
 	str.Format(_T("%d"),pFoup->nRoomID);
 	m_listCtrlFOUP.SetItemText(nListIndex,1,str);
-	m_listCtrlFOUP.SetItemText(nListIndex,2,_T("Idle"));
+	m_listCtrlFOUP.SetItemText(nListIndex,2,_T("working"));
 	str.Format(_T("%d"),pFoup->nBatchID);
 	m_listCtrlFOUP.SetItemText(nListIndex,3,str);
 	m_listCtrlFOUP.SetItemData(nListIndex,pFoup->nID);
