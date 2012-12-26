@@ -103,6 +103,9 @@ private:
 
 	GuiDataItem Push_STK_DevInfo();
 	GuiDataItem Push_STK_FoupInfo();
+	GuiDataItem Push_STK_LastOptFoup();
+	GuiDataItem Push_STK_Status();
+	GuiDataItem Push_STK_InputStatus();
 
 private:
 	SYSTEMTIME ToTime(std::string&);

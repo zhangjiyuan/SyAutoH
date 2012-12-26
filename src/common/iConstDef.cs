@@ -60,7 +60,10 @@ namespace MCS
             upOhtStatus,
             upStkInfo,
             upStkFoupsInfo,
-            upStkStockerStatus
+            upStkStockerStatus,
+            upStkLastOptFoup,
+            upStkStatus,
+            upStkInputStatus
         }
     }
 }
@@ -90,7 +93,7 @@ namespace MCS
                     os__.writeSize(v__.Length);
                     for(int ix__ = 0; ix__ < v__.Length; ++ix__)
                     {
-                        os__.writeByte((byte)v__[ix__], 7);
+                        os__.writeByte((byte)v__[ix__], 10);
                     }
                 }
             }
@@ -103,7 +106,7 @@ namespace MCS
                     v__ = new MCS.GuiHub.PushData[szx__];
                     for(int ix__ = 0; ix__ < szx__; ++ix__)
                     {
-                        v__[ix__] = (MCS.GuiHub.PushData)is__.readByte(7);
+                        v__[ix__] = (MCS.GuiHub.PushData)is__.readByte(10);
                     }
                 }
                 return v__;

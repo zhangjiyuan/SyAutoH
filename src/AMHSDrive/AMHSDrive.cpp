@@ -35,6 +35,9 @@ int CAMHSDrive::Init()
 void CopySTKStruct(driveSTK& target, amhs_stocker_ptr& src)
 {
 	target.nID = src->nID;
+	target.nStatus = src->nStatus;
+	target.nAuto = src->nAuto;
+	target.nManu = src->nManu;
 }
 
 void CopyFOUPStruct(driveFOUP& target, amhs_foup_ptr& src)
@@ -92,6 +95,22 @@ DR_FOUP_LIST CAMHSDrive::GetStkFoupList(int nID)
 		CopyFOUPStruct(dFoup, sp_foup);
 		list.push_back(dFoup);
 	}
+	return list;
+}
+
+DR_FOUP_LIST CAMHSDrive::GetStkLastOptFoup(int nID)
+{
+	DR_FOUP_LIST list;
+	amhs_foup_vec foup_vec=sAmhsServer.GetServer()->STK_GetLastOptFoup(nID);
+	for(amhs_foup_vec::iterator it=foup_vec.begin();
+		it != foup_vec.end(); ++it)
+	{
+		amhs_foup_ptr sp_foup= *it;
+		driveFOUP dFoup;
+		CopyFOUPStruct(dFoup, sp_foup);
+		list.push_back(dFoup);
+	}
+
 	return list;
 }
 
