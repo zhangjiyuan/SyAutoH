@@ -111,12 +111,19 @@
             // 
             // dataGridViewFoupsInStocker
             // 
+            this.dataGridViewFoupsInStocker.AllowUserToAddRows = false;
+            this.dataGridViewFoupsInStocker.AllowUserToDeleteRows = false;
+            this.dataGridViewFoupsInStocker.AllowUserToResizeRows = false;
             this.dataGridViewFoupsInStocker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridViewFoupsInStocker.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewFoupsInStocker.Location = new System.Drawing.Point(3, 15);
+            this.dataGridViewFoupsInStocker.MultiSelect = false;
             this.dataGridViewFoupsInStocker.Name = "dataGridViewFoupsInStocker";
+            this.dataGridViewFoupsInStocker.ReadOnly = true;
+            this.dataGridViewFoupsInStocker.RowHeadersVisible = false;
             this.dataGridViewFoupsInStocker.RowTemplate.Height = 23;
+            this.dataGridViewFoupsInStocker.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewFoupsInStocker.Size = new System.Drawing.Size(345, 311);
             this.dataGridViewFoupsInStocker.TabIndex = 1;
             this.dataGridViewFoupsInStocker.SelectionChanged += new System.EventHandler(this.dataGridViewFoupsInStocker_SelectionChanged);

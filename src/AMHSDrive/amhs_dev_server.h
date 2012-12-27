@@ -93,6 +93,7 @@ typedef struct sData_Stocker
 	int nAuto;
 	int nManu;
 	amhs_foup_vec last_opt_foup_vec;
+	amhs_foup_vec foup_erase_vec;
 	amhs_foup_map foup_map;
 	amhs_participant_ptr p_participant;
 }amhs_Stocker;
@@ -122,6 +123,7 @@ public:
 
 	amhs_stocker_vec GetStkDataSet();
 	amhs_foup_vec GetStkFoupDataSet(int nID);
+	amhs_foup_vec GetStkEraseFoupDataSet(int nID);
 	amhs_foup_vec GetStkLastOptFoup(int nID);
 
 private:
@@ -210,6 +212,7 @@ public:
 
 	amhs_stocker_vec STK_GetDataSet();
 	amhs_foup_vec STK_GetFoupDataSet(int nID);
+	amhs_foup_vec STK_GetEraseFoupDataSet(int nID);
 	amhs_foup_vec STK_GetLastOptFoup(int nID);
 
 	void STK_FOUP(int nID, int nMode, int nPick, int nFoupData);
