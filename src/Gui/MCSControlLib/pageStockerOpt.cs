@@ -260,7 +260,13 @@ namespace MCSControlLib
 
         private void linkLabelStkFoupRefresh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            
+            byte nID = stockorId;
+            string strVal;
+            strVal = string.Format("<{0}>", nID);
+
+            int nWRet = m_dataHub.WriteData(GuiCommand.StkInquiryStorage, strVal);
+
+            m_tableFoupsInfo.Rows.Clear();
         }
 
         private void btnBackTimeStatus_Click(object sender, EventArgs e)

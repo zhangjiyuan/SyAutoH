@@ -451,7 +451,7 @@ void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPack
 			amhs_foup_map::iterator itFoup=itStocker->second->foup_map.find(foupBarCode);
 			if(itFoup != itStocker->second->foup_map.end())
 			{
-				if(1 == nChaned && (5 == nInput || 6 == nInput || 7 == nInput || 8 == nInput))
+				if(1 == nChaned)
 				{
 					itFoup->second->nChaned = nChaned;
 					itFoup->second->nfoupRoom = foupRoom;
@@ -461,15 +461,6 @@ void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPack
 					itStocker->second->last_opt_foup_vec.push_back(itFoup->second);
 					itStocker->second->foup_erase_vec.push_back(itFoup->second);
 					itStocker->second->foup_map.erase(foupBarCode);
-				}
-				else if((0 == nChaned && 1 == itFoup->second->nChaned) || (1 == nChaned && 0 ==itFoup->second->nChaned))
-				{
-					itFoup->second->nChaned = nChaned;
-					itFoup->second->nfoupRoom = foupRoom;
-					itFoup->second->nInput = nInput;
-					itFoup->second->nLot = foupLot;
-					itStocker->second->last_opt_foup_vec.clear();
-					itStocker->second->last_opt_foup_vec.push_back(itFoup->second);
 				}
 				nAuthAck=0;
 			}
