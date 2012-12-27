@@ -292,7 +292,7 @@
             this.checkBoxAll.TabIndex = 20;
             this.checkBoxAll.Text = "All";
             this.checkBoxAll.UseVisualStyleBackColor = true;
-            this.checkBoxAll.CheckedChanged += new System.EventHandler(this.checkBoxAll_CheckedChanged);
+            //this.checkBoxAll.CheckedChanged += new System.EventHandler(this.checkBoxAll_CheckedChanged);
             // 
             // label7
             // 
@@ -310,7 +310,7 @@
             this.tBOnlineIDS.Name = "tBOnlineIDS";
             this.tBOnlineIDS.Size = new System.Drawing.Size(83, 21);
             this.tBOnlineIDS.TabIndex = 18;
-            this.tBOnlineIDS.TextChanged += new System.EventHandler(this.tBOnlineIDS_TextChanged);
+            //this.tBOnlineIDS.TextChanged += new System.EventHandler(this.tBOnlineIDS_TextChanged);
             // 
             // tabPage2
             // 
