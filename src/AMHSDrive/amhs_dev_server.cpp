@@ -50,6 +50,11 @@ amhs_foup_vec amhs_dev_server::STK_GetFoupDataSet(int nID)
 	return room_.GetStkFoupDataSet(nID);
 }
 
+amhs_foup_vec amhs_dev_server::STK_GetEraseFoupDataSet(int nID)
+{
+	return room_.GetStkEraseFoupDataSet(nID);
+}
+
 amhs_foup_vec amhs_dev_server::STK_GetLastOptFoup(int nID)
 {
 	return room_.GetStkLastOptFoup(nID);

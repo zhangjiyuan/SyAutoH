@@ -42,8 +42,16 @@ GuiDataItem GuiDataHubI::Push_STK_FoupInfo()
 		for(DR_FOUP_LIST::iterator itFoup = foup_list.begin();
 			itFoup != foup_list.end(); ++itFoup)
 		{
-			sprintf_s(buf, 256, "<%d,%d,%d,%d,%d>",
-				it->nID,itFoup->nBarCode, itFoup->nfoupRoom, itFoup->nLot, itFoup->nChaned);
+			sprintf_s(buf, 256, "<%d,%d,%d,%d,%d,%d>",
+				it->nID,itFoup->nBarCode, itFoup->nfoupRoom, itFoup->nLot, itFoup->nChaned, 0);
+			strGuiData += buf;
+		}
+		DR_FOUP_LIST foup_erase_list = m_pAMHSDrive->GetStkFoupEraseList(it->nID);
+		for(DR_FOUP_LIST::iterator itFoup = foup_erase_list.begin();\
+			itFoup != foup_erase_list.end(); ++itFoup)
+		{
+			sprintf_s(buf, 256, "<%d,%d,%d,%d,%d,%d>",
+				it->nID,itFoup->nBarCode, itFoup->nfoupRoom, itFoup->nLot, itFoup->nChaned, 1);
 			strGuiData += buf;
 		}
 	}

@@ -128,6 +128,22 @@ amhs_foup_vec amhs_room::GetStkFoupDataSet(int nID)
 	return foup_vec;
 }
 
+amhs_foup_vec amhs_room::GetStkEraseFoupDataSet(int nID)
+{
+	amhs_foup_vec foup_vec;
+	RLock(rwLock_foup_map_)
+	{
+		amhs_stocker_map::iterator itStocker=stocker_map_.find(nID);
+		for(amhs_foup_vec::iterator itFoup = itStocker->second->foup_erase_vec.begin();
+			itFoup != itStocker->second->foup_erase_vec.end(); ++itFoup)
+		{
+			foup_vec.push_back(*itFoup);
+		}
+		itStocker->second->foup_erase_vec.clear();
+	}
+	return foup_vec;
+}
+
 amhs_foup_vec amhs_room::GetStkLastOptFoup(int nID)
 {
 	amhs_foup_vec foup_vec;
@@ -435,7 +451,7 @@ void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPack
 			amhs_foup_map::iterator itFoup=itStocker->second->foup_map.find(foupBarCode);
 			if(itFoup != itStocker->second->foup_map.end())
 			{
-				if(0 == nChaned && 1 == itFoup->second->nChaned)
+				if(1 == nChaned && (5 == nInput || 6 == nInput || 7 == nInput || 8 == nInput))
 				{
 					itFoup->second->nChaned = nChaned;
 					itFoup->second->nfoupRoom = foupRoom;
@@ -443,8 +459,10 @@ void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPack
 					itFoup->second->nLot = foupLot;
 					itStocker->second->last_opt_foup_vec.clear();
 					itStocker->second->last_opt_foup_vec.push_back(itFoup->second);
+					itStocker->second->foup_erase_vec.push_back(itFoup->second);
+					itStocker->second->foup_map.erase(foupBarCode);
 				}
-				else if(1 == nChaned && 0 ==itFoup->second->nChaned)
+				else if((0 == nChaned && 1 == itFoup->second->nChaned) || (1 == nChaned && 0 ==itFoup->second->nChaned))
 				{
 					itFoup->second->nChaned = nChaned;
 					itFoup->second->nfoupRoom = foupRoom;

@@ -98,6 +98,21 @@ DR_FOUP_LIST CAMHSDrive::GetStkFoupList(int nID)
 	return list;
 }
 
+DR_FOUP_LIST CAMHSDrive::GetStkFoupEraseList(int nID)
+{
+	DR_FOUP_LIST list;
+	amhs_foup_vec foup_vec = sAmhsServer.GetServer()->STK_GetEraseFoupDataSet(nID);
+	for(amhs_foup_vec::iterator it= foup_vec.begin();
+		it != foup_vec.end(); ++it)
+	{
+		amhs_foup_ptr sp_foup= *it;
+		driveFOUP dFoup;
+		CopyFOUPStruct(dFoup, sp_foup);
+		list.push_back(dFoup);
+	}
+	return list;
+}
+
 DR_FOUP_LIST CAMHSDrive::GetStkLastOptFoup(int nID)
 {
 	DR_FOUP_LIST list;

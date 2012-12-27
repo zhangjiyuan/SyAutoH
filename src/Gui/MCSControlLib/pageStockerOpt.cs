@@ -77,14 +77,23 @@ namespace MCSControlLib
                     UInt16 nFoupRoom = Convert.ToUInt16(item[2]);
                     UInt16 nLot = Convert.ToUInt16(item[3]);
                     UInt16 nStatus = Convert.ToUInt16(item[4]);
+                    UInt16 nIsErase = Convert.ToUInt16(item[5]);
                     DataRow row = m_tableFoupsInfo.Rows.Find(nBarCode);
                     if (null != row)
                     {
-                        row[TKey_BarCode] = nBarCode;
-                        row[TKey_FoupRoom] = nFoupRoom;
-                        row[TKey_Lot] = nLot;
-                        row[TKey_Status] = nStatus;
-                        row.AcceptChanges();
+                        if (0 == nIsErase)
+                        {
+                            row[TKey_BarCode] = nBarCode;
+                            row[TKey_FoupRoom] = nFoupRoom;
+                            row[TKey_Lot] = nLot;
+                            row[TKey_Status] = nStatus;
+                            row.AcceptChanges();
+                        }
+                        else if (1 == nIsErase)
+                        {
+                            m_tableFoupsInfo.Rows.Remove(row);
+                            m_tableFoupsInfo.AcceptChanges();
+                        }
                     }
                     else
                     {
