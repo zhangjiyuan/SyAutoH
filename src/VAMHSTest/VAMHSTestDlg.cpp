@@ -540,7 +540,7 @@ void CVAMHSTestDlg::ReadOHTXML()
 		int ID = GetElemData(XML,_T("ID"));
 		int POS = GetElemData(XML,_T("POS"));
 		int HAND = GetElemData(XML,_T("HAND"));
-		int Online = GetElemData(XML,_T("Online"));
+		int Online = 0;//GetElemData(XML,_T("Online"));
 		int posTime = GetElemData(XML,_T("PosTime"));
 		int statusTime = GetElemData(XML,_T("StatusTime"));
 		pOht->nHandStatus = HAND;
@@ -576,7 +576,7 @@ void CVAMHSTestDlg::ReadSTKXML()
 		int nID = GetElemData(xml,_T("ID"));
 		int nStatus = GetElemData(xml,_T("Status"));
 		int nContain = GetElemData(xml,_T("nContain"));
-		int nOnline = GetElemData(xml,_T("Online"));
+		int nOnline = 0;//GetElemData(xml,_T("Online"));
 		item->nID = nID;
 		item->nStatus = nStatus;
 		item->nContain = nContain;
