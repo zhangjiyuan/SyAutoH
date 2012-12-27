@@ -127,6 +127,20 @@ int VirtualStocker::ManualInputFoup(int nFoupID,int nBatchID)
 	return 0;
 }
 
+int VirtualStocker::AuthFoup(int nFoupID)
+{
+	MAP_VFOUP::iterator it;
+	it = m_mapFoups.find(nFoupID);
+	AMHSPacket Packet(STK_FOUP_EVENT,8);
+	Packet << uint8(DeviceID());
+	Packet << uint8(0); // input
+	Packet << uint8(GetRoomID(nFoupID)); // slot ID
+	Packet << uint16(it->second.nBatchID); // lot ID
+	Packet << uint16(nFoupID); // foup ID
+	Packet << uint8(5); // manual input 1
+	SendPacket(Packet);
+	return 0;
+}
 int VirtualStocker::History()
 {
 	printf("Test big Packet \n");
