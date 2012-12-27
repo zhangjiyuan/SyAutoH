@@ -143,6 +143,7 @@ int VirtualStocker::AuthFoup(int nFoupID)
 	    SendPacket(Packet);
 	    return 0;
 	}
+	return 0;
 }
 
 int VirtualStocker::History()
