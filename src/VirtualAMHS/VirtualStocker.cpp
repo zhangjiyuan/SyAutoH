@@ -131,16 +131,20 @@ int VirtualStocker::AuthFoup(int nFoupID)
 {
 	MAP_VFOUP::iterator it;
 	it = m_mapFoups.find(nFoupID);
-	AMHSPacket Packet(STK_FOUP_EVENT,8);
-	Packet << uint8(DeviceID());
-	Packet << uint8(0); // input
-	Packet << uint8(GetRoomID(nFoupID)); // slot ID
-	Packet << uint16(it->second.nBatchID); // lot ID
-	Packet << uint16(nFoupID); // foup ID
-	Packet << uint8(5); // manual input 1
-	SendPacket(Packet);
-	return 0;
+	if(it != m_mapFoups.end())
+	{
+		AMHSPacket Packet(STK_FOUP_EVENT,8);
+	    Packet << uint8(DeviceID());
+	    Packet << uint8(0); // input
+	    Packet << uint8(GetRoomID(nFoupID)); // slot ID
+	    Packet << uint16(it->second.nBatchID); // lot ID
+	    Packet << uint16(nFoupID); // foup ID
+	    Packet << uint8(5); // manual input 1
+	    SendPacket(Packet);
+	    return 0;
+	}
 }
+
 int VirtualStocker::History()
 {
 	printf("Test big Packet \n");
@@ -239,7 +243,7 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 			    FoupPacket << (uint8)(DeviceID());
 			    FoupPacket << (uint8)(0);
 			    SendPacket(FoupPacket);
-				ManualInputFoup(CFoup.nID,CFoup.nBatchID);
+				AuthFoup(CFoup.nID);
 				
 			}
 		    else
@@ -270,7 +274,7 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 			    FoupPacket << (uint8)(DeviceID());
 			    FoupPacket << (uint8)(0);
 			    SendPacket(FoupPacket);
-				ManualInputFoup(CFoup.nID,CFoup.nBatchID);
+				AuthFoup(CFoup.nID);
 			}
 			else
 			{
@@ -302,6 +306,7 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 				int nID = ite->second.nFoupID;
 				it = m_mapFoups.find(nID);
 				CFoup = it->second;
+				ManualOutputFoup(CFoup.nID);
 		        if(it != m_mapFoups.end())
 		        {
 					ite->second.nStatus = 0;
@@ -311,7 +316,7 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 			        FoupPacket << (uint8)(DeviceID());
 			        FoupPacket << (uint8)(0);
 			        SendPacket(FoupPacket);
-					ManualOutputFoup(CFoup.nID);
+					
 				    return ;
 			    }
 		     }
@@ -330,6 +335,7 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 			if(it != m_mapFoups.end())
 			{
 				CFoup = it->second;
+				ManualOutputFoup(CFoup.nID);
 				m_nFoupChange = 2;
 				m_nContain--;
 				int nRoomID = it->second.nRoomID;
@@ -341,7 +347,7 @@ void VirtualStocker::Handle_FoupOperate(AMHSPacket& packet)
 			    FoupPacket << (uint8)(DeviceID());
 			    FoupPacket << (uint8)(0);
 			    SendPacket(FoupPacket);
-				ManualOutputFoup(CFoup.nID);
+				
 				return ;
 			}
 		}
