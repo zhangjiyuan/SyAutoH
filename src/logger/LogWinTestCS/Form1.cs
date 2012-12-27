@@ -495,7 +495,6 @@ namespace LogWinTestCS
         {
            CanCheckedAll();
         }
-    }
 
     class InfoCall
     {

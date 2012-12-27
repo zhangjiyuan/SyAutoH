@@ -331,6 +331,7 @@ void CVAMHSTestDlg::OnBnClickedBnAddstk()
 		g_pVDev->Stocker_Auth(nSTK_ID,"192.168.55.10");
 		m_listCtrlFOUP.DeleteAllItems();
 		ReadFOUPXML(nSTK_ID);
+		g_pVDev->STK_AuthFoup(nSTK_ID);
 		//g_pVDev->STK_SetFoupNum(nSTK_ID,it->second->nContain);
 	}
 		return;
