@@ -118,7 +118,7 @@ int VirtualStocker::ManualInputFoup(int nFoupID,int nBatchID)
 		Packet << uint8(DeviceID());
 		Packet << uint8(0); // input
 		Packet << uint8(GetRoomID(nFoupID)); // slot ID
-		Packet << uint16(0); // lot ID
+		Packet << uint16(nBatchID); // lot ID
 		Packet << uint16(nFoupID); // foup ID
 		Packet << uint8(5); // manual input 1
 
@@ -143,11 +143,18 @@ int VirtualStocker::History()
 
 int VirtualStocker::ManualOutputFoup(int nFoupID)
 {
+	MAP_VFOUP::iterator it;
+	it = m_mapFoups.find(nFoupID);
+	VirtualFoup pFoup;
+	if(it != m_mapFoups.end())
+	{
+		pFoup = it->second;
+	}
 	AMHSPacket Packet(STK_FOUP_EVENT, 8);
 	Packet << uint8(DeviceID());
 	Packet << uint8(1); // output
 	Packet << uint8(GetRoomID(nFoupID));
-	Packet << uint16(23); // lot
+	Packet << uint16(pFoup.nBatchID); // lot
 	Packet << uint16(nFoupID); // foup
 	Packet << uint8(5); // manual input 1
 

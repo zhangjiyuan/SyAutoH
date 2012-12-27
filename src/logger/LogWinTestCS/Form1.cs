@@ -24,7 +24,7 @@ namespace LogWinTestCS
         private int m_nPageStart = 0;
         private int m_nOfflineCount = 0;
   
-       
+        
         public Form1()
         {
             InitializeComponent();
