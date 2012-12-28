@@ -99,6 +99,20 @@ amhs_stocker_vec amhs_room::GetStkDataSet()
 	return stk_vec;
 }
 
+amhs_foup_vec amhs_room::GetStkFoupInSys()
+{
+	amhs_foup_vec foup_vec;
+	RLock(rwLock_foup_map_)
+	{
+		for(amhs_foup_map::iterator it = foup_map_.begin();
+			it != foup_map_.end(); ++it)
+		{
+			foup_vec.push_back(it->second);
+		}
+	}
+	return foup_vec;
+}
+
 amhs_oht_vec amhs_room::GetOhtDataSet()
 {
 	amhs_oht_vec oht_vec;
@@ -654,7 +668,6 @@ void amhs_room::Handle_OHT_Auth(amhs_participant_ptr participants, AMHSPacket& P
 		}
 	}
 
-
 	AMHSPacket ack(OHT_MCS_ACK_AUTH, 2);
 	ack << uint8(ohtID);
 	ack << nAuthAck;
@@ -737,7 +750,6 @@ void amhs_room::Handle_OHT_Pos(amhs_participant_ptr participants, AMHSPacket& Pa
 			it->second->nPOS = ohtPosition;
 		}
 	}
-
 }
 
 int amhs_room::DecodePacket(amhs_participant_ptr participants, AMHSPacket& Packet)
