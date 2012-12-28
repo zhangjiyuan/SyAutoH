@@ -339,6 +339,13 @@ void CVAMHSTestDlg::OnBnClickedBnAddstk()
 
 void CVAMHSTestDlg::OnBnClickedBnStkIn()
 {
+	CString selectStocker;
+	GetDlgItemText(IDC_SELECT_STK_EDIT,selectStocker);
+	if(selectStocker == "")
+	{
+		MessageBox(_T("Please select the Stocker First!"));
+		return;
+	}
 	CString strFoup;
 	GetDlgItemText(IDC_EDIT_STK_FOUP, strFoup);
 	int Foup_ID = _ttoi(strFoup);
