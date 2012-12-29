@@ -305,6 +305,18 @@ int CVirtualAMHS::STK_FoupChangeType(int nStockerID)
 	else
 		return 0;
 }
+
+int CVirtualAMHS::STK_SetContain(int nStockerID,int nContain)
+{
+	MAP_VSTK::iterator it;
+	it = m_mapSTK->find(nStockerID);
+	if(it != m_mapSTK->end())
+	{
+		it->second->m_nContain = nContain;
+	}
+	return 0;
+}
+
 ItemFoup CVirtualAMHS::STK_GetChangedFoup(int nStockerID)
 {
 	MAP_VSTK::iterator it;

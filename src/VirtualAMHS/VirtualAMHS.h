@@ -79,6 +79,7 @@ public:
 	//int STK_GetFoup(int nSTK_ID,int nFoupID,int nBatchID);
 	int STK_GetRoomID(int nSTK_ID,int nFoupID);
 	int STK_FoupChangeType(int nStockerID); 
+	int STK_SetContain(int nStockerID,int nContain);
 	ItemFoup STK_GetChangedFoup(int nStockerID);
 	// for OHT
 	LIST_OHT OHT_GetStatus();

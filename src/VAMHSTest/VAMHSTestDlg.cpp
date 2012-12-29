@@ -129,6 +129,7 @@ BEGIN_MESSAGE_MAP(CVAMHSTestDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BN_AddSTK2, &CVAMHSTestDlg::OnBnClickedBnAddstk2)
 	ON_BN_CLICKED(IDC_STK_ALL_ONLINE_BUTTON, &CVAMHSTestDlg::OnBnClickedStkAllOnlineButton)
 	ON_BN_CLICKED(IDC_DELETE_STK_BUTTON, &CVAMHSTestDlg::OnBnClickedDeleteStkButton)
+	ON_BN_CLICKED(IDC_CLEAR_FOUPS_BUTTON, &CVAMHSTestDlg::OnBnClickedClearFoupsButton)
 END_MESSAGE_MAP()
 
 // CVAMHSTestDlg 消息处理程序
@@ -1470,5 +1471,39 @@ void CVAMHSTestDlg::OnBnClickedDeleteStkButton()
 		{
 			ite->second->nDisabled = 1;
 		}
+	}
+}
+
+
+void CVAMHSTestDlg::OnBnClickedClearFoupsButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	typedef std::list<int> List_Foup;
+	List_Foup m_listFoups;
+	m_listCtrlFOUP.DeleteAllItems();
+	MAP_ItemFoup::iterator it;
+	for(it = g_mapFoups.begin();it != g_mapFoups.end();it++)
+	{
+		if(it->second->nStockerID == selectSTK)
+		{
+			DeleteFoupXML(selectSTK,it->second->nID);
+			m_listFoups.push_back(it->second->nID);
+		}
+	}
+	List_Foup::iterator ite;
+	for(ite = m_listFoups.begin();ite != m_listFoups.end();ite++)
+	{
+		it = g_mapFoups.find(*ite);
+		if(it != g_mapFoups.end())
+		{
+			g_mapFoups.erase(it);
+		}
+	}
+	g_pVDev->STK_SetContain(selectSTK,0);
+	MAP_ItemStocker::iterator iter;
+	iter = g_mapStockers.find(selectSTK);
+	if(iter != g_mapStockers.end())
+	{
+		iter->second->nContain = 0;
 	}
 }
