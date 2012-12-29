@@ -317,6 +317,17 @@ int CVirtualAMHS::STK_SetContain(int nStockerID,int nContain)
 	return 0;
 }
 
+int CVirtualAMHS::STK_GetSTKID()
+{
+	MAP_VSTK::iterator it;
+	for(it = m_mapSTK->begin();it != m_mapSTK->end();it++)
+	{
+		if(it->second->m_nFoupChange != 0)
+			return it->second->DeviceID();
+	}
+	return -1;
+}
+
 ItemFoup CVirtualAMHS::STK_GetChangedFoup(int nStockerID)
 {
 	MAP_VSTK::iterator it;

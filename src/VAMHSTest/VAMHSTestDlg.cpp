@@ -1032,34 +1032,47 @@ void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 		}
 	}
 	
-	int nChangeType = g_pVDev->STK_FoupChangeType(selectSTK);
-	if(nChangeType != 0)
+	int nChangeSTK = g_pVDev->STK_GetSTKID();
+	if(nChangeSTK != -1)
 	{
-		ItemFoup FoupItem;
-		if(nChangeType == 1)
-		{
-			FoupItem = g_pVDev->STK_GetChangedFoup(selectSTK);
-			//ItemFoup* FoupItem1 = &FoupItem;
-			g_mapFoups.insert(std::make_pair(FoupItem.nID,&FoupItem));
-			CString str;
-			m_listCtrlFOUP.InsertItem(0,str);
-			SetFOUPListItemData(&FoupItem,0);
-			AddFoupXMLElem(selectSTK,FoupItem.nID,&FoupItem);
-		}
-		if(nChangeType == 2)
-		{
-			FoupItem = g_pVDev->STK_GetChangedFoup(selectSTK);
-			MAP_ItemFoup::iterator it;
-			it = g_mapFoups.find(FoupItem.nID);
-			if(it != g_mapFoups.end())
-			{
-				int item;
-				for(item = 0;FoupItem.nID != m_listCtrlFOUP.GetItemData(item);item++);
-				m_listCtrlFOUP.DeleteItem(item);
-				DeleteFoupXML(selectSTK,FoupItem.nID);
-				g_mapFoups.erase(it);
-			}
-		}
+	
+		int nChangeType = g_pVDev->STK_FoupChangeType(nChangeSTK);
+	    if(nChangeType != 0)
+	    {
+			ItemFoup FoupItem;
+		    if(nChangeType == 1)
+		    {
+				FoupItem = g_pVDev->STK_GetChangedFoup(nChangeSTK);
+			    FoupItem.nStockerID = nChangeSTK;
+			    FoupItem.nDisabled = 0;
+			    //ItemFoup* FoupItem1 = &FoupItem;
+			    g_mapFoups.insert(std::make_pair(FoupItem.nID,&FoupItem));
+			    if(nChangeSTK == selectSTK)
+			    {
+					CString str;
+			        m_listCtrlFOUP.InsertItem(0,str);
+			        SetFOUPListItemData(&FoupItem,0);
+			    }
+			    AddFoupXMLElem(nChangeSTK,FoupItem.nID,&FoupItem);
+		    }
+		    if(nChangeType == 2)
+		    {
+		    	FoupItem = g_pVDev->STK_GetChangedFoup(nChangeSTK);
+			    MAP_ItemFoup::iterator it;
+			    it = g_mapFoups.find(FoupItem.nID);
+			    if(it != g_mapFoups.end())
+			    {
+				    if(nChangeSTK == selectSTK)
+				    {
+				        int item;
+				        for(item = 0;FoupItem.nID != m_listCtrlFOUP.GetItemData(item);item++);
+				        m_listCtrlFOUP.DeleteItem(item);
+				    }
+				    DeleteFoupXML(selectSTK,FoupItem.nID);
+				    g_mapFoups.erase(it);
+			    }
+		    }
+	    }
 	}
 
 	LIST_STOCKER::iterator itStocker = stockers.begin();
