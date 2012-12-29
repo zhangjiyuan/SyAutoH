@@ -21,6 +21,10 @@ namespace MCSControlLib
         private const string TKey_Status = "Status";
 
         private DataTable m_tableFoupsInfo = null;
+        private List<int> listFoupBarCode = new List<int>();
+        private List<int> listFoupRoom = new List<int>();
+        private List<int> listFoupLot = new List<int>();
+        private List<Int32> listStkRoom = new List<Int32>(141);
 
         formSTKAlarmHistory hisAlarm;
 
@@ -32,7 +36,13 @@ namespace MCSControlLib
 
         public override void PageInit()
         {
-            PushData[] cmds = new PushData[] { PushData.upStkFoupsInfo, PushData.upStkLastOptFoup, PushData.upStkStatus, PushData.upStkInputStatus };
+            PushData[] cmds = new PushData[] 
+            { 
+                PushData.upStkFoupsInfo, 
+                PushData.upStkLastOptFoup, 
+                PushData.upStkStatus, 
+                PushData.upStkInputStatus 
+            };
             m_dataHub.Async_SetPushCmdList(cmds);
         }
 
@@ -48,6 +58,8 @@ namespace MCSControlLib
             m_dictProcess.Add(PushData.upStkLastOptFoup, ProcessLastOptFoup);
             m_dictProcess.Add(PushData.upStkStatus, ProcessStkStatus);
             m_dictProcess.Add(PushData.upStkInputStatus, ProcessStkInputStatus);
+            m_dictProcess.Add(PushData.upStkFoupInSys, ProcessFoupInSys);
+            m_dictProcess.Add(PushData.upStkRoomStatus, ProcessStkRoomStatus);
         }
 
         private void InitFoupsInfoTable()
@@ -64,6 +76,13 @@ namespace MCSControlLib
 
                 m_tableFoupsInfo.AcceptChanges();
             }
+        }
+
+        private void InitImageListRoom()
+        {
+            imageListPageStkRoom.Images.Add("green", Properties.Resources.green);
+            imageListPageStkRoom.Images.Add("blue", Properties.Resources.blue);
+            imageListPageStkRoom.Images.Add("red", Properties.Resources.red);
         }
 
         private void ProcessFoupsTable(ArrayList item)
@@ -233,6 +252,37 @@ namespace MCSControlLib
             }
         }
 
+        private void ProcessFoupInSys(ArrayList item)
+        {
+            int nBarCode = TryConver.ToInt32(item[0].ToString());
+            int nFoupRoom = TryConver.ToInt32(item[1].ToString());
+            int nLot = TryConver.ToInt32(item[2].ToString());
+            listFoupBarCode.Add(nBarCode);
+            listFoupRoom.Add(nFoupRoom);
+            listFoupLot.Add(nLot);
+        }
+
+        private void ProcessStkRoomStatus(ArrayList item)
+        {
+            string nID=item[0].ToString();
+            Int32 nStatus=TryConver.ToInt32(item[1].ToString());
+            ListViewItem listItem = new ListViewItem();
+            listItem.Text = nID;
+            switch(nStatus)
+            {
+                case 0:
+                    listItem.ImageKey = "green";
+                    break;
+                case 1:
+                    listItem.ImageKey = "blue";
+                    break;
+                case 2:
+                    listItem.ImageKey = "red";
+                    break;
+            }
+            listViewPageStkRoom.Items.Add(listItem);
+        }
+
         private void textBox14_TextChanged(object sender, EventArgs e)
         {
 
@@ -301,17 +351,21 @@ namespace MCSControlLib
             int nWRet = m_dataHub.WriteData(GuiCommand.StkInquiryStatus, strVal);
         }
 
-        private void btnFoupMoveIn_Click(object sender, EventArgs e)
+        private void btnFoupMoveInOut_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
             byte nID = stockorId;
             byte nOpt = 2;
-            if (btn.Name == "btnFoupMoveIn")
-                nOpt = 0;
-            else if (btn.Name == "btnFoupMoveOut")
-                nOpt = 1;
             byte nMode = TryConver.ToByte(cBFoupMove.SelectedIndex.ToString());
-            int nData =TryConver.ToInt32(tBFoupMove.Text);
+            int nData = TryConver.ToInt32(tBFoupMove.Text);
+            if (btn.Name == "btnFoupMoveIn")
+            {
+                nOpt = 0;
+            }
+            else if (btn.Name == "btnFoupMoveOut")
+            {
+                nOpt = 1;
+            }
             string strVal;
             strVal = string.Format("<{0},{1},{2},{3}>", nID, nOpt, nMode, nData);
 
@@ -338,6 +392,15 @@ namespace MCSControlLib
                 tBSelLot.Text = row.Cells[2].Value.ToString();
                 tBSelStatus.Text = row.Cells[3].Value.ToString();
             }
+        }
+
+        private void tBFoupMove_VisibleChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void tBFoupMove_TextChanged(object sender, EventArgs e)
+        {
         }
 
         

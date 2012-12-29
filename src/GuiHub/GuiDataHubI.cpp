@@ -54,6 +54,8 @@ GuiDataHubI::GuiDataHubI(void)
 		&GuiDataHubI::STK_History));
 	m_mapHandles.insert(std::make_pair(GuiHub::StkAlarmHistory,
 		&GuiDataHubI::STK_Alarms));
+	m_mapHandles.insert(std::make_pair(GuiHub::StkGetFoupInSys,
+		&GuiDataHubI::STK_GetFoupInSys));
 
 	//////////////////////////////////////////////////////////////////////////
 	// Push Data
@@ -194,6 +196,10 @@ void GuiDataHubI::SetDataUpdater(const ::MCS::GuiDataUpdaterPrx& updater, const 
 		MAP_UPDATER::iterator it = m_mapUpdater.find(updater);
 		if (it != m_mapUpdater.end())
 		{
+			if (it->second->m_ptrCon.get() != current.con.get())
+			{
+				it->second->m_ptrCon = current.con;
+			}
 			return;
 		}
 
