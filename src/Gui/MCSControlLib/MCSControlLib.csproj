@@ -84,6 +84,24 @@
     <Compile Include="MCSMessageBox.Designer.cs">
       <DependentUpon>MCSMessageBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="pageAlarm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="pageAlarm.Designer.cs">
+      <DependentUpon>pageAlarm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pageLogOffline.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="pageLogOffline.Designer.cs">
+      <DependentUpon>pageLogOffline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pageLogOnline.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="pageLogOnline.Designer.cs">
+      <DependentUpon>pageLogOnline.cs</DependentUpon>
+    </Compile>
     <Compile Include="pageMesCommand.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -133,6 +151,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MCSMessageBox.resx">
       <DependentUpon>MCSMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pageAlarm.resx">
+      <DependentUpon>pageAlarm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pageLogOffline.resx">
+      <DependentUpon>pageLogOffline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pageLogOnline.resx">
+      <DependentUpon>pageLogOnline.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="pageMesCommand.resx">
       <DependentUpon>pageMesCommand.cs</DependentUpon>
