@@ -52,7 +52,6 @@ module MCS
 				
 				upStkInfo,
 				upStkFoupsInfo,
-				upStkStockerStatus,
 				upStkLastOptFoup,
 				upStkStatus,
 				upStkInputStatus,

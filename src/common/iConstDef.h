@@ -81,7 +81,6 @@ enum PushData
     upOhtStatus,
     upStkInfo,
     upStkFoupsInfo,
-    upStkStockerStatus,
     upStkLastOptFoup,
     upStkStatus,
     upStkInputStatus,

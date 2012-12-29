@@ -47,7 +47,7 @@ GuiDataItem GuiDataHubI::Push_STK_FoupInfo()
 			strGuiData += buf;
 		}
 		DR_FOUP_LIST foup_erase_list = m_pAMHSDrive->GetStkFoupEraseList(it->nID);
-		for(DR_FOUP_LIST::iterator itFoup = foup_erase_list.begin();\
+		for(DR_FOUP_LIST::iterator itFoup = foup_erase_list.begin();
 			itFoup != foup_erase_list.end(); ++itFoup)
 		{
 			sprintf_s(buf, 256, "<%d,%d,%d,%d,%d,%d>",
