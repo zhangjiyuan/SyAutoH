@@ -1035,7 +1035,6 @@ void CVAMHSTestDlg::OnTimer(UINT_PTR nIDEvent)
 	int nChangeSTK = g_pVDev->STK_GetSTKID();
 	if(nChangeSTK != -1)
 	{
-	
 		int nChangeType = g_pVDev->STK_FoupChangeType(nChangeSTK);
 	    if(nChangeType != 0)
 	    {
