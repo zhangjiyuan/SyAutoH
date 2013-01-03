@@ -129,21 +129,6 @@ DR_FOUP_LIST CAMHSDrive::GetStkLastOptFoup(int nID)
 	return list;
 }
 
-DR_OHT_LIST CAMHSDrive::GetOhtList()
-{
-	DR_OHT_LIST list;
-	amhs_oht_vec oht_vec = sAmhsServer.GetServer()->OHT_GetDataSet();
-	for (amhs_oht_vec::iterator it = oht_vec.begin(); 
-		it != oht_vec.end(); ++it)
-	{
-		amhs_oht_ptr sp_oht = *it;
-		driveOHT dOht;
-		CopyOHTStruct(dOht, sp_oht);
-		list.push_back(dOht);
-	}
-	return list;
-}
-
 DR_FOUP_LIST CAMHSDrive::GetFoupInSys()
 {
 	DR_FOUP_LIST list;
@@ -155,6 +140,28 @@ DR_FOUP_LIST CAMHSDrive::GetFoupInSys()
 		driveFOUP dFoup;
 		CopyFOUPStruct(dFoup, sp_foup);
 		list.push_back(dFoup);
+	}
+	return list;
+}
+
+vector<int> CAMHSDrive::GetStkRoom(int nID)
+{
+	vector<int> room_vec;
+	room_vec=sAmhsServer.GetServer()->STK_GetRoom(nID);
+	return room_vec;
+}
+
+DR_OHT_LIST CAMHSDrive::GetOhtList()
+{
+	DR_OHT_LIST list;
+	amhs_oht_vec oht_vec = sAmhsServer.GetServer()->OHT_GetDataSet();
+	for (amhs_oht_vec::iterator it = oht_vec.begin(); 
+		it != oht_vec.end(); ++it)
+	{
+		amhs_oht_ptr sp_oht = *it;
+		driveOHT dOht;
+		CopyOHTStruct(dOht, sp_oht);
+		list.push_back(dOht);
 	}
 	return list;
 }

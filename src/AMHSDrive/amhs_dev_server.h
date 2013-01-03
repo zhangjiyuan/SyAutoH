@@ -92,6 +92,7 @@ typedef struct sData_Stocker
 	int nStatus;
 	int nAuto;
 	int nManu;
+	uint8 room[141];
 	amhs_foup_vec last_opt_foup_vec;
 	amhs_foup_vec foup_erase_vec;
 	amhs_foup_map foup_map;
@@ -126,6 +127,7 @@ public:
 	amhs_foup_vec GetStkEraseFoupDataSet(int nID);
 	amhs_foup_vec GetStkLastOptFoup(int nID);
 	amhs_foup_vec GetStkFoupInSys();
+	vector<int> GetStkRoom(int nID);
 
 private:
 	void Handle_OHT_AckStatusBackTime(amhs_participant_ptr, AMHSPacket&);
@@ -217,6 +219,7 @@ public:
 	amhs_foup_vec STK_GetEraseFoupDataSet(int nID);
 	amhs_foup_vec STK_GetLastOptFoup(int nID);
 	amhs_foup_vec STK_GetFoupInSys();
+	vector<int> STK_GetRoom(int nID);
 
 	void STK_FOUP(int nID, int nMode, int nPick, int nFoupData);
 	void STK_Status(int nID);

@@ -87,6 +87,8 @@ public:
 	DR_FOUP_LIST GetStkFoupEraseList(int nID);
 	DR_FOUP_LIST GetStkLastOptFoup(int nID);
 	DR_FOUP_LIST GetFoupInSys();
+	//void GetStkRoom(int nID, int room[141]);
+	vector<int> GetStkRoom(int nID);
 	void STKFoupHand(int nID, int nOpt, int nMode, int nData);
 	void STKStockerStatus(int nID);
 	void STKStockerRoom(int nID);

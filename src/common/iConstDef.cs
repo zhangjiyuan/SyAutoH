@@ -49,6 +49,7 @@ namespace MCS
             StkAlarmHistory,
             StkStatusTime,
             StkSetFoupInfoBackTime,
+            StkGetRoomStatus,
             StkGetFoupInSys
         }
 

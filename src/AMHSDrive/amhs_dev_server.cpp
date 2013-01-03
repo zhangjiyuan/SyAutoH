@@ -65,6 +65,11 @@ amhs_foup_vec amhs_dev_server::STK_GetFoupInSys()
 	return room_.GetStkFoupInSys();
 }
 
+vector<int> amhs_dev_server::STK_GetRoom(int nID)
+{
+	return room_.GetStkRoom(nID);
+}
+
 void amhs_dev_server::OHT_Set_StatusBackTime(int nID, int ms)
 {
 	AMHSPacket packet(OHT_MCS_STATUS_BACK_TIME, 2);

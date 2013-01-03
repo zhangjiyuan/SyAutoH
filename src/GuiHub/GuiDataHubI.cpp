@@ -54,6 +54,8 @@ GuiDataHubI::GuiDataHubI(void)
 		&GuiDataHubI::STK_History));
 	m_mapHandles.insert(std::make_pair(GuiHub::StkAlarmHistory,
 		&GuiDataHubI::STK_Alarms));
+	m_mapHandles.insert(std::make_pair(GuiHub::StkGetRoomStatus,
+		&GuiDataHubI::STK_GetRoomStatus));
 	//m_mapHandles.insert(std::make_pair(GuiHub::StkGetFoupInSys,
 	//	&GuiDataHubI::STK_GetFoupInSys));
 
@@ -77,6 +79,8 @@ GuiDataHubI::GuiDataHubI(void)
 		&GuiDataHubI::Push_STK_Status));
 	m_mapMakePush.insert(std::make_pair(GuiHub::upStkInputStatus,
 		&GuiDataHubI::Push_STK_InputStatus));
+	//m_mapMakePush.insert(std::make_pair(GuiHub::upStkRoomStatus,
+	//	&GuiDataHubI::Push_STK_GetRoom));
 
 	SetTimer();
 }

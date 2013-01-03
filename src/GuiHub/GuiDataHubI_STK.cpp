@@ -119,6 +119,32 @@ GuiDataItem GuiDataHubI::Push_STK_InputStatus()
 	return item;
 }
 
+GuiDataItem GuiDataHubI::Push_STK_GetRoom()
+{
+	GuiDataItem item;
+	item.enumTag=GuiHub::upStkRoomStatus;
+	string strGuiData="";
+	char buf[100]="";
+
+	DR_STK_LIST stk_list = m_pAMHSDrive->GetStkList();
+	for (DR_STK_LIST::iterator it = stk_list.begin(); 
+		it != stk_list.end(); ++it)
+	{
+		vector<int> room_vec=m_pAMHSDrive->GetStkRoom(it->nID);
+		strGuiData += "<";
+		strGuiData += itoa(it->nID,buf,10);
+		for(vector<int>::iterator it_vec=room_vec.begin();
+			it_vec!=room_vec.end(); ++it_vec)
+		{
+			strGuiData += ",";
+			strGuiData += itoa(*it_vec,buf,10);
+		}
+		strGuiData += ">";
+	}
+	item.sVal += strGuiData;
+	return item;
+}
+
 void GuiDataHubI::STK_SetStatusBackTime(const std::string& strVal, const ::Ice::Current&)
 {
 	STR_VEC vecStr = GetVecStrings(strVal);
@@ -267,12 +293,30 @@ void GuiDataHubI::STK_GetFoupInSys(const std::string&, const ::Ice::Current& cur
 	//UpdateDataOne(current.con, GuiHub::upStkFoupInSys, strVal);
 }
 
-void GuiDataHubI::STK_AckRoomStatus(const std::string&, const ::Ice::Current& current)
+void GuiDataHubI::STK_GetRoomStatus(const std::string&, const ::Ice::Current& current)
 {
 	string strVal = "";
-	char buf[100] = "";
-}
+	char buf[100]="";
 
+	DR_STK_LIST stk_list = m_pAMHSDrive->GetStkList();
+	for (DR_STK_LIST::iterator it = stk_list.begin(); 
+		it != stk_list.end(); ++it)
+	{
+		vector<int> room_vec=m_pAMHSDrive->GetStkRoom(it->nID);
+		
+		strVal += "<";
+		strVal += itoa(it->nID,buf,10);
+		for(vector<int>::iterator it_vec=room_vec.begin();
+			it_vec!=room_vec.end(); ++it_vec)
+		{
+			strVal += ",";
+			strVal += itoa(*it_vec,buf,10);
+		}
+		strVal += ">";
+	}
+
+	UpdateDataOne(current.con, GuiHub::upStkRoomStatus, strVal);
+}
 
 SYSTEMTIME GuiDataHubI::ToTime(std::string& strVal)
 {

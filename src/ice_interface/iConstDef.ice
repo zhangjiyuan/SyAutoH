@@ -38,6 +38,8 @@ module MCS
 				StkStatusTime, 
 				StkSetFoupInfoBackTime,
 
+				StkGetRoomStatus,
+
 				StkGetFoupInSys,
 				
 			};

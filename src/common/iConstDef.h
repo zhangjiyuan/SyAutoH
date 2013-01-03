@@ -67,6 +67,7 @@ enum GuiCommand
     StkAlarmHistory,
     StkStatusTime,
     StkSetFoupInfoBackTime,
+    StkGetRoomStatus,
     StkGetFoupInSys
 };
 
