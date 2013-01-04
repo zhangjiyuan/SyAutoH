@@ -502,6 +502,7 @@ void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPack
 					itFoup->second->nLot = foupLot;
 					itStocker->second->last_opt_foup_vec.clear();
 					itStocker->second->last_opt_foup_vec.push_back(itFoup->second);
+					GetLocalTime(&itStocker->second->last_opt_foup_time);
 					itStocker->second->foup_erase_vec.push_back(itFoup->second);
 					itStocker->second->foup_map.erase(foupBarCode);
 				}
@@ -519,6 +520,7 @@ void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPack
 				itStocker->second->foup_map.insert(std::make_pair(foupBarCode, pFoup));
 				itStocker->second->last_opt_foup_vec.clear();
 				itStocker->second->last_opt_foup_vec.push_back(pFoup);
+				GetLocalTime(&itStocker->second->last_opt_foup_time);
 
 				nAuthAck = 1;
 			}

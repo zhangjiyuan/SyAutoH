@@ -53,6 +53,7 @@ typedef struct sVec_STK
 	int nStatus;
 	int nAuto;
 	int nManu;
+	SYSTEMTIME last_opt_foup_time;
 } driveSTK;
 
 typedef std::vector<driveSTK> DR_STK_LIST;

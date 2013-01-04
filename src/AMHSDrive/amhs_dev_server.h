@@ -96,6 +96,7 @@ typedef struct sData_Stocker
 	amhs_foup_vec last_opt_foup_vec;
 	amhs_foup_vec foup_erase_vec;
 	amhs_foup_map foup_map;
+	SYSTEMTIME last_opt_foup_time;
 	amhs_participant_ptr p_participant;
 }amhs_Stocker;
 typedef boost::shared_ptr<amhs_Stocker> amhs_stocker_ptr;

@@ -74,8 +74,10 @@ GuiDataItem GuiDataHubI::Push_STK_LastOptFoup()
 		for(DR_FOUP_LIST::iterator itFoup = foup_list.begin();
 			itFoup != foup_list.end(); ++itFoup)
 		{
-			sprintf_s(buf, 256, "<%d,%d,%d,%d,%d,%d>",
-				it->nID,itFoup->nBarCode, itFoup->nfoupRoom, itFoup->nLot, itFoup->nChaned, itFoup->nInput);
+			sprintf_s(buf, 256, "<%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d>",
+				it->nID,itFoup->nBarCode, itFoup->nfoupRoom, itFoup->nLot, itFoup->nChaned, itFoup->nInput, 
+				it->last_opt_foup_time.wYear, it->last_opt_foup_time.wMonth, it->last_opt_foup_time.wDay, 
+				it->last_opt_foup_time.wHour, it->last_opt_foup_time.wMinute, it->last_opt_foup_time.wSecond);
 			strGuiData += buf;
 		}
 	}

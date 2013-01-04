@@ -70,6 +70,7 @@
             this.bnFoupHistory = new System.Windows.Forms.Button();
             this.bnAlarmHistory = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.tBLastEventTime = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.labelLastFoupManu = new System.Windows.Forms.Label();
@@ -501,6 +502,7 @@
             // groupBox6
             // 
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox6.Controls.Add(this.tBLastEventTime);
             this.groupBox6.Controls.Add(this.label19);
             this.groupBox6.Controls.Add(this.label18);
             this.groupBox6.Controls.Add(this.labelLastFoupManu);
@@ -521,6 +523,13 @@
             this.groupBox6.TabIndex = 14;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Foup Event";
+            // 
+            // tBLastEventTime
+            // 
+            this.tBLastEventTime.Location = new System.Drawing.Point(215, 76);
+            this.tBLastEventTime.Name = "tBLastEventTime";
+            this.tBLastEventTime.Size = new System.Drawing.Size(110, 21);
+            this.tBLastEventTime.TabIndex = 21;
             // 
             // label19
             // 
@@ -803,5 +812,6 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.ImageList imageListPageStkRoom;
+        private System.Windows.Forms.TextBox tBLastEventTime;
     }
 }
