@@ -145,5 +145,17 @@ namespace MCSControlLib
             dataGridViewKeyPos.DataSource = m_tableKeyPos;
             dataGridViewFoup.DataSource = m_tableFoup;
         }
+
+        private void dataGridViewKeyPos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewSelectedRowCollection rows = dataGridViewKeyPos.SelectedRows;
+            if (rows.Count > 0)
+            {
+                DataGridViewRow row = rows[0];
+                tbLocPosition.Text = row.Cells[0].Value.ToString();
+                tbLocType.Text = row.Cells[2].Value.ToString();
+                tbLocName.Text = row.Cells[1].Value.ToString();
+            }
+        }
     }
 }
