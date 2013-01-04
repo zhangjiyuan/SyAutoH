@@ -206,36 +206,36 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface MESLinkPrx : Ice.ObjectPrx
     {
-        int PlaceFoup(string FoupID, int DevID, int nLocType);
-        int PlaceFoup(string FoupID, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__);
+        int PlaceFoup(int foupBarCode, int DevID, int nLocType);
+        int PlaceFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        Ice.AsyncResult<MCS.Callback_MESLink_PlaceFoup> begin_PlaceFoup(string FoupID, int DevID, int nLocType);
-        Ice.AsyncResult<MCS.Callback_MESLink_PlaceFoup> begin_PlaceFoup(string FoupID, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__);
+        Ice.AsyncResult<MCS.Callback_MESLink_PlaceFoup> begin_PlaceFoup(int foupBarCode, int DevID, int nLocType);
+        Ice.AsyncResult<MCS.Callback_MESLink_PlaceFoup> begin_PlaceFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__);
 
-        Ice.AsyncResult begin_PlaceFoup(string FoupID, int DevID, int nLocType, Ice.AsyncCallback cb__, object cookie__);
-        Ice.AsyncResult begin_PlaceFoup(string FoupID, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_PlaceFoup(int foupBarCode, int DevID, int nLocType, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_PlaceFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
 
         int end_PlaceFoup(Ice.AsyncResult r__);
 
-        int PickFoup(string FoupId, int DevID, int nLocType);
-        int PickFoup(string FoupId, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__);
+        int PickFoup(int foupBarCode, int DevID, int nLocType);
+        int PickFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        Ice.AsyncResult<MCS.Callback_MESLink_PickFoup> begin_PickFoup(string FoupId, int DevID, int nLocType);
-        Ice.AsyncResult<MCS.Callback_MESLink_PickFoup> begin_PickFoup(string FoupId, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__);
+        Ice.AsyncResult<MCS.Callback_MESLink_PickFoup> begin_PickFoup(int foupBarCode, int DevID, int nLocType);
+        Ice.AsyncResult<MCS.Callback_MESLink_PickFoup> begin_PickFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__);
 
-        Ice.AsyncResult begin_PickFoup(string FoupId, int DevID, int nLocType, Ice.AsyncCallback cb__, object cookie__);
-        Ice.AsyncResult begin_PickFoup(string FoupId, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_PickFoup(int foupBarCode, int DevID, int nLocType, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_PickFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
 
         int end_PickFoup(Ice.AsyncResult r__);
 
-        MCS.LocFoup GetFoup(string FoupId);
-        MCS.LocFoup GetFoup(string FoupId, _System.Collections.Generic.Dictionary<string, string> context__);
+        MCS.LocFoup GetFoup(int foupBarCode);
+        MCS.LocFoup GetFoup(int foupBarCode, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        Ice.AsyncResult<MCS.Callback_MESLink_GetFoup> begin_GetFoup(string FoupId);
-        Ice.AsyncResult<MCS.Callback_MESLink_GetFoup> begin_GetFoup(string FoupId, _System.Collections.Generic.Dictionary<string, string> ctx__);
+        Ice.AsyncResult<MCS.Callback_MESLink_GetFoup> begin_GetFoup(int foupBarCode);
+        Ice.AsyncResult<MCS.Callback_MESLink_GetFoup> begin_GetFoup(int foupBarCode, _System.Collections.Generic.Dictionary<string, string> ctx__);
 
-        Ice.AsyncResult begin_GetFoup(string FoupId, Ice.AsyncCallback cb__, object cookie__);
-        Ice.AsyncResult begin_GetFoup(string FoupId, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_GetFoup(int foupBarCode, Ice.AsyncCallback cb__, object cookie__);
+        Ice.AsyncResult begin_GetFoup(int foupBarCode, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__);
 
         MCS.LocFoup end_GetFoup(Ice.AsyncResult r__);
     }
@@ -246,21 +246,21 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface MESLinkOperations_
     {
-        int PlaceFoup(string FoupID, int DevID, int nLocType, Ice.Current current__);
+        int PlaceFoup(int foupBarCode, int DevID, int nLocType, Ice.Current current__);
 
-        int PickFoup(string FoupId, int DevID, int nLocType, Ice.Current current__);
+        int PickFoup(int foupBarCode, int DevID, int nLocType, Ice.Current current__);
 
-        MCS.LocFoup GetFoup(string FoupId, Ice.Current current__);
+        MCS.LocFoup GetFoup(int foupBarCode, Ice.Current current__);
     }
 
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface MESLinkOperationsNC_
     {
-        int PlaceFoup(string FoupID, int DevID, int nLocType);
+        int PlaceFoup(int foupBarCode, int DevID, int nLocType);
 
-        int PickFoup(string FoupId, int DevID, int nLocType);
+        int PickFoup(int foupBarCode, int DevID, int nLocType);
 
-        MCS.LocFoup GetFoup(string FoupId);
+        MCS.LocFoup GetFoup(int foupBarCode);
     }
 }
 
@@ -272,17 +272,17 @@ namespace MCS
     {
         #region Synchronous operations
 
-        public MCS.LocFoup GetFoup(string FoupId)
+        public MCS.LocFoup GetFoup(int foupBarCode)
         {
-            return GetFoup(FoupId, null, false);
+            return GetFoup(foupBarCode, null, false);
         }
 
-        public MCS.LocFoup GetFoup(string FoupId, _System.Collections.Generic.Dictionary<string, string> context__)
+        public MCS.LocFoup GetFoup(int foupBarCode, _System.Collections.Generic.Dictionary<string, string> context__)
         {
-            return GetFoup(FoupId, context__, true);
+            return GetFoup(foupBarCode, context__, true);
         }
 
-        private MCS.LocFoup GetFoup(string FoupId, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        private MCS.LocFoup GetFoup(int foupBarCode, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
         {
             if(explicitContext__ && context__ == null)
             {
@@ -297,7 +297,7 @@ namespace MCS
                     checkTwowayOnly__("GetFoup");
                     delBase__ = getDelegate__(false);
                     MESLinkDel_ del__ = (MESLinkDel_)delBase__;
-                    return del__.GetFoup(FoupId, context__);
+                    return del__.GetFoup(foupBarCode, context__);
                 }
                 catch(IceInternal.LocalExceptionWrapper ex__)
                 {
@@ -310,17 +310,17 @@ namespace MCS
             }
         }
 
-        public int PickFoup(string FoupId, int DevID, int nLocType)
+        public int PickFoup(int foupBarCode, int DevID, int nLocType)
         {
-            return PickFoup(FoupId, DevID, nLocType, null, false);
+            return PickFoup(foupBarCode, DevID, nLocType, null, false);
         }
 
-        public int PickFoup(string FoupId, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__)
+        public int PickFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__)
         {
-            return PickFoup(FoupId, DevID, nLocType, context__, true);
+            return PickFoup(foupBarCode, DevID, nLocType, context__, true);
         }
 
-        private int PickFoup(string FoupId, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        private int PickFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
         {
             if(explicitContext__ && context__ == null)
             {
@@ -335,7 +335,7 @@ namespace MCS
                     checkTwowayOnly__("PickFoup");
                     delBase__ = getDelegate__(false);
                     MESLinkDel_ del__ = (MESLinkDel_)delBase__;
-                    return del__.PickFoup(FoupId, DevID, nLocType, context__);
+                    return del__.PickFoup(foupBarCode, DevID, nLocType, context__);
                 }
                 catch(IceInternal.LocalExceptionWrapper ex__)
                 {
@@ -348,17 +348,17 @@ namespace MCS
             }
         }
 
-        public int PlaceFoup(string FoupID, int DevID, int nLocType)
+        public int PlaceFoup(int foupBarCode, int DevID, int nLocType)
         {
-            return PlaceFoup(FoupID, DevID, nLocType, null, false);
+            return PlaceFoup(foupBarCode, DevID, nLocType, null, false);
         }
 
-        public int PlaceFoup(string FoupID, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__)
+        public int PlaceFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__)
         {
-            return PlaceFoup(FoupID, DevID, nLocType, context__, true);
+            return PlaceFoup(foupBarCode, DevID, nLocType, context__, true);
         }
 
-        private int PlaceFoup(string FoupID, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
+        private int PlaceFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__, bool explicitContext__)
         {
             if(explicitContext__ && context__ == null)
             {
@@ -373,7 +373,7 @@ namespace MCS
                     checkTwowayOnly__("PlaceFoup");
                     delBase__ = getDelegate__(false);
                     MESLinkDel_ del__ = (MESLinkDel_)delBase__;
-                    return del__.PlaceFoup(FoupID, DevID, nLocType, context__);
+                    return del__.PlaceFoup(foupBarCode, DevID, nLocType, context__);
                 }
                 catch(IceInternal.LocalExceptionWrapper ex__)
                 {
@@ -390,24 +390,24 @@ namespace MCS
 
         #region Asynchronous operations
 
-        public Ice.AsyncResult<MCS.Callback_MESLink_GetFoup> begin_GetFoup(string FoupId)
+        public Ice.AsyncResult<MCS.Callback_MESLink_GetFoup> begin_GetFoup(int foupBarCode)
         {
-            return begin_GetFoup(FoupId, null, false, null, null);
+            return begin_GetFoup(foupBarCode, null, false, null, null);
         }
 
-        public Ice.AsyncResult<MCS.Callback_MESLink_GetFoup> begin_GetFoup(string FoupId, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        public Ice.AsyncResult<MCS.Callback_MESLink_GetFoup> begin_GetFoup(int foupBarCode, _System.Collections.Generic.Dictionary<string, string> ctx__)
         {
-            return begin_GetFoup(FoupId, ctx__, true, null, null);
+            return begin_GetFoup(foupBarCode, ctx__, true, null, null);
         }
 
-        public Ice.AsyncResult begin_GetFoup(string FoupId, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_GetFoup(int foupBarCode, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_GetFoup(FoupId, null, false, cb__, cookie__);
+            return begin_GetFoup(foupBarCode, null, false, cb__, cookie__);
         }
 
-        public Ice.AsyncResult begin_GetFoup(string FoupId, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_GetFoup(int foupBarCode, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_GetFoup(FoupId, ctx__, true, cb__, cookie__);
+            return begin_GetFoup(foupBarCode, ctx__, true, cb__, cookie__);
         }
 
         private const string __GetFoup_name = "GetFoup";
@@ -440,7 +440,7 @@ namespace MCS
             return ret__;
         }
 
-        private Ice.AsyncResult<MCS.Callback_MESLink_GetFoup> begin_GetFoup(string FoupId, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        private Ice.AsyncResult<MCS.Callback_MESLink_GetFoup> begin_GetFoup(int foupBarCode, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
         {
             checkAsyncTwowayOnly__(__GetFoup_name);
             IceInternal.TwowayOutgoingAsync<MCS.Callback_MESLink_GetFoup> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_MESLink_GetFoup>(this, __GetFoup_name, GetFoup_completed__, cookie__);
@@ -452,7 +452,7 @@ namespace MCS
             {
                 result__.prepare__(__GetFoup_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
                 IceInternal.BasicStream os__ = result__.ostr__;
-                os__.writeString(FoupId);
+                os__.writeInt(foupBarCode);
                 os__.endWriteEncaps();
                 result__.send__(true);
             }
@@ -484,24 +484,24 @@ namespace MCS
             }
         }
 
-        public Ice.AsyncResult<MCS.Callback_MESLink_PickFoup> begin_PickFoup(string FoupId, int DevID, int nLocType)
+        public Ice.AsyncResult<MCS.Callback_MESLink_PickFoup> begin_PickFoup(int foupBarCode, int DevID, int nLocType)
         {
-            return begin_PickFoup(FoupId, DevID, nLocType, null, false, null, null);
+            return begin_PickFoup(foupBarCode, DevID, nLocType, null, false, null, null);
         }
 
-        public Ice.AsyncResult<MCS.Callback_MESLink_PickFoup> begin_PickFoup(string FoupId, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        public Ice.AsyncResult<MCS.Callback_MESLink_PickFoup> begin_PickFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__)
         {
-            return begin_PickFoup(FoupId, DevID, nLocType, ctx__, true, null, null);
+            return begin_PickFoup(foupBarCode, DevID, nLocType, ctx__, true, null, null);
         }
 
-        public Ice.AsyncResult begin_PickFoup(string FoupId, int DevID, int nLocType, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_PickFoup(int foupBarCode, int DevID, int nLocType, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_PickFoup(FoupId, DevID, nLocType, null, false, cb__, cookie__);
+            return begin_PickFoup(foupBarCode, DevID, nLocType, null, false, cb__, cookie__);
         }
 
-        public Ice.AsyncResult begin_PickFoup(string FoupId, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_PickFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_PickFoup(FoupId, DevID, nLocType, ctx__, true, cb__, cookie__);
+            return begin_PickFoup(foupBarCode, DevID, nLocType, ctx__, true, cb__, cookie__);
         }
 
         private const string __PickFoup_name = "PickFoup";
@@ -529,7 +529,7 @@ namespace MCS
             return ret__;
         }
 
-        private Ice.AsyncResult<MCS.Callback_MESLink_PickFoup> begin_PickFoup(string FoupId, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        private Ice.AsyncResult<MCS.Callback_MESLink_PickFoup> begin_PickFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
         {
             checkAsyncTwowayOnly__(__PickFoup_name);
             IceInternal.TwowayOutgoingAsync<MCS.Callback_MESLink_PickFoup> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_MESLink_PickFoup>(this, __PickFoup_name, PickFoup_completed__, cookie__);
@@ -541,7 +541,7 @@ namespace MCS
             {
                 result__.prepare__(__PickFoup_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
                 IceInternal.BasicStream os__ = result__.ostr__;
-                os__.writeString(FoupId);
+                os__.writeInt(foupBarCode);
                 os__.writeInt(DevID);
                 os__.writeInt(nLocType);
                 os__.endWriteEncaps();
@@ -575,24 +575,24 @@ namespace MCS
             }
         }
 
-        public Ice.AsyncResult<MCS.Callback_MESLink_PlaceFoup> begin_PlaceFoup(string FoupID, int DevID, int nLocType)
+        public Ice.AsyncResult<MCS.Callback_MESLink_PlaceFoup> begin_PlaceFoup(int foupBarCode, int DevID, int nLocType)
         {
-            return begin_PlaceFoup(FoupID, DevID, nLocType, null, false, null, null);
+            return begin_PlaceFoup(foupBarCode, DevID, nLocType, null, false, null, null);
         }
 
-        public Ice.AsyncResult<MCS.Callback_MESLink_PlaceFoup> begin_PlaceFoup(string FoupID, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__)
+        public Ice.AsyncResult<MCS.Callback_MESLink_PlaceFoup> begin_PlaceFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__)
         {
-            return begin_PlaceFoup(FoupID, DevID, nLocType, ctx__, true, null, null);
+            return begin_PlaceFoup(foupBarCode, DevID, nLocType, ctx__, true, null, null);
         }
 
-        public Ice.AsyncResult begin_PlaceFoup(string FoupID, int DevID, int nLocType, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_PlaceFoup(int foupBarCode, int DevID, int nLocType, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_PlaceFoup(FoupID, DevID, nLocType, null, false, cb__, cookie__);
+            return begin_PlaceFoup(foupBarCode, DevID, nLocType, null, false, cb__, cookie__);
         }
 
-        public Ice.AsyncResult begin_PlaceFoup(string FoupID, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
+        public Ice.AsyncResult begin_PlaceFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__, Ice.AsyncCallback cb__, object cookie__)
         {
-            return begin_PlaceFoup(FoupID, DevID, nLocType, ctx__, true, cb__, cookie__);
+            return begin_PlaceFoup(foupBarCode, DevID, nLocType, ctx__, true, cb__, cookie__);
         }
 
         private const string __PlaceFoup_name = "PlaceFoup";
@@ -620,7 +620,7 @@ namespace MCS
             return ret__;
         }
 
-        private Ice.AsyncResult<MCS.Callback_MESLink_PlaceFoup> begin_PlaceFoup(string FoupID, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
+        private Ice.AsyncResult<MCS.Callback_MESLink_PlaceFoup> begin_PlaceFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> ctx__, bool explicitContext__, Ice.AsyncCallback cb__, object cookie__)
         {
             checkAsyncTwowayOnly__(__PlaceFoup_name);
             IceInternal.TwowayOutgoingAsync<MCS.Callback_MESLink_PlaceFoup> result__ =  new IceInternal.TwowayOutgoingAsync<MCS.Callback_MESLink_PlaceFoup>(this, __PlaceFoup_name, PlaceFoup_completed__, cookie__);
@@ -632,7 +632,7 @@ namespace MCS
             {
                 result__.prepare__(__PlaceFoup_name, Ice.OperationMode.Idempotent, ctx__, explicitContext__);
                 IceInternal.BasicStream os__ = result__.ostr__;
-                os__.writeString(FoupID);
+                os__.writeInt(foupBarCode);
                 os__.writeInt(DevID);
                 os__.writeInt(nLocType);
                 os__.endWriteEncaps();
@@ -825,11 +825,11 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public interface MESLinkDel_ : Ice.ObjectDel_
     {
-        int PlaceFoup(string FoupID, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__);
+        int PlaceFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        int PickFoup(string FoupId, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__);
+        int PickFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__);
 
-        MCS.LocFoup GetFoup(string FoupId, _System.Collections.Generic.Dictionary<string, string> context__);
+        MCS.LocFoup GetFoup(int foupBarCode, _System.Collections.Generic.Dictionary<string, string> context__);
     }
 }
 
@@ -839,7 +839,7 @@ namespace MCS
     [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
     public sealed class MESLinkDelM_ : Ice.ObjectDelM_, MESLinkDel_
     {
-        public MCS.LocFoup GetFoup(string FoupId, _System.Collections.Generic.Dictionary<string, string> context__)
+        public MCS.LocFoup GetFoup(int foupBarCode, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             IceInternal.Outgoing og__ = handler__.getOutgoing("GetFoup", Ice.OperationMode.Idempotent, context__);
             try
@@ -847,7 +847,7 @@ namespace MCS
                 try
                 {
                     IceInternal.BasicStream os__ = og__.ostr();
-                    os__.writeString(FoupId);
+                    os__.writeInt(foupBarCode);
                 }
                 catch(Ice.LocalException ex__)
                 {
@@ -890,7 +890,7 @@ namespace MCS
             }
         }
 
-        public int PickFoup(string FoupId, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__)
+        public int PickFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             IceInternal.Outgoing og__ = handler__.getOutgoing("PickFoup", Ice.OperationMode.Idempotent, context__);
             try
@@ -898,7 +898,7 @@ namespace MCS
                 try
                 {
                     IceInternal.BasicStream os__ = og__.ostr();
-                    os__.writeString(FoupId);
+                    os__.writeInt(foupBarCode);
                     os__.writeInt(DevID);
                     os__.writeInt(nLocType);
                 }
@@ -938,7 +938,7 @@ namespace MCS
             }
         }
 
-        public int PlaceFoup(string FoupID, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__)
+        public int PlaceFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             IceInternal.Outgoing og__ = handler__.getOutgoing("PlaceFoup", Ice.OperationMode.Idempotent, context__);
             try
@@ -946,7 +946,7 @@ namespace MCS
                 try
                 {
                     IceInternal.BasicStream os__ = og__.ostr();
-                    os__.writeString(FoupID);
+                    os__.writeInt(foupBarCode);
                     os__.writeInt(DevID);
                     os__.writeInt(nLocType);
                 }
@@ -995,7 +995,7 @@ namespace MCS
     public sealed class MESLinkDelD_ : Ice.ObjectDelD_, MESLinkDel_
     {
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
-        public MCS.LocFoup GetFoup(string FoupId, _System.Collections.Generic.Dictionary<string, string> context__)
+        public MCS.LocFoup GetFoup(int foupBarCode, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             Ice.Current current__ = new Ice.Current();
             initCurrent__(ref current__, "GetFoup", Ice.OperationMode.Idempotent, context__);
@@ -1011,7 +1011,7 @@ namespace MCS
                 {
                     throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
                 }
-                result__ = servant__.GetFoup(FoupId, current__);
+                result__ = servant__.GetFoup(foupBarCode, current__);
                 return Ice.DispatchStatus.DispatchOK;
             };
             IceInternal.Direct direct__ = null;
@@ -1040,7 +1040,7 @@ namespace MCS
         }
 
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
-        public int PickFoup(string FoupId, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__)
+        public int PickFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             Ice.Current current__ = new Ice.Current();
             initCurrent__(ref current__, "PickFoup", Ice.OperationMode.Idempotent, context__);
@@ -1056,7 +1056,7 @@ namespace MCS
                 {
                     throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
                 }
-                result__ = servant__.PickFoup(FoupId, DevID, nLocType, current__);
+                result__ = servant__.PickFoup(foupBarCode, DevID, nLocType, current__);
                 return Ice.DispatchStatus.DispatchOK;
             };
             IceInternal.Direct direct__ = null;
@@ -1085,7 +1085,7 @@ namespace MCS
         }
 
         [_System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031")]
-        public int PlaceFoup(string FoupID, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__)
+        public int PlaceFoup(int foupBarCode, int DevID, int nLocType, _System.Collections.Generic.Dictionary<string, string> context__)
         {
             Ice.Current current__ = new Ice.Current();
             initCurrent__(ref current__, "PlaceFoup", Ice.OperationMode.Idempotent, context__);
@@ -1101,7 +1101,7 @@ namespace MCS
                 {
                     throw new Ice.OperationNotExistException(current__.id, current__.facet, current__.operation);
                 }
-                result__ = servant__.PlaceFoup(FoupID, DevID, nLocType, current__);
+                result__ = servant__.PlaceFoup(foupBarCode, DevID, nLocType, current__);
                 return Ice.DispatchStatus.DispatchOK;
             };
             IceInternal.Direct direct__ = null;
@@ -1139,26 +1139,26 @@ namespace MCS
     {
         #region Slice operations
 
-        public int PlaceFoup(string FoupID, int DevID, int nLocType)
+        public int PlaceFoup(int foupBarCode, int DevID, int nLocType)
         {
-            return PlaceFoup(FoupID, DevID, nLocType, Ice.ObjectImpl.defaultCurrent);
+            return PlaceFoup(foupBarCode, DevID, nLocType, Ice.ObjectImpl.defaultCurrent);
         }
 
-        public abstract int PlaceFoup(string FoupID, int DevID, int nLocType, Ice.Current current__);
+        public abstract int PlaceFoup(int foupBarCode, int DevID, int nLocType, Ice.Current current__);
 
-        public int PickFoup(string FoupId, int DevID, int nLocType)
+        public int PickFoup(int foupBarCode, int DevID, int nLocType)
         {
-            return PickFoup(FoupId, DevID, nLocType, Ice.ObjectImpl.defaultCurrent);
+            return PickFoup(foupBarCode, DevID, nLocType, Ice.ObjectImpl.defaultCurrent);
         }
 
-        public abstract int PickFoup(string FoupId, int DevID, int nLocType, Ice.Current current__);
+        public abstract int PickFoup(int foupBarCode, int DevID, int nLocType, Ice.Current current__);
 
-        public MCS.LocFoup GetFoup(string FoupId)
+        public MCS.LocFoup GetFoup(int foupBarCode)
         {
-            return GetFoup(FoupId, Ice.ObjectImpl.defaultCurrent);
+            return GetFoup(foupBarCode, Ice.ObjectImpl.defaultCurrent);
         }
 
-        public abstract MCS.LocFoup GetFoup(string FoupId, Ice.Current current__);
+        public abstract MCS.LocFoup GetFoup(int foupBarCode, Ice.Current current__);
 
         #endregion
 
@@ -1215,15 +1215,15 @@ namespace MCS
             checkMode__(Ice.OperationMode.Idempotent, current__.mode);
             IceInternal.BasicStream is__ = inS__.istr();
             is__.startReadEncaps();
-            string FoupID;
-            FoupID = is__.readString();
+            int foupBarCode;
+            foupBarCode = is__.readInt();
             int DevID;
             DevID = is__.readInt();
             int nLocType;
             nLocType = is__.readInt();
             is__.endReadEncaps();
             IceInternal.BasicStream os__ = inS__.ostr();
-            int ret__ = obj__.PlaceFoup(FoupID, DevID, nLocType, current__);
+            int ret__ = obj__.PlaceFoup(foupBarCode, DevID, nLocType, current__);
             os__.writeInt(ret__);
             return Ice.DispatchStatus.DispatchOK;
         }
@@ -1234,15 +1234,15 @@ namespace MCS
             checkMode__(Ice.OperationMode.Idempotent, current__.mode);
             IceInternal.BasicStream is__ = inS__.istr();
             is__.startReadEncaps();
-            string FoupId;
-            FoupId = is__.readString();
+            int foupBarCode;
+            foupBarCode = is__.readInt();
             int DevID;
             DevID = is__.readInt();
             int nLocType;
             nLocType = is__.readInt();
             is__.endReadEncaps();
             IceInternal.BasicStream os__ = inS__.ostr();
-            int ret__ = obj__.PickFoup(FoupId, DevID, nLocType, current__);
+            int ret__ = obj__.PickFoup(foupBarCode, DevID, nLocType, current__);
             os__.writeInt(ret__);
             return Ice.DispatchStatus.DispatchOK;
         }
@@ -1253,11 +1253,11 @@ namespace MCS
             checkMode__(Ice.OperationMode.Idempotent, current__.mode);
             IceInternal.BasicStream is__ = inS__.istr();
             is__.startReadEncaps();
-            string FoupId;
-            FoupId = is__.readString();
+            int foupBarCode;
+            foupBarCode = is__.readInt();
             is__.endReadEncaps();
             IceInternal.BasicStream os__ = inS__.ostr();
-            MCS.LocFoup ret__ = obj__.GetFoup(FoupId, current__);
+            MCS.LocFoup ret__ = obj__.GetFoup(foupBarCode, current__);
             if(ret__ == null)
             {
                 MCS.LocFoup tmp__ = new MCS.LocFoup();

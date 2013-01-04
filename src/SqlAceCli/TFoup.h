@@ -1,18 +1,18 @@
-// TFoup.h : CFoupTable 的声明
+// TFoup.h : CTableFoup 的声明
 
 #pragma once
 
-// 代码生成在 2012年9月14日, 14:43
+// 代码生成在 2013年1月4日, 11:10
 
 class CTableFoupAccessor
 {
 public:
 	LONG m_ID;
-	LONG m_Local;
-	BYTE m_Type;
+	LONG m_Location;
+	BYTE m_LocationType;
 	BYTE m_Status;
-	TCHAR m_Lot[51];
-	TCHAR m_FoupID[51];
+	LONG m_Lot;
+	LONG m_BarCode;
 
 	// 以下向导生成的数据成员包含
 	//列映射中相应字段的状态值。
@@ -24,11 +24,11 @@ public:
 	// 注意: 在设置/插入数据前必须初始化这些字段!
 
 	DBSTATUS m_dwIDStatus;
-	DBSTATUS m_dwLocalStatus;
-	DBSTATUS m_dwTypeStatus;
+	DBSTATUS m_dwLocationStatus;
+	DBSTATUS m_dwLocationTypeStatus;
 	DBSTATUS m_dwStatusStatus;
 	DBSTATUS m_dwLotStatus;
-	DBSTATUS m_dwFoupIDStatus;
+	DBSTATUS m_dwBarCodeStatus;
 
 	// 以下向导生成的数据成员包含
 	//列映射中相应字段的长度值。
@@ -36,11 +36,11 @@ public:
 	//       数据前必须初始化这些字段!
 
 	DBLENGTH m_dwIDLength;
-	DBLENGTH m_dwLocalLength;
-	DBLENGTH m_dwTypeLength;
+	DBLENGTH m_dwLocationLength;
+	DBLENGTH m_dwLocationTypeLength;
 	DBLENGTH m_dwStatusLength;
 	DBLENGTH m_dwLotLength;
-	DBLENGTH m_dwFoupIDLength;
+	DBLENGTH m_dwBarCodeLength;
 
 
 	void GetRowsetProperties(CDBPropSet* pPropSet)
@@ -86,11 +86,11 @@ public:
 	DEFINE_COMMAND_EX(CTableFoupAccessor, L" \
 	SELECT \
 		ID, \
-		Local, \
-		Type, \
+		Location, \
+		LocationType, \
 		Status, \
 		Lot, \
-		FoupID \
+		BarCode \
 		FROM dbo.Foup")
 
 
@@ -99,11 +99,11 @@ public:
 
 	BEGIN_COLUMN_MAP(CTableFoupAccessor)
 		COLUMN_ENTRY_LENGTH_STATUS(1, m_ID, m_dwIDLength, m_dwIDStatus)
-		COLUMN_ENTRY_LENGTH_STATUS(2, m_Local, m_dwLocalLength, m_dwLocalStatus)
-		COLUMN_ENTRY_LENGTH_STATUS(3, m_Type, m_dwTypeLength, m_dwTypeStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(2, m_Location, m_dwLocationLength, m_dwLocationStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(3, m_LocationType, m_dwLocationTypeLength, m_dwLocationTypeStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(4, m_Status, m_dwStatusLength, m_dwStatusStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(5, m_Lot, m_dwLotLength, m_dwLotStatus)
-		COLUMN_ENTRY_LENGTH_STATUS(6, m_FoupID, m_dwFoupIDLength, m_dwFoupIDStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(6, m_BarCode, m_dwBarCodeLength, m_dwBarCodeStatus)
 	END_COLUMN_MAP()
 };
 

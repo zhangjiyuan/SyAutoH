@@ -12,49 +12,49 @@ class MesMsgReceiver
 public:
 	DBFoup* m_pFoupDB;
 
-	void MESHanderPick(const WCHAR* sName, int nLoc, int nLocType)
+	void MESHanderPick(int nBarCode, int nLoc, int nLocType)
 	{
-		wprintf_s(L"FoupPick was called with value %s %d %d.\n", sName, nLoc, nLocType);
+		wprintf_s(L"FoupPick was called with value %d %d %d.\n", nBarCode, nLoc, nLocType);
 		int nOHT = 0;
 		int nStocker = 0;
-		int nFoup = m_pFoupDB->FindFoup(sName);
+		int nFoup = m_pFoupDB->FindFoup(nBarCode);
 
 		if (nFoup > 0)
 		{
 			int nLocal = 0;
 			int nType = 0;
 			m_pFoupDB->GetFoupLocation(nFoup, nLocal, nType);
-			wprintf_s(L"Find Foup: %s at Location: %d Type: %d.\n", 
-				sName, nLocal, nType);
+			wprintf_s(L"Find Foup: %d at Location: %d Type: %d.\n", 
+				nBarCode, nLocal, nType);
 
 			m_pFoupDB->SetFoupLocation(nFoup, nLocal, nType);
-			wprintf_s(L"Find Foup: %s at Location: %d Type: %d.\n", 
-				sName, nLocal, nType);
+			wprintf_s(L"Find Foup: %d at Location: %d Type: %d.\n", 
+				nBarCode, nLocal, nType);
 		}
 		else
 		{
-			wprintf_s(L"Can not Fine Foup %s.\n", sName);
+			wprintf_s(L"Can not Fine Foup %d.\n", nBarCode);
 		}
 	}
 
-	void MESHanderPlace(const WCHAR* sName, int nLoc, int nLocType)
+	void MESHanderPlace(int nBarCode, int nLoc, int nLocType)
 	{
-		wprintf_s(L"FoupPlace was called with value %s %d %d.\n", sName, nLoc, nLocType);
+		wprintf_s(L"FoupPlace was called with value %s %d %d.\n", nBarCode, nLoc, nLocType);
 		int nOHT = 0;
 		int nStocker = 0;
-		int nFoup = m_pFoupDB->FindFoup(sName);
+		int nFoup = m_pFoupDB->FindFoup(nBarCode);
 
 		if (nFoup > 0)
 		{
 			int nLocal = 0;
 			int nType = 0;
 			m_pFoupDB->GetFoupLocation(nFoup, nLocal, nType);
-			wprintf_s(L"Find Foup: %s at Location: %d Type: %d.\n", 
-				sName, nLocal, nType);
+			wprintf_s(L"Find Foup: %d at Location: %d Type: %d.\n", 
+				nBarCode, nLocal, nType);
 		}
 		else
 		{
-			wprintf_s(L"Can not Fine Foup %s.\n", sName);
+			wprintf_s(L"Can not Fine Foup %d.\n", nBarCode);
 		}
 	}
 

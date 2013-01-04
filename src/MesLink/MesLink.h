@@ -24,8 +24,8 @@ public:
 class MesMsgSource 
 {
 public:
-	__event void MESPickFoup(const WCHAR* sFoupName, int nDevID, int nDevType);
-	__event void MESPlaceFoup(const WCHAR* sFoupName, int nDevID, int nDevType);
+	__event void MESPickFoup(int nBarCode, int nDevID, int nDevType);
+	__event void MESPlaceFoup(int nBarCode, int nDevID, int nDevType);
 };
 
 class MesLinkServer;

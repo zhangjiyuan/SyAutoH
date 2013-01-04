@@ -9,9 +9,9 @@ public:
 	~IceMesLinkI(void);
 
 public:
-	virtual LocFoup GetFoup(const ::std::string&, const ::Ice::Current& /* = ::Ice::Current */);
-	virtual int PlaceFoup(const ::std::string&, int, int, const ::Ice::Current&);
-	virtual int PickFoup(const ::std::string&, int, int, const ::Ice::Current&);
+	virtual LocFoup GetFoup(::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
+	virtual int PlaceFoup(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
+	virtual int PickFoup(::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Current& /* = ::Ice::Current */);
 
 private:
 	MesMsgSource* m_pSource;

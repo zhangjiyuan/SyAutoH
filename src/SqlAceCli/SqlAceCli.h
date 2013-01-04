@@ -54,10 +54,10 @@ public:
 	DBFoup(void);
 	~DBFoup(void);
 public:
-	int AddFoup(const WCHAR* sFoupID, const WCHAR* sLot, int nLocal, int nType);
-	int FindFoup(const WCHAR* sFoupID);
-	int SetFoupLocation(int nFoup, int nLocal, int nType);
-	int GetFoupLocation(int nFoup, int &nLocal, int &nType);
+	int AddFoup(int nBarCode, int nLot, int nLocation, int nLocType);
+	int FindFoup(int nBarCode);
+	int SetFoupLocation(int nBarCode, int nLocation, int nLocType);
+	int GetFoupLocation(int nBarCode, int &nLocation, int &nLocType);
 };
 
 typedef map<int, int> Map_Int;

@@ -20,12 +20,12 @@ namespace GuiAccess
             ProxyKey = "MESLink";
         }
 
-        public int PlaceFoup(string strFoupID, int nDevID, int nDevType)
+        public int PlaceFoup(int nBarCode, int nDevID, int nDevType)
         {
              int nRet = 0;
             try
             {
-                nRet = remote.PlaceFoup(strFoupID, nDevID, nDevType);
+                nRet = remote.PlaceFoup(nBarCode, nDevID, nDevType);
             }
             catch (System.Exception /*ex*/)
             {
@@ -35,12 +35,12 @@ namespace GuiAccess
             return nRet;
         }
 
-        public int PickFoup(string strFoupID, int nDevID, int nDevType)
+        public int PickFoup(int nFoupBarCode, int nDevID, int nDevType)
         {
             int nRet = 0;
             try
             {
-                nRet = remote.PickFoup(strFoupID, nDevID, nDevType);
+                nRet = remote.PickFoup(nFoupBarCode, nDevID, nDevType);
             }
             catch (System.Exception /*ex*/)
             {
@@ -50,7 +50,7 @@ namespace GuiAccess
             return nRet;
         }
 
-        public int GetFoupLocation(string sFoupName, out int nDevID, out int nDevType)
+        public int GetFoupLocation(int nFoupBarCode, out int nDevID, out int nDevType)
         {
             int nRet = 0;
             LocFoup location;
@@ -59,7 +59,7 @@ namespace GuiAccess
 
             try
             {
-                location = remote.GetFoup(sFoupName);
+                location = remote.GetFoup(nFoupBarCode);
                 nDevID = location.nDevID;
                 nDevType = location.nLocType;
             }
