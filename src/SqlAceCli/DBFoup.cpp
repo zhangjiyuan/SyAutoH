@@ -179,3 +179,33 @@ int DBFoup::GetFoupLocation(int nFoup, int &nLocal, int &nType)
 
 	return 0;
 }
+
+VEC_FOUP DBFoup::GetFoupTable()
+{
+	VEC_FOUP foupList;
+	CoInitialize(NULL);
+	HRESULT hr;
+
+	CTableFoup tableFoup;
+	hr = tableFoup.OpenAll();
+	if (FAILED(hr))
+	{
+		cout << "Open Foup Failed." << endl;
+		return foupList;
+	}
+
+	if(tableFoup.MoveNext() != DB_S_ENDOFROWSET)
+	{
+		FoupItem foupItem;
+		foupItem.nBarCode = tableFoup.m_BarCode;
+		foupItem.nLot = tableFoup.m_Lot;
+		foupItem.nLocation = tableFoup.m_Location;
+		foupItem.nLocationType = tableFoup.m_LocationType;
+		foupItem.nStatus = tableFoup.m_Status;
+		foupList.push_back(foupItem);
+	}
+	tableFoup.CloseAll();
+	CoUninitialize();
+
+	return foupList;
+}

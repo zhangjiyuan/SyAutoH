@@ -60,6 +60,8 @@ GuiDataHubI::GuiDataHubI(void)
 	// for MES
 	m_mapHandles.insert(std::make_pair(GuiHub::MesGetPosTable,
 		&GuiDataHubI::MES_GetPositionTable));
+	m_mapHandles.insert(std::make_pair(GuiHub::MesGetFoupTable,
+		&GuiDataHubI::MES_GetFoupTable));
 
 	//////////////////////////////////////////////////////////////////////////
 	// Push Data

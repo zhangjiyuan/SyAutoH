@@ -100,6 +100,7 @@ private:
 	void STK_AckRoomStatus(const std::string&, const ::Ice::Current&);
 
 	void MES_GetPositionTable(const std::string&, const ::Ice::Current&);
+	void MES_GetFoupTable(const std::string&, const ::Ice::Current&);
 
 private:
 	GuiDataItem Push_OHT_DevInfo();

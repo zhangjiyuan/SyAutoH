@@ -17,3 +17,27 @@ void GuiDataHubI::MES_GetPositionTable(const std::string&, const ::Ice::Current&
 	string strVal = _GetKeyPointsTable(nTypes);
 	UpdateDataOne(current.con, GuiHub::upMesPosTable, strVal);
 }
+
+void GuiDataHubI::MES_GetFoupTable(const std::string&, const ::Ice::Current& current)
+{
+	DBFoup db;
+	VEC_FOUP foupList = db.GetFoupTable();
+	string strVal = "";
+	char buf[100] = "";
+	for (auto it = foupList.cbegin();
+		it != foupList.cend(); ++it)
+	{
+		strVal += "<";
+		strVal += itoa(it->nBarCode, buf, 10);
+		strVal += ",";
+		strVal += itoa(it->nLot, buf, 10);
+		strVal += ",";
+		strVal += itoa(it->nLocation, buf, 10);
+		strVal += ",";
+		strVal += itoa(it->nLocationType, buf, 10);
+		strVal += ",";
+		strVal += itoa(it->nStatus, buf, 10);
+		strVal += ">";
+	}
+	UpdateDataOne(current.con, GuiHub::upMesFoupTable, strVal);
+}

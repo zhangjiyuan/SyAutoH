@@ -19,6 +19,7 @@ namespace MCSControlLib
         private const string TKeyP_Speed = "Speed";
 
         private DataTable m_tableKeyPos = null;
+        private DataTable m_tableFoup = null;
 
         public pageMesCommand()
         {
@@ -28,6 +29,7 @@ namespace MCSControlLib
         protected override void InitProcessDictionary()
         {
             m_dictProcess.Add(PushData.upMesPosTable, ProcessPosTable);
+            m_dictProcess.Add(PushData.upMesFoupTable, ProcessFoupTable);
         }
 
         private void InitKeyPosTable()
@@ -43,6 +45,56 @@ namespace MCSControlLib
                 m_tableKeyPos.Columns.Add(TKeyP_Speed, typeof(System.Byte));
 
                 m_tableKeyPos.AcceptChanges();
+            }
+        }
+
+        private void InitFoupTable()
+        {
+            if (null == m_tableFoup)
+            {
+                m_tableFoup = new DataTable("Foup");
+                m_tableFoup.Columns.Add("BarCode", typeof(System.UInt32));
+                m_tableFoup.Columns["BarCode"].AllowDBNull = false;
+                m_tableFoup.PrimaryKey = new DataColumn[] { m_tableFoup.Columns["BarCode"] };
+                m_tableFoup.Columns.Add("Lot", typeof(System.UInt32));
+                m_tableFoup.Columns.Add("Location", typeof(System.Int32));
+                m_tableFoup.Columns.Add("LocType", typeof(System.UInt32));
+                m_tableFoup.Columns.Add("Status", typeof(System.UInt32));
+
+                m_tableFoup.AcceptChanges();
+            }
+        }
+
+        private void ProcessFoupTable(ArrayList item)
+        {
+            if (5 == item.Count)
+            {
+                UInt32 uBarCode = TryConver.ToUInt32(item[0].ToString());
+                UInt32 uLot = TryConver.ToUInt32(item[1].ToString());
+                int nLocation = TryConver.ToInt32(item[2].ToString());
+                uint uLocType = TryConver.ToUInt32(item[3].ToString());
+                uint uStatus = TryConver.ToUInt32(item[4].ToString());
+                DataRow row = m_tableFoup.Rows.Find(uBarCode);
+                if (null != row)
+                {
+                    row[1] = uLot;
+                    row[2] = nLocation;
+                    row[3] = uLocType;
+                    row[4] = uStatus;
+                    row.AcceptChanges();
+                }
+                else
+                {
+                    row = m_tableFoup.NewRow();
+                    row[0] = uBarCode;
+                    row[1] = uLot;
+                    row[2] = nLocation;
+                    row[3] = uLocType;
+                    row[4] = uStatus;
+                    m_tableFoup.Rows.Add(row);
+                    m_tableFoup.AcceptChanges();
+                }
+
             }
         }
 
@@ -88,8 +140,10 @@ namespace MCSControlLib
         private void pageMesCommand_Load(object sender, EventArgs e)
         {
             InitKeyPosTable();
+            InitFoupTable();
 
             dataGridViewKeyPos.DataSource = m_tableKeyPos;
+            dataGridViewFoup.DataSource = m_tableFoup;
         }
     }
 }
