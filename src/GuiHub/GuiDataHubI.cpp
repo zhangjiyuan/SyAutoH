@@ -10,7 +10,7 @@
 #pragma comment(lib, "winmm.lib")
 
 GuiDataHubI::GuiDataHubI(void)
-	: m_nTimerPeriord(200),
+	: m_nTimerPeriord(300),
 	m_nTimerID(0)
 {
 	// for oht
@@ -56,6 +56,10 @@ GuiDataHubI::GuiDataHubI(void)
 		&GuiDataHubI::STK_Alarms));
 	m_mapHandles.insert(std::make_pair(GuiHub::StkGetFoupInSys,
 		&GuiDataHubI::STK_GetFoupInSys));
+
+	// for MES
+	m_mapHandles.insert(std::make_pair(GuiHub::MesGetPosTable,
+		&GuiDataHubI::MES_GetPositionTable));
 
 	//////////////////////////////////////////////////////////////////////////
 	// Push Data

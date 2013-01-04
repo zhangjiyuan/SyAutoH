@@ -18,17 +18,17 @@ namespace MCSControlLib
         private int m_nPageNowID = 0;
         private event EventHandler UpdateList;
         private event EventHandler GetNowMsg;
-        private int m_nQueryType = 0;
+        //private int m_nQueryType = 0;
         private const int m_nOfflinePageLimit = 100;
-        private int m_nPageStart = 0;
-        private int m_nOfflineCount = 0;
+        //private int m_nPageStart = 0;
+        //private int m_nOfflineCount = 0;
 
         public Logger()
         {
             InitializeComponent();
             UpdateList += new EventHandler(EvUpdate);
             GetNowMsg += new EventHandler(Logger_GetNowMsg);
-            timer1.Tick += new EventHandler(timer1_Tick);
+            //timer1.Tick += new EventHandler(timer1_Tick);
         }
         void Logger_GetNowMsg(object sender, EventArgs e)
         {

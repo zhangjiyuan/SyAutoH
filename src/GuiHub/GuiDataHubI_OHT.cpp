@@ -8,12 +8,10 @@
 #include "iConstDef.h"
 #include <MMSystem.h>
 
-void GuiDataHubI::OHT_GetPositionTable(const std::string&, const ::Ice::Current& current)
+string GuiDataHubI::_GetKeyPointsTable(vector<int> nTypes)
 {
-	LOG_DEBUG("");
-	//boost::thread();
 	DBKeyPoints db;
-	VEC_KEYPOINT ptKeys = db.GetKeyPointsTable();
+	VEC_KEYPOINT ptKeys = db.GetKeyPointsTable(nTypes);
 	string strVal = "";
 	char buf[100] = "";
 	for (VEC_KEYPOINT::iterator it = ptKeys.begin();
@@ -29,6 +27,14 @@ void GuiDataHubI::OHT_GetPositionTable(const std::string&, const ::Ice::Current&
 		strVal += itoa(it->uSpeedRate, buf, 10);
 		strVal += ">";
 	}
+
+	return strVal;
+}
+
+void GuiDataHubI::OHT_GetPositionTable(const std::string&, const ::Ice::Current& current)
+{
+	vector<int> nTypes;
+	string strVal = _GetKeyPointsTable(nTypes);
 
 	UpdateDataOne(current.con, GuiHub::upOhtPosTable, strVal);
 }

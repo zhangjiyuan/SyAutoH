@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -45,8 +47,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.lVMes_Location = new System.Windows.Forms.ListView();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.linkLabelFoupRefresh = new System.Windows.Forms.LinkLabel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label18 = new System.Windows.Forms.Label();
             this.tBMesFS_POS = new System.Windows.Forms.TextBox();
@@ -60,10 +61,14 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.lVMes_Foup = new System.Windows.Forms.ListView();
+            this.linkLabelLocationRefresh = new System.Windows.Forms.LinkLabel();
+            this.dataGridViewKeyPos = new System.Windows.Forms.DataGridView();
+            this.dataGridViewFoup = new System.Windows.Forms.DataGridView();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeyPos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFoup)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox5
@@ -222,31 +227,22 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(357, 11);
+            this.label15.Location = new System.Drawing.Point(357, 3);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(107, 12);
             this.label15.TabIndex = 30;
             this.label15.Text = "Locations in MCS:";
             // 
-            // lVMes_Location
+            // linkLabelFoupRefresh
             // 
-            this.lVMes_Location.BackColor = System.Drawing.Color.Linen;
-            this.lVMes_Location.Location = new System.Drawing.Point(359, 33);
-            this.lVMes_Location.Name = "lVMes_Location";
-            this.lVMes_Location.Size = new System.Drawing.Size(221, 384);
-            this.lVMes_Location.TabIndex = 29;
-            this.lVMes_Location.UseCompatibleStateImageBehavior = false;
-            this.lVMes_Location.View = System.Windows.Forms.View.Details;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(816, 11);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(125, 12);
-            this.linkLabel1.TabIndex = 28;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Refresh Foups in MCS";
+            this.linkLabelFoupRefresh.AutoSize = true;
+            this.linkLabelFoupRefresh.Location = new System.Drawing.Point(894, 3);
+            this.linkLabelFoupRefresh.Name = "linkLabelFoupRefresh";
+            this.linkLabelFoupRefresh.Size = new System.Drawing.Size(47, 12);
+            this.linkLabelFoupRefresh.TabIndex = 28;
+            this.linkLabelFoupRefresh.TabStop = true;
+            this.linkLabelFoupRefresh.Text = "Refresh";
+            this.linkLabelFoupRefresh.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelFoupRefresh_LinkClicked);
             // 
             // groupBox3
             // 
@@ -370,26 +366,88 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(584, 11);
+            this.label12.Location = new System.Drawing.Point(584, 3);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(83, 12);
             this.label12.TabIndex = 26;
             this.label12.Text = "Foups in MCS:";
             // 
-            // lVMes_Foup
+            // linkLabelLocationRefresh
             // 
-            this.lVMes_Foup.BackColor = System.Drawing.Color.SkyBlue;
-            this.lVMes_Foup.Location = new System.Drawing.Point(586, 33);
-            this.lVMes_Foup.Name = "lVMes_Foup";
-            this.lVMes_Foup.Size = new System.Drawing.Size(355, 384);
-            this.lVMes_Foup.TabIndex = 25;
-            this.lVMes_Foup.UseCompatibleStateImageBehavior = false;
-            this.lVMes_Foup.View = System.Windows.Forms.View.Details;
+            this.linkLabelLocationRefresh.AutoSize = true;
+            this.linkLabelLocationRefresh.Location = new System.Drawing.Point(531, 3);
+            this.linkLabelLocationRefresh.Name = "linkLabelLocationRefresh";
+            this.linkLabelLocationRefresh.Size = new System.Drawing.Size(47, 12);
+            this.linkLabelLocationRefresh.TabIndex = 37;
+            this.linkLabelLocationRefresh.TabStop = true;
+            this.linkLabelLocationRefresh.Text = "Refresh";
+            this.linkLabelLocationRefresh.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelLocationRefresh_LinkClicked);
+            // 
+            // dataGridViewKeyPos
+            // 
+            this.dataGridViewKeyPos.AllowUserToAddRows = false;
+            this.dataGridViewKeyPos.AllowUserToDeleteRows = false;
+            this.dataGridViewKeyPos.AllowUserToResizeRows = false;
+            this.dataGridViewKeyPos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dataGridViewKeyPos.BackgroundColor = System.Drawing.Color.MistyRose;
+            this.dataGridViewKeyPos.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewKeyPos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewKeyPos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewKeyPos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewKeyPos.Location = new System.Drawing.Point(353, 18);
+            this.dataGridViewKeyPos.MultiSelect = false;
+            this.dataGridViewKeyPos.Name = "dataGridViewKeyPos";
+            this.dataGridViewKeyPos.ReadOnly = true;
+            this.dataGridViewKeyPos.RowHeadersVisible = false;
+            this.dataGridViewKeyPos.RowTemplate.Height = 23;
+            this.dataGridViewKeyPos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewKeyPos.Size = new System.Drawing.Size(225, 399);
+            this.dataGridViewKeyPos.TabIndex = 38;
+            // 
+            // dataGridViewFoup
+            // 
+            this.dataGridViewFoup.AllowUserToAddRows = false;
+            this.dataGridViewFoup.AllowUserToDeleteRows = false;
+            this.dataGridViewFoup.AllowUserToResizeRows = false;
+            this.dataGridViewFoup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dataGridViewFoup.BackgroundColor = System.Drawing.Color.PaleTurquoise;
+            this.dataGridViewFoup.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewFoup.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewFoup.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewFoup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewFoup.Location = new System.Drawing.Point(586, 18);
+            this.dataGridViewFoup.MultiSelect = false;
+            this.dataGridViewFoup.Name = "dataGridViewFoup";
+            this.dataGridViewFoup.ReadOnly = true;
+            this.dataGridViewFoup.RowHeadersVisible = false;
+            this.dataGridViewFoup.RowTemplate.Height = 23;
+            this.dataGridViewFoup.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewFoup.Size = new System.Drawing.Size(355, 399);
+            this.dataGridViewFoup.TabIndex = 39;
             // 
             // pageMesCommand
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dataGridViewFoup);
+            this.Controls.Add(this.dataGridViewKeyPos);
+            this.Controls.Add(this.linkLabelLocationRefresh);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -397,19 +455,20 @@
             this.Controls.Add(this.bnMesFouptoLocation);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.lVMes_Location);
-            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.linkLabelFoupRefresh);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.lVMes_Foup);
             this.Name = "pageMesCommand";
             this.Size = new System.Drawing.Size(958, 430);
+            this.Load += new System.EventHandler(this.pageMesCommand_Load);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeyPos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFoup)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -434,8 +493,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.ListView lVMes_Location;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel linkLabelFoupRefresh;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox tBMesFS_POS;
@@ -449,7 +507,9 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ListView lVMes_Foup;
+        private System.Windows.Forms.LinkLabel linkLabelLocationRefresh;
+        private System.Windows.Forms.DataGridView dataGridViewKeyPos;
+        private System.Windows.Forms.DataGridView dataGridViewFoup;
 
     }
 }

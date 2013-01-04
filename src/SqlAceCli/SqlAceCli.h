@@ -48,6 +48,15 @@ public:
 	UserData GetUserDatabyID(int nUserID);
 };
 
+typedef struct 
+{
+	int nBarCode;
+	int nLot;
+	int nLocation;
+	int nLocationType;
+	int nStatus;
+} FoupItem;
+typedef std::vector<FoupItem> VEC_FOUP;
 class SQLACECLI_API DBFoup
 {
 public:
@@ -58,6 +67,7 @@ public:
 	int FindFoup(int nBarCode);
 	int SetFoupLocation(int nBarCode, int nLocation, int nLocType);
 	int GetFoupLocation(int nBarCode, int &nLocation, int &nLocType);
+	VEC_FOUP GetFoupTable();
 };
 
 typedef map<int, int> Map_Int;
@@ -96,7 +106,7 @@ public:
 	DBKeyPoints(void);
 	~DBKeyPoints(void);
 	int SetKeyPointbyOHTTeach(int nOHT_ID, int nPOS, int nType, int nSpeedRate);
-	VEC_KEYPOINT GetKeyPointsTable();
+	VEC_KEYPOINT GetKeyPointsTable(vector<int> nTypes);
 };
 
 typedef struct  
