@@ -50,13 +50,13 @@
             this.linkLabelFoupRefresh = new System.Windows.Forms.LinkLabel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.tBMesFS_POS = new System.Windows.Forms.TextBox();
-            this.tBMesFS_CAR = new System.Windows.Forms.TextBox();
+            this.tbFoupLocation = new System.Windows.Forms.TextBox();
+            this.tbFoupLocType = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.tBMesFS_ST = new System.Windows.Forms.TextBox();
-            this.tBMesFS_BC = new System.Windows.Forms.TextBox();
-            this.tBMesFS_Lot = new System.Windows.Forms.TextBox();
+            this.tbFoupStatus = new System.Windows.Forms.TextBox();
+            this.tbFoupBarCode = new System.Windows.Forms.TextBox();
+            this.tbFoupLot = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -247,13 +247,13 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label18);
-            this.groupBox3.Controls.Add(this.tBMesFS_POS);
-            this.groupBox3.Controls.Add(this.tBMesFS_CAR);
+            this.groupBox3.Controls.Add(this.tbFoupLocation);
+            this.groupBox3.Controls.Add(this.tbFoupLocType);
             this.groupBox3.Controls.Add(this.label17);
             this.groupBox3.Controls.Add(this.label16);
-            this.groupBox3.Controls.Add(this.tBMesFS_ST);
-            this.groupBox3.Controls.Add(this.tBMesFS_BC);
-            this.groupBox3.Controls.Add(this.tBMesFS_Lot);
+            this.groupBox3.Controls.Add(this.tbFoupStatus);
+            this.groupBox3.Controls.Add(this.tbFoupBarCode);
+            this.groupBox3.Controls.Add(this.tbFoupLot);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Controls.Add(this.label5);
@@ -273,23 +273,23 @@
             this.label18.TabIndex = 23;
             this.label18.Text = "Real Time Motion Info";
             // 
-            // tBMesFS_POS
+            // tbFoupLocation
             // 
-            this.tBMesFS_POS.Location = new System.Drawing.Point(77, 193);
-            this.tBMesFS_POS.Name = "tBMesFS_POS";
-            this.tBMesFS_POS.ReadOnly = true;
-            this.tBMesFS_POS.Size = new System.Drawing.Size(84, 21);
-            this.tBMesFS_POS.TabIndex = 22;
-            this.tBMesFS_POS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbFoupLocation.Location = new System.Drawing.Point(77, 193);
+            this.tbFoupLocation.Name = "tbFoupLocation";
+            this.tbFoupLocation.ReadOnly = true;
+            this.tbFoupLocation.Size = new System.Drawing.Size(84, 21);
+            this.tbFoupLocation.TabIndex = 22;
+            this.tbFoupLocation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // tBMesFS_CAR
+            // tbFoupLocType
             // 
-            this.tBMesFS_CAR.Location = new System.Drawing.Point(77, 169);
-            this.tBMesFS_CAR.Name = "tBMesFS_CAR";
-            this.tBMesFS_CAR.ReadOnly = true;
-            this.tBMesFS_CAR.Size = new System.Drawing.Size(84, 21);
-            this.tBMesFS_CAR.TabIndex = 21;
-            this.tBMesFS_CAR.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbFoupLocType.Location = new System.Drawing.Point(77, 169);
+            this.tbFoupLocType.Name = "tbFoupLocType";
+            this.tbFoupLocType.ReadOnly = true;
+            this.tbFoupLocType.Size = new System.Drawing.Size(84, 21);
+            this.tbFoupLocType.TabIndex = 21;
+            this.tbFoupLocType.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label17
             // 
@@ -309,32 +309,32 @@
             this.label16.TabIndex = 19;
             this.label16.Text = "Carrier:";
             // 
-            // tBMesFS_ST
+            // tbFoupStatus
             // 
-            this.tBMesFS_ST.Location = new System.Drawing.Point(77, 67);
-            this.tBMesFS_ST.Name = "tBMesFS_ST";
-            this.tBMesFS_ST.ReadOnly = true;
-            this.tBMesFS_ST.Size = new System.Drawing.Size(84, 21);
-            this.tBMesFS_ST.TabIndex = 18;
-            this.tBMesFS_ST.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbFoupStatus.Location = new System.Drawing.Point(77, 67);
+            this.tbFoupStatus.Name = "tbFoupStatus";
+            this.tbFoupStatus.ReadOnly = true;
+            this.tbFoupStatus.Size = new System.Drawing.Size(84, 21);
+            this.tbFoupStatus.TabIndex = 18;
+            this.tbFoupStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // tBMesFS_BC
+            // tbFoupBarCode
             // 
-            this.tBMesFS_BC.Location = new System.Drawing.Point(77, 43);
-            this.tBMesFS_BC.Name = "tBMesFS_BC";
-            this.tBMesFS_BC.ReadOnly = true;
-            this.tBMesFS_BC.Size = new System.Drawing.Size(84, 21);
-            this.tBMesFS_BC.TabIndex = 17;
-            this.tBMesFS_BC.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbFoupBarCode.Location = new System.Drawing.Point(77, 43);
+            this.tbFoupBarCode.Name = "tbFoupBarCode";
+            this.tbFoupBarCode.ReadOnly = true;
+            this.tbFoupBarCode.Size = new System.Drawing.Size(84, 21);
+            this.tbFoupBarCode.TabIndex = 17;
+            this.tbFoupBarCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // tBMesFS_Lot
+            // tbFoupLot
             // 
-            this.tBMesFS_Lot.Location = new System.Drawing.Point(77, 19);
-            this.tBMesFS_Lot.Name = "tBMesFS_Lot";
-            this.tBMesFS_Lot.ReadOnly = true;
-            this.tBMesFS_Lot.Size = new System.Drawing.Size(84, 21);
-            this.tBMesFS_Lot.TabIndex = 16;
-            this.tBMesFS_Lot.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbFoupLot.Location = new System.Drawing.Point(77, 19);
+            this.tbFoupLot.Name = "tbFoupLot";
+            this.tbFoupLot.ReadOnly = true;
+            this.tbFoupLot.Size = new System.Drawing.Size(84, 21);
+            this.tbFoupLot.TabIndex = 16;
+            this.tbFoupLot.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label14
             // 
@@ -441,6 +441,7 @@
             this.dataGridViewFoup.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewFoup.Size = new System.Drawing.Size(355, 399);
             this.dataGridViewFoup.TabIndex = 39;
+            this.dataGridViewFoup.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFoup_CellClick);
             // 
             // pageMesCommand
             // 
@@ -497,13 +498,13 @@
         private System.Windows.Forms.LinkLabel linkLabelFoupRefresh;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox tBMesFS_POS;
-        private System.Windows.Forms.TextBox tBMesFS_CAR;
+        private System.Windows.Forms.TextBox tbFoupLocation;
+        private System.Windows.Forms.TextBox tbFoupLocType;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox tBMesFS_ST;
-        private System.Windows.Forms.TextBox tBMesFS_BC;
-        private System.Windows.Forms.TextBox tBMesFS_Lot;
+        private System.Windows.Forms.TextBox tbFoupStatus;
+        private System.Windows.Forms.TextBox tbFoupBarCode;
+        private System.Windows.Forms.TextBox tbFoupLot;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label5;

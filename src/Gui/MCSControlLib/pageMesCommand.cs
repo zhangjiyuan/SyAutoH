@@ -157,5 +157,19 @@ namespace MCSControlLib
                 tbLocName.Text = row.Cells[1].Value.ToString();
             }
         }
+
+        private void dataGridViewFoup_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewSelectedRowCollection rows = dataGridViewFoup.SelectedRows;
+            if (rows.Count > 0)
+            {
+                DataGridViewRow row = rows[0];
+                tbFoupBarCode.Text = row.Cells[0].Value.ToString();
+                tbFoupLot.Text = row.Cells[1].Value.ToString();
+                tbFoupStatus.Text = row.Cells[4].Value.ToString();
+                tbFoupLocType.Text = row.Cells[3].Value.ToString();
+                tbFoupLocation.Text = row.Cells[2].Value.ToString();
+            }
+        }
     }
 }
