@@ -500,6 +500,23 @@ void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPack
 	loc.nPort = nInput;
 	db.UpdateFoup(foupBarCode, foupLot, loc);
 
+	WLock(rwLock_stocker_map_)
+	{
+		auto itStocker = stocker_map_.find(nDevID);
+		if (itStocker != stocker_map_.cend())
+		{
+			itStocker->second->last_opt_foup_vec.clear();
+			amhs_foup_ptr pFoup = amhs_foup_ptr(new amhs_Foup());
+			pFoup->nBarCode = foupBarCode;
+			pFoup->nLot = foupLot;
+			pFoup->nChaned = nChaned;
+			pFoup->nfoupRoom = foupRoom;
+			pFoup->nInput = nInput;
+			itStocker->second->last_opt_foup_vec.push_back(pFoup);
+		}
+	}
+
+
 	AMHSPacket ack(STK_MCS_ACK_FOUP_EVENT, 2);
 	ack << uint8(nDevID);
 	ack << uint8(1);
