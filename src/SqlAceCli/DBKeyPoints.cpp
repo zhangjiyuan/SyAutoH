@@ -12,14 +12,48 @@ DBKeyPoints::~DBKeyPoints(void)
 {
 }
 
-VEC_KEYPOINT DBKeyPoints::GetKeyPointsTable()
+VEC_KEYPOINT DBKeyPoints::GetKeyPointsTable(vector<int> nTypes)
 {
 	VEC_KEYPOINT keyPTList;
 
 	CoInitialize(NULL);
 	HRESULT hr;
 	CTableKeyPoints table;
-	hr = table.OpenAll();
+
+	hr = table.OpenDataSource();
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return keyPTList;
+	}
+
+
+	/*hr = table.OpenAll();
+	if (FAILED(hr))
+	{
+		CoUninitialize();
+		return keyPTList;
+	}*/
+	CString strSQL;
+	if (nTypes.size() > 0)
+	{
+		strSQL.Format(L"Select * from dbo.KeyPoints where "); //Type = '%d'", 
+		CString strTmp = L"";
+		int nLoop = 0;
+		for (auto it = nTypes.cbegin(); it != nTypes.cend(); ++it)
+		{
+			int nType = *it;
+			strTmp.Format(L"(Type = '%d') OR ", nType);
+			strSQL += strTmp;
+		}
+		strSQL = strSQL.Left(strSQL.GetLength() - 4);
+	}
+	else
+	{
+		strSQL.Format(L"Select * from dbo.KeyPoints");
+	}
+	
+	hr = table.Open(table.m_session, strSQL);
 	if (FAILED(hr))
 	{
 		CoUninitialize();

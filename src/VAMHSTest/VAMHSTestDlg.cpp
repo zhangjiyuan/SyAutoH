@@ -178,7 +178,9 @@ BOOL CVAMHSTestDlg::OnInitDialog()
 	m_cbOhtTeachType.AddString(L"0x04 道岔位置点");
 	m_cbOhtTeachType.AddString(L"0x08 减速点");
 	m_cbOhtTeachType.AddString(L"0x10 停止点");
-	m_cbOhtTeachType.AddString(L"0x20 取放点");
+	m_cbOhtTeachType.AddString(L"0x20 设备取放点");
+	m_cbOhtTeachType.AddString(L"0x40 暂存柜取放点");
+	m_cbOhtTeachType.AddString(L"0x80 Stocker取放点");
 	DisplaySpeed();
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
@@ -924,6 +926,12 @@ void CVAMHSTestDlg::OnBnClickedBnTeachPos()
 		break;
 	case 5:
 		nType = 0x20;
+		break;
+	case 6:
+		nType = 0x40;
+		break;
+	case 7:
+		nType = 0x80;
 		break;
 	default:
 		nType = 0x01;

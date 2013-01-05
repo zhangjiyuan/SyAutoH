@@ -11,7 +11,7 @@ DBFoup::~DBFoup(void)
 {
 }
 
-int DBFoup::AddFoup(const WCHAR* sFoupID, const WCHAR* sLot, int nLocal, int nType)
+int DBFoup::AddFoup(int nBarCode, int nLot, int nLocation, int nLocType)
 {
 	CoInitialize(NULL);
 	HRESULT hr;
@@ -25,9 +25,8 @@ int DBFoup::AddFoup(const WCHAR* sFoupID, const WCHAR* sLot, int nLocal, int nTy
 		CoUninitialize();
 		return -1;
 	}
-
-	CString strFind = L"SELECT * From Foup where FoupID = '#@#'";
-	strFind.Replace(L"#@#", sFoupID);
+	CString strFind = L"";
+	strFind.Format(L"SELECT * From Foup where BarCode = '%d'", nBarCode);
 	hr = tableFoup.Open(tableFoup.m_session, strFind);
 	if (FAILED(hr))
 	{
@@ -52,21 +51,19 @@ int DBFoup::AddFoup(const WCHAR* sFoupID, const WCHAR* sLot, int nLocal, int nTy
 	}
 
 	// insert record
-	CString strFoupID;
-	strFoupID = sFoupID;
-	CString strLot;
-	strLot = sLot;
-	wcscpy_s(tableFoup.m_FoupID, strFoupID);
-	tableFoup.m_dwFoupIDLength = strFoupID.GetLength() * 2;
-	wcscpy_s(tableFoup.m_Lot, strLot);
-	tableFoup.m_dwLotLength = strLot.GetLength() * 2;
-	tableFoup.m_Local = nLocal;
-	tableFoup.m_Type = nType;
+	tableFoup.m_BarCode = nBarCode;
+	tableFoup.m_Lot = nLot;
+	tableFoup.m_Location = nLocation;
+	tableFoup.m_LocationType = nLocType;
+	tableFoup.m_Status = 0;
+
 	tableFoup.m_dwIDStatus = DBSTATUS_S_IGNORE;
-	tableFoup.m_dwLocalStatus = DBSTATUS_S_OK;
-	tableFoup.m_dwTypeStatus = DBSTATUS_S_OK;
+	tableFoup.m_dwBarCodeStatus = DBSTATUS_S_OK;
 	tableFoup.m_dwLotStatus = DBSTATUS_S_OK;
-	tableFoup.m_dwFoupIDStatus = DBSTATUS_S_OK;
+	tableFoup.m_dwLocationStatus = DBSTATUS_S_OK;
+	tableFoup.m_dwLocationTypeStatus = DBSTATUS_S_OK;
+	tableFoup.m_dwStatusStatus = DBSTATUS_S_OK;
+
 	tableFoup.Insert();
 
 	int nRet = 0;
@@ -83,7 +80,7 @@ int DBFoup::AddFoup(const WCHAR* sFoupID, const WCHAR* sLot, int nLocal, int nTy
 
 	return nRet;
 }
-int DBFoup::FindFoup(const WCHAR* sFoupID)
+int DBFoup::FindFoup(int nBarCode)
 {
 	CoInitialize(NULL);
 	HRESULT hr;
@@ -98,8 +95,8 @@ int DBFoup::FindFoup(const WCHAR* sFoupID)
 		return -1;
 	}
 
-	CString strFind = L"SELECT * From Foup where FoupID = '#@#'";
-	strFind.Replace(L"#@#", sFoupID);
+	CString strFind = L"";
+	strFind.Format(L"SELECT * From Foup where BarCode = '%d'", nBarCode);
 	hr = tableFoup.Open(tableFoup.m_session, strFind);
 	if (FAILED(hr))
 	{
@@ -141,8 +138,8 @@ int DBFoup::SetFoupLocation(int nFoup, int nLocal, int nType)
 
 	if(tableFoup.MoveFirst() != DB_S_ENDOFROWSET)
 	{
-		tableFoup.m_Local = nLocal;
-		tableFoup.m_Type = nType;
+		tableFoup.m_Location = nLocal;
+		tableFoup.m_LocationType = nType;
 		hr = tableFoup.SetData();
 		tableFoup.UpdateAll();
 	}
@@ -174,11 +171,41 @@ int DBFoup::GetFoupLocation(int nFoup, int &nLocal, int &nType)
 
 	if(tableFoup.MoveFirst() != DB_S_ENDOFROWSET)
 	{
-		nLocal = tableFoup.m_Local;
-		nType = tableFoup.m_Type;
+		nLocal = tableFoup.m_Location;
+		nType = tableFoup.m_LocationType;
 	}
 	tableFoup.CloseAll();
 	CoUninitialize();
 
 	return 0;
+}
+
+VEC_FOUP DBFoup::GetFoupTable()
+{
+	VEC_FOUP foupList;
+	CoInitialize(NULL);
+	HRESULT hr;
+
+	CTableFoup tableFoup;
+	hr = tableFoup.OpenAll();
+	if (FAILED(hr))
+	{
+		cout << "Open Foup Failed." << endl;
+		return foupList;
+	}
+
+	if(tableFoup.MoveNext() != DB_S_ENDOFROWSET)
+	{
+		FoupItem foupItem;
+		foupItem.nBarCode = tableFoup.m_BarCode;
+		foupItem.nLot = tableFoup.m_Lot;
+		foupItem.nLocation = tableFoup.m_Location;
+		foupItem.nLocationType = tableFoup.m_LocationType;
+		foupItem.nStatus = tableFoup.m_Status;
+		foupList.push_back(foupItem);
+	}
+	tableFoup.CloseAll();
+	CoUninitialize();
+
+	return foupList;
 }

@@ -16,27 +16,21 @@ IceMesLinkI::~IceMesLinkI(void)
 {
 }
 
-LocFoup IceMesLinkI::GetFoup(const ::std::string& sFoupName, const ::Ice::Current& )
+LocFoup IceMesLinkI::GetFoup(int nFoupBarCode, const ::Ice::Current& )
 {
 	LocFoup locationFoup;
-	wstring wsName;
-	wsName = IceUtil::stringToWstring(sFoupName);
-	wprintf_s(L"GetFoup %s \n", wsName.c_str());
+	
 	return locationFoup;
 }
-int IceMesLinkI::PlaceFoup(const ::std::string& sFoupName, 
+int IceMesLinkI::PlaceFoup(int nFoupBarCode, 
 	int nDevID, int nType, const ::Ice::Current&)
 {
-	wstring wsName;
-	wsName = IceUtil::stringToWstring(sFoupName);
-	__raise m_pSource->MESPlaceFoup(wsName.c_str(), nDevID, nType);
+	__raise m_pSource->MESPlaceFoup(nFoupBarCode, nDevID, nType);
 	return 0;
 }
-int IceMesLinkI::PickFoup(const ::std::string& sFoupName, 
+int IceMesLinkI::PickFoup(int nFoupBarCode, 
 	int nDevID, int nType, const ::Ice::Current&)
 {
-	wstring wsName;
-	wsName = IceUtil::stringToWstring(sFoupName);
-	__raise m_pSource->MESPickFoup(wsName.c_str(), nDevID, nType);
+	__raise m_pSource->MESPickFoup(nFoupBarCode, nDevID, nType);
 	return 0;
 }

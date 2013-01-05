@@ -59,10 +59,10 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="TFoup.h">
+    <ClInclude Include="TLane.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="TLane.h">
+    <ClInclude Include="TFoup.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

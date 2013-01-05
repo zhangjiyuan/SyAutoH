@@ -23,9 +23,9 @@ struct LocFoup
 
 interface MESLink
 {
-    idempotent int PlaceFoup(string FoupID, int DevID, int nLocType);
-    idempotent int PickFoup(string FoupId, int DevID, int nLocType);
-    idempotent LocFoup GetFoup(string FoupId);
+    idempotent int PlaceFoup(int foupBarCode, int DevID, int nLocType);
+    idempotent int PickFoup(int foupBarCode, int DevID, int nLocType);
+    idempotent LocFoup GetFoup(int foupBarCode);
 };
 
 };

@@ -67,7 +67,9 @@ enum GuiCommand
     StkAlarmHistory,
     StkStatusTime,
     StkSetFoupInfoBackTime,
-    StkGetFoupInSys
+    StkGetFoupInSys,
+    MesGetFoupTable,
+    MesGetPosTable
 };
 
 void __write(::IceInternal::BasicStream*, GuiCommand);
@@ -86,7 +88,9 @@ enum PushData
     upStkStatus,
     upStkInputStatus,
     upStkFoupInSys,
-    upStkRoomStatus
+    upStkRoomStatus,
+    upMesFoupTable,
+    upMesPosTable
 };
 
 void __write(::IceInternal::BasicStream*, PushData);

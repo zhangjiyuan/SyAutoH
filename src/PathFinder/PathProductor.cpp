@@ -22,9 +22,9 @@ void CPathProductor::GetLaneData(void)
 	for (auto it = vecLane.cbegin();
 		it != vecLane.cend(); ++it)
 	{
-		//printf("Lane: %d, s: %d e: %d, p: %d n: %d, f: %d, t: %d, l: %d\r\n",
-		//	it->nID, it->nStart, it->nEnd, it->nPrevLane, it->nNextLane, it->nNextFork, it->nType, 
-		//	it->nLength);
+		printf("Lane: %d, s: %d e: %d, p: %d n: %d, f: %d, t: %d, l: %d\r\n",
+			it->nID, it->nStart, it->nEnd, it->nPrevLane, it->nNextLane, it->nNextFork, it->nType, 
+			it->nLength);
 		setPoint.insert(it->nStart);
 		setPoint.insert(it->nEnd);
 		mapLane[it->nID] = *it;

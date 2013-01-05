@@ -40,6 +40,9 @@ module MCS
 
 				StkGetFoupInSys,
 				
+				MesGetFoupTable,
+				MesGetPosTable,
+				
 			};
 			
 			
@@ -58,7 +61,10 @@ module MCS
 				upStkInputStatus,
 
 				upStkFoupInSys,
-				upStkRoomStatus
+				upStkRoomStatus,
+				
+				upMesFoupTable,
+				upMesPosTable,
 			};
 			sequence<PushData> GuiPushDataList;
 		

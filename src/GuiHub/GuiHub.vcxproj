@@ -106,6 +106,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="GuiDataHubI.cpp" />
+    <ClCompile Include="GuiDataHubI_MES.cpp" />
     <ClCompile Include="GuiDataHubI_OHT.cpp" />
     <ClCompile Include="GuiDataHubI_STK.cpp" />
     <ClCompile Include="GuiDataHubServer.cpp" />
