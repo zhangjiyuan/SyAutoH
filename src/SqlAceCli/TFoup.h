@@ -1,8 +1,8 @@
-// TFoup.h : CTableFoup 的声明
+// Foup.h : CFoup 的声明
 
 #pragma once
 
-// 代码生成在 2013年1月4日, 11:10
+// 代码生成在 2013年1月5日, 9:48
 
 class CTableFoupAccessor
 {
@@ -13,6 +13,8 @@ public:
 	BYTE m_Status;
 	LONG m_Lot;
 	LONG m_BarCode;
+	LONG m_Carrier;
+	LONG m_Port;
 
 	// 以下向导生成的数据成员包含
 	//列映射中相应字段的状态值。
@@ -29,6 +31,8 @@ public:
 	DBSTATUS m_dwStatusStatus;
 	DBSTATUS m_dwLotStatus;
 	DBSTATUS m_dwBarCodeStatus;
+	DBSTATUS m_dwCarrierStatus;
+	DBSTATUS m_dwPortStatus;
 
 	// 以下向导生成的数据成员包含
 	//列映射中相应字段的长度值。
@@ -41,6 +45,8 @@ public:
 	DBLENGTH m_dwStatusLength;
 	DBLENGTH m_dwLotLength;
 	DBLENGTH m_dwBarCodeLength;
+	DBLENGTH m_dwCarrierLength;
+	DBLENGTH m_dwPortLength;
 
 
 	void GetRowsetProperties(CDBPropSet* pPropSet)
@@ -90,7 +96,9 @@ public:
 		LocationType, \
 		Status, \
 		Lot, \
-		BarCode \
+		BarCode, \
+		Carrier, \
+		Port \
 		FROM dbo.Foup")
 
 
@@ -104,6 +112,8 @@ public:
 		COLUMN_ENTRY_LENGTH_STATUS(4, m_Status, m_dwStatusLength, m_dwStatusStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(5, m_Lot, m_dwLotLength, m_dwLotStatus)
 		COLUMN_ENTRY_LENGTH_STATUS(6, m_BarCode, m_dwBarCodeLength, m_dwBarCodeStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(7, m_Carrier, m_dwCarrierLength, m_dwCarrierStatus)
+		COLUMN_ENTRY_LENGTH_STATUS(8, m_Port, m_dwPortLength, m_dwPortStatus)
 	END_COLUMN_MAP()
 };
 

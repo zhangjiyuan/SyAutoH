@@ -48,25 +48,32 @@ public:
 	UserData GetUserDatabyID(int nUserID);
 };
 
+typedef struct
+{
+	int nLocation;
+	int nLocType;
+	int nCarrier;
+	int nPort;
+}FoupLocation;
 typedef struct 
 {
 	int nBarCode;
 	int nLot;
-	int nLocation;
-	int nLocationType;
 	int nStatus;
+	FoupLocation locFoup;
 } FoupItem;
 typedef std::vector<FoupItem> VEC_FOUP;
+
 class SQLACECLI_API DBFoup
 {
 public:
 	DBFoup(void);
 	~DBFoup(void);
 public:
-	int AddFoup(int nBarCode, int nLot, int nLocation, int nLocType);
+	int AddFoup(int nBarCode, int nLot, const FoupLocation& location);
 	int FindFoup(int nBarCode);
-	int SetFoupLocation(int nBarCode, int nLocation, int nLocType);
-	int GetFoupLocation(int nBarCode, int &nLocation, int &nLocType);
+	int SetFoupLocation(int nBarCode, const FoupLocation& location);
+	int GetFoupLocation(int nBarCode, FoupLocation& location);
 	VEC_FOUP GetFoupTable();
 };
 

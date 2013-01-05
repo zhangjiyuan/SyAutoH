@@ -23,13 +23,13 @@ public:
 		{
 			int nLocal = 0;
 			int nType = 0;
-			m_pFoupDB->GetFoupLocation(nFoup, nLocal, nType);
-			wprintf_s(L"Find Foup: %d at Location: %d Type: %d.\n", 
-				nBarCode, nLocal, nType);
+			//m_pFoupDB->GetFoupLocation(nFoup, nLocal, nType);
+			//wprintf_s(L"Find Foup: %d at Location: %d Type: %d.\n", 
+			//	nBarCode, nLocal, nType);
 
-			m_pFoupDB->SetFoupLocation(nFoup, nLocal, nType);
-			wprintf_s(L"Find Foup: %d at Location: %d Type: %d.\n", 
-				nBarCode, nLocal, nType);
+			//m_pFoupDB->SetFoupLocation(nFoup, nLocal, nType);
+			//wprintf_s(L"Find Foup: %d at Location: %d Type: %d.\n", 
+			//	nBarCode, nLocal, nType);
 		}
 		else
 		{
@@ -48,9 +48,9 @@ public:
 		{
 			int nLocal = 0;
 			int nType = 0;
-			m_pFoupDB->GetFoupLocation(nFoup, nLocal, nType);
-			wprintf_s(L"Find Foup: %d at Location: %d Type: %d.\n", 
-				nBarCode, nLocal, nType);
+			//m_pFoupDB->GetFoupLocation(nFoup, nLocal, nType);
+			//wprintf_s(L"Find Foup: %d at Location: %d Type: %d.\n", 
+			//	nBarCode, nLocal, nType);
 		}
 		else
 		{

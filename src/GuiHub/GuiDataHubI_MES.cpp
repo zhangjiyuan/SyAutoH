@@ -32,9 +32,13 @@ void GuiDataHubI::MES_GetFoupTable(const std::string&, const ::Ice::Current& cur
 		strVal += ",";
 		strVal += itoa(it->nLot, buf, 10);
 		strVal += ",";
-		strVal += itoa(it->nLocation, buf, 10);
+		strVal += itoa(it->locFoup.nCarrier, buf, 10);
 		strVal += ",";
-		strVal += itoa(it->nLocationType, buf, 10);
+		strVal += itoa(it->locFoup.nPort, buf, 10);
+		strVal += ",";
+		strVal += itoa(it->locFoup.nLocation, buf, 10);
+		strVal += ",";
+		strVal += itoa(it->locFoup.nLocType, buf, 10);
 		strVal += ",";
 		strVal += itoa(it->nStatus, buf, 10);
 		strVal += ">";

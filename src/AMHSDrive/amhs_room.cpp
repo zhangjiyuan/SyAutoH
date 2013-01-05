@@ -436,13 +436,13 @@ void amhs_room::Handle_STK_AckAlarms(amhs_participant_ptr, AMHSPacket& Packet)
 
 void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPacket& Packet)
 {
-	uint8 nID = 0;
+	uint8 nDevID = 0;
 	uint8 nChaned = 0;
 	uint8 foupRoom = 0;
 	uint16 foupLot = 0;
 	uint16 foupBarCode = 0;
 	uint8 nInput = 0;
-	Packet >> nID;
+	Packet >> nDevID;
 	Packet >> nChaned;
 	Packet >> foupRoom;
 	Packet >> foupLot;
@@ -450,77 +450,26 @@ void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPack
 	Packet >> nInput;
 
 
-	printf("Foup Event  ---> stockerID: %u, ChangeStatus: %u, foupRoom: %u\n", nID, nChaned, foupRoom);
+	printf("Foup Event  ---> stockerID: %u, ChangeStatus: %u, foupRoom: %u\n", nDevID, nChaned, foupRoom);
 
-	uint8 nAuthAck = 0;
-	WLock(rwLock_foup_map_)
+	DBFoup db;
+	int nFind = db.FindFoup(foupBarCode);
+	FoupLocation loc;
+	loc.nLocation = -1;
+	loc.nLocType = 1;
+	loc.nCarrier = nDevID;
+	loc.nPort = nInput;
+	if (nFind > 0)
 	{
-		amhs_stocker_map::iterator itStocker=stocker_map_.find(nID);
-		if (itStocker == stocker_map_.end())
-		{
-			nAuthAck = 0;
-		}
-		else
-		{
-			amhs_foup_map::iterator itFoup=itStocker->second->foup_map.find(foupBarCode);
-			if(itFoup != itStocker->second->foup_map.end())
-			{
-				if(1 == nChaned)
-				{
-					itFoup->second->nChaned = nChaned;
-					itFoup->second->nfoupRoom = foupRoom;
-					itFoup->second->nInput = nInput;
-					itFoup->second->nLot = foupLot;
-					itStocker->second->last_opt_foup_vec.clear();
-					itStocker->second->last_opt_foup_vec.push_back(itFoup->second);
-					itStocker->second->foup_erase_vec.push_back(itFoup->second);
-					itStocker->second->foup_map.erase(foupBarCode);
-				}
-				nAuthAck=0;
-			}
-			else
-			{		
-				amhs_foup_ptr pFoup = amhs_foup_ptr(new amhs_Foup());
-				pFoup->nChaned=nChaned;
-				pFoup->nfoupRoom=foupRoom;
-				pFoup->nLot=foupLot;
-				pFoup->nBarCode=foupBarCode;
-				pFoup->nInput=nInput;
-				pFoup->p_participant = participants;
-				itStocker->second->foup_map.insert(std::make_pair(foupBarCode, pFoup));
-				itStocker->second->last_opt_foup_vec.clear();
-				itStocker->second->last_opt_foup_vec.push_back(pFoup);
-
-				nAuthAck = 1;
-			}
-			amhs_foup_map::iterator itFoupTotal = foup_map_.find(foupBarCode);
-			if(itFoupTotal != foup_map_.end())
-			{
-				if(1 == nChaned && (5 == nInput || 6 == nInput || 7 == nInput || 8 == nInput))
-				{
-					foup_map_.erase(itFoupTotal);
-				}
-			}
-			else
-			{
-				if(0 == nChaned)
-				{
-				amhs_foup_ptr pFoup = amhs_foup_ptr(new amhs_Foup());
-				pFoup->nChaned=nChaned;
-				pFoup->nfoupRoom=foupRoom;
-				pFoup->nLot=foupLot;
-				pFoup->nBarCode=foupBarCode;
-				pFoup->nInput=nInput;
-				pFoup->p_participant = participants;
-				foup_map_.insert(std::make_pair(foupBarCode, pFoup));
-				}
-			}
-		}
+		db.SetFoupLocation(foupBarCode, loc);
+	}
+	else
+	{
+		db.AddFoup(foupBarCode, foupLot, loc); 
 	}
 
-
 	AMHSPacket ack(STK_MCS_ACK_FOUP_EVENT, 2);
-	ack << uint8(nID);
+	ack << uint8(nDevID);
 	ack << uint8(1);
 	SendPacket(participants, ack);
 }
