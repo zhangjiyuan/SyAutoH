@@ -93,9 +93,9 @@ int VirtualStocker::UpdateFoupInfo()
 	MAP_VFOUP::iterator it;
 	for(it = m_mapFoups.begin();it != m_mapFoups.end();it++)
 	{
-		StoragePacket << (uint8)(it->second.nID);
+		StoragePacket << (uint8)(it->second.nRoomID);
 		StoragePacket << (uint16)(it->second.nBatchID);
-		StoragePacket << (uint16)(it->second.nRoomID);
+		StoragePacket << (uint16)(it->second.nID);
 	}
 	SendPacket(StoragePacket);
 	return 0;

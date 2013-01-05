@@ -16,14 +16,18 @@ namespace MCSControlLib
         private System.Windows.Forms.Timer timer2;
         private event EventHandler UpdateList;
         private event EventHandler GetNowMsg;
-        private int m_nQueryType = 0;
+       // private int m_nQueryType = 0;
         private int m_nPageStartID = 0;
         private int m_nPageEndID = 0;
         private int m_nPageNowID = 0;
-
+        LoggerFilter filterShow;
         public pageLogOnline()
         {
             InitializeComponent();
+            tb_EventID.Text = "-1";
+            timer2 = new Timer();
+            timer2.Enabled = true;
+            timer2.Interval = 3000;
             UpdateList += new EventHandler(EvUpdate);
             GetNowMsg += new EventHandler(Form1_GetNowMsg);
             timer2.Tick += new EventHandler(timer2_Tick);
@@ -157,11 +161,8 @@ namespace MCSControlLib
                     {
                         string str = ex.Message;
                     }
-
                 }
-
             }
-
             return listIDS.ToArray();
         }
 
@@ -206,7 +207,6 @@ namespace MCSControlLib
             {
                 this.Invoke(new EventHandler(delegate { bnPause.Text = "Pasue"; }));
             }
-            
         }
 
         class InfoCall
@@ -216,5 +216,44 @@ namespace MCSControlLib
             public int[] types = null;
             public int[] ids = null;
         };
+
+        private void CanCheckedAll()
+        {
+            bool bCheckAll = false;
+            bCheckAll = checkBoxInfo.Checked
+                & checkBoxWarning.Checked
+                & checkBoxError.Checked
+                & checkBoxDebug.Checked;
+
+            checkBoxAll.Checked = bCheckAll;
+            m_nPageNowID = 0;
+
+        }
+
+        private void checkBoxInfo_CheckedChanged(object sender, EventArgs e)
+        {
+            CanCheckedAll();
+        }
+
+        private void checkBoxWarning_CheckedChanged(object sender, EventArgs e)
+        {
+            CanCheckedAll();
+        }
+
+        private void checkBoxError_CheckedChanged(object sender, EventArgs e)
+        {
+            CanCheckedAll();
+        }
+
+        private void checkBoxDebug_CheckedChanged(object sender, EventArgs e)
+        {
+            CanCheckedAll();
+        }
+
+        private void bn_Filter_Click(object sender, EventArgs e)
+        {
+            filterShow = new LoggerFilter();
+            filterShow.ShowDialog();
+        }
     }
 }

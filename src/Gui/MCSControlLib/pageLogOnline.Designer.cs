@@ -136,6 +136,7 @@
             this.bn_Filter.TabIndex = 5;
             this.bn_Filter.Text = "Filter";
             this.bn_Filter.UseVisualStyleBackColor = true;
+            this.bn_Filter.Click += new System.EventHandler(this.bn_Filter_Click);
             // 
             // checkBoxAll
             // 

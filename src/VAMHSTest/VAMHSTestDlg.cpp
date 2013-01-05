@@ -19,6 +19,7 @@ MAP_ItemOHT g_mapOHTs;
 MAP_ItemStocker g_mapStockers;
 MAP_ItemFoup g_mapFoups;
 const int STOCKER_ID = 24;
+bool isSend;
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -164,6 +165,7 @@ BOOL CVAMHSTestDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+	isSend = true;
 	InitListCtrlOHT();
 	InitListCtrlFOUP();
 	InitListCtrlSTOCKER();
@@ -708,7 +710,10 @@ void CVAMHSTestDlg::ReadFOUPXML(int STK_ID)
 				item->nBatchID = nBatchID;
 				item->nStockerID = STK_ID;
 			    g_mapFoups.insert(std::make_pair(nID,item));
-				g_pVDev->STK_FoupInitRoom(STK_ID,item);
+				if(isSend == true)
+				{
+					g_pVDev->STK_FoupInitRoom(STK_ID,item);
+				}
 			    CString str;
 			    m_listCtrlFOUP.InsertItem(0,str);
 			    SetFOUPListItemData(item,0);
@@ -991,6 +996,7 @@ void CVAMHSTestDlg::InitListCtrlFOUP(void)
 	m_listCtrlFOUP.InsertColumn(1, _T("RoomID"), LVCFMT_CENTER, 65);
 	m_listCtrlFOUP.InsertColumn(2, _T("Status"), LVCFMT_CENTER, 65);
 	m_listCtrlFOUP.InsertColumn(3,_T("Lot"),LVCFMT_CENTER,65);
+	
 }
 
 void CVAMHSTestDlg::InitListCtrlSTOCKER(void)
@@ -1423,6 +1429,7 @@ void CVAMHSTestDlg::OnNMClickListFoup2(NMHDR *pNMHDR, LRESULT *pResult)
 		int nStockerID = m_listCtrlSTOCKER.GetItemData(nListIndex);	
 	    if(nStockerID != selectSTK)	
 	    {	
+			isSend = false;
 			selectSTK = nStockerID;
 		    m_listCtrlFOUP.DeleteAllItems();
 		    ReadFOUPXML(selectSTK);	
@@ -1430,6 +1437,7 @@ void CVAMHSTestDlg::OnNMClickListFoup2(NMHDR *pNMHDR, LRESULT *pResult)
 		    CID.Format(_T("%d"),nStockerID);	
 		    SetDlgItemText(IDC_SELECT_STK_EDIT,CID);
 	    }
+		isSend = true;
 	   // g_pVDev->STK_SetFoupNum(nStockerID,foupNum);
 	}
 	*pResult = 0;

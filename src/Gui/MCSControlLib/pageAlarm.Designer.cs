@@ -63,6 +63,7 @@
             this.bnClearAll.TabIndex = 31;
             this.bnClearAll.Text = "Clear All";
             this.bnClearAll.UseVisualStyleBackColor = true;
+            this.bnClearAll.Click += new System.EventHandler(this.bnClearAll_Click);
             // 
             // label6
             // 
@@ -89,6 +90,7 @@
             this.bnClear.TabIndex = 28;
             this.bnClear.Text = "Clear";
             this.bnClear.UseVisualStyleBackColor = true;
+            this.bnClear.Click += new System.EventHandler(this.bnClear_Click);
             // 
             // bnNext
             // 
@@ -98,6 +100,7 @@
             this.bnNext.TabIndex = 27;
             this.bnNext.Text = ">";
             this.bnNext.UseVisualStyleBackColor = true;
+            this.bnNext.Click += new System.EventHandler(this.bnNext_Click);
             // 
             // bnEnd
             // 
@@ -107,6 +110,7 @@
             this.bnEnd.TabIndex = 26;
             this.bnEnd.Text = ">|";
             this.bnEnd.UseVisualStyleBackColor = true;
+            this.bnEnd.Click += new System.EventHandler(this.bnEnd_Click);
             // 
             // bnFormer
             // 
@@ -116,6 +120,7 @@
             this.bnFormer.TabIndex = 25;
             this.bnFormer.Text = "<";
             this.bnFormer.UseVisualStyleBackColor = true;
+            this.bnFormer.Click += new System.EventHandler(this.bnFormer_Click);
             // 
             // bnFirstPage
             // 
@@ -125,6 +130,7 @@
             this.bnFirstPage.TabIndex = 24;
             this.bnFirstPage.Text = "|<";
             this.bnFirstPage.UseVisualStyleBackColor = true;
+            this.bnFirstPage.Click += new System.EventHandler(this.bnFirstPage_Click);
             // 
             // listViewAlarm
             // 
