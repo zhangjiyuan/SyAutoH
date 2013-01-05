@@ -93,18 +93,20 @@ namespace MCSControlLib
 
         private void ProcessOHTPos(ArrayList item)
         {
-            if (3 == item.Count)
+            if (4 == item.Count)
             {
                 OhtInfoData info = null;
                 int nID = Convert.ToInt16(item[0]);
                 long nPosition = Convert.ToInt64(item[1]);
                 int nHand = Convert.ToInt16(item[2]);
+                int nStatus = TryConver.ToByte(item[3].ToString());
 
                 m_dictOhtInfo.TryGetValue(nID, out info);
                 if (null != info)
                 {
                     info.Position = nPosition;
                     info.Hand = nHand;
+                    info.Status = nStatus;
                 }
                 else
                 {
@@ -112,6 +114,7 @@ namespace MCSControlLib
                     info.ID = nID;
                     info.Position = nPosition;
                     info.Hand = nHand;
+                    info.Status = nStatus;
                     m_dictOhtInfo.Add(nID, info);
                 } 
                 UpdateOhtInfo(info);

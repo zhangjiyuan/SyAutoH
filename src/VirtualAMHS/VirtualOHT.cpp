@@ -52,6 +52,7 @@ int VirtualOHT::AskPath()
 	AMHSPacket askForPath(OHT_NEED_PATH,1);
 	askForPath << uint8(DeviceID());
 	SendPacket(askForPath);
+	m_nStatus = 1;
 	return 0;
 }
 
@@ -61,6 +62,7 @@ int VirtualOHT::Auth( uint32 nPos, int nHand)
 	authPacket<< uint8(DeviceID());		// device id
 	authPacket<< uint32(nPos);		// oht location
 	authPacket<< uint8(nHand);				// oht hand status;
+	m_nStatus = 1;
 
 	SendPacket(authPacket);
 
@@ -72,8 +74,8 @@ int VirtualOHT::UpdateStatus()
 	AMHSPacket authPacket(OHT_STATUS, 4);
 	authPacket<< uint8(DeviceID());		// device id
 	authPacket<< uint8(1);
-	authPacket<< uint8(1);		
-	authPacket<< uint8(0);		
+	authPacket<< uint8(m_nStatus);		
+	authPacket<< uint8(m_nHand);		
 	SendPacket(authPacket);
 	return 0;
 }
@@ -128,10 +130,14 @@ void VirtualOHT::Handle_FoupHanding(AMHSPacket& packet)
 		m_nHand = 1;
 	}
 
+	m_nStatus = 5;
+	Sleep(5000); // hand operation time
+
 	AMHSPacket authPacket(OHT_ACK_FOUP, 2);
 	authPacket<< uint8(DeviceID());		// device id
 	authPacket<< uint8(0);
 	SendPacket(authPacket);
+	m_nStatus = 6;
 }
 
 void VirtualOHT::Handle_SetPosTime(AMHSPacket&  packet)
@@ -185,6 +191,7 @@ void VirtualOHT::Handle_SetPath(AMHSPacket& packet)
 		authPacket << uint8(DeviceID());
 		authPacket << uint8(0);
 		isStop = false;
+		m_nStatus = 2;
 	}
 	else
 	{
@@ -301,6 +308,7 @@ void VirtualOHT::OnTimer(void)
 		nEndPos = it->nposition;
 		if(m_nPos < nEndPos)
 		{
+			m_nStatus = 3;
 			for(it = m_listPath.begin();it != m_listPath.end();)
 			{
 				if((it->nposition) > ((++it)->nposition))
@@ -329,6 +337,7 @@ void VirtualOHT::OnTimer(void)
 		{	
 			m_nPos = nEndPos;
 			isMove = false;	
+			m_nStatus = 4;
 		}
 	}
 

@@ -618,11 +618,11 @@ void amhs_room::Handle_OHT_Status(amhs_participant_ptr participants, AMHSPacket&
 	uint8 nID = 0;
 	uint8 nMode = 0;
 	uint8 nStatus = 0;
-	uint8 nAlarm = 0;
+	uint8 nHand = 0;
 	Packet >> nID;
 	Packet >> nMode;
 	Packet >> nStatus;
-	Packet >> nAlarm;
+	Packet >> nHand;
 
 	WLock(rwLock_oht_map_)
 	{
@@ -631,7 +631,7 @@ void amhs_room::Handle_OHT_Status(amhs_participant_ptr participants, AMHSPacket&
 		{
 			it->second->nBackStatusMode = nMode;
 			it->second->nBackStatusMark = nStatus;
-			it->second->nBackStausAlarm = nAlarm;
+			it->second->nHand = nHand;
 		}
 	}
 }

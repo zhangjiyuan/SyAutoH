@@ -245,7 +245,7 @@ GuiDataItem GuiDataHubI::Push_OHT_Position()
 	for (DR_OHT_LIST::iterator it = oht_list.begin(); 
 		it != oht_list.end(); ++it)
 	{
-		sprintf_s(buf, 256, "<%d,%d,%d>", it->nID, it->nPOS, it->nHand);
+		sprintf_s(buf, 256, "<%d,%d,%d,%d>", it->nID, it->nPOS, it->nHand, it->nBackStatusMark);
 		strOhtList += buf;
 	}
 
