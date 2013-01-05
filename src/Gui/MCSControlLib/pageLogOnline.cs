@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Gemma;
 
 namespace MCSControlLib
 {
@@ -16,6 +17,10 @@ namespace MCSControlLib
         private event EventHandler UpdateList;
         private event EventHandler GetNowMsg;
         private int m_nQueryType = 0;
+        private int m_nPageStartID = 0;
+        private int m_nPageEndID = 0;
+        private int m_nPageNowID = 0;
+
         public pageLogOnline()
         {
             InitializeComponent();
@@ -24,10 +29,186 @@ namespace MCSControlLib
             timer1.Tick += new EventHandler(timer1_Tick);
         }
 
-        private void bnPause_Click(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
+            this.GetNowMsg.Invoke(null, null);
+        }
+
+        void Form1_GetNowMsg(object sender, EventArgs e)
+        {
+            lock (this)
+            {
+                // if (bBusy == true)
+                // {
+                //     return;
+                // }
+                try
+                {
+                    //bBusy = true;
+                    int nNow = logClient.GetNowID();
+                    if (nNow < 0)
+                    {
+                        return;
+                    }
+                    if (nNow != m_nPageNowID)
+                    {
+                        AddMsgList(nNow, 10);
+                    }
+                    m_nPageNowID = nNow;
+                }
+                catch (System.Exception)
+                {
+
+                }
+
+                // bBusy = false;
+            }
+        }
+
+        private void EvUpdate(object ob, EventArgs args)
+        {
+            lock (this)
+            {
+                // if (bBusyList == true)
+                // {
+                //     return;
+                // }
+
+                // bBusyList = true;
+                try
+                {
+                    InfoCall info = ob as InfoCall;
+
+                    listOnlineLog.BeginUpdate();
+                    listOnlineLog.Items.Clear();
+                    LogMsg[] msgList = logClient.GetLog(info.nStart, info.nCount, info.types, info.ids, "");
+                    if (null == msgList)
+                    {
+                        listOnlineLog.EndUpdate();
+                        return;
+                    }
+
+                    if (msgList.Length <= 0)
+                    {
+                        listOnlineLog.EndUpdate();
+                        return;
+                    }
+
+                    m_nPageStartID = info.nStart;
+
+                    foreach (LogMsg msg in msgList)
+                    {
+                        ListViewItem item = new ListViewItem();
+                        item.Text = msg.nID.ToString();
+                        //Int64 ntime = 0
+                        m_nPageEndID = msg.nID;
+                        item.SubItems.Add(msg.lTime.ToString());
+                        item.SubItems.Add(msg.nEventID.ToString());
+                        item.SubItems.Add(msg.strMsg);
+                        item.SubItems.Add(msg.strUser);
+                        item.SubItems.Add(msg.nType.ToString());
+                        listOnlineLog.Items.Add(item);
+                        //Invalidate();
+                    }
+
+                    listOnlineLog.EndUpdate();
+
+                    //RefreshAlarmView();
+                }
+                catch (System.Exception)
+                {
+
+                }
+
+                //bBusyList = false;
+            }
 
         }
+
+        private void AddMsgList(int nStart, int nCount)
+        {
+            int[] ids = GetIDFilter(tb_EventID.Text);
+            string strType = GetTypeFilter();
+            int[] types = GetIDFilter(strType);
+            InfoCall info = new InfoCall();
+            info.nStart = nStart;
+            info.nCount = nCount;
+            info.types = types;
+            info.ids = ids;
+            this.UpdateList.Invoke(info, null);
+        }
+
+        private int[] GetIDFilter(string strIDFilter)
+        {
+            char[] chFilter = new char[] { ',' };
+            string[] strIDS = strIDFilter.Split(chFilter);
+            int nIDSLen = strIDS.Length;
+            List<int> listIDS = new List<int>();
+            foreach (string strID in strIDS)
+            {
+                if (strID.Length > 0)
+                {
+                    try
+                    {
+                        int nID = Convert.ToInt32(strID);
+                        listIDS.Add(nID);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        string str = ex.Message;
+                    }
+
+                }
+
+            }
+
+            return listIDS.ToArray();
+        }
+
+        private string GetTypeFilter()
+        {
+            string strType = "";
+            if (true == checkBoxInfo.Checked)
+            {
+                strType += "1, ";
+            }
+            if (true == checkBoxWarning.Checked)
+            {
+                strType += "2, ";
+            }
+            if (true == checkBoxError.Checked)
+            {
+                strType += "3, ";
+            }
+            if (true == checkBoxDebug.Checked)
+            {
+                strType += "4, ";
+            }
+
+            return strType;
+        }
+
+        private void bnPause_Click(object sender, EventArgs e)
+        {
+            if (timer1.Enabled == true)
+            {
+                timer1.Enabled = false;
+            }
+            else
+            {
+                timer1.Enabled = true;
+            }
+            if (bnPause.Text == "Pause")
+            {
+                this.Invoke(new EventHandler(delegate { bnPause.Text = "Start"; }));
+            }
+            else 
+            {
+                this.Invoke(new EventHandler(delegate { bnPause.Text = "Pasue"; }));
+            }
+            
+        }
+
         class InfoCall
         {
             public int nStart = 0;
