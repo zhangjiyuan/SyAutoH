@@ -91,7 +91,7 @@ int DBFoup::UpdateFoup(int nBarCode, int nLot, const FoupLocation& location)
 	int nFind = FindFoup(nBarCode);
 	if (nFind > 0)
 	{
-		SetFoupLocation(nBarCode, location);
+		SetFoupLocation(nFind, location);
 	}
 	else
 	{
@@ -147,10 +147,12 @@ int DBFoup::SetFoupLocation(int nFoup, const FoupLocation& location)
 		cout << "Open Foup Failed." << endl;
 		return -1;
 	}
+	CDBPropSet propset(DBPROPSET_ROWSET);
+	tableFoup.GetRowsetProperties(&propset);
 
 	CString strFind = L"";
 	strFind.Format(L"SELECT * From Foup where ID = %d", nFoup);
-	hr = tableFoup.Open(tableFoup.m_session, strFind);
+	hr = tableFoup.Open(tableFoup.m_session, strFind, &propset);
 	if (FAILED(hr))
 	{
 		cout << "Open Foup Failed." << endl;
@@ -159,6 +161,7 @@ int DBFoup::SetFoupLocation(int nFoup, const FoupLocation& location)
 
 	if(tableFoup.MoveFirst() != DB_S_ENDOFROWSET)
 	{
+		tableFoup.m_dwIDStatus  = DBSTATUS_S_IGNORE;
 		tableFoup.m_Location = location.nLocation;
 		tableFoup.m_LocationType = location.nLocType;
 		tableFoup.m_Carrier = location.nCarrier;
