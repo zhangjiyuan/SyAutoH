@@ -13,7 +13,7 @@ namespace MCSControlLib
     public partial class pageLogOnline : baseControlPage, IMcsControlBase
     {
         private LogWinClientCS.LogWinClient logClient = new LogWinClientCS.LogWinClient();
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer2;
         private event EventHandler UpdateList;
         private event EventHandler GetNowMsg;
         private int m_nQueryType = 0;
@@ -26,10 +26,10 @@ namespace MCSControlLib
             InitializeComponent();
             UpdateList += new EventHandler(EvUpdate);
             GetNowMsg += new EventHandler(Form1_GetNowMsg);
-            timer1.Tick += new EventHandler(timer1_Tick);
+            timer2.Tick += new EventHandler(timer2_Tick);
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer2_Tick(object sender, EventArgs e)
         {
             this.GetNowMsg.Invoke(null, null);
         }
@@ -190,13 +190,13 @@ namespace MCSControlLib
 
         private void bnPause_Click(object sender, EventArgs e)
         {
-            if (timer1.Enabled == true)
+            if (timer2.Enabled == true)
             {
-                timer1.Enabled = false;
+                timer2.Enabled = false;
             }
             else
             {
-                timer1.Enabled = true;
+                timer2.Enabled = true;
             }
             if (bnPause.Text == "Pause")
             {
