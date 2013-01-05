@@ -66,7 +66,6 @@ void amhs_room::leave(amhs_participant_ptr participant)
 			if (it != oht_map_.end())
 			{
 				oht_map_.erase(it);
-
 			}
 		}
 	}
@@ -86,7 +85,7 @@ void amhs_room::leave(amhs_participant_ptr participant)
 	participants_.erase(participant);
 }
 
-amhs_stocker_vec amhs_room::GetStkDataSet()
+amhs_stocker_vec amhs_room::STK_GetStockerList()
 {
 	amhs_stocker_vec stk_vec;
 	RLock(rwLock_stocker_map_)
@@ -100,21 +99,7 @@ amhs_stocker_vec amhs_room::GetStkDataSet()
 	return stk_vec;
 }
 
-amhs_foup_vec amhs_room::GetStkFoupInSys()
-{
-	amhs_foup_vec foup_vec;
-	RLock(rwLock_foup_map_)
-	{
-		for(amhs_foup_map::iterator it = foup_map_.begin();
-			it != foup_map_.end(); ++it)
-		{
-			foup_vec.push_back(it->second);
-		}
-	}
-	return foup_vec;
-}
-
-amhs_oht_vec amhs_room::GetOhtDataSet()
+amhs_oht_vec amhs_room::OHT_GetOHTList()
 {
 	amhs_oht_vec oht_vec;
 	RLock(rwLock_oht_map_)
@@ -127,39 +112,50 @@ amhs_oht_vec amhs_room::GetOhtDataSet()
 	}
 	return oht_vec;
 }
-
-amhs_foup_vec amhs_room::GetStkFoupDataSet(int nID)
+amhs_foup_vec amhs_Stocker::GetFoups()
 {
 	amhs_foup_vec foup_vec;
 	RLock(rwLock_foup_map_)
 	{
-		amhs_stocker_map::iterator itStocker=stocker_map_.find(nID);
-		for(amhs_foup_map::iterator itFoup = itStocker->second->foup_map.begin();
-			itFoup != itStocker->second->foup_map.end(); ++itFoup)
+		for (auto it = foup_map.cbegin();
+			it != foup_map.cend(); ++it)
 		{
-			foup_vec.push_back(itFoup->second);
+			foup_vec.push_back(it->second);
 		}
 	}
 	return foup_vec;
 }
 
-amhs_foup_vec amhs_room::GetStkEraseFoupDataSet(int nID)
+void amhs_Stocker::CleanFoups()
+{
+	WLock(rwLock_foup_map_)
+	{
+		foup_map.clear();
+	}
+}
+
+void amhs_Stocker::AddFoup(amhs_foup_ptr pFoup)
+{
+	WLock(rwLock_foup_map_)
+	{
+		foup_map.insert(std::make_pair(pFoup->nBarCode, pFoup));
+	}
+}
+amhs_foup_vec amhs_room::STK_GetFoups(int nID)
 {
 	amhs_foup_vec foup_vec;
-	RLock(rwLock_foup_map_)
+	RLock(rwLock_stocker_map_)
 	{
-		amhs_stocker_map::iterator itStocker=stocker_map_.find(nID);
-		for(amhs_foup_vec::iterator itFoup = itStocker->second->foup_erase_vec.begin();
-			itFoup != itStocker->second->foup_erase_vec.end(); ++itFoup)
+		amhs_stocker_map::iterator itStocker = stocker_map_.find(nID);
+		if (itStocker != stocker_map_.cend())
 		{
-			foup_vec.push_back(*itFoup);
+			foup_vec = itStocker->second->GetFoups();
 		}
-		itStocker->second->foup_erase_vec.clear();
 	}
 	return foup_vec;
 }
 
-amhs_foup_vec amhs_room::GetStkLastOptFoup(int nID)
+amhs_foup_vec amhs_room::STK_GetLastEventFoup(int nID)
 {
 	amhs_foup_vec foup_vec;
 	amhs_stocker_map::iterator itStocker=stocker_map_.find(nID);
@@ -375,7 +371,51 @@ void amhs_room::Handle_STK_AckRoom(amhs_participant_ptr, AMHSPacket& Packet)
 }
 void amhs_room::Handle_STK_AckStorage(amhs_participant_ptr, AMHSPacket& Packet)
 {
-	Log.Warning("amhs_room", "Packet handle not implemented\n");
+	uint8 nID = 0;
+	uint8 nCount = 0;
+	Packet >> nID;
+	Packet >> nCount;
+	size_t szPk = Packet.size() - 2;
+	DBFoup db;
+	if (szPk == nCount*5)
+	{
+		RLock(rwLock_stocker_map_)
+		{
+			auto itStocker = stocker_map_.find(nID);
+			if (itStocker == stocker_map_.cend())
+			{
+				return;
+			}
+			amhs_stocker_ptr pStocker = itStocker->second;
+			pStocker->CleanFoups();
+			for (int i=0; i<nCount; i++)
+			{
+				uint8 nRoom = 0;
+				uint16 nLot = 0;
+				uint16 nBarCode = 0;
+				Packet >> nRoom;
+				Packet >> nLot;
+				Packet >> nBarCode;
+				FoupLocation loc;
+				loc.nLocation = -1;
+				loc.nLocType = MCS::dbcli::loctypeStocker;
+				loc.nCarrier = nID;
+				loc.nPort = 0;
+				db.UpdateFoup(nBarCode, nLot, loc);
+				amhs_foup_ptr pFoup = amhs_foup_ptr(new amhs_Foup());
+				pFoup->nBarCode = nBarCode;
+				pFoup->nInput = loc.nPort;
+				pFoup->nfoupRoom = nRoom;
+				pFoup->nLot = nLot;
+				pFoup->nChaned = -1;
+				pStocker->AddFoup(pFoup);
+			}
+		}
+	}
+	else
+	{
+		LOG_ERROR("Packet size error.");
+	}
 }
 void amhs_room::Handle_STK_AckInputStatus(amhs_participant_ptr, AMHSPacket& Packet)
 {
@@ -450,24 +490,15 @@ void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPack
 	Packet >> foupBarCode;
 	Packet >> nInput;
 
-
 	printf("Foup Event  ---> stockerID: %u, ChangeStatus: %u, foupRoom: %u\n", nDevID, nChaned, foupRoom);
 
 	DBFoup db;
-	int nFind = db.FindFoup(foupBarCode);
 	FoupLocation loc;
 	loc.nLocation = -1;
 	loc.nLocType = MCS::dbcli::loctypeStocker;
 	loc.nCarrier = nDevID;
 	loc.nPort = nInput;
-	if (nFind > 0)
-	{
-		db.SetFoupLocation(foupBarCode, loc);
-	}
-	else
-	{
-		db.AddFoup(foupBarCode, foupLot, loc); 
-	}
+	db.UpdateFoup(foupBarCode, foupLot, loc);
 
 	AMHSPacket ack(STK_MCS_ACK_FOUP_EVENT, 2);
 	ack << uint8(nDevID);

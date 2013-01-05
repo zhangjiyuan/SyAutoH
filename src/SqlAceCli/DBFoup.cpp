@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "SqlAceCli.h"
 #include "TFoup.h"
+#include "../common/iConstDef.h"
 
 DBFoup::DBFoup(void)
 {
@@ -85,6 +86,21 @@ int DBFoup::AddFoup(int nBarCode, int nLot, const FoupLocation& location)
 
 	return nRet;
 }
+int DBFoup::UpdateFoup(int nBarCode, int nLot, const FoupLocation& location)
+{
+	int nFind = FindFoup(nBarCode);
+	if (nFind > 0)
+	{
+		SetFoupLocation(nBarCode, location);
+	}
+	else
+	{
+		AddFoup(nBarCode, nLot, location);
+	}
+
+	return 0;
+}
+
 int DBFoup::FindFoup(int nBarCode)
 {
 	CoInitialize(NULL);
@@ -189,7 +205,49 @@ int DBFoup::GetFoupLocation(int nFoup, FoupLocation& location)
 	return 0;
 }
 
-VEC_FOUP DBFoup::GetFoupTable()
+VEC_FOUP DBFoup::GetFoupsInStocker(int nStockerID)
+{
+	VEC_FOUP foupList;
+	CoInitialize(NULL);
+	HRESULT hr;
+
+	CTableFoup tableFoup;
+	hr = tableFoup.OpenDataSource();
+	if (FAILED(hr))
+	{
+		cout << "Open Foup Failed." << endl;
+		return foupList;
+	}
+	CString strFind = L"";
+	strFind.Format(L"SELECT * From Foup WHERE (Carrier = %d) AND (LocationType = %d)",
+		nStockerID, MCS::dbcli::loctypeStocker);
+
+	hr = tableFoup.Open(tableFoup.m_session, strFind);
+	if (FAILED(hr))
+	{
+		cout << "Open Foup Failed." << endl;
+		return foupList;
+	}
+
+	while(tableFoup.MoveNext() != DB_S_ENDOFROWSET)
+	{
+		FoupItem foupItem;
+		foupItem.nBarCode = tableFoup.m_BarCode;
+		foupItem.nLot = tableFoup.m_Lot;
+		foupItem.locFoup.nLocation = tableFoup.m_Location;
+		foupItem.locFoup.nLocType = tableFoup.m_LocationType;
+		foupItem.locFoup.nCarrier = tableFoup.m_Carrier;
+		foupItem.locFoup.nPort = tableFoup.m_Port;
+		foupItem.nStatus = tableFoup.m_Status;
+		foupList.push_back(foupItem);
+	}
+	tableFoup.CloseAll();
+	CoUninitialize();
+
+	return foupList;
+}
+
+VEC_FOUP DBFoup::GetFoupAllTable()
 {
 	VEC_FOUP foupList;
 	CoInitialize(NULL);

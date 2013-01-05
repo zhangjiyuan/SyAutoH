@@ -37,32 +37,22 @@ int amhs_dev_server::GetConnectCount()
 
 amhs_oht_vec amhs_dev_server::OHT_GetDataSet()
 {
-	return room_.GetOhtDataSet();
+	return room_.OHT_GetOHTList();
 }
 
 amhs_stocker_vec amhs_dev_server::STK_GetDataSet()
 {
-	return room_.GetStkDataSet();
+	return room_.STK_GetStockerList();
 }
 
 amhs_foup_vec amhs_dev_server::STK_GetFoupDataSet(int nID)
 {
-	return room_.GetStkFoupDataSet(nID);
-}
-
-amhs_foup_vec amhs_dev_server::STK_GetEraseFoupDataSet(int nID)
-{
-	return room_.GetStkEraseFoupDataSet(nID);
+	return room_.STK_GetFoups(nID);
 }
 
 amhs_foup_vec amhs_dev_server::STK_GetLastOptFoup(int nID)
 {
-	return room_.GetStkLastOptFoup(nID);
-}
-
-amhs_foup_vec amhs_dev_server::STK_GetFoupInSys()
-{
-	return room_.GetStkFoupInSys();
+	return room_.STK_GetLastEventFoup(nID);
 }
 
 void amhs_dev_server::OHT_Set_StatusBackTime(int nID, int ms)

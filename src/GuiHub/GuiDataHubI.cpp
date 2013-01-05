@@ -54,8 +54,6 @@ GuiDataHubI::GuiDataHubI(void)
 		&GuiDataHubI::STK_History));
 	m_mapHandles.insert(std::make_pair(GuiHub::StkAlarmHistory,
 		&GuiDataHubI::STK_Alarms));
-	m_mapHandles.insert(std::make_pair(GuiHub::StkGetFoupInSys,
-		&GuiDataHubI::STK_GetFoupInSys));
 
 	// for MES
 	m_mapHandles.insert(std::make_pair(GuiHub::MesGetPosTable,

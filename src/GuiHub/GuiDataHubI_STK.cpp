@@ -46,14 +46,6 @@ GuiDataItem GuiDataHubI::Push_STK_FoupInfo()
 				it->nID,itFoup->nBarCode, itFoup->nfoupRoom, itFoup->nLot, itFoup->nChaned, 0);
 			strGuiData += buf;
 		}
-		DR_FOUP_LIST foup_erase_list = m_pAMHSDrive->GetStkFoupEraseList(it->nID);
-		for(DR_FOUP_LIST::iterator itFoup = foup_erase_list.begin();\
-			itFoup != foup_erase_list.end(); ++itFoup)
-		{
-			sprintf_s(buf, 256, "<%d,%d,%d,%d,%d,%d>",
-				it->nID,itFoup->nBarCode, itFoup->nfoupRoom, itFoup->nLot, itFoup->nChaned, 1);
-			strGuiData += buf;
-		}
 	}
 	item.sVal=strGuiData;
 	return item;
@@ -246,25 +238,6 @@ void GuiDataHubI::STK_Alarms(const std::string& strVal, const ::Ice::Current&)
 			m_pAMHSDrive->STKAlarms(nID, timeStart, timeEnd);
 		}
 	}
-}
-
-void GuiDataHubI::STK_GetFoupInSys(const std::string&, const ::Ice::Current& current)
-{
-	//string strVal = "";
-	//char buf[100] = "";
-	//DR_FOUP_LIST foup_list=m_pAMHSDrive->GetFoupInSys();
-	//for(DR_FOUP_LIST::iterator it = foup_list.begin();
-	//	it != foup_list.end(); ++it)
-	//{
-	//	strVal += "<";
-	//	strVal += itoa(it->nBarCode,buf,10);
-	//	strVal += ",";
-	//	strVal += itoa(it->nfoupRoom,buf,10);
-	//	strVal += ",";
-	//	strVal += itoa(it->nLot,buf,10);
-	//	strVal += ">";
-	//}
-	//UpdateDataOne(current.con, GuiHub::upStkFoupInSys, strVal);
 }
 
 void GuiDataHubI::STK_AckRoomStatus(const std::string&, const ::Ice::Current& current)

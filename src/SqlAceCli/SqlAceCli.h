@@ -71,10 +71,12 @@ public:
 	~DBFoup(void);
 public:
 	int AddFoup(int nBarCode, int nLot, const FoupLocation& location);
+	int UpdateFoup(int nBarCode, int nLot, const FoupLocation& location);
 	int FindFoup(int nBarCode);
 	int SetFoupLocation(int nBarCode, const FoupLocation& location);
 	int GetFoupLocation(int nBarCode, FoupLocation& location);
-	VEC_FOUP GetFoupTable();
+	VEC_FOUP GetFoupAllTable();
+	VEC_FOUP GetFoupsInStocker(int nStockerID);
 };
 
 typedef map<int, int> Map_Int;

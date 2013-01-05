@@ -21,7 +21,7 @@ void GuiDataHubI::MES_GetPositionTable(const std::string&, const ::Ice::Current&
 void GuiDataHubI::MES_GetFoupTable(const std::string&, const ::Ice::Current& current)
 {
 	DBFoup db;
-	VEC_FOUP foupList = db.GetFoupTable();
+	VEC_FOUP foupList = db.GetFoupAllTable();
 	string strVal = "";
 	char buf[100] = "";
 	for (auto it = foupList.cbegin();
