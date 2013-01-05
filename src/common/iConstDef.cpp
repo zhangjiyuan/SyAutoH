@@ -37,6 +37,20 @@
 #endif
 
 void
+MCS::dbcli::__write(::IceInternal::BasicStream* __os, ::MCS::dbcli::LoctionType v)
+{
+    __os->write(static_cast< ::Ice::Byte>(v), 5);
+}
+
+void
+MCS::dbcli::__read(::IceInternal::BasicStream* __is, ::MCS::dbcli::LoctionType& v)
+{
+    ::Ice::Byte val;
+    __is->read(val, 5);
+    v = static_cast< ::MCS::dbcli::LoctionType>(val);
+}
+
+void
 MCS::GuiHub::__write(::IceInternal::BasicStream* __os, ::MCS::GuiHub::GuiCommand v)
 {
     __os->write(static_cast< ::Ice::Byte>(v), 21);

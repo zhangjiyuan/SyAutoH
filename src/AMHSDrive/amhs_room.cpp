@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "amhs_dev_server.h"
 #include "../SqlAceCli/SqlAceCli.h"
+#include "../common/iConstDef.h"
 
 amhs_room::amhs_room()
 {
@@ -456,7 +457,7 @@ void amhs_room::Handle_STK_FoupEvent(amhs_participant_ptr participants, AMHSPack
 	int nFind = db.FindFoup(foupBarCode);
 	FoupLocation loc;
 	loc.nLocation = -1;
-	loc.nLocType = 1;
+	loc.nLocType = MCS::dbcli::loctypeStocker;
 	loc.nCarrier = nDevID;
 	loc.nPort = nInput;
 	if (nFind > 0)

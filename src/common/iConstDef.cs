@@ -26,6 +26,19 @@ using _Microsoft = global::Microsoft;
 
 namespace MCS
 {
+    namespace dbcli
+    {
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public enum LoctionType
+        {
+            loctypeNone,
+            loctypeStocker,
+            loctypeOHT,
+            loctypeBuff,
+            loctypeProcessDev
+        }
+    }
+
     namespace GuiHub
     {
         [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -77,6 +90,10 @@ namespace MCS
 
 namespace MCS
 {
+    namespace dbcli
+    {
+    }
+
     namespace GuiHub
     {
     }

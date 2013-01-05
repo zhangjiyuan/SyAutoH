@@ -44,6 +44,23 @@
 namespace MCS
 {
 
+namespace dbcli
+{
+
+enum LoctionType
+{
+    loctypeNone,
+    loctypeStocker,
+    loctypeOHT,
+    loctypeBuff,
+    loctypeProcessDev
+};
+
+void __write(::IceInternal::BasicStream*, LoctionType);
+void __read(::IceInternal::BasicStream*, LoctionType&);
+
+}
+
 namespace GuiHub
 {
 

@@ -13,6 +13,17 @@
 
 module MCS
 {
+	module dbcli
+	{
+		enum LoctionType
+		{
+			loctypeNone,
+			loctypeStocker,
+			loctypeOHT,
+			loctypeBuff,
+			loctypeProcessDev,
+		};
+	};
 	module GuiHub
 	{
 			enum GuiCommand
