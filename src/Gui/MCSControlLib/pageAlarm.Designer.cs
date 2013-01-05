@@ -37,7 +37,7 @@
             this.bnEnd = new System.Windows.Forms.Button();
             this.bnFormer = new System.Windows.Forms.Button();
             this.bnFirstPage = new System.Windows.Forms.Button();
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.listViewAlarm = new System.Windows.Forms.ListView();
             this.colIndex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colEventID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colfirstTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -126,23 +126,23 @@
             this.bnFirstPage.Text = "|<";
             this.bnFirstPage.UseVisualStyleBackColor = true;
             // 
-            // listView2
+            // listViewAlarm
             // 
-            this.listView2.BackColor = System.Drawing.SystemColors.Info;
-            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewAlarm.BackColor = System.Drawing.SystemColors.Info;
+            this.listViewAlarm.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colIndex,
             this.colEventID,
             this.colfirstTime,
             this.colMessage,
             this.collastTime,
             this.colcount});
-            this.listView2.GridLines = true;
-            this.listView2.Location = new System.Drawing.Point(3, 15);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(639, 444);
-            this.listView2.TabIndex = 23;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
+            this.listViewAlarm.GridLines = true;
+            this.listViewAlarm.Location = new System.Drawing.Point(3, 15);
+            this.listViewAlarm.Name = "listViewAlarm";
+            this.listViewAlarm.Size = new System.Drawing.Size(639, 444);
+            this.listViewAlarm.TabIndex = 23;
+            this.listViewAlarm.UseCompatibleStateImageBehavior = false;
+            this.listViewAlarm.View = System.Windows.Forms.View.Details;
             // 
             // colIndex
             // 
@@ -184,7 +184,7 @@
             this.Controls.Add(this.bnEnd);
             this.Controls.Add(this.bnFormer);
             this.Controls.Add(this.bnFirstPage);
-            this.Controls.Add(this.listView2);
+            this.Controls.Add(this.listViewAlarm);
             this.Controls.Add(this.label1);
             this.Name = "pageAlarm";
             this.Size = new System.Drawing.Size(774, 506);
@@ -204,7 +204,7 @@
         private System.Windows.Forms.Button bnEnd;
         private System.Windows.Forms.Button bnFormer;
         private System.Windows.Forms.Button bnFirstPage;
-        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ListView listViewAlarm;
         private System.Windows.Forms.ColumnHeader colIndex;
         private System.Windows.Forms.ColumnHeader colEventID;
         private System.Windows.Forms.ColumnHeader colfirstTime;

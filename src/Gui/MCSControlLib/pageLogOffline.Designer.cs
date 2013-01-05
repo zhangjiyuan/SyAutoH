@@ -48,7 +48,7 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.listOfflineLog = new System.Windows.Forms.ListView();
             this.colhID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colhTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colhEventID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -234,23 +234,23 @@
             this.label6.TabIndex = 24;
             this.label6.Text = "From:";
             // 
-            // listView2
+            // listOfflineLog
             // 
-            this.listView2.BackColor = System.Drawing.SystemColors.Info;
-            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listOfflineLog.BackColor = System.Drawing.SystemColors.Info;
+            this.listOfflineLog.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colhID,
             this.colhTime,
             this.colhEventID,
             this.colhMessage,
             this.colhUser,
             this.colhType});
-            this.listView2.GridLines = true;
-            this.listView2.Location = new System.Drawing.Point(3, 87);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(647, 468);
-            this.listView2.TabIndex = 23;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
+            this.listOfflineLog.GridLines = true;
+            this.listOfflineLog.Location = new System.Drawing.Point(3, 87);
+            this.listOfflineLog.Name = "listOfflineLog";
+            this.listOfflineLog.Size = new System.Drawing.Size(647, 468);
+            this.listOfflineLog.TabIndex = 23;
+            this.listOfflineLog.UseCompatibleStateImageBehavior = false;
+            this.listOfflineLog.View = System.Windows.Forms.View.Details;
             // 
             // colhID
             // 
@@ -314,7 +314,7 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.listView2);
+            this.Controls.Add(this.listOfflineLog);
             this.Controls.Add(this.label7);
             this.Name = "pageLogOffline";
             this.Size = new System.Drawing.Size(793, 563);
@@ -345,7 +345,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ListView listOfflineLog;
         private System.Windows.Forms.ColumnHeader colhID;
         private System.Windows.Forms.ColumnHeader colhTime;
         private System.Windows.Forms.ColumnHeader colhEventID;

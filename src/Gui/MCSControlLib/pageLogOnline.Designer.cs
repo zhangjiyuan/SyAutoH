@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listOnlineLog = new System.Windows.Forms.ListView();
             this.ID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Time = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.EventID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -56,23 +56,23 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Log Online";
             // 
-            // listView1
+            // listOnlineLog
             // 
-            this.listView1.BackColor = System.Drawing.SystemColors.Info;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listOnlineLog.BackColor = System.Drawing.SystemColors.Info;
+            this.listOnlineLog.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ID,
             this.Time,
             this.EventID,
             this.Message,
             this.User,
             this.Type});
-            this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(5, 25);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(671, 486);
-            this.listView1.TabIndex = 1;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listOnlineLog.GridLines = true;
+            this.listOnlineLog.Location = new System.Drawing.Point(5, 25);
+            this.listOnlineLog.Name = "listOnlineLog";
+            this.listOnlineLog.Size = new System.Drawing.Size(671, 486);
+            this.listOnlineLog.TabIndex = 1;
+            this.listOnlineLog.UseCompatibleStateImageBehavior = false;
+            this.listOnlineLog.View = System.Windows.Forms.View.Details;
             // 
             // ID
             // 
@@ -114,9 +114,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(689, 35);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 12);
+            this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 3;
-            this.label2.Text = "EventID";
+            this.label2.Text = "EventID:";
             // 
             // bnPause
             // 
@@ -126,6 +126,7 @@
             this.bnPause.TabIndex = 4;
             this.bnPause.Text = "Pause";
             this.bnPause.UseVisualStyleBackColor = true;
+            this.bnPause.Click += new System.EventHandler(this.bnPause_Click);
             // 
             // bn_Filter
             // 
@@ -200,7 +201,7 @@
             this.Controls.Add(this.bnPause);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tb_EventID);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.listOnlineLog);
             this.Controls.Add(this.label1);
             this.Name = "pageLogOnline";
             this.Size = new System.Drawing.Size(823, 527);
@@ -212,7 +213,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listOnlineLog;
         private System.Windows.Forms.ColumnHeader ID;
         private System.Windows.Forms.ColumnHeader Time;
         private System.Windows.Forms.ColumnHeader EventID;
