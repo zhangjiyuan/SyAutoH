@@ -42,13 +42,14 @@ namespace MCSControlLib
                 }
             }
             logClient.ClearAlarm(idList.ToArray());
-            RefreshAlarmView();
+            //RefreshAlarmView();
         }
 
         private void timer3_Tick(object sender, EventArgs e)
         {
-            RefreshAlarmView();
+            //RefreshAlarmView();
         }
+        /*
         private void RefreshAlarmView()
         {
             int nCount = 0;
@@ -73,6 +74,7 @@ namespace MCSControlLib
             }
             listViewAlarm.EndUpdate();
         }
+        */
 
         private int[] GetIDSelect(string strIDSelect)
         {
@@ -107,7 +109,7 @@ namespace MCSControlLib
                 idList.Add(nEventID);
             }
             logClient.ClearAlarm(idList.ToArray());
-            RefreshAlarmView();
+           // RefreshAlarmView();
         }
 
         private void bnFormer_Click(object sender, EventArgs e)
@@ -118,7 +120,7 @@ namespace MCSControlLib
         private void bnFirstPage_Click(object sender, EventArgs e)
         {
             m_nPageStartID = 0;
-            RefreshAlarmView();
+           // RefreshAlarmView();
         }
 
         private void bnNext_Click(object sender, EventArgs e)
