@@ -13,6 +13,17 @@
 
 module MCS
 {
+	module dbcli
+	{
+		enum LoctionType
+		{
+			loctypeNone,
+			loctypeStocker,
+			loctypeOHT,
+			loctypeBuff,
+			loctypeProcessDev,
+		};
+	};
 	module GuiHub
 	{
 			enum GuiCommand
@@ -38,6 +49,8 @@ module MCS
 				StkStatusTime, 
 				StkSetFoupInfoBackTime,
 
+				StkGetRoomStatus,
+
 				StkGetFoupInSys,
 				
 				MesGetFoupTable,
@@ -55,7 +68,6 @@ module MCS
 				
 				upStkInfo,
 				upStkFoupsInfo,
-				upStkStockerStatus,
 				upStkLastOptFoup,
 				upStkStatus,
 				upStkInputStatus,

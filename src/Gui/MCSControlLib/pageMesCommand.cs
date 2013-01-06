@@ -57,6 +57,8 @@ namespace MCSControlLib
                 m_tableFoup.Columns["BarCode"].AllowDBNull = false;
                 m_tableFoup.PrimaryKey = new DataColumn[] { m_tableFoup.Columns["BarCode"] };
                 m_tableFoup.Columns.Add("Lot", typeof(System.UInt32));
+                m_tableFoup.Columns.Add("Carrier", typeof(System.UInt32));
+                m_tableFoup.Columns.Add("Port", typeof(System.UInt32));
                 m_tableFoup.Columns.Add("Location", typeof(System.Int32));
                 m_tableFoup.Columns.Add("LocType", typeof(System.UInt32));
                 m_tableFoup.Columns.Add("Status", typeof(System.UInt32));
@@ -67,20 +69,24 @@ namespace MCSControlLib
 
         private void ProcessFoupTable(ArrayList item)
         {
-            if (5 == item.Count)
+            if (7 == item.Count)
             {
                 UInt32 uBarCode = TryConver.ToUInt32(item[0].ToString());
                 UInt32 uLot = TryConver.ToUInt32(item[1].ToString());
-                int nLocation = TryConver.ToInt32(item[2].ToString());
-                uint uLocType = TryConver.ToUInt32(item[3].ToString());
-                uint uStatus = TryConver.ToUInt32(item[4].ToString());
+                UInt32 uCarrier = TryConver.ToUInt32(item[2].ToString());
+                uint uPort = TryConver.ToUInt32(item[3].ToString());
+                int nLocation = TryConver.ToInt32(item[4].ToString());
+                uint uLocType = TryConver.ToUInt32(item[5].ToString());
+                uint uStatus = TryConver.ToUInt32(item[6].ToString());
                 DataRow row = m_tableFoup.Rows.Find(uBarCode);
                 if (null != row)
                 {
                     row[1] = uLot;
-                    row[2] = nLocation;
-                    row[3] = uLocType;
-                    row[4] = uStatus;
+                    row[2] = uCarrier;
+                    row[3] = uPort;
+                    row[4] = nLocation;
+                    row[5] = uLocType;
+                    row[6] = uStatus;
                     row.AcceptChanges();
                 }
                 else
@@ -88,9 +94,11 @@ namespace MCSControlLib
                     row = m_tableFoup.NewRow();
                     row[0] = uBarCode;
                     row[1] = uLot;
-                    row[2] = nLocation;
-                    row[3] = uLocType;
-                    row[4] = uStatus;
+                    row[2] = uCarrier;
+                    row[3] = uPort;
+                    row[4] = nLocation;
+                    row[5] = uLocType;
+                    row[6] = uStatus;
                     m_tableFoup.Rows.Add(row);
                     m_tableFoup.AcceptChanges();
                 }

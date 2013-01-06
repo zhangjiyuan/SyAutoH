@@ -26,6 +26,19 @@ using _Microsoft = global::Microsoft;
 
 namespace MCS
 {
+    namespace dbcli
+    {
+        [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
+        public enum LoctionType
+        {
+            loctypeNone,
+            loctypeStocker,
+            loctypeOHT,
+            loctypeBuff,
+            loctypeProcessDev
+        }
+    }
+
     namespace GuiHub
     {
         [_System.CodeDom.Compiler.GeneratedCodeAttribute("slice2cs", "3.4.2")]
@@ -49,6 +62,7 @@ namespace MCS
             StkAlarmHistory,
             StkStatusTime,
             StkSetFoupInfoBackTime,
+            StkGetRoomStatus,
             StkGetFoupInSys,
             MesGetFoupTable,
             MesGetPosTable
@@ -63,7 +77,6 @@ namespace MCS
             upOhtStatus,
             upStkInfo,
             upStkFoupsInfo,
-            upStkStockerStatus,
             upStkLastOptFoup,
             upStkStatus,
             upStkInputStatus,
@@ -77,6 +90,10 @@ namespace MCS
 
 namespace MCS
 {
+    namespace dbcli
+    {
+    }
+
     namespace GuiHub
     {
     }
@@ -100,7 +117,7 @@ namespace MCS
                     os__.writeSize(v__.Length);
                     for(int ix__ = 0; ix__ < v__.Length; ++ix__)
                     {
-                        os__.writeByte((byte)v__[ix__], 14);
+                        os__.writeByte((byte)v__[ix__], 13);
                     }
                 }
             }
@@ -113,7 +130,7 @@ namespace MCS
                     v__ = new MCS.GuiHub.PushData[szx__];
                     for(int ix__ = 0; ix__ < szx__; ++ix__)
                     {
-                        v__[ix__] = (MCS.GuiHub.PushData)is__.readByte(14);
+                        v__[ix__] = (MCS.GuiHub.PushData)is__.readByte(13);
                     }
                 }
                 return v__;

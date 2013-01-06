@@ -413,7 +413,7 @@ int CVirtualAMHS::STK_FoupInitRoom(int nStockerID,ItemFoup *pFoup)
 	if(it != m_mapSTK->end())
 	{
 		it->second->InitRoom(pFoup->nID,pFoup->nBatchID,pFoup->nRoomID);
-		it->second->AuthFoup(pFoup->nID,0);
+		//it->second->FoupEvent(pFoup->nID, 0, 5);
 	}
 	return 0;
 }

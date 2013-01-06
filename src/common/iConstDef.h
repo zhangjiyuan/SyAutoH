@@ -44,6 +44,23 @@
 namespace MCS
 {
 
+namespace dbcli
+{
+
+enum LoctionType
+{
+    loctypeNone,
+    loctypeStocker,
+    loctypeOHT,
+    loctypeBuff,
+    loctypeProcessDev
+};
+
+void __write(::IceInternal::BasicStream*, LoctionType);
+void __read(::IceInternal::BasicStream*, LoctionType&);
+
+}
+
 namespace GuiHub
 {
 
@@ -67,6 +84,7 @@ enum GuiCommand
     StkAlarmHistory,
     StkStatusTime,
     StkSetFoupInfoBackTime,
+    StkGetRoomStatus,
     StkGetFoupInSys,
     MesGetFoupTable,
     MesGetPosTable
@@ -83,7 +101,6 @@ enum PushData
     upOhtStatus,
     upStkInfo,
     upStkFoupsInfo,
-    upStkStockerStatus,
     upStkLastOptFoup,
     upStkStatus,
     upStkInputStatus,

@@ -96,8 +96,9 @@ private:
 	void STK_InputStatus(const std::string&, const ::Ice::Current&);
 	void STK_History(const std::string&, const ::Ice::Current&);
 	void STK_Alarms(const std::string&, const ::Ice::Current&);
-	void STK_GetFoupInSys(const std::string&, const ::Ice::Current&);
 	void STK_AckRoomStatus(const std::string&, const ::Ice::Current&);
+	void STK_GetRoomStatus(const std::string&, const ::Ice::Current&);
+
 
 	void MES_GetPositionTable(const std::string&, const ::Ice::Current&);
 	void MES_GetFoupTable(const std::string&, const ::Ice::Current&);
@@ -111,6 +112,7 @@ private:
 	GuiDataItem Push_STK_LastOptFoup();
 	GuiDataItem Push_STK_Status();
 	GuiDataItem Push_STK_InputStatus();
+	GuiDataItem Push_STK_GetRoom();
 
 private:
 	string _GetKeyPointsTable(vector<int> nTypes);

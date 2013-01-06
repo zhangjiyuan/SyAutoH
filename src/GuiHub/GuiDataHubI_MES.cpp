@@ -21,7 +21,7 @@ void GuiDataHubI::MES_GetPositionTable(const std::string&, const ::Ice::Current&
 void GuiDataHubI::MES_GetFoupTable(const std::string&, const ::Ice::Current& current)
 {
 	DBFoup db;
-	VEC_FOUP foupList = db.GetFoupTable();
+	VEC_FOUP foupList = db.GetFoupAllTable();
 	string strVal = "";
 	char buf[100] = "";
 	for (auto it = foupList.cbegin();
@@ -32,9 +32,13 @@ void GuiDataHubI::MES_GetFoupTable(const std::string&, const ::Ice::Current& cur
 		strVal += ",";
 		strVal += itoa(it->nLot, buf, 10);
 		strVal += ",";
-		strVal += itoa(it->nLocation, buf, 10);
+		strVal += itoa(it->locFoup.nCarrier, buf, 10);
 		strVal += ",";
-		strVal += itoa(it->nLocationType, buf, 10);
+		strVal += itoa(it->locFoup.nPort, buf, 10);
+		strVal += ",";
+		strVal += itoa(it->locFoup.nLocation, buf, 10);
+		strVal += ",";
+		strVal += itoa(it->locFoup.nLocType, buf, 10);
 		strVal += ",";
 		strVal += itoa(it->nStatus, buf, 10);
 		strVal += ">";

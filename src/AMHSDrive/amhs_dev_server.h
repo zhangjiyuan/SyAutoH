@@ -79,8 +79,6 @@ typedef struct sData_Foup
 	uint16 nBarCode;
 	uint16 nLot;
 	uint8 nInput;
-
-	amhs_participant_ptr p_participant;
 } amhs_Foup;
 typedef boost::shared_ptr<amhs_Foup> amhs_foup_ptr;
 typedef std::map<uint16, amhs_foup_ptr> amhs_foup_map;
@@ -92,10 +90,16 @@ typedef struct sData_Stocker
 	int nStatus;
 	int nAuto;
 	int nManu;
+	uint8 room[141];
 	amhs_foup_vec last_opt_foup_vec;
-	amhs_foup_vec foup_erase_vec;
 	amhs_foup_map foup_map;
+	SYSTEMTIME last_opt_foup_time;
 	amhs_participant_ptr p_participant;
+
+	rwmutex rwLock_foup_map_;
+	amhs_foup_vec GetFoups();
+	void CleanFoups();
+	void AddFoup(amhs_foup_ptr);
 }amhs_Stocker;
 typedef boost::shared_ptr<amhs_Stocker> amhs_stocker_ptr;
 typedef std::map<int, amhs_stocker_ptr> amhs_stocker_map;
@@ -119,13 +123,12 @@ public:
 	int GetCount();
 
 public:
-	amhs_oht_vec GetOhtDataSet();
+	amhs_oht_vec OHT_GetOHTList();
 
-	amhs_stocker_vec GetStkDataSet();
-	amhs_foup_vec GetStkFoupDataSet(int nID);
-	amhs_foup_vec GetStkEraseFoupDataSet(int nID);
-	amhs_foup_vec GetStkLastOptFoup(int nID);
-	amhs_foup_vec GetStkFoupInSys();
+	amhs_stocker_vec STK_GetStockerList();
+	amhs_foup_vec STK_GetFoups(int nID);
+	amhs_foup_vec STK_GetLastEventFoup(int nID);
+	vector<int> STK_GetRoom(int nID);
 
 private:
 	void Handle_OHT_AckStatusBackTime(amhs_participant_ptr, AMHSPacket&);
@@ -157,10 +160,9 @@ private:
 	amhs_message_queue recent_msgs_;
 	amhs_oht_map oht_map_;
 	amhs_stocker_map stocker_map_;
-	amhs_foup_map foup_map_;
+
 	rwmutex rwLock_oht_map_;
 	rwmutex rwLock_stocker_map_;
-	rwmutex rwLock_foup_map_;
 
 	typedef void (amhs_room::*HANDLE_OPT)(amhs_participant_ptr, AMHSPacket& packet);
 	typedef std::map<int, HANDLE_OPT> OPT_MAP;
@@ -214,9 +216,8 @@ public:
 
 	amhs_stocker_vec STK_GetDataSet();
 	amhs_foup_vec STK_GetFoupDataSet(int nID);
-	amhs_foup_vec STK_GetEraseFoupDataSet(int nID);
 	amhs_foup_vec STK_GetLastOptFoup(int nID);
-	amhs_foup_vec STK_GetFoupInSys();
+	vector<int> STK_GetRoom(int nID);
 
 	void STK_FOUP(int nID, int nMode, int nPick, int nFoupData);
 	void STK_Status(int nID);
